@@ -5,12 +5,14 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_FINDER_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.showArticleAtIndex;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
@@ -54,15 +56,17 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastArticle = Index.fromOneBased(model.getFilteredArticleList().size());
-        Article lastArticle = model.getFilteredArticleList().get(indexLastArticle.getZeroBased());
+        Index indexLastArticle = Index.fromOneBased(model.getFilteredArticleList()
+                .filtered(NOT_RESOLVED_PREDICATE).size());
+        Article lastArticle = model.getFilteredArticleList().filtered(NOT_RESOLVED_PREDICATE)
+                .get(indexLastArticle.getZeroBased());
 
         ArticleBuilder articleInList = new ArticleBuilder(lastArticle);
         Article editedArticle = articleInList.withName(VALID_NAME_MOUSE).withPhone(VALID_PHONE_MOUSE)
-                .withTags(VALID_TAG_BLUE).build();
+                .withTags(VALID_TAG_BLUE).withFinder(VALID_FINDER_MOUSE).build();
 
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE)
-                .withPhone(VALID_PHONE_MOUSE).withTags(VALID_TAG_BLUE).build();
+                .withPhone(VALID_PHONE_MOUSE).withFinder(VALID_FINDER_MOUSE).withTags(VALID_TAG_BLUE).build();
         EditCommand editCommand = new EditCommand(indexLastArticle, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
@@ -77,11 +81,13 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ARTICLE, new EditArticleDescriptor());
-        Article editedArticle = model.getFilteredArticleList().get(INDEX_FIRST_ARTICLE.getZeroBased());
+        Article editedArticle = model.getFilteredArticleList().filtered(NOT_RESOLVED_PREDICATE)
+                .get(INDEX_FIRST_ARTICLE.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
 
         Model expectedModel = new ModelManager(new ArticleList(model.getArticleList()), new UserPrefs());
+        expectedModel.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         expectedModel.commitArticleList();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);

@@ -59,6 +59,11 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_POWERBANK + NAME_DESC_MOUSE + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE
                 + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_BLUE, new AddCommand(expectedArticle));
 
+        // multiple finder names - last finder name accepted
+        assertParseSuccess(parser, NAME_DESC_MOUSE + FINDER_DESC_POWERBANK + FINDER_DESC_MOUSE
+                + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE
+                + TAG_DESC_BLUE, new AddCommand(expectedArticle));
+
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_MOUSE + PHONE_DESC_POWERBANK + PHONE_DESC_MOUSE
                 + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE

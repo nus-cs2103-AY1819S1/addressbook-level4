@@ -26,7 +26,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.lostandfound.testutil.TypicalArticles.BAG;
-import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
 import static seedu.lostandfound.testutil.TypicalArticles.NECKLACE;
 import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
@@ -107,7 +107,7 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the article list before adding -> added */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(NECKLACE);
 
         /* ------------------------ Perform add operation while a article card is selected -------------------------- */

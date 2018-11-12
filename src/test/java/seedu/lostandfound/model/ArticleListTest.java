@@ -3,7 +3,6 @@ package seedu.lostandfound.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.testutil.TypicalArticles.BAG;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
@@ -51,8 +50,7 @@ public class ArticleListTest {
     @Test
     public void resetData_withDuplicateArticles_throwsDuplicateArticleException() {
         // Two articles with the same identity fields
-        Article editedAlice = new ArticleBuilder(BAG)
-                .withDescription(VALID_DESCRIPTION_POWERBANK).withTags(VALID_TAG_BLUE)
+        Article editedAlice = new ArticleBuilder(BAG).withTags(VALID_TAG_BLUE)
                 .build();
         List<Article> newArticles = Arrays.asList(BAG, editedAlice);
         ArticleListStub newData = new ArticleListStub(newArticles);
@@ -81,9 +79,7 @@ public class ArticleListTest {
     @Test
     public void hasArticle_articleWithSameIdentityFieldsInArticleList_returnsTrue() {
         articleList.addArticle(BAG);
-        Article editedAlice = new ArticleBuilder(BAG)
-                .withDescription(VALID_DESCRIPTION_POWERBANK).withTags(VALID_TAG_BLUE)
-                .build();
+        Article editedAlice = new ArticleBuilder(BAG).withTags(VALID_TAG_BLUE).build();
         assertTrue(articleList.hasArticle(editedAlice));
     }
 

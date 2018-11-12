@@ -3,8 +3,8 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_ARTICLES_LISTED_OVERVIEW;
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalArticles.HEADPHONE;
-import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalArticles.WALLET;
 import static seedu.lostandfound.testutil.TypicalArticles.WATCH;
 
@@ -28,7 +28,7 @@ public class FindCommandSystemTest extends ArticleListSystemTest {
         /* Case: find multiple articles in article list, command with leading spaces and trailing spaces
          * -> 2 articles found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + FINDER_KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, WALLET, HEADPHONE); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
@@ -37,7 +37,7 @@ public class FindCommandSystemTest extends ArticleListSystemTest {
         /* Case: repeat previous find command where article list is displaying the articles we are finding
          * -> 2 articles found
          */
-        command = FindCommand.COMMAND_WORD + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + FINDER_KEYWORD_MATCHING_MEIER;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -54,7 +54,7 @@ public class FindCommandSystemTest extends ArticleListSystemTest {
         /* Case: find same articles in article list after deleting 1 of them -> 1 article found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getArticleList().getArticleList().contains(WALLET));
-        command = FindCommand.COMMAND_WORD + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + FINDER_KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, HEADPHONE);
         assertCommandSuccess(command, expectedModel);
@@ -144,7 +144,7 @@ public class FindCommandSystemTest extends ArticleListSystemTest {
 
         /* Case: find article in empty article list -> 0 articles found */
         deleteAllArticles();
-        command = FindCommand.COMMAND_WORD + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + FINDER_KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, HEADPHONE);
         assertCommandSuccess(command, expectedModel);

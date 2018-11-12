@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_OWNER;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 
 import java.util.Arrays;
@@ -25,10 +26,12 @@ import seedu.lostandfound.logic.commands.HelpCommand;
 import seedu.lostandfound.logic.commands.HistoryCommand;
 import seedu.lostandfound.logic.commands.ListCommand;
 import seedu.lostandfound.logic.commands.RedoCommand;
+import seedu.lostandfound.logic.commands.ResolveCommand;
 import seedu.lostandfound.logic.commands.SelectCommand;
 import seedu.lostandfound.logic.commands.UndoCommand;
 import seedu.lostandfound.logic.parser.exceptions.ParseException;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
 import seedu.lostandfound.testutil.ArticleBuilder;
 import seedu.lostandfound.testutil.ArticleUtil;
@@ -67,6 +70,14 @@ public class ArticleListParserTest {
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ARTICLE.getOneBased() + " " + ArticleUtil.getEditArticleDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ARTICLE, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_resolve() throws Exception {
+        Name owner = new Name("John Doe");
+        ResolveCommand command = (ResolveCommand) parser.parseCommand(ResolveCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_ARTICLE.getOneBased() + " " + PREFIX_OWNER + owner);
+        assertEquals(new ResolveCommand(INDEX_FIRST_ARTICLE, owner), command);
     }
 
     @Test

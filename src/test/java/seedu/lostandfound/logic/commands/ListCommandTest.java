@@ -2,6 +2,7 @@ package seedu.lostandfound.logic.commands;
 
 import static seedu.lostandfound.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.showArticleAtIndex;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 
@@ -30,12 +31,15 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
+        expectedModel.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
+        model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showArticleAtIndex(model, INDEX_FIRST_ARTICLE);
+        expectedModel.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

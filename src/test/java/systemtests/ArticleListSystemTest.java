@@ -3,6 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 import static seedu.lostandfound.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.lostandfound.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.lostandfound.ui.testutil.GuiTestAssert.assertListMatching;
@@ -133,7 +134,8 @@ public abstract class ArticleListSystemTest {
      */
     protected void showAllArticles() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getArticleList().getArticleList().size(), getModel().getFilteredArticleList().size());
+        assertEquals(getModel().getArticleList().getArticleList().filtered(NOT_RESOLVED_PREDICATE).size(),
+                getModel().getFilteredArticleList().size());
     }
 
     /**
@@ -170,7 +172,8 @@ public abstract class ArticleListSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new ArticleList(expectedModel.getArticleList()), testApp.readStorageArticleList());
-        assertListMatching(getArticleListPanel(), expectedModel.getFilteredArticleList());
+        assertListMatching(getArticleListPanel(), expectedModel.getFilteredArticleList()
+                .filtered(NOT_RESOLVED_PREDICATE));
     }
 
     /**

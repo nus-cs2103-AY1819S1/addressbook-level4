@@ -42,22 +42,28 @@ public class ArticleTest {
         Article editedAlice = new ArticleBuilder(BAG).withName(VALID_NAME_MOUSE).build();
         assertFalse(BAG.isSameArticle(editedAlice));
 
-        // same name, same description, different phone and email -> returns true
-        editedAlice = new ArticleBuilder(BAG).withPhone(VALID_PHONE_MOUSE).withEmail(VALID_EMAIL_MOUSE).build();
+        // same name, same description, different finder, phone, email, owner, isResolved -> returns true
+        editedAlice = new ArticleBuilder(BAG).withFinder(VALID_FINDER_MOUSE).withPhone(VALID_PHONE_MOUSE)
+                .withEmail(VALID_EMAIL_MOUSE).withOwner(VALID_OWNER_MOUSE).withIsResolved(TRUE_ISRESOLVED).build();
         assertTrue(BAG.isSameArticle(editedAlice));
 
         // same name, same description, different attributes -> returns true
-        editedAlice = new ArticleBuilder(BAG).withEmail(VALID_EMAIL_MOUSE)
+        editedAlice = new ArticleBuilder(BAG).withEmail(VALID_EMAIL_MOUSE).withOwner(VALID_OWNER_MOUSE)
                 .withFinder(VALID_FINDER_MOUSE).withTags(VALID_TAG_BLUE).build();
         assertTrue(BAG.isSameArticle(editedAlice));
 
         // same name, same description, different attributes -> returns true
-        editedAlice = new ArticleBuilder(BAG).withPhone(VALID_PHONE_MOUSE)
-                .withTags(VALID_TAG_BLUE).build();
+        editedAlice = new ArticleBuilder(BAG).withPhone(VALID_PHONE_MOUSE).withOwner(VALID_OWNER_MOUSE)
+                .withTags(VALID_TAG_BLUE).withIsResolved(TRUE_ISRESOLVED).build();
         assertTrue(BAG.isSameArticle(editedAlice));
 
-        // same name, same description, same email, different attributes -> returns true
+        // same name, same description, different attributes -> returns true
         editedAlice = new ArticleBuilder(BAG).withTags(VALID_TAG_BLUE).withFinder(VALID_FINDER_MOUSE).build();
+        assertTrue(BAG.isSameArticle(editedAlice));
+
+        // same name, same description, different attributes -> returns true
+        editedAlice = new ArticleBuilder(BAG).withIsResolved(TRUE_ISRESOLVED).withOwner(VALID_OWNER_MOUSE)
+                .withTags(VALID_TAG_BLUE).build();
         assertTrue(BAG.isSameArticle(editedAlice));
     }
 

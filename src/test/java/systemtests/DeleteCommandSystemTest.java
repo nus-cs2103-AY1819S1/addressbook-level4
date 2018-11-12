@@ -7,7 +7,7 @@ import static seedu.lostandfound.logic.commands.DeleteCommand.MESSAGE_DELETE_ART
 import static seedu.lostandfound.testutil.TestUtil.getArticle;
 import static seedu.lostandfound.testutil.TestUtil.getLastIndex;
 import static seedu.lostandfound.testutil.TestUtil.getMidIndex;
-import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 
 import org.junit.Test;
@@ -61,7 +61,7 @@ public class DeleteCommandSystemTest extends ArticleListSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered article list, delete index within bounds of article list and article list -> deleted */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_ARTICLE;
         assertTrue(index.getZeroBased() < getModel().getFilteredArticleList().size());
         assertCommandSuccess(index);
@@ -69,7 +69,7 @@ public class DeleteCommandSystemTest extends ArticleListSystemTest {
         /* Case: filtered article list, delete index within bounds of article list but out of bounds of article list
          * -> rejected
          */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getArticleList().getArticleList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);

@@ -68,4 +68,22 @@
 		<owner>Not Claimed</owner>
 		<isResolved>false</isResolved>
     </articles>
+	<articles>
+        <name>Mini Fan</name>
+        <phone>9481124</phone>
+        <email>walker@example.com</email>
+        <description>Found at lalaland ave</description>
+		<finder>Helen Walker</finder>
+		<owner>Jenny Bee</owner>
+		<isResolved>true</isResolved>
+    </articles>
+		<articles>
+        <name>Nice Pen</name>
+        <phone>8182427</phone>
+        <email>Dee@example.com</email>
+        <description>Found at Little India</description>
+		<finder>Ollie Dee</finder>
+		<owner>Carl Kurz</owner>
+		<isResolved>true</isResolved>
+    </articles>
 </articlelist>

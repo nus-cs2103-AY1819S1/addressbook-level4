@@ -11,6 +11,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_MOUS
 import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_FINDER_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -26,7 +27,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_POWER
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
-import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.FINDER_KEYWORD_MATCHING_MEIER;
 import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
 import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
@@ -81,7 +82,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
 
         /* Case: edit a article with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
-                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandSuccess(command, index, MOUSE);
 
         /* Case: edit a article with new values same as another article's values but with different name -> edited */
@@ -98,7 +99,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
          */
         index = INDEX_SECOND_ARTICLE;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
-                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_POWERBANK + TAG_DESC_BLUE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_POWERBANK + FINDER_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         editedArticle = new ArticleBuilder(MOUSE).withDescription(VALID_DESCRIPTION_POWERBANK).build();
         assertCommandSuccess(command, index, editedArticle);
 
@@ -112,7 +113,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered article list, edit index within bounds of article list and article list -> edited */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_ARTICLE;
         assertTrue(index.getZeroBased() < getModel().getFilteredArticleList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_MOUSE;
@@ -123,7 +124,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         /* Case: filtered article list, edit index within bounds of article list but out of bounds of article list
          * -> rejected
          */
-        showArticlesWithName(KEYWORD_MATCHING_MEIER);
+        showArticlesWithName(FINDER_KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getArticleList().getArticleList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_MOUSE,
                 Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
@@ -169,6 +170,10 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
                         + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid finder -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
+                + INVALID_FINDER_DESC, Name.MESSAGE_CONSTRAINTS);
+
         /* Case: invalid phone -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
                         + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
@@ -192,29 +197,27 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         index = INDEX_FIRST_ARTICLE;
         assertFalse(getModel().getFilteredArticleList().get(index.getZeroBased()).equals(MOUSE));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
-                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
-                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
-        /* Case: edit article with new values same as another article's values
-         * but with different description -> rejected
-         */
+        /* Case: edit a article with new values same as another article's values but with different finder-> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
-                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_POWERBANK + TAG_DESC_BLUE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + FINDER_DESC_POWERBANK + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_POWERBANK
-                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
-                + EMAIL_DESC_POWERBANK + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+                + EMAIL_DESC_POWERBANK + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
     }
 
