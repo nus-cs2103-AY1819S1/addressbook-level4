@@ -579,10 +579,11 @@ Displays view of calendar with current week as default page with the events load
 image::calendar_view_diagram.png[width="790"]
 // end::calendar[]
 
-// tag::budget[]
+
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
 
+// tag::create[]
 ==== Adding a cca: `create`
 
 Adds a CCA to Hallper. +
@@ -603,7 +604,9 @@ Examples:
 * `create n/Netball budget/500`
 * `create n/Basketball F budget/400`
 
-==== Adding a transaction entry: `add_trans`
+// end::create[]
+
+==== Adding a transaction: `add_trans`
 
 Adds a transaction entry to the specified CCA in Hallper. +
 Format: `add_trans c/NAME_OF_CCA date/DATE amount/AMOUNT remarks/REMARKS`
@@ -694,6 +697,7 @@ Updates `track` to `Track F`, its budget to `500` and its head and vice-head to 
 and updates the date, amount and remarks of the 1st transaction entry with `28.02.2018`, `100` and `Fund Raising`
 respectively.
 
+// tag::budget[]
 ==== Viewing all the ccas' budget : `budget`
 
 Opens up a Budget Book in a new window. +
