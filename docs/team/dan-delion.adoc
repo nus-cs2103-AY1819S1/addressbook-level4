@@ -1,0 +1,45 @@
+= Bobbie Soedirgo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Lost and Found
+
+---
+
+== Overview
+
+Lost and Found is a desktop application used for managing lost and found articles.
+
+== Summary of contributions
+
+* *Major enhancement*: revamp of GUI
+** What it does: change what was previously the browser panel to show the details of a selected article.
+** Justification: this allows the user to view further information about the selected article, including the finder and claimer of an article.
+
+* *Minor enhancement*: remove support for browser panel
+** What it does: remove every trace of browser panel from the already tightly-coupled source code.
+** Justification: allows for further development without browser panel support breaking tests or the like.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dan-delion&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[RepoSense Report]]
+
+* *Other contributions*:
+** Enhancement:
+*** Changed displayed fields on article cards
+*** Allow displaying of images in the GUI
+** Project management:
+*** Drafted user stories
+** Documentation:
+*** Updated User Guide, Contact Us, About Us.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+* Introduction: remake for the new app
+* Features:
+** Change terms to reflect new app (e.g. persons to articles)
+** Add/remove some features to reflect new app
+

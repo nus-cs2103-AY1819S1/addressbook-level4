@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<articlelist>
+    <!-- Valid Article -->
+    <articles>
+        <name>Nike Wallet</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <description isPrivate="false">Found at 4th street</description>
+		<finder isPrivate="false">Hans Muster</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
+    </articles>
+    <!-- Article with invalid phone field -->
+    <articles>
+        <name>Nike Wallet</name>
+        <phone isPrivate="false">948asdf2424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <description isPrivate="false">Found at 4th street</description>
+		<finder isPrivate="false">Hans Muster</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
+    </articles>
+</articlelist>
