@@ -28,8 +28,9 @@ It is written in Java, and has about 10 kLoC.
 * *Other contributions*:
 
 ** Project management:
-*** Pushed tags and closed milestones for v1.1 and v1.2 to GitHub
-*** Created PR from team-repo to AB4
+*** Pushed tags and closed milestones for v1.1 and v1.2 to GitHub.
+*** Created PR from team-repo to AB4.
+*** Assigned issues after PE dry-run: https://github.com/CS2103-AY1819S1-W10-3/main/issues[issue tracker]
 *** Updated AboutUs.doc: https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
 *** Updated ReadMe: https://github.com/CS2103-AY1819S1-W10-3/main/pull/10[#10]
 *** Updated sample data: https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
@@ -37,6 +38,9 @@ It is written in Java, and has about 10 kLoC.
 ** Documentation:
 *** Contributed to portions of User Guide and Developer Guide relevant to my own features as well as User Guide overview. Links can be found below.
 *** Contributed to initial draft of User Guide and Developer Guide (e.g. use cases): https://github.com/CS2103-AY1819S1-W10-3/main/pull/3[#3]
+
+** Community:
+*** PR comments to team members: https://github.com/CS2103-AY1819S1-W10-3/main/pull/199[#199], https://github.com/CS2103-AY1819S1-W10-3/main/pull/44[#44]
 
 == Contributions to the User Guide
 
