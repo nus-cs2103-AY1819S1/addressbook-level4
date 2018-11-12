@@ -638,14 +638,18 @@ Format: `summary`
  |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
 
-//end::commandsummary[]
-
-
-== Keyboard Shortcuts
+=== Keyboard Shortcuts
 
 [width="100%",options="header"]
 |=========================================================
 |Command|Key
-|
+|Add employee | CTRL + A
+|List employees | CTRL + L
+|Select | CTRL + S
+|Find employee | CTRL + F
+|Exit | CTRL + Q
 |=========================================================
+//end::commandsummary[]
+
+
 
