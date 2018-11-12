@@ -79,7 +79,6 @@ public class Library implements ReadOnlyLibrary {
         requireNonNull(newData);
         setPlaylists(newData.getPlaylistList());
         setTracks(newData.getTracks());
-        //setTrackList(newData.getTracks());
     }
 
     //// playlist-level operations

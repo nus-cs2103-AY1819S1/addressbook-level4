@@ -87,20 +87,11 @@ public class LibraryParser {
         case TrackSearchCommand.COMMAND_PHRASE:
             return new TrackSearchCommandParser().parse(arguments);
 
-        // case EditCommand.COMMAND_PHRASE:
-        //     return new EditCommandParser().parse(arguments);
-
-        // case SelectCommand.COMMAND_WORD:
-        //     return new SelectCommandParser().parse(arguments);
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        // case ListCommand.COMMAND_PHRASE:
-        //     return new ListCommand();
 
         case PlaylistDelCommand.COMMAND_PHRASE:
             return new PlaylistDelCommandParser().parse(arguments);

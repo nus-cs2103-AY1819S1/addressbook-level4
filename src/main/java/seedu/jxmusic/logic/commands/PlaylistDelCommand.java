@@ -41,7 +41,6 @@ public class PlaylistDelCommand extends Command {
 
         Playlist playlistToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePlaylist(playlistToDelete);
-        //model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PLAYLIST_SUCCESS, playlistToDelete));
     }
 

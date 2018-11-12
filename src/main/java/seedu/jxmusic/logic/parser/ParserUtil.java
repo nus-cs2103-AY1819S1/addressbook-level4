@@ -82,9 +82,6 @@ public class ParserUtil {
     public static Track parseTrack(String trackName) throws ParseException {
         requireNonNull(trackName);
         String trimmedTrackName = trackName.trim();
-        // if (!Track.isValidTrackFromFileName(trimmedTrackName)) {
-        //     throw new ParseException(Track.MESSAGE_NAME_CONSTRAINTS);
-        // }
         try {
             return new Track(new Name(trimmedTrackName));
         } catch (IllegalArgumentException ex) {

@@ -57,12 +57,5 @@ public class PlaylistCard extends UiPart<Region> {
         //name check
         Playlist playlist1 = ((PlaylistCard) other).playlist;
         return name.getText().equals(playlist1.getName().nameString);
-
-        // state check
-        /*
-        PlaylistCard card = (PlaylistCard) other;
-        return id.getText().equals(card.id.getText())
-                && playlist.equals(card.playlist);
-         */
     }
 }

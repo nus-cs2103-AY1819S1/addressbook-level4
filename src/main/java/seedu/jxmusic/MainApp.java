@@ -82,11 +82,9 @@ public class MainApp extends Application {
      * or an empty jxmusic book will be used instead if errors occur when reading {@code storage}'s jxmusic book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        //Optional<ReadOnlyLibrary> libraryOptional;
         ReadOnlyLibrary initialData;
         try {
             initialData = storage.readLibrary();
-            //initialData = libraryOptional.get();
             if (initialData.getPlaylistList().size() == 0) {
                 logger.info("Data file not found. Will be starting with a sample Library");
                 initialData = SampleDataUtil.populateSamplePlaylists(initialData);

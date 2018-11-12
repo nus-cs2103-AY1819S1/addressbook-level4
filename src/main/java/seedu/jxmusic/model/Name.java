@@ -28,7 +28,6 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
-        // checkArgument(isValidName(name), name + MESSAGE_NAME_CONSTRAINTS);
         nameString = name;
     }
 

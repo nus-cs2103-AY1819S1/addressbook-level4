@@ -27,7 +27,6 @@ public class PlayablePlaylist implements Playable {
                 next();
             });
         }
-        // this.playableTrackList = Arrays.asList(new PlayableTrack());
     }
     @Override
     public void play(boolean unpause) {
