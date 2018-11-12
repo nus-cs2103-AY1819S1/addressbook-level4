@@ -29,7 +29,31 @@ switching between the display panels of different features.
 ** Highlights: This enables both modularised and efficient integration of features into
 UI and allowed easy switching between different feature panels through the use of
 Universal Commands.
-** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[#65]
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[#65],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/243[#243]
+
+* *Minor enhancement*: Implemented cross-model deletion and clearing in order to maintain
+data consistency across the different models.
+** Justification: There are some scenarios to consider where modifying one model has to affect
+one or more other models.
+*** Recipe that is already planned in the Meal Planner is deleted from the recipe model. +
+In this scenario, the deleted recipe will now also be removed from the days in the Meal
+Planner where it was previously planned.
+*** 3 recipes that have been planned in a single day are deleted from the recipe model. +
+In this scenario, the day in the Meal Planner which has had all its recipes removed will also
+be deleted from the Meal Planner. This then cascades on to the Health Planner, and the deleted
+day will be removed from any health plans where it was previously added to.
+*** A day from the Meal Planner that has been added to a health plan in the Health Planner is deleted from
+the Meal Planner. +
+In this scenario, the deleted day will now also be removed from the health plans in the Health
+Planner where it was previously added.
+*** Clearing the Meal Planner while days have been added to health plans in the Health Planner. +
+In this scenario, all the health plans in the Health Planner will now have all their previously
+added days removed.
+** Highlights: This ensures that the different types of data across the different models in
+SousChef all remain in synchronization and logically correct.
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[#256],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/265[#265]
 
 * *Other contributions*:
 ** General/Team Enhancements:
