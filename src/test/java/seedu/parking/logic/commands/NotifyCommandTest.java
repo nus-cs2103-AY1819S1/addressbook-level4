@@ -74,10 +74,11 @@ public class NotifyCommandTest {
                 null);
 
         CarparkListPanel.setSelectedCarpark(newCarpark);
-
+        CarparkListPanel.setSelectIndex(0);
+        CarparkListPanel.setTimeInterval(10);
         NotifyCommand noteCommand = new NotifyCommand(10);
         noteCommand.execute(expectedModel, commandHistory);
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         EventsCenter.getInstance().post(new NoSelectionRequestEvent());
 
         Carpark secondCarpark = expectedModel.getCarparkFinder().getCarparkList().stream()
