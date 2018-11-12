@@ -24,20 +24,23 @@ import seedu.address.model.person.Person;
 public class LocationDisplayPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "locationLanding.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
     private static final String API_KEY = "AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
 
     private static final String DEFAULT_UHALL_PLACE_ID = "ChIJA1jFpVca2jERs1NXg5xbqbA";
 
-
+    /**
+     * First part of the location iframe content. The content is split into two so that the location to be displayed's
+     * Google Maps Place ID can be inserted.
+     */
     private static String locationContentA = "<iframe width=\"1150\" height=\"550\" frameborder=\"0\""
             + "style=\"border:0\" src=\""
-            + "https://www.google"
-            + ".com/maps/embed/v1/place?q=place_id:";
+            + "https://www.google.com/maps/embed/v1/place?q=place_id:";
 
-    private static String locationContentB = "&key=AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU\" "
+    /**
+     * Second part of the lccation iframe content.
+     */
+    private static String locationContentB = "&key=" + API_KEY + "\" "
             + "allowfullscreen></iframe>";
 
     private static final String FXML = "LocationDisplayPanel.fxml";
@@ -71,6 +74,8 @@ public class LocationDisplayPanel extends UiPart<Region> {
 
     /**
      * Prepares the final iframe location content string with the Faculty of the Person.
+     * @param person The person whose {@code Faculty} location is to be displayed.
+     * @return The final iframe location content.
      */
     public String prepareLocationContent(Person person) {
         String faculty = person.getFaculty().toString();
@@ -86,6 +91,8 @@ public class LocationDisplayPanel extends UiPart<Region> {
 
     /**
      * Overloaded method that prepares the final iframe location content string using placeId directly instead.
+     * @param placeId The Google Maps Place ID of  location to be displayed.
+     * @return The final iframe location content.
      */
     public String prepareLocationContent(String placeId) {
         String finalLocationContent = locationContentA + placeId + locationContentB;
