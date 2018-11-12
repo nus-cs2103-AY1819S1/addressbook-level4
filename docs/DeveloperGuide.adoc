@@ -594,7 +594,7 @@ the database in the form of a `String[]`. Once there are no matching results, it
 
 . The DrugSearch.find() method adds the matching results returned by the `DrugCsvUtil` to a static
 cache, one after the other. Once it receives `null` as a return value,
-it formats just the _Name, Classification and Active Ingredients_ of the drug results in the cache
+it formats just the _Name, Classification and Active Ingredient(s)_ of the drug results in the cache
 into a `String` of search results and returns it to `FindCommand`, which
 displays them. The full information can be displayed using the `moreinfo` command (discussed later).
 If the cache is empty (i.e. there were no matches in the database), `DrugSearch.find()` returns a specific error String instead,
@@ -608,7 +608,7 @@ is initiated, in order to accommodate the `moreinfo` command.
 of entering the command `moreinfo [RESULTNO]` to view more information about any of the results.
 
 . The argument of the command is parsed by `MoreInfoCommandParser` to ensure that it is numeric,
-not less than or equal to zero, and not larger than 10,000.
+not less than or equal to zero, and is less than 10,000.
 If the parse fails, a `ParseException` is thrown and the user sees the
 error message that corresponds to the problem with their input.
 
@@ -1402,6 +1402,54 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: This displays the list of symptoms of influenza in alphabetic order.
 .. Test case: `find disease sad` +
    Expected: No list of symptoms is displayed. The error message will be shown in the CommandResult box.
+
+. finding drugs
+
+.. Test case: `find drug Lyrica` +
+   Expected: This displays a list of search results, consisting of the
+   Name, Classification and Active Ingredient(s) of all matching drugs.
+.. Test case: `find drug syrup`
+   Expected: This displays the error message
+   'Your search keyword is too generic. It will lead to hundreds of results.
+   Try a more specific keyword instead.'
+.. Test case: `find drug somedrug123`
+   Expected: This displays the error message 'Invalid command format!' followed
+   by instructions on how to use the `find` command.
+.. Test case: `find drug dfvwlub`
+   Expected: This displays the error message 'No results found. Try again
+   with a different query.'
+
+=== Seeing More Information About Drugs
+
+. Seeing more information about a search result
+
+_Note:_ The following test case will hold true only if the most recent drug searched
+produced at least one result. In this example,
+`find drug Glycomet` has been assumed to be the most recent drug search.
+
+.. Test case: `moreinfo 1`
+   Expected: This displays additional information about the first search result.
+.. Test case: `moreinfo 3`
+   Expected: This displays the error message 'This result is not in the list'.
+
+_Note:_ The following two test cases will hold true regardless of what command
+was entered immediately prior.
+
+.. Test case: `moreinfo -1`
+   Expected: This displays the error message 'Invalid command format! followed
+   by instructions on how to use the `moreinfo` command.
+.. Test case: `moreinfo 10000`
+   Expected: This displays the error message 'Invalid command format! followed
+   by instructions on how to use the `moreinfo` command.
+
+_Note:_ The following test case will hold true either if no drug search has been carried
+out since the program was started, or if the most recent drug search produced no results
+or was unsuccessful. In this example, `find drug Niacin` has been assumed to be
+the most recent drug search.
+
+.. Test case: `moreinfo 1`
+   Expected: This displays the error message 'Please carry out a search
+   using "find drug [drugname]" first.'.
 
 === Predict
 . predicting diseases
