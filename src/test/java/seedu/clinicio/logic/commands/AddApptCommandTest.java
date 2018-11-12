@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.testutil.TypicalPersons.ALAN;
-import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CARL_APPT;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class AddApptCommandTest {
     @Test
     public void execute_apptAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingApptAdded modelStub = new ModelStubAcceptingApptAdded();
-        Appointment appointment = AMY_APPT;
+        Appointment appointment = ALEX_APPT;
 
         UserSession.destroy();
         UserSession.create(ALAN);
@@ -66,7 +66,7 @@ public class AddApptCommandTest {
         UserSession.destroy();
         UserSession.create(ALAN);
 
-        Appointment appointment = AMY_APPT;
+        Appointment appointment = ALEX_APPT;
         AddApptCommand addApptCommand = new AddApptCommand(appointment);
         ModelStubWithAppt modelStub = new ModelStubWithAppt(appointment);
 
@@ -77,7 +77,7 @@ public class AddApptCommandTest {
 
     @Test
     public void equals() {
-        Appointment amy = new AppointmentBuilder(AMY_APPT).build();
+        Appointment amy = new AppointmentBuilder(ALEX_APPT).build();
         Appointment carl = new AppointmentBuilder(CARL_APPT).build();
         AddApptCommand addApptAmyCommand = new AddApptCommand(amy);
         AddApptCommand addApptCarlCommand = new AddApptCommand(carl);

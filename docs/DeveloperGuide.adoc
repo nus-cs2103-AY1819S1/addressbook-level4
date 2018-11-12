@@ -1,4 +1,4 @@
-:site-section: DeveloperGuide
+﻿:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -198,16 +198,18 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+This section introduces you to the UI component of ClinicIO's architecture.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
-
+{sp} +
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PatientListPanel`, `StatusBarFooter`, `PatientDetailsDisplayPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component does the following:
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -448,50 +450,102 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::apptfeature[]
 === Appointment feature
-The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment
+schedules and to cancel them.
 
 ==== Current Implementation
-The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList` stored within `ModelManager`.
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList`.
 The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
 * `cancelappt` Command - Cancels appointments found within the appointment schedule.
 * `listappt` Command - Lists the appointment schedule of the date specified.
 
-Each `Appointment` object consists of a `Date`, `Time`, `Type` and `Patient`.
+The class diagram below illustrates the interactions between the Appointment class and associated classes.
+
+.Appointment class diagram.
+image::ApptClassDiagram.png[width=""]
+
+Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`.`Patient` contains an
+`Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. The
+`UniqueAppointmentList` contains 0 or more `Appointment` s.
+
+The current implementation of `Appointment` has the `Patient` object as a separate entity from the `Patient` s in
+`UniquePatientList`. This means that the `Patient` object only exists within the context of the `Appointment` object,
+or according to the diagram, would be destroyed if the `Appointment` object is destroyed (composition). Likewise, the
+`Optional<Staff>` would be destroyed if the `Appointment` object is destroyed too.
+
+In future implementations, i.e. v2.0, the `Patient` object will be checked if it exists within the `Model#UniquePatientList`
+before constructing the `Appointment` object. This ensures that the `Patient` is registered before making an
+appointment.
 
 ==== `addappt` Command
 
-The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified upon the addition of `Patient IC` in v2.0. +
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
+parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
+upon the complete implementation of the `Patient` class  in v2.0. The image below shows how the `Appointment` object is
+constructed.+
 
-The image below illustrates this process.
+[NOTE]
+The image does not include the method calls to construct a `Patient` object.
 
-.Appointment construction process.
-image::ApptConstructorSequenceDiagram.png[width="0"]
+.Appointment Construction Process in addappt Command.
+image::AddApptSequenceDiagram.png[width=""]
 
-Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
-
-Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)` and `UniqueAppointmentList#hasOverlap(Appointment appt)`.
-
-Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
-
-`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to it's latest state, i.e. The addition of a new `Appointment` object.
+After the construction of the appointment, the appointment is added into the `UniqueAppointmentList` found in the
+`ClinicIo` class. The changes done to the list are then 'saved' via the `commitClinicIo` method.
 
 This means that this command can be undone or redone.
 
 ==== `listappt` Command
 
-The `listappt` command searches for appointments in the `UniqueAppointmentList` by creating a `FilteredAppointmentList` containing appointments that land on the date that was entered by the user.
+The `listappt` command searches for that land on the date that was entered by the user.
+The filtered appointments are found in the found in `ModelManager`. The list instantiated by filtering the `UniqueAppointmentList`
+using `AppointmentContainsDatePredicate` which is created from the `Date` argument supplied by the user.
 
-A `Date` object is instantiated from the user-entered date. This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate` object. The list of filtered appointments by date are generated once the method `ModelManager#updateFilteredAppointmentList`. The new `FilteredAppointmentList` is finally displayed on screen with appointments chronologically ordered with their respective indices.
+==== `listallappt` Command
 
-For example, `listappt 03 03 2018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed. [too much create!!!]
+The `listallappt` behaves similarly to `listappt` with the exception that it does not take in any arguments.
+Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW_ALL_FILTERED_APPOINTMENTS`.
+`updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
 
 ==== `cancelappt` Command
 
-Individual patients also contain their own specific `AppointmentHistoryList` consisting of both cancelled and finished Appointments. `cancelAppt` is the only command that directly modifies the `Patient#AppointmentHistoryList`.
+`cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
+
+.Sequence diagram of cancelappt.
+image::CancelApptSequenceDiagram.png[width=""]
+
+The index is parsed using the `parseIndex()` and is used in `execute()`. A filtered
+appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
+
+The `cancelAppointment()` method, under `Model`, is then called on the `targetAppointment`. The process of cancellation
+has two parts, `cancelAppointment` and `removeAppointment`. `cancelAppointment` simply changes the status of the appointment and
+adds it to the `Patient` s `AppointmentHistory` (not shown). `removeAppointment` actually removes the appointment from the
+`UniqueAppointmentList`.
+
+[NOTE]
+Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
+of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+pre-existing patients to make appointments will make these additional tasks more useful.
 
 ==== Design Considerations
+===== Aspect: How to store Date and Time fields
+* **Alternative 1 (current choice):** Store as integers
+** Pros: Makes it easier to calculate timings and clashes between multiple dates and times.
+** Cons: Requires additional code to store and interact with other common methods that rely on Strings.
+* **Alternative 2:** Store as Strings
+** Pros: Makes it easier to implement.
+** Cons: Requires additional code to convert into integers when carrying out calculating methods.
+
+==== Aspect: How to cancel appointments
+* **Alternative 1 (current choice):** Differentiate between cancellation and deletion
+** Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
+the mistake to the patient's appointment history.
+** Cons: Violates Don't Repeat Yourself principle.
+* **Alternative 2:** Lump deletion into cancellation
+** Pros: Makes it easier to implement and prevents redundancy in code.
+** Cons: Violates Separation of Concerns Principle.
 
 //end::apptfeature[]
 
@@ -737,11 +791,19 @@ ClinicIO ensures appropriate user access rights are issued by authenticating use
 
 ==== Current Implementation
 
-The User Authentication feature comprises of `LoginCommand` and `LogoutCommand`.
+The User Authentication feature comprises of commands as below:
 
-===== `LoginCommand`
+* `login` Command: Allow users to login.
+* `logout` Command: Allow users to logout.
 
-The `LoginCommand` contains multiple operations to manipulate the `UniqueStaffList` indirectly.
+The following class diagram below illustrates the association between the Staff class and its associated class.
+
+.Class Diagram for the Staff.
+image::LoginClassDiagram.png[width="1080"]
+
+===== `login` Command
+
+The `login` Command contains multiple operations to manipulate the `UniqueStaffList` indirectly.
 The implemented operations include: +
 
 * ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO
@@ -769,23 +831,32 @@ Step 4: The `login` command verifies a password using `HashUtil#verifyPassword()
 
 Step 5: To indicate successful completion of verification, the `login` command raises a `LoginSuccessEvent`. +
 
-Step 6: Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made. +
-
 The following sequence diagrams shows how the login works:
 
 **Logic**
 
-.Sequence Diagram for the `LoginCommand` for the logic component.
-image::LoginSequenceDiagram.png[width="1080"]
+.Sequence Diagram for the `login` Command for the logic component.
+image::LoginLogicSequenceDiagram.png[width="1080"]
+{sp} +
+**Model**
 
+.Sequence Diagram for the `login` Command for the model component.
+image::LoginModelSequenceDiagram.png[width="1080"]
+{sp} +
+**Commons**
+
+.Sequence Diagram for the `login` Command for the commons component.
+image::LoginCommonsSequenceDiagram.png[width="1080"]
+{sp} +
 The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
-.Activity Diagram for the `LoginCommand`
+.Activity Diagram for the `login` Command
 image::LoginActivityDiagram.png[width="1080"]
+{sp} +
 
-===== `LogoutCommand`
+===== `logout` Command
 
-The `LogoutCommand` post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
+The `logout` command post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
 the `EventCenter` to communicate between components without requiring the components to register with
 each other explicitly.
 
@@ -831,21 +902,33 @@ to ClinicIO.
 // end::login[]
 
 // tag::patientManagement[]
-=== Patient Management
+=== Patient Management feature
 
 ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
+This patient management is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
 
 ==== Current Implementation
 
-The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, `EditPatientCommand` and `DeletePatientCommand`
-which is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
+The Patient Management feature contains multiple operations to indirectly manipulate the `UniquePatientList`. The implemented operations include:
 
-===== `AddPatientCommand`
+* `addpatient`: Add patient in ClinicIO.
+* `listpatient`: Show all the patients in the ClinicIO record.
+* `findpatient`: Find the patient from the patient list.
 
-The `AddPatientCommand` add patient to the ClinicIO. `AddPatientCommand` requires the current `UserSession` to be login as a receptionist
-in order to add patient.
+The following class diagram below illustrates the association between the Patient class and its associated class:
 
-The following code snippet shows how `AddPatientCommand` is executed:
+.Class Diagram for the Patient.
+image::PatientClassDiagram.png[width="1080"]
+{sp} +
+
+===== `addpatient` Command
+
+The `addpatient` command behaves similarly to the `add`. The command takes in parameters that required to construct patients `Nric`.
+The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
+Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
+that the `preferredDoctor` exists inside the staff records.
+
+The following code snippet shows how `addpatient` Command is executed:
 [source,java]
 ----
     @Override
@@ -853,32 +936,46 @@ The following code snippet shows how `AddPatientCommand` is executed:
             throws CommandException {
         requireNonNull(model);
 
-        if (!UserSession.isLogin()) { # <1>
-            throw new CommandException(MESSAGE_NOT_LOGIN);
+        if (!UserSession.isLoginAsReceptionist()) { # <1>
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         } else if (model.hasPatient(toAdd)) { # <2>
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        } else if ((toAdd.getPreferredDoctor().isPresent())
+                && (!isPreferredDoctor(model, toAdd.getPreferredDoctor().get()))) { # <3>
+            throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
         }
 
-        model.addPatient(toAdd); # <3>
+        model.addPatient(toAdd); # <4>
+        model.switchTab(0);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));    }
     }
+
+    /**
+     * Check if the staff is the preferred doctor.
+     * @param model The current model in ClinicIO
+     * @param preferredDoctor Patient's preferred doctor
+     * @return True if the staff is a doctor found in ClinicIO.
+     */
+    public boolean isPreferredDoctor(Model model, Staff preferredDoctor) {
+        requireNonNull(preferredDoctor);
+        boolean hasStaff = model.hasStaff(preferredDoctor);
+        boolean isDoctor = preferredDoctor.getRole().equals(DOCTOR);
+        return hasStaff && isDoctor;
+    }
 ----
-<1> Check if user is login as receptionist
-<2> Check if there is an existing patient record in ClinicIO
-<3> Add patient to ClinicIO
+<1> Check if user is login as receptionist.
+<2> Check if there is an existing patient record.
+<3> Check if the preferred doctor exist in the staff record.
+<3> Add patient to ClinicIO.
 
-===== `ListPatientCommand`
+===== `listpatient` Command
 
-The `ListPatientCommand` retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
+The `listpatient` Command retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
 
-===== `EditPatientCommand`
+===== `findpatient` Command
 
-{Add implementation}
-
-===== `DeletePatientCommand`
-
-{Add implementation}
+The `findpatient`
 
 ==== Design Considerations
 

@@ -22,7 +22,7 @@ public class XmlAdaptedConsultation {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Consultation's %s field is missing!";
 
     @XmlElement(required = true)
-    private String patient;
+    private XmlAdaptedPatient patient;
     @XmlElement (required = true)
     private String date;
     @XmlElement (required = true)
@@ -52,7 +52,7 @@ public class XmlAdaptedConsultation {
      */
     public XmlAdaptedConsultation(Patient patient, Staff staff, Appointment appointment, String description,
         Date date, Time arrivalTime, Time consultationTime, Time endTime, String prescription) {
-        this.patient = patient.toString();
+        this.patient = new XmlAdaptedPatient(patient);
         this.doctor = new XmlAdaptedStaff(staff);
         this.appointment = new XmlAdaptedAppointment(appointment);
         this.description = description;
@@ -82,7 +82,7 @@ public class XmlAdaptedConsultation {
      * @param source future changes to this will not affect the created XmlAdaptedConsultation
      */
     public XmlAdaptedConsultation(Consultation source) {
-        patient = source.getPatient().toString();
+        patient = new XmlAdaptedPatient(source.getPatient());
         doctor = new XmlAdaptedStaff(source.getDoctor().map(doc -> doc).orElse(null));
         appointment = new XmlAdaptedAppointment(source.getAppointment().get());
         description = source.getDescription().map(descript -> descript.toString()).orElse("");
@@ -132,10 +132,9 @@ public class XmlAdaptedConsultation {
                 .getSimpleName()));
         }
 
-        /**return new Consultation(patient, staff, appointment, description, Date.newDate(date), Time.newTime
-          (arrivalTime), Time.newTime(consultationTime), Time.newTime(endTime), prescription);
-         */
-        return null;
+        return new Consultation(patient.toModelType(), doctor.toModelType(), appointment.toModelType(), description,
+            Date.newDate(date), Time.newTime(arrivalTime), Time.newTime(consultationTime), Time.newTime(endTime),
+            prescription);
     }
 
     @Override

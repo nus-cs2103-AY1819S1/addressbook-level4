@@ -123,8 +123,8 @@ public class Appointment {
         }
         return (toCheck.getAppointmentTime().subtractMinutes(this.getAppointmentTime()) < 60)
                 && (toCheck.getAppointmentTime().subtractMinutes(this.getAppointmentTime()) > -60)
-                && isSameDoctor(toCheck)
-                && toCheck.getAppointmentDate().equals(this.getAppointmentDate());
+                && toCheck.getAppointmentDate().equals(this.getAppointmentDate())
+                && isSameDoctor(toCheck);
     }
 
     /**
