@@ -6,12 +6,6 @@
 == PROJECT: TheTracker (v1.4)
 
 ---
-
-== Overview
-
-This Project Portfolio details my contributions to TheTracker.
-It demonstrates my ability to contribute as a team member of a software engineering project in both technical and non-technical ways.
-
 == Summary of contributions
 
 * *Major enhancement*: *Improved `delete` function to properly delete any type of entry*
@@ -19,51 +13,28 @@ It demonstrates my ability to contribute as a team member of a software engineer
 ** Design Decisions: In implementing the feature, I decided to incorporate the following:
 *** Inferred Deletion: The deletion will be applied to the currently active list.
 *** Deep Deletion: The deletion will automatically all references to this entry (i.e. from other entries' lists)
-** Justification for Inferred Deletion:
-*** *User will not have to type `deleteperson`,`deletemodule`, `deleteoccasion` in full.*
-It would feel unnecessary for a user to type `deleteperson` when viewing the person list, for example.
-*** *User will not be allowed to delete from an inactive list.*
-This ensures that the user will not perform a deletion by accident from the wrong list.
-** Justification for Deep Deletion:
-*** *User will not have to manually remove an entry from all associated lists.*
-If an entry is linked to many other entries, this would save a significant amount of time.
-*** *User will not be misled that a deleted entry is still in TheTracker.*
-A user would be confused if a deleted module is still found in the module list of some people.
-** Highlights: This implementation was noteworthy for several reasons:
-*** Inferred Deletion required the maintenance of an `activeType` variable in the model,
-which was accessible by the Logic and UI (via Logic) units. +
-Slight amendments were needed in the list command and several UI methods. +
-This was also useful in implementing the `select` command.
-*** Deep Deletion required the writing of methods that selectively mutates entries in a list. +
-A functional approach was adopted, with `Streams`, `Optionals` and `Consumers` being used to implement this. +
-Additionally, the `makeShallowDuplicate` was written to create shallow copies without losing information. +
-These were useful in implementing the `edit`, `insertperson` and `removeperson` commands.
+** Highlights: Inferred deletion required amendments in the model and UI.
+This was also useful in implementing the `select` command. +
+Deep Deletion required the writing of methods that selectively mutates entries in a list.
+The methods were used in the `edit`, `insertperson` and `removeperson` commands.
 
 
 * *Minor enhancement*: Implemented the `select` feature
-** Description: Allows the user to select an entry from the active list, and view additional info
-** Importance: The implementation is symmetric across all 3 lists, so that the user does not need to use different commands for different lists.
+** Description: Allows the user to select an entry from the active list, and view their list info.
 
 * *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=waytan[Link to Code Contributions]
 
-* *Other contributions*:
-
-** Conceptualization:
-*** Suggested context-inferring commands (e.g. `select`, `delete` instead of `selectmodule, `deletemodule`)
-*** Suggested implementing `insertperson` and `removeperson` to link persons with modules/occasions
-** Project management:
-*** Involved in distributing roles and consolidating tasks
-*** Manage Issue Tracker for v1.3, v1.4
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W10-1/main/pull/87[#87]
-*** Methods written for implementation of deep deletion were adapted for edit and removeModule.
-*** Set up test utils for modules and occasions: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
-*** Helped in identifying bugs and offered suggestions for debugging
-** Documentation:
-*** Wrote user stories, use cases for v1.0
-*** Updated description of user guide to match application design
-** Key Code Components
-*** Set up `Module` class and its associated fields/exceptions
+* Project management:
+** Involved in distributing roles and consolidating tasks
+** Manage Issue Tracker for v1.3, v1.4
+* Community:
+** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/81[#81], https://github.com/CS2103-AY1819S1-W10-1/main/pull/87[#87]
+** Set up test utils for modules and occasions: https://github.com/CS2103-AY1819S1-W10-1/main/pull/97[#97], https://github.com/CS2103-AY1819S1-W10-1/main/pull/109[#109]
+* Documentation:
+** Wrote user stories, use cases for v1.0
+** Updated description of user guide to match application design
+* Key Code Components
+** Set up `Module` class and its associated fields/exceptions
 
 
 == Contributions to the User Guide
@@ -79,8 +50,6 @@ include::../UserGuide.adoc[tag=types]
 
 include::../UserGuide.adoc[tag=delete]
 
-include::../UserGuide.adoc[tag=select]
-
 == Contributions to the Developer Guide
 
 |===
@@ -89,6 +58,6 @@ include::../UserGuide.adoc[tag=select]
 
 include::../DeveloperGuide.adoc[tag=polymorphismdecision]
 
-include::..//DeveloperGuide.adoc[tag=updatinglists]
+include::../DeveloperGuide.adoc[tag=updatinglists]
 
 include::../DeveloperGuide.adoc[tag=delete]
