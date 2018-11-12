@@ -725,6 +725,30 @@ The following activity diagram gives a broad overview of the deletion process:
 
 image::DeleteActivityDiagram.png[width="800"]
 
+In performing deep deletion, almost all "related" objects are copied. +
+
+For example, suppose TheTracker is initialised in the following manner:
+
+* 2 Persons `p1`, `p2` and 2 Modules `m1`, `m2` are created
+* `p1` is inserted into `m1`, `m2`
+* `p2` is inserted into `m1`
+
+The current object diagram can be drawn as follows (unnecessary fields omitted):
+
+image::DeepDeletionObjectDiagramBefore.png[width="800"]
+
+After deleting `p1`, the new object diagram will be:
+
+image::DeepDeletionObjectDiagramAfter.png[width="800"]
+
+Notice that:
+
+* `p1` and its `UniqueModuleList` is deleted
+* `p2` is not affected
+* A *new* version of `m1` is created.
+It has a new `UniquePersonList`, which contains a new *copy* of `p2` (copied from `p2Copy1`)
+* A *new* version of `m2` is created.
+It has a new `UniquePersonList` which is empty.
 
 ==== Design Considerations
 ===== Aspect: Explicit/Implicit Deletion
