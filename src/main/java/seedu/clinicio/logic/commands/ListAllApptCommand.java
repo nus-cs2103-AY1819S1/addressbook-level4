@@ -3,6 +3,8 @@ package seedu.clinicio.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 
@@ -20,7 +22,7 @@ public class ListAllApptCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
-        model.switchTab(1);
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
