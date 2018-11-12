@@ -114,37 +114,6 @@ public class ConnectToGoogleCalendarTest {
     }
 
     @Test
-    public void clear() throws CommandException {
-        //set up test environment
-        enable();
-        com.google.api.services.calendar.Calendar service =
-                connectToGoogleCalendar.getCalendar();
-
-        //create an event in Google Calender
-        try {
-            service.events()
-                    .quickAdd(CALENDAR_NAME, TEMP_EVENT_NAME)
-                    .execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            disable();
-        }
-        enable();
-        //Retrieve the number of events (should be at least 1)
-        int size = -1;
-        //execute the clear command
-        ClearCommand command = new ClearCommand();
-        command.execute(model, commandHistory);
-        //Retrieve the number of events after command
-        size = connectToGoogleCalendar.getSingleEvents(service).getItems().size();
-        //No event any more -> ok
-        assertEquals(0, size);
-        //clean up
-        disable();
-    }
-
-    @Test
     public void setGoogleCalendarEnabled() throws CommandException {
         //execute the command
         ConnectToGoogleCalendar.setGoogleCalendarEnabled();
