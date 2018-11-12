@@ -34,7 +34,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 
 ** Project management:
 *** Took on the role of *Team Lead*
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to test coverage:
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
 ** Design:

@@ -505,7 +505,7 @@ Inserts the 3rd patient into the 5th position in the patient queue.
 [[serve]]
 ==== Serving the first patient in Waiting queue: `serve`
 
-Doctor is finally ready to the serve the next patient? Use the serve command!
+Doctor is finally ready to serve the next patient? Use the serve command!
 Alias: `ser` +
 Format: `serve`
 
