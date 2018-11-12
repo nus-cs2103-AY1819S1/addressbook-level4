@@ -416,17 +416,88 @@ image::FindPhoneCommandLogicDiagram-1.png[width="800"]
 
 ==== Current Implementation
 
-* The grades attribute have been added into the person attributions.
+The grades feature has been implemented to store the grade records of the student. A `Grades` class has been created to record a score of a student.
+A HashMap<examName,Grades> has been added to the list of attributes of Person class.
 
-* A simple grade command have been added, which has the same behavior with command list.
+Each student's grade records are also displayed on the PersonCard GUI.
+
+Add a new attribute into the person class, we have to change the structure of the model part as follow:
+
+
+
+Because the adding of the grades attribute, the storage part have to add XmlAdaptedGrade to adapt grade attribute during the interaction with the storage.
+
+The following UML diagram shows the new structure of the storage:
+
+
+
+===== Add Grade Using Add Command
+* The add command now can add grade records, Using the format of "g/examName examScore".
+The exam name can be any string without space, and the exam score can be integer between 0 to 100 including 0 and 100.
+
+The graph to illustrate the behavior of add grade attribute is quite similar to the edit attribute. So we do not overtalk about it here.
+
+===== Add or Edit Grade Using Edit Command
+* The edit command now can edit or add grade records, Using the format of "g/examName examScore".
+The exam name can be any string without space, and the exam score can be integer between 0 to 100 including 0 and 100.
+
+* The grade attribute has a different behavior from tag attribute. +
+When editing a tag, the previous tags will be discarded by the APP. But grades attribute is more like a recording function.
+So the previous grade records will not be deleted.
+If user edit a non-existing exam, the app will create a new record.
+If user edit a existing exam, the app will update the score of the grade record.
+
+To Keep the undo and redo feature, edit will create a new person(not the copy of the reference) and then edit it.
+
+The following sequence diagram shows how the edit function works with the grades attribute:
+
+
+
+===== Delete Grade Using `deleteGrade` Command
+* The deleteGrade command accepts an INDEX of the student and one exam name to delete.
+
+To Keep the undo and redo feature, deleteGrade will create a new person(not the copy of the reference) as well and then edit it.
+
+The following sequence diagram shows how the deleteGrade function works:
 
 ==== Future Implementation
 
-* Modify the grades from a single value into a list so that grades attribution can be more useful.
+* Add more action for grade record such as sorting students by grades, analysing the grades fluctuation of a students.
 
-* Add more function for grade command such as sorting students by grades, analysing the grades fluctuation of a students, listing all grades of a student and even using Gui to layout the grades.
+* Use Gui feature to layout the grades, so that the analysing the grades of a student will be more straightforward and easier.
 
-==== Design Considerations
+* Add more Convenient way to add grades, such as add grades for a exam to every student at once and so on.
+
+==== Design considerations
+
+===== Aspect: Command for adding and editing grades attribute
+
+* **Alternative 1 (current choice):** enhance the add Command and edit Command.
+** Pros:
+. Follow the tradition of the command.
+. Use the origin code fully.
+** Cons:
+. Break the test existing a lot.
+* **Alternative 2:** add now command for adding and editing grade.
+** Pros:
+. Easier to implement.
+. Will not change or break the previous code structure.
+** Cons:
+. Too many commands for user to remember.
+
+===== Aspect: Delete of a grade record
+
+* **Alternative 1 (current choice):** Add a new command to delete the grade command.
+** Pros:
+. Easy to understand and use the function.
+** Cons:
+. Too many commands for user to remember.
+* **Alternative 2:** Use the undo feature to delete.
+** Pros:
+. Existing feature already.
+** Cons:
+. To complicated for user to use this feature.
+
 // end::gradesfeature[]
 
 // tag::earningfeature[]
