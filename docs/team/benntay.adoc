@@ -29,13 +29,13 @@ switching between the display panels of different features.
 ** Highlights: This enables both modularised and efficient integration of features into
 UI and allowed easy switching between different feature panels through the use of
 Universal Commands.
-** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[PR#65]
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/65[#65]
 
 * *Other contributions*:
 ** General/Team Enhancements:
 *** Clean up code by decoupling Storage and Ui components from Logic component
-(https://github.com/CS2103-AY1819S1-W10-4/main/pull/243[PR#243]
-https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[PR#256]).
+(https://github.com/CS2103-AY1819S1-W10-4/main/pull/243[#243]
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[#256]).
 ** Documentation (see *Contributions to Developer Guide* for details):
 *** Update UI class diagram to reflect new generic classes.
 *** Documented and explained modularisation of UI component, including creating class diagrams to show new classes
