@@ -2572,7 +2572,7 @@ used is dash.
 .. Test case: `update c/hockey trans/1 amount/200` +
     Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
 
-=== Adding a Transaction Entry
+=== Adding a transaction entry
 . Adds a transaction entry for a specified CCA in Hallper
 
 .. Prerequisites: The specified CCA must exist in Hallper. The details of the transaction must all be provided and
@@ -2587,7 +2587,7 @@ are in the correct format.
               Parameters: c/CCA date/DD.MM.YYYY amount/AMOUNTremarks/REMARKS
               Example: add_trans c/basketball date/13.12.2018 amount/-100 remarks/Purchase of equipment
 
-=== Deleting a Transaction Entry
+=== Deleting a transaction entry
 . Deletes a transaction entry for a specified CCA in Hallper.
 
 .. Prerequisites: The specified CCA must exist in Hallper. The transaction entry must exist for that CCA.
@@ -2600,7 +2600,7 @@ are in the correct format.
 .. Test case: `delete_trans c/tennis trans/1` +
     Expected: The CCA does not exist.
 
-=== Showing CCAs' Budget
+=== Showing CCAs' budget
 . Displays the CCA information and its transaction history.
 
 .. Prerequisites: The specified CCA must exist in Hallper.
