@@ -2362,4 +2362,4 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
 
 .. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
-   Expected: Email not displayed on the BrowserPanel. Error details shown in the status messaage.
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
