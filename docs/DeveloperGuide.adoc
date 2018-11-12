@@ -1602,6 +1602,14 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Showing all medicines
+
+. Listing all medicines in the records
+
+.. List all medicine using the `liststock` command.
+.. Test case: `liststock`, `ls` +
+   Expected: All medicines are listed on the medicine panel. Timestamp in the status bar is updated.
+
 === Adding a medicine
 
 . Adding a medicine to the records
@@ -1615,7 +1623,7 @@ _{ more test cases ... }_
 === Editing a medicine
 
 . Editing a medicine in the records
-.. List all medicine using the `liststock` command. Check that the medicine to be edited is in the list.
+.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be edited is in the list.
 .. Test case: `editmedicine 1 msq/50` +
    Expected: Medicine at index 1 will have its minimum stock quantity changed to 50. Name of the edited medicine shown in the status message. Timestamp in the status bar is updated.
 .. Other incorrect delete commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
@@ -1624,11 +1632,19 @@ _{ more test cases ... }_
 === Restocking a medicine
 
 . Restocking a medicine in the records
-.. List all medicine using the `liststock` command. Check that the medicine to be restocked is in the list.
+.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be restocked is in the list.
 .. Test case: `restock 1 amt/50` +
    Expected: Medicine at index 1 will have its stock increased by 50. Name and restocked quantity of the restocked medicine shown in the status message. Timestamp in the status bar is updated.
 .. Other incorrect delete commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
    Expected: No medicine is restocked. Error details shown in the status message. Status bar remains the same.
+
+=== Check the stocks of all medicines
+
+. Listing all medicines that are low in supply in the records
+
+.. Prerequisites: List all medicine using the `liststock` command.
+.. Test case: `checkstock`, `cs` +
+   Expected: All medicines that have stock level equal to or lower than the minimum stock quantity are listed on the medicine panel. Timestamp in the status bar is updated.
 
 === Saving data
 
