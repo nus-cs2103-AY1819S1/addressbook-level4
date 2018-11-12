@@ -476,6 +476,11 @@ image::showgroupSequentialDiagram1.jpg[width="820"]
 Improved from the previous versions, the `Add` and `Edit` commands have been refined in LearnVocabulary.
 There is also a minor feature added `Show`, which displays a filtered word list on the Ui.
 
+[NOTE]
+Each tag being added follows AB4's implementation, separate tags are considered via `t/` +
+So, `t/happy`, `t/emotions`, `t/sad` is considered 3 tags and they MUST have already been added via `groupadd`.
+Tags will not be added as a whole if any of them do not exist.
+
 ===== Add command improvements
 When adding a new word to LearnVocabulary, only the `Name` and `Meaning` fields must be entered as follows: `add n/fire m/something hot`.
 As can be seen from the example given, there is no `Tag` being entered at all. However, LearnVocabulary will enforce that every word would
@@ -483,20 +488,15 @@ require at least one tag. As such, the default tag "toLearn" will be given to wo
 
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The user types in `add n/fire m/something hot` into the CLI.
+Step 1. The user types in `add n/fire m/something hot` into the CLI.
 
 Step 2. `add n/fire m/something hot` will be parsed by LearnVocabularyParser, where the `add` command will be triggered, calling `AddCommandParser#parse()`.
 
 Step 3a. Illegal characters will cause the command to throw an exception and await a new command.
 
-Step 3b. The word with all letters being parsed will be checked against LearnVocabulary to ensure no duplicate words.
+Step 3b. Word with letters being parsed will be checked against LearnVocabulary to ensure no duplicate words.
 
 Step 4. The word will have a "toLearn" tag attached and be added to LearnVocabulary after ensuring that there are no duplicates.
-
-[NOTE]
-Each tag being added follows AB4's implementation, separate tags are considered via `t/` +
-So, `t/happy`, `t/emotions`, `t/sad` is considered 3 tags and they MUST have already been added via `groupadd`. +
-Tags will not be added as a whole if any of them do not exist.
 
 ===== Edit command improvements
 When editing an existing word in LearnVocabulary, there cannot be empty tags for any words provided.
@@ -506,11 +506,6 @@ Given below is an example usage scenario and how the edit mechanism behaves at e
 Step 1. The user types in `edit 1 t/` which shows the user wanting to clear all tags from existing word.
 
 Step 2. The command box outputs that it is not possible, at least one tag must be attached to the word.
-
-[NOTE]
-Each tag being added follows AB4's implementation, separate tags are considered via `t/` +
-So, `t/happy`, `t/emotions`, `t/sad` is considered 3 tags and they MUST have already been added via `groupadd`.
-Tags will not be added as a whole if any of them do not exist.
 
 ===== Show feature
 The `show` command is an improvement in leaps and bounds ahead of the `find` command, but it exists as a separate command on its own due to its nature.
