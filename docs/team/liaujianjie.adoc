@@ -204,3 +204,7 @@ image::auto-matching.png[width:"800"]
 To see more, check it out https://cs2103-ay1819s1-f10-3.github.io/main/DeveloperGuide.html#finding-matches-between-clients-and-service-providers[in the developer guide].
 
 Pull request: https://github.com/CS2103-AY1819S1-F10-3/main/pull/117[#117]
+
+'''
+
+To see more of my works, visit my https://jianjie.co[personal website] to see other projects I worked on.
