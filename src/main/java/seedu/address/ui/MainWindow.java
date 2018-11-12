@@ -20,11 +20,10 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.events.ui.RefreshCalendarPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.SwitchTabEvent;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.commons.events.ui.SwitchToTasksTabEvent;
+import seedu.address.commons.events.ui.ToggleTabEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -43,7 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private CalendarDisplay calendarDisplay;
     private CalendarPanel calendarPanel;
     private TaskListPanel taskListPanel;
@@ -86,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
-        setAccelerator(() -> handleSwitchTab(new SwitchTabEvent()), new KeyCodeCombination(KeyCode.TAB,
+        setAccelerator(() -> handleToggleTab(new ToggleTabEvent()), new KeyCodeCombination(KeyCode.TAB,
             KeyCombination.SHIFT_ANY, KeyCombination.CONTROL_DOWN));
         registerAsAnEventHandler(this);
 
@@ -183,15 +181,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    // TODO: remove if not needed anymore
-    /**
-     * Refreshes the calendar event panel
-     */
-    @FXML
-    public void refreshCalendarPanel() {
-        calendarPanelPlaceholder.getChildren().add(new CalendarPanel(logic.getFilteredCalendarEventList()).getRoot());
-    }
-
     /**
      * Switches to the tab for the task list panel (if it is not already open)
      */
@@ -238,20 +227,10 @@ public class MainWindow extends UiPart<Stage> {
         return taskListPanel;
     }
 
-    // TODO remove method if not using browserPanel anymore
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
-    }
-
-    @Subscribe
-    private void handleRefreshCalendarPanelEvent(RefreshCalendarPanelEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
     @Subscribe
@@ -267,7 +246,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleSwitchTab(SwitchTabEvent event) {
+    private void handleToggleTab(ToggleTabEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchPanel();
     }

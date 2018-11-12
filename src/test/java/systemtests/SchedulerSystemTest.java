@@ -7,8 +7,6 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarEventListMat
 import static seedu.address.ui.testutil.GuiTestAssert.assertCalendarListMatchingIgnoreOrder;
 import static seedu.address.ui.testutil.GuiTestAssert.assertToDoListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +16,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CalendarDisplayHandle;
 import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -144,7 +141,7 @@ public abstract class SchedulerSystemTest {
     protected void showAllCalendarEvents() {
         executeCommand(ListEventCommand.COMMAND_WORD);
         assertEquals(getModel().getScheduler().getCalendarEventList().size(),
-            getModel().getFilteredCalendarEventList().size());
+            getModel().getFilteredAndSortedCalendarEventList().size());
     }
 
     /**
@@ -152,7 +149,7 @@ public abstract class SchedulerSystemTest {
      */
     protected void showCalendarEventsWithTitle(String keyword) {
         executeCommand(FindEventCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCalendarEventList().size()
+        assertTrue(getModel().getFilteredAndSortedCalendarEventList().size()
             < getModel().getScheduler().getCalendarEventList().size());
     }
 
@@ -183,7 +180,8 @@ public abstract class SchedulerSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new Scheduler(expectedModel.getScheduler()), testApp.readStorageScheduler());
-        assertCalendarEventListMatching(getCalendarEventListPanel(), expectedModel.getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(),
+                                        expectedModel.getFilteredAndSortedCalendarEventList());
         assertCalendarListMatchingIgnoreOrder(getCalendarDisplay(), expectedModel.getFullCalendarEventList());
     }
 
@@ -202,7 +200,7 @@ public abstract class SchedulerSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code CalendarPanelHandle} and {@code StatusBarFooterHandle} to
+     * Calls {@code CalendarPanelHandle} and {@code StatusBarFooterHandle} to
      * remember
      * their current state.
      */
@@ -214,7 +212,6 @@ public abstract class SchedulerSystemTest {
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected calendarevent.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getCalendarEventListPanel().isAnyCardSelected());
@@ -225,27 +222,17 @@ public abstract class SchedulerSystemTest {
      * list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see CalendarPanelHandle#isSelectedCalendarEventCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCalendarEventListPanel().navigateToCard(getCalendarEventListPanel().getSelectedCardIndex());
         String selectedCardName = getCalendarEventListPanel().getHandleToSelectedCard().getTitle();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getCalendarEventListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the calendarevent list panel remain unchanged.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see CalendarPanelHandle#isSelectedCalendarEventCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
@@ -272,7 +259,8 @@ public abstract class SchedulerSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertCalendarEventListMatching(getCalendarEventListPanel(), getModel().getFilteredCalendarEventList());
+        assertCalendarEventListMatching(getCalendarEventListPanel(),
+                                        getModel().getFilteredAndSortedCalendarEventList());
         assertToDoListMatching(getTaskListPanel(), getModelToDo().getFilteredToDoListEventList());
     }
 
