@@ -473,7 +473,7 @@ image::AddCommandActivityDiagram.png[width="650"]
 === Edit Command
 ==== Current Implementation
 
-The `edit` command allows users to add edit existing events in the scheduler. Edit Command is facilitated by the `AddCommand` class.
+The `edit` command allows users to add edit existing events in the scheduler. Edit Command is facilitated by the `EditCommand` class.
 The format of this command is `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]…​ [re/REMINDER_TIME]…​ [-a | -u]`
 
 `EditCommand` requires the interaction between both `Logic` and `Model` Component. The `Logic` component comprises of `EditCommandParser` and `RepeatEventGenerator`.
@@ -526,6 +526,28 @@ E.g. In a set of events: `event A1, event A2 eventA3`, when we input the command
 ** Pros: Do not need to be know what is in the model before generating events.
 ** Cons: Events generated may not be as intuitive to users because the if we start editing a repeated event from the second event in a set, the first event will always be deleted.
 // end::edit[]
+
+// tag::delete[]
+=== Delete Command
+==== Current Implementation
+
+The `delete` command allows users to add delete existing events in the scheduler. Delete Command is facilitated by the `DeleteCommand` class.
+The format of this command is `delete INDEX [-a | -u]`.
+
+`DeleteCommand` requires the interaction between both `Logic` and `Model` Component. The `Logic` component comprises of `DeleteCommandParser`.
+The `DeleteCommandParser` parses the user input. The `Model` component is responsible for deleting the internal event list(s).
+
+Given below is the execution flow of `Delete Command`.
+
+1. When the user inputs a command, `LogicManager` will call the `parseCommand` method in `SchedulerParser` with the user input as arguments.
+2. If the user input is valid and contains the keyword `edit`, `DeleteCommandParser` will be instantiated.
+3. `SchedulerParser` will then call the `parse` method of `EditCommandParser`.
+4. `DeleteCommandParser` parses the user input with the respective parsing methods.
+5. `EditCommand` will be instantiated with index of the event to be deleted.
+7. `LogicManager` will then proceed to call the `execute()` method of `DeleteCommand`.
+8. `Model` Component will then find the targeted event(s) in internal list according to the parsed option type (no option or `-a` or `-u`).
+9. `Model` Component will delete the targeted event(s).
+// end::delete[]
 
 
 

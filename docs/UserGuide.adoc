@@ -65,21 +65,24 @@ _Coming in V1.4: Command format can be typed case-insensitive_
 === Adding an event : `add`
 
 Adds an event to the scheduler. +
-Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]… ` +
+Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]…` +
+// end::add[]
 Aliases: `ad` OR `a` in place of `add` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
+// tag::add[]
 [TIP]
-
-
 An event can have any number of tags and reminders(including 0).
 If you want multiple tags and reminders, we need to use `[t/]` and [`re/`] for multiple times
 
+[WARNING]
+Except for tags(t/) and reminders(re/), all other fields will take in the latest field that is being input.
+
 ****
 * `DATETIME` is the natural language of date and time in English.
-* `REPEAT_TYPE` should be chosen from either daily, weekly or monthly.
-* `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in alphabets.
+* `REPEAT_TYPE` should be left empty or chosen from either daily, weekly or monthly.
 * `REMINDER_TIME` (in `xxHxxMxxS`) represents the duration before the `START_DATETIME` that you want a pop-up alert.
+* Adding events with the exact values as another event is possible.
 * Only future reminders will be added. Please refer to <<Pop Up Feature>>.
 ****
 
@@ -112,6 +115,7 @@ Examples:::
 | 2018-10-15 | October 15 2018
 | 2018/10/15 | October 15 2018
 |===
+// end::add[]
 
 Relaxed dates::
 Relaxed dates are month, day and year expressed in a loose manner such as a combination of English and integers.
@@ -169,7 +173,6 @@ Examples::
 | 3 hours later       | 3 hours after command execution time
 | 6 seconds from 1030 | 6 seconds after 1030
 |===
-// end::add[]
 
 ==== Reminder time format
 ==== Reminder times
@@ -192,9 +195,11 @@ Examples::
 
 Edits existing events in the scheduler. +
 Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [re/REMINDER_TIME]... [-a | -u]` +
+// end::edit[]
 Aliases: `edi` OR `ed` in place of `edit` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
+// tag::edit[]
 [TIP]
 Only one option can exists at any one time. Either `-a` or `-u`.
 
@@ -207,8 +212,9 @@ Only one option can exists at any one time. Either `-a` or `-u`.
 * The logic for editing reminder times is the same as tags
 * Only future reminders will be edited. Please refer to <<Pop Up Feature>>.
 * Repeating events can be edited together using a valid option.
-* `REPEAT_TYPE` and `REPEAT_UNTIL_DATETIME` cannot be edited for events without a valid option.
+* `REPEAT_TYPE` and `REPEAT_UNTIL_DATETIME` cannot be edited for single events and events without a valid option.
 ****
+// end::edit[]
 
 The supported formats of date, time and reminder times are identical to that of <<Adding an event : `add`, Adding an event>>. +
 Refer to <<Date and time formats>> and <<Reminder time format>>.
@@ -220,6 +226,7 @@ Please right click and select 'Reload Page' to see the effects.
 Alternatively, you can select any Event using your keyboard/mouse, the page on the right will be refreshed.
 ====
 
+// tag::edit[]
 :sectnums!:
 ==== Options
 `-a` +
@@ -230,10 +237,13 @@ Tell the command to select the upcoming events that are associated with the even
 
 Examples:
 
+// end::edit[]
 * `edit 1 n/Study with John d/Study for Mathematics exam` +
 Edits the event name and description of the 1st event to be `Study with John` and `Study for Mathematics exam` respectively.
+// tag::edit[]
 * `edit 2 n/Play t/ -a` +
-Edits the repeating event's name of the 2nd event to be `Play` and clears all existing tags.
+Edits all the repeating event's name of the 2nd event to be `Play` and clears all existing tags.
+// end::edit[]
 * `edit 2 re/ -u` +
 Clear all the upcoming event's reminder times.
 
@@ -271,7 +281,6 @@ You edited event 1 only. Now the set of recurring events have different fields.
 Different fields of first event will be overwritten by fields of the second event as identified by the INDEX used in the command .
 
 :sectnums:
-// end::edit[]
 
 
 === Listing all events : `list`
@@ -309,6 +318,7 @@ Returns any event having event names `Study` or `Hard`
 
 Deletes the specified event from the scheduler. +
 Format: `delete INDEX [-a | -u]` +
+// end::delete[]
 Aliases: `delet` OR `dele` OR `del` OR `de` or `d` in place of `delete` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
@@ -319,6 +329,7 @@ Please right click and select 'Reload Page' to see the effects.
 Alternatively, you can select any Event using your keyboard/mouse, the page on the right will be refreshed.
 ====
 
+// tag::delete[]
 [TIP]
 Only one option can exists at any one time. Either `-a` or `-u`.
 
@@ -334,18 +345,22 @@ Refer to <<Options>>.
 
 Examples:
 
+// end::delete[]
 * `list` +
+// tag::delete[]
 `delete 2` +
-Deletes the 2nd event in the scheduler.
+Deletes the 2nd event in the scheduler. +
+// end::delete[]
 * `find Study` +
 `delete 1` +
-Deletes the 1st event in the results of the `find` command.
+Deletes the 1st event in the results of the `find` command. +
 * `list` +
 `delete 3 -a` +
-Deletes the 3rd event and its repeating events from the scheduler.
+Deletes the 3rd event and its repeating events from the scheduler. +
 * `list` +
+// tag::delete[]
 `delete 4 -u` +
-Deletes the 4th event and its upcoming events from the scheduler.
+Deletes the 4th event and its upcoming events from the scheduler. +
 // end::delete[]
 
 
