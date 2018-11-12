@@ -482,45 +482,15 @@ This means that this command can be undone or redone.
 
 ==== `listappt` Command
 
-The `listappt` command searches for appointments in the `UniqueAppointmentList` by creating a `FilteredAppointmentList`
-containing appointments that land on the date that was entered by the user. (fact check)
-
-*Replace current addappt seq diagram with cknstruction diagram. Use the addappt seq diagram for listappt instead.*
-.Activity Diagram for ListAppt.
-image::ListApptActivityDiagram.png[width=""]
-
-The listappt requires a date as it’s argument and this date will act as the #apptcontainsdatepredicate to filter the
-list of appointments. A `Date` object is instantiated from the user-entered date.
-
-The argument is first parsed using the #listapptparser into a string array of date components: day, month, year in that
-order. The string array is then used to construct #appointmentcontainsdate predicate.
-
-Following which, the predicate is used to construct the ListApptCommand. The ListApptCommand then executes the function
-#model.updateFilteredAppointmentList.
-It filters the #model.filteredappointments to only show the appointments that land on the date indicated by the user.
-This changes the list of appointments currently ‘viewable’ and ‘interactable’ by the user i.e. ability to be cancelled.
-
-[NOTE]
-What is seen in the UI is actually the unmodifiable `ClinicIO#ObservableAppointmentList`.
-Commands that require the `listappt` are actually modifying the
-`Model#filteredAppointmentList` and then updating the `ClinicIO#ObservableAppointmentList`. (
-Verify the usages of observableappointment)
-
-This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate`
-object. The list of filtered appointments by date are generated once the method
-`ModelManager#updateFilteredAppointmentList`. The new `FilteredAppointmentList` is finally displayed on screen with
-appointments chronologically ordered with their respective indices.
-
-For example, `listappt 03 03 2018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`,
-`Date#Year` filled out as 3, 3 and 2018 respectively, is constructed.
+The `listappt` command searches for that land on the date that was entered by the user.
+The filtered appointments are found in the found in `ModelManager`. The list instantiated by filtering the `UniqueAppointmentList`
+using `AppointmentContainsDatePredicate` which is created from the `Date` argument supplied by the user.
 
 ==== `listallappt` Command
 
 The `listallappt` behaves similarly to `listappt` with the exception that it does not take in any arguments.
 Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW_ALL_FILTERED_APPOINTMENTS`.
 `updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
-
-Refer to the above `listappt` section for a more elaborate explanation of the internal process.
 
 ==== `cancelappt` Command
 
@@ -543,10 +513,22 @@ of changing appointment status and addition into the appointment history seems r
 pre-existing patients to make appointments will make these additional tasks more useful.
 
 ==== Design Considerations
+===== Aspect: How to store Date and Time fields
+* **Alternative 1 (current choice):** Store as integers
+** Pros: Makes it easier to calculate timings and clashes between multiple dates and times.
+** Cons: Requires additional code to store and interact with other common methods that rely on Strings.
+* **Alternative 2:** Store as Strings
+** Pros: Makes it easier to implement.
+** Cons: Requires additional code to convert into integers when carrying out calculating methods.
 
-Aspect: Using a separate tab for appointments
-
-Aspect:
+==== Aspect: How to cancel appointments
+* **Alternative 1 (current choice):** Differentiate between cancellation and deletion
+** Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
+the mistake to the patient's appointment history.
+** Cons: Violates Don't Repeat Yourself principle.
+* **Alternative 2:** Lump deletion into cancellation
+** Pros: Makes it easier to implement and prevents redundancy in code.
+** Cons: Violates Separation of Concerns Principle.
 
 //end::apptfeature[]
 
