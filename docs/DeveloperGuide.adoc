@@ -894,18 +894,18 @@ image::FindPatientCommonsSequenceDiagram.png[width="1080"]
 
 ===== Aspect: Manipulate the list
 
-There are various places to execute command. Here are some options: 
+There are various places to execute command. Here are some options:
 
 * *Alternative 1 (current choice)*: Handle at the model component
 
-** Pros : Prevent logic from being heavy of data manipulaiton. 
+** Pros : Prevent logic from being heavy of data manipulaiton.
 ** Cons : Too challenging to ensure all necessary methods are at the model.
 
 * *Alternative 2*: Handle at the logic component
 
 ** Pros: Easy to implement by retrieving the `UniquePatientList` to do manipulation of data
-** Cons: Loses the purpose of having model and logic components. The logic will be 
-loaded with codes while model will be light on codes. 
+** Cons: Loses the purpose of having model and logic components. The logic will be
+loaded with codes while model will be light on codes.
 
 // end::patientManagement[]
 
