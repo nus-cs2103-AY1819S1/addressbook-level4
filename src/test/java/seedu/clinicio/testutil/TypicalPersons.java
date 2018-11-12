@@ -220,11 +220,11 @@ public class TypicalPersons {
             clinicIo.addAppointment(appointment);
         }
         */
-        /*
+
         for (Medicine medicine : getTypicalMedicines()) {
             clinicIo.addMedicine(medicine);
         }
-        */
+
         return clinicIo;
     }
 

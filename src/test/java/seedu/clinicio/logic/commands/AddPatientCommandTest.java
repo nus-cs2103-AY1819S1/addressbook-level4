@@ -6,8 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_DUPLICATE_PATIENT;
-import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_NOT_LOGIN_AS_RECEPTIONIST;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -53,6 +54,12 @@ public class AddPatientCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
+    @Before
+    public void setUp() {
+        UserSession.destroy();
+        UserSession.create(ALAN);
+    }
+
     @Test
     public void constructor_nullPatient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -64,9 +71,6 @@ public class AddPatientCommandTest {
         ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PatientBuilder().build();
 
-        UserSession.destroy();
-        UserSession.create(ALAN);
-
         CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddPatientCommand.MESSAGE_SUCCESS, validPatient), commandResult.feedbackToUser);
@@ -76,8 +80,6 @@ public class AddPatientCommandTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() throws Exception {
-        UserSession.destroy();
-        UserSession.create(ALAN);
 
         Patient validPatient = new PatientBuilder().build();
         AddPatientCommand addCommand = new AddPatientCommand(validPatient);
@@ -97,7 +99,7 @@ public class AddPatientCommandTest {
         ModelStub modelStub = new ModelStubWithPatient(validPatient);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_NOT_LOGIN_AS_RECEPTIONIST);
+        thrown.expectMessage(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         addCommand.execute(modelStub, commandHistory);
     }
 

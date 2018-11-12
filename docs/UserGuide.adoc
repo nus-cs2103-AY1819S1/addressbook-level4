@@ -30,7 +30,20 @@ This guide does not assume any prior technical knowledge. Check the <<FAQ>> sect
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
 You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
-Go to the <<Installation Guide>> to get started on install ClinicIO.
+As a doctor, you will be able to do the following:
+
+* View patient record
+* Enter patient additional medical information.
+
+As a receptionist, you will be able to do the following:
+
+* Manage patient record
+* Manage clinic queue
+* Manage medicine inventory in the clinic
+* Manage future patient appointment
+* View statistics and export data.
+
+Head to the <<Installation Guide>> to get started on install ClinicIO.
 
 == Installation Guide
 
@@ -221,7 +234,7 @@ You can login to ClinicIO. +
 Format: `login r/ROLE n/NAME pass/PASSWORD` +
 
 [WARNING]
-Do not use this feature if you are already logged in. +
+If you have already logged in, you cannot login again. +
 
 ****
 * Roles available to login: Doctor and Receptionist
@@ -288,10 +301,25 @@ Examples:
 * `addpatient n/John Doe ic/S1234567D p/98765432 e/johnd@example.com a/John street, block 123, #01-01 alrg/Dairy Products`
 * `addpatient n/Betsy Crowe ic/S2231414A e/betsycrowe@example.com a/Newgate Prison p/1234567 medProb/High Blood Pressure med/Chlorothiazide`
 
-==== Listing all patients : `listpatient` `[coming in v2.0]`
+==== Deleting a patient : `deletepatient` `[coming in v2.0]`
 
-You can view a list of all patients in the clinic record. +
-Format: `listpatient`
+You can delete the specified patient from the clinic record. +
+Format: `deletepatient INDEX`
+
+****
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`deletepatient 2` +
+Deletes the 2nd patient in the clinic record.
+* `find Betsy` +
+`deletepatient 1` +
+Deletes the 1st patient in the results of the `find` command.
 
 ==== Editing a patient : `editpatient` `[coming in v2.0]`
 
@@ -316,9 +344,12 @@ Edits the phone number and email address of the 1st patient to be `91234567` and
 * `editpatient 2 n/Betsy Crower t/` +
 Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
-==== Locating patients by name: `findpatient` `[coming in v2.0]`
+==== Locating patients by name: `findpatient`
 
 You can find patients whose names contain any of the given keywords. +
+
+include::UserGuide.adoc[tag=login]
+
 Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -336,25 +367,13 @@ Returns `john` and `John Doe`
 * `findpatient Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
-==== Deleting a patient : `deletepatient` `[coming in v2.0]`
+==== Listing all patients : `listpatient`
 
-You can delete the specified patient from the clinic record. +
-Format: `deletepatient INDEX`
+You can view a list of all patients in the clinic record. +
 
-****
-* Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed patient list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+include::UserGuide.adoc[tag=loginUser]
 
-Examples:
-
-* `list` +
-`deletepatient 2` +
-Deletes the 2nd patient in the clinic record.
-* `find Betsy` +
-`deletepatient 1` +
-Deletes the 1st patient in the results of the `find` command.
+Format: `listpatient`
 
 ==== Selecting a patient : `selectpatient` `[coming in v2.0]`
 
@@ -433,10 +452,35 @@ Removes the 3rd patient in the displayed list of patients from the queue.
 Selects the 1st Cassandra as displayed in the list resulting from the `find Cassandra` command and removes her from the queue.
 // end::queuecommands[]
 
-// tag::datacommands[]
-=== Data Commands
+// tag::analyticscommands[]
+=== Data Management
 
-==== Displaying patient statistics : `patientstats` `[coming in v2.0]`
+==== Analytics
+The analytics feature allows users to view statistics across the various functions of a clinic. These are viewed in
+isolation with separate commands for each department. However, they share a similar user interface composed of two
+distinct sections. They are the *summary* and the *visualizations* as shown in the following screenshot:
+
+image::AnalyticsScreenshot.png[width="500"]
+
+===== Summary
+The summary displays the number of occurrences of events such as the `Number of appointments` in the screenshot above.
+They can be raw totals or averages. This will be indicated by the title. The numbers are categorized according to the
+following time periods:
+
+. `Today`: The occurrences on the present real life date.
+. `This Week`: The occurrences in the present real life week spanning from Monday to Sunday.
+. `This Month`: The occurrences in the present real life month.
+. `This Year`: The occurrences in the present real life year.
+
+===== Visualizations
+The pane below the summary displays visualizations. There may be multiple visualizations which can be cycled through
+using the `Next` and `Previous` buttons. The visualizations may be either one of a vertical bar chart, horizontal bar
+chart, vertically stacked bar chart or a line chart.
+
+==== Analytics Commands
+The following commands can be used to display the different types of statistics.
+
+===== Displaying patient statistics : `patientstats`
 Displays the following information about patients:
 ****
 * A summary of the number of patients over various time periods.
@@ -445,89 +489,92 @@ Displays the following information about patients:
 ****
 Format: `patientstats`
 
-==== Displaying appointment statistics : `apptstats`
+===== Displaying appointment statistics : `apptstats`
 
 Displays the following information about appointments:
 ****
 * A summary of the number of scheduled appointments over various time periods.
 * The availability of appointment slots as compared to the number of scheduled appointments.
+* The number of appointments scheduled for each month in the current year.
 ****
 Format: `apptstats`
 
-==== Displaying doctor statistics : `doctorstats`
+===== Displaying doctor statistics : `doctorstats`
 
 Displays the following information about doctors:
 ****
 * A summary of the average number of consultations per doctor over various time periods.
 * The number of patient preferences for each doctor.
+* The total number of consultations for each doctor.
 ****
 Format: `doctorstats`
 
-==== Displaying medicine statistics : `medstats` `[coming in v2.0]`
+// end::analyticscommands[]
 
-Displays the following information about medicines:
-****
-* A summary of the quantity of medicines prescribed over various time periods.
-* The average spending on medicines per patient.
-* A breakdown of medicines by their quantity issued.
-****
-Format: `medstats`
+// tag::exportcommands[]
+==== Exporting Patient Data
+ClinicIO allows the exporting of patient related data to Comma Separated Values (csv) files. The filenames are
+predetermined and specific to the type of data being exported. The files are generated in the same file directory as the
+program.
 
-==== Exporting patient personal information : `exportpatients`
+==== Export Commands
+The following commands can be used to export the different types of patient data.
+
+===== Exporting patient personal information : `exportpatients`
 
 Exports all patients' personal information to a csv file named `ClinicIO_patientdata.csv`. +
 Format: `exportpatients`
 
-The personal information consists of the following fields:
+The personal information consists of the following fields, in order:
 ****
-* Name: the patient's name.
-* Address: the patient's address.
-* Phone: the patient's phone number.
-* Email: the patient's email address.
+* `Name`: the patient's name.
+* `Address`: the patient's address.
+* `Phone`: the patient's phone number.
+* `Email`: the patient's email address.
 ****
 
-==== Exporting patients appointment records : `exportpatientsappointments`
+===== Exporting patients appointment records : `exportpatientsappointments`
 
 Exports all patients' appointment records to csv file named `ClinicIO_patientsappointments.csv`. +
 Format: `exportpatientsappointments`
 
-Each appointment record consists of the following fields:
+Each appointment record consists of the following fields, in order:
 ****
-* Name: the patient's name.
-* Address: the patient's address.
-* Phone: the patient's phone number.
-* Email: the patient's email address.
-* Date: the appointment's date.
-* Time: the appointment's time.
-* Status: the appointment's status. May be either `APPROVED` or `CANCELLED`.
-* Type: the type of appointment. May be either `NEW` or `FOLLOW_UP`.
+* `Name`: the patient's name.
+* `Address`: the patient's address.
+* `Phone`: the patient's phone number.
+* `Email`: the patient's email address.
+* `Date`: the appointment's date.
+* `Time`: the appointment's time.
+* `Status`: the appointment's status. May be either `APPROVED` or `CANCELLED`.
+* `Type`: the type of appointment. May be either `NEW` or `FOLLOW_UP`.
 ****
 
-Go to <<Appointment Commands>> for more details.
+Go to <<Appointment Commands>> for more details on appointments.
 
-==== Exporting patients consultation records : `exportpatientsconsultations`
+===== Exporting patients consultation records : `exportpatientsconsultations`
 
 Exports all patients' consultation records to csv file named `ClinicIO_patientsconsultations.csv`. +
 Format: `exportpatientsconsultations`
 
-Each consultation record consists of the following fields:
+Each consultation record consists of the following fields, in order:
 ****
-* Name: the patient's name.
-* Address: the patient's address.
-* Phone: the patient's phone number.
-* Email: the patient's email address.
-* Date: the consultation's date.
-* Arrival Time: the arrival time of the patient at the clinic.
-* Consultation Time: the consultation's start time.
-* End time: the end time of the consultation.
-* Doctor: the doctor being consulted.
-* Prescription: the prescribed ascribed to the patient.
-* Description: the doctor's notes on the patient.
-* Appointment: whether the consultation is the result of an appointment. May be either `YES` or `NO`.
-* Appointment Date: the date of the appointment resulting in the consultation. Empty if no appointment was made.
-* Appointment Time: the time of the appointment resulting in the consultation. Empty if no appointment was made.
+* `Name`: the patient's name.
+* `Address`: the patient's address.
+* `Phone`: the patient's phone number.
+* `Email`: the patient's email address.
+* `Date`: the consultation's date.
+* `Arrival Time`: the arrival time of the patient at the clinic.
+* `Consultation Time`: the consultation's start time.
+* `End time`: the end time of the consultation.
+* `Doctor`: the doctor being consulted.
+* `Prescription`: the prescribed ascribed to the patient.
+* `Description`: the doctor's notes on the patient.
+* `Appointment`: whether the consultation is the result of an appointment. May be either `YES` or `NO`.
+* `Appointment Date`: the date of the appointment resulting in the consultation. Empty if no appointment was made.
+* `Appointment Time`: the time of the appointment resulting in the consultation. Empty if no appointment was made.
 ****
-// end::datacommands[]
+// end::exportcommands[]
 
 // tag::medicinecommands[]
 === Medicine Inventory Commands
@@ -639,11 +686,12 @@ Cancels the 4th appointment in the list.
 
 This section is designed to help you answer any issues that are frequently asked by others.
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
+[qanda]
+How do I transfer my data to another Computer?::
+Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicIO folder.
 
-*Q*: How to save data in ClinicIO? +
-*A*: There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
+How to save data in ClinicIO?::
+There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
 
 == Command Summary
 

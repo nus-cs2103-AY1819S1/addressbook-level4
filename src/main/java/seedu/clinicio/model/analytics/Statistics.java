@@ -1,7 +1,5 @@
 package seedu.clinicio.model.analytics;
 
-import static java.util.Objects.requireNonNull;
-
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
