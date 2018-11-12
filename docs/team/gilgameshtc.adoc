@@ -13,27 +13,27 @@ This portfolio documents my role and contributions to the project, Hallper. This
 requirement for the module CS2103T - Software Engineering, offered in the National University of Singapore (NUS). The main goal of the project is to enhance and add value to the application, AddressBook Level 4. Our team of five, decided to morph the AddressBook Level 4 into the application, Hallper.
 
 *About Hallper:* Hallper is a desktop application providing administrative convenience. It is catered to the Junior Common Room Committee (JCRC)
-of the halls of NUS, whose main responsibility is to organise and manage all student related activities in hall and look after the welfare of hall residents.
-Users interacts with Hallper using a Command Line Interface (CLI), whilst a Graphic User Interface (GUI) implemented with JavaFX displays the relevant information to the user. Hallper is written
+of the Halls of NUS, whose main responsibility is to organise and manage all student related activities in hall and look out for the welfare of the residents.
+Users interact with Hallper using a Command Line Interface (CLI), whilst a Graphic User Interface (GUI) implemented with JavaFX displays the relevant information to the user. Hallper is written
 in Java and contains approximately 60k lines of code (LoC). Integrated within Hallper is a range of features such as calendar, email and budgeting. Besides that, features such as erase, search and clear from the existing AddressBook Level 4 application
 have been enhanced.
 
-*My role and contributions:* My contribution to the project is the implementation of the calendar feature and all its relevant commands. The commands that facilitate the calendar feature includes creating calendars, adding events, deleting events and viewing calendars.
-My role in this project is to make sure that the milestones we set collectively as a team are met on time. This includes reviewing the codes of my team members and doing acceptance testing (making sure the feature solves the problem it claims to solve).
+*My role and contributions:* My contribution to the project is the implementation of the calendar feature and all its relevant commands. The commands that facilitate the calendar feature include creating calendars, adding events, deleting events and viewing calendars.
+My role in this project is to make sure that the milestones we set collectively are met on time. This includes reviewing the codes of my team members and doing acceptance testing (making sure the feature solves the problem it claims to solve).
 
 == 2. Summary of contributions
-This section lists the major and minor enhancements I have contributed to the project, Hallper as well as miscellaneous contributions in other aspects of the project.
+This section lists the major and minor enhancements I have contributed to the project, Hallper, as well as miscellaneous contributions in other aspects of the project.
 
 I implemented the calendar feature with external libraries,  https://github.com/ical4j/ical4j[iCal4j] and http://jfxtras.org/[JFxtras].
 
 * *Major enhancement 1*: added the ability to create calendars in Hallper
 ** What it does: This feature allows the user (JCRC member) to create monthly calendars in Hallper.
 ** Justification: This feature improves the product significantly because a JCRC member needs to keep track of the monthly events happening in hall, and a calendar is just the right tool. Being able to keep track of hall events in a calendar also allows the JCRC member to mitigate event date clashes with ease.
-** Highlights: Calendars are created in the file format `.ics`. This file format is chosen because it is compliant with the RFC 5545 format, which is recognised in the industry. Albeit the implementation of this feature requires an in-depth understanding of the external library https://github.com/ical4j/ical4j[iCal4j]. This is not an issue as the library is widely used and well documented, new developers can easily pick up and extend the current features.
+** Highlights: Calendars are created in the file format `.ics`. This file format is chosen because it is compliant with the RFC 5545 format, which is recognised in the industry. Albeit the implementation of this feature requires an in-depth understanding of the external library https://github.com/ical4j/ical4j[iCal4j], this is not an issue as the library is widely used and well documented so new developers can easily pick up and extend the current features.
 
 * *Major enhancement 2*: added the ability to view calendars in Hallper
 ** What it does: This feature allows the user (JCRC member) to view monthly calendars in Hallper by displaying the calendar on the GUI.
-** Justification: This feature improves the user experience as the user can observe changes made on the calendar dynamically. Besides that, the calendar is displayed alongside the command line interface (CLI), eliminating the need to switch between windows. In other words, the user can create, modify and view calendars in Hallper just by typing the keyboard.
+** Justification: This feature improves the user experience as the user can observe changes made on the calendar dynamically. Besides that, the calendar is displayed alongside the command line interface (CLI), eliminating the need to switch between windows. In other words, the user can create, modify and view calendars in Hallper just by typing on the keyboard.
 ** Highlights: The implementation of this feature requires an in-depth understanding of Java FXML API, JavaFX, XML, http://jfxtras.org/[JFxtras] and how they work together. It was challenging as it required changes to existing commands and interaction with the main window had to be correctly handled.
 
 * *Minor enhancement*: added add event and delete event commands that allow the user to modify calendar content.

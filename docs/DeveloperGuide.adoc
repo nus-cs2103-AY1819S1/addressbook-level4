@@ -420,7 +420,7 @@ It creates `.ics` files and saves them onto the local computer. Calendars in Hal
 calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
 It implements the following commands:
 
-* `create_calendar` -- Creates a monthly calendar and store it in local memory.
+* `create_calendar` -- Creates a monthly calendar and stores it in local memory.
 * `add_all_day_event` -- Adds an all day event into the monthly calendar specified.
 * `add_event` -- Adds an event of a specified time frame into the monthly calendar.
 * `delete_event` -- Deletes an existing event in the monthly calendar.
@@ -609,7 +609,7 @@ The following activity diagram summarizes what happens when a user executes a ca
 // tag::calendarDesign[]
 
 image::CalendarCommandActivityDiagram.png[width="650"]
-_Figure 4.3.1.6: Activity diagram for budget command_
+_Figure 4.3.1.6: Activity diagram for calendar commands_
 
 ==== Design Considerations
 
