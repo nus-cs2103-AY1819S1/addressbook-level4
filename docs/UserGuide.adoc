@@ -19,7 +19,10 @@ By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Hallper is a desktop app for the JCRC that allows *for better and faster management of residents' contacts*. More importantly, Hallper is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Hallper can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+Hallper is a desktop application for the Junior Common Room Committee(JCRC) that allows *for better and faster management of residents' contacts*.
+More importantly, Hallper is *optimized for those who prefer to work using their keyboards*.
+If you can type fast, Hallper can get your contact management tasks done faster than most apps.
+Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
