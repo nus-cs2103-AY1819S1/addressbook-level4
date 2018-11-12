@@ -261,7 +261,7 @@ In the following section, the shorthand format `\_ByNameCommand` and `_Command` 
 ===== Aspect: Whether a `_ByNameCommand` should Extend the Regular `_Command`
 * **Alternative 1 (current choice):** It extends the `Command` as shown:
 
-image::ByNameCommandClassDiagram.png[width="200"]
+image::ByNameCommandClassDiagram.png[width="150"]
 
 ** Pros: Due to polymorphism, a `_ByNameCommand` can replace instances of `_Command` seamlessly in the code without having to
 change many parts to add this additional feature. It also makes sense, because a `_ByNameCommand` "is a" `_Command` (e.g. an `EditByNameCommand` is an `EditCommand`)
@@ -348,7 +348,7 @@ image::DeleteByNameCommand4StateDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the `DeleteByNameCommand`:
 
-image::DeleteByNameCommandActivityDiagram.png[width="500"]
+image::DeleteByNameCommandActivityDiagram.png[width="350"]
 // end::deleteByName[]
 // end::byNameCommands[]
 
@@ -384,7 +384,7 @@ image::ScheduleCommand4StateDiagram.png[width="300"]
 
 The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
 
-image::ScheduleCommandActivityDiagram.png[width="400"]
+image::ScheduleCommandActivityDiagram.png[width="350"]
 
 The following sequence diagram shows how the operation itself works.
 
