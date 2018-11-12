@@ -57,7 +57,7 @@ cannot be changed upon addition of a wish.
 * *Minor enhancement*: Added a remark command.
 ** Credits: Code was adapted from https://github.com/se-edu/addressbook-level4/pull/599.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dioptrique&sort=displayName&since=2018-09-12&until=&timeframe=day&reverse=false&repoSort=true[Functional code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=dioptrique&sort=displayName&since=2018-09-12&until=&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard link]]
 
 * *Other contributions*:
 
@@ -67,8 +67,7 @@ cannot be changed upon addition of a wish.
 *** Did structural changes to User Guide: https://github.com/CS2103-AY1819S1-T16-1/main/pull/67[#67],
 https://github.com/CS2103-AY1819S1-T16-1/main/pull/136[#136]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T16-1/main/pull/4[#4]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T16-1/main/issues/71[#71],
+*** Reported bugs and suggestions for group members (examples:  https://github.com/CS2103-AY1819S1-T16-1/main/issues/71[#71],
                                                                https://github.com/CS2103-AY1819S1-T16-1/main/issues/20[#20],
                                                                https://github.com/CS2103-AY1819S1-T16-1/main/issues/127[#127],
                                                                https://github.com/CS2103-AY1819S1-T16-1/main/issues/130[#130],
@@ -76,6 +75,10 @@ https://github.com/CS2103-AY1819S1-T16-1/main/pull/136[#136]
                                                                 https://github.com/CS2103-AY1819S1-T16-1/main/issues/70[#6],
                                                                 https://github.com/CS2103-AY1819S1-T16-1/main/issues/85[#7],
                                                                 https://github.com/CS2103-AY1819S1-T16-1/main/issues/72[#8])
+*** Reported bugs and suggestions for other teams (examples: https://github.com/CS2103-AY1819S1-F11-3/main/issues/197[#197],
+                                                             https://github.com/CS2103-AY1819S1-F11-3/main/issues/194[#194],
+                                                             https://github.com/CS2103-AY1819S1-F11-3/main/issues/189[#189],
+                                                             https://github.com/CS2103-AY1819S1-F11-3/main/issues/186[#186])
 
 == Contributions to the User Guide
 
