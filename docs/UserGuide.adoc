@@ -441,11 +441,11 @@ A diagram of a use case and its detailed explanation is given below:
 .Diagram showing the operation of the setRecurrenceFrequency feature
 image::userguide/recurrenceFrequencyGuide.png[width="500"]
 
-. User types in the command `setRecurrenceFrequency hrs/24` as he wants his available spending to reset every day
-when he receives his allowance.
-. User closes his application.
-. User reopens his application on the next day to record another expense.
-. His available spending will now be reset as it is past the set frequency of one day. A notification will be shown
+. You type in the command `setRecurrenceFrequency hrs/24` as you want your available spending to reset every day
+when you receive your allowance.
+. You close the application.
+. You reopen the application on the next day to record another expense.
+. Your available spending will now be reset as it is past the set frequency of one day. A notification will be shown
 to inform you that this is done.
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
