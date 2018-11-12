@@ -352,7 +352,7 @@ Step 3. `ScheduleCommand` then executes.
 `ScheduleCommand` then conducts various checks sequentially to ensure that the appointment scheduled is valid.
 If it is invalid, an exception message will be thrown.
 The `Appointment` will not be scheduled.
-The order of checks conducted are displayed in the image below.
+The order of checks conducted is displayed in the image below.
 
 image::AppointmentCheckingFlow.png[width="800"]
 
@@ -364,7 +364,7 @@ This is shown in the diagram below.
 
 image::ScheduleCommandStep4.png[width="800"]
 
-The above procedure in step 4 is then repeated for the other person (e.g. other person is a doctor if specified person is a patient) affected in the scheduling process.
+The above procedure in step 4 is then repeated for the other person (e.g. the other person is a doctor if the specified person is a patient) involved in the scheduling process.
 
 Step 5. `XmlAdaptedPerson` updates storage of `appointmentList`.
 
@@ -777,7 +777,7 @@ The key operation implemented is `FindCommand#execute`.
 
 Given below is an example usage scenario and how the find command mechanism behaves at each step.
 
-Step 1. The user wants to find all `Person` who have a `friends` `Tag`, with `Name` either `Alex` or `Bernice` by
+Step 1. The user wants to find all `Person` whom have a `friends` `Tag`, with `Name` either `Alex` or `Bernice` by
 executing `find n/Alex n/Bernice t/friends`.
 
 Step 2. `FindCommandParser` will parse the input and verify that is it valid before creating a
@@ -835,27 +835,8 @@ image::FindCommandDeveloperGuideSequenceDiagram.png[width="800"]
 * **Alternative 2:** Generalise the search function by searching through all fields and providing the most relevant
 information through predictive search.
 ** Pros: It provides an even more powerful search function that is both simple to use and accurate.
-** Cons: It is incredibly difficult to implement such an search function without the use of machine-learning algorithms
+** Cons: It is incredibly difficult to implement such a search function without the use of machine-learning algorithms
 or an internet connection.
-
-===== Aspect: How to implement the search (And versus Or)
-
-* **Alternative 1 (current choice):** Implement *And Search* between different attributes but *Or Search* for keywords
-within the same attribute.
-** Pros: It allows users the option of either making their search more general by including different options for the
-same attribute (i.e. allow multiple names to be searched at once) and also more precise by adding more attributes to be
-searched (i.e. allow users to search for `friends` named `Alex` versus only people named `Alex`).
-** Cons: It may be confusing for newer users as the search function is not consistently And or Or. Users are also unable
-to carry out a search that will show all persons with two differing attributes (i.e. a search that shows only persons
-named `Alex` who are tagged as `friends`, as well as persons named `Bernice` who are tagged as `family` is impossible
-with the current search structure. `Alex` tagged as `family` and `Bernice` tagged as `friends` will also appear).
-* **Alternative 2:** Implement the current search but allow multiple search entries to be evaluated at the same time
-so that it is possible to show results of different searches compiled on the same list.
-** Pros: It provides all the benefits of the current search function while extending its capabilities to allow unrelated
-people to be searched together in one go.
-** Cons: It may become even more confusing to newer users to use the search function. It is also difficult to implement
-such a search function without having multiple lines for input entry. As of now, the application only supports a single
-line of user input at a time.
 
 // end::findcommand[]
 
