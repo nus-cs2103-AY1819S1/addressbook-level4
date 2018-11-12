@@ -26,30 +26,18 @@ contacts in EventsPlus+ into events, since both are features of the application.
 without searching for the person directly. Event tags are standardized based on a list of event tags displayed, which can
 be modified by the user. This feature sets the foundation for the inclusion of more event-related functionalities in future.
 
+//~
 * *Other enhancements*:
+
 ** added *the ability to work with event tags*
-*** What it does: Allows the user to add event tags into EventsPlus+ and find events by their tags, used for tagging new events added.
+*** What it does: Allows the user to add event tags into EventsPlus+ and find events by their tags, used for tagging new events.
 *** Justification: This is required for standardization of events tagging and makes it easier to find events by tags.
-*** Highlights: Event tags are shown at the top of the *Events* tab and can be used for easy reference of all types of events
-in EventsPlus+.
+*** Highlights: Event tags are shown at the top of the *Events* tab and can be used for easy reference of event types.
 
-////
-** added *the ability to find events by Event tags*
-*** What it does: Allows the user to find events based on their tags.
-*** Justification: Users should be able to search for a certain type of event quickly, instead of scanning through the whole list.
-*** Highlights: Since event tags are displayed on the top of the *Events* tab, users can refer to the list easily and
-find all events tagged as that particular type easily.
-////
-
-** added *the ability to auto-complete commands*
+** added *the command auto-completion feature*
 *** What it does: Reduces the time required for user to finish a command, especially when command words are long.
-*** Justification: Saves time on the user on typing commands, and reduces effort on users to remember the whole command word.
-*** Highlights: Only requires a simple pressing of the `Tab` key for command auto-completion.
-
-** re-organised the `BrowserPanel` under `TabPanel`
-*** Justification: Sets the foundation for more tabs to be included in the application.
-*** Highlights: Tabs with different functionalities can be added as separate classes in the source code.
-
+*** Justification: Saves time on the user on typing commands (and remembering full commands), as they can use just the `Tab` key.
+//~
 * *Other contributions*:
 
 ** Project management:
@@ -70,8 +58,8 @@ find all events tagged as that particular type easily.
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
 *** Added the add event tag/find event functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
-*** Added the command auto-completion feature (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
-*** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
+*** Added the command auto-completion feature (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
+*** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
 
 ** Documentation:
 *** Updated documentation for the enhancements as above: (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
@@ -84,8 +72,8 @@ find all events tagged as that particular type easily.
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1819S1/forum/issues/116[#116])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W17-3/main/issues/177[1],
+*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1819S1/forum/issues/116[#116])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W17-3/main/issues/177[1],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/179[2],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/181[3],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/182[4],
