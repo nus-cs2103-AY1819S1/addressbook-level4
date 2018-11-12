@@ -21,7 +21,7 @@ Responsibilities: UI
 
 === Chen Juan
 image::cjuanvip.png[width="150", align="left"]
-{empty}[http://github.com/CJuanvip[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/CJuanvip[github]] [<<cjuanvip#, portfolio>>]
 
 Role: Deliverables and deadline + Scheduling and tracking
 
