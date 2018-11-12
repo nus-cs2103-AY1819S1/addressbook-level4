@@ -18,7 +18,7 @@ public class FindPhoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds a person through his/her phone number "
             + "and displays that person.\n"
-            + "Parameters: Phone number\n"
+            + "Parameters: PHONE_NUMBER [MORE_PHONE_NUMBERS]...\n"
             + "Example: " + COMMAND_WORD + " 12345678";
 
     private final PhoneContainsKeywordsPredicate predicate;

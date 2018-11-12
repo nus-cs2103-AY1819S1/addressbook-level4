@@ -215,20 +215,28 @@ Example:
 
 * `deleteGrade 1 Y1819S1_Mid` +
 Deletes grade record named "Y1819S1_Mid" for the first person in the display panel.
+
 // end::deleteGrade[]
 
+
+// tag::find[]
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g. `hans` will match `Hans`
-* The search allows fuzzy matching when the length of the keyword is greater than 3 (with Levenshtein Distance < 3). e.g. `challotto` will match `Charlotte`
-* If the length of the keyword you type in is smaller or equal to 3, the keyword must be exactly the same to expected (but still case insensitive). e.g. `Lo` will not match `Li`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. +
+e.g. `hans` will match `Hans`
+* The search allows fuzzy matching when the length of the keyword is greater than 3 (with Levenshtein Distance < 3). +
+e.g. `challotto` will match `Charlotte`
+* If the length of the keyword you type in is smaller or equal to 3, the keyword must be exactly the same to expected (but still case insensitive). +
+e.g. `Lo` will not match `Li`
+* The order of the keywords does not matter. +
+e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). +
+e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -239,11 +247,13 @@ Returns `john` and `John Doe`
 Returns `Charlotte Oliveiro`
 * `find David Roy John` +
 Returns any person having names `David`, `Roy`, or `John`
+// end::find[]
 
+// tag::find/a[]
 === Locating persons by address: `find/a`
 
 Finds persons whose addresses contain all the given keywords. +
-Format: `find/a KEYWORD [MORE_KEYWORDS]`
+Format: `find/a KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search will search for persons whose addresses contain all the keywords. +
@@ -273,11 +283,13 @@ Returns `John Doe` (the order of the keywords does not matter)
 Returns person whose addresses containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li`
 * `find/a srangon` +
 Returns persons whose addresses containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li` (fuzzy matching)
+// end::find/a[]
 
+// tag::find/e[]
 === Locating persons by email address: `find/e`
 
 Finds a person through his/her email address. +
-Format: `find/e EMAIL`
+Format: `find/e EMAIL [MORE_EMAILS]...`
 
 ****
 * The search is case insensitive. +
@@ -296,11 +308,13 @@ Returns `John Doe` whose email address is `John@example.com`
 Returns `David Li` whose email address is `lidavid@example.com` (case insensitive)
 * `find/e lidavd@exmple.com` +
 Returns `David Li` whose email address is `lidavid@example.com` (fuzzy matching)
+// end::find/e[]
 
+// tag::find/p[]
 === Locating persons by phone number: `find/p`
 
 Finds a person through his/her phone number. +
-Format: `find/p PHONE_NUMBER`
+Format: `find/p PHONE_NUMBER [MORE_PHONE_NUMBER]...`
 
 ****
 * Only the phone number is searched.
@@ -317,6 +331,7 @@ Returns `John Doe` whose phone number is `98765432`
 Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
 * `find/p 98765433` +
 Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
+// end::find/p[]
 
 === Deleting a person : `delete`
 

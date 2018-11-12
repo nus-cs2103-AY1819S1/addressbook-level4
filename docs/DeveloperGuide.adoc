@@ -164,6 +164,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -172,7 +173,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `StudentPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -183,6 +184,8 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
+// end::ui[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -325,21 +328,86 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::findfeature[]
-=== Find Feature
+=== Find Related Feature
+
+The find related features include four commands, which are `FindCommand`, `FindAddressCommand`, `FindEmailCommand`, and `FindPhoneCommand`. They support finding by name, address, email, and phone numbers.
 
 ==== Current Implementation
 
-* Tutor Pal is able to find a student through his/her name by using the command "find NAME".
+===== Find command (`find KEYWORD [MORE_KEYWORDS]...`)
 
-* A Find by Email command has been added, which allows a tutor to find a student through his/her
-email by using the command "find/e EMAIL".
+The `find` command has been implemented to find students by their names.
 
-==== Future Implementation
+* The `find` command accepts one or more arguments, each argument represent a keyword.
 
-* Further enhance the find command so that a tutor is able to find a student through his/her
-phone number and address.
+* The `find` command finds persons whose names contain any of the given keywords.
 
-==== Design Considerations[ongoing]
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose names match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. The condition for using fuzzy matching in this command is the length of the keyword is greater than 3 and if the condition is satisfied, we set the Levenshtein Distance to be less than 3, which means at most two differences.
+
+image::FindCommandLogicDiagram.png[width="800"]
+
+===== Find by address command (`find/a KEYWORD [MORE_KEYWORDS]...`)
+
+The `find/a` command has been implemented to find students by their address.
+
+* The `find/a` command accepts one or more arguments, each argument represent a keyword.
+
+* The `find/a` command finds persons whose addresses contain all the given keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .allMatch(...) on the keywords stream to find all the students whose addresses match all the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. The condition for using fuzzy matching in this command is the length of the keyword is greater than 3 and if the condition is satisfied and the length of keyword is 4 to 7, we set the Levenshtein Distance to be less than 3; if the length of keyword is more than 8, we set the Levenshtein Distance to be less than 4.
+
+image::FindAddressCommandLogicDiagram.png[width="800"]
+
+===== Find by email command (`find/e EMAIL [MORE_EMAILS]...`)
+
+The `find/e` command has been implemented to find students by their email.
+
+* The `find/e` command accepts one or more arguments, each argument represent an email address keyword.
+
+* The `find/e` command finds persons whose emails are the same as any of the keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose emails match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. We set the Levenshtein Distance to be less than 4, which means at most three differences.
+
+image::FindEmailCommandLogicDiagram.png[width="800"]
+
+===== Find by phone number command (`find/p PHONE_NUMBER [MORE_PHONE_NUMBERS]...`)
+
+The `find/p` command has been implemented to find students by their phone number.
+
+* The `find/p` command accepts one or more arguments, each argument represent a phone number keyword.
+
+* The `find/p` command finds persons whose phone numbers are the same as any of the keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose phone numbers match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. We set the Levenshtein Distance to be less than 3, which means at most two differences.
+
+image::FindPhoneCommandLogicDiagram-1.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Fuzzy matching
+
+* **Alternative 1 (current choice):** Allow fuzzy matching in searching.
+** Pros:
+. Small typos will not affect the searching output.
+. Make the application much more practical and easier to use.
+** Cons:
+. Some minor mistakes in spelling might lead to totally different meanings. We have tried to prevent this from happening by limiting the minimum length of keywords for fuzzy matching, however, there might still be a few cases that exist problems.
 // end::findfeature[]
 
 // tag::gradesfeature[]
@@ -358,7 +426,7 @@ phone number and address.
 
 * Add more function for grade command such as sorting students by grades, analysing the grades fluctuation of a students, listing all grades of a student and even using Gui to layout the grades.
 
-==== Design Considerations[ongoing]
+==== Design Considerations
 // end::gradesfeature[]
 
 // tag::earningfeature[]
