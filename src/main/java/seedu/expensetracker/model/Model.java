@@ -126,12 +126,14 @@ public interface Model {
      */
     void commitExpenseTracker() throws NoUserSelectedException;
 
-    //@@author JasonChong96
     //=========== Login =================================================================================
 
     /**
-     * Selects the ExpenseTracker of the user with the input username to be used.
-     * Returns true if successful, false if the input password is incorrect.
+     * Selects the ExpenseTracker of the user matching the input LoginCredentials to be used.
+     * @param loginCredentials the LoginCredentials used
+     * @return  true if successful, false if the input password is incorrect.
+     * @throws NonExistentUserException if no user matches the Username in the given LoginCredentials
+     * @throws InvalidDataException if the stored user data contains invalid values
      */
     boolean loadUserData(LoginCredentials loginCredentials)
             throws NonExistentUserException, InvalidDataException;
@@ -143,19 +145,37 @@ public interface Model {
 
     /**
      * Returns true if there is a user with the input username in memory.
+     * @param username the Username of the desired user
      */
     boolean isUserExists(Username username);
 
     /**
      * Adds a user with the given username and gives him/her an empty ExpenseTracker.
+     * @param username the Username of the new user
      * @throws UserAlreadyExistsException if a user with the given username already exists
      */
     void addUser(Username username) throws UserAlreadyExistsException;
 
     /**
-     * Returns true if a user has been selected to be used. i.e Already logged in
+     * Checks if there is a currently logged in user.
+     * @return true if a user has been selected to be used. i.e Already logged in
      */
     boolean hasSelectedUser();
+
+    /**
+     * Sets the password of the currently logged in user as the new password given.
+     * @param newPassword the new password to be set
+     * @param plainPassword the string representation of the new password to be set
+     */
+    void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException;
+
+    /**
+     * Checks if the given password matches that of the currently logged in user. If the user does not have any password
+     * set, then they are considered to be matching.
+     * @param toCheck the password to check as an optional
+     * @return true if the password to check matches that of the currently logged in user, false if it doesn't
+     */
+    boolean isMatchPassword(Password toCheck) throws NoUserSelectedException;
 
     /**
      * Encrypts the input String using the current user's encryption key.
@@ -217,21 +237,6 @@ public interface Model {
      * Returns a copy of this model.
      */
     Model copy(UserPrefs userPrefs) throws NonExistentUserException, NoUserSelectedException;
-
-    /**
-     * Sets the password of the currently logged in user as the new password given.
-     * @param newPassword the new password to be set
-     * @param plainPassword the string representation of the new password to be set
-     */
-    void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException;
-
-    /**
-     * Checks if the given password matches that of the currently logged in user. If the user does not have any password
-     * set, then they are considered to be matching.
-     * @param toCheck the password to check as an optional
-     * @return true if the password to check matches that of the currently logged in user, false if it doesn't
-     */
-    boolean isMatchPassword(Password toCheck) throws NoUserSelectedException;
 
     /**
      * Adds a notification of type {@code WarningNotification}to the list of notification

@@ -37,17 +37,17 @@ public class EncryptionUtil {
     private static final int KEY_LENGTH = 32;
 
     /**
-     * Decrypts a String with by using the given password as the encryption key.
+     * Decrypts a String with by using the input encryption key
      * @param toDecrypt the String to be decrypted
-     * @param password the encryption key to be used
+     * @param encryptionKey the encryption key to be used
      * @return the decrypted form of the input String
      * @throws IllegalValueException if the given encryption key is not the encryption key used to encrypt the
      * input String
      */
-    public static String decryptString(String toDecrypt, String password) throws IllegalValueException {
-        requireAllNonNull(toDecrypt, password);
-        assert password.length() == KEY_LENGTH;
-        Key key = new SecretKeySpec(password.getBytes(), KEY_ALGORITHM);
+    public static String decryptString(String toDecrypt, String encryptionKey) throws IllegalValueException {
+        requireAllNonNull(toDecrypt, encryptionKey);
+        assert encryptionKey.length() == KEY_LENGTH;
+        Key key = new SecretKeySpec(encryptionKey.getBytes(), KEY_ALGORITHM);
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_TRANSFORMATION);
             cipher.init(Cipher.DECRYPT_MODE, key);
@@ -61,19 +61,19 @@ public class EncryptionUtil {
     }
 
     /**
-     * Encrypts a String with the given password as an encryption key. The encryption algorithm uses a symmetric key.
+     * Encrypts a String with the input encryption key. The encryption algorithm uses a symmetric key.
      * i.e the same encryption key is used to decrypt and encrypt a given String.
      * The input encryption key must be 128-bits long.
      * Given the same input string and encryption key, the encrypted output Strings will be equivalent.
      * @param toEncrypt the String to be encrypted
-     * @param password the encryption key to be used, must be 128-bits long
+     * @param encryptionKey the encryption key to be used, must be 128-bits long
      * @return the encrypted String
      * @throws IllegalValueException if the given encryption key is not valid. i.e not 128-bits long
      */
-    public static String encryptString(String toEncrypt, String password) throws IllegalValueException {
-        requireAllNonNull(toEncrypt, password);
-        assert password.length() == KEY_LENGTH;
-        Key key = new SecretKeySpec(password.getBytes(), KEY_ALGORITHM);
+    public static String encryptString(String toEncrypt, String encryptionKey) throws IllegalValueException {
+        requireAllNonNull(toEncrypt, encryptionKey);
+        assert encryptionKey.length() == KEY_LENGTH;
+        Key key = new SecretKeySpec(encryptionKey.getBytes(), KEY_ALGORITHM);
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_TRANSFORMATION);
             cipher.init(Cipher.ENCRYPT_MODE, key);
