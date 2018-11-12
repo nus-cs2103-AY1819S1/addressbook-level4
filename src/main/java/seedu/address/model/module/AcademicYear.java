@@ -44,6 +44,9 @@ public class AcademicYear {
      * Makes an identical deep copy of this academic year.
      */
     public AcademicYear makeCopy() {
+        if (isEmptyYear) {
+            return new AcademicYear();
+        }
         AcademicYear newYear = new AcademicYear(toString());
         return newYear;
     }
