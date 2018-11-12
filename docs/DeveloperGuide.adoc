@@ -728,7 +728,7 @@ Step 6. It then checks whether the CCA name is present in `BudgetWindow#fillInne
 The following activity diagram summarizes what happens when a user executes a budget command:
 
 image::BudgetCommandActivityDiagram.png[width="650"]
-__Figure 4.4.1.4: Activity diagram for budget command_
+_Figure 4.4.1.4: Activity diagram for budget command_
 
 ==== Design Considerations
 
