@@ -89,10 +89,10 @@ Adds a task to the schedule planner. +
 ====
 Example: +
 ====
-Input: [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
+[blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 
-Outcome: Adds a task named [blue]`exam` with priority level [blue]`3`,
-tag [blue]`CS3241` and deadline of 10th October 2018, venue at mpsh1.
+Adds a task named [blue]`exam` with priority level [blue]`3`,
+tag `CS3241` and deadline of `101018` , venue at `mpsh1`.
 ====
 The priority level must be a number between 1 to 3, where 3 denotes highest priority.
 
@@ -147,8 +147,8 @@ Edits an existing task in the schedule planner. +
 Example:
 
 ====
-Input: [blue]`edit 3 p/1 d/121019` +
-Outcome: Priority of existing task with index 3 to 1, and its deadline is changed to 12th October 2019 .
+[blue]`edit 3 p/1 d/121019` +
+Task with index `3` will have it's priority level change to `1` , and its deadline is changed to `121019`.
 ====
 
 
@@ -158,13 +158,17 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 At least one of the optional fields must be provided. Existing values of provided field
 will be updated to the input values.
 
+[NOTE]
+As we have implemented auto-sorting, if you edited the `date` or `priority`, the task might get reordered in the task
+list. For more detailed guide about auto-sorting, please refer to <<Sorting Tasks by Deadline Date and Priority>>
+
 [WARNING]
 Existing tags of a task will be removed when its tag is edited. If input is
 [blue]`edit 3 t/project`, then the resulting tag(s) of task 3 will be [blue]`project` only.
 
 [TIP]
-To remove all tags of an existing task, you can just type [blue]`t/`.
-If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be removed.
+To remove all tags of an existing task e.g for task with index number `3`, you can type [blue]`edit 3 t/`, all the
+tags of the task of index number `3` will be removed.
 
 
 [TIP]
@@ -183,13 +187,13 @@ Deletes the specified task from the schedule planner forever. +
 
 Example:
 ====
-input: [blue]`delete 3` +
-output: Task with index 3 delete from schedule planner.
+[blue]`delete 3` +
+Task with index number `3` delete from schedule planner.
 ====
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list` command to find out the index of the task to be deleted.
+Use the [BLUE]`list` command to find out the index of the task to be deleted.
 
 //tag::archivetask[]
 
@@ -204,7 +208,7 @@ Archives the specified task from the schedule planner. This is different from de
 Example:
 ====
 [blue]`archive 1` +
-Task with index 1 is removed from the task list.
+Task with index `1` is removed from the task list.
 
 image::archiveTask.png[width="400"]
 ====
@@ -322,11 +326,9 @@ Tasks from 021118 to end of the month (301118) are listed.
 All tasks will be automatically loaded in the order of deadlines.
 The order of tasks first depends on deadline date, then priority. +
 Given below is an example of two tasks with different deadline dates.
-Task `[blue]`Do CS2030 lab` is listed before task `Self study` because it has
+Task [blue]`Do CS2030 lab` is listed before task `Self study` because it has
 earlier deadline date.
 
-
-.Partial screenshot of task list
 
 image::sortingdate.png[width="400" caption="Figure 1. "]
 
@@ -334,7 +336,6 @@ If two tasks have the same deadline, the order then depends on priority, one tha
 higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
 Given below is an example of two tasks with the same deadline dates.
 
-.Partial screenshot of task list
 
 image::sortingpriority.png[width="400" caption="Figure 2. "]
 //end::sorting[]
@@ -347,21 +348,21 @@ Finds tasks whose names match with given keyword. +
 ====
 Example:
 ====
-input: [blue]`find tutorial` +
-output: All tasks with "tutorial" in their names are listed.
+[blue]`find tutorial` +
+All tasks with `tutorial` in their names are listed.
 ====
 [NOTE]
 The keyword must be whole word. +
-E.g for finding "tutorial", "tutorial" must be used, "tut" or other variations would not be allowed.
+E.g for finding `tutorial`, `tutorial` must be used, `tut` or other variations would not be allowed.
 
-The search is case insensitive. For example, [blue]`apples` and  [blue]`Apples` both return the same tasks.
+The search is case insensitive. For example, `apples` and  `Apples` both return the same tasks.
 
-The order of the keywords does not matter. For example,  [blue]`apples buy` and [blue]`buy apples` both return the
+The order of the keywords does not matter. For example,  `apples buy` and `buy apples` both return the
 same tasks. +
 
 [TIP]
 You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
-[blue]`CS3230` or [blue]`CS5229`.
+`CS3230` or `CS5229`.
 
 
 // tag::filtertags[]
@@ -711,7 +712,7 @@ Example: +
 * **Editing a Task** :
 
 ====
-[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL]t/[TAGS]... d/[DEADLINE]` +
+[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE]` +
 
 Example: +
 [blue]`edit 3 p/1 d/121019` +
