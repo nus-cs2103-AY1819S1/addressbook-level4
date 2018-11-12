@@ -537,6 +537,7 @@ of the current solution which might affect the test ability.
 // end::useraccount[]
 
 // tag::auto-ingredient-update[]
+[[auto-ingredient-update]]
 === Auto-ingredient update feature
 
 The auto-ingredient update mechanism is facilitated by `RecordSalesCommand` and triggers whenever the "record-sales"
@@ -747,6 +748,7 @@ the stock up operation, which is exposed in the `Model` interface as `Model#stoc
 atomic. This means that if the operation fails for one ingredient, none of the ingredients will be stocked up.
 
 The following activity diagram shows what happens when the user executes the `stockup` command:
+
 image::StockUpActivityDiagram.png[width="1000"]
 
 ==== Design Considerations
@@ -763,9 +765,10 @@ needing to know its implementation or creating any Ingredient objects.
 ingredient to be stocked up, a new ingredient with the updated number of units is created and then passed as an
 argument to `updateIngredient()`.
 ** Pros: Simple to implement, by using the existing `updateIngredient()` method.
-** Cons: Difficult to integrate different features while maintaining abstraction. The <<auto-ingredient-update>>
-feature would require the sales component to create each updated ingredient, before calling the `updateIngredient()`
-method. This means poor abstraction and possibly a violation of the Law of Demeter.
+** Cons: Difficult to integrate different features while maintaining abstraction. The
+<<auto-update-ingredient feature, auto-ingredient-update>> feature would require the sales component to create each
+updated ingredient, before calling the `updateIngredient()` method. This means poor abstraction and possibly a
+violation of the Law of Demeter.
 
 // end::ingredient[]
 
