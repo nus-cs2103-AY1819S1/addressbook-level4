@@ -426,8 +426,14 @@ Step 2. Upon hitting enter, the status in the `Appointment` will be changed from
 // tag::addprescription[]
 === Add Prescription Feature
 ==== Current Implementation
-The add prescription feature is facilitated by `AddPrescriptionCommand` and `AddPrescriptionCommandParser`.
+The add prescription feature is facilitated by `AddPrescriptionCommand` and `AddPrescriptionCommandParser`
 This command is implemented such that it is able to add a `Prescription` object for a specific `Appointment` specified by appointment id.
+
+Since `Appointment` currently only stores `Doctor` and `Patient` as `String`, thus appointment with the updated prescription will be updated for both
+`Doctor` and `Patient` only if the appointment is upcoming and only updated for `Patient` if the appointment is completed.
+
+.Add Prescription Sequence Diagram
+image::AddPrescriptionSequenceDiagram.png[width="600"]
 
 Step 1. The user types `add-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`.
 
@@ -436,6 +442,16 @@ Step 2. Upon hitting enter, the `Prescription` will be created and added to the 
 [WARNING]
 Exception will be thrown if a medicine of the same name already exists in appointment regardless of dosage and consumption per day. +
 Exception will be thrown if medicine that the patient is allergic to is added to the appointment.
+
+[NOTE]
+Prescription can be added to both upcoming and completed appointments
+
+==== Design considerations
+===== Aspect: How to model Prescription
+* Alternative 1 (Current choice) : prescription is modelled by a `Prescription` object with 3 attributes `medicineName` ,
+`dosage` and `consumptionPerDay`
+
+* Alternative 2 : `Prescription` object stores attributes `medicineName` as a `String` and `dosage`, `consumptionPerDay` as `int`.
 // end::addprescription[]
 
 // tag::deleteprescription[]
@@ -444,12 +460,18 @@ Exception will be thrown if medicine that the patient is allergic to is added to
 The delete prescription is facilitated by `DeletePrescriptionCommand` and `DeletePrescriptionCommandParser`.
 This command is implemented such that it is able to delete a `Prescription object for a specific `Appointment` specified by appointment id.
 
+.Delete Prescription Sequence Diagram
+image::DeletePrescriptionSequenceDiagram.png[width="600"]
+
 Step 1. The user types `delete-prescription` in the command box followed by the parameters `APPOINTMENT_ID pn/MEDICINE_NAME`.
 
 Step 2. Upon hitting enter, the `Prescription` will be deleted from the `Appointment`.
 
 [WARNING]
 Exception will be thrown if medicine to be deleted does not exist in appointment.
+
+[NOTE]
+Prescription can be deleted from both upcoming and completed appointments
 // end::deleteprescription[]
 
 // tag::addmedicalhistory[]
@@ -515,8 +537,8 @@ Exception will be thrown if given input is not in the original medical history.
 // tag::remark[]
 === Remark Feature
 ==== Current Implementation
-Remark command allows user to input any information into Patient object with no restrictions. This command can
-only be called after patient is created.
+Remark command allows user to input any information into a Person object with no restrictions.
+If an input is empty, the previous existing remark is deleted. This command can only be called after person is created.
 
 .Remark Command Sequence Diagram
 image::RemarkSequenceDiagram.png[width="600"]
