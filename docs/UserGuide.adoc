@@ -105,7 +105,7 @@ Valid: `999, 1800123456, 659192939495` +
 Invalid: `9, 1800 123456, +659192939495`
 
 * *Email* - A single string with an @ character in between the username and domain name. +
-Username can contain the following special characters: !#$%&'*+/=?`{|}~^.- +
+Username can contain the following special characters: `!#$%&'*+/=?{|}~^.-` +
 Domain name should be at least 3 letters long. +
 Valid: `alex@abc, bob123@xyz.com, example!123@nus.edu.sg` +
 Invalid: `alex, bob@co, example@123@nus.edu.sg`
@@ -317,16 +317,16 @@ Format: +
 
 Example: +
 `editperson 6 p/91234567 e/johndoe@example.com` +
-Edits the person at INDEX 6 in TheTracker: edits his phone to 91234567 and email address to johndoe@example.com.
+Edits the person at INDEX 6 in TheTracker: edits his phone number to 91234567 and email address to johndoe@example.com.
 
 ====
 *Notice*
 
 * The `[PREFIX]/` should be replaced by `n/` (for Name), `p/` (Person), `e/` (Email), `a/` (Address), `t/` (Tag) to specify the field you want to edit.
-* You can specify multiple fields you want to edit
+* You can edit multiple fields
 * The INDEX must be valid:
 ** Be a positive number
-** Not larger than the size of the address book list
+** Not larger than the size of the person list
 ====
 
 ==== Editing a module : `editmodule`
@@ -338,16 +338,17 @@ Format: +
 
 Example: +
 `editmodule 1 mc/CS1101S` +
-Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
+Edits the module of INDEX 1 in TheTracker: edits the module code to CS1101S.
 
 ====
 *Notice*
 
 * The `[PREFIX]/` should be replaced by `mc/` (for Module Code), `mt/` (for Module Title), `ay/` (for Academic Year), `sem/` (for Semester), `t/` (for Tag) to
 specify the field you want to edit
+* You can edit multiple fields
 * The INDEX must be valid:
 ** Be a positive number
-** Not larger than the size of the address book list
+** Not larger than the size of the module list
 ====
 ==== Editing an occasion : `editoccasion`
 
@@ -364,9 +365,10 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 
 * The `[PREFIX]/` should be replaced by `on/` (for Occasion Name), `od/` (for Occasion Date), `loc/` (for Occasion Location), `t/` (for Tag) to
 specify the field you want to edit
+* You can edit multiple fields
 * The INDEX must be valid:
 ** Be a positive number
-** Not larger than the size of the address book list
+** Not larger than the size of the occasion list
 ====
 
 // end::edit[]

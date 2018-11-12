@@ -11,8 +11,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -106,9 +104,6 @@ public class Occasion {
         return location;
     }
 
-    public Property occasionNameProperty() {
-        return new SimpleStringProperty(occasionName.fullOccasionName);
-    }
 
     /**
      * Make an identical deep copy of this occasion.

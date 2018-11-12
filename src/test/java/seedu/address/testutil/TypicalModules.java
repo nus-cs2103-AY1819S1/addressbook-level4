@@ -83,7 +83,4 @@ public class TypicalModules {
                 TYPICAL_MODULE_THREE, TYPICAL_MODULE_FOUR, TYPICAL_MODULE_FIVE, TYPICAL_MODULE_SIX));
     }
 
-    public static List<Module> getOneTypicalModule() {
-        return new ArrayList<>(Arrays.asList(TYPICAL_MODULE_TWO));
-    }
 }
