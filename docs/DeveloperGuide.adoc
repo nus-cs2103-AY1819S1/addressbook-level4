@@ -637,7 +637,7 @@ as a set of hashcodes before transforming the hashcodes to task reference only w
 The `DependencyGraph` is the graph representing the dependencies between the task objects. A graph model needs to be created
 so useful functions can be implemented such as cyclic check, topological sort, or a depth first search of the graph.
 
-image::ShowTopologicalOrderCommandSequenceDiagram.png[width="1200"]
+image::ShowTopologicalOrderCommandSequenceDiagram.png[width="800"]
 
 _Sequence Diagram of the Show Topological Order Command (DependencyGraph on the right hand side)_
 
