@@ -130,7 +130,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first recipe in {@code recipeModel}'s filtered list from {@code recipeModel}'s address book.
      */
-    public static void deleteFirstPerson(Model<Recipe> model) {
+    public static void deleteFirstRecipe(Model<Recipe> model) {
         Recipe firstRecipe = model.getFilteredList().get(0);
         model.delete(firstRecipe);
         model.commitAppContent();
