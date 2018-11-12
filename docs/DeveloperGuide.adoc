@@ -2051,7 +2051,7 @@ categories and costs.
 === Find expenses
 
 . Find expenses that are in the ExpenseTracker
-
+.. Prerequisites: Logged in to an account and the targeted expenses exist in the account.
 .. Test case: `find n/lunch` +
    Expected: The expenses with name "lunch" are shown on the expense list panel. Number of expenses
    found is shown as the status message.
@@ -2060,7 +2060,7 @@ categories and costs.
    the expense list panel. Number of expense found is shown as the status message.
 
 . Find expenses that are not in the ExpenseTracker
-
+.. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
 .. Test case: `find (any keywords that would not direct to existing expenses)`
    Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
    status message.
@@ -2068,7 +2068,7 @@ categories and costs.
 === Mass edit expenses
 
 . Mass edit expenses that are in the ExpenseTracker
-
+.. Prerequisites: Logged in to an account and the targeted expenses exist in the account.
 .. Test case: `massedit c/school \-> c/food` +
    Expected: Edits all the expenses in the "school" category to have their categories changed to "food" and the edited
    expenses are shown on the screen. Success message is shown as status message.
@@ -2077,7 +2077,7 @@ categories and costs.
    edited expenses are shown as status message.
 
 . Mass edit expenses that are not in the ExpenseTracker
-
+.. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
 .. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
    Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.
 
