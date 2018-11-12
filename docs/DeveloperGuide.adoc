@@ -1870,6 +1870,40 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Find expenses
+
+. Find expenses that are in the ExpenseTracker
+
+.. Test case: `find n/lunch` +
+   Expected: The expenses with name "lunch" are shown on the expense list panel. Number of expenses
+   found is shown as the status message.
+.. Test case: `find c/food $/1.00:2.00` +
+   Expected: The expenses under "food" category with cost between 1.00 and 2.00(inclusive) are shown on
+   the expense list panel. Number of expense found is shown as the status message.
+
+. Find expenses that are not in the ExpenseTracker
+
+.. Test case: `find (any keywords that would not direct to existing expenses)`
+   Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
+   status message.
+
+=== Mass edit expenses
+
+. Mass edit expenses that are in the ExpenseTracker
+
+.. Test case: `massedit c/school \-> c/food` +
+   Expected: Edits all the expenses in the "school" category to have their categories changed to "food" and the edited
+   expenses are shown on the screen. Success message is shown as status message.
+.. Test case: `massedit n/School fee d/01-10-2018:03-10-2018 \-> t/books` +
+   Expected: Edits all the expenses which have names containing "School", with dates between "01-10-2018" and "03-10-2018", to have their tags changed to "book". The
+   edited expenses are shown as status message.
+
+. Mass edit expenses that are not in the ExpenseTracker
+
+.. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
+   Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
