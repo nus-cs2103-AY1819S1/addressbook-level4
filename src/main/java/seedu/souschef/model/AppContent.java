@@ -5,11 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD
 
-=======
-import seedu.souschef.model.favourite.Favourites;
->>>>>>> a0774f84ee9a4d04513be5834cde4b26f1276a17
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;

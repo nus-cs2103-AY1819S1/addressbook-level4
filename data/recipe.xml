@@ -160,14 +160,14 @@
                 <unit>cup</unit>
             </ingredients>
             <ingredients>
-                <name>ghee</name>
-                <amount>0.5</amount>
-                <unit>cup</unit>
-            </ingredients>
-            <ingredients>
                 <name>flour</name>
                 <amount>300.0</amount>
                 <unit>g</unit>
+            </ingredients>
+            <ingredients>
+                <name>ghee</name>
+                <amount>0.5</amount>
+                <unit>cup</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -244,14 +244,9 @@
         <instructions>
             <instruction>Heat grill to medium-high. In a bowl, toss the chicken, garlic, thyme, oil and 1/2 tsp salt and pepper each. Thread the chicken on the skewers.</instruction>
             <ingredients>
-                <name>olive oil</name>
+                <name>thyme</name>
                 <amount>1.0</amount>
                 <unit>tablespoon</unit>
-            </ingredients>
-            <ingredients>
-                <name>garlic</name>
-                <amount>2.0</amount>
-                <unit>clove</unit>
             </ingredients>
             <ingredients>
                 <name>pepper</name>
@@ -259,19 +254,24 @@
                 <unit>teaspoon</unit>
             </ingredients>
             <ingredients>
+                <name>olive oil</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
                 <name>salt</name>
                 <amount>0.5</amount>
                 <unit>teaspoon</unit>
             </ingredients>
             <ingredients>
+                <name>garlic</name>
+                <amount>2.0</amount>
+                <unit>clove</unit>
+            </ingredients>
+            <ingredients>
                 <name>chicken</name>
                 <amount>680.0</amount>
                 <unit>g</unit>
-            </ingredients>
-            <ingredients>
-                <name>thyme</name>
-                <amount>1.0</amount>
-                <unit>tablespoon</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -289,13 +289,13 @@
         <instructions>
             <instruction>Heat the vegetable oil in a wok, add the onion and leek and fry gently until softened but not browned.</instruction>
             <ingredients>
-                <name>onion</name>
-                <amount>5.0</amount>
+                <name>leek</name>
+                <amount>150.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
-                <name>leek</name>
-                <amount>150.0</amount>
+                <name>onion</name>
+                <amount>5.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
@@ -325,6 +325,11 @@
                 <unit>tablespoon</unit>
             </ingredients>
             <ingredients>
+                <name>chives</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+            <ingredients>
                 <name>black pepper</name>
                 <amount>0.5</amount>
                 <unit>tablespoon</unit>
@@ -333,11 +338,6 @@
                 <name>rice</name>
                 <amount>200.0</amount>
                 <unit>g</unit>
-            </ingredients>
-            <ingredients>
-                <name>chives</name>
-                <amount>1.0</amount>
-                <unit>tablespoon</unit>
             </ingredients>
         </instructions>
         <tagged>Staple</tagged>
@@ -350,8 +350,8 @@
         <instructions>
             <instruction>Stir together the kimchi, kimchi juice, flour, eggs, and green onion in a bowl.</instruction>
             <ingredients>
-                <name>green onion</name>
-                <amount>100.0</amount>
+                <name>flour</name>
+                <amount>300.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
@@ -360,8 +360,8 @@
                 <unit>g</unit>
             </ingredients>
             <ingredients>
-                <name>flour</name>
-                <amount>300.0</amount>
+                <name>green onion</name>
+                <amount>100.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
@@ -384,17 +384,17 @@
         <instructions>
             <instruction>Stir water, kimchi, pork shoulder, hot pepper paste, sugar, and salt together in a pot.</instruction>
             <ingredients>
+                <name>kimchi</name>
+                <amount>50.0</amount>
+                <unit>g</unit>
+            </ingredients>
+            <ingredients>
                 <name>hot pepper paste</name>
                 <amount>2.0</amount>
                 <unit>tablespoon</unit>
             </ingredients>
             <ingredients>
                 <name>pork shoulder</name>
-                <amount>50.0</amount>
-                <unit>g</unit>
-            </ingredients>
-            <ingredients>
-                <name>kimchi</name>
                 <amount>50.0</amount>
                 <unit>g</unit>
             </ingredients>
@@ -422,8 +422,8 @@
             <instruction>Add red onion, garlic, and ginger. Cook, stirring occasionally,until onion softens, about 3 minutes.</instruction>
             <cooktime>3M</cooktime>
             <ingredients>
-                <name>red onion</name>
-                <amount>20.0</amount>
+                <name>ginger</name>
+                <amount>10.0</amount>
                 <unit>g</unit>
             </ingredients>
             <ingredients>
@@ -432,14 +432,19 @@
                 <unit>g</unit>
             </ingredients>
             <ingredients>
-                <name>ginger</name>
-                <amount>10.0</amount>
+                <name>red onion</name>
+                <amount>20.0</amount>
                 <unit>g</unit>
             </ingredients>
         </instructions>
         <instructions>
             <instruction>Stir in cooked rice, soy sauce, sugar, kimchi, Cook and stir until heated through, about 5 minutes</instruction>
             <cooktime>5M</cooktime>
+            <ingredients>
+                <name>sugar</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
             <ingredients>
                 <name>soy sauce</name>
                 <amount>1.0</amount>
@@ -449,11 +454,6 @@
                 <name>kimchi</name>
                 <amount>20.0</amount>
                 <unit>g</unit>
-            </ingredients>
-            <ingredients>
-                <name>sugar</name>
-                <amount>1.0</amount>
-                <unit>tablespoon</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -470,6 +470,11 @@
         <instructions>
             <instruction>Crack 2 whole eggs and beat the eggs with 3/4 cup milk, apinch of salt and black pepper</instruction>
             <ingredients>
+                <name>salt</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
                 <name>egg</name>
                 <amount>2.0</amount>
                 <unit>whole</unit>
@@ -483,11 +488,6 @@
                 <name>milk</name>
                 <amount>0.75</amount>
                 <unit>cup</unit>
-            </ingredients>
-            <ingredients>
-                <name>salt</name>
-                <amount>1.0</amount>
-                <unit>pinch</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -547,14 +547,14 @@
         <instructions>
             <instruction>Spread 1 tablespoon of peanut butter onto 2 slices of bread</instruction>
             <ingredients>
-                <name>peanutbutter</name>
-                <amount>1.0</amount>
-                <unit>tablespoon</unit>
-            </ingredients>
-            <ingredients>
                 <name>bread</name>
                 <amount>2.0</amount>
                 <unit>whole</unit>
+            </ingredients>
+            <ingredients>
+                <name>peanutbutter</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -601,12 +601,12 @@
         <instructions>
             <instruction>Season beef lightly with pinch of salt and pepper</instruction>
             <ingredients>
-                <name>salt</name>
+                <name>blackpepper</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
             </ingredients>
             <ingredients>
-                <name>blackpepper</name>
+                <name>salt</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
             </ingredients>
@@ -644,14 +644,14 @@
             <instruction>Ease in 1 cup of leftover rice and 2 tablespoon of butter</instruction>
             <cooktime>10M</cooktime>
             <ingredients>
-                <name>butter</name>
-                <amount>2.0</amount>
-                <unit>tablespoon</unit>
-            </ingredients>
-            <ingredients>
                 <name>rice</name>
                 <amount>1.0</amount>
                 <unit>cup</unit>
+            </ingredients>
+            <ingredients>
+                <name>butter</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
             </ingredients>
         </instructions>
         <instructions>

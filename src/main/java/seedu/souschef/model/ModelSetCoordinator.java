@@ -9,14 +9,10 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
-<<<<<<< HEAD
-=======
 import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
 import seedu.souschef.commons.events.model.RecipeDeletedEvent;
 import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
 import seedu.souschef.logic.parser.Context;
-import seedu.souschef.model.favourite.Favourites;
->>>>>>> a0774f84ee9a4d04513be5834cde4b26f1276a17
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
