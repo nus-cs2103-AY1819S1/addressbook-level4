@@ -17,7 +17,7 @@ TheTracker is a desktop address book application that helps NUS students to moni
 ** What it does: allows the user to adds Person, Module, and Occasion to their own TheTracker. Any Persons, Modules and
 Occasions added by users in the command line will show in separate windows. It also allows users to input only one
 compulsory attribute to add one Person, Module or Occasion.
-** Justification: These features is the basics of the product such that a user can track his or her contacts, modules
+** Justification: These features are the basics of the product such that a user can track his or her contacts, modules
 and occasions happening in the school. It is more convenient for the users to input any number of optional attributes
 when they are adding the Person, Module and Occasion, and to update these optional attributes at any time they feel
 needed, rather than requiring the users to input all the attributes at the first place.
