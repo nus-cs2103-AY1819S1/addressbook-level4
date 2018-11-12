@@ -26,8 +26,7 @@ public class XmlAdaptedAppointment {
     private int status;
     @XmlElement(required = true)
     private XmlAdaptedPatient patient;
-
-    @XmlElement
+    @XmlElement(required = true)
     private int type;
     @XmlElement
     private XmlAdaptedStaff staff;
@@ -107,12 +106,17 @@ public class XmlAdaptedAppointment {
         }
 
         if (!Time.isValidTime(time)) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+            throw new IllegalValueException(String.format(Time.MESSAGE_TIME_CONSTRAINTS));
         }
-
         Patient modelPatient = patient.toModelType();
 
-        return new Appointment(Date.newDate(date), Time.newTime(time), modelPatient, type);
+        Appointment modelAppt = new Appointment(Date.newDate(date), Time.newTime(time), modelPatient, type);
+
+        if (staff != null) {
+            modelAppt.setAssignedStaff(staff.toModelType());
+        }
+
+        return modelAppt;
     }
 
     @Override

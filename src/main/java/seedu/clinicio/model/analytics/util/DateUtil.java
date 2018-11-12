@@ -89,7 +89,9 @@ public class DateUtil {
                 .count();
 
             Tuple<String, Integer> tuple = new Tuple<>(dayOfWeek.name(), toIntExact(count));
+            daysCount.add(tuple);
         }
+
         return daysCount;
     }
 

@@ -144,13 +144,24 @@ public class TypicalPersons {
     // Manually added (Patient)
     public static final Patient ALEX = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX)
             .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
-            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false)))
+            .build();
+    public static final Patient ALEX_HASHED_DOCTOR = new PatientBuilder().withName(VALID_NAME_ALEX)
+            .withNric(VALID_NRIC_ALEX)
+            .withPhone(VALID_PHONE_ALEX).withEmail(VALID_EMAIL_ALEX).withAddress(VALID_ADDRESS_ALEX)
+            .withPreferredDoctor(ADAM).build();
     public static final Patient BRYAN = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN)
             .withPhone(VALID_PHONE_BRYAN).withEmail(VALID_EMAIL_BRYAN).withAddress(VALID_ADDRESS_BRYAN)
-            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false)))
+            .build();
+    public static final Patient BRYAN_HASHED_DOCTOR = new PatientBuilder().withName(VALID_NAME_BRYAN)
+            .withNric(VALID_NRIC_BRYAN)
+            .withPhone(VALID_PHONE_BRYAN).withEmail(VALID_EMAIL_BRYAN).withAddress(VALID_ADDRESS_BRYAN)
+            .withPreferredDoctor(ADAM).build();
     public static final Patient DANNY = new PatientBuilder().withName("Danny Shaw").withNric("S9741314I")
             .withPhone("90192910").withEmail("ds@live.com").withAddress("780, Woodlands Ave 12, #12-683")
-            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false))).build();
+            .withPreferredDoctor(new Staff(DOCTOR, ADAM.getName(), new Password("123456", false)))
+            .build();
     //Not inside ClinicIO
     public static final Patient CANDY = new PatientBuilder().withName(VALID_NAME_CANDY)
             .withNric(VALID_NRIC_CANDY).build();
@@ -170,10 +181,14 @@ public class TypicalPersons {
 
 
     // Appointments
-    public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
+    public static final Appointment ALEX_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
             .withTime(13, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
-    public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
+    public static final Appointment ALEX_APPT_1 = new AppointmentBuilder().withDate(2, 10, 2018)
+            .withTime(13, 00).withType(1).withPatient(ALEX_HASHED_DOCTOR).withStaff(ADAM).build();
+    public static final Appointment BRYAN_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
             .withTime(17, 45).withType(1).withPatient(BRYAN).withStaff(ADAM).build();
+    public static final Appointment BRYAN_APPT_1 = new AppointmentBuilder().withDate(3, 10, 2018)
+            .withTime(17, 45).withType(1).withPatient(BRYAN_HASHED_DOCTOR).withStaff(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
             .withTime(18, 00).withType(1).withPatient(ALEX).withStaff(ADAM).build();
 
@@ -183,7 +198,8 @@ public class TypicalPersons {
             .withLethalDosage(VALID_LETHALDOSAGE_PARACETAMOL).withMedicinePrice(VALID_PRICE_PARACETAMOL)
             .withMedicineQuantity(VALID_QUANTITY_PARACETAMOL).build();
     public static final Medicine CHLORPHENIRAMINE = new MedicineBuilder()
-            .withMedicineName(VALID_MEDICINENAME_CHLORPHENIRAMINE).withMedicineType(VALID_MEDICINETYPE_CHLORPHENIRAMINE)
+            .withMedicineName(VALID_MEDICINENAME_CHLORPHENIRAMINE)
+            .withMedicineType(VALID_MEDICINETYPE_CHLORPHENIRAMINE)
             .withEffectiveDosage(VALID_EFFECTIVEDOSAGE_CHLORPHENIRAMINE)
             .withLethalDosage(VALID_LETHALDOSAGE_CHLORPHENIRAMINE).withMedicinePrice(VALID_PRICE_CHLORPHENIRAMINE)
             .withMedicineQuantity(VALID_QUANTITY_CHLORPHENIRAMINE).build();
@@ -215,12 +231,9 @@ public class TypicalPersons {
         for (Staff staff : getTypicalStaffs()) {
             clinicIo.addStaff(staff);
         }
-        /*
         for (Appointment appointment : getTypicalAppointments()) {
             clinicIo.addAppointment(appointment);
         }
-        */
-
         for (Medicine medicine : getTypicalMedicines()) {
             clinicIo.addMedicine(medicine);
         }
@@ -241,7 +254,7 @@ public class TypicalPersons {
     }
 
     public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
+        return new ArrayList<>(Arrays.asList(ALEX_APPT_1, BRYAN_APPT_1));
     }
 
     public static List<Medicine> getTypicalMedicines() {
