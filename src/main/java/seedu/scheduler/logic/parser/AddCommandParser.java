@@ -49,6 +49,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        DateTime repeatUntilDateTime;
+
         EventName eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
 
         DateTime startDateTime = argMultimap.getValue(PREFIX_START_DATE_TIME).isPresent()
@@ -66,7 +68,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         RepeatType repeatType = argMultimap.getValue(PREFIX_REPEAT_TYPE).isPresent()
                 ? ParserUtil.parseRepeatType(argMultimap.getValue(PREFIX_REPEAT_TYPE).get())
                 : RepeatType.NONE;
-        DateTime repeatUntilDateTime = argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent()
+        repeatUntilDateTime = argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent()
                 ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).get())
                 : endDateTime;
         Set<Tag> tags = argMultimap.getValue(PREFIX_TAG).isPresent()

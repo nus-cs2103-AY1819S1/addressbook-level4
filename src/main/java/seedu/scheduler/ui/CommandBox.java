@@ -14,10 +14,11 @@ import seedu.scheduler.commons.events.ui.NewResultAvailableEvent;
 import seedu.scheduler.logic.ListElementPointer;
 import seedu.scheduler.logic.Logic;
 import seedu.scheduler.logic.commands.AddCommand;
-import seedu.scheduler.logic.commands.AddTagCommand;
+import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.CommandResult;
 import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.DeleteReminderCommand;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EnterGoogleCalendarModeCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
@@ -25,6 +26,7 @@ import seedu.scheduler.logic.commands.FindCommand;
 import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.HistoryCommand;
 import seedu.scheduler.logic.commands.ListCommand;
+import seedu.scheduler.logic.commands.PostponeReminderCommand;
 import seedu.scheduler.logic.commands.RedoCommand;
 import seedu.scheduler.logic.commands.SelectCommand;
 import seedu.scheduler.logic.commands.UndoCommand;
@@ -52,26 +54,33 @@ public class CommandBox extends UiPart<Region> {
         setUpInputListener();
         historySnapshot = logic.getHistorySnapshot();
         TextFields.bindAutoCompletion(
-                commandTextField, AddCommand.COMMAND_WORD, AddCommand.COMMAND_ALIAS_ONE, AddCommand.COMMAND_ALIAS_TWO,
-                AddTagCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_ALIAS_ONE,
-                ClearCommand.COMMAND_ALIAS_TWO, ClearCommand.COMMAND_ALIAS_THREE, ClearCommand.COMMAND_ALIAS_FOUR,
+                commandTextField,
+                AddCommand.COMMAND_WORD, AddCommand.COMMAND_ALIAS_ONE, AddCommand.COMMAND_ALIAS_TWO,
+                ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_ALIAS_ONE, ClearCommand.COMMAND_ALIAS_TWO,
+                ClearCommand.COMMAND_ALIAS_THREE, ClearCommand.COMMAND_ALIAS_FOUR,
                 DeleteCommand.COMMAND_WORD, DeleteCommand.COMMAND_ALIAS_ONE, DeleteCommand.COMMAND_ALIAS_TWO,
                 DeleteCommand.COMMAND_ALIAS_THREE, DeleteCommand.COMMAND_ALIAS_FOUR, DeleteCommand.COMMAND_ALIAS_FIVE,
                 EditCommand.COMMAND_WORD, EditCommand.COMMAND_ALIAS_ONE, EditCommand.COMMAND_ALIAS_TWO,
-                ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_ALIAS_ONE, ExitCommand.COMMAND_ALIAS_TWO,
-                ExitCommand.COMMAND_ALIAS_TWO, ExitCommand.COMMAND_ALIAS_THREE, FindCommand.COMMAND_WORD,
-                FindCommand.COMMAND_ALIAS_ONE, FindCommand.COMMAND_ALIAS_TWO, FindCommand.COMMAND_ALIAS_THREE,
+                AddReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD,
+                PostponeReminderCommand.COMMAND_WORD,
                 EnterGoogleCalendarModeCommand.COMMAND_WORD,
-                HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_ALIAS_ONE,
-                HelpCommand.COMMAND_ALIAS_TWO, HelpCommand.COMMAND_ALIAS_THREE, HistoryCommand.COMMAND_WORD,
-                HistoryCommand.COMMAND_ALIAS_ONE, HistoryCommand.COMMAND_ALIAS_TWO, HistoryCommand.COMMAND_ALIAS_THREE,
-                HistoryCommand.COMMAND_ALIAS_FOUR, HistoryCommand.COMMAND_ALIAS_FIVE, ListCommand.COMMAND_WORD,
-                ListCommand.COMMAND_ALIAS_ONE, ListCommand.COMMAND_ALIAS_TWO, ListCommand.COMMAND_ALIAS_THREE,
+                ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_ALIAS_ONE, ExitCommand.COMMAND_ALIAS_TWO,
+                ExitCommand.COMMAND_ALIAS_TWO, ExitCommand.COMMAND_ALIAS_THREE,
+                FindCommand.COMMAND_WORD, FindCommand.COMMAND_ALIAS_ONE, FindCommand.COMMAND_ALIAS_TWO,
+                FindCommand.COMMAND_ALIAS_THREE,
+                HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_ALIAS_ONE, HelpCommand.COMMAND_ALIAS_TWO,
+                HelpCommand.COMMAND_ALIAS_THREE,
+                HistoryCommand.COMMAND_WORD, HistoryCommand.COMMAND_ALIAS_ONE, HistoryCommand.COMMAND_ALIAS_TWO,
+                HistoryCommand.COMMAND_ALIAS_THREE, HistoryCommand.COMMAND_ALIAS_FOUR,
+                HistoryCommand.COMMAND_ALIAS_FIVE,
+                ListCommand.COMMAND_WORD, ListCommand.COMMAND_ALIAS_ONE, ListCommand.COMMAND_ALIAS_TWO,
+                ListCommand.COMMAND_ALIAS_THREE,
                 RedoCommand.COMMAND_WORD, RedoCommand.COMMAND_ALIAS_ONE, RedoCommand.COMMAND_ALIAS_TWO,
-                RedoCommand.COMMAND_ALIAS_THREE, SelectCommand.COMMAND_WORD, SelectCommand.COMMAND_ALIAS_ONE,
-                SelectCommand.COMMAND_ALIAS_TWO, SelectCommand.COMMAND_ALIAS_THREE, SelectCommand.COMMAND_ALIAS_FOUR,
-                SelectCommand.COMMAND_ALIAS_FIVE, UndoCommand.COMMAND_WORD, UndoCommand.COMMAND_ALIAS_ONE,
-                UndoCommand.COMMAND_ALIAS_TWO, UndoCommand.COMMAND_ALIAS_THREE
+                RedoCommand.COMMAND_ALIAS_THREE,
+                SelectCommand.COMMAND_WORD, SelectCommand.COMMAND_ALIAS_ONE, SelectCommand.COMMAND_ALIAS_TWO,
+                SelectCommand.COMMAND_ALIAS_THREE, SelectCommand.COMMAND_ALIAS_FOUR, SelectCommand.COMMAND_ALIAS_FIVE,
+                UndoCommand.COMMAND_WORD, UndoCommand.COMMAND_ALIAS_ONE, UndoCommand.COMMAND_ALIAS_TWO,
+                UndoCommand.COMMAND_ALIAS_THREE
         );
     }
 

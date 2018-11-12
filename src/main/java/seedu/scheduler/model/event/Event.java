@@ -181,7 +181,8 @@ public class Event {
                 && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getRepeatType().equals(getRepeatType())
                 && otherEvent.getRepeatUntilDateTime().equals(getRepeatUntilDateTime())
-                && otherEvent.getTags().equals(getTags());
+                && otherEvent.getTags().equals(getTags())
+                && otherEvent.getReminderDurationList().equals(getReminderDurationList());
     }
 
     @Override

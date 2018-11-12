@@ -2,8 +2,8 @@ package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
+import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.Scheduler;
 
@@ -25,7 +25,7 @@ public class ClearCommand extends Command {
             new ConnectToGoogleCalendar();
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         boolean googleCalendarIsEnabled = ConnectToGoogleCalendar.isGoogleCalendarEnabled();
         requireNonNull(model);
         model.resetData(new Scheduler());

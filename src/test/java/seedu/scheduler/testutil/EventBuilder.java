@@ -30,7 +30,7 @@ public class EventBuilder {
     public static final String DEFAULT_VENUE = "iCube";
     public static final RepeatType DEFAULT_REPEAT_TYPE = RepeatType.NONE;
     public static final LocalDateTime DEFAULT_REPEAT_UNTIL_DATE_TIME =
-            LocalDateTime.of(2018, 9, 21, 18, 0);
+            LocalDateTime.of(2019, 9, 21, 18, 0);
 
     private UUID eventUid;
     private UUID eventSetUid;
