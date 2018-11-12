@@ -72,7 +72,7 @@ public class AddRepeatCommand extends Command {
             model.addTask(newTask);
         }
 
-        for (int i = 0; i < Integer.parseInt(repeat.value); i++) {
+        for (int i = 1; i < Integer.parseInt(repeat.value); i++) {
             baseDate.add(Calendar.DAY_OF_YEAR, interval);
             newDate = schedulerFormat.format(baseDate.getTime());
             date = new Date(newDate);
