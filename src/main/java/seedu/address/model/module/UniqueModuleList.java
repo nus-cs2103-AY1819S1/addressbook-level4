@@ -101,7 +101,7 @@ public class UniqueModuleList implements Iterable<Module> {
     public void remove(Module moduleToRemove) {
         requireNonNull(moduleToRemove);
         if (!internalList.remove(moduleToRemove)) {
-            throw new DuplicateModuleException();
+            throw new ModuleNotFoundException();
         }
     }
 
