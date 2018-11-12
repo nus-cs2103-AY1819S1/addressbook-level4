@@ -826,7 +826,7 @@ The Reservations feature currently contains 6 commands to modify the `UniqueRese
 Each `Reservation` object contains `Name`, `Pax`, `Date` and `Time`.
 
 ==== `add-reservation` Command
-The command takes in 3 parameters, `Name`, `Pax`, and `DateTime` to create a `Reservation` object.
+The command takes in 3 parameters, `Name`, `Pax`,`Date` and `Time` to create a `Reservation` object.
 [NOTE]
 ====
 The `Date` class will reject dates that have already passed the current date
@@ -856,10 +856,10 @@ _Figure 4.8.2.1: Activity diagram to illustrate the `add-reservation` command_
 
 ==== `edit-reservation` Command
 The command takes in 1 mandatory parameter, `Index`, followed by **1 or more** of the following  optional parameters,
- `Name`, `Pax`, `DateTime`.
+ `Name`, `Pax`, `Date`, `Time`.
 
 The `Reservation` associated with the given `Index` is then identified within the internal `UniqueReservationsList`,
-then has its values updated to the new values specified by the `Name`, `Pax`, and `DateTime` parameters.
+then has its values updated to the new values specified by the `Name`, `Pax`,`Date`, and `Time` parameters.
 
 ==== `delete-reservation` Command
 The command takes in 1 parameter, `Index`.
