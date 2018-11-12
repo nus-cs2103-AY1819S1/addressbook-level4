@@ -211,6 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         assert(hasEvent(target));
+        currentEvent = null;
         versionedAddressBook.removeEvent(target);
         indicateAddressBookChanged();
     }

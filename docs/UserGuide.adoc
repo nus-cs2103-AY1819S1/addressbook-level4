@@ -82,6 +82,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 * As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others.
 
+== Event Uniqueness
+
+* We define the uniqueness of an event by the event name, location, tags and event organiser. No two events may be identical with respect to these four attributes.
+
 === Timetable
 Timetable download guide
 
@@ -369,7 +373,7 @@ Format: `addEvent n/NAME a/LOCATION [t/TAG] ...`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/Public`
 * `addEvent n/CS1101S Meet-up a/UTown t/ByInvite`
 
 ==== Delete an event : `deleteEvent`
@@ -459,12 +463,12 @@ Examples:
 * `setTime t1/13:30 t2/14:00`
 
 // tag::KengJi(2)[]
-==== Create a new poll for an event : `addPoll n/NAME`
-Sets up a new poll for the event with the specified name. +
+==== Create a new poll for an event : `addPoll`
+Sets up a new poll for the pre-selected event with the specified name. +
 Format: `addPoll n/POLL_NAME`
 
 ****
-* Only the event organiser may create a new poll.
+* Events must be selected first. Only the event organiser may create a new poll.
 * Multiple polls of the same name are allowed.
 ****
 
@@ -544,10 +548,14 @@ Displays the poll with index 1 associated with the already selected event, if it
 Finds events based on the attributes of the event: event name, event location, date, start time, Event Organiser, and event participants. +
 Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
 
+****
+* All names of event, location, organiser and participant names must match exactly.
+****
+
 Examples:
 
-* `findEvent e/FaceBook Recruitment Talk on/John Doe` +
-Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
+* `findEvent e/CS2103 weekly meeting on/Alex Yeoh` +
+Finds all events with the name "CS2103 weekly meeting" and with the organiser whose name is "Alex Yeoh".
 
 ==== Find event by a time interval: `findEventByTime`
 Finds events held on a specific date, and is held between a start and end time. +
@@ -645,7 +653,6 @@ There is no need to save manually.
 
 == Command Summary
 
-
 === User commands
 * *Help* : `help`
 
@@ -712,6 +719,9 @@ e.g. `deleteEvent 1`
 * *Edit Event* : `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...` +
   e.g. `editEvent n/CS2102 Meeting t/URGENT t/ByInvite`
 
+* *Select Event* : `selectEvent INDEX` +
+e.g. `selectEvent 1`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
 
@@ -731,8 +741,6 @@ e.g. `setDate d/12-12-2018`
 e.g. `setTime t1/12:30 t2/13:45`
 
 === Event participant commands
-* *Select Event* : `selectEvent INDEX` +
-e.g. `selectEvent 1`
 
 * *Join Event* : `joinEvent INDEX` +
 e.g. `joinEvent 1`
