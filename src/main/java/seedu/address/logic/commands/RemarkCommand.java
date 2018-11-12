@@ -104,7 +104,7 @@ public class RemarkCommand extends Command {
             Doctor doctorToEdit = (Doctor) personToEdit;
             Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(),
                     doctorToEdit.getEmail(), doctorToEdit.getAddress(), remark, doctorToEdit.getTags(),
-                    doctorToEdit.getUpcomingAppointments());
+                    doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
             model.updatePerson(doctorToEdit, editedDoctor);
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

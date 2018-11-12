@@ -107,12 +107,16 @@ public class DeletePrescriptionCommand extends Command {
         for (Person person : personList) {
             if (person instanceof Doctor) {
                 if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
-                    doctorToEdit = (Doctor) person;
+                    if (((Doctor) person).hasAppointment(id)) {
+                        doctorToEdit = (Doctor) person;
+                    }
                 }
             }
             if (person instanceof Patient) {
                 if (appointmentToEdit.getPatient().equals(person.getName().toString())) {
-                    patientToEdit = (Patient) person;
+                    if (((Patient) person).hasAppointment(id)) {
+                        patientToEdit = (Patient) person;
+                    }
                 }
             }
             if (doctorToEdit != null && patientToEdit != null) {
@@ -124,7 +128,6 @@ public class DeletePrescriptionCommand extends Command {
             throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
         }
 
-        //TODO update google calendar
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
                 patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
                 patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
@@ -132,7 +135,7 @@ public class DeletePrescriptionCommand extends Command {
 
         Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
                 doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
-                doctorToEdit.getUpcomingAppointments());
+                doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
 
         editedPatient.setAppointment(appointmentToEdit, editedAppointment);
         editedDoctor.setAppointment(appointmentToEdit, editedAppointment);

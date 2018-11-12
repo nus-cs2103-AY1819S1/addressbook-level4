@@ -136,6 +136,7 @@ public class Patient extends Person {
             for (Appointment pastAppt : pastAppointments) {
                 if (pastAppt.getAppointmentId() == target.getAppointmentId()) {
                     indexToBeDeleted = pastAppointments.indexOf(pastAppt);
+                    System.out.println(indexToBeDeleted);
                     inPastAppointments = true;
                     break;
                 }

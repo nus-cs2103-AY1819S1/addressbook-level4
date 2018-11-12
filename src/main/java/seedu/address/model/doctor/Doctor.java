@@ -20,22 +20,29 @@ import seedu.address.model.tag.Tag;
 public class Doctor extends Person {
     // Variables
     private List<Appointment> upcomingAppointments;
+    private List<Appointment> pastAppointments;
 
     // Constructor
     public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,
                   Set<Tag> tags) {
         super(name, phone, email, address, remark, tags);
         upcomingAppointments = new ArrayList<>();
+        pastAppointments = new ArrayList<>();
     }
 
     public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,
-                  Set<Tag> tags, List<Appointment> upcomingAppointments) {
+                  Set<Tag> tags, List<Appointment> upcomingAppointments, List<Appointment> pastAppointments) {
         super(name, phone, email, address, remark, tags);
         this.upcomingAppointments = upcomingAppointments;
+        this.pastAppointments = pastAppointments;
     }
 
     public List<Appointment> getUpcomingAppointments() {
         return upcomingAppointments;
+    }
+
+    public List<Appointment> getPastAppointments() {
+        return pastAppointments;
     }
 
     /**
@@ -47,7 +54,7 @@ public class Doctor extends Person {
     }
 
     /**
-     * Deletes appointment from patient's queue of upcoming appointment.
+     * Deletes appointment from doctor's queue of upcoming appointment.
      */
     public void deleteAppointment(Appointment appointment) {
         Appointment apptToBeDeleted = null;
@@ -61,18 +68,34 @@ public class Doctor extends Person {
     }
 
     /**
-     * Updates appointment from patient's queue of upcoming appointment.
+     * Updates appointment from doctor's queue of appointment.
      */
     public void setAppointment(Appointment target, Appointment editedAppointment) {
-        int indexToBeDeleted = -1;
+        int indexToBeEdited = -1;
+        boolean inUpComingAppointments = false;
+        boolean inPastAppointments = false;
+
         for (Appointment appt : upcomingAppointments) {
             if (appt.getAppointmentId() == target.getAppointmentId()) {
-                indexToBeDeleted = upcomingAppointments.indexOf(appt);
+                indexToBeEdited = upcomingAppointments.indexOf(appt);
+                inUpComingAppointments = true;
                 break;
             }
         }
-        if (!(indexToBeDeleted == -1)) {
-            upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+
+        if (indexToBeEdited == -1 && !inUpComingAppointments) {
+            for (Appointment pastAppt : pastAppointments) {
+                if (pastAppt.getAppointmentId() == target.getAppointmentId()) {
+                    indexToBeEdited = pastAppointments.indexOf(pastAppt);
+                    inPastAppointments = true;
+                    break;
+                }
+            }
+        }
+        if (inUpComingAppointments) {
+            upcomingAppointments.set(indexToBeEdited, editedAppointment);
+        } else if (inPastAppointments) {
+            pastAppointments.set(indexToBeEdited, editedAppointment);
         }
     }
 
@@ -87,7 +110,9 @@ public class Doctor extends Person {
                 appointmentToRemove = app;
             }
         }
+        appointmentToRemove.completeAppointment();
         upcomingAppointments.remove(appointmentToRemove);
+        pastAppointments.add(appointmentToRemove);
     }
 
     /**
@@ -95,6 +120,12 @@ public class Doctor extends Person {
      */
     public boolean hasAppointment(int appointmentId) {
         for (Appointment app : upcomingAppointments) {
+            if (app.getAppointmentId() == appointmentId) {
+                return true;
+            }
+        }
+
+        for (Appointment app : pastAppointments) {
             if (app.getAppointmentId() == appointmentId) {
                 return true;
             }

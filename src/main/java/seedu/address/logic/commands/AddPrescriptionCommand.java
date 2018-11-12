@@ -25,9 +25,6 @@ import seedu.address.model.patient.Allergy;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
-import javax.print.Doc;
-
-
 /**
  * Adds a prescription to an appointment
  */
@@ -99,7 +96,7 @@ public class AddPrescriptionCommand extends Command {
         for (Person person : personList) {
             if (person instanceof Doctor) {
                 if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
-                    if (((Doctor) person).hasAppointment(id)) {
+                    if ((((Doctor) person).hasAppointment(id))) {
                         doctorToEdit = (Doctor) person;
                     }
                 }
@@ -120,6 +117,7 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
         }
 
+
         // check if patient is allergic to medicine
         for (Allergy allergy : patientToEdit.getMedicalHistory().getAllergies()) {
             String allergyString = allergy.toString();
@@ -135,7 +133,7 @@ public class AddPrescriptionCommand extends Command {
 
         Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
                 doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
-                doctorToEdit.getUpcomingAppointments());
+                doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
 
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
