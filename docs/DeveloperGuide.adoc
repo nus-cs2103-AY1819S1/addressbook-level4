@@ -394,7 +394,7 @@ Step 1. The user opens an image with the `open` command. The `Canvas` is initial
 [NOTE]
 A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
 
-
+.After opening an image
 image::undoRedo1.png[width="800"]
 
 Step 2. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
@@ -402,6 +402,7 @@ Step 2. The user executes a series of transformations. Each time, the newly tran
 [NOTE]
 If a command fails its execution, it will not call `Model#updateCurrentPreviewImage()`, so nothing will be cached.
 
+.After executing transformations
 image::undoRedo2.png[width="800"]
 
 Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
@@ -410,11 +411,13 @@ Step 3. The user wants to undo the previous action by using the `undo` command. 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
+.After exucuting undo
 image::undoRedo3.png[width="800"]
 
 
 Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
 
+.After comitting and purging redundant states
 image::undoRedo4.png[width="800"]
 
 //Step 5. The user decides to undo several actions. The user uses the `undo` command followed by the number of actions to undo eg.`2`. The `currentStatePointer` derements accordingly. The model's `previewImage` is to the pointed state.
