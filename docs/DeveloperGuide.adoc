@@ -1448,7 +1448,7 @@ Expected: New group _grp1_ created with 2 students
 
 // tag::emailManualTest[]
 === Emailing a student
-. Emailing a student
+Manual Testing for sending an email to a student:
 
 .. Prerequisites: The student must exist on the list, at the correct index. If student does not exist yet, add student first.
 .. Test case: `email 1 s/Attendance b/Your attendance is good` +
