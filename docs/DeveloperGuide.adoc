@@ -1532,24 +1532,24 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Add group category
+=== Use case: Add group
 
 *MSS*
 
 1.  Student start up MeetingBook.
 2.  MeetingBook starts up.
-3.  Student enters command to create a new category with a [module code] parameter.
-4.  MeetingBook creates the category.
-5.  MeetingBook feedbacks that the category had been successfully created.
+3.  Student enters command to create a new group.
+4.  MeetingBook creates the group.
+5.  MeetingBook feedbacks that the group had been successfully created.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Student enters category that already exists.
+* 1a. Student enters group that already exists.
 [none]
-** 1a1.  MeetingBook informs the student that the category already exists.
+** 1a1.  MeetingBook informs the student that the group already exists.
 +
 Use case ends.
 
