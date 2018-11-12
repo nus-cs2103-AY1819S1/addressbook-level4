@@ -40,7 +40,7 @@ Responsibilities: UI
 
 === Jiang Chen
 image::jcjxwy.png[width="150", align="left"]
-{empty}[https://github.com/jcjxwy[github]] [<<jiangchen#, portfolio>>]
+{empty}[https://github.com/jcjxwy[github]] [<<jcjxwy#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration

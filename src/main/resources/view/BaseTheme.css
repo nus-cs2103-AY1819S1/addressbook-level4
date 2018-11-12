@@ -5,27 +5,27 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
 }
 
 .tab-pane {
@@ -65,7 +65,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -114,13 +114,13 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-font-size: 16px;
     -fx-text-fill: #464646;
 }
 
 .cell_small_label {
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-font-size: 13px;
     -fx-text-fill: #464646;
 }
@@ -130,13 +130,14 @@
 }
 
 .status-bar {
-    -fx-text-fill: black;
+    -fx-background-color: black;
+    -fx-text-fill: #464646;
     -fx-font-size: 10px;
 }
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-alignment: center;
     -fx-font-size: 13pt;
     -fx-text-fill: white;
@@ -149,18 +150,12 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Futura";
-    -fx-text-fill: white;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#FFF, 30%);
-    -fx-border-color: derive(#FFF, 25%);
-    -fx-border-width: 1px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #464646;
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #464646;
 }
 
 .grid-pane {
@@ -187,7 +182,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -350,6 +345,7 @@
 #title .label {
     -fx-font-size: 30pt;
     -fx-text-fill: #fff;
+    -fx-font-family: "Arial Bold";
     -fx-padding: 10px;
 }
 
@@ -390,14 +386,14 @@
 }
 
 #notificationListView #header {
-    -fx-font-size: 15pt;
-    -fx-font-family: "Futura";
+    -fx-font-size: 10pt;
+    -fx-font-family: "Arial Black";
     -fx-padding: 10px;
 }
 
 #notificationListView #body {
     -fx-font-size: 10pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-padding: 10px;
 }
 
@@ -414,6 +410,7 @@
 
 #categoriesPanel .label {
     -fx-font-size: 25pt;
+    -fx-font-family: "Arial";
     -fx-text-fill: #656565;
     -fx-padding: 5px 5px 5px 10px;
 }
@@ -424,7 +421,7 @@
 
 #categoriesIcon .label {
     -fx-font-size: 12pt;
-    -fx-font-family: "Futura";
+    -fx-font-family: "Arial";
     -fx-text-fill: #656565;
 }
 

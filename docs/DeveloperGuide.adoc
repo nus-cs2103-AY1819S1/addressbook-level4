@@ -147,11 +147,7 @@ quick overview for each component
 * Initialising the components in the correct sequence and connecting them up with each other when the app is launched.
 * Shutting down the components and invoking cleanup methods where necessary when the app is shut down.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
-
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events.
-See <<Event-driven, Event-Driven Design>> from more details.
-* `LogsCenter` : This class is used by many components to write log messages to Expense Tracker's log file.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 
 `Logic` is the command executor. It defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 Read <<Design-Logic,*`Logic`*>> for more details.
@@ -162,7 +158,7 @@ Read <<Design-Ui,*`UI`*>> for more details.
 `Model` holds the data of the App in-memory. It defines its API in the `Model.java` interface and exposes its functionality using the `ModelManager.java` class.
 Read <<Design-Model,*`Model`*>> for more details.
 
-`Storage` reads data from, and writes data to, the hard disk.It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
+`Storage` reads data from, and writes data to, the hard disk. It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
 Read <<Design-Storage,*`Storage`*>> for more details.
 
 [discrete]
@@ -267,7 +263,16 @@ As per the diagram above, `StorageManager` implements the `Storage` interface, w
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.expensetracker.commons` package.
+Two classes in `Commons` play important roles at the architecture level:
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events.
+See <<Event-driven, Event-Driven Design>> from more details.
+* `LogsCenter` : This class is used by components to write log messages to Expense Tracker's log file.
+
+`Commons` also contains utility and exception classes which can be used by components.
+See the link:{repoURL}/src/main/java/seedu/expensetracker/commons/util[`Utilities`]
+and link:{repoURL}/src/main/java/seedu/expensetracker/commons/exceptions[`Exceptions`]
+folders for all the utility and exception classes available.
 
 == Implementation
 
@@ -495,8 +500,8 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 // tag::statistics[]
 === Statistics
 
-The implementation of the Statistics function can be divided into two parts - preparation and execution.
-Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.
+The implementation of the Statistics function can be divided into two phases - preparation and execution.
+Given below is an explanation of how the statistics mechanism behaves at each phase.
 
 ==== Preparation
 In the preparation phase, the program parses the command for statistics, prepares filters used by the model
@@ -504,47 +509,59 @@ and posts events in `EventsCenter`.
 Below is the UML sequence diagram and a step-by-step explanation of the preparation stage.
 
 .Sequence diagram of the preparation stage in the statistics mechanism
-image::implementation/StatsPreparationSequenceDiagram.png[width="800"]
+image::implementation/StatsPreparationSequenceDiagram.png[]
 
-. User enters command `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls `StatsCommandParser#parse()`
-to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
+. User enters command `stats` command e.g. `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls
+creates `StatsCommand` and calls `StatsCommandParser#parse()` to create `StatsCommand`.
 
-. `LogicManager` then calls `StatsCommand#execute()`, which updates `Predicate` and `StatsMode` in `ModelManager and
-also posts a `ShowStatsRequestEvent` and `SwapLeftPanelEvent` event to `EventsCenter`.
+. If no parameters are provided by the user, `StatsCommand#StatsCommand()` is called to create `StatsCommand` with the
+default parameters of `periodAmount` as `7`, `period` as `d` and `mode` as `t`. Otherwise,
+`StatsCommand#StatsCommand(periodAmount, period, mode)` is called to create `StatsCommand` with the specified parameters.
 
-In this example, `Predicate` is set to filter out expenses which have dates within the last 7 days and
-`StatsPeriod` is set to TIME, which will be used later to have the UI display a bar chart instead of a pie chart.
+. `StatsCommand` checks if the parameters are valid. If any parameter is invalid, an exception will be raised and a
+message will be displayed to the user. Otherwise, the parameters are stored in instance variables and
+`StatsCommand` is returned to `LogicManager`.
+
+. `LogicManager` then calls `StatsCommand#execute()`, which updates `expensePredicate`, `statsMode`, `statsPeriod` and
+`periodAmount` in `ModelManager`, which are variables in `ModelManager` relevant for statistics.
+`StatsCommand#execute()` also posts `ShowStatsRequestEvent` and `SwapLeftPanelEvent` events to `EventsCenter`.
 
 ==== Execution
-In the execution phase, the program handles the events posted by `StatsCommand` by
+In the execution phase, the program handles `ShowStatsRequestEvent` posted by `StatsCommand` by
 processing and retrieving the data to be displayed and finally displaying it.
 Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
 .Sequence diagram of the execution stage in the statistics mechanism
-image::implementation/StatsExecutionSequenceDiagram.png[width="800"]
+image::implementation/StatsExecutionSequenceDiagram.png[width="500"]
 
 . The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which calls 'StatisticsPanel#setData()'
 and passes the data as parameters by calling
 `Logic#getExpenseStats()`, `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()`.
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
-an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `Predicate`, and sorted by date.
+an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `ModelManager#expensePredicate`, and sorted by date.
 `Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
-the x and y values of the chart. In this case, `StatsMode` is set to TIME, which results in a x,y values of date and cost.
-If `StatsMode` is set to CATEGORY, the x,y values will be set to category and cost.
+the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
+If `StatsMode` is set to CATEGORY, the key value pair represents category and cost.
 
 . `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
  by calling the method of the same name in `Model`.
 
 . Once the parameters are passed into `StatisticsPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear
-any display elements in `StackPane`.
+any display elements in `StackPane`. Then there are three scenarios which could happen:
 
-. In this case, `StatsMode` is set to TIME, which results in `StatisticsPanel#setTimeBasedData()` to be called, which
-generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
-If `StatsMode` is set to CATEGORY, which results in `StatisticsPanel#setCategoryBasedData()` to be called, which
-generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
-If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
+.. If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
 which informs the user that there are no expenditures
+.. If `StatsMode` is set to TIME, `StatisticsPanel#setTimeBasedData()` will be called, which
+generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+.. If `StatsMode` is set to CATEGORY, `StatisticsPanel#setCategoryBasedData()` will be called, which
+generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+
+All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
+either a bar chart or a pie chart like the ones in the diagram below:
+
+.Example bar and pie charts for Statistics Panel
+image::StatsCharts.png[]
 
 ==== Design Considerations
 
@@ -570,6 +587,12 @@ which informs the user that there are no expenditures
 // tag::find[]
 === Find
 
+This feature allows users to filter out specific expenses by entering multiple keywords.
+Only the expenses which contain all the keywords will be shown on the expense list panel.
+
+This implementation is under `Logic` and `Model` Components.
+
+==== Current Implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of find mechanism
@@ -596,17 +619,36 @@ new predicate.
 . Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
 and returned to `LogicManager`.
 
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the target expenses are found.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to filter out targeted expenses
+* **Alternative 1 (current choice):** Check through all expenses and select those with all the keywords
+** Pros: Easy to implement. No need to change original architecture.
+** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separate files and only check the relevant files while filtering.
+** Pros: More efficient. No need to check every expense.
+** Cons: Need to change the original architecture of storage.
+
 // end::find[]
 
 // tag::massedit[]
 === Mass Edit
 
+This feature allows users to edit multiple expenses at the same time. Users need to enter the keywords to identify the
+targeted expenses as well as the fields they would like to edit.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Current implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of mass edit mechanism
 image::implementation/MassEditCommandSequenceDiagram.png[width="800"]
 
-. User enters command `massedit c/school -> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
+. User enters command `massedit c/school \-> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
   which then creates a `MassEditCommandParser` Object and calls `MassEditCommandParser#parse()` method.
 
 . `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
@@ -621,11 +663,26 @@ two `ArgumentMultimap` Objects.
 . `LogicManager` then calls `MassEditCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
 method to update the predicate of FilterList<Expense>. `Model#getFilteredExpenseList()` is called to return the FilterList<Expense>.
 
-. A loop starts and for each `Expense` in the FilterList<Expense>, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
+. All the `Expense` in the FilterList<Expense> are then added to a new list.
+A loop starts and for each `Expense` in the list, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
 Then `Model#updateExpense` is called to replace the original `Expense` with edited `Expense`.
 
-. When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
+. When loop ends, `Model#updateFilteredExpenseList()` is called to show the edit `Expense` to the user.
 A `CommandResult` is then created and returned to `LogicManager`.
+
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the target expenses are edited.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to Edit the targeted expenses
+* **Alternative 1(current choice):** Filter out the targeted expenses and replace them with edited expenses.
+** Pros: Easy to implement. Align with current architecture.
+** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separate files. When the expenses are edited, move them
+to another file according to the edited fields.
+** Pros: Easy to identify the targeted expenses by checking relevant files. No need to check every expense.
+** Cons: Need to change original architecture of storage. May need to create new files during edition.
 
 // end::massedit[]
 
@@ -640,12 +697,14 @@ The UI has been redesigned to implement the following UI elements required for E
 * Notifications Panel
 * Categories Panel
 
-Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of `BudgetPanel`,
-which is the most extensive.
+.Before and After shots of the UI
+image::UiChange.png[width="600"]
 
-*Budget Panel*
+As an example of how the new UI elements were implemented, we will examine the implementation of `BudgetPanel`.
 
-The `Budget` panel consists of 4 UI elements:
+==== The Budget Panel
+
+`BudgetPanel` consists of 4 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
@@ -660,48 +719,46 @@ Given below are the steps of an example scenario of how `BudgetPanel` is updated
 * `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default `totalBudget`.
 * `BudgetPanel#budgetBar` is green and at 0% progress.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies `totalBudget` and
+. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
 [NOTE]
-If a command fails its execution, `UpdateBudgetPanelEvent` will not be posted.
+If a command fails its execution, or does not affect budget or expenses,`UpdateBudgetPanelEvent` will not be posted.
 
 . The `UpdateBudgetPanelEvent` event is handled by `MainWindow#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
 
 . `BudgetPanel#update()` calls `BudgetPanel#animateBudgetPanel()`, which creates a new `Timeline` object.
 
-. Two `KeyFrame` objects are added to the Timeline that smooths the transition of the `BudgetPanel#budgetBar` progress percentage from 0% to the updated percentage.
+. Two `KeyFrame` objects are added to `Timeline`, creating the animation `BudgetPanel#budgetBar` that transits the `BudgetPanel#budgetBar#progress` to the updated number.
 [NOTE]
-If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+If the updated percentage is more than 1.0, `BudgetPanel#budgetBar#progress` will be set to 1.0. Barring oversights, it should never fall below 0.0.
 
-. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects.
-With this information, the amount to increment `BudgetPanel#expenseDisplay` by in each `KeyFrame` can be calculated.
- `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
+. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetCapDisplay`.
+ In each `KeyFrame`, `BudgetPanel#updateExpenseDisplay()` and  `BudgetPanel#updateBudgetCapDisplay()` is called to increment the `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetCapDisplay` respectively.
 [NOTE]
-`BudgetPanel#addTextAnimationKeyFrames()` handles the incrementing animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+The number of `KeyFrame` objects and the time interval between each `KeyFrame` has been predetermined.
 
-. For each `KeyFrame`, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to `BudgetPanel#alterTextSize()`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
-different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width matches `BudgetPanel#percentageDisplay#maxHeight`.
+. A call is also made to `BudgetPanel#alterTextSize()` in each `KeyFrame`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
+different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width is equal to `BudgetPanel#percentageDisplay#maxHeight`.
 
-. `Timeline#playFromStart()` is called to execute the animation.
+. A call to `Timeline#playFromStart()` is made to execute the animations.
 
-. `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()`. The method detects that the user has gone
-over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+. A call is also made concurrently to `BudgetPanel#setBudgetUiColors()`. If `BudgetPanel#expenseDisplay` is larger than `BudgetPanel#budgetCapDisplay`, the color of `BudgetPanel#expenseDisplay`
+and `BudgetPanel#budgetBar` changes to red, indicating that the user is over budget.
 [NOTE]
 Similarly, if the user has gone from over budget to under budget, the color of
-'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
+'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` changes to green.
 
 The following sequence diagram shows the process of updating the `BudgetPanel` UI elements:
 
 .Sequence diagram of the `BudgetPanel` update
-image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
+image::implementation/BudgetPanelSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 ===== Aspect: Choosing which library to use for animation implementation
 
 * **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes.
 ** Pros: More flexible; Able to create the animation frame by frame.
-
-** Cons: Animations tricks and effects will require manual tweaking for the intended effect.
+** Cons: More tedious. Animations effects will require manual addition of `KeyFrame` objects for the intended effect.
 * **Alternative 2:** Use the `Transition` class
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for `Text` elements of `BudgetPanel`.
@@ -717,7 +774,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
 * **Alternative 3 (Current Choice):** Wrap two `Text` objects in a `TextFlow` object
 ** Pros: Easy to centralize the `Text` objects by taking advantage of the properties of `TextFlow`. Allows the implementation of separate text color changing and animation.
-** Cons: Does not solve the issue of decentralization when `currentExpenses` or `budgetCap` are large numbers.
+** Cons: Does not solve the issue of decentralized text when `currentExpenses` or `budgetCap` are large numbers.
 
 ===== Aspect: Solving the issue of `TextFlow` positioning when `currentExpenses` or `budgetCap` are large numbers.
 * **Alternative 1:** During the budget update, manipulate the font size of both `Text` objects when the `TextFlow` object reaches a certain height.
@@ -727,7 +784,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 * **Alternative 2: ** Manipulate the scale of the `TextFlow` object such that it always maintains a predetermined width.
 ** Pros: A solution that is simple and easy to implement.
 ** Cons: In the case of very large numbers, the `TextFlow` object is shrunk down to a point where the text in non-legible. However,
-we assume that the average user who is seriously using `ExpenseTracker` will not set  `currentExpenses` or `budgetCap` to such large numbers.
+we assume that the average user who is seriously using `ExpenseTracker` will not set `currentExpenses` or `budgetCap` to such large numbers.
 
 === Notification System
 The Notification System is comprised of the following classes:
@@ -738,26 +795,30 @@ The Notification System is comprised of the following classes:
 * `NotificationHandler` - Manages the list of notifications.
 * `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
 * `NotificationHandler` - Handles the storage and creation of `Notification` objects.
-* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on Notifications.
 * `Tips` - Reads and stores `Tip` objects in a list.
+* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on `Notification` and `Tip` objects.
+
+==== Adding a Notification
 
 Given below are the steps of an example scenario of how the Notification System functions:
 
-. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` is instantiated, and a call
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` object is instantiated, and a call
 to `JsonTipsStorage#readTips` is made to read a list of `Tip` objects from a JSON file.
 
 . A call to `NotificationHandler#isTimeToSendTip()` is made upon login. In turn, a check is made to see if it has
-been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
+been 24 hours since the last `TipNotification` has been sent. It also checks if `NotificationHandler#isTipEnabled` is `true. If both conditions are met, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addTipNotification()`.
 [NOTE]
 If this is the user's first time logging into their account, a new `TipNotification` will be sent.
 
 . The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning()` to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
+It also checks if `NotificationPanel#isWarningEnabled` is `true`. If both conditions are met, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addWarningNotification()`.
 [NOTE]
 The same procedure is carried out if the user executes an `edit` command.
 
 . If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
 the new `Notification`.
+
+==== Executing Notification Command
 
 Given below is an example scenario of how `NotificationCommand` functions:
 . The user executes `notification n/warning t/off`. THe command is received by `ExpenseTrackerParser`.
@@ -767,16 +828,18 @@ extracted parameters `warning` and `off`. A `NotificationCommand` is returned to
 [NOTE]
 The `n/` suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 
-. `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
+. `LogicManager` then calls `NotificationCommand#execute()`, which calls `NotificationHandler#toggleWarningNotifications()` to set
 `NotificationPanel#isWarningEnabled` to `false`.
 [NOTE]
  If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications()` would be called to set `NotificationHandler#isTipEnabled`
  to `true`.
- If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead.
+[NOTE]
+ If `notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead to set both `NotificationHandler#isTipEnabled` and
+`NotificationPanel#isWarningEnabled`.
 
 The following sequence diagram shows the process of executing a `NotificationCommand`:
 
-image::implementation/NotificationCommandSequenceDiagram.png[width="800"]
+image::implementation/NotificationCommandSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 ===== Aspect: Storing of Tips
@@ -802,7 +865,7 @@ If the user's spending exceeds their available spending for the budget, a warnin
  to the user.
 
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.JPG[width="790"]
+image::overbudget.png[width="790"]
 
 
 
@@ -994,7 +1057,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 We use asciidoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility for formatting.
 
 === Editing Documentation
 
@@ -1104,7 +1167,7 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+Method 3 is the most reliable way to run tests. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -1828,3 +1891,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: Already logged into a user account
 .. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
    Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
+
+=== Toggling Notifications
+
+. Toggling Notifications On and Off
+
+.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`.
+.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
+   Expected: A notification should appear on the the `NotificationPanel` with the header `Warning` and the
+   body, 'You are overbudget!'.
+.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
+   Expected: No new notifications should appear on the `NotificationPanel`.
+.. Test case: `notification n/tip t/on`
+   Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
+.. Test case: `notification n/tip t/off`
+   Expected: No new notifications containing saving tips should appear after any length of time.
+.. Test case: `notification` +
+   Expected: Error details shown in the status message.
+.. Other incorrect delete commands to try: `notification`, `notification x` where x is any input,
+   `notification n/x` where x is any input other than `tip` or `warning`, `notification n/warning t/x` where
+   x is any input other than `on` or `off`.
+   Expected: Similar to previous.
+   

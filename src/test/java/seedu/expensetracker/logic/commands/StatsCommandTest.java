@@ -47,10 +47,10 @@ public class StatsCommandTest {
 
     @Test
     public void constructorInvalidParameters() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(1, null, "t"));
+        Assert.assertThrows(NullPointerException.class, () -> new StatsCommand(1, null, "t"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(1, "asd", "t"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(0, "d", "t"));
-        Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(1, "d", null));
+        Assert.assertThrows(NullPointerException.class, () -> new StatsCommand(1, "d", null));
         Assert.assertThrows(IllegalArgumentException.class, () -> new StatsCommand(1, "d", "asd"));
     }
 

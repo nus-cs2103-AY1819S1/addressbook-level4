@@ -79,25 +79,25 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Update the text to display the correct totalBudget
-     * @param budgetCap to display
+     * Update the text to display the correct totalBudget.
+     * @param budgetCap to display.
      */
     public void updateBudgetCapTextDisplay(double budgetCap) {
         this.budgetDisplay.setText("/ $" + String.format("%.2f", budgetCap));
     }
 
     /**
-     * Update the text to display the correct expenses
-     * @param expense to display
+     * Update the text to display the correct expenses.
+     * @param expense to display.
      */
     public void updateExpenseTextDisplay(double expense) {
         this.expenseDisplay.setText("$" + String.format("%.2f", expense));
     }
 
     /**
-     * Update the percentage of the progress bar
-     * @param budgetCap at the current time
-     * @param currentExpenses at the current time
+     * Update the percentage of the progress bar.
+     * @param budgetCap at the current time.
+     * @param currentExpenses at the current time.
      */
     public void updateBudgetBar(double budgetCap, double currentExpenses) {
         double currentPercentage = currentExpenses / budgetCap;
@@ -114,10 +114,10 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Triggers animation for the totalBudget panel
-     * @param newExpenses
-     * @param newBudgetCap
-     * @param newPercentage
+     * Triggers animation for the totalBudget panel.
+     * @param newExpenses to update to.
+     * @param newBudgetCap to update to.
+     * @param newPercentage to update to.
      */
     public void animateBudgetPanel(double newExpenses, double newBudgetCap, double newPercentage) {
         timeline = new Timeline(
@@ -181,8 +181,10 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Changes the colors of the expenseDisplay and totalBudget bar to red if over budget, and green in below
-     * totalBudget.
+     * Changes the colors of the expenseDisplay and budgetbar to red if over budget, and green if below
+     * budget.
+     * @param budgetCap to check against.
+     * @param currentExpenses to check against.
      */
     public void setBudgetUiColors(double budgetCap, double currentExpenses) {
         if (budgetCap < currentExpenses) {
