@@ -316,7 +316,7 @@ corresponding Excel cell MUST have nothing in it.
 * Examples of properly formatted csv files are shown below. (Can be both csv or txt)
 
 +
-image::import-acceptable-csv3.png[width="400"]
+image::import-acceptable-csv3.png[width="600"]
 
 // end::import[]
 
@@ -339,7 +339,7 @@ Example:
 * `export 28Nov.csv` +
 InsuRen contacts are exported to `28Nov.csv`
 +
-image::exportedCsv.png[width="400"]
+image::exportedCsv.png[width="600"]
 // end::export[]
 
 // tag::schedule[]
