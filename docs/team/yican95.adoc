@@ -5,62 +5,85 @@
 
 == PROJECT: MeNUS
 
----
+This portfolio serves as a summary of my contributions for https://github.com/CS2103-AY1819S1-F10-4/main[MeNUS].
 
 == Overview
 
-*MeNUS* is an all in one restaurant management desktop application developed to help restaurant owners
-and managers streamline the process of managing restaurants. It is also designed to help them
-save cost from running expensive and independent systems.
+*MeNUS* is an all-in-one restaurant management desktop application developed to help restaurant owners
+and managers streamline the process of managing restaurants. It allows the restaurant owners and managers to control
+their inventory, menu, sales and reservations efficiently all-in-one place.
+*MeNUS* is also designed to help restaurants save cost from running expensive and independent systems.
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). It also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX]. *MeNUS* is
  written using https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9] with
 approximately 30 KLOC.
 
-== Summary of contributions
+== Summary of Contributions
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yican95[RepoSense]
-* *Major enhancement*: Added *Menu Management* feature
-** *What it does*: Allows the user to manage the menu with the various menu management commands.
-** *Justification*: This feature help users to streamline the process of designing and managing the menu.
-** *Highlights*: This enhancement integrates with some existing sales and ingredients management commands and commands
-to be added in future. It required an in-depth analysis and understanding of *MeNUS* architecture.
 
-* *Minor enhancement*: Small change to CSS theme.
+* *Major enhancement*: Added *Menu Management* feature
+** *What it does*: Enables the user to manage the menus with the various menu management commands.
+** *Justification*: It can be messy and tedious to manage menus manually. This feature helps users to
+streamline the process of managing menus by enabling them to modify the menus efficiently
+with just a single command.
+** *Highlights*: This enhancement integrates with some existing sales and ingredients management commands.
+It requires an in-depth analysis and understanding of *MeNUS* architecture to ensure that commands of each management
+ feature is integrated properly together.
+
+* *Minor enhancement*: Added animation to the GUI
+(Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/214[#214])
+** *What it does*: Plays the https://docs.oracle.com/javafx/2/api/javafx/animation/FadeTransition.html[FadeTransition]
+for a short duration when the user enters a command.
 
 * *Other contributions*:
-
 ** Project management:
-*** TBU
+*** Maintained issue tracker
+*** Managed the integration of the features for *MeNUS*. Ensured that each feature was properly integrated into *MeNUS*.
 ** Enhancements to existing features:
-*** Updated the CSS theme (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/178[#178])
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests )
+*** Updated the JavaFX Cascading Style Sheets(CSS) theme (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/178[#178])
 ** Documentation:
-*** Update user stories in the Developer Guide: https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37]
+*** Added user stories, use cases and instructions for manual testing in the Developer Guide:
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/37[#37],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/142[#142],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/282[#282]
+*** Added menu management features description in https://cs2103-ay1819s1-f10-4.github.io/main/UserGuide.html[User Guide] and implementation in
+https://cs2103-ay1819s1-f10-4.github.io/main/DeveloperGuide.html[Developer Guide]
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-https://github.com/CS2103-AY1819S1-F10-4/main/pull/179[#179]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/179[#179],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/183[#183]
-*** Reported bugs and suggestions for other teams in the class: TBU
-** Tools:
-*** TBU
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/CS2103-AY1819S1-W16-1/main/issues/138[#138],
+https://github.com/CS2103-AY1819S1-W16-1/main/issues/142[#142],
+https://github.com/CS2103-AY1819S1-W16-1/main/issues/145[#145],
+https://github.com/CS2103-AY1819S1-W16-1/main/issues/156[#156]
 
+[[user]]
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections below showcase extracts of my contributions to the User Guide and
+my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=menu]
+include::../UserGuide.adoc[tag=menuPart1]
 
-include::../UserGuide.adoc[tag=menuv2]
+include::../UserGuide.adoc[tag=menuPart2]
 
+include::../UserGuide.adoc[tag=menuPart3]
+
+[[dev]]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following sections below showcase extracts of my contributions to the Developer Guide. They also showcase my
+ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=menu]
 
 include::../DeveloperGuide.adoc[tag=ucmenu]
+
+include::../DeveloperGuide.adoc[tag=testMenu]

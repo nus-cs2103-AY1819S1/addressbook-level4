@@ -133,10 +133,12 @@ Do read our short explanation about Command Format below so that the subsequent 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-item n/ITEM_NAME`, `ITEM_NAME` is a
+parameter which can be used as `add-item n/Burger`.
+* Items in square brackets are optional e.g `n/ITEM_NAME [t/TAG]` can be used as `n/Burger t/beef` or as `n/Burger`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/ITEM_NAME p/ITEM_PRICE`, `p/ITEM_PRICE n/ITEM_NAME`
+ is also acceptable.
 ====
 
 As this is a management system, all but the following commands cannot be executed without first being authenticated.
@@ -192,20 +194,23 @@ Format: `redo` or `r`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete-item-index 1` +
+`undo` (reverses the `delete-item-index 1` command) +
+`redo` (reapplies the `delete-item-index 1` command) +
 
-* `delete 1` +
+* `delete-item-index 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete-item-index 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete-item-index 1` command) +
+`redo` (reapplies the `delete-item-index 1` command) +
 `redo` (reapplies the `clear` command) +
+
+[NOTE]
+Undo and redo commands do not refresh the detailed panel
 // end::undoredo[]
 
 ==== Clearing all entries : `clear` or `c`
@@ -478,7 +483,7 @@ Selects the 2nd ingredient in the displayed ingredient list.
 Selects the 1st ingredient in the results of the `low-stock` command.
 // end::ingredientmanagement[]
 
-// tag::menu[]
+// tag::menuPart1[]
 === Menu Management
 [[add-item]]
 ==== Adding an item to the menu: `add-item` or `ai`
@@ -488,8 +493,10 @@ Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 
 ****
 * ITEM_NAME and ITEM_PRICE must be provided.
-* An item can have any number of tags (including 0)
-* ITEM_PRICE should only contain numbers, at most 2 decimal place and smaller than or equals to 2,147,483,647.
+* An item can have any number of tags (including 0).
+* ITEM_NAME should only contain alphanumeric characters and spaces, and it should not be blank.
+* ITEM_PRICE should only contain numbers(no negative), at most 2 decimal place and smaller than or equals to 2,147,483,647.
+* You cannot add items with the same name.
 ****
 
 Examples:
@@ -497,23 +504,19 @@ Examples:
 * `add-item n/Burger p/2`
 * `ai n/Burger Set p/4.5 t/Set`
 
-==== Listing all items in the menu : `list-items` or `li`
-
-Shows a list of all items in the menu. +
-Format: `list-items`
-
 ==== Editing an item in the menu : `edit-item` or `ei`
 
 Edits an existing item in the menu. +
 Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...`
 
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The
-index *must be a positive integer* 1, 2, 3, ...
+* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
 * You can remove all the item's tags by typing `t/` without specifying any tags after it.
+* Editing item price will remove discount given by `discount-item` command.
 ****
 
 Examples:
@@ -529,10 +532,11 @@ Deletes the specified item from the menu. +
 Format: `delete-item-index INDEX [ei/INDEX]`
 
 ****
-* Deletes the item at the specified `INDEX`.
+* Deletes the item(s) specified by `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * You can delete a range of items by adding the ending index `ei\INDEX`.
+* The ending index can not be smaller than starting index.
 ****
 
 Examples:
@@ -542,28 +546,36 @@ Examples:
 Deletes the 2nd item in the menu.
 * `fi Cheese` +
 `dii 1 ei/3` +
-Deletes 1st item, 2nd item and 3rd item in the results of the `find` command.
+Deletes 1st item, 2nd item and 3rd item in the results of the `find-item` command.
 
 ==== Deleting an item by name: `delete-item-name` or `din`
 
 Deletes the specified item from the menu. +
-Format: `delete-item-name NAME`
+Format: `delete-item-name ITEM_NAME`
 
 ****
-* Deletes the item by the specified `NAME`.
-* The name of the item *must be in the displayed item list*.
-* The index *must be a positive integer* 1, 2, 3, ...
-* You can delete a range of items by adding the ending index `ei\INDEX`.
+* Deletes the item by the specified `ITEM_NAME`.
+* The ITEM_NAME *must be in the menu*.
+* ITEM_NAME is case-insensitive. e.g `burger` will match `Burger`
 ****
 
 Examples:
 
-* `list-items` +
-`delete-item-name Apple Juice` +
-Deletes the `Apple Juice` item in the menu.
-* `fi Cheese` +
-`din Cheese Fries` +
-Deletes `Cheese Fries` item in the results of the `find` command.
+* `delete-item-name Apple Juice` +
+Deletes the `Apple Juice` item from the menu.
+* `din Cheese Fries` +
+Deletes the `Cheese Fries` item from the menu.
+//end::menuPart1[]
+
+==== Listing all items in the menu : `list-items` or `li`
+
+Shows a list of all items in the menu. +
+Format: `list-items`
+
+==== Clearing all entries : `clear-menu` or `cm`
+
+Clears all entries from the menu. +
+Format: `clear-menu`
 
 ==== Selecting an item : `select-item` or `si`
 
@@ -583,7 +595,7 @@ Examples:
 Selects the 2nd item in the menu.
 * `fi Burger` +
 `si 1` +
-Selects the 1st item in the results of the `find` command.
+Selects the 1st item in the results of the `find-item` command.
 
 ==== Locating items by name: `find-item` or `fi`
 
@@ -596,7 +608,7 @@ Format: `find-item KEYWORD [MORE_KEYWORDS]`
 * Only the name is searched.
 * Only full words will be matched e.g. `Bur` will not match `Burger`
 * Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cheese Burger` will return
-`Cheese Fries`,`Cheese Cake`
+`Cheese Burger`, `Cheese Fries` and `Beef Burger`
 ****
 
 Examples:
@@ -606,49 +618,51 @@ Returns `burger` and `Cheese Burger`
 * `fi Cheese Chocolate Fruit` +
 Returns any item having names `Cheese`, `Chocolate`, or `Fruit`
 
+//tag::menuPart2[]
 ==== Filter menu by tag: `filter-menu` or `fm`
 
-Finds items that contain the given tag in the menu. +
-Format: `filter-menu t/TAG`
+Finds items whose tags match any of the given keywords. +
+Format: `filter-menu KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `burger` will match `Burger`
 * Only filter by tag.
 * Only full words will be matched e.g. `Bur` will not match `Burger`
-* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cheese Burger` will return
-`Cheese Fries`,`Cheese Cake`
+* Items with tags matching at least one keyword will be returned (i.e. `OR` search). e.g. `drinks burger` will return
+items that are tagged with drinks or burger.
 ****
+
+[NOTE]
+`KEYWORD` for `filter-menu` must be alphanumeric
 
 Examples:
 
-* `filter-menu t/monday` +
+* `filter-menu monday` +
 Returns any item that contains tag `monday`
-* `fm t/set` +
-Returns any item that contains tag `set`
+* `fm set monday` +
+Returns any item that contains tag `set` or `monday`
+//end::menuPart2[]
 
 ==== Sort menu : `sort-menu` or `sm`
 
 Sort the menu by name or price. +
-Format: `sort-menu [NAME] [PRICE]`
+Format: `sort-menu SORTING_METHOD`
 
 ****
 * Sort the menu by name or price.
-* Case-insensitive, can be: `sort-menu name` or `sort-menu NAME`
+* `SORTING_METHOD` refers the method to sort menu: name or price
+* Case-insensitive, it can be: `sort-menu name` or `sort-menu NAME`
 * Only one of the sorting method should be provided.
 ****
 
 Examples:
 
-* `sort-menu NAME` +
+* `sort-menu name` +
 Sorts the menu by item name in lexicographical order.
 * `sm PRICE` +
 Sorts the menu by item price in ascending order(lowest to highest).
 
-==== Clearing all entries : `clear-menu` or `cm`
-
-Clears all entries from the menu. +
-Format: `clear-menu`
-
+//tag::menuPart3[]
 ==== Giving a discount to an item : `discount-item` or `dci`
 
 Gives the item identified by the index number used in the displayed item list a discount. +
@@ -660,9 +674,10 @@ Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 * You can remove discount by typing `0` for the percentage.
-* You can give a discount to the whole menu by typing `ALL` instead of a specified `INDEX`.
+* You can give a discount to the whole menu by typing `ALL`(case-insensitive) instead of a specified `INDEX`.
 * You can give a discount to a range of items by adding the ending index `ei\INDEX`.
-* The ending index can not be smaller than index.
+* The ending index can not be smaller than starting index.
+* The percentage should only contain numbers(no negative), and it should be at most 2 digits(no decimal place).
 ****
 
 Examples:
@@ -671,31 +686,35 @@ Examples:
 `discount-item 2 dp/20` +
 Give the 2nd item in the menu a 20% discount.
 * `fi Cheese` +
-`dci 1 dp/0` +
-Revert the 1st item in the results of the `find` command to original price.
+`dci ALL dp/0` +
+Revert all items in the results of the `find-item` command to original price.
 * `li` +
 `dci 1 ei/3 dp/50` +
 Give the 1st item to the 3rd item in the menu a 50% discount.
+//end::menuPart3[]
 
 ==== Today's specials : `today-special` or `ts`
 
 Lists the items that have been tagged with `DAY_OF_THE_WEEK` in the menu. +
 Format: `today-special`
 
+****
+* `DAY_OF_THE_WEEK` refers to monday, tuesday, ...
+****
 Examples:
 
 * `today-special` +
 If today is Monday +
 List the items that have been tagged with `Monday` in the menu.
 
-==== Add/Update recipe to item : `recipe-item` or `ri`
+==== Adding recipe to item : `recipe-item` or `ri`
 
-Adds/Updates recipe to the item identified by the index number used in the menu. +
+Adds recipe to the item identified by the index number used in the menu. +
 Format: `recipe-item INDEX r/RECIPE`
 
 ****
-* Adds/Updates a recipe to the item at the specified `INDEX`.
-* If the item has a recipe already, it will update the recipe.
+* Adds a recipe to the item at the specified `INDEX`.
+* If the item has a recipe already, it will overwite the existing recipe.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 * You can remove recipe by typing `r/` without specifying any recipe after it..
@@ -707,30 +726,32 @@ Examples:
 Add/Update the recipe of the 1st item to be `Some Recipe`.
 * `fi Cheese` +
 `ri 1 r/Other Recipe` +
-Add/Update the recipe of the 1st item in the results of the `find` command to be `Other Recipe`.
+Add/Update the recipe of the 1st item in the results of the `find-item` command to be `Other Recipe`.
 
 [[add-required-ingredient]]
-==== Add required ingredients: `add-required-ingredients` or `ari`
+==== Adding required ingredients: `add-required-ingredients` or `ari`
 
-Adds/Updates required ingredients to the item identified by the index number used in the menu. +
+Adds required ingredients to the item identified by the index number used in the menu. +
 Format: `add-required-ingredients INDEX n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
 
 ****
-* Adds/Updates required ingredients to the item at the specified `INDEX`.
-* If the item has required ingredients already, it will update the required ingredients.
+* Adds required ingredients to the item at the specified `INDEX`.
+* If the item has required ingredients already, it will overwrite the existing required ingredients.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
-* NUMBER_OF_INGREDIENTS for an ingredient must follow the INGREDIENT_NAME for that particular ingredient.
+* NUMBER_OF_INGREDIENTS for an ingredient must be paired with the INGREDIENT_NAME for that particular ingredient.
+e.g. `n/apple nu/3` or `nu/3 n/apple`
+* You can remove required ingredients by not including any `n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
+e.g. `add-required-ingredients INDEX`
 ****
 
 Examples:
 
-* `add-required-ingredients 1 n/Apple nu/3`
+* `add-required-ingredients 1 n/Apple nu/3` +
 Add/Update the required ingredients of the 1st item.
 * `fi Cheese` +
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
-Add/Update the recipe of the 1st item in the results of the `find` command.
-// end::menu[]
+Add/Update the recipe of the 1st item in the results of the `find-item` command.
 
 //tag::reservations[]
 === Reservations Management
@@ -741,17 +762,18 @@ Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DA
 
 [NOTE]
 ====
-* We use natural language processing to parse the date and time values.
+* We use natural language processing to parse the date and time values
 * For example, phrases like `21st Dec` or `12 p.m.` will be accepted. Try it out!
 ====
 
 [WARNING]
 ====
-* Try to avoid ambiguous language as it might be interpreted incorrectly.
+* Try to avoid ambiguous language as it might be interpreted incorrectly
 * For example, `3/12` is ambiguous as it could mean `3rd December` or `12th March`!
 * If you want to be sure, we recommend using these formats:
 ** `DATE`: `DD-MM-YYYY`
 ** `TIME`: `HH:MM`
+* Dates that have already passed will be rejected
 ====
 
 Examples:
@@ -804,7 +826,7 @@ Format: `delete-reservation INDEX` or `dr INDEX`
 Examples:
 
 * `list-reservations` +
-`delete-reservations 2` +
+`delete-reservation 2` +
 `list-reservations` +
 Deletes the 2nd reservation in the reservations list.
 
@@ -1090,8 +1112,6 @@ Format: `export-chart` or `ec`
 Generates the item sales report that consists of all records associated with that item. +
 Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
 
-Examples:
-
 * `check-history n/Fried Rice`
 * `ch n/Fried Rice`
 
@@ -1114,7 +1134,7 @@ Format: `export-menu fp/FILEPATH fn/FILENAME`
 
 Examples:
 
-* `export-menu f/test/ n/menu.txt` +
+* `export-menu fp/test/ fn/menu.txt` +
 Export the menu to test folder with the file name `menu.txt`
 
 ==== Importing menu `[coming in v2.0]`
@@ -1124,7 +1144,7 @@ Format: `import-menu fp/FILEPATH fn/FILENAME`
 
 Examples:
 
-* `import-menu f/test/ n/menu.txt` +
+* `import-menu fp/test/ fn/menu.txt` +
 Import the menu.txt from test folder to replace current menu.
 
 ==== Support for multiple menus `[coming in v2.0]`
@@ -1171,17 +1191,19 @@ fish u/kilogram p/20 m/1`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*List items* |`list-items` |`list-items`
 |*Edit item* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
-|*Delete item* |`delete-item INDEX` |`delete-item 3`
+|*Delete item by index* |`delete-item-index INDEX` |`delete-item-index 3`
+|*Delete item by name* |`delete-item-name ITEM_NAME` |`delete-item-name burger`
 |*Select item* |`select-item INDEX` |`select-item 3`
 |*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
-|*Filter menu* |`filter-menu t/TAG` |`filter-menu t/cheese`
-|*Sort menu* |`sort-menu` |`sort-menu NAME`
 |*Clear menu* |`clear-menu` |`clear-menu`
-|*Discount item* |`discount-item INDEX d/PERCENTAGE` |`discount-item 2 d/20`
+|*Filter menu* |`filter-menu KEYWORD` |`filter-menu cheese`
+|*Sort menu* |`sort-menu SORTING_METHOD` |`sort-menu NAME`
+|*Discount item* |`discount-item INDEX dp/PERCENTAGE` |`discount-item 2 dp/20`
 |*Today's special* |`today-special` |`today-special`
-|*Add/Update item recipe* |`recipe-item` |`recipe-item 1 r/Some Recipe`
-|*Add required ingredients* |`add-required-ingredients` |`add-required-ingredients 1 n/Apple nu/3`
+|*Add recipe to item* |`recipe-item r/RECIPE` |`recipe-item r/some recipe`
+|*Add required ingredients to item* |`add-required-ingredients n/INGREDIENT_NAME nu/NUMBER_OF_INGREDIENTS`
+|`add-required-ingredients n/Apple nu/3`
 |*Add reservation* |`add-reservation n/NAME px/PAX d/DATE ti/TIME` |`add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
 |*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`

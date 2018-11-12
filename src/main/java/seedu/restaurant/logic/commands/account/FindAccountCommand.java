@@ -23,9 +23,9 @@ public class FindAccountCommand extends Command {
 
     public static final String COMMAND_ALIAS = "fa";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find all accounts whose username contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find all accounts whose username contains "
+            + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " root";
 
     public static final String MESSAGE_SUCCESS = "Listed %d accounts";

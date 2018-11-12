@@ -46,7 +46,7 @@ public class ClearCommandSystemTest extends RestaurantBookSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage,
-                new ModelManager(SampleDataUtil.getSampleRestaurantBook(), new UserPrefs()));
+                new ModelManager(SampleDataUtil.getDefaultRestaurantBook(), new UserPrefs()));
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in item list and clears restaurant book -> cleared and no card selected */
@@ -80,7 +80,7 @@ public class ClearCommandSystemTest extends RestaurantBookSystemTest {
      */
     private void assertCommandSuccess(String command) {
         assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS,
-                new ModelManager(SampleDataUtil.getSampleRestaurantBook(), new UserPrefs()));
+                new ModelManager(SampleDataUtil.getDefaultRestaurantBook(), new UserPrefs()));
     }
 
     /**
