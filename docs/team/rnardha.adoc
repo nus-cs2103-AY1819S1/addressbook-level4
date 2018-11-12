@@ -31,7 +31,7 @@ not used anymore, it can be remove from the system.
 ** *Edit assignment:* `editassignment`
 *** What it does: This allows authorized users to make changes to existing
 assignment documents.
-*** Justification: Making changes in order to document improvement will be needed during the course of the assignment. 
+*** Justification: Making changes in order to document improvement will be needed during the course of the assignment.
 
 ** *List assignments:* `listassignments`
 *** What it does: This allows the user to view all the existing assignments in
