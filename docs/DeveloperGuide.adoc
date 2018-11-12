@@ -741,7 +741,7 @@ _Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 * Diagram 2: When user enters `delete-ingredient apple`
 +
 image::DeleteIngredientByNameSequenceDiagram.png[width="800"]
-_Figure 4.6.1.1: Component interactions for `delete-ingredient apple` command_
+_Figure 4.6.1.2: Component interactions for `delete-ingredient apple` command_
 
 ==== Design Considerations
 
@@ -774,7 +774,7 @@ exception is thrown
 The following activity diagram shows what happens when the user executes the `stockup` command:
 
 image::StockUpActivityDiagram.png[width="1000"]
-_Figure 4.7.1: Flow of events after a user executes the `stockup` command_
+_Figure 4.7.1.1: Flow of events after a user executes the `stockup` command_
 
 ==== Design Considerations
 
