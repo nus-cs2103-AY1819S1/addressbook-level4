@@ -167,7 +167,7 @@ This section contains all commands related to managing commands.
 
 ==== Viewing help: `help`
 
-Display short summary of important commands. A summarized help
+Display short summary of important commands. A similar-looking summarized help
 sheet showing command syntax without details should appear as shown below. +
 
 image::ui_screenshots/help-example-1.png[width="800"]
