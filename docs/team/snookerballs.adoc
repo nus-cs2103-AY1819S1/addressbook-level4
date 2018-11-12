@@ -54,7 +54,7 @@ of financial applications.
 ** Documentation:
 *** Updated the `Notification` component section of the User Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187]
 *** Updated the `Use Case`, `User Stories` and `User Interface` component section of the Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
-*** Made changes to the Developer Guide. Improved language and edited diagrams: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
+*** Made changes to the Developer Guide. Improved language, updated images and edited diagrams: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75], https://github.com/CS2103-AY1819S1-T12-1/main/pull/194[#194]
 
 *** Report bugs for other teams: https://github.com/CS2103-AY1819S1-F10-2/main/issues/217[#217], https://github.com/CS2103-AY1819S1-F10-2/main/issues/234[#234],
 https://github.com/CS2103-AY1819S1-F10-2/main/issues/201[#201], https://github.com/CS2103-AY1819S1-F10-2/main/issues/221[#227], https://github.com/CS2103-AY1819S1-F10-2/main/issues/212[#212]

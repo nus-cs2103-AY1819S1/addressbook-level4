@@ -35,7 +35,6 @@ public class XmlAdaptedNotificationHandler {
 
     /**
      * Converts a given NotificationHandler into this class for JAXB use.
-     *
      * @param source source budget
      */
     public XmlAdaptedNotificationHandler(NotificationHandler source) {
@@ -44,7 +43,6 @@ public class XmlAdaptedNotificationHandler {
 
     /**
      * Creates a {@code XmlAdaptedNotificationHandler} based on the given parameters for JAXB use.
-     *
      * @param date
      * @param isTipEnabled
      * @param isWarningEnabled
