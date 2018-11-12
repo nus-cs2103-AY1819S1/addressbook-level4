@@ -441,7 +441,7 @@ doing so will also allow the developer to alter the definition of the different 
 
 //tag::eventDiagram[]
 image::Event.png[Event class]
-//tag::eventDiagram[]
+//end::eventDiagram[]
 
 //tag::addEvents[]
 ===== Adding/Deleting of an Event
