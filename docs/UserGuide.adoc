@@ -324,7 +324,7 @@ Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MED
 
 You just need to type in the command as below:
 
-.Before adding patient 
+.Before adding patient
 image::user-guide-addpatient-before.png[width=500]
 
 Then, the new patient will be added to the list as below:
