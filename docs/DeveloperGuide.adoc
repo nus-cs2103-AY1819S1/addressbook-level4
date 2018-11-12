@@ -719,7 +719,6 @@ image::DeleteIngredientByIndexSequenceDiagram.png[width="1000"]
 
 _Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 
-[%hardbreaks]
 * Diagram 2: When user enters `delete-ingredient apple`
 +
 image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
@@ -747,13 +746,16 @@ interface. The `StockUpCommandParser` parses the command input from the user, cr
 `IngredientName` keys to `NumUnits` values. This `HashMap` represents the ingredients to be stocked up, and their
 respective stock up amounts. With this `HashMap`, the `StockUpCommandParser` creates a `StockUpCommand` object. The
 `StockUpCommand` executes the stock up operation, which is exposed in the `Model` interface as
-`Model#stockUpIngredients()`. The operation is atomic, thus if it fails for one ingredient,
-none of the ingredients will be stocked up and an exception is thrown.
+`Model#stockUpIngredients()`.
+
+[WARNING]
+The operation is atomic, thus if it fails for one ingredient, none of the ingredients will be stocked up and an
+exception is thrown.
 
 The following activity diagram shows what happens when the user executes the `stockup` command:
 
 image::StockUpActivityDiagram.png[width="1000"]
-_Figure 4.7.1: Flow of events after a user executes the stock up command_
+_Figure 4.7.1: Flow of events after a user executes the `stockup` command_
 
 ==== Design Considerations
 
@@ -2067,3 +2069,86 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the `jar` file. +
    *Expected*: The most recent window size and location is retained.
 
+=== Ingredient Management
+. Adding an ingredient
+
+.. Pre-requisites: The ingredient must not have the same name as another existing ingredient in the ingredient list
+and must be logged in.
+.. Test case: `add-ing n/Chicken Thigh u/kilogram p/14.00 m/20` +
+   *Expected*: Ingredient is added into the ingredient list. Details of the added ingredient is shown in the
+   status message. Timestamp in the status bar is updated.
+.. Test case: add-ing n/ +
+   *Expected*: No ingredient is added. Error details are shown in the status message. Status bar remains the
+   same.
+.. Other incorrect `add-ing` commands to try: `add-ing`, `add-ing n/123 u/kilogram p/14.00 m/20`,
+`add-ing n/Chicken Thigh u/+++ p/14.00 m/20` +
+   *Expected*: Similar to previous.
+
+. Listing all ingredients
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `list-ing` +
+   *Expected*: All ingredients are listed at the panel on the left of the UI.
+
+. Listing all the items that are low on stock
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `low-stock` +
+   *Expected*: All ingredients that have a number of units less than its minimum value are listed.
+
+. Deleting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `delete-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing Chicken Thigh` +
+   *Expected*: The ingredient with the specified name is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing 0` +
+   *Expected*: No ingredient is deleted. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `delete-ing` commands to try: `delete-ing`, `delete-ing x` (where x is larger
+ than the ingredient list size) +
+   *Expected*: Similar to previous.
+
+. Editing an ingredient
+
+.. Pre-requisites: The ingredient to be edited must be an existing entry in the ingredient list and must be logged in.
+The edited ingredient must not have the same name as another ingredient existing in the ingredient list.
+.. Test case: `edit-ing 1 n/Chicken Drumstick` +
+   *Expected*: Edited ingredient replaces the existing ingredient in the ingredient list. Details of the edited
+   ingredient is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-ing Chicken Thigh n/Chicken Drumstick` +
+   *Expected*: Similar to previous.
+.. Test case: `edit-ing n/` +
+   *Expected*: No ingredient is edited. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `edit-ing` commands to try: `edit-ing`, `edit-ing Chicken Drumstick+` +
+   *Expected*: Similar to previous.
+. Stocking up an ingredient or multiple ingredients
+
+.. Pre-requisites: The ingredient(s) to be stocked up must be an existing entry or existing entries in the ingredient
+list and must be logged in.
+.. Test case: `stockup n/Chicken Drumstick nu/10` +
+   *Expected*: The number of units of the ingredient increases by the specified number. The name of the
+   ingredient being restocked is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `stockup n/Chicken Drumstick nu/10 n/Cheese nu/15` +
+   *Expected*: Similar to previous.
+.. Test case: `stockup n/Chicken Drumstick` +
+   *Expected*: No ingredient is stocked up. Error details are shown in the status message. Status
+    bar remains the same.
+.. Other incorrect `stockup` commands to try: `stockup`, `stockup n/Chicken Drumstick n/Cheese nu/10 nu/20` +
+   *Expected*: Similar to previous.
+
+. Selecting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `select-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is selected. Details of the selected ingredient is
+   shown in the right panel of the UI.
+.. Test case: `select-ing 0` +
+   *Expected*: No ingredient is selected. Error details are shown in the status message.
+.. Other incorrect `select-ing` commands to try: `select-ing`, `select-ing x` (where x is larger
+ than the ingredient list size)
+   *Expected*: Similar to previous.
