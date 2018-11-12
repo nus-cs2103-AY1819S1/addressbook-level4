@@ -552,7 +552,7 @@ Separation of Concerns Principle.
 ** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
 * **Alternative 2:** Have appointments appear when using an appointment command
 ** Pros: Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
-** Cons: Increases difficulty in freelu accessing appointments.
+** Cons: Increases difficulty in freely accessing appointments.
 
 //end::apptfeature[]
 
@@ -1717,6 +1717,10 @@ This section is designed to provide you with definitions for
 terms that are used in this document below.
 
 [horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
 [[crud]] Create, Read, Update and Delete (CRUD)::
 These are the basic functions of a persistent database.
 
