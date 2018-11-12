@@ -1,7 +1,5 @@
 package seedu.clinicio.model.analytics;
 
-import static java.util.Objects.requireNonNull;
-
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,36 +62,6 @@ public abstract class Statistics {
         int yearCount = DateUtil.currentYearCount(dates);
 
         return Arrays.asList(todayCount, weekCount, monthCount, yearCount);
-    }
-
-    /**
-     * Calculates the range of an axis given {@code values} based on an {@code offset} from the minimum and maximum
-     * values.
-     * Assumes offset is not negative.
-     */
-    public Tuple<Integer, Integer> calculateAxisRange(List<Integer> values, int offset) {
-        requireNonNull(values);
-        // separate assertions for greater clarity in debugging
-        assert offset >= 0 : "Offset must not be negative";
-        assert offset >= 5 : "Offset must be at least five";
-
-        if (values.isEmpty()) {
-            return new Tuple<Integer, Integer>(0, offset);
-        }
-
-        int min = values.stream()
-            .mapToInt(v -> v)
-            .min()
-            .orElseGet(() -> 0);
-        min = Math.max(0, min - offset);
-
-        int max = values.stream()
-            .mapToInt(v -> v)
-            .max()
-            .orElseGet(() -> offset);
-        max = max + offset;
-
-        return new Tuple<Integer, Integer>(min, max);
     }
 
     /**

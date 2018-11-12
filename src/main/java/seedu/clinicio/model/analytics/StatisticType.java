@@ -8,9 +8,7 @@ package seedu.clinicio.model.analytics;
 public enum StatisticType {
     PATIENT("patient"),
     APPOINTMENT("appointment"),
-    DOCTOR("doctor"),
-    MEDICINE("medicine"),
-    CONSULTATION("consultation");
+    DOCTOR("doctor");
 
     private final String value;
 

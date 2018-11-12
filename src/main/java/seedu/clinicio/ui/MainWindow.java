@@ -33,7 +33,7 @@ import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
 import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.ui.analytics.AnalyticsDisplay;
+import seedu.clinicio.ui.analytics.AnalyticsDisplayPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private AnalyticsDisplay analyticsDisplay;
+    private AnalyticsDisplayPanel analyticsDisplay;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -158,7 +158,7 @@ public class MainWindow extends UiPart<Stage> {
         setUpTab();
 
         browserPanel = new BrowserPanel();
-        analyticsDisplay = new AnalyticsDisplay();
+        analyticsDisplay = new AnalyticsDisplayPanel();
         analyticsDisplay.setVisible(false);
 
         browserPlaceholder.setAlignment(Pos.TOP_CENTER);
