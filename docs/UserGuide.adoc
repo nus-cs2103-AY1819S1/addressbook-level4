@@ -113,14 +113,14 @@ Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 .Important:
 Omission of *any* mandatory parameters will result in the failure of adding the patient to the database.
 
-Upon successful execution, you should see the patient with his details added to the patient list on the right.
+Upon successful execution, you should see the patient with his details added to the patient list on the left.
 
 Examples:
 
 * `add n/Clinton Law ic/S9638902L p/97947435 e/clinton@cs2103t.com a/Tembusu College` +
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clinton@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
-.After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the right, indicated by the black cursor.
+.After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the left, indicated by the black cursor.
 image::AddEx1.png[width="900"]
 
 ==== Editing a patient: `edit`
@@ -135,19 +135,19 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * The `INDEX` refers to the index number shown in the displayed patient list. It must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 * At least one of the optional parameters must be provided.
 * Existing values will be *overwritten* by the newly input values of the corresponding field.
-* You cannot edit the record of a patient that is currently in queue.
+* You cannot edit the record of a patient that is currently in the queue.
 ====
 
 [TIP]
 .Pro tip(s):
 You can remove *all* of a patient's tags by typing the `t/` prefix without specifying any tags.
 
-Upon successful execution, you should see the patient's details updated in the patient list on the right.
+Upon successful execution, you should see the patient's details updated in the patient list on the left.
 
 Examples:
 
 * `edit 5 p/98534228 e/clawyq@cs2101.com` +
-Updates the phone number and e-mail address of the 5th patient in the list to `98534228` and `clawyq@cs2101.com` respectively, as shown below.
+Updates the phone number and e-mail address of the 5^th^ patient in the list to `98534228` and `clawyq@cs2101.com` respectively, as shown below.
 
 .Before and after executing the `edit` command specified above.
 image::EditEx1.png[width="900"]
