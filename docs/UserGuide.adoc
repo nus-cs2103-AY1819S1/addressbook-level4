@@ -170,6 +170,7 @@ Examples:
 
 * `delete 3`
 
+// tag::archive[]
 === View deleted employee archive : `archive`
 
 Displays the list of active employees removed from the system. To delete an employee from the OASIS completely simply remove it from archive list again.
@@ -179,7 +180,9 @@ Format: `archive`
 ****
 * Replaces current view on the left panel to the archive list.
 ****
+// end::archive[]
 
+// tag::restore[]
 === Restoring employee to active list: `restore`
 
 Restores an employee to active list from the archived list.
@@ -193,6 +196,7 @@ Format: `restore INDEX`
 Examples:
 
 * `restore 1`
+// end::restore[]
 
 === List details of employee : `select`
 

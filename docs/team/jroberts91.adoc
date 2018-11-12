@@ -68,8 +68,8 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=archive]
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=archive]
+include::../UserGuide.adoc[tag=restore]
 
 == Contributions to the Developer Guide
 
@@ -78,4 +78,4 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 |===
 
 include::../DeveloperGuide.adoc[tag=archive]
-// include::../DeveloperGuide.adoc[tag=da/taencryption]
+include::../DeveloperGuide.adoc[tag=restore]

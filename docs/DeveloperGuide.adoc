@@ -678,7 +678,7 @@ Step 3. The user executes archive command to change view from active list to the
 
 Step 4. OASIS shows delete person in step 2 in the archive list
 
-The following activity diagram summarizes what happens when a user executes remove and restore command:
+The following activity diagram summarizes what happens when a user executes delete and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
 
