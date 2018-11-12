@@ -724,7 +724,7 @@ e.g. `edit 2 i/exception thrown not handled d/statement solved` +
 For solutions: `edit INDEX s/[SOLUTION_LINK] r/[REMARK]` +
 e.g. `edit 3 s/www.google.com r/add a catch block`
 * *Refactor Tag* : `refactortag t/OLDTAG [n/NEWTAG]` +
-e.g. `refactorTag t/java n/C++`
+e.g. `refactortag t/java n/C++`
 * *Add Tag* : `addtag INDEX t/TAG1 [t/TAG2]...` +
 e.g. `addtag 2 t/python t/java t/TIL`
 * *Retrieve* : `retrieve INDEX` +
@@ -737,7 +737,6 @@ e.g. `find BST`
 * *Find Tag* : `findtag KEYWORD [MORE_KEYWORDS]` +
 e.g. `findtag python`
 * *List* : `list`
-* *Sort* : `sort TYPE`
 * *Home* : `home`
 * *Undo* : `undo`
 * *Redo* : `redo`
@@ -745,12 +744,5 @@ e.g. `findtag python`
 * *Clear* : `clear`
 * *History* : `history`
 * *Exit* : `exit`
-<<<<<<< HEAD
-=======
-* *List* : `list`
 * *Sort* : `sort TYPE` +
 e.g. `sort chro`
-* *Set Primary* : `setprimary [INDEX]` +
-e.g. `setprimary 1`
-* *Reset Primary* : `resetprimary`
->>>>>>> 739dd62fe6193e5bb74c5ecfed53ba472df95053
