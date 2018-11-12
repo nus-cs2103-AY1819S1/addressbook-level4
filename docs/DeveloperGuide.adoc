@@ -446,20 +446,70 @@ this week` commands to specify their choices.
 // end::achievements[]
 
 // tag::complete[]
-
 === Batch Completion via Label feature
+
+The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
+`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
+takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
+
+_If you require involved context for the execution of the whole `CompleteCommand` please refer
+to: Appendix E: Complete Command Activity Diagram_
+
+[NOTE]
+This section and its subsections are written with reference to commit:
+9ddb0ffddf5d769d357e28fbd5337011614e7b14
+
 ==== Current Implementation
 
-The batch completion mechanism is facilitated by `CompleteLabelCommand`.
-It extends `CompleteCommand` and encapsulates the internal logic of finding task and completing multiple
-tasks atomically.
+The batch completion mechanism is facilitated by `CompleteLabelCommand`. It extends
+`CompleteCommand` and encapsulates the internal logic of finding completable tasks via a supplied
+ `Task<Predicate>`. Additionally it is able to complete and rollback multiple tasks atomically.
+
+These are the methods in the CompleteCommand class supporting the batch completion:
+
+* `#completeAllTasksReturnStringOfTasks(Model)`
+* `#completeTasksInSetUpdateModel(Model, Set<Task>)`
+* `#completeOneTaskReturnStringOfTasks(Task, Model)`
+
+_Premise: The application has several tasks tagged with the label: many._
+
+Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
+
+Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
+if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
+result a new `CompleteLabelCommand` instance is created. It contains a
+`LabelMatchesAnyKeywordsPredicate` which will only test true against a `Task` containing a
+`Label::many`.
+
+Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
+created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
+called which encapsulates the logic for updating all valid completable tasks matching the predicate.
+
+image::CompleteViaLabelOnSuccess.png[width="700"]
+
+Step 1.2.1 If all tasks are updated successfully, `Model#commit()` will be called.
+
+Step 2. The user sees all tasks previously displayed on the screen which matches the label change
+it's status to `COMPLETED`
+
+**Extensions**
+
+Step 1.2.1.a If all tasks are not updated successfull, `Model#rollbal()` will be called. All
+uncommitted changes will be reset to the current state pointed to in `taskManagerStateList`.
+
+image::CompleteViaLabelOnFail.png[width="700"]
+
+Step 1.2.1.a1 Then user will see a relevant error message pertaining to what went wrong.
+
+
+===== Auxiliary Changes
 
 Additionally, in order to facilitate the finding of task and completing tasks atomically, the
 following auxiliary classes have been created / extended as a result:
 
-* `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
+* `LabelMatchesAnyKeywordsPredicate` -- Extension of the functional interface `Predicate<E>`
 ** This class is required to encapsulate the logic of determining if a task has a `Label` matching
-the desired `Label` (case-insensitive).
+any of the desired `Label`(s) specified (case-insensitive).
 
 *Updated*
 
@@ -469,43 +519,6 @@ the desired `Label` (case-insensitive).
 * `CompleteCommandParser` -- Extended to parse two different formats, `Index` and `Label` based
 commands
 
-These are the methods in the CompleteCommand class supporting the batch completion:
-
-* `#completeAllTasksReturnStringOfTasks(Model)`
-* `#completeOneTaskReturnStringOfTasks(Task, Model)`
-
-[NOTE]
-The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
-`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
-takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-_Premise: The application has several tasks tagged with the label: many._
-
-Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
-
-Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
-if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
-result a new `CompleteCommand` instance containing a  `LabelMatchesKeywordPredicate` which
-will only test true against a `Task` containing a `Label::many`.
-
-Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
-created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
-called which handles the logic for updating all valid completable tasks matching the predicate.
-
-image::CompleteViaLabelOnFail.png[width="1200"]
-
-[NOTE]
-If a command fails its execution, it will call `Model#rollbackTaskManager()`, so
-all current changes will be reset to the latest commit / state in `taskManagerStateList`.
-
-image::CompleteViaLabelOnSuccess.png[width="1200"]
-
-Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
-
-Step 2. The user sees all tasks previously displayed on the screen which matches the label change
-it's status to `COMPLETED`
 
 ==== Design Considerations
 
@@ -514,11 +527,12 @@ it's status to `COMPLETED`
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
 ** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
-ensuring that there are no partially-done batch operation resulting in harder to debug state.
-** Cons: Increases coupling of components.
-* **Alternative 2:** Doing a check on all tasks and only proceeding to update the model and
-commit if deemed that all tasks can be completed successfully else throw an exception.
-** Pros: Reduces coupling.
+ensuring that there are no partially-done batch operation resulting in a possibly invalid state.
+** Cons: Requires extending the Model class and depending on its funcationalities; resulting in
+tighter coupling.
+* **Alternative 2:** Doing a check on all tasks to see if they can be completed successfully. If
+yes, then proceed to update the model and commit else throw an exception.
+** Pros: Looser coupling as checks are implemented within CompleteCommand.
 ** Cons: Unable to handle unforeseen failure to complete, resulting in a partially committed
 batch operation.
 
@@ -526,14 +540,17 @@ batch operation.
 
 * **Alternative 1:** Overloading the constructors and implementing the logic for
 both behaviours within.
-** Pros: Groups possibly tightly coupled code together into a single class; thus reducing
-coupling.
-** Cons: Possibly goes against the Separations of Concerns principle.
+** Pros: This is one easy way of grouping possibly tightly coupled code together into a single
+class; thus reducing coupling.
+** Cons: Goes against the Separations of Concerns principle.
 * **Alternative 2 (current choice)** Implementing `CompleteCommand` as an abstract class. Each class would then inherit
 and implement the abstract methods, providing different polymorphic behaviours for `CompleteCommand`. Currently, the
 two different behaviours implemented are: completion via index and completion via label.
 ** Pros: Clear separation of concern, respecting the Single Responsibility Principle.
-** Cons: Harder to initially design properly.
+Additionally, there is less duplicated code as similar code can be implemented in the
+`CompleteCommand` class.
+** Cons: Harder to initially design properly, also sub-classes of CompleteCommand are now coupled
+ to CompleteCommand.
 
 [NOTE]
 Alternative 2 was considered for `CompleteCommandParser`. However in this case, it is hard to determine whether
@@ -545,9 +562,9 @@ a high amount of coupling.
 ===== Aspect: Representation of predicate to be stored by CompleteCommand
 
 * **Alternative 1 (current choice):** As an explicit implemented class
-`LabelMatchesKeywordPredicate`.
+`LabelMatchesAnyKeywordsPredicate`.
 ** Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
-`LabelMatchesKeywordPredicate`. In sum, it allows for the checking of structural equality rather than just referential
+`LabelMatchesAnyKeywordsPredicate`. In sum, it allows for the checking of structural equality rather than just referential
 equality.
 ** Cons: Creation of an extra class requires more understanding by developers to pick up the
 quirks as opposed to commonly recognised _Alternative 2_
@@ -566,13 +583,12 @@ Allows for any uncommitted changes to be discarded.
 * `VersionedTaskManager` -- Implements a `rollback()` method
 
 When `VersionedTaskManager#Rollback()` is called, the current data is reset to the state of the
-latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to reset the data to
-the latest commit, also the `currentStatePointer` is set to point at the index of the latest
-commit in `taskManagerStateList`.
+latest commit. Internally, `VersionedTaskManager#resetData(...)` is called to reset the data to
+the commit pointed by the `currentStatePointer` in the `taskManagerStateList`.
 
 image::RollbackModelSequenceDiagram.png[width="1200"]
 
-_Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
+_Calls to the Commons/Event component has been omitted for brevity._
 // end::complete[]
 // tag::dependency[]
 
@@ -914,12 +930,12 @@ Attributable to our target demographic are the following qualities:
   * Perpetually experiencing the continuous bombardment of deadlines from assignments
 
 [appendix]
-== Appendix B: Value proposition
+== Value proposition
 
 By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.
 
 [appendix]
-== Appendix C: User Stories
+== User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 |===
 | Priority   | As a ...  | I want to ... | So that I can ...
@@ -1072,30 +1088,83 @@ Use case ends.
 
 Use case ends.
 
+// tag::use-case-complete[]
 === Use case: Completing Task (Single)
 ==== MSS
-. User marks task as complete.
-. Application reports both points earned and current points to user.
+. User completes a task by specifying the index of the task to complete.
+. Application reports both points earned and tasks completed to the user.
+
+Use case ends.
 
 ==== Extensions
-* 1a. An error occurs, causes one of the task to not be completed
-** 1a1. Application displays error message, no points are earned either.
+* 1a. The selected task is already completed.
+** 1a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 1b. The index supplied is invalid.
+** 1b1. Application displays a relevant error message.
+
+Use case ends.
+
+* 1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.
+** 1b1. Application displays a relevant error message.
+
+Use case ends.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a trivial congratulatory message, level achieved, points earned and
+tasks completed to the user.
+
+Use case ends.
 
 === Use case: Completing Task (Batch via `Label`)
 ==== MSS
-. User marks a batch of tasks with the same specified `Label` as complete.
-. Application reports both points earned and current points to user.
+. User completes a task by specifying one or more `Label`(s) that are tagged to the tasks he
+wishes to complete.
+. Application identifies a completable batch of tasks that contains the specified `Label`(s) to be
+completed and completes them one by one.
+. Application reports both points earned and tasks completed to user.
+
+Use case ends.
 
 ==== Extensions
-* 1a. An error occurs, causes one of the tasks to not be able to be completed
-** 1a1. Application displays an error message, resetting the batch of tasks to their
+* 1a. The label supplied is invalid
+** 1a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 2a. There are no completable tasks identified by the label
+** 2a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 2b. There is an error internally with the application, it tries to complete a task that has
+already been completed.
+** 2b1. Application resets the batch of tasks to their pre-completed state and no points are earned.
+** 2b2. Application displays a relevant error message.
+
+Use case ends.
+
+* 2c. At least one of tasks identified via label to be completed has unfulfilled dependencie(s)
+that must be completed first.
+** 2c1. Application displays an error message, resetting the batch of tasks to their
 pre-completed state and no points are earned.
 
-* 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+Use case ends.
+
+* 3a. User earns enough points to level up
+** 3a1. Application displays a trivial congratulatory message, level achieved, points
+earned and tasks completed to the user.
+
+Use case ends.
+// end::use-case-complete[]
+
+[appendix]
+== Complete Command Activity Diagram
+
+image::CompleteCommandActivityDiagram.png[width="800"]
+
 
 [appendix]
 == Non-functional requirements
@@ -1303,6 +1372,55 @@ Number of dependencies field on the task card updated.
 .. Other incorrect dependency commands to try: `dependency`, `dependency x 1` (where x is larger than the list size), adding a
 dependency that will cause a cyclic dependency +
    Expected: Similar to previous.
+
+// tag::completemanualtest[]
+=== Interactions of Complete Command with Dependencies
+[NOTE]
+As the standard output for Complete Command is quite verbose, we shall alias "standard output" to
+ mean "Xp change, new level acquired (if any) and Task(s) Completed is/are shown to user."
+
+==== Index based interactions
+
+. Expected interactions without dependencies
+.. Prerequisites:
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add a dependency from Task A to Task B using `dependency 1 2`
+
+.. Test case 1: `complete 2`,
+Expected: Task B is completed, followed by its standard output.
+
+.. Test case 2: `complete 1`,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.
+
+.. Test case 3: `complete 2`, followed by `complete 1`
+Expected: Task B is completed, followed by it's standard output. Task A is completed, followed by
+ its standard output.
+
+==== Label based interactions
+
+. Expected interactions without dependencies
+.. Prerequisites:
+
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank l/one`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank l/two`
+... Add a dependency from Task A to Task B using `dependency 1 2`
+
+.. Test case 1: `complete l/two`,
+Expected: Task B is completed, followed by its standard output.
+
+.. Test case 2: `complete l/one`,
+Expected: An error message is shown to the user as Task A is dependent on Task B, i.e. requires
+Task B to be completed first.
+
+.. Test case 3: `complete l/one l/two`,
+Expected: Both Task A and Task B are completed in no defined order, followed by
+ its standard output.
+// end::completemanualtest[]
 
 === List topological order of tasks
 . List topological order of tasks
