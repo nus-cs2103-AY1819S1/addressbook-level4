@@ -471,13 +471,13 @@ Since the left panel would be shared between the `TaskListPanel` and the `Calend
 ** Pros: Will be capable of combining multiple `Predicates` in various different ways, allowing for more complex boolean expressions (see the next section for possible implementations)
 ** Cons: More difficult to implement, since it would add an extra layer of integration between the new class and the ModelManager. Would also need to ensure that the list of predicates is appropriately reset when each new command is entered.
 
-===== Aspect: How Predicates are Managed and Applied to the FilteredList
-* **Alternative 1 (current choice):** Use a simple rule (AND) to combine all the `Predicates` into a single one, then apply them to the `FilteredList` as normal.
-** Pros: Easy to implement, since it mostly leverages existing functionality (only need to modify 1 method). As such it is also less likely to lead to regression errors.
-** Cons: Only capable of limited functionality
-* **Alternative 2:** Use a separate class to store and manage the `Predicates`, combine them in the desired fashion and apply the resulting `Predicate` to the `FilteredList`.
-** Pros: Will be capable of combining multiple `Predicates` in various different ways, allowing for more complex boolean expressions (see the next section for possible implementations)
-** Cons: More difficult to implement, since it would add an extra layer of integration between the new class and the ModelManager. Would also need to ensure that the list of predicates is appropriately reset when each new command is entered.
+===== Aspect: How Best to Show the User the Most Relevant Search Result
+* **Alternative 1 (current choice):** Sort the `FilteredList` of `CalendarEvents` in descending order of fuzzy match score
+** Pros: More reliable, has high chance of achieving the desired goal
+** Cons: Slower (since it needs to sort), more complicated to implement
+* **Alternative 2:** Apply a more aggressive filter (with higher threshold for acceptance) to hide less relevant results
+** Pros: Faster than sorting
+** Cons: Can be difficult to calibrate the filters properly to achieve the desired result. May end up being too aggressive, and could remove correct/desired results in some scenarios.
 
 ==== Further Extensions
 
