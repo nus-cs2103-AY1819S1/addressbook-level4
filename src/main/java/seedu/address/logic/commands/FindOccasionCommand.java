@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.FindOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -40,6 +41,8 @@ public class FindOccasionCommand extends Command {
         model.updateFilteredOccasionList(predicate);
         model.setActiveType(OCCASION);
         EventsCenter.getInstance().post(new ShowOccasionRequestEvent());
+
+        EventsCenter.getInstance().post(new FindOccasionRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_OCCASIONS_LISTED_OVERVIEW, model.getFilteredOccasionList().size()));
     }

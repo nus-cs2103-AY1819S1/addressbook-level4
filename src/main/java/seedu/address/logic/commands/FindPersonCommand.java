@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.FindPersonRequestEvent;
 import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -42,6 +43,8 @@ public class FindPersonCommand extends Command {
         model.updateFilteredPersonList(predicate);
         model.setActiveType(PERSON);
         EventsCenter.getInstance().post(new ShowPersonRequestEvent());
+
+        EventsCenter.getInstance().post(new FindPersonRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
