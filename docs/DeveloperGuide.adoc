@@ -1782,6 +1782,8 @@ Use case resumes at step 2.
 [discrete]
 === Use case: List leave applications
 
+Preconditions: user is logged in
+
 *MSS*
 
 .  User login to the system
@@ -1813,10 +1815,10 @@ Use case ends.
 [discrete]
 === Use case: Approve a leave application
 
+Preconditions: user is logged in
+
 *MSS*
 
-.  User login to the system
-.  OASIS shows home page
 .  User <<Use case: List leave applications, lists leave applications (Use case: List leave applications)>>
 .  User enters command to approve a leave, and chooses the leave application to approve
 .  OASIS approves the leave application
@@ -1827,23 +1829,19 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The credentials are invalid
+* 2a. The format is invalid
 +
-Use case ends.
-
-* 4a. The format is invalid
+** 2a1. OASIS shows an error message
 +
-** 4a1. OASIS shows an error message
+* 2b. The index is does not exist
 +
-* 4b. The index is does not exist
+** 2b1. OASIS shows an error message
 +
-** 4b1. OASIS shows an error message
+* 2c. The user does not have the permissions to approve leaves
 +
-* 4c. The user does not have the permissions to approve leaves
+** 2c1. OASIS shows an error message
 +
-** 4c1. OASIS shows an error message
-+
-Use case resumes at step 2.
+Use case resumes at step 1.
 Use case ends.
 
 [appendix]
