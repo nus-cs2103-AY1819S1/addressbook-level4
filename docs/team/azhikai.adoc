@@ -50,6 +50,7 @@ https://i.imgur.com/iHyQAML.png[automatic notifications] using Webhook.
 *** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
 *** Added introductions to User Guide and Developer Guide to make them more reader-focused.
 *** Added `Using Git with Sourcetree` section to the Developer Guide.
+*** Added instructions for manual testing for Accounts Management.
 *** Morphed the existing contents of the User Guide and Developer Guide with respect to
 the morphed code base.
 ** *Community*:
