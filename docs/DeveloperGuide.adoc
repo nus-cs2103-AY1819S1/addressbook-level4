@@ -539,10 +539,28 @@ and passes the data as parameters by calling
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
 an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `ModelManager#expensePredicate`, and sorted by date.
-`Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
-the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
-If `StatsMode` is set to CATEGORY, the key value pair represents category and cost.
 
+. `Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
+the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
+If `StatsMode` is set to CATEGORY, the key value pair represents category and cost. Regardless of mode, the values are
+cumulative and is implemented using the algorithm in the following code snippet, using the example of category mode:
++
+```
+LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+for (Expense e : expenseList) {
+    String category;
+    category = e.getCategory().categoryName;
+
+    if (stats.containsKey(category)) {
+        stats.put(
+                category,
+                stats.get(category) + e.getCost().getCostValue()
+        );
+    } else {
+        stats.put(category, e.getCost().getCostValue());
+    }
+}
+```
 . `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
  by calling the method of the same name in `Model`.
 
@@ -1935,6 +1953,31 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Showing statistics
+
+. Showing statistics based on expenses in Expense Tracker
+
+.. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
+categories and costs.
+
+.. Test case: `stats` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
+   If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/d m/t` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Exactly the same as above.
+
+.. Test case: `stats n/7 p/m m/t` (periodAmount = 7, period = month, mode = time) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 months, starting from the current month, aggregated by month.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/m m/c` (periodAmount = 7, period = month, mode = category) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *pie chart* for expenses in the last 7 months, starting from the current month, aggregated by category.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
 
 === Notification Panel
 
