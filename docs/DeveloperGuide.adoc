@@ -784,11 +784,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The added modules and CAP goal are retained. 
    
-. Changing the transcript data filepath
+. Changing the transcript data file path
 .. Add some modules, set a CAP goal, and close the app.
-.. Change the value of `transcriptFilePath` in the file `data/preferences.json` (found in the same directory as the jar file) to some non-existent file such as `data/transcript_test.json`.+
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The app will initialize with an empty transcript (no modules or CAP goal). On further change, the app will save the transcript data to the new file `data/transcript_test..json`.+
+.. Change the value of `transcriptFilePath` in the file `data/preferences.json` (found in the same directory as the jar file) to some non-existent file such as `data/transcript_test.json`.
+.. Re-launch the app by double-clicking the jar file.+
+   Expected: The app will initialize with an empty transcript (no modules or CAP goal). On further change, the app will save the transcript data to the new file `data/transcript_test..json`.
    
 . Importing transcript data
 .. Add some modules, set a CAP goal, and close the app.
