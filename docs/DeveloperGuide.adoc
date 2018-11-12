@@ -1070,38 +1070,71 @@ Use case ends.
 
 === Use case: Completing Task (Single)
 ==== MSS
-. User marks task as complete.
-. Application reports both points earned and current points to user.
+. User completes a task by specifying the index of the task to complete.
+. Application reports both points earned and tasks completed to the user.
 
 Use case ends.
 
 ==== Extensions
 * 1a. The selected task is already completed.
-** 1a1. Application displays error message, no points are earned either.
+** 1a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 1b. The index supplied is invalid.
+** 1b1. Application displays a relevant error message.
+
+Use case ends.
+
+* 1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.
+** 1b1. Application displays a relevant error message.
 
 Use case ends.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a trivial congratulatory message, level achieved, points earned and
+tasks completed to the user.
 
 Use case ends.
 
 === Use case: Completing Task (Batch via `Label`)
 ==== MSS
-. User marks a batch of tasks with the same specified `Label` as complete.
-. Application reports both points earned and current points to user.
+. User completes a task by specifying one or more `Label`(s) that are tagged to the tasks he
+wishes to complete.
+. Application identifies a completable batch of tasks that contains the specified `Label`(s) to be
+completed and completes them one by one.
+. Application reports both points earned and tasks completed to user.
 
 Use case ends.
 
 ==== Extensions
-* 1a. An error occurs, causes one of the tasks to not be able to be completed
-** 1a1. Application displays an error message, resetting the batch of tasks to their
+* 1a. The label supplied is invalid
+** 1a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 2a. There are no completable tasks identified by the label
+** 2a1. Application displays a relevant error message.
+
+Use case ends.
+
+* 2b. There is an error internally with the application, it tries to complete a task that has
+already been completed.
+** 2b1. Application resets the batch of tasks to their pre-completed state and no points are earned.
+** 2b2. Application displays a relevant error message.
+
+Use case ends.
+
+* 2c. At least one of tasks identified via label to be completed has unfulfilled dependencie(s)
+that must be completed first.
+** 2c1. Application displays an error message, resetting the batch of tasks to their
 pre-completed state and no points are earned.
 
 Use case ends.
 
-* 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+* 3a. User earns enough points to level up
+** 3a1. Application displays a trivial congratulatory message, level achieved, points
+earned and tasks completed to the user.
 
 Use case ends.
 
