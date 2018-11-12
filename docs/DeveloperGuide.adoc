@@ -477,12 +477,12 @@ If seekTime < start time, seek to start time.
 *** User will not get notification message if their intention of seeking to a point out of playing time fails.
 
 ==== Duration
-==== Current Implementation
+===== Current Implementation
 `DurationCommand` is implemented to enable users to know the duration of current playing track/paused/stopped track.
 A message contains the duration of the track will displayed in `ResultDisplay` of the `MainWindow`.
 
-==== Design Consideration
-==== Aspect: How user get to know the duration of a track
+===== Design Consideration
+===== Aspect: How user get to know the duration of a track
 * **Alternative 1 (current choice):** implements a command to retrieve the information of duration
 ** Pro:
 *** User will have the control of the display of the duration information.
