@@ -10,7 +10,7 @@ Engineering over the semester.
 
 == PROJECT: MeNUS
 *MeNUS* is an integrated restaurant management desktop application designed for restaurant owners. It comprises five
-sub-management systems - 1)Menu, 2)Inventory, 3)Sales, 4)Reservation and 5)Authentication, each of which plays an
+sub-management systems - 1) Menu, 2) Inventory, 3) Sales, 4) Reservation and 5) Authentication, each of which plays an
 indispensable role in ensuring the success of a restaurant business. They were meticulously developed to streamline
 the process of tracking dishes, ingredients, bookings and sales records while upholding a substantial level of security.
 
@@ -22,15 +22,15 @@ with approximately 25 kLOC.
 
 == Summary of contributions
 
-====
-Given below are contributions I made for the project. They showcase my capability to +
-1) identify and specify functional and non-functional requirements for the product; +
-2) conduct product and implementation design to meet end-users' requirements; +
-3) write high quality code that is error-free, comprehensible, and reusable; +
-4) write effective and efficient test codes to ensure high quality assurance; +
-5) use various modelling and version control tools; +
-6) collaborate with other developers.
-====
+|===
+|Given below are contributions I made for the project. They showcase my capability to +
+ 1) identify and specify functional and non-functional requirements for the product; +
+ 2) conduct product and implementation design to meet end-users' requirements; +
+ 3) write high quality code that is error-free, comprehensible, and reusable; +
+ 4) write effective and efficient test codes to ensure high quality assurance; +
+ 5) use various modelling and version control tools; +
+ 6) collaborate with other developers.
+|===
 
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=hyperionnkj[RepoSense]
 * *Major enhancement*: Developed and integrated a **Sales Management System (SMS)** into MeNUS to help restaurant owners
@@ -111,7 +111,7 @@ https://github.com/CS2103-AY1819S1-W17-1/main/issues/243[#243]
 == Contributions to the User Guide
 
 |===
-|_The following sections are my contributions to the User Guide. They reflect my ability to write clear and concise
+|The following sections are my contributions to the User Guide. They reflect my ability to write clear and concise
 documentation targeting non-technical readers.
 |===
 
@@ -124,7 +124,7 @@ include::../UserGuide.adoc[tag=salesglossary]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections are my contributions to the Developer Guide. They reflect my ability to convey technical
+|The following sections are my contributions to the Developer Guide. They reflect my ability to convey technical
 information in a comprehensible manner.  It also showcases the technical depth of my contributions.
 |===
 
