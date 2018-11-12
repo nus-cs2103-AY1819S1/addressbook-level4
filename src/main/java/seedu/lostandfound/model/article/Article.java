@@ -18,14 +18,15 @@ public class Article {
 
     // Identity fields
     private final Name name;
+    private final Description description;
+
+    // Data fields
+    private final Name finder;
     private final Phone phone;
     private final Email email;
-
-    private final Name finder;
     private final Name owner;
 
     // Data fields
-    private final Description description;
     private final Image image;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -90,7 +91,8 @@ public class Article {
     }
 
     public String getStringTags() {
-        return getTags().toString().replace("[", "").replace("]", "");
+        return getTags().toString().replace("[", "").replace("]", "")
+                .replace(",", "");
     }
 
     /**
@@ -104,7 +106,7 @@ public class Article {
 
         return otherArticle != null
                 && otherArticle.getName().equals(getName())
-                && (otherArticle.getPhone().equals(getPhone()) || otherArticle.getEmail().equals(getEmail()));
+                && otherArticle.getDescription().equals(getDescription());
     }
 
     /**
@@ -136,7 +138,7 @@ public class Article {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, description, image, isResolved, tags);
+        return Objects.hash(name, phone, email, description, image, finder, owner, isResolved, tags);
     }
 
     @Override
