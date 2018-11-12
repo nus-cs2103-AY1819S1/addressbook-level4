@@ -257,7 +257,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@author arsalanc-v2
     @Override
     public void addConsultation(Consultation consultation) {
-        versionedClinicIo.add(consultation);
+        versionedClinicIo.addConsultation(consultation);
         updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
     }
 
