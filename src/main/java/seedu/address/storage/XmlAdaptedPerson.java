@@ -195,7 +195,7 @@ public class XmlAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
         if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Doctor"))) {
             return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
-                    allUpcomingAppointments, allPastAppointments);
+                    allUpcomingAppointments);
         } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
             return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123",
                     allUpcomingAppointments, allPastAppointments, modelMedicalHistory);

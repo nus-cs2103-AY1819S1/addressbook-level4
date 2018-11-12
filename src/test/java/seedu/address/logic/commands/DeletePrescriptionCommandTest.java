@@ -81,7 +81,7 @@ public class DeletePrescriptionCommandTest {
                 toDelete.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
@@ -132,7 +132,7 @@ public class DeletePrescriptionCommandTest {
                 firstPrescription.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();

@@ -108,10 +108,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateAppointment(Appointment target, Appointment editedAppointment) {
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireAllNonNull(target, editedAppointment);
 
-        versionedAddressBook.updateAppointment(target, editedAppointment);
+        versionedAddressBook.setAppointment(target, editedAppointment);
         indicateAddressBookChanged();
     }
 

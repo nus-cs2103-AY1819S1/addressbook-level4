@@ -72,7 +72,7 @@ public interface Model {
      * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment
      * in the health book.
      */
-    void updateAppointment(Appointment target, Appointment editedAppointment);
+    void setAppointment(Appointment target, Appointment editedAppointment);
 
     /**
      * Returns an unmodifiable view of the filtered person list
