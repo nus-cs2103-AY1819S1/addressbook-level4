@@ -9,7 +9,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Jeffry Lum
+=== Lum Ka Fai Jeffry
 image::j-lum.png[width="150", align="left"]
 {empty}[https://github.com/j-lum[github]] [<<j-lum#, portfolio>>]
 
@@ -18,7 +18,7 @@ Responsibilities: Layers, Canvas and UI
 
 '''
 
-=== Ivan Ho
+=== Ivan Ho Weng Kwong
 image::ihwk1996.png[width="150", align="left"]
 {empty}[http://github.com/ihwk1996[github]] [<<ihwk1996#, portfolio>>]
 
@@ -27,7 +27,7 @@ Responsibilities: Model, Image State Management (undo, redo)
 
 '''
 
-=== Benedict Chua
+=== Benedict Chua Song Shing
 image::benedictcss.png[width="150", align="left"]
 {empty}[http://github.com/benedictcss[github]] [<<benedictcss#, portfolio>>]
 

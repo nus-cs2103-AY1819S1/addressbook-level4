@@ -1366,8 +1366,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Changing a directory
 
 . Traversing between directories
@@ -1379,7 +1377,7 @@ _{ more test cases ... }_
    Expected: User is now in the previous directory. The full path is shown in the status message. The current directory in the status bar is updated.
 .. Test case (only for Windows): `cd C://Users` +
    Expected: User is now in `C:/Users`. The full path is shown in the status message. The current directory in the status bar is updated.
-.. Test case: `cd ` +
+.. Test case: `cd` +
    Expected: User is unable to traverse to any directory. Error message is shown in the status message. The status bar remains the same.
 .. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
    Expected: Similar to previous.
@@ -1485,4 +1483,140 @@ the requests throw an accurate error message.
   Expected: Uploads the image as the name it already had in Google Photos.
 .. You may also try the methods without <> to test for validity and also test with a variety of image names and duplicate images to ensure
 the requests throw an accurate error message.
+
+=== Applying transformation to image
+
+. Apply build in transformation to image
+
+.. Prerequisites: `cd` into a existing directory with at at least 1 image to view the first batch of images in the directory.
+.. Test case: `apply blur 0x8` +
+   Expected: the image in the preview panel is blurred, the `blur 0x8` is shown in the history panel
+.. Test case: `apply rotate 180` +
+   Expected: the image in the preview panel is rotated 180 degrees, the `rotate 180` is shown in the history panel
+.. Test case: `apply blur` +
+   Expected: the image in the preview panel does not change, invalid message will be shown, command usage will be shown.
+
+=== Applying raw transformation to image
+
+. Apply raw transformation to image
+
+.. Prerequisites: `cd` into a existing directory with at at least 1 image to view the first batch of images in the directory.
+.. Test case: `apply raw blur 0x8` +
+   Expected: the image in the preview panel does not change, invalid operation message will be shown, nothing will be shown in the history panel.
+.. Test case: `apply raw -blur 0x8` +
+   Expected: the image in the preview panel is blurred, the `[-blur 0x8]` is shown in the history panel.
+
+=== Creating new transformation
+
+. Create a new transformation
+
+.. Test case: `create blurSample blur|0x8` +
+   Expected: message for new transformation created will be shown.
+.. Test case: `create blurSample blur` +
+   Expected: invalid argument message will be shown, command usage message will be shown.
+
+=== Apply a customised transformation
+
+. Apply a customised transformation
+.. Prerequisites: customised transformation `blurSample` has been created already.
+.. Test case: `apply @blurSample` +
+   Expected: the image in the preview panel is blurred, the `@blurSample` is shown in the history panel.
+.. Test case: `apply blurSample` +
+   Expected: the image in the preview panel does not change, the invalid operation message will be shown.
+
+=== Undoing and Redoing transformations
+
+. Undoing transformations
+.. Positive Tests
+... Prerequisites: An image has been opened, with several transformations applied.
+... Test case: `undo` +
+   Expected: The image's latest transformation in the current layer is undone.
+... Test case: `undo-all` +
+   Expected: All of the image's transformations in the current layer are undone (current layer in original state).
+.. Negative Tests
+... Prerequisites: An image has been opened, with no transformations applied. Or image has transformations applied, but all are undone.
+... Test case: `undo` +
+   Expected: Error message to user as there are no transformations to undo.
+... Test case: `undo-all` +
+   Expected: Error message to user as there are no transformations to undo.
+
+. Redoing transformations
+.. Positive Tests
+... Prerequisites: An image has been opened, with several transformations applied and several transformations undone.
+... Test case: `redo` +
+   Expected: The image's last undone transformation in the current layer is redone.
+... Test case: `redo-all` +
+   Expected: All of the image's undone transformations in the current layer is redone.
+.. Negative Tests
+... Prerequisites: An image has been opened, with several transformations applied and no transformations undone. Or image is opened with no transformations applied.
+... Test case: `redo` +
+   Expected: Error message to user as there are no transformations to redo.
+... Test case: `redo-all` +
+   Expected: Error message to user as there are no transformations to redo.
+
+=== Save a image
+
+. save a edited image
+.. Prerequisites: some transformations have been applied to an image.
+.. Test case: `save` +
+   Expected: The modified image will be save to the original image.
+.. Test case: `save test.jpg` +
+   Expected: A new image test.jpg will be created in the current directory. The modified image will be saved to test.jpg.
+.. Test case: `save test.test` +
+   Expected: A invalid format message will be shown, and the image will not be saved.
+
+=== Canvases and Layers
+. Canvas manipulation
+
+.. Positive cases
+
+... Test case: `canvas size 1000x1000` +
+    Expected: The canvas should now a size of 1000 by 1000 pixels.
+
+... Test case: `canvas bgcolor none` +
+    Expected: The canvas should now have a transparent background. If the canvas is too small, the background shouldn't even be visible.
+
+... Test case: `canvas auto-resize on` +
+    Expected: The canvas should now expand to ensure that all layers are within the frame. The canvas should ignore all options provided by `size`.
+
+.. Negative cases
+... Test case: `canvas bgcolor invalid` +
+... Test case: `canvas size -123x456` +
+... Test case: `canvas auto-resize invalid` +
+Expected: the help message demonstrating proper usage of the command should show up in the console output panel.
+
+. Layer manipulation
+
+.. Positive cases
+... Test case: `layer add 1` +
+    Expected: The first image in the `Film Reel` is added as a new layer with on top of all existing layers.
+
+... Test case: `layer remove 2` +
+    Expected: The second layer in the canvas should be removed if the following conditions are satisfied:
+.... The layer index provided is valid.
+.... The layer is not currently selected.
+.... The layer is not the last one in the canvas.
+
+
+... Test case: `layer select 2` +
+    Expected: The layer at index 2 is selected to be the current working layer, highlighted in the `Layers Panel` and be the target of all subsequent transformations if the following condition is satisfied:
+.... The layer index provided is valid.
+
+... Test case: `layer swap 1 2` +
+    Expected: The layers at index 1 and 2 should be swapped if the following conditions are satisfied:
+.... The layer indexes provided are valid.
+.... The layer indexes provided are distinct.
+
+... Test case: `layer position -400x400` +
+    Expected: The top-left corner of the layer will be set to the coordinate provided. If the coordinates are too far out of the canvas and `auto-resize` isn't turned on, clipping or complete invisibility should occur. Note that negative coordinates are accepted and this is intended behavior.
+
+.. Negative cases
+... Test case: `layer add 11`. +
+... Test case: `layer remove 1` when there is only one layer left in the canvas.
+... Test case: `layer remove 2` when index 2 is the layer that is selected.
+... Test case: `layer swap -1 -3`.
+... Test case: `layer swap 1 1`.
+... Test case: `layer position invalid`. +
+    Expected : A specific error message about the constraint violated should show up in the console output panel and no other operations should be performed.
+
 

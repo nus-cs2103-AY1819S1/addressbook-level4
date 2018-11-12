@@ -5,7 +5,7 @@
 
 == PROJECT: Piconso
 
-
+---
 
 == Overview
 
@@ -51,7 +51,9 @@ As Piconso accesses only 10 images at any one time, the `next` and `prev` featur
 images within the same directory. This feature facilitate the ease of traversal of all the images within the current
 directory.
 
-=== *Code contributed* -- [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
+=== *Code contributed*
+
+Here are the code contributions that I have made. [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
 
 === *Other contributions*:
 
