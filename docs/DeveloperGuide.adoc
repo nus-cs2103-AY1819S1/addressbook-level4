@@ -1,4 +1,4 @@
-= = image:DeveloperGuideHeader.png[width="900"]
+= image:DeveloperGuideHeader.png[width="900"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -377,7 +377,7 @@ With this binding, whenever `commandTextField` is updated, it will display a dro
 
 //end::commandautocomplete[]
 
-// tag::permission[]
+// tag::permissionsystem[]
 === Permission System
 There are several commands in OASIS that should not be executable by every user. E.g. Add and Delete commands should only be usable by user with the power to hire and dismiss other employees.
 Permission system is used to ensure that each user are only able to perform commands that they are authorised to when using OASIS.
@@ -459,7 +459,9 @@ The commands executable by the user will depend on their class.
 ** Pros: Easy to implement. Only require small modification in existing classes.
 
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+// end::permissionsystem[]
 
+// tag::modifypermission[]
 === Supporting commands for Permission System
 
 The following are commands that have been implemented to support the Permission System.
@@ -509,7 +511,7 @@ image::modifyPermissionSequenceDiagram.png[width="700"]
 ** Pros: Easy to implement.
 
 ** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
-
+// end::modifypermission[]
 ==== View Permissions of employee
 
 This feature allows the user to view the permissions that have been allocated to an employee.
@@ -548,7 +550,6 @@ image::viewPermissionSequenceDiagram.png[width="700"]
 
 ** Cons: Person card can get very cluttered if employee have many permissions.
 
-// end::permission[]
 
 
 // tag::keyboardshortcuts[]
@@ -664,27 +665,25 @@ field of `Assignment` should be edited. To do so, `EditAssignmentDescriptor` obj
 // end::assignment[]
 
 // tag::archive[]
-=== View deleted employee archive
-Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
+=== Archive employee feature
+Employees with the "Delete_employee" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list.
 
 ==== Proposed implementation
-The view deleted employee archive feature is facilitated by `VersionedArchiveList` and `UniquePersonList.
+The archive employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
 
-Given below is an example usage scenario and how the `VersionedArchiveList` and `UniquePersonList` behaves at each step.
+Given below is an example usage scenario and how the `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList` behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedArchiveList` will be initialized with the initial archive list state and an empty `UniquePersonList` is maintained.
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` and `VerisionedAddressBook` will be initialized with the initial archive list and address book state. The `UniquePersonList` in both classes will be populated with data from read by storage.
 
-Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person's data.
+Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The selected Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person’s data.
 
-Step 3. The user executes archive command to view the `UniquePersonList` in `VersionedArchiveList`.
+Step 3. The user executes archive command to change view from active list to the archive list.
 
 Step 4. OASIS shows delete person in step 2 in the archive list
 
-The following activity diagram summarizes what happens when a user executes remove and restore command:
+The following activity diagram summarizes what happens when a user executes delete and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
-
-The following sequence diagram shows how the archive operation works:
 
 
 ===== Aspect: Model
@@ -720,7 +719,57 @@ image::storageModelChangeJosh.PNG[width="350]
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
 // end::archive[]
 
-// tag::login[]
+// tag::restore[]
+=== Restore employee feature
+Employees with the "Restore_employee" permissions can restore employees from the archive list into the active list - related to hiring back old employees in real life. The restored employee will be moved back to the active list and removed from the archive list. Employees with “Delete_employee” permissions can also completely remove employees in the archive list, permanently removing them from OASIS.
+
+==== Proposed implementation
+The Restore or completely remove employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
+
+Given below is an example usage scenario and how the `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList` behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` and `VersionedAddressBook` will be initialized with the initial archive list and address book state. The `UniquePersonList` in both classes will be populated with data from read by storage.
+
+Step 2. The user executes archive command to change view from active list to the archive list.
+
+Step 3a1. The user executes restore 1 command to restore the first person in the archive list. The selected Person object from the `UniquePersonList` in `VersionedArchiveList` will be transferred to the `UniquePersonList` in `VersionedAddressBook` and be back in the active list.
+
+Step 3a2. The user executes list command to change view from archive list to active list.
+
+Step 3a3. The employee restored in Step 3a1 is shown in active list
+
+Step 3b1. The user executes delete 1 command to completely remove the first person in the archive list from OASIS. The selected Person object from the `UniquePersonList` in `VersionedArchiveList` will be deleted.
+
+Step3b2. Archive list updated and deleted employee is removed.
+
+The following activity diagram summarizes what happens when a user executes remove and restore command:
+
+image::archiveActivityDiagram.PNG[width="350]
+
+The following sequence diagram shows how the archive operation works:
+
+image::restoreSequenceDiagram.jpg[width="350]
+
+==== Design considerations
+===== Aspect: Lifetime of objects in Archive list
+* **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
+** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
+** Cons: May have performance issues in terms of memory usage as employee records stored a few years back could still be stored.
+* **Alternative 2:** Deleted after a certain number of time has passed.
+** Pros: More efficient memory usage wont store old employee records which could cause high memory usage.
+** Cons: Loss of data possible if an employee is accidentally deleted and not restored right away.
+
+===== Aspect: Data structure to support the archive commands
+
+* **Alternative 1 (current choice):** Use a list to store the archived employee objects.
+** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
+** Cons: We must maintain a separate list for archived objects.
+* **Alternative 2:** Assign an archive attribute to each employee object in the addressbook and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+** Pros: Only need to change 1 attribute when an employee is deleted.
+** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
+// end::restore[]
+
+// tag::login-begin[]
 === Login/Logout feature
 ==== Current Implementation
 
@@ -776,14 +825,15 @@ The login screen needs to be displayed to the user in some fashion.
 * **Alternative 1 (current choice):** Create a login screen before initializing other UI elements on the fly.
 ** Pros: One single window. Clear to the user which window to focus on. Most applications work this way, so it should be familiar to the majority of our users.
 ** Cons: Harder to implement. Need to take into account other possible UI elements, preload only those that are required, and ensure that tests stay supported.
-* **Alternative 2:** Build another UI Window just for login. Before logging in, this window will popup up. Once the user has logged in, the login window will close and the main window will pop up.
+* **Alternative 2:** Build another UI Window just for login. Before logging in, this window will popup. Once the user has logged in, the login window will close and the main window will pop up.
 ** Pros: Far easier to implement. Login system abstracted away from other functionality.
 ** Cons: It will be hard to maintain the same window size as the login window, if the user resizes it. More coupling would be required to maintain the same window size. Very odd and unfamiliar to most users. No application today opens a login window, then on successful login, closes that login window and opens a new one, meant for the user to use. This can cause a lot of user confusion. They may think that:
 *** The new window is representing error message, it should not have opened.
 *** The application had an error and unexpectedly shutdown.
 *** The new window is from another application that the user has running on his computer.
 *** They did something wrong (perhaps they pressed the button to close the window instead?)
-*** The developers are idiots.
+
+// end::login-begin[]
 
 ===== Aspect: UI Elements to build the login system
 
@@ -795,6 +845,8 @@ When OASIS boots up, the login screen needs to be displayed. The UI elements use
 * **Alternative 2:** Build the window from scratch to show login UI elements.
 ** Pros: Nicer, the UI elements are built for login
 ** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might as well go with Alternative 1.
+
+// tag::login-middle[]
 
 ===== Aspect: How the UI and Logic elements should communicate.
 
@@ -891,41 +943,104 @@ When checking if 2 Passwords are the same, it is better to call `isSamePassword`
 * **Alternative 3: (current choice):** Apply a salt + hash to all passwords
 ** Pros: Full security suite. Ensures that we aren't storing our user's passwords, so if the database is compromised, our user's passwords aren't easily broken.
 ** Cons: Very hard to implement. Testing becomes significantly harder because calling `.equals` on Passwords that are the same may return false due to differences in salt.
-// end::login[]
+// end::login-middle[]
 
 // tag::leaveapplication[]
 === Leave Application
+In OASIS, an employee can make a leave application by specifying a description, as well as the dates, that he or she wishes to apply for. Users are also able to view a list of all their own leave applications and their details, while those with the required permissions have the added ability to view all leave applications of all employees, as well as approve or reject leave applications.
+
 ==== Current Implementation
+A leave application is represented by a `LeaveApplication` model object, as follows:
 
-A leave application is represented by a `LeaveApplication` model object. The following sequence diagram illustrates how an application for leave by an employee works:
+.Structure of a leave application
+image::LeaveApplicationModelDiagram.png[width="400"]
+*API*: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
+A leave applications consists of a description, a status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
 
+[NOTE]
+During creation, the `LeaveApplication` constructor removes duplicate dates, and orders all the dates in ascending order.
+
+===== Applying for leave
+This section describes and illustrates how an application for leave by a user works in OASIS.
+
+The user issues a `leaveapply` command, which includes a description and one or more dates, in the command box UI. The Logic Manager in the Logic Component is then called upon to execute the command. The Model is then updated with the changes, and finally the EventsCenter is notified of this, and it goes on to ask the Storage Component to update the stored file data. This component-level interaction is depicted as follows:
+
+.Component interactions for `leaveapply -de family holiday -da 2018-11-11` command
 image::LeaveApplicationSequenceDiagramHigherLevel.png[width="800"]
+[NOTE]
+There are further interactions of the EventCenter reacting to the event raised with the Storage Component, but they are ommitted.
 
+Now, we zoom in on the Logic Component to have a more detailed look as to how the `leaveapply` command is handled. The command entered is firstly parsed to ensure validity, and then a new `LeaveApplication` is instantiated with the data parsed from the command. This `LeaveApplication` is kept inside a newly created `LeaveApplyCommand`, which is then executed to update the `Person` in the Model, which corresponds to the user who applied for leave. The sequence diagram is as follows:
+
+.Interactions in the Logic Component when a `leaveapply -de family holiday -da 2018-11-11` command is issued
 image::LeaveApplicationSequenceDiagram.png[width="1000"]
+[NOTE]
+There are further interactions within the Model component, and beyond, that are omitted in this diagram.
 
+[[LeaveApplication-Apply-Usage]]
 Given below is an example usage scenario and how the leave application mechanism behaves when a new leave application is made by an employee:
 
-1. The user executes the `leave add -de DESCRIPTION -da DATE [-da DATE]...` command. The `LeaveApplication` will be initialized with the specified `Description`, and one or more `Date`. Its `LeaveId` will be assigned depending on the number of `LeaveApplication` already recorded in the application, and its `LeaveStatus` will be the initial value of `PENDING`.
+1. The user executes the `leaveapply -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
 
-image::LeaveApplicationModelDiagram.png[width="400"]
+2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the Model will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
-2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave.
+3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedLeaveApplication`] object, which is then added into the link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
 
-3. The `LeaveApplication` will be copied and transformed to become an `XmlAdaptedLeaveApplication` object, which is then added into the `XmlAdaptedPerson` and finally saved into a file by the <<25-storage-component, Storage>> component.
+===== Viewing leave applications
+Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
+
+1. The user executes the `leavelist` command.
+
+2. The system checks if the user is an Admin, or has the required permissions (`VIEW_EMPLOYEE_LEAVE` or `APPROVE_LEAVE`). If either one of the aforementioned conditions are satisfied, all leave applications of all other users will be displayed. If not, only the current logged-in user's own leave application records will be shown.
+
+The following activity diagram summarizes how the command is executed:
+
+.How the leave application list displayed is filtered currently
+image::LeaveViewActivityDiagram.png[width="400"]
+*API:* link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
+
+[NOTE]
+See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">> for further explanation of how the list of leave applications are retrieved and displayed.
+
+===== Approving or rejecting leave applications
+Users with the required permissions can approve or reject leave applications made by other users. Given below is an example usage scenario of when a user issues a `leaveapprove 3` command:
+
+1. The user executes the `leaveapprove 3` command (the index specified in the command is based on what is displayed when the user issues a `leavelist` command).
+
+2. The corresponding `LeaveApplicationWithEmployee` is retrieved from the list. For more details about `LeaveApplicationWithEmployee`, see <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">>.
+
+3. Internally, a duplicate `Person` is created, with the original leave application being replaced with a copy of itself with an `APPROVED` status. The original `Person` in the Model will then be replaced with that new `Person`, similar to what happens when <<LeaveApplication-Apply-Usage, applying for leave>>.
+
+[NOTE]
+The `leaveapprove` and `leavereject` commands behave is nearly identical fashion, with the only difference being what the status that the specified `LeaveApplication` is changed to (either `APPROVED` or `REJECTED`).
 
 ==== Design Considerations
-
-===== Aspect: How a `LeaveApplication` is stored
-
-* **Alternative 1 (current choice):** Saves it only as a part of `Person`.
+// tag::leaveapplicationstored[]
+===== Aspect: How leave applications are stored
+* **Alternative 1 (current choice):** Saved only as a part of `Person`.
 ** Pros: Easy to implement.
-** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system.
-* **Alternative 2:** Stores it only as a part of `AddressBook`.
+** Cons: We need to go through every `Person` to retrieve a list of all  `LeaveApplication` in the system to generate the list of all leaves.
+* **Alternative 2:** Stored only as a part of `AddressBook`.
 ** Pros: Easy to implement.
 ** Cons: We need to go through every `LeaveApplication` in the system when retrieving the `LeaveApplication` for a particular `Person`.
-* **Alternative 3:** Stores it as a part `Person` as well as `AddressBook`.
+* **Alternative 3:** Stored as a part `Person` as well as `AddressBook`.
 ** Pros: Fast retrieval for a particular `Person`, as well as for the entire list of `LeaveApplication`s from `AddressBook`.
 ** Cons: Redundant and duplicate storage for each `LeaveApplication`. We need to ensure that when adding, editing, and deleting a `LeaveApplication`, it is updated correctly in both parts of the Model as well as Storage.
+// end::leaveapplicationstored[]
+
+[[LeaveApplication-DesignConsiderations-Listed]]
+===== Aspect: How leave applications are listed
+* **Alternative 1 (current choice):** Leave applications are tagged with the user that applied for them (see link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationWithEmployee.java[`LeaveApplicationWithEmployee.java`]), and stored in a link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationList.java[`LeaveApplicationList.java`] in `AddressBook` in the Model Component. This additional tagging and storing into a list is done when the application is started where all leave applications are read from each `Person`, and also when any leave application is created or updated.
+** Pros: Leave applications stored are lightweight, as they are kept within the `Person` that applied for them, and do not have to contain fields that uniquely identify that `Person`.
+** Cons: This additional tagging, that only exists while the application is running, is slightly clumsy and not the best way to do it (see the <<LeaveApplication-DesignConsiderations-Listed-Note, note below Alternative 2>> for more details).
+* **Alternative 2:** Leave applications contain the unique identification fields of a `Person`.
+** Pros: Leave applications innately store who applied for them, so no additional processing is required when generating the list of leave applications.
+** Cons: Leave applications will have to be stored with 3 additional fields that are used to unique identify a `Person`. Also, if there are any updates to the `Person`, it must be ensured that their corresponding leave applications will also have to be updated correctly.
+
+[[LeaveApplication-DesignConsiderations-Listed-Note]]
+[NOTE]
+Alternative 2 is actually cleaner to implement and understand. However, Alternative 1 is currently implemented because a `Person` has 3 identification fields, which means that a lot of unnecessary information would have to be duplicated and stored. In future versions, we suggest that each `Person` be given a unique ID number that can be used to identify them. This would make it convenient for other entities, like `LeaveApplication`, to store which `Person` it is linked to, without too much overhead incurred.
+
 // end::leaveapplication[]
 
 === Logging
@@ -1722,13 +1837,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while active persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `active` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -1736,12 +1849,17 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting a person while archived persons are listed
+.. Prerequisites: List all persons using the `archive` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the archive list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

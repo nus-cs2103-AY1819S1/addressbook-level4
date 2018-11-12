@@ -1,0 +1,55 @@
+= Elliot Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+
+---
+
+== Overview
+This document is a record of my work done on the Office Assistance Specialized Integrated System (OASIS) project. For the software engineering project, the team was tasked to conceptualize and implement enhancements to build upon an existing AddressBook application.
+
+OASIS is an office administration and communication application for small-to-medium sized enterprises. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of its main features include employee records management, authentication and permissions, assignment management, and leave management.
+
+== Summary of contributions
+This section documents the major and minor contributions that I have made to this project.
+
+* *Major enhancement*: implemented a *leave management* feature
+** What it does: this feature allows an employee to apply for leave on specified dates. Also, it allows the user to view his/her own leave applications with their current approval status. Finally, it allows a user, with the required permissions, to view all employee leave applications and the ability to approve or reject them.
+** Justification: This leave management system provides an extremely quick and easy way for employees to apply for leave and view the status of their current applications. It also consolidates all employee leave applications into one place, and is thus very useful for managers who have many employees under them. Furthermore, it also provides a clean and fast way for managers to approve or reject employee leave applications.
+** Highlights: This enhancement required careful deliberation of how it was to be designed. It was necessary to have an in-depth understanding of the existing code-base and how the many components worked together, so that I could consider the pros and cons of each design alternative that I conceptualized.
+
+* *Minor enhancement*:
+
+* *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]
+
+* *Other contributions*: I helped my team mates with understanding and using the Storage component during development. I was in-charge of getting to know the in-and-outs of this component in the initial phases of the project, and then use this knowledge to assist whoever needed help with it.
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Added the basic backend support in the Model and Storage components for a user's profile picture. This was to facilitate future development where a user will be allowed to upload a profile picture. (Pull request https://github.com/CS2103-AY1819S1-F10-1/main/pull/15[#15])
+*** Wrote tests for the features I implemented (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/70/commits/20e8b90371bce09252c27782fc32692fb4ef24d6[#70], https://github.com/CS2103-AY1819S1-F10-1/main/pull/108[#108], https://github.com/CS2103-AY1819S1-F10-1/main/pull/111[#111], https://github.com/CS2103-AY1819S1-F10-1/main/pull/132[#132])
+** Documentation:
+*** Updated the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[Model class diagram] in the Developer Guide to better represent all the features that we built.
+*** Added documentation in the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#leave-application[Leave Application section] of the Developer Guide, for the leave management feature I implemented.
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W10-2/main/issues/265[1], https://github.com/CS2103-AY1819S1-W10-2/main/issues/270[2], https://github.com/CS2103-AY1819S1-W10-2/main/issues/269[3], https://github.com/CS2103-AY1819S1-W10-2/main/issues/268[4], https://github.com/CS2103-AY1819S1-W10-2/main/issues/267[5], https://github.com/CS2103-AY1819S1-W10-2/main/issues/266[6])
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=leaveapplication]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation targeted at future developers (like NUS Copmuter Science students) of OASIS, and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=leaveapplication]
+
+---
