@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/HealthBase-level4` repo.
 
-If you plan to develop this fork (separate product (i.e. instead of contributing to `se-edu/addressbook-level4`)) | you should do the following:
+If you plan to develop this fork (separate product (i.e. instead of contributing to `se-edu/HealthBase-level4`)) | you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -323,7 +323,7 @@ With reference to the above figures, the following steps occur upon the executio
     }
 ...
 ----
-[AddressBookParser.java, java]
+[HealthBaseParser.java, java]
 ----
 ...
     public Command parseCommand(String userInput) throws ParseException { // <2>
@@ -591,11 +591,11 @@ image::AddmhSequenceDiagram.png[width="1000"]
 
 1. Firstly, the `String` user input is passed into the `LogicManager::execute` method of the LogicManager instance as the only parameter.
 
-2. Then, the `LogicManager::execute` method calls `AddressBookParser::parseCommand` which receives the user input as a parameter.
+2. Then, the `LogicManager::execute` method calls `HealthBaseParser::parseCommand` which receives the user input as a parameter.
 * The user input is formatted: the first `String` token is taken as the command word, while the remaining `String` is grouped as arguments to be used later in `AddmhCommandParser`.
-* From the command word, the AddressBookParser instance identifies the user input as an `addmh` command  and constructs an `AddmhCommandParser` instance.
+* From the command word, the HealthBaseParser instance identifies the user input as an `addmh` command  and constructs an `AddmhCommandParser` instance.
 
-3.  Next, the `AddressBookParser` calls the `AddmhCommandParser::parse` method. The `AddmhCommandParser` takes in the
+3.  Next, the `HealthBaseParser` calls the `AddmhCommandParser::parse` method. The `AddmhCommandParser` takes in the
 remaining string, `ic/S1234567A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol doc/Dr. Amos`.
 * The string is tokenised to arguments according to their prefixes.
 +
@@ -618,7 +618,7 @@ if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_MED_HISTORY, PREFIX_DOC
 
 * Otherwise, `Diagnosis` and `Nric`  objects are constructed and used as fields in the creation of an `AddmhCommand` object.
 
-4. Subsequently, the newly created `AddmhCommand` is returned to back to the `LogicManager` instance through `AddmhCommandParser` and `AddressBookParser` objects.
+4. Subsequently, the newly created `AddmhCommand` is returned to back to the `LogicManager` instance through `AddmhCommandParser` and `HealthBaseParser` objects.
 
 5. When control is returned to the `LogicManager` object, it calls the `AddmhCommand::execute` method.
 * The method takes in a `Model` object to access the application’s data context, the stored data of all persons.
@@ -685,8 +685,8 @@ private static Person addMedicalHistoryForPatient(Person patientToEdit, Diagnosi
 ----
 
 8. Then, the old `Person` 's data will be replaced with the updated `Person` 's data.
-* Here the `Model::updatePerson` method is called, and it subsequently calls the `AddressBook::updatePerson` method.
-* Replaces the person’s existing data in the addressbook storage with the person’s updated data.
+* Here the `Model::updatePerson` method is called, and it subsequently calls the `HealthBase::updatePerson` method.
+* Replaces the person’s existing data in the storage with the person’s updated data.
 +
 [source, java]
 ----
@@ -694,11 +694,11 @@ private static Person addMedicalHistoryForPatient(Person patientToEdit, Diagnosi
 public void updatePerson(Person target, Person editedPerson) {
     requireAllNonNull(target, editedPerson);
 
-    internalAddressBook.updatePerson(target, editedPerson);
-    indicateAddressBookChanged();
+    internalHealthBase.updatePerson(target, editedPerson);
+    indicateHealthBaseChanged();
 }
 
-// AddressBook.java
+// HealthBase.java
 public void updatePerson(Person target, Person editedPerson) {
     requireNonNull(editedPerson);
 
