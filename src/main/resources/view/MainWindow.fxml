@@ -15,6 +15,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.ImageView?>
 
+<?import javafx.scene.control.Tooltip?>
+
+<?import javafx.scene.control.ScrollPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
@@ -37,9 +40,32 @@
                     </Menu>
                 </MenuBar>
 
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+
+                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"  styleClass="pane-with-border"
+                  minHeight="100" prefHeight="100" maxHeight="100">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+
+                <VBox spacing="8.0" alignment="CENTER" fx:id="titleScreenPlaceHolder"
+                  VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets top="8" right="8" bottom="8" left="8"/>
+                    </padding>
+                </VBox>
+
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                    <TabPane fx:id="tabLists" side="LEFT">
+                    <TabPane fx:id="tabLists" side="LEFT" tabClosingPolicy="UNAVAILABLE">
                         <Tab fx:id="patientTab">
+                            <tooltip>
+                                <Tooltip text="Patient"/>
+                            </tooltip>
                             <graphic>
                                 <ImageView>
                                     <Image url="@/images/medical_history.png" />
@@ -53,6 +79,9 @@
                             </VBox>
                         </Tab>
                         <Tab fx:id="queueTab">
+                            <tooltip>
+                                <Tooltip text="Queue"/>
+                            </tooltip>
                             <graphic>
                                 <ImageView>
                                     <Image url="@/images/line.png" />
@@ -66,6 +95,9 @@
                             </VBox>
                         </Tab>
                         <Tab fx:id="appointmentTab">
+                            <tooltip>
+                                <Tooltip text="Appointment"/>
+                            </tooltip>
                             <graphic>
                                 <ImageView>
                                     <Image url="@/images/blood.png" />
@@ -92,26 +124,14 @@
                             </VBox>
                         </Tab>
                     </TabPane>
-
-                    <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
-                        </padding>
-                    </StackPane>
+                    <ScrollPane>
+                        <StackPane fx:id="displayPanelPlaceholder" prefWidth="340">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10" />
+                            </padding>
+                        </StackPane>
+                    </ScrollPane>
                 </SplitPane>
-
-                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10" />
-                    </padding>
-                </StackPane>
-
-                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"  styleClass="pane-with-border"
-                           minHeight="100" prefHeight="100" maxHeight="100">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10" />
-                    </padding>
-                </StackPane>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" styleClass="status-bar-with-border"/>
             </VBox>

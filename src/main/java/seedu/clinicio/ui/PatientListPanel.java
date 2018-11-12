@@ -11,9 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.core.LogsCenter;
-import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.ui.JumpToListRequestEvent;
-import seedu.clinicio.commons.events.ui.NewResultAvailableEvent;
 import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.model.patient.Patient;
 
@@ -44,21 +42,9 @@ public class PatientListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in patient list panel changed to : '" + newValue + "'");
-                        raiseAppropriateEvents(newValue);
+                        raise(new PatientPanelSelectionChangedEvent(newValue));
                     }
                 });
-    }
-
-    /**
-     * Ensure that user has the appropriate rights to view details.
-     * @param newValue The selected patient.
-     */
-    private void raiseAppropriateEvents(Patient newValue) {
-        if (UserSession.isLoginAsReceptionist()) {
-            raise(new PatientPanelSelectionChangedEvent(newValue));
-        } else {
-            raise(new NewResultAvailableEvent("Please login as a receptionist to view more details", false));
-        }
     }
 
     /**
