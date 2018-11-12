@@ -67,6 +67,15 @@ public class GroupTest {
     }
 
     @Test
+    public void removeMemberNoGroups_personRemovedFromGroup_returnsFalse() {
+        Person person = new PersonBuilder().build();
+        Group group = new GroupBuilder().withNewPerson(person).build();
+
+        group.removeMemberNoGroups(person);
+        assertFalse(group.hasMember(person));
+    }
+
+    @Test
     public void removeMemberHelper_personNotInGroup_returnsFalse() {
         Group group = new GroupBuilder().withNewPerson(ALICE).build();
         group.removeMemberHelper(ALICE);

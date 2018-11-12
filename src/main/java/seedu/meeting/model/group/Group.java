@@ -217,8 +217,9 @@ public class Group {
 
     // @@author zenious
     /**
-     * Remove a person from this group that is not in groups yet.
-     *
+     * Remove a person from this group.
+     * This method differs from {@link #removeMember(Person)} as the person will not be
+     * updated with the new group relation.
      */
     public void removeMemberNoGroups(Person toRemove) {
         requireNonNull(toRemove);
@@ -311,11 +312,16 @@ public class Group {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle() + "\n")
-                .append("Description: ")
-                .append(getDescription() + "\n")
-                .append("Next meeting details: ")
-                .append(getMeeting() + "\n");
+        Meeting meeting = getMeeting();
+
+        builder.append(getTitle() + "\n");
+
+        if (meeting != null) {
+            builder.append("Next meeting details: ")
+                    .append(meeting + "\n");
+        } else {
+            builder.append("\n");
+        }
 
         return builder.toString();
     }
