@@ -434,7 +434,7 @@ These operations can be accessed by retreiving the list of groups using `Model#g
 
 **Given below is an example usage scenario and how the model behaves at each step.**
 
-Step 1. The user launches the application. For simplicity, we assume that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the meeting book. None of these groups have a meeting scheduled.
+Step 1. The user launches the application. For simplicity, we assume that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the MeetingBook. None of these groups have a meeting scheduled.
 
 image::meetCommandStep1Diagram.png[width="600"]
 
