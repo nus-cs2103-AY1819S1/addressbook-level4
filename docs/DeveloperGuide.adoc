@@ -393,7 +393,7 @@ fields.
 
 The figure below shows how the find command is processed through the logic of TheTracker:
 
-image::FindCommandLogicDiagram.png[width="800"]
+image::FindCommandLogicDiagram.png[width="500"]
 
 ==== Current Implementation
 As the `findperson`, `findmodule`, and `findoccasion` commands' logic are similar to one another,
@@ -789,12 +789,16 @@ image::DeleteActivityDiagram.png[width="800"]
 
 In performing deep deletion, almost all "related" objects are copied. +
 
+image::DeleteDeleteCommandStateListDiagram.png[width="500"]
+=======
 For example, suppose TheTracker is initialised in the following manner:
 
 * 2 Persons `p1`, `p2` and 2 Modules `m1`, `m2` are created
 * `p1` is inserted into `m1`, `m2`
 * `p2` is inserted into `m1`
 
+image::DeleteSequenceDiagram.png[width="500"]
+=======
 The current object diagram can be drawn as follows (unnecessary fields omitted):
 
 image::DeepDeletionObjectDiagramBefore.png[width="800"]
