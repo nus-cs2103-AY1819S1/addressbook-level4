@@ -269,6 +269,8 @@ Player is implemented as a singleton as only one instance of it is required at a
 .Player component complete class diagram
 image::PlayerCompleteClassDiagram.png[width="800"]
 
+[[PlayableStatus]]
+===== PlayableStatus
 `PlayableStatus` to represents the state of the player, effectively acts as a layer on top of JavaFX’s `MediaPlayer.Status`.
 
 1. `UNINITIALIZED` - The initial state when no track or playlist has been played
@@ -1138,40 +1140,269 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+Positive [green]#test cases# (for normal usage scenario) are in green and negative [red]#test cases# (for usage scenarios trying to break the app) are in red.
+
+=== Launch
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Open the terminal/command prompt/powershell
+.. Enter command `java -jar jxmusic.jar` +
+   Expected: a “library” folder to be generated next to the jar file and shows GUI with sample playlists (as shown below)
+... Fallback 1: enter command `unzip jxmusic.jar "library/*"` then double click the jar file
+... Fallback 2: download and unzip link:{repoUrl}/releases/download/v1.3/library.zip[library.zip] in the folder containing the jar file, then double click the jar file
 
-. Saving window preferences
+image::LibraryFolderNextToJar.png[width="300"]
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+image::Ui.png[width="800"]
 
-_{ more test cases ... }_
+[NOTE]
+Once library folder exists and it contains the sample mp3 files, subsequent launches can be done by double clicking the jar file.
 
-=== Deleting a person
+. Add mp3 files into the library
+.. [green]#Test case:# Copy and paste any of the mp3 file in the library folder, then run the jar file. +
+Expected: The new track file name appears in the track panel.
 
-. Deleting a person while all persons are listed
+. Add invalid mp3 file into the library
+.. [red]#Test case:# Save a text file as "invalid.mp3" in the library folder, then run the jar file. +
+Expected: "invalid" does not show up in track panel.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Playing tracks
 
-_{ more test cases ... }_
+You may refer <<PlayableStatus>> for easier understanding of the possible state transitions.
 
-=== Saving data
+. Play the tracks in a specific playlist
+.. [green]#Test case:# `play p/sound effects` +
+Expected: Tracks in "sound effects" playlist start playing sequentially.
+[TIP]
+The tracks of "sound effects" playlist ("Marbles", "SOS Morse Code", "Service Bell Help") are short (few seconds in duration) sample tracks provided for testing this case.
 
-. Dealing with missing/corrupted data files
+. Play the tracks in the first playlist of the library
+.. [green]#Test case:# `play p/` +
+Expected: Tracks in the first playlist sorted by its name in the library starts playing.
+[TIP]
+The command works even when no playlist is displayed in the panel. The first playlist in the library is the first one in the playlist panel when `playlist list` is entered.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Play a specific track
+.. [green]#Test case:# `play t/Marbles` +
+Expected: "Marbles" start playing.
 
-_{ more test cases ... }_
+. Play a default track
+.. [green]#Test case:# `play t/` +
+Expected: The first track sorted by its name in the library starts playing.
+[TIP]
+Similarly to `play p/`, the command works even when no track is displayed in the panel. The first track in the library is the first one in the track panel when `track list` is entered.
+
+. Play another playlist/track while a playlist/track is playing
+.. [green]#Test case:# `play t/Marbles`, `play t/acyort` +
+Expected: "Marbles" stops playing and "acyort" starts playing.
+
+. Play an empty playlist
+.. **Prerequisites:** Create an empty playlist with the `playlist new` command
+.. [red]#Test case:# `playlist new p/empty`, `play p/` +
+Expected: Displays "playlist has no track" error message.
+
+=== Pausing
+
+. Pause a playing playlist/track
+.. **Prerequisites:** Play a playlist/track with the `play p/[playlist]` or `play t/[track]` command
+.. [green]#Test case:# `play p/`, `pause` +
+Expected: The playing track is paused.
+
+. Pause a stopped playlist/track
+.. **Prerequisites:** Stop a playlist/track with the `stop` command
+.. [red]#Test case:# `play p/`, `stop`, `pause` +
+Expected: Displays "no playing track to pause" error message.
+
+. Pause without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `pause` +
+Expected: Displays "no playing track to pause" error message.
+
+=== Unpausing
+
+. Unpause a paused playlist/track
+.. **Prerequisites:** Pause a playing playlist/track with the `pause` command
+.. [green]#Test case:# `play p/`, `pause`, `play` +
+Expected: The paused playlist/track resumes playing from where it was paused.
+
+. Unpause a stopped playlist/track
+.. **Prerequisites:** Stop a playing/paused track with the `stop` command
+.. [green]#Test case:# `play p/`, `stop`, `play` +
+Expected: The stopped playlist restarts playing from the first track.
+.. [green]#Test case:# `play t/`, `stop`, `play` +
+Expected: The stopped track restarts playing from the beginning.
+
+. Unpause while playing
+.. [red]#Test case:# `play p/`, `play` +
+Expected: Stays playing.
+
+. Unpause without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `play` +
+Expected: Displays "no track paused/stopped" error message.
+
+=== Stopping
+
+. Stop a playing/paused playlist/track
+.. [green]#Test case:# `play p/`, `stop` +
+Expected: The playing playlist/track stops playing.
+.. [green]#Test case:# `play p/`, `pause`, `stop` +
+Expected: The paused playlist/track stops playing.
+
+. Stop while stopped
+.. [red]#Test case:# `play p/`, `stop`, `stop` +
+Expected: Stays stopped.
+
+. Stop without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `stop` +
+Expected: Displays "no track to stop" error message.
+
+=== Viewing duration of track
+
+[NOTE]
+Due to a limitation of the media player library, duration of a track can only be made known once it starts playing.
+
+. View duration of a playing/paused/stopped track
+.. [green]#Test case:# `play p/`, `duration` +
+Expected: Displays duration of the currently playing track.
+.. [green]#Test case:# `play p/`, `pause`, `duration` +
+Expected: Displays duration of the currently playing track.
+.. [green]#Test case:# `play p/`, `stop`, `duration` +
+Expected: Displays duration of the currently playing track.
+
+. View duration without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `duration` +
+Expected: Displays "no track playing/paused/stopped" error message.
+
+=== Seeking a track
+
+[TIP]
+Use the `duration` command to view the total length of the playing track for testing the following test cases.
+
+[NOTE]
+Examples of valid TIME: +
+`10` (10 sec) +
+`1 59` (1 min 59 sec) +
+`100` (100 sec = 1 min 40 sec) +
+`1 100` (1 min + 100 sec = 2 min 40 sec) +
+`1 99 99` (1 hr + 99 min + 99 sec = 2 hr 40 min 39 sec) +
+We did not include hour long mp3 file. If you want to test that, you need to add the file into the library folder.
+
+. Seek within the duration of a track ("aliez" is 4m 26s long)
+.. [green]#Test case:# `play t/aliez`, `seek d/100` +
+Expected: Seek to 100th second mark and continues playing.
+.. [green]#Test case:# `play t/aliez`, `seek d/4 26` +
+Expected: Seek to last second mark and plays for 1 second.
+.. [green]#Test case:# `play t/aliez`, `pause`, `seek d/100` +
+Expected: Seek to 100th second mark and stays paused
+.. [green]#Test case:# `play t/aliez`, `stop`, `seek d/100`
+Expected: Displays "no playing track to seek" error message.
+
+. Seek over the duration of a track
+.. [red]#Test case:# `play t/aliez`, `seek d/4 27` +
+Expected: Displays "time is beyond track's duration" error message.
+
+. Seek with invalid time input
+.. [red]#Test case:# `play t/aliez`, `seek d/-1` +
+Expected: Displays "wrong time format" error message.
+.. [red]#Test case:# `play t/aliez`, `seek d/-1 0` +
+Expected: Displays "wrong time format" error message.
+.. [red]#Test case:# `play t/aliez`, `seek d/0 0 0 0` +
+Expected: Displays "wrong time format" error message.
+
+. Seek without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `seek d/100` +
+Expected: Displays "no playing track to seek" error message.
+
+=== Creating a new playlist
+
+. Create an empty playlist
+.. [green]#Test case:# `playlist new p/new playlist` +
+Expected: An empty playlist named “new playlist” is created
+
+. Create a playlist with tracks
+.. [green]#Test case:# `playlist new p/new playlist 2 t/aliez` +
+Expected: A playlist named "new playlist 2" is created, containing "aliez" track.
+.. [red]#Test case:# `playlist new p/sound effects t/Marbles t/SOS Morse Code t/Service Bell Help` +
+Expected: A playlist named “sound effects” is created, containing tracks “Marbles”, “SOS Morse Code” and “Service Bell Help”
+
+=== Searching playlists and tracks
+
+[NOTE]
+The "search" commands (ie `playlist search` and `track search`) works the same way except one searches for playlists, the other for tracks.
+
+. Search with substring
+.. [green]#Test case:# `playlist search al` +
+Expected: Only playlists with names containing "al" are shown in the playlist panel
+.. [green]#Test case:# `track search al` +
+Expected: Only tracks with names containing "al" are shown in the track panel
+
+. Search with multiple substrings
+.. [green]#Test case:# `playlist search al i` +
+Expected: Only playlists with names containing "al" **or** "i" are shown in the playlist panel
+.. [green]#Test case:# `track search al i` +
+Expected: Only tracks with names containing "al" **or** "i" are shown in the track panel
+
+=== Listing playlists and tracks
+
+[NOTE]
+Similarly to "search" commands, "list" commands (ie `playlist list` and `track list`) works the same way except one for playlists, the other for tracks.
+
+. List all playlists
+.. [green]#Test case:# `playlist list` +
+Expected: All playlists displayed with success message
+
+. List all tracks
+.. [green]#Test case:# `track list` +
+Expected: All tracks displayed with success message
+
+=== Adding tracks to playlist
+
+. Add tracks by track name
+.. [green]#Test case:# `track add p/Favourites t/aliez` +
+Expected: "Favourites" playlist to be added with "aliez" track.
+.. [green]#Test case:# `track add p/Favourites t/aliez t/acyort` +
+Expected: "Favourites" playlist to be added with "aliez" and "acyort" tracks.
+.. [red]#Test case:# `track add p/non existing t/aliez` +
+Expected: Displays "playlist does not exist" error message.
+.. [red]#Test case:# `track add p/Favourites t/non existing` +
+Expected: Displays "track file does not exist" error message.
+
+. Add tracks by track index
+.. **Prerequisites:** List all tracks using the `track list` command. Multiple tracks in the list.
+.. [green]#Test case:# `track add p/Favourites i/1` +
+Expected: "Favourites" playlist to be added with first track in panel.
+.. [green]#Test case:# `track add p/Favourites i/1 i/2` +
+Expected: "Favourites" playlist to be added with first and second tracks in panel.
+.. [red]#Test case:# `track add p/non existing i/1` +
+Expected: Displays "playlist does not exist" error message.
+.. [red]#Test case:# `track add p/Favourites i/999` +
+Expected: Displays "indexes does not exist" error message.
+
+=== Deleting tracks in a playlist
+
+. Delete tracks by track index in playlist
+.. [green]#Test case:# `track del p/Favourites i/1` +
+Expected: First track of "Favourites" playlist is removed from playlist.
+.. [green]#Test case:# `track del p/Favourites i/1 i/2` +
+Expected: First and second tracks of "Favourites" playlist are removed from playlist.
+.. [red]#Test case:# `track del p/non existing i/1` +
+Expected: Displays "playlist does not exist" error message.
+.. [red]#Test case:# `track del p/Favourites i/999` +
+Expected: Displays "playlist does not have index" error message.
+
+=== Deleting a playlist
+
+. Delete a playlist by index
+.. **Prerequisites:** List all playlists using the `playlist list` command. Multiple playlists in the list.
+.. [green]#Test case:# `playlist del 1` +
+Expected: First playlist shown in panel is removed.
+.. [red]#Test case:# `playlist del 999` +
+Expected: Displays "index provided is invalid" error message.
+
+=== Thank you for testing our project! <3
