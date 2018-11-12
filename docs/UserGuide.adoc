@@ -86,7 +86,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Timetable download guide
 
 To be referenced by any commands that use `tt/` prefix.
-Format `Command tt/ http://modsn.com/XXXX...`
+Format `Command tt/ http://modsn.us/XXXX...`
 
 Example: +
 * http://modsn.us/eDmp1 +
