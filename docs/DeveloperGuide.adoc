@@ -523,6 +523,12 @@ image::CurrentVolunteerCert.png[width="600"]
 
 ===== Implementation
 
+The following activity diagram shows us the control flow of the `exportcert` feature. Analysing this diagram would be a good way to understand the intended functionality of this feature.
+
+.`exportcert` command activity diagram
+[.thumb]
+image::command_exportcert_ad.png[width="500"]
+
 The following steps were involved in this feature's implementation:
 
 1. Support for accepting `exportcert` command.
