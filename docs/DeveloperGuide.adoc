@@ -1751,7 +1751,7 @@ Instructions:
    Expected: User is login successfully and will show another window.
 .. Test case: `login r/receptionist n/Mary Jane pass/reception151` +
    Expected: An error message will show "Invalid login credentials. Please try again." +
-   
+
 === Login as a doctor
 
 You are login to ClinicIO as a doctor.
