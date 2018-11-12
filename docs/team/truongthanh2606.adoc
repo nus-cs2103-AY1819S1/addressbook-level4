@@ -14,7 +14,7 @@ Team T09-2 consisted of myself, Joel Lee, Tay Yu Jia, Foo Guo Wei, and David Goh
 
 == Summary of contributions
 
-* *Code contributed:* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=truongthanh2606[GitHub]
+* *Code contributed:* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=truongthanh2606[Reposense]
 
 * *Major enhancement: Re-design model component*
 
