@@ -3,12 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 
-
 import java.util.List;
 
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+
 import seedu.address.model.Anakin;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

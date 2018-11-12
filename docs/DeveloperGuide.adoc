@@ -206,7 +206,7 @@ The user executes `newcard q/Hello? a/World` to add a new card with question "He
 
 The following sequence diagram shows how the `newcard` operation works:
 
-image::Newcard Sequence Diagram.png[width="790", align="left"]
+image::NewCard Sequence Diagram.png[width="790", align="left"]
 
 ==== Design consideration
 
@@ -588,8 +588,8 @@ days are added to the current review date of the card to determine when it shoul
 
 * *Alternative 2:* Create a separate scheduler class to handle performance operations.
 
-** Pros: This will allow us to schedule multiple type of objects
-** Cons: This will decrease cohesion of the components as we only intend for cards to be scheduled in this application
+** Pros: This will allow us to schedule multiple type of objects.
+** Cons: This will decrease cohesion of the components as we only intend for cards to be scheduled in this application.
 
 ==== Scheduling Algorithm details
 * The variant of the Super Memo 2 algorithm which we have implemented in this application works as follows:
@@ -603,6 +603,7 @@ How the user assesses his/her performance during classify. +
 `easy` corresponds to a 0 before scaling +
 `normal` corresponds to a 1 before scaling +
 `hard` corresponds to a 2 before scaling +
+
 *Easiness Score* :  This corresponds to `reviewScore` in our implementation
 
 As we only have three levels of difficulty, we have added a `BIAS` term to scale the `reviewScore`.
