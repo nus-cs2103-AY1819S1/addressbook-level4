@@ -349,13 +349,17 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::compose[]
 === Email feature
-Written below is the implementation of the Email feature.
+Written below is the implementation of the Email feature and considerations in its design.
 
 ==== Current Implementation
+
+image::EmailActivityDiagram.png[width="1500"]
+_Figure 4.2.1.1: Activity diagram of_ `ComposeEmailList`.
 
 The Email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
 It allows `.eml` files to be created and saved onto the computer.
 The feature is facilitated by `EmailModel` and `EmailDirStorage`.
+A simple activity diagram depicting how `ComposeEmailList` works is shown above in Figure 4.2.1.1.
 It implements the following operations:
 
 * `EmailModel#saveComposedEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
@@ -364,7 +368,7 @@ It implements the following operations:
 These operations are exposed in the `Model` interface as `Model#saveComposedEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
 
 image::EmailSequenceDiagram.png[width="1500"]
-_Figure 4.2.1.1: Sequence diagram of_ `ComposeEmailList`.
+_Figure 4.2.1.2: Sequence diagram of_ `ComposeEmailList`.
 
 Given below is an example usage scenario and how the Compose feature behaves at each step:
 
