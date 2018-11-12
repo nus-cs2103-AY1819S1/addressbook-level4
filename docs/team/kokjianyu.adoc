@@ -1,0 +1,88 @@
+= Kok Jian Yu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+
+---
+
+== Overview
+
+Office Assistance Specialized Integration System (OASIS) is an all-in-one HR management tool targeted at Small and Medium sized companies. OASIS simplifies and makes it easy for the user to perform tasks such as Employee management, Project management and Leave management.
+
+This portfolio serves as a summary to showcase my contribution for https://github.com/CS2103-AY1819S1-F10-1/main[OASIS].
+
+== Summary of contributions
+
+The following section shows my code contribution for OASIS.
+
+*Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kokjianyu&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Link]]
+
+=== Major Enhancement: Permission System
+
+* *Enhancement*: Added *ability to control the commands* each employee can *perform* through usage of Permissions.
+
+** What it does:
+*** Ensures that commands are executed only by employees with the permission required for it.
+** Justification:
+*** There are many commands in OASIS that should only be performable by employees with certain
+authorization. Usage of permission allows the admins to easily ensure that previously stated criteria is met.
+** Highlights:
+*** This enhancement requires modification to different components of the application, Model, Storage and Logic.
+Therefore, implementation was challenging as it requires in-depth knowledge of the different components.
+*** This feature is coded to be simple to use and extensible. New permissions can be added simply into `Permission` enum class, and any new Command class only need to 1 line of code to utilise this enhancement.
+
+* *Enhancement*: Added ability to *modify the permissions* granted to an employee
+
+** What it does:
+*** Modify the permissions of the employee.
+** Justification:
+*** Allows upper management of company to easily control the permission given to an employee.
+
+* *Enhancement*: Added ability to *view the permissions* granted to an employee
+
+** What it does:
+*** Display the list of permissions that an employee have.
+** Justification:
+*** Users might need to know the permissions that have been assigned to an employee. This enhancement
+give them a method to check it easily.
+
+==== Minor Enhancement:
+
+* *Enhancement*: Added Command Auto-Complete feature
+** What it does:
+*** When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
+** Justification:
+*** Users might find it hard to memorize commands in OASIS. Having this enhancement will make it easier for them to find the commands they want to execute.
+
+==== Other contributions
+
+* Project management:
+** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+* Enhancements to existing features:
+** Update `DeleteCommand` to prevent user from deleting themself (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/141[#141])
+** Wrote tests for all features implemented by me.(Pull requests https://https://github.com/CS2103-AY1819S1-F10-1/main/pull/121[#121], https://github.com/CS2103-AY1819S1-F10-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-F10-1/main/pull/85[#85], https://github.com/CS2103-AY1819S1-F10-1/main/pull/77[#77])
+* Community:
+** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T10-3/main/issues/137[1], https://github.com/CS2103-AY1819S1-T10-3/main/issues/136[2], https://github.com/CS2103-AY1819S1-T10-3/main/issues/134[3], https://github.com/CS2103-AY1819S1-T10-3/main/issues/135[4],
+https://github.com/CS2103-AY1819S1-T10-3/main/issues/133[5],
+https://github.com/CS2103-AY1819S1-T10-3/main/issues/141[6])
+
+== Contributions to the User Guide
+
+
+|===
+|_The sections shown below are my contribution to the User Guide. They showcase my ability to write documentation for end-users with minimal technical knowledge._
+|===
+
+include::../UserGuide.adoc[tag=autocomplete]
+
+include::../UserGuide.adoc[tag=modifypermission]
+
+== Contributions to the Developer Guide
+
+|===
+|_The sections shown below are my contribution to the Developer Guide. They showcase both my ability to write technical documentation targeted at future Developers(NUS Computer Science Students) of OASIS, and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=permission]

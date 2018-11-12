@@ -1,4 +1,4 @@
-= OASIS - Developer Guide
+= = image:DeveloperGuideHeader.png[width="900"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -338,7 +338,46 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::permission
+//tag::commandautocomplete[]
+=== Command Auto Complete
+
+When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
+
+==== Current Implementation
+
+Auto complete functionality in OASIS is supported by both `org.controlsfx.control.textfield.TextFields` API and `AutoCompleteCommandHelper` class.
+
+When text is typed into the Command Box (`commandTextField` object), it will display a drop down list of possible commands, that is retrieved from `AutoCompleteCommandHelper` class.
+
+* `org.controlsfx.control.textfield.TextFields` API is utilised to display the drop down list.
+
+* `AutoCompleteCommandHelper` class is used to generate the `Set` of possible commands with the input given in `CommandBox`.
+
+
+===== Aspect: Logic & UI
+When `CommandBox` class is being constructed, `bindAutoCompletion` method provided by `TextFields` API will be utilised to create an auto-completion binding between the `commandTextField` object and `AutoCompleteCommandHelper#autoCompleteWord` method.
+
+With this binding, whenever `commandTextField` is updated, it will display a drop down list of possible commands retrieved from `AutoCompleteCommandHelper#autoCompleteWord` if it exist.
+
+===== Design Considerations
+
+* Alternative 1 (Current Implementation): Make use of `TextFields` API
+
+** Pros: Easy to implement.
+
+** Pros: Can view ALL possible commands.
+
+** Cons: There is a slight delay before the drop down list appear. Can potentially slow down users who type fast.
+
+* Alternative 2: Immediately place predicted command as text into `commandTextField`.
+
+** Pros: No delay, predicted command is immediately displayed.
+
+** Cons: Only able to view 1 possible command.
+
+//end::commandautocomplete[]
+
+// tag::permission[]
 === Permission System
 There are several commands in OASIS that should not be executable by every user. E.g. Add and Delete commands should only be usable by user with the power to hire and dismiss other employees.
 Permission system is used to ensure that each user are only able to perform commands that they are authorised to when using OASIS.
@@ -348,12 +387,23 @@ Permission system is used to ensure that each user are only able to perform comm
 ===== Aspect: Model
 Model of a person have been changed to reflect the permission that each user possesses.
 
-The following diagram highlights the class added to reflect the changes to the model for `Person`.
+The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
 
-image::permissionPersonModel.png[width="350"]
+image::permissionPersonModel.png[width="750"]
+
+* `Permission` class contains the all possible Permissions that are available to a Person.
+
+* All values in `PermissionSet` must be from `Permission` class.
+
+* `PresetPermission` is a enumeration class that resides in `PermissionSet`. `PresetPermission` is utilised by `PermissionSet` class to generate a `PermissionSet` object that represents the set of permission that a certain type of User will possess.
+
+[NOTE]
+As of v1.4, `PresetPermission` only contains the following preset: `Admin`, `Manager` and `Employee`.
 
 ===== Aspect: Storage
 Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
+
+The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
 
 image::permissionStorage.png[width="350]
 
@@ -367,18 +417,23 @@ The following is an example on how to assign permission to a Command.
 ----
 public AddCommand(Person person) {
     requireNonNull(person);
-    requiredPermission.addPermissions(Permission.ADD_EMPLOYEE);
+    requiredPermission.addPermissions(Permission.ADD_EMPLOYEE); <1>
     toAdd = person;
 }
 ----
+<1> The method to assign permission to a command
+
+The code to ensure that each command is only executed by user with the correct permission is located in `Command#execute`.
+
+When any command executes, the command will first check if the logged in user possess the correct authorization by comparing `requiredPermission` with the user's `permissionSet` object, before performing the command.
 
 Given below is an example scenario of how commands will be executed.
 
-Step 1. The user enters a command `Delete 1` into the CLI.
+Step 1. The user enters a command `delete 1` into the CLI.
 
 Step 2. The system retrieves current user's `PermissionSet`
 
-Step 3. The system compares user's `PermissionSet` with `Delete` command's `requiredPermission`.
+Step 3. The system compares user's `PermissionSet` with `DeleteCommand` 's `requiredPermission`.
 
 * Two different cases
 
@@ -405,9 +460,9 @@ The commands executable by the user will depend on their class.
 
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
 
-=== Supporting features for Permission System
+=== Supporting commands for Permission System
 
-The following are features that have been implemented to support the Permission System.
+The following are commands that have been implemented to support the Permission System.
 
 ==== Modify Permissions of employee
 
@@ -423,18 +478,37 @@ This feature allows the user to indicate what permission to add and remove based
 * `-a PERMISSION_TO_ADD` to add permission
 * `-r PERMISSION_TO_REMOVE` to remove permission
 
-To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which can be used to retrieve the `index` of the targeted employee.
+====== Aspect: Logic
 
-The list of keywords is then used to create `permissionToAdd:Set<Permission>` and `permissionToRemove:Set<Permission>`, depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
+To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which is used to retrieve the `index` of the targeted employee.
 
- Might want to insert code snippet here
+All the keywords is then added to either `permissionToAdd:Set<Permission>` or `permissionToRemove:Set<Permission>` depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
+
+[NOTE]
+A ParseException will be thrown if any of the permission names are invalid.
 
 When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
 
+[NOTE]
+The command will be executed successfully if at least one permission is added or removed.
+
 The following is a sequence diagram that visualizes how this operation works.
 
-image::modifyPermissionSequenceDiagram.png[width="350]
+image::modifyPermissionSequenceDiagram.png[width="700"]
 
+===== Design Considerations
+
+* Alternative 1 (Current Implementation): Allow both adding and removing of multiple permissions with one command with the use of prefixes.
+
+** Pros: Only need to learn how to use 1 command. Can perform both adding and removing of permissions with a single command.
+
+** Cons: Harder to implement then other alternatives.
+
+* Alternative 2: Create 2 separate commands to handle adding and removing of permission. (E.g. `AddPermissionCommand` and `RemovePermissionCommand`)
+
+** Pros: Easy to implement.
+
+** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
 
 ==== View Permissions of employee
 
@@ -443,8 +517,38 @@ This feature allows the user to view the permissions that have been allocated to
 [NOTE]
 This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
 
+===== Current Implementation
+To use this command, the user only have to give an `INDEX` parameter.
 
-// end::permission
+====== Aspect: Logic
+
+To process this command, `ViewPermissionCommandParser` simply utilise `ParserUtil#parseIndex` to parse the argument into the `index` of the target employee.
+
+The index will then be used to create a `ViewPermissionCommand`.
+
+When `ViewPermissionCommand` is executed, it will retrieve the targeted employee from the `Model`, and print out the list of permission that the employee possesses.
+
+The following is a sequence diagram that visualizes how this operation works.
+
+image::viewPermissionSequenceDiagram.png[width="700"]
+
+===== Design Considerations
+
+* Alternative 1 (Current Implementation): Display permissions in the command box result text field.
+
+** Pros: Easy to implement.
+
+** Cons: Can only view permissions of a single employee at a time.
+
+* Alternative 2: Display all permissions in the Person card.
+
+** Pros: Able to view all permissions, of all employee in one go.
+
+** Pros: No commands required.
+
+** Cons: Person card can get very cluttered if employee have many permissions.
+
+// end::permission[]
 
 
 // tag::keyboardshortcuts[]
@@ -560,50 +664,42 @@ field of `Assignment` should be edited. To do so, `EditAssignmentDescriptor` obj
 // end::assignment[]
 
 // tag::archive[]
-=== View deleted employee archive feature
+=== View deleted employee archive
 Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
 
 ==== Proposed implementation
-The view deleted employee archive feature is facilitated by `VersionedAddressBook` and `UniqueArchiveList`.
+The view deleted employee archive feature is facilitated by `VersionedArchiveList` and `UniquePersonList.
 
-Given below is an example usage scenario and how the UniqueArchiveList behaves at each step.
+Given below is an example usage scenario and how the `VersionedArchiveList` and `UniquePersonList` behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state and an empty `UniqueArchiveList` is maintained.
+Step 1. The user launches the application for the first time. The `VersionedArchiveList` will be initialized with the initial archive list state and an empty `UniquePersonList` is maintained.
 
-Step 2. The user executes delete 3 command to delete the 3rd person in the address book. The Person object from the `UniquePersonList` will be transferred to the `UniqueArchiveList` and now the `UniqueArchiveList` will store all the deleted persons details.
+Step 2. The user executes delete 3 command on the active list to delete the 3rd person in the active list. The Person object from the `UniquePersonList` in `VersionedAddressBook` will be transferred to the `UniquePersonList` in `VersionedArchiveList` and store the deleted Person's data.
 
-Step 3a.1 The user views `UniqueArchiveList` and executes delete 1 command to delete the 1st person in the archive list.
+Step 3. The user executes archive command to view the `UniquePersonList` in `VersionedArchiveList`.
 
-Step 3a.2 The selected Person object in the `UniqueArchiveList` will be permanently deleted from the storage.
-
-Step 3b.1 The user views `UniqueArchiveList` and execute restore 1 command to restored 1st person in the archive list to the address book.
-
-Step 3a.1 The selected Person object in the `UniqueArchiveList` will be transferred back to `UniquePersonList`.
+Step 4. OASIS shows delete person in step 2 in the archive list
 
 The following activity diagram summarizes what happens when a user executes remove and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
 
-===== Aspect: Model
-Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueArchiveList` will store 0 or more `Person` objects.
+The following sequence diagram shows how the archive operation works:
 
-The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
+
+===== Aspect: Model
+Added a `VersionedArchiveList` object. `UniquePersonList` in `VersionedArchiveList` will store 0 or more `Person` objects.
+
+The following diagram shows the class `VersionedArchiveList` added to reflect the changes in the Model component:
 
 image::modelChangeJosh.PNG[width="350]
 
 ===== Aspect: Storage
-Added a `XmlSerializableArchiveList` object to Storage component.
+Added `ArchiveListStorage` interface, `XmlArchiveListStorage` and `XmlSerializableArchiveList` classes to Storage component.
 
-The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
+The following diagram shows the interface and classes added to the Storage component:
 
 image::storageModelChangeJosh.PNG[width="350]
-
-===== Aspect: UI
-Added a `ArchiveDisplay` object to `MainWindow` of UI component.
-
-The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
-
-image::uiModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
 ===== Aspect: Lifetime of objects in Archive list
@@ -619,7 +715,7 @@ image::uiModelChangeJosh.PNG[width="350]
 * **Alternative 1 (current choice):** Use a list to store the archived employee objects.
 ** Pros: Easy to implement. Only require small modification in existing classes. Faster access to archive list as you don't have to search every employee in the system to get the employees archived.
 ** Cons: We must maintain a separate list for archived objects.
-* **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
+* **Alternative 2:** Assign an archive attribute to each employee object in the addressbook and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
 ** Pros: Only need to change 1 attribute when an employee is deleted.
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
 // end::archive[]
@@ -1499,9 +1595,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-.  Manager login to the system
+.  Employee login to the system
 .  Oasis shows home page and displays list of employees
-.  Manager executes delete command on a selected employee
+.  Employee executes delete command on a selected employee
 .  Oasis deletes the employee, moves it to archive list and show success message
 +
 Use case ends.
@@ -1517,11 +1613,24 @@ Use case ends.
 +
 Use case ends.
 
+* 2b. Employee moves to archive list.
++
+** 2b1. OASIS shows archive list.
+** 2b2. Employee executes delete command on a selected employee
+** 2b3. Oasis deletes the employee from the system and shows success message.
++
+Use case ends.
+
 * 3a. The chosen employee is invalid.
 +
 ** 3a1. OASIS shows an error message.
 +
-Use case resumes at step 4.
+
+* 3b. Employee does not have required permissions.
++
+** 3a1. OASIS shows an error message.
++
+Use case ends.
 
 [discrete]
 === Use case: Apply for leave
