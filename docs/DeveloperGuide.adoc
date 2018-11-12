@@ -1410,6 +1410,7 @@ Steps 2a1-2a2 are repeated until an ingredient name which does not exist is ente
 +
 Use case resumes at step 3.
 
+// tag::ucingredient[]
 [discrete]
 === Use case: UC202 - Delete ingredient
 
@@ -1459,7 +1460,6 @@ Steps 3c1-3c2 are repeated until a valid command format is entered.
 +
 Use case resumes at step 4.
 
-// tag::ucingredient[]
 [discrete]
 === Use case: UC203 - Edit ingredient
 
