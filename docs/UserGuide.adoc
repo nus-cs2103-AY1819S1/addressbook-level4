@@ -429,8 +429,8 @@ Examples:
 * `find accelerator` +
 Finds and displays the list of attractions in ThanePark with the name "accelerator". +
 [NOTE]
-You can only use find to look for a full word in the name. This means a part of the name like "accel" will not work
-and only the full name "accelerator" will work.
+You can only use `find` to look for a full word in the name. This means a part of the name like "accel" will not work
+and only the full name like "accelerator" will work.
 
 The list of results should like this if no changes were made to the application (ie. delete or add or update): +
 
@@ -446,8 +446,8 @@ The list of results should look like this:
 image::./ui_screenshots/find-example-2.png[width="600"]
 
 * `find zone sci-fi t/popular tag rollerCoaster` +
-Finds and displays the list of attractions with addresses that contain the word "sci-fi" and the tags "rollerCoaster"
-and "popular".
+Finds and displays the list of attractions with zones in the theme park that contain the word "sci-fi" and the
+tags "rollerCoaster" and "popular".
 The list of results should look like this:
 
 image::./ui_screenshots/find-example-3.png[width="600"]
@@ -472,7 +472,7 @@ The list of results should like this if no changes were made to the application 
 image::./ui_screenshots/filter-example-1.png[width="600"]
 
 * `filter w/ < 10 m/ >= 50` +
-Filters attractions with waiting time less than 500 and maintenance of more than equals 50 days.
+Filters attractions with waiting time less than 10 and maintenance of more than equals 50 days.
 The list of results should look like this:
 
 image::./ui_screenshots/filter-example-2.png[width="600"]
@@ -480,7 +480,8 @@ image::./ui_screenshots/filter-example-2.png[width="600"]
 
 [NOTE]
 If a ride is selected, a `find` or `filter` is performed, the ride panel will still show the ride that was previously
-selected. Future versions will allow you to see the first ride selected or show the short help menu if no rides are found.
+selected. Future versions will automatically select the first ride on the list and allow you to see information about it
+on the `BrowserPanel` or show the short help menu if no rides are found.
 // end::filter[]
 
 === See commands to be implemented in v2.0
