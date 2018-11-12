@@ -1428,3 +1428,40 @@ Expected: Both Task A and Task B are completed in no defined order, followed by
 .. Test case: `topoorder` +
 Expected: A sequence of possible valid sequence of tasks to tackle given existing task dependency
 constraints will be displayed in the window below the command line.
+
+// tag::listfiltermanualtest[]
+=== List filter results
+. Expected results for time-based filters
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A p/5 d/due today l/one t/X Y` where `X` is today's date and Y is a
+time before the end of the day
+... Add Task B using `add n/B p/5 d/due before sunday l/two t/X Y` where `X` is any valid date before the end of the
+week and `Y` is any valid time
+... Add Task C using `add n/C p/5 d/due before end of month l/two t/X Y` where `X` is any valid date before
+the end of the month and `Y` is any valid time
+
+.. Test case 1: `list f/today`,
+Expected: Only Task A is listed.
+
+.. Test case 2: `list f/week`,
+Expected: Only Task B is listed.
+
+.. Test case 3: `list f/month`,
+Expected: Only Task C is listed.
+
+. Expected results for dependency-based filter (`doable`)
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-1-19 p/5 d/blank l/two`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank l/two`
+... Add Task C using `add n/C t/1-1-19 p/5 d/blank l/two`
+... List all tasks using `list`
+... Add a dependency from A to B using `dependency 1 2`
+
+.. Test case 1: `list f/doable`,
+Expected: Tasks B and C are listed.
+
+.. Test case 2: `list`, `complete 2`, `list f/doable`,
+Expected: Tasks A and C are listed.
+// end::listfiltermanualtest[]
