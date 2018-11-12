@@ -755,7 +755,7 @@ Using graphs:
 // tag::dataencryption[]
 === [Proposed] Data Encryption for v2.0
 
-Data Encryption can be done using by encrypting the contents addressbook.xml and other data files with the tutor asymmetric key (2048-bit RSA keys).
+Data Encryption can be done using by encrypting the contents addressbook.xml and other data files with the tutor's generated asymmetric key (2048-bit RSA keys). The private key would be safely stored with the tutor while the data.xml files will be encrypted and unaccessable by anyone else other than the tutor themselves.
 
 We would incorporate the `javax.crypto` and `java.security` packages to perform the keypair generation, encrypting and decrypting.
 
