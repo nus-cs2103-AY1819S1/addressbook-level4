@@ -1827,19 +1827,12 @@ Use case ends
 +
 Use case ends
 
-<<<<<<< HEAD
-=======
 *Extensions*
 
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
+* 1a.Expense Tracker detects that the user is not logged into an account.
+    ** 1a1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
-* 1b.Expense Tracker detects that the user is not logged into an account.
-    ** 1b1. Expense Tracker informs user that they are not logged into any user.
-    ** Use case ends.
-
->>>>>>> 907c64a3e5a7173ddb3ac77e068786dd16e2ec13
 [discrete]
 
 === Use case: Decrypt
@@ -1852,21 +1845,12 @@ Use case ends
 
 *Extensions*
 
-<<<<<<< HEAD
-* 1a.Expense Tracker detects that the specified `String` was not encrypted with the user's encryption key.
-    ** 1a1. Expense Tracker informs user that the specified `String` was not encrypted with the user's encryption key.
-=======
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
+* 1a.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
     ** Use case ends.
 
-* 1b.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
-    ** 1b1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
-    ** Use case ends.
-
-* 1c.Expense Tracker detects that the user is not logged into an account.
-    ** 1c1. Expense Tracker informs user that they are not logged into any user.
->>>>>>> 907c64a3e5a7173ddb3ac77e068786dd16e2ec13
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
