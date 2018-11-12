@@ -939,12 +939,6 @@ The Patient Management feature contains multiple operations to indirectly manipu
 * `listpatient`: Show all the patients in the ClinicIO record.
 * `findpatient`: Find the patient from the patient list.
 
-The following class diagram below illustrates the association between the Patient class and its associated class:
-
-.Class Diagram for the Patient.
-image::PatientClassDiagram.png[width="1080"]
-{sp} +
-
 ===== `addpatient` Command
 
 The `addpatient` command behaves similarly to the `add`. The command takes in parameters that required to construct patients `Nric`.
