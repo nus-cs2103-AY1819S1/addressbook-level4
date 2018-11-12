@@ -3,17 +3,21 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: MeNUS
-
----
-
 == Overview
+This portfolio summarizes my contributions towards the project I have undertaken in the course **CS2103T - Software
+Engineering**. It aims to demonstrate the theoretical and practical knowledge I have gained in the field of Software
+Engineering over the semester.
 
-*MeNUS* is an integrated restaurant management desktop application designed for restaurant managers. It incorporates
-the menus, ingredients, sales and reservations management system so restaurant managers can efficiently and
-effectively keep track of their menu, ingredient inventory, financial records and bookings all in one place. It
- provides a Command Line Interface (CLI) for restaurant managers to interact with, and is complemented with a
- Graphical User Interface (GUI) created with JavaFX. MeNUS is written with approximately 30 kLOC.
+== PROJECT: MeNUS
+*MeNUS* is an integrated restaurant management system designed for restaurant owners. It comprises five sub-management
+ systems - 1)Menu, 2)Inventory, 3)Sales, 4)Reservation and 5)Authentication, each of which plays an indispensable
+ role in ensuring the success of a restaurant business. They were meticulously developed to streamline the process of
+  tracking dishes, ingredients, bookings and financial records while upholding a substantial level of security.
+
+*MeNUS* provides a Command Line Interface (CLI) for restaurant owners to interact with and is complemented with a
+Graphical User Interface (GUI) that is constructed with https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm[JavaFX].
+MeNUS is written in https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9]
+with approximately 25 kLOC.
 
 
 == Summary of contributions
