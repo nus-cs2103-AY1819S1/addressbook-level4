@@ -208,6 +208,9 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete-item-index 1` command) +
 `redo` (reapplies the `delete-item-index 1` command) +
 `redo` (reapplies the `clear` command) +
+
+[NOTE]
+Undo and redo commands do not refresh the detailed panel. Select the item to see the updated result
 // end::undoredo[]
 
 ==== Clearing all entries : `clear` or `c`
@@ -674,9 +677,6 @@ Format: `recipe-item INDEX r/RECIPE`
 * You can remove recipe by typing `r/` without specifying any recipe after it..
 ****
 
-[NOTE]
-Undo and redo commands do not refresh the detailed panel. Select the item to see the updated result
-
 Examples:
 
 * `recipe-item 1 r/Some Recipe` +
@@ -701,9 +701,6 @@ e.g. `n/apple nu/3` or `nu/3 n/apple`
 * You can remove required ingredients by not including any `n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
 e.g. `add-required-ingredients INDEX`
 ****
-
-[NOTE]
-Undo and redo commands do not refresh the detailed panel. Select the item to see the updated result
 
 Examples:
 

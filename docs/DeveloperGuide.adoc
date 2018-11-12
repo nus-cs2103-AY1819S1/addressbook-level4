@@ -1158,8 +1158,6 @@ application
 
 |`* * *` |restaurant owner |clear menu |revamp my menu when there is a need
 
-|`* * *` |restaurant owner |export menu |print hard copies of the menu
-
 |`* * *` |restaurant owner |add a reservation |keep track of who booked a table in my restaurant
 
 |`* * *` |restaurant owner |edit a reservation |make changes when a customer requests to do so
