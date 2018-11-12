@@ -2323,7 +2323,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launching and shutting down
 
 . Initial launch
 
@@ -2338,7 +2338,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 
-=== Deleting a Person
+=== Deleting a person
 
 . Deleting a person while all persons are listed.
 
@@ -2350,29 +2350,90 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-=== Composing an Email to All Currently Listed Residents
+=== Composing an email to all currently listed residents
 
 . Composing an email while all persons are listed.
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-.. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
-   Expected: Email displayed on the BrowserPanel with the emails of the first and second contact as recipients of the email.
+.. Test case: `compose_email_list from/john@gmail.com subject/Example Subject content/Example Content` +
+   Expected: Email displayed on the BrowserPanel with the emails of all listed contacts as recipients of the email.
 
-.. Test case: `compose_email_list from/john@gmail.com to/100 subject/Example Subject content/Example Content` +
+.. Test case: `compose_email_list from/john@gmail.com subject/    content/Example Content` +
    Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
 
-.. Test case: `compose_email_list from/john@gmail.com to/0 subject/Example Subject content/Example Content` +
+.. Test case: `compose_email_list from/john subject/Example Subject content/Example Content` +
    Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
 
 . Composing an email while no persons are listed.
 
 .. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
 
-.. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+.. Test case: `compose_email_list from/john@gmail.com subject/Example Subject content/Example Content` +
    Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
 
-=== Creating a monthly Calendar
+=== Composing an email to specified indexes
+
+. Composing an email while all persons are listed.
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+.. Test case: `compose_email_index from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email displayed on the BrowserPanel with the emails of the first and second contact as recipients of the email.
+
+.. Test case: `compose_email_index from/john@gmail.com to/100 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+.. Test case: `compose_email_index from/john@gmail.com to/0 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+. Composing an email while no persons are listed.
+
+.. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
+
+.. Test case: `compose_email_index from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Deleting an email
+
+. Deleting an email that exists
+
+.. Prerequisites: Email to delete exists in the directory in the computer.
+
+.. Test case: `delete_email Valid Subject` +
+   Expected: Email with subject 'Valid Subject' is deleted from the computer.
+
+. Deleting an email that does not exist
+
+.. Prerequisites: Email to delete does not exist in the directory in the computer.
+
+.. Test case: `delete_email Invalid Subject` +
+   Expected: Error details shown in the status message.
+
+=== Listing emails
+
+. Listing all emails
+
+.. Test case: `list_emails` +
+   Expected: Existing emails displayed on the BrowserPanel.
+
+=== Viewing an email
+
+. Viewing an email that exists
+
+.. Prerequisites: Email to view exists in the directory in the computer.
+
+.. Test case: `view_email Valid Subject` +
+   Expected: Email displayed on the BrowserPanel.
+
+. Viewing an email that does not exist
+
+.. Prerequisites: Email to view does not exist in the directory in the computer.
+
+.. Test case: `view_email Invalid Subject` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Creating a monthly calendar
 . Creating a new monthly calendar.
 
 .. Test case: `create_calendar month/oct year/2018` +
@@ -2391,7 +2452,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 It is recommend to test the calendar and its relevant commands using the present month and year as arguments. This is because the calendar GUI will always display the current week as its default time frame.
 
-=== Viewing a monthly Calendar
+=== Viewing a monthly calendar
 . Viewing an existing calendar.
 
 .. Test case: `view_calendar month/oct year/2018` +
@@ -2402,7 +2463,7 @@ It is recommend to test the calendar and its relevant commands using the present
 .. Test case: `view_calendar month/sep year/1998` +
    Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
 
-=== Add all day event into monthly Calendar
+=== Adding an all day event into monthly calendar
 * Adding a new all day event into the calendar.
 
 .. Test case: `add_all_day_event month/oct year/2018 date/25 title/Example` +
@@ -2418,7 +2479,7 @@ It is recommend to test the calendar and its relevant commands using the present
 
 Events in Hallper are considered the same if they have the same start date, end date and title (case-sensitive).
 
-=== Add event into monthly Calendar
+=== Adding an event into monthly calendar
 * Adding a new event with a specified time frame into the calendar.
 
 .. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/30 title/Example` +
@@ -2435,7 +2496,7 @@ Events in Hallper are considered the same if they have the same start date, end 
 .. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/30 title/Example` +
    Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event already exist in the calendar and its duplicate is not created.
 
-=== Delete event from monthly Calendar
+=== Deleting an event from monthly calendar
 * Deleting an existing event from the monthly calendar.
 
 .. Test case: `delete_event month/oct year/2018 sdate/25 edate/25 title/example` +
@@ -2444,7 +2505,7 @@ Events in Hallper are considered the same if they have the same start date, end 
 .. Test case: `delete_event month/oct year/2018 sdate/25 edate/25 title/Example` +
    Expected: The updated calendar displays on the UI with the current week as its default time frame.
 
-=== Clearing Persons
+=== Clearing persons
 . Clearing persons while all persons are listed
 
 .. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
@@ -2492,7 +2553,7 @@ Events in Hallper are considered the same if they have the same start date, end 
 .. Test case: `import f/C://Users/Me/Documents/import.txt` +
    Expected: Data not imported. Invalid file type message displayed.
 
-=== Searching a person
+=== Searching persons
 
 . Searching persons in Hallper.
 
@@ -2502,7 +2563,7 @@ Events in Hallper are considered the same if they have the same start date, end 
 .. Test case: `search FoS` (where `FoS` is not tagged to any persons). +
    Expected: Person Panel List will be empty. 0 persons message displayed.
 
-=== Uploading profile picture
+=== Uploading a profile picture
 
 . Uploading of person profile picture from computer to Hallper.
 
