@@ -32,7 +32,8 @@ date or from the current date until the closest Sunday.
 ** Highlights: This implementation was challenging as it required creating a new `model` and `storage` for saving and
 retrieving the data. It was also tedious and time consuming to conduct both system and manual tests for different
 dates due to the need to manipulate my device's system date.
-** Credits: https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java[#1],
+** Credits to *Stack Overflow* and *The Java™ Tutorials - Oracle Docs*:
+https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java[#1],
 https://stackoverflow.com/questions/156503/how-do-you-assert-that-a-certain-exception-is-thrown-in-junit-4-tests[#2],
 https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-java[#3],
 https://stackoverflow.com/questions/428918/how-can-i-increment-a-date-by-one-day-in-java[#4],
