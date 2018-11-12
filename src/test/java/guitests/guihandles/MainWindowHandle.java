@@ -7,38 +7,48 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
-    private final ResultDisplayHandle resultDisplay;
+    private final StagedModuleListPanelHandle stagedModuleListPanel;
+    private final TakenModuleListPanelHandle takenModuleListPanel;
+    private final DatabaseModuleListPanelHandle databaseModuleListPanel;
+    private final OutputDisplayHandle outputDisplay;
     private final CommandBoxHandle commandBox;
-    private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
-        resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
+        stagedModuleListPanel = new StagedModuleListPanelHandle(
+                getChildNode(StagedModuleListPanelHandle.MODULE_LIST_VIEW_ID));
+        takenModuleListPanel = new TakenModuleListPanelHandle(
+                getChildNode(TakenModuleListPanelHandle.MODULE_LIST_VIEW_ID));
+        databaseModuleListPanel = new DatabaseModuleListPanelHandle(
+                getChildNode(DatabaseModuleListPanelHandle.MODULE_LIST_VIEW_ID));
+        outputDisplay =
+            new OutputDisplayHandle(getChildNode(OutputDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
-        statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public StagedModuleListPanelHandle getStagedModuleListPanel() {
+        return stagedModuleListPanel;
     }
 
-    public ResultDisplayHandle getResultDisplay() {
-        return resultDisplay;
+    public TakenModuleListPanelHandle getTakenModuleListPanel() {
+        return takenModuleListPanel;
+    }
+
+    public DatabaseModuleListPanelHandle getDatabaseModuleListPanel() {
+        return databaseModuleListPanel;
+    }
+
+    public OutputDisplayHandle getResultDisplay() {
+        return outputDisplay;
     }
 
     public CommandBoxHandle getCommandBox() {
         return commandBox;
-    }
-
-    public StatusBarFooterHandle getStatusBarFooter() {
-        return statusBarFooter;
     }
 
     public MainMenuHandle getMainMenu() {
