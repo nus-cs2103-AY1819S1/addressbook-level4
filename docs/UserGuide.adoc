@@ -441,7 +441,7 @@ image::Time.png[width="790"]
 
 // end::filter4[]
 
-// tag::suggestq[]
+// tag::suggest1[]
 === Give Suggestions to students: `suggestion`
 
 Give Suggestions to students +
@@ -461,7 +461,7 @@ Show the suggestion to Alice according to her performance.
 If the student has not taken any exam before
 No suggestion gonna be shown.
 ====
-// end::suggestq[]
+// end::suggest1[]
 
 // tag::suggest2[]
 === Give Suggestions to students: `suggestionByIndex`
