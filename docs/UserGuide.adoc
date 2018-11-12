@@ -56,6 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `+Example` indicates positive example while `-Example` indicates negative example.
 ====
 
+// tag::task-fields[]
 === Note on Task fields
 A task has various fields. Some of these fields can be edited directly, while the rest are _derived_ from the fields
 that can be edited.
@@ -73,8 +74,7 @@ that can be edited.
 It is denoted by either "IN PROGRESS", "COMPLETED" or "OVERDUE".
 * Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task
 
-
-
+// end::task-fields[]
 === System Commands
 ==== Viewing help: `help`
 
