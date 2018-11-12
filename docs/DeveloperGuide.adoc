@@ -1774,29 +1774,29 @@ These instructions only provide a starting point for testers to work on; testers
 . Adding a tuition time for a student while all persons are listed
 
 .. Prerequisites: List all persons using the list command. Multiple persons in the list.
-.. Test case: `addTime 1 ts/mon 1300 1500` +
+.. Test case: `addTime 1 ts/mon 1800 2000` +
    Expected: Student at index 1 has a tuition time "Monday 1300 1500" added. Status message display command success message and timestamp in the status bar is updated.
-.. Test case: `addTime 2 ts/mon 1300 1500` +
+.. Test case: `addTime 2 ts/mon 1800 2000` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
-.. Test case: `addTime 1 ts/mon 1400 1600` +
+.. Test case: `addTime 1 ts/mon 1700 2100` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
-.. Test case: `addTime 1 ts/tues 1300 1500` +
+.. Test case: `addTime 1 ts/tues 1800 2000` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
-.. Test case: `addTime 1 ts/tue 1 3` +
+.. Test case: `addTime 1 ts/tue 6 8` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
-.. Test case: `addTime 1 ts/tue 1300 1500` +
+.. Test case: `addTime 1 ts/tue 1800 2000` +
    Expected: Student at index 1 has a tuition time "Tuesday 1300 1500" added. Status message display command success message and timestamp in the status bar is updated.
 
 === Deleting a tuition time of a student
 
 . Deleting a tuition time for a student while all persons listed
 
-.. Prerequisites: List all persons using the list command. Multiple persons in the list. Performed `addTime 1 ts/mon 1300 1500`.
-.. Test case: `deleteTime 2 ts/mon 1300 1500` +
+.. Prerequisites: List all persons using the list command. Multiple persons in the list. Performed `addTime 1 ts/mon 1800 2000`.
+.. Test case: `deleteTime 2 ts/mon 1800 2000` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
-.. Test case: `deleteTime 1 ts/mon 1200 1500` +
+.. Test case: `deleteTime 1 ts/mon 1700 2000` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
-.. Test case: `deleteTime 1 ts/mon 1300 1500` +
+.. Test case: `deleteTime 1 ts/mon 1800 2000` +
    Expected: Student at index 1 has a tuition time "Monday 1300 1500" removed. Status message display command success message and timestamp in the status bar is updated.
 
 === Retrieving earnings
