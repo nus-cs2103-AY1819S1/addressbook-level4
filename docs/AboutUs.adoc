@@ -40,7 +40,7 @@ Responsibilities: UI
 
 === Jiang Chen
 image::jcjxwy.png[width="150", align="left"]
-{empty}[https://github.com/jcjxwy[github]] [<<jiangchen#, portfolio>>]
+{empty}[https://github.com/jcjxwy[github]] [http://localhost:63342/expense%20tracker%201.2/expense_tracker_1.2/build/docs/html5/team/jcjxwy.html?_ijt=k195lrlr4suj08ud9qlr4i30ht[portfolio]]
 
 Role: Developer +
 Responsibilities: Integration

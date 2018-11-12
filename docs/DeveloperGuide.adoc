@@ -568,7 +568,7 @@ The alternative ways of implementation are shown below.
 * **Alternative 1 (current choice):** Check through all expenses and select those with all the keywords
 ** Pros: Easy to implement. No need to change original architecture.
 ** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
-* **Alternative 2:** Store expenses in separated files and only check the relevant files while filtering.
+* **Alternative 2:** Store expenses in separate files and only check the relevant files while filtering.
 ** Pros: More efficient. No need to check every expense.
 ** Cons: Need to change the original architecture of storage.
 
@@ -619,7 +619,7 @@ The alternative ways of implementation are shown below.
 * **Alternative 1(current choice):** Filter out the targeted expenses and replace them with edited expenses.
 ** Pros: Easy to implement. Align with current architecture.
 ** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
-* **Alternative 2:** Store expenses in separated files. When the expenses are edited, move them
+* **Alternative 2:** Store expenses in separate files. When the expenses are edited, move them
 to another file according to the edited fields.
 ** Pros: Easy to identify the targeted expenses by checking relevant files. No need to check every expense.
 ** Cons: Need to change original architecture of storage. May need to create new files during edition.

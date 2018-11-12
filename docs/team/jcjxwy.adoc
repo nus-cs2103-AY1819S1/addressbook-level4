@@ -12,7 +12,7 @@ This portfolio aims to document my role and contribution to the *ExpenseTracker*
 *ExpenseTracker* is a desktop application used for tracking user's expenses.
 The user interacts with it using a Command Line Interface (CLI),
 and it has a Graphical User Interface (GUI) created with JavaFX.
-It is written in Java, and has about 20 kLoC.
+It is written in Java, and has about 28 kLoC.
 It is the product of CS2103T team project.
 
 The main purpose of this project is to morph AddressBook - Level 4,
@@ -29,7 +29,7 @@ Some of the main features of *ExpenseTracker* are:
 This section summarizes my contribution to the project.
 
 * *Major enhancement:*
-** added the ability to find and edit multiple expenses by specific keywords
+** Added the ability to find and edit multiple expenses by specific keywords
 *** What it does: Allow user to filter out the particular expenses by entering relevant keywords. Allow user to edit
 all targeted expenses at the same time.
 *** Justification: This feature improves the product significantly because now it is more convenient for user to find and edit particular expenses.
