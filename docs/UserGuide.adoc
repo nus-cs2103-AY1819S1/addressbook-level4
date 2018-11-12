@@ -27,7 +27,7 @@ ConTAct is an application for teaching assistants who *prefer to use a desktop a
 .  Copy the file to the folder you want to use as the home folder for your ConTAct.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UiMockup.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
