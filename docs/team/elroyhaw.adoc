@@ -83,3 +83,7 @@ include::../DeveloperGuide.adoc[tag=viewperson]
 include::../DeveloperGuide.adoc[tag=addappointment]
 
 include::../DeveloperGuide.adoc[tag=deleteappointment]
+
+include::../DeveloperGuide.adoc[tag=glossary]
+
+include::../DeveloperGuide.adoc[tag=manualtesting]

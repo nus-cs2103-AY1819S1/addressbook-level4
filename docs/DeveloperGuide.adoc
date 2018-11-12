@@ -1146,35 +1146,35 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Requires internet access to carry out operations in the HealthBook
 
-_{More to be added}_
-
+// tag::glossary[]
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+Receptionist::
+Target audience
 
-[appendix]
-== Product Survey
+Patient::
+Indirect target audience, patient whom visits the clinic
 
-*Product Name*
+Doctor::
+Indirect target audience, doctor whom works at the clinic
 
-Author: ...
+Appointment::
+A date and time fixed for a patient to consult a doctor
 
-Pros:
+Prescription::
+The medicine prescribed for the appointment
 
-* ...
-* ...
+Medical History::
+Allergies and/or conditions that a patient may have
+// end::glossary[]
 
-Cons:
-
-* ...
-* ...
-
+// tag::manualtesting[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1197,26 +1197,29 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a patient
 
-=== Deleting a person
+. Deleting a patient
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all persons using the `list` command if `filter-patient` or `filter-doctor` has been called before.
+.. Test case: `delete-patient n/John Doe` +
+   Expected: Patient named John Doe deleted from the HealthBook, along with any appointments tied to him.
+   Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-patient n/jlfsajfl` +
+   Expected: No patient is deleted if no patient with such name exists. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-patient` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Viewing a patient
 
-=== Saving data
+. Viewing a patient
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: List all persons using the `list` command if `filter-patient` or `filter-doctor` has been called before.
+.. Test case: `view-patient n/John Doe` +
+   Expected: Information panel reflects information of John Doe from the HealthBook.
+   Name of patient currently viewing is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `view-patient n/jlfsajfl` +
+   Expected: No patient is viewed if no patient with such name exists. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `view-patient` +
+   Expected: Similar to previous.
+// end::manualtesting[]
