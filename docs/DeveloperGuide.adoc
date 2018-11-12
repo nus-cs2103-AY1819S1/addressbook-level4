@@ -2148,7 +2148,7 @@ be able to register a new account as the user role feature will only be implemen
 
 . Clearing menu
 .. Test case: `clear-menu` +
-   *Expected*: Deletes all items in the menu.
+   *Expected*: Delete all items in the menu.
 
 . Selecting an item
 .. Prerequisites: You must have at least 1 item in the menu.

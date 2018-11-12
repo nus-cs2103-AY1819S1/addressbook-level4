@@ -451,10 +451,11 @@ Adds an item to the menu +
 Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 
 ****
-* ITEM_NAME and ITEM_PRICE must be provided.
+* `ITEM_NAME` and `ITEM_PRICE` must be provided.
 * An item can have any number of tags (including 0)
-* ITEM_NAME should only contain alphanumeric characters and spaces, and it should not be blank
-* ITEM_PRICE should only contain numbers(no negative), at most 2 decimal place and smaller than or equals to 2,147,483,647
+* `ITEM_NAME` should only contain alphanumeric characters and spaces, and it should not be blank
+* `ITEM_PRICE` should only contain numbers(no negative), at most 2 decimal place and smaller than or equals to
+2,147,483,647
 * You cannot add items with the same name
 ****
 
@@ -514,8 +515,8 @@ Format: `delete-item-name ITEM_NAME`
 
 ****
 * Deletes the item by the specified `ITEM_NAME`
-* The ITEM_NAME *must be in the menu*
-* ITEM_NAME is case-insensitive. e.g `burger` will match `Burger`
+* The `ITEM_NAME` *must be in the menu*
+* `ITEM_NAME` is case-insensitive. e.g `burger` will match `Burger`
 ****
 
 Examples:
@@ -633,8 +634,8 @@ Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 * The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* `1, 2, 3, ...`
 * You can remove discount by typing `0` for the percentage
-* You can give a discount to all items in the displayed item list by typing ALL(case-insensitive) instead of a
-specified INDEX
+* You can give a discount to all items in the displayed item list by typing `ALL`(case-insensitive) instead of a
+specified `INDEX`
 * You can give a discount to a range of items by adding the ending index `ei\INDEX`
 * The ending index can not be smaller than starting index
 * The percentage should only contain numbers(no negative), and it should be at most 2 digits(no decimal place)
@@ -659,7 +660,7 @@ Lists the items that have been tagged with `DAY_OF_THE_WEEK` in the menu. +
 Format: `today-special`
 
 ****
-* `DAY_OF_THE_WEEK` refers to monday, tuesday, ...
+* `DAY_OF_THE_WEEK` refers to Monday, Tuesday, ..., Sunday
 ****
 Examples:
 
@@ -673,11 +674,11 @@ Adds recipe to the item identified by the index number used in the menu. +
 Format: `recipe-item INDEX r/RECIPE`
 
 ****
-* Adds a recipe to the item at the specified `INDEX`.
-* If the item has a recipe already, it will overwite the existing recipe.
-* The index refers to the index number shown in the displayed item list.
+* Adds a recipe to the item at the specified `INDEX`
+* If the item has a recipe already, it will overwite the existing recipe
+* The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* `1, 2, 3, ...`
-* You can remove recipe by typing `r/` without specifying any recipe after it..
+* You can remove recipe by typing `r/` without specifying any recipe after it
 ****
 
 Examples:
