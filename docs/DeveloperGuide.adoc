@@ -1085,9 +1085,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |receptionist |book an doctor’s appointment for patient |reserve an appointment with doctor for the patient
 
-|`* * *` |receptionist |edit an doctor’s appointment for patient |edit a reserve slot for an appointment with doctor for the patient
+|`* * ` |receptionist |edit an doctor’s appointment for patient |edit a reserve slot for an appointment with doctor for the patient
 
-|`* *` |receptionist |delete an doctor’s appointment for patient |remove a reserve slot for an appointment with doctor for the patient
+|`* * *` |receptionist |delete an doctor’s appointment for patient |remove a reserve slot for an appointment with doctor for the patient
+
 |=======================================================================
 
 [appendix]
@@ -1095,15 +1096,276 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `HealthBook` and the *Actor* is the `receptionist`, unless specified otherwise)
 
+
 [discrete]
-=== Use case: Delete person
+=== Use case: Register Doctor
+*MSS*
+
+1. User requests to register a Doctor into the HealthBook
+2. User enters relevant details specified by command
+3. HealthBook brings user to google log in page
+4. User enters google login details
+5. User closes google page and reopens HealthBook
+6. HealthBook registers the doctor.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+2a. User enters wrong format for command.
+[none]
+** 2a1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[none]
+2b. User enters a duplicate persons.
+[none]
+** 2b1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[none]
+3a. User closes google page without logging in.
+[none]
+** 3a1. Healthbook will become unresponsive
+** 3a2. User closes and reopens Healthbook
++
+Use case restarts from step 1
+
+[discrete]
+=== Use case: Register Patient
+*MSS*
+
+1.  User requests to register a Patient into the HealthBook
+2.  User enters relevant details specified by command
+3.  HealthBook registers the patient.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+2a. User enters wrong format for command.
+[none]
+**  2a1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[none]
+2b. User enters a duplicate persons.
+[none]
+**  2b1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: Delete Doctor/Patient
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to delete a specific person in the list
+4.  HealthBook deleted the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.   The list is empty.
++
+Use case ends
+
+* 3a.   User enters a name that belongs to multiple contacts with different phone numbers
++
+[none]
+** 3a1. Healthbook shows an error message that prompts user to enter phone parameter.
++
+Use case resumes at step 2
+
+* 3b.   User enters an invalid name and/or phone
++
+[none]
+** 3b1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: View person
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to view a specific person in list
+4.  HealthBook shows the person
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a.   The list is empty.
++
+Use case ends
+
+* 3a.   User enters a name that belongs to multiple contacts with different phone numbers
++
+[none]
+** 3a1. Healthbook shows an error message that prompts user to enter phone parameter.
++
+Use case resumes at step 2
+
+* 3b.   User enters an invalid name and/or phone
++
+[none]
+** 3b1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: List persons
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows list of persons.
++
+Use case ends.
+
+[discrete]
+=== Use case: Filter Doctor/Patient
+
+*MSS*
+
+1.  User requests to filter doctors/patients
+2.  HealthBook shows list of doctors/patients
++
+Use case ends.
+
+[discrete]
+=== Use case: Add Appointment
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to add an appointment to the HealthBook for a specific Doctor and Patient
+4.  HealthBook adds the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a.   The given Doctor and/or Patient name is has a duplicate contact with a different phone number.
++
+[none]
+** 3a1. HealthBook shows an error and prompts user to input a phone number to differentiate.
++
+Use case resumes at step 2
+
+* 3b.   User enters an invalid name and/or phone
++
+[none]
+** 3b1. Healthbook shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: Delete Appointment
 
 *MSS*
 
 1.  User requests to list persons
 2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+3.  User requests to delete an appointment in the HealthBook for a specific appointmentId
+4.  HealthBook deletes the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a.   The given Id is invalid.
++
+[none]
+** 3a1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Complete Appointment
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to complete a specific appointment in the list
+4.  HealthBook completes the appointment
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a.   The given Id is invalid.
++
+[none]
+** 3a1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Prescription
+
+*MSS*
+
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to add a specific prescription to a specific appointment in the list
+4.  HealthBook adds the prescription
+
+*Extensions*
+
+[none]
+* 3a.   The given Id is invalid.
++
+[none]
+** 3a1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given prescription's medicine name already exists in HealthBook
++
+[none]
+** 3b1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3c. The given patient is allergic to the given prescription's medicine name.
++
+[none]
+** 3c1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete Prescription
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to delete a specific prescription from a specific appointment
+4.  HealthBook deletes the prescription
 +
 Use case ends.
 
@@ -1114,14 +1376,117 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given id is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. HealthBook shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given prescription is invalid.
++
+[none]
+**  3b1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add Medical History
+
+*MSS*
+
+1.  User requests to list persons/filter-patients
+2.  HealthBook shows a list of persons/patients
+3.  User requests to add medical history to a specific person in the list
+4.  HealthBook adds the medical history of the patient.
+
+*Extensions*
+
+[none]
+* 3a.   The given Patient name has a duplicate contact with a different phone number.
++
+[none]
+** 3a1. HealthBook shows an error and prompts user to input a phone number to differentiate.
++
+Use case resumes at step 2.
+
+* 3b.   User enters an invalid name and/or phone
++
+[none]
+** 3b1. Healthbook shows an error message.
++
+Use case resumes at step 2.
+
+* 3c.   User enters a duplicate allergy/condition
++
+[none]
+** 3c1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete Medical History
+
+*MSS*
+
+1.  User requests to list persons/filter-patients
+2.  HealthBook shows a list of persons/patients
+3.  User requests to delete medical history of a specific person in the list
+4.  HealthBook deletes the medical history of the patient.
+
+*Extensions*
+
+[none]
+* 3a.   The given Patient name has a duplicate contact with a different phone number.
++
+[none]
+** 3a1. HealthBook shows an error and prompts user to input a phone number to differentiate.
++
+Use case resumes at step 2.
+
+* 3b.   User enters an invalid name and/or phone
++
+[none]
+** 3b1. Healthbook shows an error message.
++
+Use case resumes at step 2.
+
+* 3c.   User enters an invalid allergy/ condition
++
+[none]
+** 3c1. HealthBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Remark person
+
+*MSS*
+
+1.  User requests to list persons
+2.  HealthBook shows a list of persons
+3.  User requests to add/delete a remark to a specific person in the list
+4.  HealthBook adds/deletes the remark.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a.   The given Person name has a duplicate contact with a different phone number.
++
+[none]
+** 3a1. HealthBook shows an error and prompts user to input a phone number to differentiate.
++
+Use case resumes at step 2.
+
+* 3b.   User enters an invalid name and/or phone
++
+[none]
+** 3b1. Healthbook shows an error message.
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Non Functional Requirements
