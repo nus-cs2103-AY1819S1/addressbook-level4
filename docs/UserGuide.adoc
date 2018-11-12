@@ -105,6 +105,9 @@ Example: +
 * If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
 * If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
 ****
+
+Warning: Timetable download will overwrite any existing schedule in the user.
+
 // end::scheduletimetable[]
 
 [[Features]]
