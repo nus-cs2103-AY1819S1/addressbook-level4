@@ -794,9 +794,9 @@ If the inputs are not valid, it will throw a `ParseException`
 
 The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount to all
 items in the `UniqueItemList`. Otherwise, it will give the discount to the item(s) specified by the index or the
-range of index. The `DiscountItemCommand` object create an `Item with the discounted price` and indirectly call
-`UniqueItemList#setItem(Item target, Item editedItem)` to give the discount the `Item`. It will then save the current
- state for undo/redo.
+range of index. The `DiscountItemCommand` object create an `Item with discounted price` and indirectly call
+`UniqueItemList#setItem(Item target, Item editedItem)` to update the `Item` with `Item with discounted price`. It will
+then save the current state for undo/redo.
 
 The following activity diagram summarizes what happens when a user executes `discount-item` command:
 
