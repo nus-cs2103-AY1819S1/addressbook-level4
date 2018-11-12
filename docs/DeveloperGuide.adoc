@@ -731,6 +731,14 @@ with an appropriate error message before the use case ends.
 ** Pros: Results in more compact code.
 ** Cons: Decreases code modularity, and this decreases code readability.
 
+===== Aspect: How to store medical history
+* **Alternative 1 (current implementation):** Use an ArrayList to store diagnoses in a person.
+** Pros: Allows expandable storage of diagnoses with its dynamic size. As an ArrayList implements the list interface,
+its contracted functionality suitably represents a list of diagnoses and this makes its usage in developing intuitive.
+** Cons: Slows down performance if the ArrayList capacity is constantly filled due to resizing costs.
+* **Alternative 2 (alternative implementation):** Use an Array to store diagnoses in a person.
+** Pros: Reduces performance losses that may arise from constant resizing in ArrayLists.
+** Cons: Decreases flexibility in developing as Arrays do not support generics in Java.
 // end::addmh[]
 
 
