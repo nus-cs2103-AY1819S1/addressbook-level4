@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.EditModuleRequestEvent;
 import seedu.address.commons.events.ui.ExportTxtRequestEvent;
 import seedu.address.commons.util.XmlToTxtUtil;
 import seedu.address.logic.CommandHistory;

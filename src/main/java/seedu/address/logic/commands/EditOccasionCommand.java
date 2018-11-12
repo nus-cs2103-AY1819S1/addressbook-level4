@@ -13,7 +13,6 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.EditModuleRequestEvent;
 import seedu.address.commons.events.ui.EditOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.logic.CommandHistory;
