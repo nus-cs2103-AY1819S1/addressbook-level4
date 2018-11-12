@@ -47,7 +47,7 @@ It requires an in-depth understanding of ClinicIO's architecture.
 
 * *Minor enhancement*:
 ** Alter the UI to provide a more beautiful UI. [Pull Requests: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
-** Create a `PasswordPrefixFormatter` to mask password.
+** Create a `PasswordPrefixFormatter` class to mask password.
 
 * *Other contributions*:
 
