@@ -176,33 +176,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         setUpTab();
-
-        analyticsDisplay = new AnalyticsDisplayPanel();
-        analyticsDisplay.setVisible(false);
-        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
-        patientDetailsDisplayPanel.getRoot().setVisible(false);
-        browserDisplayPanel = new BrowserDisplayPanel();
-        browserDisplayPanel.setVisible(false);
-
-        titleScreen = new TitleScreen();
-        titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
-
-        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
-        displayPanelPlaceholder.getChildren().add(browserDisplayPanel.getRoot());
-        displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
-        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
-
+        setUpDisplayPanel();
         hideInnerParts();
         setUpListPanel();
-
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter();
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        setUpOtherParts();
     }
 
     /**
@@ -212,15 +189,30 @@ public class MainWindow extends UiPart<Stage> {
         patientTab.setContent(patientListPanelPlaceholder);
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         queueTab.setContent(queuePanelPlaceholder);
-
         medicineTab.setContent(medicineListPanelPlaceholder);
-        medicineTab.setClosable(false);
 
         tabLists = new TabPane(patientTab, appointmentTab, queueTab, medicineTab);
     }
 
     /**
-     * Set up all the list panel in {@code MainWindow}.
+     * Set up all display panels in {@code MainWindow}.
+     */
+    private void setUpDisplayPanel() {
+        analyticsDisplay = new AnalyticsDisplayPanel();
+        analyticsDisplay.setVisible(false);
+        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
+        patientDetailsDisplayPanel.getRoot().setVisible(false);
+        browserDisplayPanel = new BrowserDisplayPanel();
+        browserDisplayPanel.setVisible(false);
+
+        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
+        displayPanelPlaceholder.getChildren().add(browserDisplayPanel.getRoot());
+        displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+    }
+
+    /**
+     * Set up all list panels in {@code MainWindow}.
      */
     private void setUpListPanel() {
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
@@ -234,6 +226,24 @@ public class MainWindow extends UiPart<Stage> {
 
         medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList());
         medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
+    }
+
+    /**
+     * Set up other parts in {@code MainWindow}.
+     * (E.g. {@code TitleScreen}, {@code StatusBarFooter} and etc.
+     */
+    private void setUpOtherParts() {
+        titleScreen = new TitleScreen();
+        titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
