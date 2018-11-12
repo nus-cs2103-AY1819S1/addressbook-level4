@@ -289,10 +289,10 @@ created as a patient as determined by their tag.
 ==== Design Considerations
 ===== Aspect: Data Structure of Upcoming and Past Appointments
 * Alternative 1 (Current Choice): Upcoming Appointments stored within a List and Past Appointments stored within a
-List. This allows the appointments to be compatible with the Observable List. Sorted list of appointments is no crucial
+List. This allows the appointments to be compatible with the Observable List. Sorted list of appointments is not crucial
 to the implementation of the HealthBook. Hence, we chose to implement the data structure as a list instead.
 ** Pros: Compatible and easily to implement with model and storage
-** Cons: List is not filtered
+** Cons: List is not sorted
 
 * Alternative 2 (Alternative Choice): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within an
 ArrayList. This allows the appointments to be added in a non-chronological order. Past appointments can also be iterated
