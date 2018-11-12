@@ -454,6 +454,7 @@ If no students qualify the filter criteria, an empty list is returned along with
 ====
 
 image::Grade.png[width="790"]
+
 // end::filter3[]
 
 // tag::filter4[]
