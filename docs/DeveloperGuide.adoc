@@ -561,7 +561,7 @@ The following sequence diagram illustrates how the mechanism works:
 
 .Sequence Diagram of archive task command
 
-image::ArchiveTaskCommand.png[width="800"]
+image::ArchiveTaskCommand.png[width="600"]
 
 ==== Design Considerations
 
@@ -599,7 +599,7 @@ Every time when the application is launched, archived list is checked through. T
 
 .Sequence Diagram of automatic partial deletion of archived tasks feature
 
-image::AutoDelete.png[width="800"]
+image::AutoDelete.png[width="600"]
 
 Given below is detailed explanation of how auto-deletion mechanism behaves: +
 
@@ -1112,7 +1112,7 @@ Given below is the sequence diagram of add category command which explains how t
 
 .Sequence Diagram of Add Category Command
 
-image::AddCategoryCommand.png[width="800"]
+image::AddCategoryCommand.png[width="600"]
 
 When user is adding tasks using unspecified tags (tags that have never been added to any category),
 the tags will be automatically added to default category `Others`.
@@ -1135,7 +1135,7 @@ is thrown. +
 Given below is the sequence diagram of add tag command.
 
 .Sequence Daigram of Add Tag Command
-image::AddTagCommand.png[width="800"]
+image::AddTagCommand.png[width="600"]
 
 Step 3. User enters command `editcat c/Game list c/Reading list` to rename category from `Game list` to `Reading list`.
 
@@ -1166,7 +1166,7 @@ Given below is the sequence diagram of edit category command:
 
 . Sequence Diagram of Edit Category Command
 
-image::EditCategoryCommand.png[width="800"]
+image::EditCategoryCommand.png[width="600"]
 
 Step 4. User enters command `removecat c/Reading list` to remove the category named `Reading list`. Let us call this
 category `categoryReadingList`.
@@ -1184,7 +1184,7 @@ Given below is the sequence diagram of remove category command:
 
 .Sequence Diagram of Remove Category Command
 
-image::RemoveCategory.png[width="800"]
+image::RemoveCategory.png[width="600"]
 
 
 Besides adding tag, renaming (editing) and removing, we support clearing category as well.

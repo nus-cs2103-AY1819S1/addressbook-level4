@@ -201,7 +201,6 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 Use the [BLUE]`list` command to find out the index of the task to be deleted.
 
 //tag::archivetask[]
-
 === Archiving a Task
 
 Archives the specified task from the schedule planner. Once a task is archived, it will be hidden from task list. You can
@@ -217,7 +216,7 @@ Example:
 [blue]`archive 1` +
 Task with index `1` is removed from the task list.
 
-image::archiveTask.png[width="400"]
+image::archiveTask.png[width="300"]
 ====
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
@@ -336,15 +335,14 @@ Given below is an example of two tasks with different deadline dates.
 Task `Do CS2030 lab` is listed before task `Self study` because it has
 earlier deadline date.
 
-
-image::sortingdate.png[width="400" caption="Figure 1. "]
+image::sortingdate.png[width="300"]
 
 If two tasks have the same deadline, the order then depends on priority, one that has
 higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
 Given below is an example of two tasks with the same deadline dates.
 
 
-image::sortingpriority.png[width="400"]
+image::sortingpriority.png[width="300"]
 
 [WARNING]
 Please take note that archived tasks are not shown in order.
@@ -481,7 +479,7 @@ Example:
 ====
 [blue]`addcat c/Steam shopping list`
 
-image::addingcat.png[width="400"]
+image::addingcat.png[width="300"]
 ====
 Category name can contain space. For example, [blue]`Steam`, [blue]`Steam2`,
 [blue]`Steam shopping list` are all valid category names. +
@@ -515,7 +513,7 @@ Example:
 ====
 [blue]`addtag c/Steam shopping list t/Overwatch`
 
-image::addtag.png[width="400"]
+image::addtag.png[width="300"]
 ====
 Duplicated tags are not allowed under same category. +
 For instance, in above example, you cannot add another tag [blue]`Overwatch`
@@ -540,7 +538,7 @@ Example:
 ====
 [blue]`clearcat c/Modules`
 
-image::clearcat.png[width="400"]
+image::clearcat.png[width="300"]
 ====
 When a category is cleared, tags saved in other categories are not affected.
 For instance, in above example, if you have tag `CS2105` in category `Others`
@@ -562,7 +560,7 @@ Example:
 ====
 [blue]`removecat c/Steam shopping list`
 
-image::removecat.png[width="400"]
+image::removecat.png[width="300"]
 ====
 [WARNING]
 Default categories [blue]`Modules` and [blue]`Others` cannot be removed. The only operation available for default categories is to delete
@@ -581,7 +579,7 @@ Example:
 ====
 [blue]`editcat c/Steam shopping list c/Reading list`
 
-image::editcat.png[width="400"]
+image::editcat.png[width="300"]
 ====
 [WARNING]
 Default categories `Modules` and `Others` cannot be renamed.
