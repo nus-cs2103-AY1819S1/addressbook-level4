@@ -112,9 +112,10 @@ Examples:
 *Format:* `select patient PATIENT_ID`
 
 Selects an existing patient and its information will display on the right. If necessary, switches the application to patient management mode.
+Selecting patient replaces physically clicking an patient card. Hence, you can only select a patient that is displayed on the left.
 
 [NOTE]
-Select command is different from clicking the patient card in the window. It enables you to select the patients who were soft deleted
+You may select a deleted patient by first typing `list patient all`.
 
 Examples:
 
@@ -122,7 +123,7 @@ Examples:
 * `select patient p29`
 
 .Select a patient
-image::select_patient.PNG[width="600"]
+image::select_command_patient.PNG[width="600"]
 
 === Edit patient information : `edit patient`
 
@@ -260,9 +261,10 @@ Tags:
 *Format:* `select appointment APPOINTMENT_ID`
 
 Selects an existing appointment and its details will display on the right. If necessary, switches the application to appointment management mode.
+Selecting appointment replaces physically clicking an appointment card. Hence, you can only select an appointment that is displayed on the left.
 
 [NOTE]
-Select command is different from clicking the appointment card in the window. It enables you to select the appointment in the past.
+You may select a past appointment by first typing `list appointment all`.
 
 Examples:
 
@@ -270,7 +272,7 @@ Examples:
 * `select appointment e29`
 
 .Select an appointment
-image::select_appointment.PNG[width="600"]
+image::select_command_appointment.PNG[width="600"]
 
 === Edit appointment information : `edit appointment`
 
@@ -344,14 +346,30 @@ Hence, you may try command `find disease NAME` to find related symptoms of this 
 Example:
 
 * `add disease d/acne s/pustules s/blackheads`
+
+.Message for Adding Disease Successfully
+image::SuccessfulAddDisease.png[width="600"]
+
 * `add disease d/alcohol misuse s/stroke s/stroke s/mouth cancer` +
 Symptom 'stroke' will be included once in our record.
-* `add disease d/obesity d/obesities` +
+* `add disease d/obesity d/obesities s/overweight` +
 This is an invalid command due to multiple occurrence of disease paramters. Hence, you will
 be prompted to enter a correct command:
 
-.Error Message for Wrong Add Disease Format
+.Error Message for Duplicate Disease Parameter
 image::ErrorMessageForWrongAddDiseaseCommand.png[width="600"]
+
+* `add disease d/averylongdiseaseparameter s/dummySymptom` +
+Returns an error message:
+
+.Error Message for Long Disease Parameter
+image::AddDiseaseLimit.png[width="600"]
+
+* `add disease d/invalid,disease s/dummySymptom` +
+Returns an error message:
+
+.Error Message for Invalid Disease Parameter
+image::AddDiseaseComma.png[width="600"]
 
 === List all diseases : `list disease`
 
@@ -363,10 +381,14 @@ Shows a list of all diseases in alphabetic order in the patient book.
 
 *Format:* `find disease NAME`
 
-Finds the disease which its name is specified in the command and return its related symptoms
+Finds the disease which its name is specified in the command and returns its related symptoms
 displayed in alphabetic order.
 
 * The search is case insensitive; e.g. ‘HIV’, ‘hIV’ and ‘hiv’ are all equivalent.
+
+.Display for find disease hIV
+image::FindHiv.png[width="600"]
+
 * Only full words will be matched; e.g. ‘confus’ will not match ‘confusion’.
 
 Example:
@@ -380,6 +402,8 @@ image::FindDiseaseInfluenza.png[width="600"]
 === Predict disease  : `predict`
 
 *Format:* `predict s/SYMPTOM`
+
+Predicts a disease from a given set of symptoms.
 
 You must include at least one `SYMPTOM` parameter with prefix `s/` to predict a disease. All
 diseases that contain the set of symptoms will be returned and displayed in alphabetic order.
@@ -401,10 +425,55 @@ image::PredictDiseaseValidDemo.png[width="600"]
 * `predict s/cry` +
 Returns an error message:
 
-.Error Message for Invalid Command 'predict s/cry'
+.Error Message for Command 'predict s/cry'
 image::PredictDiseaseInvalidDemo.png[width="600"]
 
+* `predict s/` +
+Returns an error message:
+
+.Error Message for Empty Symptom Parameter
+image::PredictEmptySymptom.png[width="600"]
+
 // end::diagnosis[]
+
+=== Locate drug  : `find drug`
+
+*Format:* `find drug NAME`
+
+Searches a database of drugs licensed for sale in Singapore, and returns
+basic pharmacological information about all drugs whose names contain the given
+search phrase. Results are displayed in the form of a numbered, scrollable list.
+
+* The search is case-insensitive; e.g. `find drug GLYCOMET`, is  equivalent to `find drug glycomet`.
+* Partial matches will be included as results; e.g. `find drug lyri` will
+return the drug "Lyrica" as one of the results.
+
+Example:
+
+* `find drug panadol` +
+Returns all drugs with names containing "Panadol" as results.
+
+.Result for Command 'find drug panadol'
+image::DrugSearchExample.png[width="600"]
+
+=== Read more about drug  : `moreinfo`
+
+*Format:* `moreinfo [INDEX]`
+
+Displays full pharmacological information about any drug in the list
+of search results that are produced by the `find drug` command.
+
+* Only positive integers are accepted as inputs; eg. `moreinfo 2`
+* `moreinfo` can be used repeatedly to view information about multiple results
+
+Example:
+
+* `moreinfo 3` (immediately after `find drug panadol`)
+
+.Before Command 'moreinfo'
+image::MoreInfoBefore.png[width="600"]
+.After Command 'moreinfo'
+image::MoreInfoAfter.png[width="600"]
 
 === List entered commands : `history`
 
@@ -429,7 +498,7 @@ Exits the program.
 
 * *Add an appointment* : `add appointment` +
 
-* *Clear All appointments* : `clear appointment` +
+* *Clear all appointments* : `clear appointment` +
 
 * *Delete a patient* : `delete patient` +
 
@@ -455,7 +524,11 @@ Exits the program.
 
 * *Locate patients* : `find patient` +
 
+* *Locate drug* : `find drug` +
+
 * *Predict disease* : `predict` +
+
+* *Read more about drug* : `moreinfo` +
 
 * *Select a patient* : `select patient` +
 
