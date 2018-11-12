@@ -516,10 +516,10 @@ As such, `Show` was implemented with a more Ui state of mind, to ensure the user
 
 Given below is an example usage scenario and how the show mechanism behaves at each step.
 
-Step 1. The user types in `show fire magic life`, it will display the 3 words in the order that they had in the list.
+Step 1. The user types in `show fire magic life`, it will display the 3 words in order as it was in the list.
 
 [NOTE]
-Multiple words are allowed to be queried. This allows for more flexibility compared to the Ui option.
+Multiple words are allowed to be queried. Allows for more flexibility compared to the Ui option.
 
 Step 2. On the left, we have the filtered list of words. On the right we have the automatically selected first word from the list.
 
