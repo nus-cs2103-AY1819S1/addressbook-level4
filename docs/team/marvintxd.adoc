@@ -1,4 +1,4 @@
-= Marvin Tan Xu Dong - Project Portfolio
+== Marvin Tan Xu Dong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,49 +9,106 @@
 
 == Overview
 
-ResuMaker is a fast and flexible resume generator, optimised for students in the School of Computing. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This project portfolio documents my contributions for a software engineering group project undertaken during my study of Computer Science
+at the National University of Singapore.
+This project was done in the context of our Software Engineering module, CS2103T.
+In less than a semester, our group of five was tasked with adapting an existing codebase in Java to build a functioning product aimed at a specific target demographic.
 
-ResuMaker simplifies the process of writing resumes.
-Instead of having to rewrite your resume every time you want to apply for a new job, ResuMaker allows users to easily maintain a record of entries describing their past experiences such as work, education, or side projects,
-each of which can have tags applied. Whenever one needs to apply for a new job, they simply have to specify a template file, which states which tags should be included.
-The application can then generate a resume in Markdown format displaying all the relevant entries, without any manual organizing on the user's part.
+
+Our product, ResuMaker, is a fast and flexible resume generator targeted at students and gradutes from the School of Computing.
+The application supports both a command-line interface (accepting text inputs), as well as a graphical user interface.
+ResuMaker simplifies the resume writing process, by storing your past experiences and achievements as taggable entries.
+When generating the resume, the user can specify which tags to include, allowing users to easily tailor resumes for each job application without manual editing.
+The application is also optimised for our target demographic, by recognizing common terminology used by them, and auto-generating pre-filled entries.
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to use templates to specify resume formats*
-** What it does: This allows the user to use template text files to specify how the resume will be generated, in terms of the ordering and title of sections, and which entries will appear under each section based on its tags.
+** What it does: This feature allows the user to use template text files to specify how the resume will be generated, in terms of the ordering and title of sections, and which entries will appear under each section based on its tags.
 ** Justification: This feature enables one of the core value propositions of our product, which is to be able to easily generate resumes for different contexts.
 While the application will hold all of the user's experiences as entries,
-templates allow the user to customize the generated resume for specific purposes, or depending on which company they are applying to, by specifying the types of entries to include.
-** Highlights: Templates accommodate a basic boolean logic system. In the template text files, users can specify the tags to include in a sum-of-products form.
-The user can specify a list of tag groups, where an entry which fulfils at least one would be included. Each tag group is a tag or the logical AND of any number of them.
-E.g. `java python&datascience swift` means "entries should be tagged with (java) OR (python AND datascience) OR (swift)".
+templates allow the user to customize the generated resume for specific purposes or job applications by specifying the types of entries to include,
+without having to manually edit the resume.
+** Highlights: The template feature accommodates a basic boolean logic system. In the template text files, users can specify
+the tags to include using "&" and the space character as logical operators. For example,  `java python&datascience swift` means "entries should be tagged with (java) OR (python AND datascience) OR (swift)".
 
 
 * *Minor enhancement*: added the ability for users to specify their particulars and contact details in the preferences file,
 for them to be displayed in the generated resume.
 
-* *Minor enhancement*: implemented the saving of entries into an XML file.
+* *Minor enhancement*: added the functionality of saving entries into an XML file automatically.
 
 * *Code contributed*:
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=marvintxd[Project Code Dashboard]
 
+Code Snippet:
+```
+private static final String DELIMITER = ":";
+private static final String AND_DELIMITER = "&";
+private static final String OR_DELIMITER = " ";
+.
+.
+.
+/**
+ * Returns a predicate which checks if entry matches tags
+ */
+private Predicate<ResumeEntry> createTagPredicate(String tags) {
+    if (tags.equals("")) { //no filters
+        return entry -> true;
+    }
+
+    /*
+     * start with sum of products: "nus&java nus&c recent"
+     * and split into array of products/tag groups: [nus&java, nus&c, recent]
+     */
+    String[] tagGroups = tags.split(OR_DELIMITER);
+
+    ArrayList<ArrayList<Tag>> expressions = new ArrayList<>();
+
+    for (int i = 0; i < tagGroups.length; i++) {
+        ArrayList<Tag> expression = new ArrayList<>();
+        // for each product: [nus&java], split into tags: [nus, java]
+        for (String tag : tagGroups[i].split(AND_DELIMITER)) {
+            expression.add(new Tag(tag));
+        }
+        expressions.add(expression);
+    }
+
+    return entry -> {
+        Set<Tag> entryTags = entry.getTags();
+        boolean fitsOneExpression = false;
+        for (ArrayList<Tag> expression : expressions) {
+
+            boolean fitsAllInExpression = true;
+            for (Tag tag : expression) {
+
+                if (!entryTags.contains(tag)) {
+                    fitsAllInExpression = false;
+                    break;
+                }
+            }
+
+            if (fitsAllInExpression) {
+                fitsOneExpression = true;
+                break;
+            }
+        }
+        return fitsOneExpression;
+    };
+}
+
+private Predicate<ResumeEntry> createCategoryPredicate(String category) {
+    return entry -> entry.getCategory().equals(new Category(category));
+}
+```
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-*** Updated component diagrams: [ ]
+*** Made overall edits for User Guide and Developer Guide
+*** Updated component diagrams: https://github.com/CS2103-AY1819S1-W17-1/main/pull/338[#338]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-1/main/pull/267[#267], https://github.com/CS2103-AY1819S1-W17-1/main/pull/150[#150]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-1/main/pull/150[#150], https://github.com/CS2103-AY1819S1-W17-1/main/pull/267[#267]
 *** Bugs reported on teammates' features: https://github.com/CS2103-AY1819S1-W17-1/main/issues/290[#290]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Set up Travis CI and autopublishing of docs for the project
 
