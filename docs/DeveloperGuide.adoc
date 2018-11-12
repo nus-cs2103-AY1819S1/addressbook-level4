@@ -666,7 +666,7 @@ with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/P
 === Auto-incremented event ID
 
 The auto-incremented event ID field is used by the `Record` class to identify unique events. An integer ID field is used because
-identifying unique events based on multiple String fields would be computationally inefficient.
+the alternative method of identifying unique events based on multiple `Event` attribute fields would be computationally inefficient.
 
 ===== Current implementation
 
@@ -676,17 +676,53 @@ keeps track of the highest ID in the system. Additionally, it implements two dif
 * `Event(Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, initialised as a new `Event` object, does not yet exist in the system (e.g. adding a new event).
+This constructor is used when working with an event that does not yet exist in the system (e.g. adding a new event).
 +
-It increments the current highest event ID in the system and assigns that value to the new event that is created.
+It increments the current highest event ID in the system and assigns that value to the new event that is created. This behaviour is illustrated in the code snippet of the `Event` class below.
++
+``` Java
+// Used to keep track of current highest event ID in the system
+private static int maxId = 0;
+
+public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        ...
+        incrementMaxId();
+        this.eventId = new EventId(maxId);
+        ...
+}
+
+// Increments the current highest event ID by 1
+private void incrementMaxId() {
+    maxId += 1;
+}
+```
 
 * `Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, initialised as a new `Event` object, already exists in the system (e.g. loading data from XML file or editing an existing event).
+This constructor is used when working with an event that already exists in the system (e.g. loading data from XML file or editing an existing event).
 +
-It checks whether the ID of the event being initialised is greater than the current highest ID in the system. If it is, replace the value of
-the highest ID with the event ID and creates the event. If it isn't, skip to the creation of the event.
+It checks whether the ID of the event being initialised is greater than the current highest ID in the system.
+If this condition is true, the current highest event ID value will be replaced by the ID of the event being initialised.
+This behaviour is illustrated in the code snippet of the `Event` class below.
++
+``` Java
+// Used to keep track of current highest event ID in the system
+private static int maxId = 0;
+
+public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        ...
+        if (isEventIdGreaterThanMaxId(eventId.id)) {
+            replaceMaxIdWithEventId(eventId.id);
+        }
+        ...
+}
+
+// Replaces current highest event ID with the ID of the event being initialised
+private void replaceMaxIdWithEventId(int eventId) {
+    maxId = eventId;
+}
+```
 
 ===== Design considerations
 ====== Aspect: How event ID is generated
@@ -805,6 +841,81 @@ image::command_manage_sd.png[manage SD, 800]
 +
 
 //end::command-manage[]
+
+
+//tag::command-overview[]
+[[Implementation-Overview]]
+=== Overview command
+The `overview` command is used in the 'event' or 'volunteer' context to show statistics for the number of types of events and volunteer distribution.
+
+===== Current implementation
+The `overview` command raises a `OverviewPanelChangedEvent` to start calculating statistical data and to
+update the UI.
+
+Because of the volatile nature of the data (it can change when attributes of events or volunteers are changed), the data is not stored persistently in the `ModelManager`.
+
+Instead, whenever the `OverviewPanel` UI class detects an `OverviewPanelChangedEvent`, it calls on the `Overview` to provide it with updated statistics.
+
+The figure below is the sequence diagram to show how the `overview` command works when running from the 'event' context.
+Note that the `OverviewPanel` calls the calculateNumOfEvents and calculateVolunteerDemographics methods in `Overview` class.
+
+.Simplified sequence diagram for `overview` command
+image::command_overview_sd.png[overview SD, 800]
+
+In the calculateNumOfEvents method, events are categorised into 3 events types:
+
+* Upcoming (events that have yet to happen).
+* Ongoing (events that are currently happening).
+* Completed (events that have already happened).
+
+The categorisation process can be found in the `DateTimeUtil` class in the getEventStatus method.
+The start to end period of each event is compared with the current date and time to determine its category.
+This behaviour is illustrated in the code snippet below.
+
+``` Java
+public static int getEventStatus(Date startDate, Time startTime, Date endDate, Time endTime) {
+    ...
+    //build start from startDate and startTime
+    java.util.Date start = inf.parse(startDate + " " + startTime);
+
+    //build end from endDate and endTime
+    java.util.Date end = inf.parse(endDate + " " + endTime);
+
+    if (now.compareTo(start) < 0) {
+        return UPCOMING_EVENT;
+    } else if (now.compareTo(start) >= 0 && now.compareTo(end) <= 0) {
+        return ONGOING_EVENT;
+    } else {
+        return COMPLETED_EVENT;
+    }
+    ...
+}
+```
+
+In the calculateVolunteerDemographics method, the ages of volunteers are derived from their birthdates instead of being stored in the system.
+
+===== Design considerations
+
+====== Aspect: How statistics are aggregated
+* **Alternative 1 (current choice):** Calculate statistics from scratch using existing volunteers and events
++
+[cols="1,10"]
+|===
+|Pros| No need to store and maintain volatile statistical data.
+|Cons| Requires heavier processing every time statistics are aggregated.
+|===
++
+
+* **Alternative 2:** Store and maintain statistics after each operation
++
+[cols="1,10"]
+|===
+|Pros| No need for heavy computation as a result of building statistics from scratch.
+|Cons| Have to propagate changes to statistical data after changes to volunteers and events.
+|===
++
+//end::command-overview[]
+
 
 == Documentation
 
