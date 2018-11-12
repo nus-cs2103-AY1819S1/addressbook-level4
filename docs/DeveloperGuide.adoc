@@ -1372,8 +1372,24 @@ _{ more test cases ... }_
    Expected: The third image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
 .. Test case: `open 0` +
    Expected: The user is unable to open the image. Error message is shown in the status message.
-.. Other incorrect cd commands to try: `open 11` (as index exceeds batch size of 10), `open x` (where x exceeds the total images in the current batch),
+.. Other incorrect open commands to try: `open 11` (as index exceeds batch size of 10), `open x` (where x exceeds the total images in the current batch),
    `open abc` +
+   Expected: Similar to previous.
+
+=== Traversing between image batches
+
+. Accessing the next/previous batch of images
+
+.. Prerequisites: `cd` into a existing directory with 11-20 images to view the first batch of 10 images in the directory.
+.. Test case: `next` +
+   Expected: The next 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `next` +
+   Expected: The user is unable to access the next batch of images as it exceeds the total number of images in the list. Error message is shown in the status message.
+.. Test case: `prev` +
+   Expected: The first 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `prev` +
+   Expected: The user is unable to access the prev batch of images as it is already at the start of the list. Error message is shown in the status message.
+.. Other incorrect next commands to try: `prev` (when list the already at the start), `next` (when user is viewing the end of list) +
    Expected: Similar to previous.
 
 === Saving data
