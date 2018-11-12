@@ -58,7 +58,7 @@ https://github.com/CS2103-AY1819S1-W16-4/main/pull/98[#98],
 https://github.com/CS2103-AY1819S1-W16-4/main/pull/104[#104])
 ** Community:
 *** Reviewed PRs and provided constructive feedback: (Pull requests: https://github.com/CS2103-AY1819S1-W16-4/main/pull/110[#110],
-https://github.com/clawyq/main/pull/6[#119],
+https://github.com/ChesterSng/addressbook-level4/pull/24[#119],
 https://github.com/CS2103-AY1819S1-W16-4/main/pull/120[#120])
 ** Documentation:
 *** Wrote the introduction to the User Guide (Pull Request: https://github.com/CS2103-AY1819S1-W16-4/main/pull/134[#134])
