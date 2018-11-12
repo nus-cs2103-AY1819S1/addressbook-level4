@@ -1390,13 +1390,13 @@ successfully imported contacts from asdf.csv.
 .. Test case: `import` +
    Expected: A file browser will pop up. Navigate to and select asdf.csv one more time. Error messages should be
    displayed, stating that no contacts have been imported as InsuRen has found duplicate contacts.
-   
+
 . Importing invalid contacts into InsuRen.
 
 .. Prerequisites: Clear InsuRen like in (1) above, then deliberately corrupt some of the entries in asdf.csv by removing names or giving invalid phone numbers, meetings etc.
 .. Test case: `import l/asdf.csv` +
    Expected: Valid contacts will be imported into InsuRen. Additionally, an error will be displayed, stating that InsuRen has found invalid contacts.
-   
+
 === Exporting contacts
 
 . Exporting InsuRen's current contacts into a new csv file.
