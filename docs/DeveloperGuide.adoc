@@ -425,9 +425,96 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+
+//tag::command-add[]
+=== Add Volunteer command
+The `add` command in the volunteer context is used to add a volunteer to the application.
+
+===== Current implementation
+
+This `add` command requires the `AddCommandParser` class to parse user input and add a volunteer with the details specified by the user. Currently, the details that are required by the user is Name, VolunteerId (NRIC), Gender, Birthday, Phone, Email and Address.
+
+`AddCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input does not match the command format.
+
+The `add` command updates the context in `ModelManager` through `addVolunteer`.
+
+In addition to adding a volunteer, the `add` command also does the following:
+
+* Saves the current database state through `commitAddressBook` (for undo/redo functions).
+* Raise a `OverviewPanelVolunteerUpdateEvent` to update the Overview panel for volunteer context.
+
+The figure below shows the sequence diagram for an `add` command in the volunteer context.
+
+image::command_add_sd.png[switch SD, 800]
+
+The following code snippet shows the fields that are required by the user when inputting the volunteer details for the `add` command:
+```Java
+public class AddCommand extends Command {
+    //...
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasVolunteer(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_VOLUNTEER);
+        }
+
+        model.addVolunteer(toAdd);
+        model.commitAddressBook();
+        EventsCenter.getInstance().post(new OverviewPanelVolunteerUpdateEvent());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+    //...
+}
+```
+
+===== Design considerations
+====== Aspect: Choice of VolunteerId
+* **Alternative 1 (current choice):** The use of unique identifier NRIC.
++
+[cols="1,10"]
+|===
+|Pros| It is unique to each volunteer, and validates the uniqueness of a volunteer entry.
+|Cons| It is larger in size than an integer, hence may incur more storage use.
+|===
++
+
+* **Alternative 2:** Use of auto-incremented integer VolunteerId.
++
+[cols="1,10"]
+|===
+|Pros| It requires less storage, and easier to maintain.
+|Cons| It may not be a strong indicator of uniqueness.
+|===
++
+
+
+====== Aspect: Birthday Display Format
+* **Alternative 1 (current choice):** Use a BirthdayUtil class to change format of date.
++
+[cols="1,10"]
+|===
+|Pros| It requires less storage to store Birthday in original format.
+|Cons| It requires BirthdayUtil to be invoked every time Birthday is to be displayed to the user.
+|===
++
+
+* **Alternative 2:** Immediately store Birthday as preferred user friendly format.
++
+[cols="1,10"]
+|===
+|Pros| It does not require BirthdayUtil to be invoked every time the Birthday is to be displayed to the user.
+|Cons| It is difficult to maintain given that Birthday formats are of different length. Furthermore, requires more storage usage.
+|===
++
+
+//end::command-add[]
+
 //tag::command-switch[]
+
 [[Implementation-Switch]]
 === Switch command
+
 The `switch` command is used to switch the context between 'volunteer' and 'event'.
 
 ===== Current implementation
@@ -445,19 +532,19 @@ The `switch` command updates the context found in `ModelManager` before raising 
 
 In addition to updating the context, the `switch` command also does the following:
 
-* Clear all predicates for volunteer, events and record lists.
+* Clears all predicates for volunteers, events and record lists.
 * Resets the state pointer (for undo/redo functions).
-* Raise a `ContextChangeEvent` to update the UI.
-
-The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
-
-.Simplified sequence diagram of switch command
-image::command_switch_sd.png[switch SD, 800]
+* Raises `ContextChangeEvent` to update the UI.
 
 The following code snippet shows what the `switch` command does upon execution:
 ```Java
 public class SwitchCommand extends Command {
     //...
+    public SwitchCommand(String contextToSwitch) {
+            requireNonNull(contextToSwitch);
+            contextId = contextToSwitch;
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
@@ -473,6 +560,22 @@ public class SwitchCommand extends Command {
     }
 }
 ```
+
+From the code snippet above, we see that upon calling the `SwitchCommand`, a contextId is set.
+The contextId (which is retrieved from the user's input) is either 'e' for event or 'v' for volunteers.
+This contextId will be used when the execute method is called.
+
+When the execute method is called, the context is set in the model via the 'setCurrentContext' method.
+The model contains different methods to update the various lists. A predicate is passed to reset each of the lists to the initial state.
+
+The model also resets the state pointer so that the `undo` and `redo` functions will point to a fresh, new state.
+
+Lastly, the `EventsCenter` posts a new event so that the panels would update accordingly and display the relevant lists.
+
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram of switch command
+image::command_switch_sd.png[switch SD, 800]
 
 ===== Design considerations
 ====== Aspect: How context is maintained
@@ -696,7 +799,7 @@ image::command_exportcert_sd_2.png[exportcert SD, 650]
 === Auto-incremented event ID
 
 The auto-incremented event ID field is used by the `Record` class to identify unique events. An integer ID field is used because
-identifying unique events based on multiple String fields would be computationally inefficient.
+the alternative method of identifying unique events based on multiple `Event` attribute fields would be computationally inefficient.
 
 ===== Current implementation
 
@@ -706,17 +809,45 @@ keeps track of the highest ID in the system. Additionally, it implements two dif
 * `Event(Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, initialised as a new `Event` object, does not yet exist in the system (e.g. adding a new event).
+This constructor is used when working with an event that does not yet exist in the system (e.g. adding a new event).
 +
-It increments the current highest event ID in the system and assigns that value to the new event that is created.
+It increments the current highest event ID in the system and assigns that value to the new event that is created. This behaviour is illustrated in the code snippet of the `Event` class below.
++
+``` Java
+public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        ...
+        incrementMaxId();
+        this.eventId = new EventId(maxId);
+        ...
+}
+
+private void incrementMaxId() {
+    maxId += 1;
+}
+```
 
 * `Event(EventId eventId, Name name, Location location, Date startDate, Date endDate,
                     Time startTime, Time endTime, Description description, Set<Tag> tags)`
 +
-This constructor is used when an event, initialised as a new `Event` object, already exists in the system (e.g. loading data from XML file or editing an existing event).
+This constructor is used when working with an event that already exists in the system (e.g. loading data from XML file or editing an existing event).
 +
-It checks whether the ID of the event being initialised is greater than the current highest ID in the system. If it is, replace the value of
-the highest ID with the event ID and creates the event. If it isn't, skip to the creation of the event.
+It checks whether the ID of the event being initialised is greater than the current highest ID in the system.
+If this condition is true, the current highest event ID value will be replaced by the ID of the event being initialised.
+This behaviour is illustrated in the code snippet of the `Event` class below.
++
+``` Java
+public Event(Name name, Location location, Date startDate, Date endDate, Time startTime, Time endTime, Description description, Set<Tag> tags) {
+        ...
+        if (isEventIdGreaterThanMaxId(eventId.id)) {
+            replaceMaxIdWithEventId(eventId.id);
+        }
+        ...
+}
+
+private void replaceMaxIdWithEventId(int eventId) {
+    maxId = eventId;
+}
+```
 
 ===== Design considerations
 ====== Aspect: How event ID is generated
@@ -754,16 +885,11 @@ The `manage` command updates the context found in `ModelManager` through the `mo
 
 In addition to updating the context, the `manage` command also does the following:
 
-* Clear all predicates for volunteer list.
-* Filter the existing records by the selected event.
+* Clears all predicates for volunteer list.
+* Filters the existing records by the selected event.
 * Resets the state pointer (for undo/redo functions).
-* Raise a `RecordChangeEvent` to set the selected event.
-* Raise a `ContextChangeEvent` to update the UI.
-
-The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
-
-.Simplified sequence diagram for manage command
-image::command_manage_sd.png[manage SD, 800]
+* Raises `RecordChangeEvent` to set the selected event.
+* Raises `ContextChangeEvent` to update the UI.
 
 The following code snippet shows what the `manage` command does upon execution:
 
@@ -802,6 +928,23 @@ public class ManageCommand extends Command {
 }
 ```
 
+From the code snippet above, we see that the current state of event list from the model is stored into another list called 'filteredEventList'.
+Storing the events in another list is done so that the list can be easily referenced in later parts of the code.
+
+The volunteer list in the model is updated with the predicate so that it now contains the list of all volunteers in the system.
+
+A quick check is done to ensure that the user input is valid. Otherwise, an exception is thrown.
+
+If the user input is valid, the application changes to the record context. Then, the selected event by the user is stored in the model.
+In addition, the model resets the state pointer so that the `undo` and `redo` functions will point to a fresh, new state.
+
+Lastly, all the relevant UI is updated by posting events via the `EventsCenter`.
+
+The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
+
+.Simplified sequence diagram for manage command
+image::command_manage_sd.png[manage SD, 800]
+
 ===== Design considerations
 ====== Aspect: Context switching (to volunteering records)
 * **Alternative 1 (current choice):** Utilize `Context` class used in the `switch` function. (See <<Implementation-Switch>>)
@@ -823,6 +966,75 @@ public class ManageCommand extends Command {
 +
 
 //end::command-manage[]
+
+
+//tag::command-overview[]
+[[Implementation-Overview]]
+=== Overview command
+The `overview` command is used in the 'event' or 'volunteer' context to show statistics for the number of types of events and volunteer distribution.
+
+===== Current implementation
+The `overview` command raises a `OverviewPanelChangedEvent` to start calculating statistical data and to
+update the UI.
+
+Because of the volatile nature of the data (it can change when attributes of events or volunteers are changed), the data is not stored persistently in the `ModelManager`.
+
+Instead, whenever the `OverviewPanel` UI class detects an `OverviewPanelChangedEvent`, it calls on the `Overview` to provide it with updated statistics.
+
+The figure below is the sequence diagram to show how the `overview` command works when running from the 'event' context.
+Note that the `OverviewPanel` calls the calculateNumOfEvents and calculateVolunteerDemographics methods in `Overview` class.
+
+.Simplified sequence diagram for `overview` command
+image::command_overview_sd.png[overview SD, 800]
+
+In the calculateNumOfEvents method, events are categorised into 3 events types:
+
+* Upcoming (events that have yet to happen).
+* Ongoing (events that are currently happening).
+* Completed (events that have already happened).
+
+The categorisation process can be found in the `DateTimeUtil` class in the getEventStatus method.
+The start to end period of each event is compared with the current date and time to determine its category.
+This behaviour is illustrated in the code snippet below.
+
+``` Java
+public static int getEventStatus(Date startDate, Time startTime, Date endDate, Time endTime) {
+    ...
+    if (now.compareTo(start) < 0) {
+        return UPCOMING_EVENT;
+    } else if (now.compareTo(start) >= 0 && now.compareTo(end) <= 0) {
+        return ONGOING_EVENT;
+    } else {
+        return COMPLETED_EVENT;
+    }
+    ...
+}
+```
+
+In the calculateVolunteerDemographics method, the ages of volunteers are derived from their birthdates instead of being stored in the system.
+
+===== Design considerations
+
+====== Aspect: How statistics are aggregated
+* **Alternative 1 (current choice):** Calculate statistics from scratch using existing volunteers and events
++
+[cols="1,10"]
+|===
+|Pros| No need to store and maintain volatile statistical data.
+|Cons| Requires heavier processing every time statistics are aggregated.
+|===
++
+
+* **Alternative 2:** Store and maintain statistics after each operation
++
+[cols="1,10"]
+|===
+|Pros| No need for heavy computation as a result of building statistics from scratch.
+|Cons| Have to propagate changes to statistical data after changes to volunteers and events.
+|===
++
+//end::command-overview[]
+
 
 == Documentation
 

@@ -230,7 +230,7 @@ Example(s):
 Updates the panel displaying the list of volunteers to display the list of events. +
 The following figure shows the expected panel before and after entering the `switch` command.
 
-.Panel display changing from volunteers to events
+.Panel display changing from list of volunteers to list of events
 image::command_switch.png[switch, 500]
 //end::command-switch[]
 
@@ -253,6 +253,7 @@ The following figure shows the expected display after executing the `overview` c
 .Overview of events and volunteers
 image::command_overview.png[overview, 600]
 
+// tag::volunteermanagement[]
 === Volunteer Management
 
 [[command-volunteer-add]]
@@ -263,17 +264,18 @@ Format: `add n/NAME g/GENDER b/BIRTHDAY p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]
 
 ****
 * Birthday is in the 'DD-MM-YYYY format'.
+* VolunteerId (NRIC) can be in either lowercase or uppercase.
 * A volunteer can have any number of tags (including 0).
 ****
 
 Example(s):
 
 .Before adding a volunteer
-image::command_volunteer_add_before.png[add command, 200]
+image::command_volunteer_list.png[add command, 200]
 
 The figure above shows how the panel looks like before executing the commands below.
 
-* `add n/John Doe  g/m b/05-08-1995 p/87183749 e/John@gmail.com  a/Yishun Block 62 `
+* `add n/John Doe ic/S9531080R g/m b/05-08-1995 p/87183749 e/John@gmail.com  a/Yishun Block 62 `
 +
 Adds a volunteer with the following properties:
 +
@@ -281,17 +283,18 @@ Adds a volunteer with the following properties:
 |===
 |Property   |Value
 |Name       |John Doe
-|Gender     |m
+|NRIC       |S9531080R
+|Gender     |m (Male)
 |Birthday   |05-08-1995
 |Phone      |87183749
 |Email      |John@gmail.com
 |Address    |Yishun Block 62
 |===
 .Output of `add`
-image::command_volunteer_add_after1.png[add command, 200]
+image::command_volunteer_add_after1.png[add command, 500]
 
 
-* `add n/Betty Sue  g/f b/31-12-1995 p/81749272 e/Betty@gmail.com  a/Ang Mo Kio Block 62 t/Longtime t/Helpful`
+* `add n/Betty Sue ic/S9567432B g/f b/31-12-1995 p/81749272 e/Betty@gmail.com  a/Ang Mo Kio Block 62 t/Longtime t/Helpful`
 +
 Adds a volunteer with the following properties:
 +
@@ -299,7 +302,8 @@ Adds a volunteer with the following properties:
 |===
 |Property   |Value
 |Name       |Betty Sue
-|Gender     |f
+|NRIC       |S9567432B
+|Gender     |f (Female)
 |Birthday   |31-12-1995
 |Phone      |81749272
 |Email      |Betty@gmail.com
@@ -307,7 +311,7 @@ Adds a volunteer with the following properties:
 |Tags       |Longtime, Helpful
 |===
 .Output of `add`
-image::command_volunteer_add_after2.png[add command, 200]
+image::command_volunteer_add_after2.png[add command, 500]
 
 [[command-volunteer-list]]
 ==== Listing all volunteers : `list`
@@ -330,6 +334,7 @@ Format: `edit VOLUNTEER_INDEX [n/NAME]  [g/GENDER] [b/BIRTHDAY]  [p/PHONE_NUMBER
 ****
 * Edits the volunteer at the specified `INDEX`. The index refers to the index number shown in the displayed volunteer list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
+* Editing of VolunteerId (NRIC) is not allowed.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the volunteer will be removed i.e adding of tags is not cumulative.
 * You can remove all the volunteer's tags by typing `t/` without specifying any tags after it.
@@ -343,11 +348,8 @@ Edits the name of the volunteer at index 1
 The figures below show the before and after results of an edit command.
 
 --
-.Before entering the edit command
-image::command_volunteer_edit_before.png[Before edit, 200]
-
 .The targeted volunteer is updated to reflect the new values after entering the edit command
-image::command_volunteer_edit_after.png[After edit, 200]
+image::command_volunteer_edit.png[After edit, 500]
 --
 
 
@@ -365,12 +367,11 @@ Deletes the details of the volunteer specified at index 1
 The figures below show the before and after results of a delete command.
 
 --
-.The volunteer at index 1 is targeted before entering the delete command
-image::command_volunteer_delete_before.png[Before delete, 200]
-
-.The targeted volunteer is deleted after entering the delete command
-image::command_volunteer_delete_after.png[After delete, 200]
+.The targeted volunteer at index 1 is deleted after entering the delete command
+image::command_volunteer_delete.png[After delete, 500]
 --
+
+// end::volunteermanagement[]
 
 // tag::exportcert[]
 // tag::exportcert-sharan-ppp[]
@@ -454,7 +455,7 @@ Example(s):
 The figure below shows how the panel looks like before executing the example(s) below.
 
 .Panel before adding an event
-image::command_event_add_before.png[add command, 300]
+image::command_event_add_before.png[add command, 200]
 
 
 * `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home` +
@@ -462,7 +463,7 @@ image::command_event_add_before.png[add command, 300]
 Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
 .Result of `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home`
-image::command_event_add_before_after1.png[add command, 600]
+image::command_event_add_before_after1.png[add command, 500]
 
 * `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser
 t/charity`
@@ -470,7 +471,7 @@ t/charity`
 Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
 .Result of `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser t/charity`
-image::command_event_add_before_after2.png[add command, 600]
+image::command_event_add_before_after2.png[add command, 500]
 
 
 [[command-event-list]]
@@ -505,14 +506,14 @@ Example(s):
 The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
 .Panel before editing an event, EVENT_INDEX is indicated in the circles
-image::command_event_edit_before.png[add command, 300]
+image::command_event_edit_before.png[add command, 200]
 
 * `edit 1 n/Charity Fun Run t/` +
 Edits the name of event at index 1 and removes all tags.
 The expected result is shown in the figure below.
 +
 .Result of `edit 1 n/Charity Fun Run t/`
-image::command_event_edit_before_after.png[Before edit, 600]
+image::command_event_edit_before_after.png[Before edit, 500]
 
 
 [[command-event-delete]]
@@ -526,12 +527,15 @@ Example(s):
 
 The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
+.Panel before deleting an event, EVENT_INDEX is indicated in the circles
+image::command_event_delete_before.png[add command, 200]
+
 * `delete 3` +
 Deletes the event specified at index 3.
 The expected result is shown in the figure below.
 +
 .Result of `delete 3`
-image::command_event_delete_before_after.png[Before delete, 600]
+image::command_event_delete_before_after.png[Before delete, 500]
 
 
 // end::eventmanagement[]
@@ -557,8 +561,8 @@ Format: `manage EVENT_INDEX`
 Example(s):
 
 * `switch -e` (panel updates to show list of events) +
-`manage 1` (view the list of volunteers assigned to event at index 1) +
-See the figures below for a step by step guide.
+`manage 1` (view the list of volunteers assigned to the event at index 1) +
+See the figures below for a step-by-step guide.
 
 .Execute `switch -e`
 image::command_switch.png[switch execution, 500]
@@ -569,11 +573,11 @@ image::command_record_manage_eventIndex.png[switch execution, 200]
 .Labelled screenshot of what to expect after executing `manage 1`
 image::command_manage_view.png[manage, 600]
 
-The following changes are observed:
+Refer to the labelled sections in the figure above for the following changes:
 
-. Panel displays the list of volunteers that you can assign to an event.
-. Name of event being managed and total number of volunteers assigned to it.
-. List of volunteers currently assigned to the event. It will be empty if there are no volunteers assigned.
+. The panel displays the list of volunteers that you can assign to an event.
+. Name of the event being managed and total number of volunteers assigned to it.
+. The list of volunteers currently assigned to the event. It will be empty if there are no volunteers assigned.
 
 //end::command-record[]
 [[command-record-add]]
@@ -716,7 +720,7 @@ This section contains a summary of the commands available.
 [width="100%",cols="10%, 30%, 30%, 30%",options="header",]
 |=======================================================================
 | Command | Format | Example | Section Link
-| *Add* | `add n/NAME b/BIRTHDAY g/GENDER a/ADDRESS e/EMAIL p/PHONE_NUMBER [t/TAG]...` | `add n/John Doe b/05-08-199ck 62 p/87183749 e/John@gmail.com` | <<command-volunteer-add>>
+| *Add* | `add n/NAME ic/NRIC g/GENDER b/BIRTHDAY p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` | `add n/John Doe ic/S1234567A g/m b/05-08-1995 p/87183749 e/John@gmail.com a/Yishun Block 62`| <<command-volunteer-add>>
 | *Delete* | `delete VOLUNTEER_INDEX`  | `delete 3` | <<command-volunteer-delete>>
 | *Edit* | `edit VOLUNTEER_INDEX [n/NAME][b/BIRTHDAY] [g/GENDER] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [t/TAG]...` | `edit 2 n/James Lee e/jameslee@example.com` | <<command-volunteer-edit>>
 | *Export Certificate* | `exportcert VOLUNTEER_INDEX` | `exportcert 2` | <<command-volunteer-exportcert>>
