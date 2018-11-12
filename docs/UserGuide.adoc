@@ -96,6 +96,11 @@ tag `CS3241` and deadline of `101018` , venue at `mpsh1`.
 ====
 The priority level must be a number between 1 to 3, where 3 denotes highest priority.
 
+[NOTE]
+As we have implemented auto-sorting, if you add a task, the task added might get reordered in the task
+list. For more detailed guide about auto-sorting, please refer to <<Sorting Tasks by Deadline Date and Priority>>
+
+
 [WARNING]
 The name, priority level, deadline and venue fields are compulsory and required for every task. Tags are optional.
 
@@ -116,7 +121,7 @@ Example: +
 ====
 Input: [blue]`repeat r/4 i/7 n/CS2103T Tutorial p/3 t/Tutorial d/111018 v/COM1-0210`
 
-Outcome: Adds 3 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
+Outcome: Adds 4 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
 tag [blue]`Tutorial`, venue at [blue]`COM1-0210`, and deadlines on the 11th October 2018, 18th October 2018, 25th October 2018, and 1st November 2018.
 
 The diagram below contains screenshots of the task list before and after the above command was entered:
