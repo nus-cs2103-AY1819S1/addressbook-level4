@@ -74,6 +74,7 @@ public class EditModuleCommand extends Command {
 
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
+
         AttendanceListUtil.editModuleFromAssociatedPersons(model, moduleToEdit, editedModule);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
@@ -83,6 +84,7 @@ public class EditModuleCommand extends Command {
         model.updateModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.commitAddressBook();
+
         EventsCenter.getInstance().post(new ShowModuleRequestEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
     }

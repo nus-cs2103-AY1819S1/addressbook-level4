@@ -13,12 +13,18 @@ The Tracker (v1.4) is a desktop application that helps NUS students to monitor c
 
 == Summary of contributions
 
-* *Major enhancement*: *Improved existing edit function to edit any type of entry.
-** What it does: allows the user to edit a person, module or occasion by index
-** Justification: This is one of the basic features of TheTracker, which allows a user to edit module and occasion in a
+* *Major enhancement*:
+** Improved existing edit function to edit any type of entry.
+*** What it does: allows the user to edit a person, module or occasion by index
+*** Justification: This is one of the basic features of TheTracker, which allows a user to edit module and occasion in a
 similar way of how he edit a person in his address book.
-** Highlights: This feature is necessary for a user to simultaneously maintain all three types of entries.
-** Credits: This enhancement required the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
+*** Highlights: This feature is necessary for a user to simultaneously maintain all three types of entries.
+*** Credits: This enhancement requires the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
+
+** Create the export function
+*** What it does: allows the user to export user data to a specified file type at a specified location.
+*** Highlights: This feature enhance user's experience to TheTracker. He can now raise a data communication (with import feature in coming v2.0) with the external world.
+*** Credits: This enhancement requires the command to access storage access directly, and has restrictions on the file path user typed in.
 
 * *Minor enhancement*: Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
 
@@ -27,21 +33,17 @@ similar way of how he edit a person in his address book.
 ** Project management:
 *** Managed milestones for `v1.2` - `v1.4` on Github
 ****Opened issues
-**** Set up milestone deadlines, close issues and milestones accordingly on GitHub
+**** Set up milestone deadlines, close issues accordingly on GitHub
 ** Enhancements to existing features:
 *** Add related classes for `EditPerson`, `EditModule` and `EditOccasion` (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108])
-*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108])
-*** Wrote additional tests for Undo/Redo command features to increase coverage (in progress)
-*** Did cosmetic tweaks to existing contents of the User Guide
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108], https://github.com/CS2103-AY1819S1-W10-1/main/pull/189)
+*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests )
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/112[#112]
-** Tools:
-*** Integrated a third party library (Natty) to the project, eg: (https://github.com/[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 ** Documentation:
 *** Wrote user stories for v1.0
 *** Updated AboutUs.adoc to match application design (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/34[#34])
-
+*** Polish documentation style to keep consistent.
 == Contributions to the User Guide
 
 
@@ -50,7 +52,10 @@ similar way of how he edit a person in his address book.
 |===
 
 include::../UserGuide.adoc[tag=edit]
+include::../UserGuide.adoc[tag=export]
+include::../UserGuide.adoc[tag=import]
 include::../UserGuide.adoc[tag=undoredo]
+
 
 
 == Contributions to the Developer Guide
@@ -59,8 +64,8 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=supportforocassionandmodule]
 include::../DeveloperGuide.adoc[tag=edit]
+include::../DeveloperGuide.adoc[tag=export]
 include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=history]
 
