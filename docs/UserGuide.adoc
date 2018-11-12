@@ -697,15 +697,15 @@ Examples:
 
 Generates a possible meeting timing for a group's event/meeting based on all member's schedule and availability.
 
-Format: `generateTiming group/GROUP_NAME d/EVENT_DATE i/EVENT_INDEX`
+Format: `generateTiming group/GROUP_NAME`
 
 Examples:
 
-* `generateTiming group/CS2103Group d/2018-09-30 i/1`
+* `generateTiming group/CS2103Group`
 
 [NOTE]
 ====
-* This command only works with groups and will not work for an user's own personal events.
+* This command only works with groups and will not work for a user alone (for obvious reasons).
 * If the group does not exist, an error message is displayed accordingly to indicate that this command cannot be parsed.
 ====
 
