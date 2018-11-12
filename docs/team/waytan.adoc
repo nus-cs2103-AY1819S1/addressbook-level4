@@ -16,12 +16,31 @@ It demonstrates my ability to contribute as a team member of a software engineer
 
 * *Major enhancement*: *Improved `delete` function to properly delete any type of entry*
 ** Description: Allows the user to delete a person, module or occasion by index. It also removes this entry from all other linked entries.
-** Highlights: This enhancement has two aspects:
+** Design Decisions: In implementing the feature, I decided to incorporate the following:
 *** Inferred Deletion: The deletion will be applied to the currently active list.
 *** Deep Deletion: The deletion will automatically all references to this entry (i.e. from other entries' lists)
-** Design Considerations: Based on the current undo/redo implementation, new copies must be created for updated entries.
+** Justification for Inferred Deletion:
+*** *User will not have to type `deleteperson`,`deletemodule`, `deleteoccasion` in full.*
+It would feel unnecessary for a user to type `deleteperson` when viewing the person list, for example.
+*** *User will not be allowed to delete from an inactive list.*
+This ensures that the user will not perform a deletion by accident from the wrong list.
+** Justification for Deep Deletion:
+*** *User will not have to manually remove an entry from all associated lists.*
+If an entry is linked to many other entries, this would save a significant amount of time.
+*** *User will not be misled that a deleted entry is still in TheTracker.*
+A user would be confused if a deleted module is still found in the module list of some people.
+** Highlights: This implementation was noteworthy for several reasons:
+*** Inferred Deletion required the maintenance of an `activeType` variable in the model,
+which was accessible by the Logic and UI (via Logic) units. +
+Slight amendments were needed in the list command and several UI methods. +
+This was also useful in implementing the `select` command.
+*** Deep Deletion required the writing of methods that selectively mutates entries in a list. +
+A functional approach was adopted, with `Streams`, `Optionals` and `Consumers` being used to implement this. +
+Additionally, the `makeShallowDuplicate` was written to create shallow copies without losing information. +
+These were useful in implementing the `edit`, `insertperson` and `removeperson` commands.
 
-* *Minor enhancement*: Improved `select` function to handle the three lists
+
+* *Minor enhancement*: Wrote (most of)
 ** Description: Allows the user to select an entry from the active list, and view additional info
 ** Importance: The implementation is symmetric across all 3 lists, so that the user does not need to use different commands for different lists.
 
@@ -66,3 +85,4 @@ include::../UserGuide.adoc[tag=select]
 |===
 
 include::../DeveloperGuide.adoc[tag=polymorphismdecision]
+include::../DeveloperGuide.adoc[tag=delete]

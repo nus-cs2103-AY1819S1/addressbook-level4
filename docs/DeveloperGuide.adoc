@@ -797,11 +797,11 @@ For example, suppose TheTracker is initialised in the following manner:
 
 The current object diagram can be drawn as follows (unnecessary fields omitted):
 
-image::DeepDeletionObjectDiagramBefore.png[width="800"]
+image::DeepDeletionObjectDiagramBefore.png[width="500"]
 
 After deleting `p1`, the new object diagram will be:
 
-image::DeepDeletionObjectDiagramAfter.png[width="800"]
+image::DeepDeletionObjectDiagramAfter.png[width="500"]
 
 Notice that:
 
@@ -889,15 +889,17 @@ the `ReadOnlyAddressBook` will not be incorrectly modified.
 
 Currently, a list only stores a *copy* of the desired entries, instead of the actual entries.
 
-==== Design Considerations
-
-** Pros:
-
 Suppose that a person needs to be edited/deleted. Then correctly implementing any of these commands requires 3 stages:
 
 1.  Locate all linked modules and occasions
 2.  Replace each module and occasion with an updated version
 3.  Edit/Delete the person
+
+Methods for the implementation of 1 and 2 are contained in the `AttendanceListUtil` class.
+
+==== Design Considerations
+
+
 // end::updatinglistsgeneral[]
 
 == Documentation
@@ -1430,8 +1432,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [appendix]
 == Use Cases
-
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Adding an entry
