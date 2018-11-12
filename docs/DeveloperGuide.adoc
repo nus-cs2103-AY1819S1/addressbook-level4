@@ -676,13 +676,14 @@ depend on each other.
 Effective Due Date (EDD) is a derived field in the UI. It is the earliest due date among all tasks directly or indirectly
 dependent on the task, including the task itself.
 
+Steps to find effective due date of task A:
+
+. Prune completed tasks and dependencies to completed tasks from the `DependencyGraph`
+
 image::EffectiveDueDateImplementation1.png[width="300"]
 
 _Diagram for effective due date implementation_
 
-Steps to find effective due date of task A:
-
-. Prune completed tasks and dependencies to completed tasks from the `DependencyGraph`
 . Invert the dependencies in the `DependencyGraph` (to allow graph traversal in the opposite direction)
 
 image::EffectiveDueDateImplementation2.png[width="400"]
