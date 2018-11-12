@@ -26,7 +26,7 @@
 ** Project management:
 *** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Edited ResultDisplay such that upon an invalid command, the result display text would be in a red font. (Pull requests https://github.com[#13])
+*** Edited ResultDisplay such that upon an invalid command, the result display text would be in a red font. (Pull request https://github.com[#13])
 ** Documentation:
 *** Regularly updated User Guide and Developer Guide: https://github.com[#9], https://github.com[#102], https://github.com[#108], https://github.com[#172], https://github.com[#183]
 ** Community:
