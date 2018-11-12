@@ -909,7 +909,7 @@ After the `Reservation` Object is created, `RestaurantBook#addReservation(Reserv
 The following activity diagram summarizes what happens when a user executes `add-reservation` command:
 
 image::AddReservationActivityDiagram.png[width="650"]
-_Figure 4.8.2.1: Activity diagram to illustrate the `add-reservation` command_
+_Figure 4.9.2.1: Activity diagram to illustrate the `add-reservation` command_
 
 ==== `edit-reservation` Command
 The command takes in 1 mandatory parameter, `Index`, followed by **1 or more** of the following  optional parameters,
