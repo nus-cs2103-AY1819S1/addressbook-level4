@@ -124,10 +124,6 @@ include::../UserGuide.adoc[tag=listmonth]
 
 include::../UserGuide.adoc[tag=filtertags]
 
-include::../UserGuide.adoc[tag=]
-
-include::../UserGuide.adoc[tag=]
-
 == Contributions to the Developer Guide
 
 |===
@@ -137,12 +133,6 @@ include::../UserGuide.adoc[tag=]
 include::../DeveloperGuide.adoc[tag=listmonth]
 
 include::../DeveloperGuide.adoc[tag=filtertags]
-
-include::../DeveloperGuide.adoc[tag=]
-
-include::../DeveloperGuide.adoc[tag=]
-
-
 
 == PROJECT: PowerPointLabs
 
