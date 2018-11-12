@@ -281,11 +281,9 @@ If the `DATE` is of an illegal format, the command will be rejected.
 ====
 
 Example: `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
-****
-* The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: image:LeaveApplyResult.PNG[width=800]
+The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: image:LeaveApplyResult.PNG[width=800]
 [TIP]
 If you do not see your list of leave applications, run the `leavelist` command.
-****
 
 === View a list of leave applications : `leavelist`
 
@@ -294,9 +292,7 @@ Displays a list leave applications that you have made.
 Format: `leavelist`
 
 Example: `leavelist`
-****
-* A list of your leave application records will be displayed in the panel on the left. An example of what you should expect to see is shown below: image:LeaveListResult.PNG[width=800]
-****
+A list of your leave application records will be displayed in the panel on the left. An example of what you should expect to see is shown below: image:LeaveListResult.PNG[width=800]
 
 [NOTE]
 ====
@@ -320,9 +316,7 @@ To use this command, you must have "APPROVE_LEAVE" permissions.
 ====
 
 Example: `leaveaprove 8`
-****
-* The status of the 8th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `APPROVED`, as shown below: image:LeaveApproveResult.PNG[width=800]
-****
+The status of the 8th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `APPROVED`, as shown below: image:LeaveApproveResult.PNG[width=800]
 
 === Reject a leave application : `leavereject`
 
@@ -341,9 +335,7 @@ To use this command, you must have "APPROVE_LEAVE" permissions.
 ====
 
 Example: `leavereject 7`
-****
-* The status of the 7th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `REJECTED`, as shown below: image:LeaveRejectResult.PNG[width=800]
-****
+The status of the 7th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `REJECTED`, as shown below: image:LeaveRejectResult.PNG[width=800]
 // end::leaveapplication[]
 
 === Search employees by name : `find`

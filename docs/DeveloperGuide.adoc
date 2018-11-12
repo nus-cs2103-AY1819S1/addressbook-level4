@@ -59,10 +59,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -90,9 +90,9 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:https://github.com/CS2103-AY1819S1-F10-1/main/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -127,9 +127,9 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -185,11 +185,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -206,7 +206,7 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -225,7 +225,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -241,7 +241,7 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -922,7 +922,7 @@ Other possible design considerations are shown below.
 ==== Password Security
 There is a need to have passwords be stored securely as opposed to being stored in plain text. The standard today is to have password be salted and hashed, which is also the standard that OASIS is implemented in.
 
-All of this is handled within the `Password` class. API: link:{repoURL}/blob/master/src/main/java/seedu/address/model/person/Password.java[`Password.java`]
+All of this is handled within the `Password` class. API: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/person/Password.java[`Password.java`]
 
 The `Password` class stores the password in plaintext (if available), the salt and the hash of the password. The salt and the hash are always available.
 
@@ -953,8 +953,8 @@ In OASIS, an employee can make a leave application by specifying a description, 
 A leave application is represented by a `LeaveApplication` model object, as follows:
 
 .Structure of a leave application
-image::LeaveApplicationModelDiagram.png[width="400"]
-*API*: link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
+image::LeaveApplicationModelDiagram.png[width="300"]
+*API*: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
 A leave applications consists of a description, a status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
 
 [NOTE]
@@ -982,9 +982,9 @@ Given below is an example usage scenario and how the leave application mechanism
 
 1. The user executes the `leaveapply -de family holiday -da 2018-11-11` command. The `LeaveApplication` will be initialized with the specified `Description` (family holiday), and one or more `Date` (2018-11-11), and its `LeaveStatus` will be the initial value of `PENDING`.
 
-2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the Model will be replaced with that new `Person` (see link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
+2. The new `LeaveApplication` will then be added to its corresponding `Person`, which represents the employee that applied for the leave. Internally, a duplicate `Person` is created with the newly added `LeaveApplication`, and the original `Person` in the Model will be replaced with that new `Person` (see link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/logic/commands/LeaveApplyCommand.java[`LeaveApplyCommand.java`] for more details).
 
-3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedLeaveApplication`] object, which is then added into the link:{repoURL}/blob/master/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
+3. In the `Storage`, the `LeaveApplication` will be copied and transformed to become an link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedLeaveApplication.java[`XmlAdaptedLeaveApplication`] object, which is then added into the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] representing the person who applied for the leave, and finally saved into a file by the <<Design-Storage, Storage>> component.
 
 ===== Viewing leave applications
 Employees can view their leave applications using the `leavelist` command. Given below is an example usage scenario of how OASIS behaves when a user issues this command:
@@ -997,7 +997,7 @@ The following activity diagram summarizes how the command is executed:
 
 .How the leave application list displayed is filtered currently
 image::LeaveViewActivityDiagram.png[width="400"]
-*API:* link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
+*API:* link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/logic/commands/LeaveListCommand.java[`LeaveListCommand.java`]
 
 [NOTE]
 See <<LeaveApplication-DesignConsiderations-Listed, "Design Considerations - How leave applications are listed">> for further explanation of how the list of leave applications are retrieved and displayed.
@@ -1030,7 +1030,7 @@ The `leaveapprove` and `leavereject` commands behave is nearly identical fashion
 
 [[LeaveApplication-DesignConsiderations-Listed]]
 ===== Aspect: How leave applications are listed
-* **Alternative 1 (current choice):** Leave applications are tagged with the user that applied for them (see link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationWithEmployee.java[`LeaveApplicationWithEmployee.java`]), and stored in a link:{repoURL}/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationList.java[`LeaveApplicationList.java`] in `AddressBook` in the Model Component. This additional tagging and storing into a list is done when the application is started where all leave applications are read from each `Person`, and also when any leave application is created or updated.
+* **Alternative 1 (current choice):** Leave applications are tagged with the user that applied for them (see link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationWithEmployee.java[`LeaveApplicationWithEmployee.java`]), and stored in a link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplicationList.java[`LeaveApplicationList.java`] in `AddressBook` in the Model Component. This additional tagging and storing into a list is done when the application is started where all leave applications are read from each `Person`, and also when any leave application is created or updated.
 ** Pros: Leave applications stored are lightweight, as they are kept within the `Person` that applied for them, and do not have to contain fields that uniquely identify that `Person`.
 ** Cons: This additional tagging, that only exists while the application is running, is slightly clumsy and not the best way to do it (see the <<LeaveApplication-DesignConsiderations-Listed-Note, note below Alternative 2>> for more details).
 * **Alternative 2:** Leave applications contain the unique identification fields of a `Person`.
@@ -1096,7 +1096,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:https://github.com/CS2103-AY1819S1-F10-1/main/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -1154,15 +1154,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:https://github.com/CS2103-AY1819S1-F10-1/main/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -1242,7 +1242,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -1281,10 +1281,10 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -1302,12 +1302,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/Model.java[`Model`] and the link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -1332,16 +1332,16 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
+** You may wish to modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
 ** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -1353,19 +1353,19 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
 +
 **Before**
 +
@@ -1377,13 +1377,13 @@ image::getting-started-ui-status-after.png[width="500"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** Modify the constructor of link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
+** Use link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** For tests, modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
+** For system tests, modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -1399,8 +1399,8 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
+** Implement the logic in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -1430,13 +1430,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -1445,33 +1445,33 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
+. Add FXML annotation in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -1479,16 +1479,16 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+. Add `getRemark()` in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -1499,23 +1499,23 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 . Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Person` can now have a `Remark`, we should add a helper method to link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/model/person/Person.java[`Person`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Try and use the method on any sample `Person` in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+Our remark label in link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:https://github.com/CS2103-AY1819S1-F10-1/main/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.

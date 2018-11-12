@@ -22,8 +22,9 @@ This section documents the major and minor contributions that I have made to thi
 
 * *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]
 
-* *Other contributions*: I helped my team mates with understanding and using the Storage component during development. I was in-charge of getting to know the in-and-outs of this component in the initial phases of the project, and then use this knowledge to assist whoever needed help with it.
-
+* *Other contributions*:
+** Team:
+*** I helped my team mates with understanding and using the Storage component during development. I was in-charge of getting to know the in-and-outs of this component in the initial phases of the project, and then use this knowledge to assist whoever needed help with it.
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
