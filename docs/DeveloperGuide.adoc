@@ -448,6 +448,10 @@ this week` commands to specify their choices.
 // tag::complete[]
 
 === Batch Completion via Label feature
+
+_If you require involved context for the execution of the whole `CompleteCommand` please refer
+to: Appendix E: Complete Command Activity Diagram_
+
 ==== Current Implementation
 
 The batch completion mechanism is facilitated by `CompleteLabelCommand`.
@@ -479,8 +483,6 @@ The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It t
 `Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
 takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
 _Premise: The application has several tasks tagged with the label: many._
 
 Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
@@ -494,13 +496,13 @@ Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute
 created instance. Subsequently `CompleteCommand#completeAllTasksReturnStringOfTasks(...)` is
 called which handles the logic for updating all valid completable tasks matching the predicate.
 
-image::CompleteViaLabelOnFail.png[width="1200"]
+image::CompleteViaLabelOnFail.png[width="700"]
 
 [NOTE]
 If a command fails its execution, it will call `Model#rollbackTaskManager()`, so
 all current changes will be reset to the latest commit / state in `taskManagerStateList`.
 
-image::CompleteViaLabelOnSuccess.png[width="1200"]
+image::CompleteViaLabelOnSuccess.png[width="700"]
 
 Step 1.2.1 If all tasks are updated successful, `Model#commit()` will be called.
 
@@ -914,12 +916,12 @@ Attributable to our target demographic are the following qualities:
   * Perpetually experiencing the continuous bombardment of deadlines from assignments
 
 [appendix]
-== Appendix B: Value proposition
+== Value proposition
 
 By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.
 
 [appendix]
-== Appendix C: User Stories
+== User Stories
 Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
 |===
 | Priority   | As a ...  | I want to ... | So that I can ...
@@ -1143,6 +1145,12 @@ earned and tasks completed to the user.
 
 Use case ends.
 // end::use-case-complete[]
+
+[appendix]
+== Complete Command Activity Diagram
+
+image::CompleteCommandActivityDiagram.png[width="800"]
+
 
 [appendix]
 == Non-functional requirements
