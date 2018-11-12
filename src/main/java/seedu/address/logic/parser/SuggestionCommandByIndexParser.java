@@ -21,6 +21,11 @@ public class SuggestionCommandByIndexParser implements Parser<SuggestionCommandB
 
 
         String stringCommand = args.trim();
+        int index = Integer.parseInt(stringCommand);
+        if (index <= 0) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestionCommand.MESSAGE_USAGE));
+        }
         if (stringCommand.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestionCommand.MESSAGE_USAGE));
