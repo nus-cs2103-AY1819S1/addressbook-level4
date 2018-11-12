@@ -1707,6 +1707,11 @@ Timestamp in the status bar is updated when `edit` command was executed.
 Expected: No persons shown.
 Timestamp in the status bar is updated when `delete` command was executed.
 
+=== Command auto-completion
+.Command auto-completion
+.. Test case: Type `addE` in the command box. Press the `Tab` key. +
+Expected: Command is auto-completed to `addEvent`.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
