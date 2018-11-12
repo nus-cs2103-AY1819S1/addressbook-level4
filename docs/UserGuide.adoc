@@ -367,7 +367,7 @@ Occasion Date, Occasion Location and Tag respectively of the Occasion which is s
 // end::edit[]
 
 // tag::insertperson[]
-=== Inserting a Person: `insert`
+=== Inserting a Person: `insertperson`
 
 ==== Inserting a person into a module: `insertperson`
 Builds an association between a module and a person within `TheTracker` by inserting
@@ -378,8 +378,8 @@ Format: +
 
 Example:
 
-* `insertperson pi/1 mi/1` Builds an association between the first person and module by inserting person 1 bi-directionally
-into module 1.
+* `insertperson pi/1 mi/1` Builds an association between the first `person` and `module` by inserting `person` 1 bi-directionally
+into `module` 1.
 
 ==== Inserting a person into an occasion: `insertperson`
 Builds an association between an occasion and a person within `TheTracker` by inserting
