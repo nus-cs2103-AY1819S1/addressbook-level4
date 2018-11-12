@@ -874,8 +874,21 @@ Step 4: The `findpatient` command raises a `SwitchTabEvent` to notify ui to swit
 
 The following sequence diagram shows how `findpatient` command works:
 
-.Sequence Diagram for `findpatient` Command
-image::FindPatientLogicSequenceDiagram.png[width=500]
+**Logic**
+
+.Sequence Diagram for the `findpatient` Command for the logic component.
+image::FindPatientLogicSequenceDiagram.png[width="1080"]
+{sp} +
+**Model**
+
+.Sequence Diagram for the `findpatient` Command for the model component.
+image::FindPatientModelSequenceDiagram.png[width="1080"]
+{sp} +
+**Commons**
+
+.Sequence Diagram for the `findpatient` Command for the commons component.
+image::FindPatientCommonsSequenceDiagram.png[width="1080"]
+{sp} +
 
 ==== Design Considerations
 
