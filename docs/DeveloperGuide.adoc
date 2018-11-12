@@ -635,7 +635,7 @@ public void updatePerson(Person target, Person editedPerson) {
 10. Finally the `CommandResult` is returned to the caller of `LogicManager::execute`, and the execution sequence ends.
 
 ---
-The activity diagram in below summarises what happens when a user executes the `addmh` command.
+The activity diagram below summarises what happens when a user executes the `addmh` command.
 
 .The activity diagram for the `addmh` command
 image::AddmhActivityDiagram.png[width="1000"]

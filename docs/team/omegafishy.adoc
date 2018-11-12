@@ -45,18 +45,15 @@ These features include (among others):
 ** Highlights: This enhancement required a detailed understanding of the Java Architecture for XML Binding software frame work (JAXB) for data storage as XML files.
 Also, the integration of the UI in the feature needed JavaFX knowledge.
 
-* *Minor enhancements*: FILL THIS UP
-
 * *Code contributed*:
 ** https://github.com/CS2103-AY1819S1-W14-3/main/commits?author=omegafishy[GitHub Commits]
 ** https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=omegafishy&sort=displayName&since=2018-09-12&until=2018-11-07&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]
 * *Other contributions*:
 ** Project management:
 *** Spearheaded project planning and managed project scope as project leader
-** Enhancements to existing features:
 ** Documentation:
 *** Refactored existing contents of documentation affected by renaming of "HMS2K18" to "HealthBase": (Pull Request: {main}/pulls/130[#132])
-*** Wrote `addmh` section in User Guide and Developer Guide.
+*** Wrote the `addmh` section in User Guide and Developer Guide.
 
 ** Community:
 *** Set up GitHub organisation and project repository.
@@ -95,10 +92,10 @@ To try out the `addmh` command:
 The result display panel will show a successful `addmh` command message, and should show Figure 3.
 
 .Command box and result display panel before entering an `addmh` command.
-image::beforeAddmhCommand.png[width="800"]
+image::beforeAddmhCommand.png[width="1000"]
 
 .Command box and result display panel after entering the valid `addmh` command.
-image::afterAddmhCommand.png[width="800"]
+image::afterAddmhCommand.png[width="1000"]
 
 
 ****

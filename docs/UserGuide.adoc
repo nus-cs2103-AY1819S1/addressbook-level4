@@ -31,7 +31,7 @@ If you can type fast, HealthBase can get your hospital management tasks done fas
 .  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 +
 .The GUI of HealthBase
-image::Ui.png[width="800"]
+image::Ui.png[width="1000"]
 +
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -146,16 +146,16 @@ rest and rehydrate. doc/Dr. Zhang De`
 To try out the `addmh` command:
 
 1. Type out a valid `addmh` command which follows the stated format into the command box.
- Such an example can be seen in Figure 2.
+ Such an example can be seen in the figure below.
 
 2. Submit the input into HealthBase by pressing kbd:[Enter].
-The result display panel will show a successful `addmh` command message, and should show Figure 3.
+The result display panel will show a successful `addmh` command message, and should show the further figure below.
 
 .Command box and result display panel before entering an `addmh` command.
-image::beforeAddmhCommand.png[width="800"]
+image::beforeAddmhCommand.png[width="1000"]
 
 .Command box and result display panel after entering the valid `addmh` command.
-image::afterAddmhCommand.png[width="800"]
+image::afterAddmhCommand.png[width="1000"]
 
 
 ****
@@ -293,7 +293,7 @@ Format: `select INDEX`
 where INDEX refers to the index of the patient's card (listed in the card)
 
 .Indication of the location of the index on the patient's card
-image::highlightIndex.png[width=800]
+image::highlightIndex.png[width=1000]
 
 Example(s):
 
@@ -322,34 +322,34 @@ Current choices for views include:
 This command switches the user's view (right panel of the UI, indicated in the figure directly below) to a chosen view. +
 
 .Indication of the location of the user view
-image::highlightUserViewLocation.png[width=800]
+image::highlightUserViewLocation.png[width=1000]
 
 Example(s):
 
 * `view default`
 
 .Default view
-image::blankPanel.png[width=800]
+image::blankPanel.png[width=1000]
 
 * `view appt`
 
 .Appointment view
-image::apptView.png[width=800]
+image::apptView.png[width=1000]
 
 * `view diets`
 
 .Diet view
-image::dietView.png[width=800]
+image::dietView.png[width=1000]
 
 * `view meds`
 
 .Medication view
-image::medsView.png[width=800]
+image::medsView.png[width=1000]
 
 * `view mh`
 
 .Medical history view
-image::mhView.png[width=800]
+image::mhView.png[width=1000]
 
 ****
 NOTE: When a user clears all the stored entries with the `clear` command,
@@ -397,7 +397,7 @@ Example(s):
 
 * `viewvisitors ic/S1234567A`
 
-image::viewvisitors_screenshot.png[width=800]
+image::viewvisitors_screenshot.png[width=1000]
 
 //tag::visitorin[]
 === Sign in patient’s visitors: `visitorin`
@@ -409,7 +409,7 @@ Example(s):
 
 * `visitorin ic/S1234567A v/Amy`
 
-image::visitorin_screenshot.png[width=800]
+image::visitorin_screenshot.png[width=1000]
 //end::visitorin[]
 
 === Sign out patient’s visitors: `visitorout`
@@ -421,7 +421,7 @@ Example(s):
 
 * `visitorout ic/S1234567A v/Amy`
 
-image::visitorout_screenshot.png[width=800]
+image::visitorout_screenshot.png[width=1000]
 
 === Saving the data
 
