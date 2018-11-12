@@ -368,7 +368,7 @@ image::CompleteViaLabelOnSuccess.png[width="700"]
 Step 1.2.1 If all tasks are updated successfully, `Model#commit()` will be called.
 
 Step 2. The user sees all tasks previously displayed on the screen which matches the label change
-it's status to `COMPLETED`
+its status to `COMPLETED`
 
 **Extensions**
 
@@ -434,7 +434,7 @@ Additionally, there is less duplicated code as similar code can be implemented i
 Alternative 2 was considered for `CompleteCommandParser`. However in this case, it is hard to determine whether
 the argument is meant for `CompleteLabelCommand` or `CompleteIndexCommand` until actually parsing, As such, it could be
 viewed that the job of figuring out what to parse the argument as is subsumed under the concerned of parsing. Thus
-`CompleteCommandParser` is viewed to still respect the Single Responsibility Principle, and it's separation may result in
+`CompleteCommandParser` is viewed to still respect the Single Responsibility Principle, and its separation may result in
 a high amount of coupling.
 
 ===== Aspect: Representation of predicate to be stored by CompleteCommand
@@ -1421,7 +1421,7 @@ Expected: An error message is shown to the user as Task A is dependent on Task B
 Task B to be completed first.
 
 .. Test case 3: `complete 2`, followed by `complete 1`
-Expected: Task B is completed, followed by it's standard output. Task A is completed, followed by
+Expected: Task B is completed, followed by its standard output. Task A is completed, followed by
  its standard output.
 
 ==== Label based interactions
