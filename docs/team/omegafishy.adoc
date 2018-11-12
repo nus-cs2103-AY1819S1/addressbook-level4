@@ -1,22 +1,23 @@
-= Ling Zhi Yu - Project Portfolio
+# Ling Zhi Yu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :main: https://github.com/CS2103-AY1819S1-W14-3/main
 
+= PROJECT: HealthBase
 
-== PROJECT: HealthBase
-
-== Overview
-
+== 1. Overview
+.Project Portfolio
+****
 This portfolio details the contributions I made to the development of a desktop application as part of an NUS Software Engineering module,
 CS2103T. Over the span of 8 weeks in AY18/19 Semester 1, my team and I were given the freedom to morph an existing desktop application
-made up of 10KLOC in Java.
+made up of 10KLoC in Java.
+****
 
 Throughout the 8-week period, we were challenged to incorporate the new Software Engineering concepts taught in class
 via a series of milestones which were part of the project management process. On top of that, we planned out weekly
 goals and consistently reassessed our employed programming methodologies and practices, developing our software HealthBase
-incrementally and iteratively.
+incrementally and iteratively. Figure 1 shows the transformation we made in this brownfield project.
 
 .AB4 was morphed into a hospital management system, HealthBase.
 image::AB4toHealthBase.png[width="1600"]
@@ -36,10 +37,10 @@ These features include (among others):
 * Real-time management of the number of visitors any given patient has
 * Patient appointment management for doctors
 
-== Summary of Contributions
+== 2. Summary of Contributions
 
 * *Major enhancement*: Added the functionality to record and view patients' past medical diagnoses
-** What it does: Records a diagnosis entry into the medical history of a given patient. Each entry includes the diagnosis description, the name of the examining and a timestamp.
+** What it does: Records a diagnosis entry into the medical history of a given patient. Each entry includes the diagnosis description, the name of the examining doctor and a timestamp.
 ** Justification: This feature serves as the primary storage of important patient data, as adjudged by the examining doctor's assessment. Past diagnoses are easily viewed on the desktop application to provide quick access for the examining doctor.
 ** Highlights: This enhancement required a detailed understanding of the Java Architecture for XML Binding software frame work (JAXB) for data storage as XML files.
 Also, the integration of the UI in the feature needed JAVAFX know-how.
@@ -56,6 +57,7 @@ Also, the integration of the UI in the feature needed JAVAFX know-how.
 ** Enhancements to existing features:
 ** Documentation:
 *** Amended existing contents of documentation according : (Pull Request: {main}/pulls/130[#130])
+*** Added `addmh` component in UserGuide
 
 ** Community:
 *** Set up GitHub organisation and project repository.
@@ -67,7 +69,7 @@ Also, the integration of the UI in the feature needed JAVAFX know-how.
 *** Integrated Github Plugins (Coveralls, Travis CI)
 *** Automated team documentation build on https://cs2103-ay1819s1-w14-3.github.io/main/index.html[GitHub Pages]
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -75,7 +77,7 @@ Also, the integration of the UI in the feature needed JAVAFX know-how.
 
 include::../UserGuide.adoc[tag=addmh]
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._

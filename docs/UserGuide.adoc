@@ -31,7 +31,7 @@ If you can type fast, HealthBase can get your hospital management tasks done fas
 .  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 +
 .The GUI of HealthBase
-image::Ui.png[width="790"]
+image::Ui.png[width="800"]
 +
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -136,6 +136,28 @@ Add an non-blank diagnosis entry to an existing patient’s medical history.
 The patient must be registered within the system.
 
 Format: `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
+
+Example(s):
+
+* `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
+rest and rehydrate. doc/Dr. Zhang De`
+* `addmh ic/T9876543Z mh/Patient appears to have chronic cough. Referred to specialist. doc/Dr.Timothy`
+
+To try out the `addmh` command:
+
+1. Type out a valid `addmh` command which follows the stated format into the command box.
+ Such an example can be seen in Figure 2.
+
+2. Submit the input into HealthBase by pressing kbd:[Enter].
+The result display panel will show a successful `addmh` command message, and should show Figure 3.
+
+.Command box and result display panel before entering an `addmh` command.
+image::beforeAddmhCommand.png[width="800"]
+
+.Command box and result display panel after entering the valid `addmh` command.
+image::afterAddmhCommand.png[width="800"]
+
+
 ****
 WARNING: The following invalid inputs will result in a command failure, and the display of an appropriate error message.
 
@@ -144,21 +166,16 @@ WARNING: The following invalid inputs will result in a command failure, and the 
 * Incorrect format of the doctor's name.
 ** Doctor's title must be included.
 ** The first letter of all words in doctor's name must be captalised.
-* Blank Diagnosis
+* Blank diagnosis
 ** An empty diagnosis will not be accepted as a valid diagnosis.
 ****
 
-Example(s):
-
-* `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
-rest and rehydrate. doc/Dr. Zhang De`
-* `addmh ic/T9876543Z mh/Patient appears to have chronic cough. Referred to specialist. doc/Dr.Timothy`
-
-****
-TIP: If you want to view the newly added diagnoses to a particular patient, simply enter `view mh`.
+[TIP]
+====
+If you want to view the newly added diagnoses to a particular patient, simply enter `view mh`.
 You may have to enter select <patient index>` or click on the patient panel card.
 To use the full capabilities of the `view` command, click <<#view-command, here>>.
-****
+====
 
 //end::addmh[]
 
@@ -332,6 +349,19 @@ image::medsView.png[width=800]
 
 .Medical history view
 image::mhView.png[width=800]
+
+****
+NOTE: When a user clears all the stored entries with the `clear` command,
+the view panels of the last selected person (if any) are still accessible via the `view` command.
+
+* For example, the following `view` commands will function fine for the last selected person.
+** `view default`
+** `view meds`
+** `view appt`
+** `view mh`
+** `view diet`
+****
+
 
 //end::view[]
 
