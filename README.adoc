@@ -22,8 +22,10 @@ ifndef::env-github[]
 image::images/mode_appointment.PNG[width="600"]
 endif::[]
 
-* This is a desktop Patient Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application intended for doctors to arrange information of their patients and appointment schedules.
+* This is a desktop Patient Book application. It has a GUI but most of the user interactions happen using a `CLI`
+(Command Line Interface).
+* It is a Java application intended for doctors to arrange information of their `patients` and `appointments`.
+It also aids doctors making diagnosis by providing information on `symptoms`, `diseases` and `drugs`.
 * It is *written in OOP fashion*.
 
 == Site Map
