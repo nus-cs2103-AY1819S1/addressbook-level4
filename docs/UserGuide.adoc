@@ -119,9 +119,9 @@ Adds copies of the same task to a specified day in the week, for a given number 
 ====
 Example: +
 ====
-Input: [blue]`repeat r/4 i/7 n/CS2103T Tutorial p/3 t/Tutorial d/111018 v/COM1-0210`
+[blue]`repeat r/4 i/7 n/CS2103T Tutorial p/3 t/Tutorial d/111018 v/COM1-0210`
 
-Outcome: Adds 4 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
+Adds 4 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
 tag [blue]`Tutorial`, venue at [blue]`COM1-0210`, and deadlines on the 11th October 2018, 18th October 2018, 25th October 2018, and 1st November 2018.
 
 The diagram below contains screenshots of the task list before and after the above command was entered:
@@ -201,10 +201,11 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 Use the [BLUE]`list` command to find out the index of the task to be deleted.
 
 //tag::archivetask[]
-
 === Archiving a Task
 
-Archives the specified task from the schedule planner. This is different from deleting a task as it is equivalent marking the task as completed. You may also view the archived tasks later. +
+Archives the specified task from the schedule planner. Once a task is archived, it will be hidden from task list. You can
+view archived tasks in archived task list using [blue]`listarchived` command. For detailed guide regarding
+viewing archived tasks, please refer to <<Viewing Archived Tasks>>. +
 
 ====
 [blue]`archive INDEX`
@@ -213,16 +214,17 @@ Archives the specified task from the schedule planner. This is different from de
 Example:
 ====
 [blue]`archive 1` +
-Task with index `1` is removed from the task list.
+Task with index `1` is removed from the task list. +
+Below is the partial screenshots of task list before and after executing the archive command.
 
-image::archiveTask.png[width="400"]
+image::archiveTask.png[width="300"]
 ====
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list` command to find out the index of the task to be archived.
+Use the [blue]`listarchived` command to find out the index of the task to be archived.
 View <<Viewing Archived Tasks>> for detailed guide.
-[TIP]
+[WARNING]
 Any archived tasks with deadline date earlier than 2 weeks before current date will be
 deleted from schedule planner when the application relaunches.
 //end::archivetask[]
@@ -271,9 +273,9 @@ Shows a list all the overdue tasks. +
 
 Example:
 ====
-input: [blue]`listoverdue` on the date 11 Nov '18 (111118)
+[blue]`listoverdue` on the date 11 Nov '18 (111118)
 
-output: Shows a list of tasks due on 10 Nov '18 (101118) and before.
+Shows a list of tasks due on 10 Nov '18 (101118) and before.
 
 The following diagram contains screenshots of the task list before and after the command above was entered:
 
@@ -327,22 +329,25 @@ Tasks from 021118 to end of the month (301118) are listed.
 // end::listmonth[]
 
 //tag::sorting[]
-=== Sorting Tasks by Deadline Date and Priority
-All tasks will be automatically loaded in the order of deadlines.
+=== Viewing Tasks in the Order of Deadline Date and Priority
+All tasks are automatically loaded in the order of deadlines except for archived tasks.
 The order of tasks first depends on deadline date, then priority. +
 Given below is an example of two tasks with different deadline dates.
-Task [blue]`Do CS2030 lab` is listed before task `Self study` because it has
+Task `Do CS2030 lab` is listed before task `Self study` because it has
 earlier deadline date.
 
-
-image::sortingdate.png[width="400" caption="Figure 1. "]
+image::sortingdate.png[width="300"]
 
 If two tasks have the same deadline, the order then depends on priority, one that has
 higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
 Given below is an example of two tasks with the same deadline dates.
 
 
-image::sortingpriority.png[width="400" caption="Figure 2. "]
+image::sortingpriority.png[width="300"]
+
+[WARNING]
+Please take note that archived tasks are not shown in order.
+
 //end::sorting[]
 
 === Finding Tasks by Name
@@ -465,7 +470,8 @@ will be rejected as they are considered as more than one set of date.
 //tag::addingcat[]
 === Adding a Category
 Adds a new category to the schedule planner.
-Our application allows user to organize tags by saving tags into relevant categories. +
+You can organize tags by adding tags to relevant categories. For detailed guide about
+how to add tags to category, please refer to <<Adding a Tag to a Category>>. +
 ====
 [blue]`addcat c/CATEGORY`
 ====
@@ -474,7 +480,7 @@ Example:
 ====
 [blue]`addcat c/Steam shopping list`
 
-image::addingcat.png[width="400"]
+image::addingcat.png[width="300"]
 ====
 Category name can contain space. For example, [blue]`Steam`, [blue]`Steam2`,
 [blue]`Steam shopping list` are all valid category names. +
@@ -483,8 +489,16 @@ Category name can contain space. For example, [blue]`Steam`, [blue]`Steam2`,
 [blue]`Modules` and [blue]`Others` are two categories exist by default.
 
 [WARNING]
-Duplicated categories are not allowed in schedule planner. In other words, all
+Duplicated categories are not allowed in schedule planner. All
 categories must have different names.
+
+[TIP]
+All non-default categories (categories except `Modules` and `Others` can be removed.
+For detailed guide about how to remove categories, please refer to <<Deleting a Category>>.
+
+[TIP]
+All non-default categories (categories except `Modules` and `Others` can be renamed.
+For detailed guide about how to rename categories, please refer to <<Renaming a Category>>.
 
 
 //end::addingcat[]
@@ -500,7 +514,7 @@ Example:
 ====
 [blue]`addtag c/Steam shopping list t/Overwatch`
 
-image::addtag.png[width="400"]
+image::addtag.png[width="300"]
 ====
 Duplicated tags are not allowed under same category. +
 For instance, in above example, you cannot add another tag [blue]`Overwatch`
@@ -508,11 +522,15 @@ to category [blue]`Steam shopping list`. However you can save same tag under mul
 [TIP]
 When you add new tasks with new tags (tags that have not been added to any existing categories),
 these tags will be automatically added to default category [blue]`Others`.
+
+[TIP]
+For how to remove tags from categories, please refer to <<Clearing a Category>>.
 //end::addingtag[]
 
 //tag::clearcat[]
 === Clearing a Category
 Clears all tags saved under selected category.
+After executing this command, the selected category will not contain any tags.
 ====
 [blue]`clearcat c/CATEGORY`
 ====
@@ -521,14 +539,14 @@ Example:
 ====
 [blue]`clearcat c/Modules`
 
-image::clearcat.png[width="400"]
+image::clearcat.png[width="300"]
 ====
 When a category is cleared, tags saved in other categories are not affected.
-For instance, in above example, if you have tag [blue]`CS2105` in category [blue]`Others`
-as well, after clearing category [blue]`Modules`, tag [blue]`CS2105` will still exist in category
-[blue]`Others`. +
-On the other hand, if tag [blue]`CS2105` is only saved under category [blue]`Modules`, then after clearing
-category [blue]`Modules`, the tag [blue]`CS2105` will be removed from schedule planner.
+For instance, in above example, if you have tag `CS2105` in category `Others`
+as well, after clearing category `Modules`, tag `CS2105` will still exist in category
+`Others`. +
+On the other hand, if tag `CS2105` is only saved under category `Modules`, then after clearing
+category `Modules`, the tag `CS2105` will be removed from schedule planner.
 
 //end::clearcat[]
 
@@ -543,12 +561,12 @@ Example:
 ====
 [blue]`removecat c/Steam shopping list`
 
-image::removecat.png[width="400"]
+image::removecat.png[width="300"]
 ====
 [WARNING]
-Default categories [blue]`Modules` and [blue]`Others` cannot be removed. The only operation available is to delete
+Default categories [blue]`Modules` and [blue]`Others` cannot be removed. The only operation available for default categories is to delete
 all tags saved under these two categories.
-For more detailed guide about clearing categories, please refer to <<Clearing a Category>>.
+For more detailed guide about how to do so, please refer to <<Clearing a Category>>.
 //end::removecat[]
 
 //tag::editcat[]
@@ -562,10 +580,10 @@ Example:
 ====
 [blue]`editcat c/Steam shopping list c/Reading list`
 
-image::editcat.png[width="400"]
+image::editcat.png[width="300"]
 ====
 [WARNING]
-Default categories [blue]`Modules` and [blue]`Others` cannot be renamed.
+Default categories `Modules` and `Others` cannot be renamed.
 
 [WARNING]
 Duplicated categories are not allowed in schedule planner. Please make sure the new name for selected category
@@ -676,7 +694,8 @@ Examples:
 
 === Clearing Schedule Planner
 
-Clears all entries from the schedule planner. +
+Clears all entries from the schedule planner. Default categories `Modules` and `Others` still exists
+ after the command is executed, but they contain no tags. +
 ====
 [blue]`clear`
 ====
