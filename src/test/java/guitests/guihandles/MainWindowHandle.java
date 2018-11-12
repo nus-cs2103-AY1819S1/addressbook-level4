@@ -7,27 +7,33 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final DeckListPanelHandle deckListPanel;
+    private final CardListPanelHandle cardListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        deckListPanel = new DeckListPanelHandle(getChildNode(DeckListPanelHandle.DECK_LIST_VIEW_ID));
+        cardListPanel = new CardListPanelHandle(getChildNode(CardListPanelHandle.CARD_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        // TODO: Add deck edit screen and deck review screen
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public DeckListPanelHandle getDeckListPanel() {
+        return deckListPanel;
     }
+
+    public CardListPanelHandle getCardListPanel() {
+        return cardListPanel;
+    }
+
 
     public ResultDisplayHandle getResultDisplay() {
         return resultDisplay;
@@ -43,9 +49,5 @@ public class MainWindowHandle extends StageHandle {
 
     public MainMenuHandle getMainMenu() {
         return mainMenu;
-    }
-
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
     }
 }

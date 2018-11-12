@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Anakin - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T09-2/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -72,49 +72,14 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
-
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
-
 == Design
 
-[[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -138,92 +103,73 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
-
-[discrete]
-==== Events-Driven nature of the design
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
-
-[NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
-
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
-
-[NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
-
 The sections below give more details of each component.
 
-[[Design-Ui]]
+// tag::uicomponent[]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::AnakinUIClassDiagram.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DeckEditScreen`,
+`DeckReviewScreen`, `StatusBarFooter` etc. The `DeckEditScreen` is in turn made up of `DeckListPanel` and
+`CardListPanel` and the `DeckReviewScreen` is made up of `DeckReviewCard`. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component
 
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+// end::uicomponent[]
 
-[[Design-Logic]]
+
+// tag::logic[]
 === Logic component
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::AnakinLogicClassDiagram.png[width="700", align="left"]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+_Structure of the Logic component_
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The 'Logic' component:
+****
+* exposes functionality through LogicManager
+* parses user input
+* create commands
+* modifies Model
+****
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+The `LogicManager` contains an `AnakinModel`, an `AnakinParser`, and a `CommandHistory`.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+When a string input by the user is parsed by `AnakinParser`, it creates a new `AnakinCommand` of the appropriate type with the relevant arguments (based on parser tokens). Each `AnakinCommand` has its own Class. `LogicManager` will call `execute` on the command object. If successful, `LogicManager` will modify `Model` accordingly. Regardless of success, `LogicManager` will update `CommandHistory` with the `CommandResult`.
+// end::logic[]
 
-[[Design-Model]]
+// tag::modelcomponent[]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::AnakinModelClassDiagram.png[width="900", align="left"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+Structure of the Model Component
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+****
+* stores Anakin's data and manipulates the state of the application.
+* provides a Model interface for Logic component to execute its set of commands.
+* manages the interaction and relationship between different objects (Anakin, Card, Deck, ...)
+* exposes an unmodifiable ObservableList<Deck> and ObservableList<Card> that can be 'observed'
+e.g. the UI is bound to these lists so that the UI automatically updates when the data in the lists change.
 * does not depend on any of the other three components.
+****
+// end::modelcomponent[]
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
-
-[[Design-Storage]]
 === Storage component
+
+This section details the Storage component, which is the bridge between internal application state and external files.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -232,104 +178,348 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+* can store `UserPref` objects in json format and read it back
+* can save Anakin's data in XML format and read it back
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::cardleveloperation[]
+=== Card-level operations
+
+==== Current implementation
+
+Card-level operations are supported in Anakin class:
+
+* Anakin#addCard(Card card) - Add a card to the current deck.
+* Anakin#deleteCard(Card card) - Delete a card from the current deck.
+* Anakin#updateCard( Card target, Card editedCard) - Update the information of a card inside the current deck.
+
+These operations are exposed in the Model interface as: Model#addCard(Card card), Model#deleteCard(Card card), Model#updateCard(Card target, Card editedCard) respectively.
+
+Given below is an example usage scenario and how these operations are executed in Model.
+
+The user executes `newcard q/Hello? a/World` to add a new card with question "Hello?" and answer "World" to the current deck.
+
+****
+. The `newcard` command calls Model#addCard(Card card), or ModelManager#addCard.
+. ModelManager, which implements Model interface, will call Anakin#addCard method.
+. Anakin#addCard will throw DeckNotFoundException if the user is not inside a deck. Otherwise, it will call method UniqueCardList#add(Card toAdd).
+. UniqueCardList#add will throw DuplicateCardException if the card already exist in the list. Otherwise, it will add the card to its internal ObservableList<Card>.
+****
+
+The following sequence diagram shows how the `newcard` operation works:
+
+image::NewCardSequenceDiagram.png[width="790", align="left"]
+
+
+==== Design consideration
+
+* *Alternative 1 (current choice):* Implement the logic of card-level operations in Anakin class.
+
+** Pros: Easy to implement and debug as all logic related with executing commands are implemented in Anakin.
+** Cons: Deck class is not informed, or notified when its UniqueCardList is modified. This might result in unexpected behaviors if a card-level command is executed and the person in charge of Deck class assumes that the UniqueCardList is unmodified.
+
+* *Alternative 2:* Implement the logic of card-level operations in Deck class.
+
+** Pros: The responsibility of each class is clear, only a Deck can modify its list of cards.
+** Cons: The logic for executing deck-level and card-level commands are implemented at different places. We must ensure that the implementation of each command is correct.
+
+// end::cardleveloperation[]
+
+
+// tag::handleinvalidcommands[]
+=== Handle invalid commands
+
+==== Current implementation
+
+* Deck-level operations (`newdeck`, `editdeck`, `deldeck`, `exportdeck`, `importdeck`)
+ are disabled when user is inside a deck.
+* These commands will be blocked in Logic component
+by checking the state of the application through Model interface.
+
+==== Design consideration
+
+* *Alternative 1 (current choice):* Implement the logic of command-checking in
+Logic component
+
+** Pros:
+*** Reduce possible bugs caused by having each methods check the state of the application before
+execution.
+*** Model component does not have to handle invalid commands.
+*** Exceptions are thrown and handled inside Logic components instead of being passed
+from Model to Logic.
+** Cons: Increase coupling between Logic and Model component.
+
+* *Alternative 2:* Handle all commands logic in Model component
+
+** Pros: Lower degree of dependency between Logic and Model (aka low coupling), thus
+make the process of maintenance, integration and testing easier.
+** Cons: Model component has to check for invalid commands according to its state for all commands.
+
+// end::handleinvalidcommands[]
+
+// tag::deckreview[]
+=== Deck Review Implementation
+
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The deck review mechanism is facilitated by `Anakin` from Model, the `MainWindow` and `DeckReviewScreen` from UI and
+the EventsCenter.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+It implements the following operations:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `Anakin#isReviewingDeck()` - Checks if user is in review mode.
+* `Anakin#startReview()` - Starts a review.
+* `Anakin#endReview()` - Ends a review.
+* `Anakin#getIndexOfCurrentCard()` - Retrieves the index of the last known reviewed card.
+* `Anakin#setIndexOfCurrentCard()` - Updates the index of the last known reviewed card.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+These operations are exposed in the Model interface as `Model#isReviewingDeck()`, `Model#startReview()`,
+`Model#endReview()`, `Model#getIndexOfCurrentCard()` and `Model#setIndexOfCurrentCard` respectively.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Also, it is supported by the following commands from Logic:
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+* `review` - Starts the review of a selected deck
+* `endreview` - End the review
+* `nextcard` - Moves to the subsequent card in the deck
+* `prevcard` - Moves to the previous card in the deck
+* `flipcard` - Flips the current card to display either the question or the answer
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Furthermore, it posts the following events to trigger changes in UI:
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+* `StartReviewRequestEvent(Card card)`
+* `FlipCardRequestEvent()`
+* `ReviewNextCardEvent(Card nextCard)`
+* `ReviewPreviousCardEvent(Card prevCard)`
+* `EndReviewRequestEvent()`
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Given below is an example usage scenario and how the deck review mechanism behaves at each step.
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Step 1. The user launches the application and he already has a deck of cards that he wants to review. He executes
+`review 1` command to review the first deck on the list.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+****
+. The `review` command calls `Model#getIntoDeck(Deck deck)`.
+. It then calls `Model#startReview()` which updates the `isReviewingDeck` boolean in `Anakin` to true.
+. It also calls `Model#getFilteredCardList()` and `Model#getIndexOfCurrentCard()` to retrieve the `Card`
+object of the last reviewed card.
+. Thereafter, it posts a `StartReviewRequestEvent(Card card)` with the EventsCenter.
+. `MainWindow`, on the UI side, subscribes to this event and switches `DeckEditScreen` with `DeckReviewScreen` by
+reordering the nodes in `mainAreaPlaceholder`, which is a JavaFX StackPane.
+****
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The following sequence diagram shows how the review operation works:
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+image::ReviewSequenceDiagram.png[]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Step 2. The user sees the question displayed on the first card and comes up with his own answer. To verify his
+answer, he executes the `flipcard` command.
 
-The following sequence diagram shows how the undo operation works:
+****
+. The `flipcard` command posts a `FlipCardRequestEvent` with EventsCenter.
+. `DeckReviewScreen` is notified of the event and switches the card with the question with the other card displaying
+the answer. This is also achieved by reordering the nodes in a StackPane but this time in `reviewAreaPlaceholder`. As
+ a result, the user is presented with the answer to the question.
+****
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+Step 3. The user wants to go to the next card and executes `nextcard` command.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+****
+. The `nextcard` command calls `Model#getFilteredCardList()` and `Model#getIndexOfCurrentCard()` and increments the index by one.
+. If the incremented index is equal to the size of the card list, it reassigns the index a value of 0. This is to
+ensure that calling `nextcard` on the last card of the deck will loop back to the first card.
+. Using the `Card` object found at the new index, the command posts a `ReviewNextCardEvent` using EventsCenter.
+. `DeckReviewScreen` is subscribed to the event and uses the `Card` object to create question and answer
+`DeckReviewCard`s and replaces the currently displayed cards with these two new ones.
+****
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Step 4. If the user wants to go back to review a previous card, he executes `prevcard` command. The explanation
+of the process is similar to Step 3.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. When the user is done, he executes `endreview` to quit review mode.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+****
+. The `endreview` command posts a `EndReviewRequestEvent` using EventsCenter.
+. `MainWindow` is subscribed to the event and switches the `DeckEditScreen` back to the front by reordering the nodes
+ in `mainAreaPlaceholder` and the user is able to edit his decks again.
+****
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+The following activity diagram summarizes what happens when a user enters deck review mode.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
+image::ReviewActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Tracking index of current card
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Store a `currentIndex` field in `UniqueCardList`
+** Pros: Easy to implement and complies with separation of concerns. Can also easily saved in Storage.
+** Cons: Introducing state to `UniqueCardList` may not be the best solution.
+* **Alternative 2:** Store `currentCardIndex` in `Anakin`
+** Pros: Convenient access to field by exposing method in `Model`
+** Cons: Field is not required by many operations in `Anakin` and its use case is specific to deck reviews.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: Iterating through cards during review
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* **Alternative 1 (current choice):** Post events for UI to change the currently reviewed card.
+** Pros: Logic of iterating cards is decoupled from UI.
+** Cons: Limited scalability as adding new functionality require adding more events and event handlers.
+* **Alternative 2:** Implement a ListElementPointer for the list of cards similar to command history.
+** Pros: Able to easily implement more functionality such as keyboard shortcuts for iterating cards.
+** Cons: Still requires events to trigger changes in UI.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// end::deckreview[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Performance Tracking Implementation
 
-// end::dataencryption[]
+This section details the implementation details and considerations of the performance tracking feature.
+
+==== Current Implementation
+
+Cards contain the `Performance` parameter, implemented as an `enum`, as well as a `timesReviewed` counter. The fields
+ are set to `normal` difficulty and `0` counts respectively on initialization. Since these are metadata fields, they
+ will be considered optional and a `Card` can still be created without specifying them, which will result in the
+ fields being reset to the default initializations.
+
+The user can change the difficulty of a card during "review" mode. Users can only do this on the card they are
+currently reviewing, as it is the only time it makes sense to do so. Cards assigned a difficulty will have their
+`timesReviewed` counter incremented by one.
+
+The command available to the user will be `classify DIFFICULTY`, where `DIFFICULTY` is any of the strings
+ `easy`, `normal`, `hard`, corresponding to the level of perceived difficulty for that
+ flashcard.
+
+Given below is an example usage scenario for the performance tracking feature.
+
+Step 1. The user requests to "review" a deck. He sees the question of card A from the deck.
+
+Step 2. The user requests to see the answer. He sees the displayed answer.
+
+Step 3. The user executes `classify hard`. Card A is now assigned the difficulty of `hard`.
+
+Step 4. The user continues reviewing the rest of the cards in the deck.
+
+Step 5. Card A is shown to the user more regularly when he reviews the same deck in the future.
+
+// tag::uichanges[]
+=== UI Implementation
+
+==== Previous implementation (v1.2)
+
+The UI for Anakin at v1.2 split the main area into three sections:
+
+ * (Left) List of decks
+ * (Right) List of cards in selected deck
+
+This was implemented by morphing `PersonListPanel` and `PersonListCard` into our use cases for decks and cards and
+editing `MainWindow` to render changes in both decks and cards.
+
+Given below is an example usage scenario and how the lists are displayed at each step.
+
+Step 1. The user launches Anakin application and sees a list of sample decks. At this step, the CardListPanel is
+empty.
+
+Step 2. The user executes `cd 1` command to navigate into the first deck. Anakin renders the deck's cards (at index
+1) on the CardListPanel.
+
+Step 3. The user executes `cd 2` command to navigate into the second deck. Anakin switches the displayed cards with
+that of the second deck.
+
+Step 4. The user executes `cd ..` command to navigate out of the second deck. The CardListPanel is empty again.
+
+==== Current implementation (v1.3)
+
+The UI for Anakin was revamped in v1.3. Previously in v1.2, the application had a list of decks and list of cards on
+its main view `MainWindow`. In v1.3, the panels displaying these lists have been refactored into `DeckEditScreen`.
+This is because of the addition of `DeckReviewScreen` which acts as the user interface when users are reviewing a
+deck. When the user starts reviewing a deck, `MainWindow` will swap `DeckEditScreen` with `DeckReviewScreen` to show
+the correct UI. The `DeckReviewScreen` displays a `DeckReviewCard` at a time, as the user is going through his
+flashcards. It also boasts of the ability to flip the card to display questions and answers separately, and iterate
+to subsequent and previous cards in the deck. See Deck Review Implementation for an example use case.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Display deck and card lists side by side
+** Pros: Easy to implement
+** Cons: Somewhat lacking in aesthetics
+
+* *Alternative 2:* Display deck and card list in the same panel and switch out accordingly
+** Pros: Looks more impressive in UI-wise
+** Cons: Have to implement a switch event to toggle items inside StackPane
+// end::uichanges[]
+
+
+// tag::keepcardspanelupdatedbyui[]
+
+=== Keep cards panel updated by UI
+
+==== Problem with the old design
+
+The UI (MainWindow) constructs the displayed cards panel by obtaining an `ObservableList` of cards from Model,
+this list is assigned when UI starts, and will never be re-assigned.
+
+The UI "observes" the list and updates when it is modified.
+
+This approach works well for the deck list because Anakin contains only 1 list of decks.
+However, the card list can not be updated in the same manner because Model component will
+change its card list's reference when user enters another deck.
+
+In this case, the card list in UI will not be updated because the card list of which UI has
+reference to is actually not changed, but it is the wrong card list.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Have a `displayedCards` list in Model and keep it updated with the current list of cards
+
+** Explanation: The UI needs only 1 reference to this `displayedCards` list, each time user enters another deck,
+`displayedCards` list is cleared and the new deck's list of cards is copy to the `displayedCards` list
+** Pros: The structure of Model and UI component needs not be changed
+** Cons: Need to keep a copy of the current card list, copying the whole list of cards
+ for each `cd` operation might affect performance
+
+* *Alternative 2:* Model component raises an event when its current card list's reference is changed
+
+** Explanation: When user `cd` (enters) a new deck, Model will raise
+an event (CardListChangedEvent), which is subscribed by UI, then UI can re-assign its list of cards
+and update the cards panel accordingly
+** Pros: Better performance
+** Cons: Need to re-design Model and UI components
+// end::keepcardspanelupdatedbyui[]
+
+// tag::importexportimplementation[]
+=== Import/Export Implementation
+==== Current implementation (v1.3)
+
+Imports and exports in Anakin are managed by a PortManager.
+
+Exporting a `Deck` will create an `XmlExportableDeck`, which is exported as a .xml file in the same folder as the Anakin.jar file. +
+Upon creation, Model will initialize a PortManager. When an ExportCommand or ImportCommand is executed, it will call the Model's importDeck or exportDeck method. +
+PortManager uses the `java.nio Path` package to navigate directories.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Have Model contain a PortManager class to manage imports and export.
+** Explanation: Commands pass their arguments to Model, which passes arguments to the PortManager.
+In the case of ExportCommand, the `Deck` to be exported is passed from Command to Model to PortManager.
+PortManager returns a `String` of the export location, which is passed to Model, then passed to the Command for printing. +
+
+** Pros: Better modularity and Separation of Concerns
+** Cons: Have to pass messages through many layers and methods.
+
+* *Alternative 2:* Have Model itself manage imports and exports
+** Explanation: Create methods in Model that directly handle conversion, imports, and exports.
+** Pros: Less message passing between layers
+** Cons: Worse modularity and Separation of Concerns.
+
+* *Alternative 3:* Use a 3rd party library to assist in managing imports/exports
+** Pros: Potentially more powerful functionality.
+** Pros: Good Separation of Concerns as the library is entirely modular.
+** Cons: Need to create methods to adapt data to be compatible with the library API.
+** Cons: Functionality is obscured. May be difficult to fix any unforseen errors.
+
+// end::importexportimplementation[]
 
 === Logging
 
@@ -345,8 +535,94 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+// tag::autocompleteimplementation[]
+
+=== Autocomplete Implementation
+==== Current implementation (v1.4)
+
+The logic behind autocompletion is handled by an `Autocompleter` class.
+
+On pressing `<TAB>`, Command Box will raise an event and check if the current text in the command box is autocompletable, that is to say, it is a prefix of one of the existing commands supported by Anakin.
+If it is Autocompletable, Autocompleter will search through the list of existing commands in lexicographic order and find the first match for the current text in the command box.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Use a set of pre-decided completion text for each command and have a list of all supported command words
+** Explanation: Each command has a pre-decided `AUTOCOMPLETE_TEXT` field and we do prefix-matching between the text in the command box and our existing set of command words.
+If there is a potential match, we replace the current text in the command box with the `AUTOCOMPLETE_TEXT` of the supported command which it is matched to.
+
+** Pros: Provides better modularity by decreasing the depndency of autocomplete on external components  (Current Implementation)
+** Cons: Less personalisation to each user. This design doesn't take into account the past commands that the user has issued.
+
+* *Alternative 2:* Match current command against the history of previously executed commands
+
+** Pros: Better personalisation of each command
+** Cons: Worse modularity and separation of concerns as the autocompleter would need to interact with the history. As such, it might increase coupling between the autocomplete and history components.
+
+==== How to add autocompletion for new commands
+* Should there be a need to include new commands, you can follow the following steps to ensure your command can be autocompleted.
+
+Example Scenario: Suppose we just introduced the `undo` command and we wish to integrate it with the autocompleter.
+
+Step 1 : Add the `AUTOCOMPLETE_TEXT` field to the class. This will decide what the command autocompletes to when the user presses tab. +
+
+image::AddAutocompleteTextExample.png[width="600"]
+
+
+Step 2 : Add the class to Autocompleter java
+
+image::AddCommandToAutocompleterExample.png[width="600"]
+
+With that, you're good to go!
+
+// end::autocompleteimplementation[]
+
+// tag::scheduling[]
+
+=== Card Scheduling implementation
+==== Current implementation (v1.4)
+
+The logic behind scheduling is handled in `Card.java`. Each card contains `reviewScore` and `nextReviewDate` fields which determine how well the user remembers the card and when the user should review the card again respectively.
+When each card is classified using `classify`, it's score is adjusted according to a modified version of the Super Memo 2 algorithm which we have detailed below. The review score is then updated, and using this review score
+we calculate the number of days to add to the current review date.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):*  Implement the scheduling update by attaching the scheduling process to the card class
+** Pros: As only cards are meant to be scheduled, this will increase cohesion by strengthening the relationship between cards and the scheduling process.
+** Cons: Should there be a need to implement scheduling of decks, then we will need to refactor our code for scheduling.
+
+* *Alternative 2:* Create a separate scheduler class to handle performance operations.
+
+** Pros: This will allow us to schedule multiple type of objects.
+** Cons: This will decrease cohesion of the components as we only intend for cards to be scheduled in this application.
+
+==== Scheduling Algorithm details
+* The variant of the Super Memo 2 algorithm which we have implemented in this application works as follows:
+
+image::SuperMemoTwo.png[width="800"]
+
+Image : A description of the Super Memo 2 variant we implemented. Formula taken from http://www.blueraja.com/blog/477/a-better-spaced-repetition-learning-algorithm-sm2[Blue Raja's blog] +
+
+*Performance Rating*: +
+How the user assesses his/her performance during classify. +
+`easy` corresponds to a 0 before scaling +
+`normal` corresponds to a 1 before scaling +
+`hard` corresponds to a 2 before scaling +
+
+*Easiness Score* :  This corresponds to `reviewScore` in our implementation
+
+As we only have three levels of difficulty, we have added a `BIAS` term to scale the `reviewScore`.
+
+// end::scheduling[]
+
+
+
+
 
 [[Implementation-Configuration]]
+
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
@@ -537,297 +813,23 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+User: Student who uses flashcards heavily in their studies but finds trouble managing too many physical cards.
+
+* has a need to manage a significant number of <<flashcard, flashcards>>
+* prefers desktop over other media (i.e. mobile)
+* can type quickly
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage flashcards faster than a typical mouse/GUI driven app. +
+Without any UI elements, the UI is extremely clean. Users will never accidentally click on something wrongly as there is never any functional response to mouse input.
 
+[[GetStartedProgramming]]
 [appendix]
 == User Stories
 
@@ -838,33 +840,77 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new deck |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add cards to a deck |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a card |remove flashcards that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a deck by name |locate a deck without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |iterate through decks |iterate viewing a deck of flashcards
+
+|`* *` |user with many flashcards |filter flashcards by tag |locate a flashcard easily
+
+|`* *` |user |rate my flashcards |identify weak areas for later revision
+
+|`* *` |user with multiple devices |import/ export decks to/ from external files | manage Anakin decks and cards across devices
+
+|`*` |user that types quickly |custom keyboard shortcuts | bind commands to my own aliases
 |=======================================================================
 
-_{More to be added}_
-
+//tag::usecases[]
+//tag::partialusecases[]
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Anakin` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: Delete person
+=== List decks
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list decks
+2.  Anakin shows a list of decks
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+=== Create a deck
+
+*MSS*
+
+1. User requests to create deck
+2. Anakin prompts for deck details
+3. User enters deck details
+4. Anakin creates the deck
+
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. User enters name of existing deck
+[none]
+** 3a1. Anakin displays an error message.
+** 3a2. Anakin prompts for deck details.
++
+Use case resumes at step 4.
+
+=== Delete a deck
+
+*MSS*
+
+1. User requests to list decks
+2. Anakin shows a list of decks
+3. User requests to delete a specific deck in the list
+4. Anakin deletes the deck
 +
 Use case ends.
 
@@ -878,89 +924,250 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Anakin displays an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+//end::partialusecases[]
+
+=== Add a card to a deck
+
+*MSS*
+
+1.  User selects a deck
+2. Anakin displays deck details
+3.  User requests to add flashcard to the current deck
+4.  Anakin prompts for flashcard details
+5. User enters requested details
+6. Anakin adds flashcard to the current deck
+
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 4a. User enters details in the wrong format
++
+[none]
+** 4a1. Anakin displays error message
+** 4a2. Anakin prompts for flashcard details
+** 4a3. If details are in the wrong format, repeat steps 1-2
++
+Use case ends
+
+=== Delete a card from a deck
+
+*MSS*
+
+1.  User selects a deck
+2.  Anakin displays deck details
+3.  User requests to delete a card.
+4.  Anakin deletes the specified from the current deck
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The deck is empty.
++
+[none]
+* 3a1. Anakin displays error message.
++
+Use case ends.
+
+* 3a. The index specified for the card does not exist.
++
+[none]
+** 3a1. Anakin displays error message
++
+Use case resumes at step 3.
+
+
+=== Locate a deck
+
+*MSS*
+
+1. User requests to display any decks that match their search query.
+2. Anakin returns the list of decks that match the search query.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The deck does not exist
++
+[none]
+** 1a1. Anakin returns an empty list of decks
++
+Use case ends.
+
+
+=== Locate a card
+
+*MSS*
+
+1. User requests to display any cards that match their search query.
+2. Anakin returns the list of cards that match the search query.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The card does not exist
++
+[none]
+** 1a1. Anakin returns an empty list of cards
++
+Use case ends.
+
+=== Export a deck
+
+*MSS*
+
+1. User requests to export a deck
+2. Anakin exports the deck to the same directory as the Anakin.jar file.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The deck does not exist at the index specified
++
+[none]
+** 1a1. Anakin displays error message
++
+Use case ends.
+
+=== Import a deck
+
+*MSS*
+
+1. User requests to import a deck at a specified file location
+2. Anakin imports the deck
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The file does not exist at the location specified
++
+[none]
+** 1a1. Anakin displays error message
++
+Use case ends.
++
+[none]
+* 1a. The file exists but has the wrong format
++
+[none]
+** 1a1. Anakin displays error message
++
+Use case ends.
+
+//end:: usecases[]
+
+[appendix]
+== Instructions for Manual Testing
+Given below are instructions to test Anakin manually. These instructions only provide a starting framework for testers; testers are expected to do additional, exploratory testing.
+
+=== Launch
+Initial launch
+
+. Download the jar file and copy into an empty folder
+
+. Double-click the jar file to launch Anakin
+Expected: Shows the GUI with a set of sample decks.
+
+=== Navigating into a deck
+Prerequisites: There must be at least 1 deck in the application.
+
+. `cd INDEX_OF_DECK` where `INDEX_OF_DECK` is the currently displayed index of the target deck.
+. The card panel on the right of the deck panel should be populated with a list of the cards in the target deck. If the deck is empty, no cards will be shown.
+
+=== Exporting a deck
+Exporting a deck from Anakin to a `.xml` file.
+Prerequisites: There must be at least 1 deck in the application.
+
+. Enter the command `export INDEX_OF_DECK` where `INDEX_OF_DECK` is the currently displayed index of the target deck.
+
+. Check the directory that contains Anakin.jar. There should be a `.xml` file with the same name as the target deck.
+
+=== Importing a deck
+Importing a deck from a `.xml` file at a known file location
+Prerequisites: Target deck must not already exist in Anakin. Renaming an existing deck is acceptable.
+
+. Enter the command `import DECK_FILEPATH` where `DECK_FILEPATH` is the relative filepath of the deck from the folder that Anakin.jar is in.
+
+. Anakin should display an import success message and the deck should appear in the deck panel.
+
+. Navigating into the deck should display all the cards of that deck. (Assuming the deck was not empty)
+
+. Performing the same operation again should display an error that states "This deck already exist in Anakin"
+
+*Importing a file that is in the same folder as Anakin.jar*
+Prerequisites: Target must be in the same folder as Anakin.jar. Target deck must not already exist in Anakin. Renaming an existing deck is acceptable.
+
+. Enter the command `import DECK_NAME` where `DECK_NAME` is the name of the `.xml` file.
+
+. Anakin should display an import success message and the deck should appear in the deck panel.
+
+. Navigating into the deck should display all the cards of that deck. (Assuming the deck was not empty)
+
+. Performing the same operation again should display an error that states "This deck already exist in Anakin"
+
+
+*Importing from an invalid location*
+
+. Enter `import BAD_FILEPATH` where `BAD_FILEPATH` is a non-existent location.
+. Anakin should display an error stating "File at `BAD_FILEPATH` could not be found".
+
+*Importing an invalid file*
+
+. Enter the command `import DECK_FILEPATH` where `DECK_FILEPATH` is the relative filepath of a corrupted or invalid from the folder that Anakin.jar is in.
+. Anakin should display an error stating "Target deck contains invalid data".
+
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+. Should be usable on a laptop with average hardware
+. <<internalState,Internal state>> should be persistent
+. Internal state should be recoverable from system crashes
+.  Should be able to hold up to 1000 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Interactions should be smooth (<2 seconds response time)
+. Should be usable by a command-line novice
+. Navigation should be fast for expert user
+. Internal state should be modifiable by expert user
+. Internal state should be exportable and importable
+. Should support formatting languages (e.g. <<markdown,Markdown>>, LaTEX)
 
 [appendix]
 == Glossary
 
+[[deck]] Deck::
+A collection of flashcards.
+
+[[flashcard]] Flashcard::
+A card containing a prompt on one side, and a small amount of information (the answer) on the other
+
+[[internalState]] Internal State::
+The data of the application which includes decks, cards, and the order they are in but excludes session based information like Command History. +
+Maintained by Model and stored in Storage.
+
+[[markdown]] Markdown::
+A markup language with plain text formatting syntax.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

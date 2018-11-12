@@ -3,76 +3,83 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.anakinexceptions.DeckImportException;
+import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
 
 /**
- * The API of the Model component.
+ * The API of the Model component
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * {@code Predicate} that always evaluate to true
      */
-    boolean hasPerson(Person person);
+    Predicate<Deck> PREDICATE_SHOW_ALL_DECKS = unused -> true;
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * {@code Predicate} that always evaluate to true
      */
-    void deletePerson(Person target);
+    Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
+    void resetData(ReadOnlyAnakin newData);
 
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void updatePerson(Person target, Person editedPerson);
+    ReadOnlyAnakin getAnakin();
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void sort(ModelManager.SortingType type);
 
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    boolean hasDeck(Deck deck);
 
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
+    void addDeck(Deck deck);
 
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
+    void deleteDeck(Deck deck);
 
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
+    void updateDeck(Deck target, Deck editedDeck);
 
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
+    boolean hasCard(Card card);
 
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
+    void addCard(Card card);
+
+    void deleteCard(Card card);
+
+    void getIntoDeck(Deck deck);
+
+    void getOutOfDeck();
+
+    void updateCard(Card target, Card editedCard);
+
+    ObservableList<Deck> getFilteredDeckList();
+
+    void updateFilteredDeckList(Predicate<Deck> predicate);
+
+    ObservableList<Card> getFilteredCardList();
+
+    void updateFilteredCardList(Predicate<Card> predicate);
+
+    boolean isInsideDeck();
+
+    boolean isReviewingDeck();
+
+    void startReview();
+
+    void endReview();
+
+    int getIndexOfCurrentCard();
+
+    void setIndexOfCurrentCard(int newIndex);
+
+    String exportDeck(Deck deck);
+
+    Deck importDeck (String filepath) throws DeckImportException, DuplicateDeckException;
+
+    boolean canUndoAnakin();
+
+    boolean canRedoAnakin();
+
+    String undoAnakin();
+
+    String redoAnakin();
+
+    void commitAnakin(String command);
 }

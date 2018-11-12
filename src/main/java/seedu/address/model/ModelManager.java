@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
@@ -11,122 +10,272 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.model.AnakinChangedEvent;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Anakin data.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    /**
+     * This enum encapsulates the different types of sorts that can be performed.
+     */
+    public enum SortingType {
+        PERFORMANCE, LEXICOGRAPHICAL
+    }
+    public static final Logger LOGGER = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final VersionedAnakin versionedAnakin;
+    private final FilteredList<Deck> filteredDecks;
+    // The filteredCards is not assigned. Should have methods to assign filteredCards (when user is inside a deck).
+    private FilteredList<Card> filteredCards;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given Anakin and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAnakin anakin, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(anakin, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        LOGGER.fine("Initializing with anakin: " + anakin + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedAnakin = new VersionedAnakin(anakin);
+        filteredDecks = new FilteredList<>(versionedAnakin.getDeckList());
+        filteredCards = new FilteredList<>(versionedAnakin.getCardList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Anakin(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyAnakin newData) {
+        versionedAnakin.resetData(newData);
+        indicateAnakinChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyAnakin getAnakin() {
+        return versionedAnakin;
     }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Raises an event to indicate the model has changed
      */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    private void indicateAnakinChanged() {
+        raise(new AnakinChangedEvent(versionedAnakin));
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void sort(SortingType type) {
+
+        if (type == SortingType.LEXICOGRAPHICAL && isInsideDeck()) {
+            LOGGER.info("Execute Lexicographical Card Sort");
+            versionedAnakin.sort(SortingType.LEXICOGRAPHICAL);
+            updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        } else if (type == SortingType.LEXICOGRAPHICAL && !isInsideDeck()) {
+            LOGGER.info("Execute Lexicographical Deck Sort");
+            versionedAnakin.sort(SortingType.LEXICOGRAPHICAL);
+            updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        } else if (type == SortingType.PERFORMANCE && isInsideDeck()) {
+            LOGGER.info("Execute Performance card sort ");
+            versionedAnakin.sort(SortingType.PERFORMANCE);
+            updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        }
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public boolean hasDeck(Deck deck) {
+        requireAllNonNull(deck);
+        return versionedAnakin.hasDeck(deck);
+    }
+
+    @Override
+    public void deleteDeck(Deck deck) {
+        LOGGER.info("Deleted a deck.");
+        versionedAnakin.removeDeck(deck);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void addDeck(Deck deck) {
+        LOGGER.info("Added a new deck to Anakin.");
+        versionedAnakin.addDeck(deck);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void updateDeck(Deck target, Deck editedDeck) {
+        requireAllNonNull(target, editedDeck);
+        LOGGER.info("Updated a deck's name in Anakin.");
+        versionedAnakin.updateDeck(target, editedDeck);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public boolean hasCard(Card card) throws DeckNotFoundException {
+        requireAllNonNull(card);
+        return versionedAnakin.hasCard(card);
+    }
+
+    @Override
+    public void deleteCard(Card card) {
+        LOGGER.info("Deleted a card in the current deck.");
+        versionedAnakin.removeCard(card);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void addCard(Card card) throws DeckNotFoundException {
+        versionedAnakin.addCard(card);
+        LOGGER.info("Added a card to the current deck.");
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void updateCard(Card target, Card editedCard) throws DeckNotFoundException {
+        requireAllNonNull(target, editedCard);
+        versionedAnakin.updateCard(target, editedCard);
+        LOGGER.info("Updated a card in the current deck.");
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void getIntoDeck(Deck deck) {
+        requireAllNonNull(deck);
+        LOGGER.info("Got into a deck.");
+        versionedAnakin.getIntoDeck(deck);
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void getOutOfDeck() {
+        LOGGER.info("Got out of the current deck, back to Anakin's deck list.");
+        versionedAnakin.getOutOfDeck();
+        updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public boolean isInsideDeck() {
+        return versionedAnakin.isInsideDeck();
+    }
+
+    @Override
+    public boolean isReviewingDeck() {
+        return versionedAnakin.isReviewingDeck();
+    }
+
+    @Override
+    public void startReview() {
+        LOGGER.info("Starting reviewing...");
+        versionedAnakin.startReview();
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public void endReview() {
+        LOGGER.info("Ended review mode.");
+        versionedAnakin.endReview();
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public int getIndexOfCurrentCard() {
+        return versionedAnakin.getIndexOfCurrentCard();
+    }
+
+    @Override
+    public void setIndexOfCurrentCard(int newIndex) {
+        versionedAnakin.setIndexOfCurrentCard(newIndex);
+        indicateAnakinChanged();
+    }
+
+    @Override
+    public String exportDeck(Deck deck) {
+        LOGGER.info("Exported a deck.");
+        return versionedAnakin.exportDeck(deck);
+    }
+
+    @Override
+    public Deck importDeck (String filepath) {
+        LOGGER.info("Imported a deck from xml file.");
+        Deck imported = versionedAnakin.importDeck(filepath);
+        addDeck(imported);
+        return imported;
+    }
+    //=========== Filtered Deck List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list of
+     * {@code versionedAnakin}
+     */
+    @Override
+    public ObservableList<Deck> getFilteredDeckList() {
+        return FXCollections.unmodifiableObservableList(filteredDecks);
+    }
+
+    @Override
+    public void updateFilteredDeckList(Predicate<Deck> predicate) {
+        requireAllNonNull(predicate);
+        filteredDecks.setPredicate(predicate);
+    }
+
+    //=========== Filtered Card List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * {@code currentDeck}
+     */
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return FXCollections.unmodifiableObservableList(filteredCards);
+    }
+
+    @Override
+    public void updateFilteredCardList(Predicate<Card> predicate) {
+        requireAllNonNull(predicate);
+        filteredCards.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoAnakin() {
+        return versionedAnakin.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoAnakin() {
+        return versionedAnakin.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public String undoAnakin() {
+        LOGGER.info("Undo Anakin, reset the application to the previous state.");
+        String undoCommand = versionedAnakin.undo();
+        indicateAnakinChanged();
+        return undoCommand;
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public String redoAnakin() {
+        LOGGER.info("Redo Anakin, reset the application to the state before the previous `undo` command.");
+        String redoCommand = versionedAnakin.redo();
+        indicateAnakinChanged();
+        return redoCommand;
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitAnakin(String command) {
+        LOGGER.info("Committed Anakin");
+        versionedAnakin.commit(command);
     }
 
     @Override
@@ -143,8 +292,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedAnakin.equals(other.versionedAnakin)
+            && filteredDecks.equals(other.filteredDecks);
     }
-
 }
