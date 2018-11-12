@@ -32,7 +32,7 @@ public class DiscountItemCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gives the item identified "
             + "by the index number used in the displayed item list a discount based on the percentage. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer, starting index) "
+            + "Parameters: INDEX|ALL "
             + "[" + PREFIX_ENDING_INDEX + "INDEX](cannot be smaller than the starting index) "
             + PREFIX_PERCENT + "PERCENTAGE "
             + "Example: " + COMMAND_WORD + " 1 "
