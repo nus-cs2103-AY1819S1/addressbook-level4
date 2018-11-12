@@ -41,14 +41,14 @@ import seedu.souschef.model.planner.Day;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser {
+    private static final String MESSAGE_INGREDIENT_PROMPT_EDIT = "Ingredient with same name and date already exists! "
+            + "Please use edit function instead!";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private final String MESSAGE_INGREDIENT_PROMPT_EDT = "Ingredient with same name and date already exists! Please " +
-            "use edit function instead!";
-
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);
@@ -87,7 +87,7 @@ public class AddCommandParser {
                 ingredientServingUnit, ingredientDate).convertToCommonUnit();
 
         if (model.has(toAdd)) {
-            throw new ParseException(MESSAGE_INGREDIENT_PROMPT_EDT);
+            throw new ParseException(MESSAGE_INGREDIENT_PROMPT_EDIT);
         }
 
         return new AddCommand<>(model, toAdd);
