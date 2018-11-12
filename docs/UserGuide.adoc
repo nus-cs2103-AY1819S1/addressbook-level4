@@ -410,7 +410,7 @@ exceeding the total budget that is set to prevent yourself from overspending. Th
 
 [#over-budget-warning]
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="300"]
+image::overbudget.png[width="300"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
