@@ -66,7 +66,7 @@ public class IncreasingMode extends GameMode {
         Date now = getCurrentDate();
 
         if (taskFrom.isStatusOverdue() && taskTo.isStatusCompleted()) {
-            return initialXp;
+            return boostedXp;
         }
 
         double fraction = interpolateDate(daysBefore, now, taskTo.getDueDate().valueDate);
