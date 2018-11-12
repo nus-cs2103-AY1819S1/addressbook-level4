@@ -27,7 +27,7 @@ My primary role as a developer for SocialCare involved implementing *event manag
 ** What it does: This feature allows the user to create and manage events that span a period of time.
 ** Justification: This feature improves the product significantly because a user is able to display and keep track of events by the organisation. This is a core requirement to the application as volunteers have to be assigned to events for basic operations.
 ** Highlights:
-This enhancement is one of the major building blocks of the system and affects majority of the other components. It required an in-depth analysis of design alternatives. The implementation too was challenging as other components are highly dependent on this enhancement.
+This enhancement is one of the major building blocks of the system and affects majority of the other components. It required an in-depth analysis of design alternatives. The implementation too was challenging as other components are dependent on this component.
 
 * *Minor enhancement*: added an overview command that allows the user to have a statistical overview of existing volunteers and events.
 
@@ -39,7 +39,7 @@ This enhancement is one of the major building blocks of the system and affects m
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Applied upstream bug fix: link:{pullURL}/78/[#78]
 ** Enhancements to existing features:
-*** Updated the user interface aesthetics and behaviour: link:{pullURL}/68/[#68], link:{pullURL}/92/[#92], link:{pullURL}/148/[#148], link:{pullURL}/151/[#151], link:{pullURL}/158/[#158], link:{pullURL}/221/[#221], link:{pullURL}/230/[#230], link:{pullURL}/243/[#243]
+*** Updated the user interface aesthetics and behaviour: link:{pullURL}/68/[#68], link:{pullURL}/92/[#92], link:{pullURL}/158/[#158], link:{pullURL}/243/[#243]
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the Developer Guide: link:{pullURL}/118/[#118], link:{pullURL}/123/[#123], link:{pullURL}/128/[#128]
 ** Community:

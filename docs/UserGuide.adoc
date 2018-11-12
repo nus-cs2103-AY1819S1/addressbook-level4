@@ -445,7 +445,7 @@ Example(s):
 The figure below shows how the panel looks like before executing the example(s) below.
 
 .Panel before adding an event
-image::command_event_add_before.png[add command, 300]
+image::command_event_add_before.png[add command, 200]
 
 
 * `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home` +
@@ -453,7 +453,7 @@ image::command_event_add_before.png[add command, 300]
 Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
 .Result of `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home`
-image::command_event_add_before_after1.png[add command, 600]
+image::command_event_add_before_after1.png[add command, 500]
 
 * `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser
 t/charity`
@@ -461,7 +461,7 @@ t/charity`
 Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
 .Result of `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser t/charity`
-image::command_event_add_before_after2.png[add command, 600]
+image::command_event_add_before_after2.png[add command, 500]
 
 
 [[command-event-list]]
@@ -496,14 +496,14 @@ Example(s):
 The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
 .Panel before editing an event, EVENT_INDEX is indicated in the circles
-image::command_event_edit_before.png[add command, 300]
+image::command_event_edit_before.png[add command, 200]
 
 * `edit 1 n/Charity Fun Run t/` +
 Edits the name of event at index 1 and removes all tags.
 The expected result is shown in the figure below.
 +
 .Result of `edit 1 n/Charity Fun Run t/`
-image::command_event_edit_before_after.png[Before edit, 600]
+image::command_event_edit_before_after.png[Before edit, 500]
 
 
 [[command-event-delete]]
@@ -518,14 +518,14 @@ Example(s):
 The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
 .Panel before deleting an event, EVENT_INDEX is indicated in the circles
-image::command_event_delete_before.png[add command, 300]
+image::command_event_delete_before.png[add command, 200]
 
 * `delete 3` +
 Deletes the event specified at index 3.
 The expected result is shown in the figure below.
 +
 .Result of `delete 3`
-image::command_event_delete_before_after.png[Before delete, 600]
+image::command_event_delete_before_after.png[Before delete, 500]
 
 
 // end::eventmanagement[]
