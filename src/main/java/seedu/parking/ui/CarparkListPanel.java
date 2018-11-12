@@ -115,7 +115,11 @@ public class CarparkListPanel extends UiPart<Region> {
 
     public static int getTimeInterval() {
         return timeInterval;
-    };
+    }
+
+    public static void setTimeInterval(int newInterval) {
+        timeInterval = newInterval;
+    }
 
     public static ScheduledExecutorService getTimer() {
         return timer;

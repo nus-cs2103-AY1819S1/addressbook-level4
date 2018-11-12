@@ -5,12 +5,15 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.events.ui.NoSelectionRequestEvent;
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.model.Model;
 import seedu.parking.model.ModelManager;
 import seedu.parking.model.UserPrefs;
@@ -30,12 +33,13 @@ import seedu.parking.ui.CarparkListPanel;
 
 public class NotifyCommandTest {
 
-    private CommandHistory commandHistory = new CommandHistory();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void execute_selectedCarpark_success() throws Exception {
         Model model = new ModelManager();
-
+        CommandHistory commandHistory = new CommandHistory();
         QueryCommand command = new QueryCommand();
         command.execute(model, commandHistory);
         command.getFuture().get();
@@ -73,8 +77,8 @@ public class NotifyCommandTest {
 
         NotifyCommand noteCommand = new NotifyCommand(10);
         noteCommand.execute(expectedModel, commandHistory);
-        EventsCenter.getInstance().post(new NoSelectionRequestEvent());
         Thread.sleep(1000);
+        EventsCenter.getInstance().post(new NoSelectionRequestEvent());
 
         Carpark secondCarpark = expectedModel.getCarparkFinder().getCarparkList().stream()
                 .filter(carpark -> carpark.getCarparkNumber().equals(selectedNumber))
@@ -82,5 +86,25 @@ public class NotifyCommandTest {
                 .get();
 
         assertEquals(firstCarpark, secondCarpark);
+    }
+
+    @Test
+    public void execute_turnOffNotify_success() throws Exception {
+        Model model = new ModelManager();
+        CommandHistory commandHistory = new CommandHistory();
+        CarparkListPanel.setTimeInterval(10);
+        NotifyCommand noteCommand = new NotifyCommand(0);
+        noteCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void execute_turnOffNotifyButAlreadyDisabled_exceptionThrown() throws Exception {
+        Model model = new ModelManager();
+        CommandHistory commandHistory = new CommandHistory();
+        CarparkListPanel.setTimeInterval(0);
+        NotifyCommand noteCommand = new NotifyCommand(0);
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(NotifyCommand.MESSAGE_ERROR_OFF);
+        noteCommand.execute(model, commandHistory);
     }
 }

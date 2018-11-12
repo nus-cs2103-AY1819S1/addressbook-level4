@@ -41,8 +41,8 @@ public class NotifyCommand extends Command {
             + "Please check your internet connection and try again";
     public static final String MESSAGE_ERROR_NODATA = "Unable to retrieve car park information from data.gov.sg\n"
             + "Unfortunately, the data is not available. We apologise for any inconvenience caused";
-    private static final String MESSAGE_ERROR_OFF = "Notification already disabled";
-    private static final String MESSAGE_OFF = "Notification disabled";
+    public static final String MESSAGE_ERROR_OFF = "Notification already disabled";
+    public static final String MESSAGE_OFF = "Notification disabled";
 
 
     private final int targetTime;
