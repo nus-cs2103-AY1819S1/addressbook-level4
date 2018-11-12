@@ -705,7 +705,7 @@ e.g. `login n/Alex Yeoh pass/password`
 * *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST] ` +
+`findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST]` +
 e.g. `findUser n/Alex Yeoh`
 
 * *Delete User* : `deleteUser` +
