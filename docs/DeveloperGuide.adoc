@@ -81,9 +81,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still refer to the `CS2103-AY1819S1-W16-1/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-W16-1/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -117,8 +117,8 @@ This section describes the architecture and components of the application.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
 image::Architecture.png[width="600"]
+_Figure 3.1.1: Architecture Diagram_
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component:
 
@@ -150,24 +150,26 @@ Each of the four components:
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.1.2: Class Diagram of the Logic Component_
+
 
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
+_Figure 3.1.2: Component interactions for `delete 1` command (part 1)_
+
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
+_Figure 3.1.3: Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -177,8 +179,9 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+_Figure 3.2.1: Structure of the UI Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -198,8 +201,8 @@ The `UI` component:
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.3.1: Structure of the Logic Component_
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -216,14 +219,15 @@ A typical flow in the `Logic` component is given below:
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
+_Figure 3.3.2: Interactions Inside the Logic Component for the `delete 1` Command_
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
+_Figure 3.4.1: Structure of the Model Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -244,8 +248,9 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1: Structure of the Storage Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -348,12 +353,18 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 //tag::compose[]
-=== Compose email feature
+=== Email feature
+Written below is the implementation of the Email feature and considerations in its design.
+
 ==== Current Implementation
 
-The Compose email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
-It allows `.eml` files to be saved onto the computer.
+image::EmailActivityDiagram.png[width="1500"]
+_Figure 4.2.1.1: Activity diagram of_ `ComposeEmailList`.
+
+The Email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
+It allows `.eml` files to be created and saved onto the computer.
 The feature is facilitated by `EmailModel` and `EmailDirStorage`.
+A simple activity diagram depicting how `ComposeEmailList` works is shown above in Figure 4.2.1.1.
 It implements the following operations:
 
 * `EmailModel#saveComposedEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
@@ -361,10 +372,14 @@ It implements the following operations:
 
 These operations are exposed in the `Model` interface as `Model#saveComposedEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
 
+image::EmailSequenceDiagram.png[width="1500"]
+_Figure 4.2.1.2: Sequence diagram of_ `ComposeEmailList`.
+
 Given below is an example usage scenario and how the Compose feature behaves at each step:
 
 Step 1. The user executes either the `ComposeEmailList` command or `ComposeEmailIndex` command, which creates an email.
 The `ComposeEmailList`/`ComposeEmailIndex` command calls `Model#saveComposedEmail(Email email)`, saving the email to `EmailModel`.
+In Figure 4.2.1.1, the user executes the `ComposeEmailList` command.
 
 Step 2. Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new
  email is saved to the `EmailModel`.
@@ -372,8 +387,6 @@ Step 2. Once the email is saved in the `EmailModel`, the `ModelManager` raises a
 Step 3. The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent
 (EmailSavedEvent event)`, which then calls `EmailDirStorage#saveEmail(EmailModel email)`.
 This saves the email to a specified local directory.
-
-Step 4. A preview of the email is displayed on the main window.
 
 ==== Design Considerations
 
@@ -411,6 +424,7 @@ It implements the following commands:
 * `add_all_day_event` -- Adds an all day event into the monthly calendar specified.
 * `add_event` -- Adds an event of a specified time frame into the monthly calendar.
 * `delete_event` -- Deletes an existing event in the monthly calendar.
+* `view_calendar` -- Loads a monthly calendar from local memory onto the Hallper.
 
 ===== Create_Calendar Command
 This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
@@ -420,26 +434,32 @@ It implements the following operations:
 * `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
 * `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the computer.
 
-These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
+These operations are exposed in the `Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
 
 Given below is an example usage scenario and how the `create_calendar` command behaves at each step:
 
-. The user executes the `create_calendar` command by specifying the month and year.
+Step 1. The user executes the `create_calendar` command by specifying the month and year.
 The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
 calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
 calendar already exists. Else, the command calls `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
 
-. Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
+Step 2. Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
  to indicate that a calendar object has been initialized in the `CalendarModel`.
 
-. The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
+Step 3. The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
 `StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the calendar to a specified local directory.
 
+The following sequence diagram shows how the create_calendar operation works:
+
+image::CreateCalendarSeqDiagram.png[width="1500"]
+_Figure 4.3.1.1: Sequence diagram for create_calendar command_
+
 ===== Add Event Commands
 The `add_all_day_event` and `add_event` command have many similarities, they differ only by their parameters and the number of checks called to verify the validity of the event to be added. Events in Hallper are created as VEvent objects as implemented in the https://github.com/ical4j/ical4j[iCal4j] library.
-Both commands are facilitated by `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
+Both commands are facilitated by `ModelManager`, `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
 
+* `ModelManager#loadCalendar(Year year, Month month)` -- Raises a `LoadCalendarEvent`.
 * `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)` -- Creates an all day event object and saves it inside the loaded calendar in `CalendarModel`.
 * `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)` -- Creates an event object with the specified time frame and saves it inside the loaded calendar in `CalendarModel`.
 * `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
@@ -465,43 +485,55 @@ These operations are exposed in the `Model` and `Storage` interface as :
 ====== Add_All_Day_Event Command
 Given below is an example usage scenario and how the `add_all_day_event` command behaves at each step:
 
-. The user executes the `add_all_day_event` command by specifying the month, year, date and title.
+Step 1. The user executes the `add_all_day_event` command by specifying the month, year, date and title.
 The `add_all_day_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`, to perform checks on whether the
 request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
-Else, the command calls `Model#createAllDayEvent(Year year, Month month, int date, String title)`, which calls `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)`.
 
-. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+Step 2. Else if the calendar hasn't been loaded yet, `Model` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
 
-. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+Step 3. Once the calendar object is loaded in the `CalendarModel`, it then calls `Model#createAllDayEvent(Year year, Month month, int date, String title)`, which calls `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)`.
+This creates an event object and loads it with all the relevant information.
 
-. The `ModelManager` then raises a `AllDayEventAddedEvent`, to indicate an all day event has been created in the `CalendarModel`.
+Step 4. The `ModelManager` then raises a `AllDayEventAddedEvent`, to indicate an all day event has been created in the `CalendarModel`.
 
-. The `AllDayEventAddedEvent` goes to the `EventsCenter`, and is then handled by
+Step 5. The `AllDayEventAddedEvent` goes to the `EventsCenter`, and is then handled by
 `StorageManager#handleAllDayEventAddedEvent(AllDayEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the updated calendar back to the local directory.
+
+The following sequence diagram shows how the add_all_day_event operation works:
+
+image::AddAllDayEventSeqDiagram.png[width="1500"]
+_Figure 4.3.1.2: Sequence diagram for add_all_day_event command_
 
 ====== Add_Event Command
 Given below is an example usage scenario and how the `add_event` command behaves at each step:
 
-. The user executes the `add_event` command by specifying the month, year, starting date, starting time, ending date, ending time and title.
+Step 1. The user executes the `add_event` command by specifying the month, year, starting date, starting time, ending date, ending time and title.
 The `add_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`,
 `Model#isValidTime(int hour, int min)` and `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` to perform checks on whether the
 request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
-Else, the command calls `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`, which calls `CalendarModel#loadCalendar(Year year, Month month)`.
 
-. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+Step 2. Else if the calendar hasn't been loaded yet, `Model` first calls `ModelManager#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
 
-. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+Step 3. Once the calendar object is loaded in the `CalendarModel`, it then calls `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`, which calls `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`.
+This creates an event object and loads it with all the relevant information.
 
-. The `ModelManager` then raises a `CalendarEventAddedEvent`, to indicate an event with a specified time frame has been created in the `CalendarModel`.
+Step 4. The `ModelManager` then raises a `CalendarEventAddedEvent`, to indicate an event with a specified time frame has been created in the `CalendarModel`.
 
-. The `CalendarEventAddedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventAddedEvent(CalendarEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+Step 5. The `CalendarEventAddedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventAddedEvent(CalendarEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the updated calendar back to the local directory.
 
+The following sequence diagram shows how the add_event operation works:
+
+image::AddEventSeqDiagram.png[width="1500"]
+_Figure 4.3.1.3: Sequence diagram for add_event command_
+
+
 ===== Delete_Event Command
-This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
+This command is facilitated by `ModelManager`, `CalendarModel` and `IcsCalendarStorage`.
 It implements the following operations:
 
+* `ModelManager#loadCalendar(Year year, Month month)` -- Raises a `LoadCalendarEvent`.
 * `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
 * `CalendarModel#deleteEvent(Year year, Month month)` -- Deletes an existing event in the monthly calendar.
 * `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` -- Retrieves the event object from the calendar.
@@ -524,19 +556,56 @@ These operations are exposed in the `Model` and `Storage` interface as :
 
 Given below is an example usage scenario and how the `delete_event` command behaves at each step:
 
-. The user executes the `delete_event` command by specifying the month, year, starting date, ending date, and title.
+Step 1. The user executes the `delete_event` command by specifying the month, year, starting date, ending date, and title.
 The `delete_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)` and
 `Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` to perform checks on whether the request to delete event is valid.
 If it fails any one of the checks, the command does nothing and reflects to the user that the request to delete event is not valid. Else, the `Model#isExistingEvent` check will retrieve the event and load it inside the `CalendarModel`. It then calls `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`.
 
-. The `Model#isExistingEvent` check first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`. Once the calendar object is loaded in the `CalendarModel`, it then calls `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` to retrieve the event and store it inside the `CalendarModel` as event to be deleted.
+Step 2. The `Model#isExistingEvent` check first calls `ModelManager#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`. Once the calendar object is loaded in the `CalendarModel`, it then calls `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` to retrieve the event and store it inside the `CalendarModel` as event to be deleted.
 
-. The call to `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)` calls `CalendarModel#deleteEvent(Year year, Month month)` which removes the event to be deleted in `CalendarModel` from the monthly calendar.
+Step 3. The call to `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)` calls `CalendarModel#deleteEvent(Year year, Month month)` which removes the event to be deleted in `CalendarModel` from the monthly calendar.
 
-. The `ModelManager` then raises a `CalendarEventDeletedEvent`, to indicate an event has been deleted in the `CalendarModel`.
+Step 4. The `ModelManager` then raises a `CalendarEventDeletedEvent`, to indicate an event has been deleted in the `CalendarModel`.
 
-. The `CalendarEventDeletedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+Step 5. The `CalendarEventDeletedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the updated calendar back to the local directory.
+
+The following sequence diagram shows how the delete_event operation works:
+
+image::DeleteEventSeqDiagram.png[width="1500"]
+_Figure 4.3.1.4: Sequence diagram for delete_event command_
+
+===== View_Calendar Command
+This command is facilitated by `ModelManager`, `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `ModelManager#loadCalendar(Year year, Month month)` -- Raises a LoadCalendarEvent.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the calendar from the computer.
+
+These operations are exposed in the `Model` interface as `Model#loadCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#loadCalendar(String calendarName)` respectively.
+
+Given below is an example usage scenario and how the `view_calendar` command behaves at each step:
+
+Step 1. The user executes the `view_calendar` command by specifying the month and year.
+The `view_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
+calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
+calendar already exists. Else, the command calls `Model#loadCalendar(Year year, Month month)` which then raise a `LoadCalendarEvent`.
+
+Step 2. The `LoadCalendarEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleLoadCalendarEvent(LoadCalendarEvent event)`, which then calls `IcsCalendarStorage#loadCalendar(String calendarName)`.
+This loads the calendar from the specified local directory.
+
+Step 3. Once the calendar is loaded, it then raise a `CalendarLoadedEvent`. The event goes to the `EventsCenter`, and is then handled by `ModelManager#handleCalendarLoadedEvent(CalendarLoadedEvent event)` which then calls `CalendarModel#loadCalendar(Calendar calendar, String calendarName)`. This saves the calendar into the model.
+
+The following sequence diagram shows how the view_calendar operation works:
+
+image::ViewCalendarSeqDiagram.png[width="1500"]
+_Figure 4.3.1.5: Sequence diagram for view_calendar command_
+
+The following activity diagram summarizes what happens when a user executes a calendar command:
+
+image::CalendarCommandActivityDiagram.png[width="650"]
+_Figure 4.3.1.6: Activity diagram for budget command_
 
 ==== Design Considerations
 
@@ -551,7 +620,7 @@ Hallper.
 ===== Aspect: Using https://github.com/ical4j/ical4j[iCal4j]
 
 https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
-The library is widely used and easy to understand so any new develeper can easily extend the current features.
+The library is widely used and easy to understand so any new developer can easily extend the current features.
 // end::calendar[]
 
 // tag::budget[]
@@ -695,7 +764,6 @@ the existing `ccabook.xml` with the updated CCA and its transaction entry.
 
 The following sequence diagram shows how the add transaction operation works:
 
-.Sequence diagram for update command
 image::AddTransCommandSequenceDiagram.png[width="1500"]
 __Figure 4.4.1.3: Sequence diagram for add_trans command_
 
@@ -728,7 +796,7 @@ Step 6. It then checks whether the CCA name is present in `BudgetWindow#fillInne
 The following activity diagram summarizes what happens when a user executes a budget command:
 
 image::BudgetCommandActivityDiagram.png[width="650"]
-__Figure 4.4.1.4: Activity diagram for budget command_
+_Figure 4.4.1.4: Activity diagram for budget command_
 
 ==== Design Considerations
 
@@ -1156,8 +1224,8 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+_Figure 5.3.1: Saving documentation as PDF files in Chrome_
 
 [[Docs-SiteWideDocSettings]]
 === Site-wide documentation settings
@@ -1168,7 +1236,7 @@ The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-spec
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
-.List of site-wide attributes
+_Table 5.4.1: List of site-wide attributes_
 |===
 |Attribute name |Description |Default value
 
@@ -1200,7 +1268,7 @@ Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built
 Attributes left unset in `.adoc` files will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
-.List of per-file attributes, excluding Asciidoctor's built-in attributes
+_Table 5.5.1: List of per-file attributes, excluding Asciidoctor's built-in attributes_
 |===
 |Attribute name |Description |Default value
 
@@ -1660,8 +1728,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |JCRC member |store pictures under contact details |easily identify hall residents and distinguish between those with similar names
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -2219,16 +2285,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 *  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 *  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 *  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -2267,11 +2329,10 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 === Deleting a Person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all persons are listed.
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
@@ -2281,15 +2342,27 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Composing an Email to All Currently Listed Residents
 
-=== Saving Data
+. Deleting an email while all persons are listed.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email displayed on the BrowserPanel with the emails of the first and second contact as recipients of the email.
 
-_{ more test cases ... }_
+.. Test case: `compose_email_list from/john@gmail.com to/100 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+.. Test case: `compose_email_list from/john@gmail.com to/0 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+. Deleting an email while no persons are listed.
+
+.. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
+
+.. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
 
 === Clearing Persons
 . Clearing persons while all persons are listed
@@ -2325,5 +2398,3 @@ _{ more test cases ... }_
    Expected: `CCA`s are removed from associated person(s) in list.
 .. Test case: `clear CCA` (where `CCA` does not exist in list) +
    Expected: No CCA is erased. No CCAs erased message displayed.
-
-
