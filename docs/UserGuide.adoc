@@ -11,29 +11,27 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F10-1/main
 
 By: `Nus School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-
-Office Assistance Specialized Integration System (OASIS) is for users who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves. More importantly, OASIS is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, OASIS can get your employee management tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quickstart” to get started. Enjoy!
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management. Sounds good? Jump to Section 2, <<Quick Start, Quickstart>> to get started. Enjoy!
 
 === An Introduction to OASIS
-The image shown below highlights the difference sections of OASIS's user interface:
+The image shown below highlights the different sections of OASIS's user interface:
 
 image::introToOASIS.png[width="900"]
 
 === Symbols used in this guide
 [NOTE]
-====
 Denotes something that you may want to take note of.
-====
+[TIP]
+Denotes something that may be helpful if you are having any difficulties.
 [WARNING]
-====
 Denotes a warning for something critical.
-====
 
 // tag::quickstart-begin[]
 == Quick Start
@@ -114,12 +112,6 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Navigate between the list pickers : `active / archive / assignment`
-
-Pick desired list within the system.
-
-Format: `active / archive / assignment`
-
 === Adding an employee: `add`
 
 Adds an employee into the system.
@@ -139,10 +131,10 @@ Examples:
 * `add -n Joshua -s 15000 -e josh@gmail.com -p 81234567 -a 81 Joshua's Road  Singapore 123456`
 * `add -n Raynard -e rnardha@gmail.com -p 91235678 -s 1000 -a somewhere on earth -u Nard`
 
-=== Listing all persons : `list`
+=== Listing all active persons : `active`
 
 Shows a list of all employees in the system. +
-Format: `list`
+Format: `active`
 
 //tag::viewpermission[]
 === View all the permissions that an employee has : `viewpermission`
@@ -159,6 +151,7 @@ Examples:
 
 * viewpermission 2
 //end::viewpermission[]
+
 === Removing an employee from my department: `delete`
 
 Removes an employee from the current displayed list.
@@ -175,9 +168,37 @@ Examples:
 
 * `delete 3`
 
+// tag::archive[]
+=== View deleted employee archive : `archive`
+
+Displays the list of active employees removed from the system. To delete an employee from the OASIS completely simply remove it from archive list again.
+
+Format: `archive`
+
+****
+* Replaces current view on the left panel to the archive list.
+****
+// end::archive[]
+
+// tag::restore[]
+=== Restoring employee to active list: `restore`
+
+Restores an employee to active list from the archived list.
+
+Format: `restore INDEX`
+
+****
+* Restored employee will be moved back to the active list.
+****
+
+Examples:
+
+* `restore 1`
+// end::restore[]
+
 === List details of employee : `select`
 
-Lists the detailed information of an employee. This will also display the employee's profile on the right. This is the same result as if the person is clicked in the GUI.
+Lists the detailed information of an employee in the shown list on the left panel. This will also display the employee's profile on the right. This is the same result as if the person is clicked in the GUI.
 
 Format: `select INDEX`
 
@@ -233,6 +254,7 @@ The index must be a positive integer 1, 2, 3, …​
 * Existing values will be updated to the input values.
 ****
 
+// tag::leaveapplication[]
 === Apply for leave : `leaveapply`
 
 Apply for leave on specific dates.
@@ -308,6 +330,7 @@ To use this command, you must have "APPROVE_LEAVE" permissions.
 Examples:
 
 * `leavereject 1`
+// end::leaveapplication[]
 
 === Search employees by name : `find`
 
@@ -385,6 +408,7 @@ The following is the list of Permissions available.
 |Permission|What it does
 |ADD_EMPLOYEE|Allows the user to add employee
 |DELETE_EMPLOYEE|Allows the user to delete employee
+|RESTORE_EMPLOYEE|Allows user to restore archived employees
 |EDIT_EMPLOYEE|Allows the user to edit information of an employee
 |VIEW_EMPLOYEE_LEAVE|Allows user to view other employee's applications for leave
 |APPROVE_LEAVE|Allows user to approve and reject leave application
@@ -496,7 +520,7 @@ Exits the program, automatically saving data and logging you out.
 
 Format: `exit`
 
-== Future Commands (Currently not implemented yet)
+== Future Commands (Coming in v2.0)
 
 === Sort employee display list : `sort`
 
@@ -529,30 +553,6 @@ Examples:
 
 * `filter -n Tan`
 * `filter -n Albert -d Marketing`
-
-=== View deleted employee archive : `archive`
-
-Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
-
-Format: `archive`
-
-****
-* Replaces current view on the left panel to the archive list.
-****
-
-=== Restoring employee to active list: `restore`
-
-Restores an employee to active list from the archived list.
-
-Format: `restore INDEX`
-
-****
-* Restored employee will be moved back to the active list.
-****
-
-Examples:
-
-* `restore 1`
 
 === List effectiveness of sector by profit : `sector`
 
@@ -588,6 +588,7 @@ Format: `summary`
 *Q*: Is it possible for me to change my username? +
 *A*: No, the username assigned to you is fixed.
 //tag::commandsummary[]
+
 == Command Summary
 
 === Commands that do not require permissions
@@ -624,6 +625,7 @@ Format: `summary`
  |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
  81234567 -a 81 Joshua's Road  Singapore 123456
  |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
+ |Restore employee|RESTORE_EMPLOYEE|restore INDEX|restore 2
  |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
   | edit 1 -p 91234567 -e johndoe@example.com
  |Clear|Admin|clear|clear
