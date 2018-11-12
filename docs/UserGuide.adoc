@@ -366,6 +366,34 @@ Occasion Date, Occasion Location and Tag respectively of the Occasion which is s
 
 // end::edit[]
 
+// tag::insertperson[]
+=== Inserting a Person: `insert`
+
+==== Inserting a person into a module: `insertperson`
+Builds an association between a module and a person within `TheTracker` by inserting
+a `person` bi-directionally into a `module`.
+
+Format: +
+`insertperson pi/PERSON_INDEX mi/MODULE_INDEX`
+
+Example:
+
+* `insertperson pi/1 mi/1` Builds an association between the first person and module by inserting person 1 bi-directionally
+into module 1.
+
+==== Inserting a person into an occasion: `insertperson`
+Builds an association between an occasion and a person within `TheTracker` by inserting
+a `person` bi-directionally into an `occasion`.
+
+Format: +
+`insertperson pi/PERSON_INDEX oi/OCCASION_INDEX`
+
+Example:
+
+* `insertperson pi/1 oi/1` Builds an association between the first `person` and `occasion` by inserting `person` 1 bi-directionally
+into `occasion` 1.
+
+// end::insertperson[]
 
 // tag::find[]
 === Locating entries: `find`
