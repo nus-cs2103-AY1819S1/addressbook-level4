@@ -196,6 +196,7 @@ Selects the 2nd calendar event in the calendar.
 Selects the 1st calendar event in the results of the `find event` command.
 // end::select[]
 
+//tag::showDes[]
 === Showing description: `showDescription`
 
 Shows description of the specified todo item from the todo list. +
@@ -212,6 +213,7 @@ Examples:
 * `list todo` +
 `show todo 1` +
 Shows description of the 1st todo item in the todo list.
+//end::showDes[]
 
 === Listing entered commands : `history`
 

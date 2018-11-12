@@ -80,26 +80,27 @@ public class CommandTestUtil {
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_EMPTY = " " + PREFIX_TAG;
 
-    public static final String TITLE1 = "CS100";
-    public static final String DESCRIPTION1 = "lovely";
-    public static final String PRIORITY1 = "L";
-    public static final String TITLE2 = "CS200";
-    public static final String DESCRIPTION2 = "awesome";
-    public static final String PRIORITY2 = "M";
-    public static final String TITLE3 = "CS300";
-    public static final String DESCRIPTION3 = "amazing";
-    public static final String PRIORITY3 = "H";
+    public static final String TITLE_1 = "CS100";
+    public static final String DESCRIPTION_1 = "lovely";
+    public static final String PRIORITY_1 = "L";
+    public static final String TITLE_2 = "CS200";
+    public static final String DESCRIPTION_2 = "awesome";
+    public static final String PRIORITY_2 = "M";
+    public static final String TITLE_3 = "CS300";
+    public static final String DESCRIPTION_3 = "amazing";
+    public static final String PRIORITY_3 = "H";
 
-    public static final String TITLE1_WITH_PREFIX = " " + PREFIX_TITLE + TITLE1;
-    public static final String DESCRIPTION1_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION1;
-    public static final String PRIORITY1_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY1;
-    public static final String TITLE2_WITH_PREFIX = " " + PREFIX_TITLE + TITLE2;
-    public static final String DESCRIPTION2_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION2;
-    public static final String PRIORITY2_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY2;
-    public static final String TITLE3_WITH_PREFIX = " " + PREFIX_TITLE + TITLE3;
-    public static final String DESCRIPTION3_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION3;
-    public static final String PRIORITY4_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY3;
+    public static final String TITLE_1_WITH_PREFIX = " " + PREFIX_TITLE + TITLE_1;
+    public static final String DESCRIPTION_1_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION_1;
+    public static final String PRIORITY_1_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY_1;
+    public static final String TITLE_2_WITH_PREFIX = " " + PREFIX_TITLE + TITLE_2;
+    public static final String DESCRIPTION_2_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION_2;
+    public static final String PRIORITY_2_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY_2;
+    public static final String TITLE_3_WITH_PREFIX = " " + PREFIX_TITLE + TITLE_3;
+    public static final String DESCRIPTION_3_WITH_PREFIX = " " + PREFIX_DESCRIPTION + DESCRIPTION_3;
+    public static final String PRIORITY_3_WITH_PREFIX = " " + PREFIX_PRIORITY + PRIORITY_3;
 
+    public static final String INVALID_TODO_COMMAND_WORD = "adds";
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " q"; // start with whitespace not allowed
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + " "; // empty string not allowed
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "a"; // other alphabet not allowed
