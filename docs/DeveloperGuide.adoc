@@ -397,22 +397,27 @@ image::TrackSearchCommandSequenceDiagram.png[width="800"]
 Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
 // end::Tracksearchandlist[]
 
+// tag::Trackaddandremove[]
 === Track Adding and Removing Feature
 Simple-to-use track management commands that add tracks to a specified playlist.
 
 ==== Current Implementation
 When managing a playlist, you can customise it by adding and removing tracks from it.
 
-.Sequence of track add command
-image::TrackAddCommandSequenceDiagram.png[width="800"]
+.Sequence diagram: track add command
+image::TrackAddCommandSequenceDiagram.png[width="720"]
 
-.Activity of track add command
-image::TrackAddCommandActivityDiagram.png[width="800"]
+.Activity diagram: track add command
+image::TrackAddCommandActivityDiagram.png[width="720"]
+
+.Sequence diagram: track delete command
+image::TrackDeleteCommandSequenceDiagram.png[width="720"]
 
 ==== Design Considerations
 
 
 ==== Future Enhancements
+// end::Trackaddandremove[]
 
 === Playback Feature
 Four functionalities are implemented to achieve the playback task in JxMusic Player. `play` enables users to play musics. `pause` allows the break off of playing and `stop` terminates playing. `seek` functionality achieves the requirement of seeking the playing to a certain time point. To aid the use of `seek`, `duration` command is implemented to let users get the duration of track.
