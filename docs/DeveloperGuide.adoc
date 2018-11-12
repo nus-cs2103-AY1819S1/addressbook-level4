@@ -1685,7 +1685,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * has to manage budget for CCAs
 * has to consolidate hall event dates
 * has to notify hall residents about events
-* prefer desktop apps over other types
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -1728,13 +1728,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |JCRC Finance Director |keep track of each CCA's budget |prevent problems during an audit
 
-|`* *` |JCRC member |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
 |`* *` |JCRC member |list which residents are in specified CCAs |contact personnel in the CCA more efficiently
 
-|`*` |JCRC member |sort persons by name |locate a resident easily
-
 |`*` |JCRC member |store pictures under contact details |easily identify hall residents and distinguish between those with similar names
+
+|`*` |JCRC member |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |JCRC member |sort persons by name |locate a resident easily
 
 |=======================================================================
 
