@@ -708,7 +708,7 @@ This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteU
 `Person` B's attributes gets modified (eg change of name):
 This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has `Person` B in their friend list (such as `Person` A), the original Friend object in `Person` A's friend list will be replaced by the new Friend object created using the new attributes of `Person` B.
 
-// end:::addDeleteFriend[]
+// end::addDeleteFriend[]
 
 === Logging
 
