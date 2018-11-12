@@ -21,7 +21,7 @@ By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`  �
 
 === What is OASIS?
 
-Office Assistance Specialized Integration System (OASIS) is an all-in-one office management software. It has the common of management system and additional features that would make managing efficient, quick and fun. Unlike any other management software, OASIS adopts Command Line Interface.
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management.
 
 === Architectural Overview
 
@@ -387,7 +387,7 @@ Permission system is used to ensure that each user are only able to perform comm
 ===== Aspect: Model
 Model of a person have been changed to reflect the permission that each user possesses.
 
-The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
 
 image::permissionPersonModel.png[width="750"]
 
@@ -403,7 +403,7 @@ As of v1.4, `PresetPermission` only contains the following preset: `Admin`, `Man
 ===== Aspect: Storage
 Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
 
-The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
 
 image::permissionStorage.png[width="350]
 
@@ -441,19 +441,19 @@ Step 3. The system compares user's `PermissionSet` with `DeleteCommand` 's `requ
 
 ** User don't have required permissions, show error message.
 
-The following activity diagram summarizes what happens when a user excutes a command.
+The following activity diagram summarizes what happens when a user executes a command.
 
 image::permissionCommandActivityDiagram.png[width="450"]
 
 ==== Design Considerations
 
-* Alternative 1 (Current Implementation): Assign permission to each individual user, and restrict commands executable by user based on permission assigned.
+* Alternative 1 (Current Implementation): Assign permission to each individual user and restrict commands executable by user based on permission assigned.
 
 ** Pros: Easy to control the commands a user can access.
 
 ** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
 
-* Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
+* Alternative 2: Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
 
 ** Pros: Easy to implement. Only require small modification in existing classes.
@@ -489,7 +489,7 @@ All the keywords is then added to either `permissionToAdd:Set<Permission>` or `p
 [NOTE]
 A ParseException will be thrown if any of the permission names are invalid.
 
-When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
+When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission from `permissionToAdd` and removing permissions from `permissionToRemove`.
 
 [NOTE]
 The command will be executed successfully if at least one permission is added or removed.
@@ -512,6 +512,7 @@ image::modifyPermissionSequenceDiagram.png[width="700"]
 
 ** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
 // end::modifypermission[]
+
 ==== View Permissions of employee
 
 This feature allows the user to view the permissions that have been allocated to an employee.
@@ -1921,6 +1922,45 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+
+=== Modify permission of an employee
+
+. Add or remove employee's permission using `modifypermission` command while active persons are listed
+
+.. Adding one permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `ADD_EMPLOYEE`.
+
+... Test case: `modifypermission 1 -a ADD_EMPLOYEE` +
+Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Removing multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -r DELETE_EMPLOYEE -r EDIT_EMPLOYEE` +
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is removed from employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding and removing permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with only `ADD_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE` +
+Expected: Employee at index 1 only has `DELETE_EMPLOYEE` permission. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Incorrect `modifypermission` commands to try:
+
+... `modifypermission 1 -a INVALID_PERMISSION`, `modifypermission 1 -a DELETE_EMPLOYEE -r INVALID_PERMISSION` +
+Expected: Status message shows that permission name is invalid.
+... `modifypermission`, `modifypermission -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` +
+Expected: Status message shows that the command format is invalid.
 
 === Leave management
 
