@@ -524,17 +524,24 @@ A command requst will be sent to edit the various event instances.
 All event instances in the same EventSet will be edited, their name swill become change3. +
 A command requst will be sent to edit the underlying Event, instead of editing individual event instances.
 
-==== EnterGoogleCalendarMode - test
+==== EnterGoogleCalendarMode - Delete
+The ideas follow the `Edit` section.
+
+==== EnterGoogleCalendarMode - Test
 We need to carry out integration test on Github. +
 However various limits are posted on the usage of APIs, but tests are necessary to run. +
 
 * **Introduce offline mode** (current choice)
-** Pro: Offline mode introduced at the code level to disable certain Google Calendar functions.
-** Con: Have to write seperate set of tests and helper functions.
+** Pro: Offline mode introduced at the code level to disable Google Calendar methods.
+** Con: Have to write seperate set of tests and helper functions, and control the switch accurately. `enabl()` and `disable()` helper methods are used for tests related to Google Calendar methods.
 
 * **No offline mode** (alternative)
-** Pro: Easy to implement.
-** Con: Running the current set of test cases will certainly sending too many requests to Google.
+** Pro: Easy to implement, no additional tests needed.
+** Con: Running the current set of test cases will certainly sending too many requests to Google, and triggers the IP address/ account to be blocked.
+
+*Note on Google Calendar Tests*
+Please ensure only one running PR is running the tests. +
+All tests will be using the `StoredCredential` file to access a test account's google calendar, running the same set of tests.
 
 
 // end::EnterGoogleCalendarMode[]
