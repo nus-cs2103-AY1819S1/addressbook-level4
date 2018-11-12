@@ -214,11 +214,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
-
 [[Design-Storage]]
 === Storage component
 
@@ -381,7 +376,11 @@ image::ScheduleCommand4StateDiagram.png[width="300"]
 
 The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
 
-image::ScheduleCommand5StateDiagram.png[width="400"]
+image::ScheduleCommandActivityDiagram.png[width="400"]
+
+The following sequence diagram shows how the operation itself works.
+
+image::ScheduleSequenceDiagram.png[width="700"]
 
 ==== Design Considerations
 
@@ -492,6 +491,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 // tag::undoredo[]
 
+// tag::import[]
 === Import feature
 ==== Current Implementation
 The import contacts feature is facilitated by the new `Command`, `import`. It adds a list of contacts from a properly formatted csv file
@@ -531,6 +531,11 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::importActivityDiagram.png[width="400"]
 
+The following sequence diagram shows what happens when a user executes the `Import` Command (user input mode only,
+file browser mode omitted):
+
+image::ImportSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How import executes
@@ -543,7 +548,9 @@ entries with invalid formats
 ** Pros: Easy to implement, any future modifications to Add or any changes to the validity of `Name`, `Email` etc will
 not cause import to crash.
 ** Cons: Higher coupling.
+// end::import[]
 
+// tag::export[]
 === Export feature
 ==== Current Implementation
 The export contacts feature is facilitated by the new `Command`, `export`. It takes the current list of contacts in InsuRen
@@ -568,6 +575,10 @@ The following activity diagram summarizes what happens when a user executes the 
 
 image::ExportActivityDiagram.png[width="400"]
 
+The following sequence diagram shows what happens when a user executes the `Export` Command:
+
+image::ExportSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How export executes
@@ -576,6 +587,7 @@ image::ExportActivityDiagram.png[width="400"]
 Export makes use of model.getAddressBook() and the getPersonList method within.
 ** Pros: Easy to implement. Since we are only dealing with a ReadOnlyAddressBook, the state of InsuRen will not be altered.
 ** Cons: Only able to capture snapshots of the contact list. Not dynamically updated.
+// end::export[]
 
 // tag::addpicture[]
 === Add Picture feature
@@ -1120,7 +1132,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Mass Import Contact Details
+=== Use Case: Mass import contacts into InsuRen
 
 *MSS*
 
@@ -1131,7 +1143,7 @@ Use case ends.
 
 *Extensions*
 
-* 1a. No file at directory path or invalid file type (must be a csv)
+* 1a. File does not exist at directory path or invalid file type (must be .csv or .txt)
 +
 [none]
 ** 1a1. InsuRen shows an error message.
@@ -1139,18 +1151,18 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use Case: Export Email Addresses
+=== Use Case: Export contact list from InsuRen
 
 *MSS*
 
-1. User requests to export email addresses to a user-given directory.
-2. InsuRen compiles all emails into a csv, saves it in the given directory.
+1. User requests to export current state of InsuRen to a csv file whose name is given by the user.
+2. InsuRen compiles all contacts into a csv (with the given name), saves it in the root project/application directory.
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. No file directory given
+* 1a. No file name given, or given file name does not contain .csv suffix
 +
 [none]
 ** 1a1. InsuRen shows an error message.
@@ -1334,7 +1346,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample clients. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1350,7 +1362,7 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First client is deleted from the list. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
@@ -1360,8 +1372,28 @@ _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing image files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: A person has an updated picture aside from the default picture.
+.. Assumption: `/Users/John/Downloads/Insuren/images/petertan.jpg` is the client's picture.
+.. Test case: rename, delete, or move the image file `/Users/John/Downloads/Insuren/images/petertan.jpg` such that there is no `petertan.jpg` file in the `images` folder. +
+   Expected: The default placeholder picture will be used.
 
-_{ more test cases ... }_
+// tag::testingpicture[]
+=== Adding picture
+
+. Adding a picture to a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list. `/Users/John/Downloads/Insuren/images/petertan.jpg` is a valid file path.
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/petertan.jpg` +
+   Expected: First client's picture is updated. Details of the updated client shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `pic 0 l//Users/John/Downloads/Insuren/images/petertan.jpg` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/invalid_image_path.jpg` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/invalid_image_type.mp3` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect picture commands to try: `pic`, `pic x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+// end::testingpicture[]

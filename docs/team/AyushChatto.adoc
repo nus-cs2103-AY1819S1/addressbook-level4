@@ -1,0 +1,54 @@
+= Chattoraj Ayush - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: InsuRen
+
+---
+
+== Overview
+
+'Ren' in Mandarin translates to 'person' or 'people', and true to our name, this app is all about managing one’s network of clients in an organized, efficient and intuitive manner. InsuRen is geared to the needs of the modern Insurance salesman, but anyone whose business is their strong rapport with their clients will find this to be an indispensable tool.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to schedule meetings with clients*
+** What it does: allows the user to schedule a meeting with a client. Schedule meetings can be searched using the meetings command.
+** Justification: This feature allows insurance agents to keep track of their schedules by enabling them to have a record of all their meetings. It also allows them to quickly search through all their meetings, and prevents them from accidentally scheduling clashing meetings.
+** Highlights: This enhancement added a new command. It required the use of multiple Java API classes for the validation of dates and times, as well the implementation of a new global data strcuture to store all meeting timings to prevent meetings from being scheduled at the same time.
+
+* *Minor enhancement*: added shorthand commands for all existing commands for faster access.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ayushchatto[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+** Documentation:
+*** Did general changes to existing contents of the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/57[#57], https://github.com/CS2103-AY1819S1-W13-1/main/pull/91[#91], https://github.com/CS2103-AY1819S1-W13-1/main/pull/100[#100], https://github.com/CS2103-AY1819S1-W13-1/main/pull/116[#116],
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-1/main/pull/102[#102], https://github.com/CS2103-AY1819S1-W13-1/main/pull/60[#60]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T09-4/main/issues/107[1], https://github.com/CS2103-AY1819S1-T09-4/main/issues/109[2])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=schedule]
+
+include::../UserGuide.adoc[tag=meetings]
+
+include::../UserGuide.adoc[tag=notifs]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=schedule]

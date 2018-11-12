@@ -68,7 +68,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
         Path fileLocation = ParserUtil.parseCsv(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
-        System.out.println(fileLocation.toString());
         return fileLocation.toFile();
     }
 

@@ -12,47 +12,46 @@
 'Ren' in Mandarin translates to 'person' or 'people', and true to our name, this app is all about managing one’s network of clients in an organized, efficient and intuitive manner. InsuRen is geared to the needs of the modern Insurance salesman, but anyone whose business is their strong rapport with their clients will find this to be an indispensable tool.
 
 == Summary of contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chantca95[Project Code Dashboard]
+* *Major enhancement*: added *the ability to import contacts from a CSV file*
+** What it does: allows the user to import contacts into InsuRen from a previously appropriately-formatted Excel CSV file.
+** Justification: This feature makes it convenient for users who want to populate their own InsuRen apps with existing lists of contacts. Rather than manually copying and adding contacts one by one into InsuRen, users can instead simply format their contact lists into a CSV as shown in the user guide, and import them into InsuRen in one go.
+** Highlights: This enhancement uses a new *Command*, *ImportCommand*. Users can choose CSV files using a mouse and file browser, or if they are familiar with pathing formats on their respective Operating Systems, they can also enter the path (either relative and absolute) of the required CSV.
+** Credits: none
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: added *the ability to export InsuRen data into a CSV file*
+** What it does: allows the user to export the current contacts in InsuRen into a new CSV file, whose name is given by the user.
+** Justification: This feature allows for convenient movement of a user's contact list. Some usages include keeping a back up of one's contact list, allowing one to view his InsuRen data on mobile platforms, etc.
+** Highlights: This enhancement uses a new *Command*, *ExportCommand*.
+** Credits: http://javaonlineguide.net/2014/10/compare-two-files-in-java-example-code.html
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Ensured high test coverage, thorough tests
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added Coloured Tags
+*** Import works based on Add Command - adding multiple Contacts based on csv files
+*** Export utilizes the current state of the Model to create an csv file.
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Edited our README to reflect our product's purpose, vision and branding: https://github.com/CS2103-AY1819S1-W13-1/main/pull/6/files[#6]
+*** Did general changes to existing contents of the User Guide and Developer Guide to reflect InsuRen branding: https://github.com/CS2103-AY1819S1-W13-1/main/pull/73/files[#73]
+*** Updated `ImportCommand` and `ExportCommand` documentation on the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/83/files[#83] https://github.com/CS2103-AY1819S1-W13-1/main/pull/113/files[#113]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W17-2/main/issues/263[1], https://github.com/CS2103-AY1819S1-W17-2/main/issues/262[2], https://github.com/CS2103-AY1819S1-W17-2/main/issues/261[3],
+https://github.com/CS2103-AY1819S1-W17-2/main/issues/258[4], https://github.com/CS2103-AY1819S1-W17-2/main/issues/257[5], https://github.com/CS2103-AY1819S1-W17-2/main/issues/259[6],
+https://github.com/CS2103-AY1819S1-W17-2/main/issues/254[7])
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=import]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=export]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +59,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=import]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=export]
