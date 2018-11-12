@@ -24,13 +24,13 @@ public class ExchangeTimeCommandTest {
     @Test
     public void equals() {
 
-        ExchangeTimeCommand changeTimeFirstCommand = new ExchangeTimeCommand(0,0, "Alice" , "Bob");
+        ExchangeTimeCommand changeTimeFirstCommand = new ExchangeTimeCommand(0, 0, "Alice", "Bob");
 
         // same object -> returns true
         assertTrue(changeTimeFirstCommand.equals(changeTimeFirstCommand));
 
         // same values -> returns true
-        ExchangeTimeCommand changeTimeCommandCopy = new ExchangeTimeCommand(0,0, "Alice" , "Bob");
+        ExchangeTimeCommand changeTimeCommandCopy = new ExchangeTimeCommand(0, 0, "Alice", "Bob");
         assertTrue(changeTimeFirstCommand.equals(changeTimeCommandCopy));
 
         // different types -> returns false
@@ -42,7 +42,7 @@ public class ExchangeTimeCommandTest {
     public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format("Cannot find the student or "
                 + "the input is not complete, please enter valid name");
-        ExchangeTimeCommand command = new ExchangeTimeCommand(100,0,"Alllice", "Bob");
+        ExchangeTimeCommand command = new ExchangeTimeCommand(100, 0, "Alllice", "Bob");
         assertEquals(expectedMessage, command.execute(model, commandHistory).feedbackToUser);
     }
 
