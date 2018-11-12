@@ -34,7 +34,7 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
     public static final String MESSAGE_LOGIN_ALREADY = "You have already logged in.";
-    public static final String MESSAGE_NO_RECORD_FOUND = "No staff records found.";
+    public static final String MESSAGE_NO_RECORD_FOUND = "No valid staff records found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
 
     private final Staff toAuthenticate;
