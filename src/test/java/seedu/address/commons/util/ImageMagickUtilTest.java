@@ -35,7 +35,7 @@ public class ImageMagickUtilTest {
     @Test
     public void assertGetCommandFolderSuccessfully() {
         String tmpLocation = "testing/folder";
-        ImageMagickUtil.setTemperatyCommandForder(tmpLocation);
+        ImageMagickUtil.setTemporaryCommandForder(tmpLocation);
         assertEquals(ImageMagickUtil.getCommandSaveFolder(), tmpLocation);
     }
 
@@ -84,7 +84,7 @@ public class ImageMagickUtilTest {
             list.add(new Transformation("blur", "0x8"));
             list.add(new Transformation("rotate", "90"));
             new CreateApplyCommand("blurR", list);
-            ImageMagickUtil.setTemperatyCommandForder(testCommandFolder.toString());
+            ImageMagickUtil.setTemporaryCommandForder(testCommandFolder.toString());
             ImageMagickUtil.processImage(path, new Transformation("@blurR"), false);
         } catch (UnsupportedPlatformException e) {
             return;

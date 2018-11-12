@@ -22,7 +22,7 @@ public class CreateApplyCommandTest {
     @Test
     public void createOperationsSuccessfully() throws CommandException {
         if (ImageMagickUtil.getCommandSaveFolder() == null) {
-            ImageMagickUtil.setTemperatyCommandForder(JsonConvertArgsStorageTest.TEST_DATA_FOLDER.toString());
+            ImageMagickUtil.setTemporaryCommandForder(JsonConvertArgsStorageTest.TEST_DATA_FOLDER.toString());
         }
         Transformation transformation = new Transformation("blur", "0x8");
         List<Transformation> list = new ArrayList<>();
@@ -41,7 +41,7 @@ public class CreateApplyCommandTest {
     @Test
     public void createOperationsUnsuccessfully() throws CommandException {
         if (ImageMagickUtil.getCommandSaveFolder() == null) {
-            ImageMagickUtil.setTemperatyCommandForder(JsonConvertArgsStorageTest.TEST_DATA_FOLDER.toString());
+            ImageMagickUtil.setTemporaryCommandForder(JsonConvertArgsStorageTest.TEST_DATA_FOLDER.toString());
         }
         Transformation transformation = new Transformation("blur", "0x8");
         Transformation transformation2 = new Transformation("contrast", "0x8");

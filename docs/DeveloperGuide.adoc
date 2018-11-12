@@ -490,13 +490,31 @@ The transformation feature mainly consists of:
 * `createApplyCommand`: Allows users to define their own custom transformation set.
 
 The following describes main operations and processes contained in the classes above.
+
 ==== ImageMagickUtil:
 
 This class is used to provide utility methods to facilitate interoperability with ImageMagick such as:
 
 * `copyOutside()` -- Copies the OS-specific payload for ImageMagick.
+* `parseOperationArguments()` -- Parse the build in arguments and customised operations, return a list of String passed into process builder.
 * `processImage()` -- Converts user input to a valid ImageMagick command.
 * `runProcessBuilder()` -- Given a valid ImageMagick command, runs the command and retrieves the output.
+
+This class is separated from the model and acts as a Util for image editing, whenever editing the image,
+a transformation will be passed to the processImage, and it will be parses basing on the command templates
+stored in the app, then a list of arguments will be parsed from the transformation and a new process builder will be created
+and call the ImageMagick executable file to handle the image processing.
+
+When starting the app, methods in ImageMagickUtil will be called to check the environment and prepare the ImageMagick package.
+
+.Activity Diagram for Transformation feature with ImageMagick
+image::TransformationActivityDiagram.png[width="800"]
+
+===== Design Considerations:
+As ImageMagick is an independent portable package and it differs from system to system, in order to make sure that
+piconso will be able to work on multiple operating system, it needs to check the current system, choose the correct package
+and prepare the suitable environment for using ImageMagick.
+
 
 ==== ApplyCommand:
 
@@ -504,25 +522,30 @@ This command validates a transformation provided by the user and attempts to add
 
 Given below is an example usage scenario and how the command should behave at each step.
 
-. Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
+Step 1. Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
 
-. The user opens an image with the `open` command. The method `model.getPreviewImage()` will be called to read the appropriate `BufferedImage` from disk.
+Step 2. The user opens an image with the `open` command. The method `model.getPreviewImage()` will be called to read the appropriate `BufferedImage` from disk.
 
-. The user enters the command (e.g. `apply blur 0x8`). The entered command is parsed and the corresponding transformation is created.
+Step 3. The user enters the command (e.g. `apply blur 0x8`). The entered command is parsed and the corresponding transformation is created.
 
 [NOTE]
 If an invalid transformation is provided, a reminder of how to use the command will be given to the user and no ImageMagick command will be run.
 
-[start=4]
-. `ImageMagick#processImage` is a quasi-factory method that creates an instance of `ProcessBuilder` which contains the all the necessary information for ImageMagick to apply a transformation to the image.
-. The same method also executes the `ProcessBuilder` and reads the output back from the temporary folder.
+Step 4. Call `ImageMagick#processImage` which is a quasi-factory method that creates an instance of `ProcessBuilder` which contains the all the necessary information for ImageMagick to apply a transformation to the image,
+executes the `ProcessBuilder` and reads the output back from the temporary folder.
 [NOTE]
 While normal `apply` commands will show a useful help message after a failure, an `apply raw` command cannot provide the same granularity and will return a generic error message.
 
-[start=6]
-. If successful, the transformation that is just executed will be added to the `PreviewImage`++'s++ `TransformationSet`.
+Step 5. If successful, the transformation that is just executed will be added to the `PreviewImage`++'s++ `TransformationSet`.
 
-. The command will then request the UI to update its components, namely the `HistoryListPanel` and `ImagePanel` if any transformation was applied.
+Step 6. The command will then request the UI to update its components, namely the `HistoryListPanel` and `ImagePanel` if any transformation was applied.
+
+===== Design Considerations
+
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify,
+ intermediate images have to be stored in a temp folder first.
+
+ - For senior users, or users who are familiar with ImageMagick, `apply raw` will provide more flexibility and enable them to do further image editting.
 
 .Sequence Diagram for Apply Command
 image::ApplyCommandSequenceDiagram.png[width="800"]
@@ -548,10 +571,10 @@ Step 3. The validated new command will be stored in the json for in the PiconsoC
 
 ==== Design Considerations
 
- - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify,
- intermediate images have to be stored in a temp folder first.
+ - Combination of the transformations are commonly needed in our daily lives. When users design a serious of operations and
+ plan to apply them to multiple images, or store them for future use, this feature will make the image editing more efficient
+ and flexible, thus we implemented the create command.
 
- - Combination of the transformations are commonly needed in our daily lives, thus we implemented the create command.
 // end::create[]
 
 // tag::save[]
@@ -565,9 +588,16 @@ User enters the name of the image and the format of the name will be validated.
 
 Given is an example of how to use the command
 
-Step 1. parse the image name user enters, get the name and the format of the filename.
+Step 1. Parse the argument entered, if no argument, store to original image.
 
-Step 2. check the format of the image, if the format is not supported, error will be thrown
+Step 2. If there is an argument, parse the image name user enters, get the name and the format of the filename.
+
+Step 3. Check the format of the image as well as the filename entered. If the format is not supported or the filename is already in use,
+a reminder will be shown to user and the image will not be saved.
+
+==== Design Considerations
+- as there is already an option for user to save to original image, when user specifies a filename, in order to avoid
+unintended overwritten of other images, using existing filename is forbidden.
 
 .Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width="800"]
