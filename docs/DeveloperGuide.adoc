@@ -678,8 +678,6 @@ Step 4: The `login` command verifies a password using `HashUtil#verifyPassword()
 
 Step 5: To indicate successful completion of verification, the `login` command raises a `LoginSuccessEvent`. +
 
-Step 6: Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made. +
-
 The following sequence diagrams shows how the login works:
 
 **Logic**
