@@ -46,43 +46,6 @@ public class TypicalToDoEvents {
         .withDescription("extremely difficult")
         .withPriority("H").build();
 
-    public static final CalendarEvent LECTURE = new CalendarEventBuilder().withTitle("CS2103 Lecture")
-        .withStart("2018-11-15 16:00").withEnd("2018-11-15 18:00")
-        .withVenue("i3 Auditorium")
-        .withDescription("Abstraction, Gradle, JUnit")
-        .withTags("lecture", "CS2103").build();
-    public static final CalendarEvent BENSON = new CalendarEventBuilder().withTitle("CS2104 Tutorial")
-        .withStart("2018-11-13 14:00").withEnd("2018-11-13 16:00")
-        .withVenue("AS6 04-21")
-        .withDescription("Monadic Parsers")
-        .withTags("tutorial", "CS2104").build();
-    public static final CalendarEvent CARL = new CalendarEventBuilder().withTitle("CS2040 Lab")
-        .withStart("2018-11-14 08:00")
-        .withEnd("2018-11-14 10:00")
-        .withDescription("Linked Lists")
-        .withVenue("COM1 02-09").build();
-    public static final CalendarEvent DANIEL = new CalendarEventBuilder().withTitle("FIN3101 Seminar")
-        .withStart("2018-11-16 10:00")
-        .withEnd("2018-11-16 15:00")
-        .withDescription("One-Fund Theorem")
-        .withVenue("Marina Boulevard")
-        .withTags("seminar", "FIN3101").build();
-    public static final CalendarEvent ELLE = new CalendarEventBuilder().withTitle("Choir Practice")
-        .withStart("2018-11-16 19:00")
-        .withEnd("2018-11-16 22:00")
-        .withDescription("Bring songbook")
-        .withVenue("Little Tokyo").build();
-    public static final CalendarEvent FIONA = new CalendarEventBuilder().withTitle("Career Fair")
-        .withStart("2018-11-17 09:00")
-        .withEnd("2018-11-17 18:00")
-        .withDescription("Bring resume")
-        .withVenue("MPSH 1").build();
-    public static final CalendarEvent GEORGE = new CalendarEventBuilder().withTitle("Google Interview")
-        .withStart("2018-11-14 14:00")
-        .withEnd("2018-11-14 16:00")
-        .withDescription("Bring water bottle")
-        .withVenue("Mountain View").build();
-
     private TypicalToDoEvents() {
     } // prevents instantiation
 
