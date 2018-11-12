@@ -1218,7 +1218,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 // tag::emailManualTest[]
 === Emailing a student
-. Emailing a student
+Manual Testing for sending an email to a student:
 
 .. Prerequisites: The student must exist on the list, at the correct index. If student does not exist yet, add student first.
 .. Test case: `email 1 s/Attendance b/Your attendance is good` +
