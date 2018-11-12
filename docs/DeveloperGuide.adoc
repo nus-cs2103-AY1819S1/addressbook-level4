@@ -237,7 +237,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores TheTracker data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -316,6 +316,7 @@ image::AddNewCommand1StateListDiagram.png[width="800"]
 
 The following sequence diagram shows how the `addperson` operation works:
 `addperson n/David`
+
 image::AddCommandLogicDiagram.png[width="800"]
 
 `addmodule` and `addoccasion` works in a similar way as `addperson`
@@ -334,7 +335,7 @@ pre-defined attributes.
 ** Pros: Easy to implement.
 ** Cons: Less flexible, such that users cannot add in a contact with some details they do not know.
 
-// tag::add[]
+// end::add[]
 
 
 // tag::find[]
@@ -673,7 +674,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 // tag::delete[]
 === Delete
-`delete` is a basic feature provided by every version of `TheTracker`.
+`delete` is a basic feature provided by `TheTracker`.
 It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeletePersonCommand` `DeleteModuleCommand` and
 `DeleteOccasionCommand` respectively.
 
@@ -705,8 +706,8 @@ after the `addperson n/ David...` command executes to be saved in the `addressBo
 
 image::DeleteNewCommand1StateListDiagram.png[width="800"]
 
-Step 3: The user executes `deleteperson 1` to delete the person named David in the address
-book who has an index 1. The parser `DeletePersonCommandParser` will identify by the index of the person to be
+Step 3: The user executes `deleteperson 1` to delete the person who has an index 1 (named David) in the current active list.
+The parser `DeletePersonCommandParser` will identify by the index of the person to be
 deleted.The `deleteperson` command calls Model#getFilteredPersonList(), Model#deletePerson()
 and `Model#commitAddressBook()`, and causes modified address book state to be saved into the `addressBookStateList`
 

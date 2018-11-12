@@ -53,10 +53,12 @@ https://github.com/CS2103-AY1819S1-W10-1/main/pull/115[#115])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/121[#121], https://github.com/CS2103-AY1819S1-W10-1/main/pull/171[#171],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/188[#188]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com/CS2103-AY1819S1-W10-1/main/pull/125[125])
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
