@@ -322,6 +322,26 @@ For example, a `Person` has 2 separate lists of Modules and Occasions respective
 but a `Module` or `Occasion` only contains a Person list.
 // end::polymorphismdecision[]
 
+// tag::duplicationoflists[]
+=== Duplication of Entities
+To facilitate the ease of implementation of the following features, two important methods were conceived off: `makeDeepDuplicate`
+and `makeShallowDuplicate`. These two helper methods allow a `Person`, `Module` and `Occasion` within `TheTracker` to be copied in
+a different manner. The following image is a depiction of how `makeDeepDuplicate` works when it is called on a `Person`:
+
+image::PersonMakeDeepDuplicate.png[widt="800"]
+
+As can be seen from the above image `makeDeepDuplicate` creates a replica of a `Person` such that the respective `Modules` within the `UniqueModuleList` and
+the `Occasions` within the `UniqueOccasionList` are also `DeepDuplicated`.
+
+The following image depicts how `makeShallowDuplicate` works when it is called on a `Person` within `TheTracker`:
+
+image::PersonMakeShallowDuplicate.png[width="800"]
+
+As can be seen from the above image `makeShallowDuplicate` creates a replica of a `Person` such that the respective `UniqueModuleList` and `UniqueOccasionList`
+are empty.
+
+// end::duplicationoflists[]
+
 // tag::updatinglists[]
 
 [[Updating-Lists]]
@@ -389,7 +409,7 @@ private static Consumer<Person> removePersonFromModule(Model model, Module modul
 
 
 Similar implementations are used for both `delete` and `edit` in the various combinations of entries and lists.
-// end::updatinglistsgeneral[]
+// end::updatinglists[]
 
 // tag::add[]
 === Add Person/Module/Occasion Feature
@@ -587,14 +607,8 @@ Why it is non-trivial:
 
 * For the feature to work coherently with `undo`/`redo` as well as `edit` an entire new replica of state
 of `TheTracker` must be created with the relevant entities bi-directionally inserted after this command has been executed.
-In accordance with this logic, two such methods were introduced to facilitate this feature's functionality. The first is
-the method `makeDeepDuplicate`, the following class diagram shows how the method works in relation to calling `makeDeepDuplicate`
-on a person:
 
-image::PersonMakeDeepDuplicate.png[width="800"]
-
-The method merely makes an entirely new copy of a `Person`/`Module`/`Occasion` by copying by `value` all of its predecessor's
-attributes. We cannot, however, make do with only `makeDeepDuplicate` in order to implement the `InsertPerson` feature.
+We cannot, however, make do with only `makeDeepDuplicate` in order to implement the `InsertPerson` feature.
 The following scenario illustrates why:
 
 * Insertion of `Person` `x` into `Occasion` `y` would cause `x's` occasion list to be populated by `y` and `y's` person list
@@ -604,14 +618,7 @@ to be populated by `x`. But if we insert a deep copy of `x` into `z` this would 
 us replicating the person list of `y` and, thus, `x` and so the program will halt in an infinite regress until a
 `StackOverFlow` is thrown.
 
-To counter this, we have implemented a `makeShallowDuplicate` which replicates an entity, but with an empty list. For example,
-calling `makeShallowDuplicate` on a `Person` would have the following effect:
-
-image::PersonMakeShallowDuplicate.png[width="800"]
-
-Upon insertion of a `Module` into a `Person` the respective `Module's` `ShallowDuplicate` is inserted to avoid this
-error.
-
+To avoid the above error, upon insertion of a `Module` into a `Person` the respective `Module's` `ShallowDuplicate` is inserted.
 
 // end::insertperson[]
 
@@ -634,10 +641,6 @@ For example, a shallow duplicate of Person contains an empty module list and emp
 A shallow duplicate of Module contains an empty students list.
 
 The reason why this is done will be explained in the design considerations below.
-
-The following sequence diagram shows how the `removeperson` operation works:
-
-image::RemovePersonSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 For this feature to be possible, it has to be possible to somehow remove the link between said `Person`
@@ -713,6 +716,10 @@ private void handlePerson() {
 The above code shows how the `MainWindow` deals with the context switch, which includes the
 setting of the active type (the context of the current window), so that contextual commands
 such as `delete` and `select` are able to function properly with correct indices.
+
+The following sequence diagram shows how the `listperson` operation works:
+
+image::ListPersonSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 We had to examine whether it was better to:
@@ -969,8 +976,8 @@ image::DeletePersonSdForLogic.png[width="800"]
 
 However, the current implementation also allows for 2 useful functionalities in this feature:
 
-* Inferred Deletion: As we maintain the <<Type Inference, active type>>, the deletion will be applied to the currently active list.
-* Deep Deletion: Using <<list updating, list updating>>, all references to this entry can be removed (i.e. from other entries' lists).
+* Inferred Deletion: As we maintain the active type, the deletion will be applied to the currently active list.
+* Deep Deletion: By updating the associated lists, all references to this entry can be removed (i.e. from other entries' lists).
 
 The following activity diagram gives a broad overview of the deletion process:
 
