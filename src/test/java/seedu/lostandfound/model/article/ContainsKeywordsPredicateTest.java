@@ -41,8 +41,8 @@ public class ContainsKeywordsPredicateTest {
     @Test
     public void test_containsKeywords_returnsTrue() {
         // One keyword in name field
-        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new ArticleBuilder().withName("Alice Bob").build()));
+        ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate(Collections.singletonList("wallet"));
+        assertTrue(predicate.test(new ArticleBuilder().withName("Nike wallet").build()));
 
         // One keyword in finder field
         predicate = new ContainsKeywordsPredicate(Collections.singletonList("Alice"));
