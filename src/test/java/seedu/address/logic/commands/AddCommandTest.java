@@ -5,20 +5,34 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.simplejavamail.email.Email;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.model.EmailLoadedEvent;
+import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.CalendarModel;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBudgetBook;
+import seedu.address.model.calendar.Month;
+import seedu.address.model.calendar.Year;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -88,8 +102,19 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
         @Override
         public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCca(Cca cca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMultipleCcas(List<Cca> ccaList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -104,7 +129,57 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyBudgetBook getBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CalendarModel getCalendarModel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Cca> getFilteredCcaList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<String> getExistingEmails() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Name person) {
+            return false;
+        }
+
+        @Override
+        public void initialiseBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCca(CcaName ccaName) {
+            return false;
+        }
+
+        @Override
+        public boolean hasCca(Cca cca) {
+            return false;
+        }
+
+        @Override
+        public boolean hasCca(Person toAdd) {
+            return false;
+        }
+
+        @Override
+        public boolean hasEmail(String fileName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,7 +189,42 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearMultiplePersons(List<Person> target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeTagsFromPersons(List<Person> target, List<Person> original) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateCca(Cca target, Cca editedCca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void exportAddressBook(Path filePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMultiplePersons(List<Person> personList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -125,6 +235,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCcaList(Predicate<Cca> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,6 +265,123 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitBudgetBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveComposedEmail(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveComposedEmailWithoutDisplay(Email email) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEmail(String fileName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleCalendarLoadedEvent(CalendarLoadedEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isExistingCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isLoadedCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidDate(Year year, Month month, int date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidTime(int hour, int minute) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidTimeFrame(int startDate, int endDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isValidTimeFrame(int startDate, int startHour, int startMinute,
+                                        int endDate, int endHour, int endMinute) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void loadCalendar(Year year, Month month) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleEmailLoadedEvent(EmailLoadedEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createAllDayEvent(Year year, Month month, int date, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void createEvent(Year year, Month month, int startDate, int startHour, int startMin,
+                                int endDate, int endHour, int endMin, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isExistingEvent (Year year, Month month, int startDate, int endDate, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteEvent(Year year, Month month, int startDate, int endDate, String title) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateExistingCalendar() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCca(Cca ccaToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void readXslFile() {
             throw new AssertionError("This method should not be called.");
         }
     }

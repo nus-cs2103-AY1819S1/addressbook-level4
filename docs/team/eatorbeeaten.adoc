@@ -1,0 +1,69 @@
+= KOK YUAN - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Hallper
+
+== 1. Overview
+
+This Project Portfolio documents my contributions to Hallper.
+
+Hallper is designed by a team of 5 Computer Science students (including myself), from the National University of Singapore (NUS).
+Hallper is a desktop application designed to serve the JCRCs of NUS.
+The user interacts with Hallper using a defined list of typed commands.
+Hallper's interface is created with JavaFX, and the other components are written in Java.
+
+Some of its main features are:
+
+* Clearing and importing of multiple contacts conveniently
+* Tagging contacts by categories (CCA, room, etc)
+* Filtering through contacts quickly
+* Viewing of contact profile
+* Updating of profile pictures of contacts
+* Allocating and managing the budget
+* Composing emails to multiple contacts
+* Updating monthly events to the calendar
+
+== 2. Summary of contributions
+
+* *Major enhancement*: Added *the ability to compose emails*
+** What it does: Allows the user to compose emails to recipients consisting of selected persons in Hallper.
+** Justification: Amproves Hallper significantly by allowing simple email creation with specified residents as recipients.
+** Highlights: Touches all components in Hallper. This made the implementation challenging as it required an understanding of all the various components.
+** Credits: Uses http://www.simplejavamail.org/[Simple Java Mail] to create emails.
+
+* *Minor enhancement*: added a few commands (delete_email, list_emails, view_email) to improve email manipulation in Hallper.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=eatorbeeaten[Link to compiled list of code]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2.1` - `v1.4` (4 releases) on GitHub.
+
+** Documentation:
+*** Added email features to the User Guide.
+*** Added an introduction to the Developer Guide.
+*** Added email features to the Developer Guide.
+*** Formatted use cases and user stories in the Developer Guide.
+
+** Tools:
+*** Integrated Github plugins (AppVeyor, Coveralls, Codacy) to the team repository. (https://github.com/CS2103-AY1819S1-W16-1/main/pull/46[#42])
+
+== 3. Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=email]
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=compose]

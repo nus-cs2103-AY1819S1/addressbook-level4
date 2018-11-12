@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Hallper - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,21 +13,29 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W16-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
+
+== Introduction
+
+Hallper is a desktop application aimed at serving the Junior Common Room Committees (<<jcrc,JCRCs>>) of the Halls of NUS.
+Hallper follows an event-driven architecture, and is designed to work on any <<mainstream-os,mainstream operating system (OS)>>.
+This guide provides you with information on how to contribute to Hallper, whether you are a new or experienced developer.
 
 == Setting up
 
+This section tells you how to set up your computer before you can start working on Hallper.
+
 === Prerequisites
 
-. *JDK `9`* or later
+* *JDK `9`* or later
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
-. *IntelliJ* IDE
+* *IntelliJ* IDE
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
@@ -36,15 +44,17 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
-. Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
+Follow these steps to set up the project on your computer:
+
+. Fork this repository, and clone the fork to your computer.
+. Open IntelliJ (If you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
@@ -54,29 +64,31 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+Follow these steps to verify the setup:
+
+. Run the `seedu.address.MainApp` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
-=== Configurations to do before writing code
+=== Configurations before writing code
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify:
 
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
-. Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
 
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements.
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still refer to the `CS2103-AY1819S1-W16-1/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-W16-1/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -98,66 +110,71 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
+When you are ready to start coding:
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+* Get some sense of the overall design by reading <<Design-Architecture>>.
+* Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section describes the architecture and components of the application.
 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
 image::Architecture.png[width="600"]
+_Figure 3.1.1: Architecture Diagram_
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component:
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initialising the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level:
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Ui,*`UI`*>>: Controls the UI of the App.
+* <<Design-Logic,*`Logic`*>>: Executes commands.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.1.2: Class Diagram of the Logic Component_
+
 
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
+_Figure 3.1.2: Component interactions for `delete 1` command (part 1)_
+
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
+_Figure 3.1.3: Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -167,16 +184,19 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+_Figure 3.2.1: Structure of the UI Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
-The `UI` component,
+The `UI` component:
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -186,36 +206,44 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.3.1: Structure of the Logic Component_
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
+The `Logic` component consists of all the `Command` and `Parser` classes.
+It makes use of `AddressBookParser` to parse all user commands.
+
+A typical flow in the `Logic` component is given below:
+
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
+_Figure 3.3.2: Interactions Inside the Logic Component for the `delete 1` Command_
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
+_Figure 3.4.1: Structure of the Model Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component consists of classes that model objects e.g. `Person`, `Calender`, `Email`, etc.
+It does not depend on any of the other three components.
+
+The `Model` component:
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -225,20 +253,26 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1: Structure of the Storage Component_
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component consists of classes which are responsible for saving and reading files.
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component:
+
+* saves `UserPref` objects in json format and reads it back.
+* saves the Address Book data in xml format and reads it back.
+* saves emails in eml format and reads it back.
+* saves calendars in ics format and reads it back.
+* saves the Budget Book data in xml format and reads it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Commons
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+`Commons` consists of classes used by multiple components and are located in the `seedu.addressbook.commons` package.
 
 == Implementation
 
@@ -260,22 +294,22 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+*Step 1.* The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+*Step 2.* The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+*Step 3.* The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+*Step 4.* The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -291,18 +325,17 @@ The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, whic
 [NOTE]
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+*Step 5.* The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+*Step 6.* The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
-
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -312,7 +345,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -320,12 +353,837 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Pros: Do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::compose[]
+=== Email feature
+Written below is the implementation of the Email feature, and considerations in its design.
+
+==== Current Implementation
+
+image::EmailActivityDiagram.png[width="1400"]
+_Figure 4.2.1.1: Activity diagram of_ `ComposeEmailList`.
+
+The Email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
+It allows `.eml` files to be created and saved onto the computer.
+The feature is facilitated by `EmailModel` and `EmailDirStorage`.
+A simple activity diagram depicting how `ComposeEmailList` works is shown above in Figure 4.2.1.1.
+It implements the following operations:
+
+* `EmailModel#saveComposedEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
+* `EmailDirStorage#saveEmail(EmailModel email)` -- Saves the newly composed email in the `EmailModel` to the computer.
+
+These operations are exposed in the `Model` interface as `Model#saveComposedEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
+
+image::EmailSequenceDiagram.png[width="1500"]
+_Figure 4.2.1.2: Sequence diagram of_ `ComposeEmailList`.
+
+Given below is an example usage scenario and how the Compose feature behaves at each step:
+
+*Step 1.* The user executes either the `ComposeEmailList` command or `ComposeEmailIndex` command, which creates an email.
+The `ComposeEmailList`/`ComposeEmailIndex` command calls `Model#saveComposedEmail(Email email)`, saving the email to `EmailModel`.
+In Figure 4.2.1.1, the user executes the `ComposeEmailList` command.
+
+*Step 2.* Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new
+ email is saved to the `EmailModel`.
+
+*Step 3.* The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent
+(EmailSavedEvent event)`, which then calls `EmailDirStorage#saveEmail(EmailModel email)`.
+This saves the email to a specified local directory.
+
+==== Design Considerations
+
+===== Aspect: Method to create emails
+
+* **Alternative 1 (current choice):** Use http://www.simplejavamail.org/#/about[Simple Java Mail].
+** Pros: http://www.simplejavamail.org/#/about[Simple Java Mail] contains various methods to conveniently create emails.
+The library is easy to understand so any new developer can easily extend the current features.
+** Cons: The design of created emails is limited to the http://www.simplejavamail.org/#/about[Simple Java Mail] API.
+* **Alternative 2:** Write a custom email builder.
+** Pros: The design of created emails can be freely manipulated.
+** Cons: Much more code has to be written.
+
+===== Aspect: Text type
+
+* **Alternative 1 (current choice):** HTML text
+** Pros: Users with HTML knowledge can manipulate the content of the email.
+** Cons: Users unfamiliar with HTML minimally has to learn how the `<br>` tag works.
+* **Alternative 2:** Plain text
+** Pros: Plain text is easily understood by almost any user.
+** Cons: The design of the email content is very limited.
+
+// end::compose[]
+
+// tag::calendar[]
+=== Calendar feature
+==== Current Implementation
+
+The calendar feature in Hallper is implemented using a third-party dependency, https://github.com/ical4j/ical4j[iCal4j].
+It creates `.ics` files and saves them onto the local computer. Calendars in Hallper are created as monthly
+calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
+It implements the following commands:
+
+* `create_calendar` -- Creates a monthly calendar and stores it in local memory.
+* `add_all_day_event` -- Adds an all day event into the monthly calendar specified.
+* `add_event` -- Adds an event of a specified time frame into the monthly calendar.
+* `delete_event` -- Deletes an existing event in the monthly calendar.
+* `view_calendar` -- Loads a monthly calendar from local memory onto the Hallper.
+
+===== Create_Calendar Command
+This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `CalendarModel#createCalendar(Year year, Month month)` -- Initializes a calendar object in the `CalendarModel`.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the computer.
+
+These operations are exposed in the `Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
+
+Given below is an example usage scenario and how the `create_calendar` command behaves at each step:
+
+*Step 1.* The user executes the `create_calendar` command by specifying the month and year.
+The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
+calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
+calendar already exists. Else, the command calls `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
+
+*Step 2.* Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
+ to indicate that a calendar object has been initialized in the `CalendarModel`.
+
+*Step 3.* The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
+`StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the calendar to a specified local directory.
+
+The following sequence diagram shows how the create_calendar operation works:
+
+image::CreateCalendarSeqDiagram.png[width="1500"]
+_Figure 4.3.1.1: Sequence diagram for create_calendar command_
+
+===== Add Event Commands
+The `add_all_day_event` and `add_event` command have many similarities, they differ only by their parameters and the number of checks called to verify the validity of the event to be added. Events in Hallper are created as VEvent objects as implemented in the https://github.com/ical4j/ical4j[iCal4j] library.
+Both commands are facilitated by `ModelManager`, `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
+
+* `ModelManager#loadCalendar(Year year, Month month)` -- Raises a `LoadCalendarEvent`.
+* `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)` -- Creates an all day event object and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)` -- Creates an event object with the specified time frame and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isValidTime(int hour, int min)` -- Checks if the hour and minutes are valid in accordance to the 24 hour format.
+* `CalendarModel#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` -- Checks that the end date and time doesn't occur before the start date and time.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#createAllDayEvent(Year year, Month month, int date, String title)`
+* `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isValidTime(int hour, int min)`
+* `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+====== Add_All_Day_Event Command
+Given below is an example usage scenario and how the `add_all_day_event` command behaves at each step:
+
+*Step 1.* The user executes the `add_all_day_event` command by specifying the month, year, date and title.
+The `add_all_day_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`, to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+
+*Step 2.* Else if the calendar hasn't been loaded yet, `Model` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+*Step 3.* Once the calendar object is loaded in the `CalendarModel`, it then calls `Model#createAllDayEvent(Year year, Month month, int date, String title)`, which calls `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)`.
+This creates an event object and loads it with all the relevant information.
+
+*Step 4.* The `ModelManager` then raises a `AllDayEventAddedEvent`, to indicate an all day event has been created in the `CalendarModel`.
+
+*Step 5.* The `AllDayEventAddedEvent` goes to the `EventsCenter`, and is then handled by
+`StorageManager#handleAllDayEventAddedEvent(AllDayEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+The following sequence diagram shows how the add_all_day_event operation works:
+
+image::AddAllDayEventSeqDiagram.png[width="1500"]
+_Figure 4.3.1.2: Sequence diagram for add_all_day_event command_
+
+// end::calendar[]
+
+====== Add_Event Command
+Given below is an example usage scenario and how the `add_event` command behaves at each step:
+
+*Step 1.* The user executes the `add_event` command by specifying the month, year, starting date, starting time, ending date, ending time and title.
+The `add_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`,
+`Model#isValidTime(int hour, int min)` and `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+
+*Step 2.* Else if the calendar hasn't been loaded yet, `Model` first calls `ModelManager#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+*Step 3.* Once the calendar object is loaded in the `CalendarModel`, it then calls `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`, which calls `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`.
+This creates an event object and loads it with all the relevant information.
+
+*Step 4.* The `ModelManager` then raises a `CalendarEventAddedEvent`, to indicate an event with a specified time frame has been created in the `CalendarModel`.
+
+*Step 5.* The `CalendarEventAddedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventAddedEvent(CalendarEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+The following sequence diagram shows how the add_event operation works:
+
+image::AddEventSeqDiagram.png[width="1500"]
+_Figure 4.3.1.3: Sequence diagram for add_event command_
+
+
+===== Delete_Event Command
+This command is facilitated by `ModelManager`, `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `ModelManager#loadCalendar(Year year, Month month)` -- Raises a `LoadCalendarEvent`.
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#deleteEvent(Year year, Month month)` -- Deletes an existing event in the monthly calendar.
+* `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` -- Retrieves the event object from the calendar.
+* `CalendarModel#isSameEvent(int startDate, int endDate, String title, VEvent event)` -- Checks whether the requested event to be deleted is the same event object in the calendar.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` -- Checks if an event exists in the monthly calendar.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+Given below is an example usage scenario and how the `delete_event` command behaves at each step:
+
+*Step 1.* The user executes the `delete_event` command by specifying the month, year, starting date, ending date, and title.
+The `delete_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)` and
+`Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` to perform checks on whether the request to delete event is valid.
+If it fails any one of the checks, the command does nothing and reflects to the user that the request to delete event is not valid. Else, the `Model#isExistingEvent` check will retrieve the event and load it inside the `CalendarModel`. It then calls `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`.
+
+*Step 2.* The `Model#isExistingEvent` check first calls `ModelManager#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`. Once the calendar object is loaded in the `CalendarModel`, it then calls `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` to retrieve the event and store it inside the `CalendarModel` as event to be deleted.
+
+*Step 3.* The call to `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)` calls `CalendarModel#deleteEvent(Year year, Month month)` which removes the event to be deleted in `CalendarModel` from the monthly calendar.
+
+*Step 4.* The `ModelManager` then raises a `CalendarEventDeletedEvent`, to indicate an event has been deleted in the `CalendarModel`.
+
+*Step 5.* The `CalendarEventDeletedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+The following sequence diagram shows how the delete_event operation works:
+
+image::DeleteEventSeqDiagram.png[width="1500"]
+_Figure 4.3.1.4: Sequence diagram for delete_event command_
+
+===== View_Calendar Command
+This command is facilitated by `ModelManager`, `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `ModelManager#loadCalendar(Year year, Month month)` -- Raises a LoadCalendarEvent.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the calendar from the computer.
+
+These operations are exposed in the `Model` interface as `Model#loadCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#loadCalendar(String calendarName)` respectively.
+
+Given below is an example usage scenario and how the `view_calendar` command behaves at each step:
+
+*Step 1.* The user executes the `view_calendar` command by specifying the month and year.
+The `view_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
+calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
+calendar already exists. Else, the command calls `Model#loadCalendar(Year year, Month month)` which then raise a `LoadCalendarEvent`.
+
+*Step 2.* The `LoadCalendarEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleLoadCalendarEvent(LoadCalendarEvent event)`, which then calls `IcsCalendarStorage#loadCalendar(String calendarName)`.
+This loads the calendar from the specified local directory.
+
+*Step 3.* Once the calendar is loaded, it then raise a `CalendarLoadedEvent`. The event goes to the `EventsCenter`, and is then handled by `ModelManager#handleCalendarLoadedEvent(CalendarLoadedEvent event)` which then calls `CalendarModel#loadCalendar(Calendar calendar, String calendarName)`. This saves the calendar into the model.
+
+The following sequence diagram shows how the view_calendar operation works:
+
+image::ViewCalendarSeqDiagram.png[width="1500"]
+_Figure 4.3.1.5: Sequence diagram for view_calendar command_
+
+The following activity diagram summarizes what happens when a user executes a calendar command:
+
+// tag::calendarDesign[]
+
+image::CalendarCommandActivityDiagram.png[width="650"]
+_Figure 4.3.1.6: Activity diagram for calendar commands_
+
+==== Design Considerations
+
+===== Aspect: File format
+
+* **Pro:** The `.ics` file format is compliant with the RFC 5545 format, which is industry recognised, and can be opened
+ and viewed using many applications, including Microsoft Outlook, Google Calendar, and Apple Calendar.
+* **Con:** `.ics` file alone is not very useful. User needs to import the events created into users' preferred
+calender application manually and consistently. More implementations will be required to make `.ics` files useful in
+Hallper.
+
+===== Aspect: Using https://github.com/ical4j/ical4j[iCal4j]
+
+https://github.com/ical4j/ical4j[iCal4j] contains various methods that make creating, parsing and editing `.ics` files convenient.
+The library is widely used and easy to understand so any new developer can easily extend the current features.
+
+// end::calendarDesign[]
+
+
+=== Budget feature
+==== Current Implementation
+
+The budget feature in Hallper is implemented with reference to `AddressBook`. It stores `Cca` instead of `Person`, and
+each `Cca` contains the `Name` of the head and vice-head, `Budget` allocated, `Spent` and `Outstanding` and a set of
+transaction `Entries`. Each `Entry` contains a `Date`, `Amount` and `Remarks`. The budget feature is facilitated by
+`BudgetBook` and `BudgetBookStorage`, and can also read and write onto the `ccabook.xml`, just like the  AddressBook.
+ The purpose of this budget feature is to keep track of each `Cca` transaction.
+
+It implements the following commands:
+
+ * `create` -- Creates a CCA with a given budget.
+ * `delete_cca` -- Deletes a specified CCA.
+ * `update` -- Updates the details of a specified CCA.
+ * `add_trans` -- Adds a transaction entry to a specified CCA.
+ * `delete_trans`  -- Deletes a transaction entry to a specified CCA.
+ * `budget` -- Shows the transaction information of each CCA.
+
+However, only the implementation of `create`, `update`, `add_trans` and `budget` will be discussed.
+// tag::create[]
+
+===== Create Command
+The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
+directory. It implements the following command:
+
+* `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Saves a current version of the budget book in the `VersionedBudgetBook`.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#addCca(Cca cca)`
+* `Model#hasCca(CcaName name)`
+* `Model#hasCca(Cca cca)`
+* `Model#commitBudgetBook()`
+
+Given below is an example usage scenario and how the create cca mechanism behaves at each step.
+
+*Step 1.* The user creates a new CCA by including the `CCA name` and the `budget` allocated to the CCA.
+
+*Step 2.* `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
+
+
+*Step 3.* `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
+`BudgetBookChangedEvent`, which is handled by `EventsCenter`.
+
+*Step 4.* `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to update the existing
+`ccabook.xml` file with the new CCA.
+
+The following sequence diagram shows how the create operation works:
+
+image::CreateCcaCommandSequenceDiagram.png[width="1500"]
+_Figure 4.4.1.1: Sequence diagram for create command_
+// end::create[]
+
+===== Update Command
+The `update` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is getting updated, it looks up the `BudgetBook` in the `BudgetBookStorage` of the `Model` for the CCA to
+update. It then updates the `Cca` stored inside the `ccabook.xml` file in the local directory.
+It implements the following commands:
+
+* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` -- Updates an existing CCA in the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Saves a current version of the budget book in the `VersionedBudgetBook`.
+* `UpdateCommand#createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor)` -- Creates an updated version
+of the target CCA.
+* `TransactionMath#updateDetails(Cca cca)` -- Updates the `Spent` and `Outstanding` amount of the specified CCA.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#updateCca(Cca targetCca, Cca editedCca)`
+* `Model#hasCca(CcaName cca)`
+* `Model#commitBudgetBook()`
+* `Model#hasPerson(Name person)`
+
+Given below is an example usage scenario and how the update cca mechanism behaves at each step:
+
+*Step 1.* The user specifies the CCA to be updated by including the CCA name and the fields to update.
+
+*Step 2.* The user can update the head's name, the vice-head's name, the budget allocated, and the details of a
+transaction entry such as its date, amount involved and remarks for the transaction. These information is stored in the
+`UpdateCommand#EditCcaDescriptor`. Any fields that are not valid will display an error message.
+
+*Step 3.* `update` command then checks for existing CCA name using `BudgetBook#hasCca(CcaName ccaName)`. If the cca name
+ does not exist, an error message will appear. Otherwise, the updated CCA will be created from the
+ `UpdateCommand#EditCcaDescriptor` using
+ `UpdateCommand#createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor)`.
+
+*Step 4.* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` then replaces the existing CCA with the updated CCA and
+invokes `ModelManger#indicateBudgetBookChange()` to raise a `BudgetBookChangedEvent`, which is handled by
+`EventsCenter`.
+
+*Step 5.* `BudgetBookChangedEvent` is handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to replace the specified CCA in the
+the existing `ccabook.xml` with the updated CCA and its information.
+
+The following sequence diagram shows how the update operation works:
+
+image::UpdateCommandSequenceDiagram.png[width="1500"]
+_Figure 4.4.1.2: Sequence diagram for update command_
+
+===== Add_Transaction Command
+
+The `add_trans` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a transaction entry is to be added, it looks up the `BudgetBook` in the `BudgetBookStorage` of
+the `Model` for the CCA and add the specified entry to the CCA. It then updates the `Cca` stored inside the `ccabook
+.xml` file in the
+local directory.
+It implements the following commands:
+
+* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` -- Updates an existing CCA in the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Saves a current version of the budget book in the `VersionedBudgetBook`.
+* `TransactionMath#updateDetails(Cca cca)` -- Updates the `Spent` and `Outstanding` amount of the specified CCA.
+
+These operations are exposed in the `Model` interface as:
+
+* `Model#updateCca(Cca targetCca, Cca editedCca)`
+* `Model#hasCca(CcaName cca)`
+* `Model#commitBudgetBook()`
+
+Given below is an example usage scenario and how the add transaction mechanism behaves at each step:
+
+*Step 1.* The user specifies the CCA to add transaction to by including the CCA name and the transaction fields.
+
+*Step 2.* The user must include the `Date`, `Amount` and `Remarks` for the transaction entry. Any fields that are not
+valid will display an error message.
+
+*Step 3.* `add_trans` command then checks for existing CCA name using `BudgetBook#hasCca(CcaName ccaName)`. If the
+cca name does not exist, an error message will appear. Otherwise, the `Entry` is created and is added to the
+target `Cca` using `Cca#AddNewTransaction(Entry entry)`.
+
+*Step 4.* The `Spent` and `Outstanding` is then updated using `TransactionMath#updateDetails(Cca cca)`.
+
+*Step 5.* `BudgetBook#updateCca(Cca targetCca, Cca editedCca)` then replaces the existing CCA with the updated CCA and
+invokes `ModelManger#indicateBudgetBookChange()` to raise a `BudgetBookChangedEvent`, which is handled by
+`EventsCenter`.
+
+*Step 6.* `BudgetBookChangedEvent` is handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to replace the specified CCA in the
+the existing `ccabook.xml` with the updated CCA and its transaction entry.
+
+The following sequence diagram shows how the add transaction operation works:
+
+image::AddTransCommandSequenceDiagram.png[width="1500"]
+__Figure 4.4.1.3: Sequence diagram for add_trans command_
+
+// tag::budget[]
+===== Budget Command
+The `budget` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+It opens up a separate window to display the CCA information and its transaction history. It implements the
+following command:
+
+* `EventsCenter#getInstance() -- Gets the instance of the EventsCenter.
+* `EventsCenter#post(E event) -- Posts an event to the event bus.
+
+Given below is an example usage scenario and how the budget mechanism behaves at each step.
+
+*Step 1.* The user enters the budget command with or without a specified CCA.
+
+*Step 2.* When a CCA is specified, `BudgetCommand(CcaName ccaName)` is called. Otherwise, `BudgetCommand()` is called
+and the `CcaName` is null.
+
+*Step 3.* If the CCA is specified, the `budget` command checks whether the CCA specified exist.
+
+*Step 4.* `budget` command then raises a `ShowBudgetViewEvent`, which is handled by `EventsCenter`.
+
+*Step 5.* `ShowBudgetViewEvent` is handled by `MainWindow#handleShowBudgetEvent(ShowBudgetViewEvent event)` and invokes
+ `MainWindow#handleBudget(CcaName ccaName)`. This opens the budget window through `BudgetWindow#show(CcaName ccaName)`.
+
+*Step 6.* It then checks whether the CCA name is present in `BudgetWindow#fillInnerParts(CcaName ccaName)`. If CCA name
+ is present, `BudgetBrowserPanel(ccaName)` is called and the specified CCA information will be displayed. Otherwise,
+ `BudgetBrowserPanel()` will be called and a blank page will be showed.
+
+The following activity diagram summarizes what happens when a user executes a budget command:
+
+image::BudgetCommandActivityDiagram.png[width="650"]
+_Figure 4.4.1.4: Activity diagram for budget command_
+
+==== Design Considerations
+
+===== Aspect: Choice of local storage format
+
+* **Alternative 1 (current choice):** Saves in `.xml` format.
+** Pros: Easy to create, understand, move and translate into other environments. International data standard for
+storing information.
+** Cons: Parsing XML software is slow and cumbersome. Uses large amounts of memory due to the verbosity and incurs cost
+ of parsing large XML files.
+* **Alternative 2:** Save in `.json` format.
+** Pros: Faster in parsing information as compared to `.xml`.
+** Cons: JSON has no error handling. Therefore when the code fails to insert information, the code will not throw any
+error.
+
+// end::budget[]
+
+// tag::clear[]
+=== Clear feature
+==== Current Implementation
+The clear feature allows the user to clear persons associated with specified keywords from the database.
+
+It implements the following operations:
+* `ClearCommand#clearAll(Model model)` -- Clears the entire database.
+* `ClearCommand#clearSpecific(Model model)` -- Clears persons associated with specified keywords.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook`, `Model#resetData()` and
+`Model#clearMultiplePersons(List<Person> target)`.
+
+Given below is an example usage scenario and how the clear mechanism behaves at each step:
+
+*Step 1.* The user specifies CCA(s) and/or room(s) of persons to be cleared from the database.
+
+*Step 2.* `ClearCommandParser` checks for the validity of the CCA(s) and/or room(s) specified. If non-existent argument(s) specified,
+a `CommandException` will be thrown. A combination of existing and non-existent arguments specified will be successfully parsed.
+
+*Step 3.* `ClearCommand#execute(Model model, CommandHistory history)` is then called and invokes `ClearCommand#clearSpecific(Model model)`,
+which uses the specified arguments to create a persons list containing associated persons to be cleared.
+`ModelManager#clearMultiplePersons(List<Person> target)` is then invoked to clear the internal list of persons in target.
+
+*Step 4.* After the internal list is cleared, `ModelManager#clearMultiplePersons(List<Person> target)`
+then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+*Step 5.* `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the cleared persons list.
+
+The following sequence diagram shows how the clear operation works:
+
+image::ClearCommandSequenceDiagram.png[width="800"]
+_Figure 4.5.1.1: Sequence diagram of clear command on specified keywords._
+
+
+The following activity diagram summarizes what happens when a user executes the clear command:
+
+image::ClearCommandActivityDiagram.png[width="650"]
+_Figure 4.5.1.2: Activity diagram showing different path flows of clear command._
+
+==== Design Considerations
+
+===== Aspect: Merging command to clear entire database or specific persons
+* **Alternative 1 (current choice):** Clear command is merged.
+** Pros: Due to the similar function of clearing persons from the database, merging them under a single command makes it
+easier for the user to remember and produce the command input. Clearing of the entire database is also rarely executed
+so it makes logical sense to merge these commands.
+** Cons: The user will not be able to use `all` as a CCA as it is a reserved keyword to clear the entire database.
+
+* **Alternative 2:** Clear commands are separated.
+** Pros: The user can clearly distinguish between the two features by renaming them with different command inputs.
+** Cons: There is no need for a separate command for clearing the entire database as it is a rarely used feature.
+
+// end::clear[]
+
+// tag::erase[]
+=== Erase Feature
+==== Current Implementation
+The erase feature allows the user to erase specified CCAs from persons associated with the CCAs in the database.
+
+It implements the following operation:
+
+* `EraseCommand#execute(Model model, CommandHistory history)` -- Executes the erasure of CCAs from persons in the database.
+
+This operation is exposed in the `Model` interface as `Model#commitAddressBook()` and
+`Model#removeTagsFromPersons(ArrayList<Person> target, ArrayList<Person> original)`.
+
+Given below is an example usage scenario and how the erase mechanism behaves at each step:
+
+*Step 1.* The user specifies CCA(s) to be erased from the database.
+
+*Step 2.* `EraseCommandParser` checks for the validity of the CCA(s) specified. If non-existent CCA(s) specified,
+a `CommandException` will be thrown. A combination of existing and non-existent CCAs specified will be successfully parsed.
+
+*Step 3.* `EraseCommand#execute(Model model, CommandHistory history)` is then called and uses the specified CCA arguments
+to create a new persons list with specified CCAs erased from associated persons.
+`ModelManager#removeTagsFromPersons(List<Person> editedPersons, List<Person> targets)` is then invoked to update
+the internal list with the new persons list.
+
+*Step 4.* After the internal list is updated, `ModelManager#removeTagsFromPersons(List<Person> editedPersons, List<Person> targets)`
+then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+*Step 5.* `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the new persons list.
+
+The following sequence diagram shows how the erase operation works:
+
+image::EraseCommandSequenceDiagram.png[width="800"]
+_Figure 4.6.1.1: Sequence diagram of erase command on specified keywords._
+
+
+The following activity diagram summarizes what happens when a user executes the erase command:
+
+image::EraseCommandActivityDiagram.png[width="650"]
+_Figure 4.6.1.2: Activity diagram showing different path flows of erase command._
+
+==== Design Considerations
+===== Aspect: Algorithm to identify persons associated with CCAs to be erased
+* **Alternative 1 (current choice):** Loop through current internal list to extract associated persons.
+** Pros: The implementation of the extraction algorithm is straightforward and will not miss out any persons.
+** Cons: The execution time will be slow for large quantity of persons in the internal list.
+
+* **Alternative 2:** Store persons in a multilayer linked list data structure.
+** Pros: The number of CCAs are fewer than the number of persons in the database, so it would be faster to search for the
+target CCAs in the first layer of the linked list and obtain the entire second layer list of persons associated with the CCA.
+** Cons: The implementation is rather complicated and requires other commands such as add, edit and delete to be modified
+as well. More space would be needed on the computer to store the multilayer linked list other than the actual
+`addressbook.xml` file.
+
+// end::erase[]
+
+// tag::import[]
+=== Import feature
+==== Current Implementation
+The import feature allows `.xml` files of different formats to be imported from the computer.
+
+It implements the following operations and classes:
+
+* `ImportCommand#parseFile()` -- Parses specified path into document for reading.
+* `ImportAddressBook#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update
+Hallper data.
+* `ImportCcaList#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update Hallper
+contacts' CCAs.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#addMultiplePersons()`
+and `Model#updateMultiplePersons`.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+*Step 1.* The user imports `.xml` file by specifying the path of the file.
+
+*Step 2.* `ImportCommandParser` checks for the validity of the path and `.xml` file format. If `.xml` file has an invalid
+format, the specified file will not be imported.
+
+*Step 3.* `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
+
+*Step 4:* `ImportCommand#execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
+Model model)` to read the document.
+
+*Step 5.* After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
+`ModelManager#addMultiplePersons(List<Person> personList)` to update Hallper's internal list and
+`ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+*Step 6.* `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the new contacts.
+
+The following sequence diagram shows how the import operation works:
+
+image::ImportCommandSequenceDiagram.png[width="800"]
+_Figure 4.7.1.1: Sequence diagram of import command._
+
+
+The following activity diagram summarizes what happens when a user executes the import command:
+
+image::ImportCommandActivityDiagram.png[width="650"]
+_Figure 4.7.1.2: Activity diagram showing different path flows of import command._
+
+==== Design Considerations
+
+===== Aspect: Choice of component to read imported file
+
+* **Alternative 1 (current choice):** Reads file in `Logic`.
+** Pros: Easy to change parsing of `.xml` file when `.xml` file format changes. New `.xml` file formats can be added
+without disrupting the existing parsers.
+** Cons: Importing from the computer is a storage-related feature but the reading of the file is located outside of
+Storage component.
+
+* **Alternative 2:** Reads file in `Storage`.
+** Pros: Proper grouping of import implementation inside related component.
+** Cons: More complicated implementation if more `.xml` file formats are added to be parsed in the future.
+
+// end::import[]
+
+// tag::export[]
+=== Export feature
+==== Current Implementation
+The export feature allows Hallper data to be exported as an `xml` file to the computer.
+
+It implements the following operation:
+
+* `ExportCommand#execute(Model model, CommandHistory history)` -- Exports current Hallper data as an `xml` file to
+the specified path.
+
+This operation is exposed in the `Model` interface as `Model#exportAddressBook(Path filePath)`.
+
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+*Step 1.* The user exports an 'xml' file by specifying the destination path and name of the exported file.
+
+*Step 2.* `ExportCommandParser` checks for the validity of the path and file name. If path or file name are invalid, Hallper
+data will not be exported. Otherwise, path and filename will be parsed into a single, full path.
+
+*Step 3.* `ExportCommand#execute(Model model, CommandHistory history)` then invokes
+`ModelManager#exportAddressBook(Path filePath)` which raises an `ExportAddressBookEvent`.
+
+*Step 4.* `ExportAddressBookEvent` is then handled by
+`StorageManager#handleExportAddressBookEvent(ExportAddressBookEvent event)`.
+`StorageManager#exportAddressBook(ReadOnlyAddressBook addressBook, Path path)` is then called to export Hallper's
+storage data to the specified path.
+
+The following sequence diagram shows how the export operation works:
+
+image::ExportCommandSequenceDiagram.png[width="800"]
+_Figure 4.8.1.1: Sequence diagram of export command._
+
+
+The following activity diagram summarizes what happens when a user executes the export command:
+
+image::ExportCommandActivityDiagram.png[width="650"]
+_Figure 4.8.1.2: Activity diagram showing different path flows of export command._
+
+==== Design Considerations
+
+===== Aspect: Choice of export format
+
+* **Alternative 1 (current choice):** Export `.xml` format only.
+** Pros: Easy for user to update and re-import the `.xml` file. Standardised format for Hallper-related data files.
+** Cons: Difficult to convert/transfer data to other applications due to limited export format. Need to use external
+applications to convert `.xml` file.
+
+* **Alternative 2:** Export `.xml`, `.txt` and `.xlsx` formats.
+** Pros: More options for user to export Hallper data. Exported files can be read across different applications.
+** Cons: Unused file formats. `.xml` is the format that is mainly used by Hallper so `.txt` and `.xlsx` may be
+underused or unused.
+// end::export[]
+
+// tag::image[]
+=== Image feature
+
+==== Current Implementation
+The image feature allows `.jpg` image files to be uploaded into Hallper to a specific person from the computer.
+The feature is facilitated by `ProfilePictureDirStorage`. It implements the follow operations:
+
+* `ProfilePictureDirStorage#readProfilePicture(File file)` -- Reads the file that is specified by the user through
+a path and returns a copy of the image that is being read.
+* `ProfilePictureDirStorage#saveProfilePicture(BufferedImage image, Room number)` -- Saves the copied image into the
+computer.
+
+Both operations are exposed in the `Storage` interface as `Storage#readProfilePicture(File file)` and
+`Storage#saveProfilePicture(BufferedImage image, Room number)` respectively.
+
+Given below is an example usage scenario and how the image mechanism behaves at each step:
+
+*Step 1.* The user specifies the file path of the `.jpg` image to be uploaded and the person's room number.
+
+*Step 2.* `ImageCommandParser` passes the room number and file that is specified by the file path to `ImageCommand`.
+
+*Step 3.* `ImageCommand` searches Hallper for the person that is tagged with the specified room number. It returns an
+error message if the room number specified is not tagged to any person.
+
+*Step 4.* Once the room number is verified, a `NewImageEvent` is raised from the `ImageCommand` to initiate the reading
+and copying of the image from the given file path.
+
+*Step 5.* The `NewImageEvent` goes to the `EventCenter`, and is then handled by
+`StorageManager#handleNewImageEvent(NewImageEvent event)`. `ProfilePictureStorage#readProfilePicture(File file)` is
+then called to read the image file. After reading a valid image file, the
+`ProfilePictureStorage#saveProfilePicture(BufferedImage image, Room number)` is called to save the image into the
+computer.
+
+*Step 6.* Hallper then updates the person's profile picture field with the name of the copied image.
+
+The following sequence diagram shows how the image operation works:
+
+image::Image Sequence Diagram.png[width="730"]
+_Figure 4.7.1.1: Sequence diagram for image operation_
+
+The following activity diagram summarizes what happens when a user executes the image command:
+
+image::Image Activity Diagram.png[width="500"]
+_Figure 4.7.1.2: Activity diagram for image operation_
+
+==== Design Considerations
+===== Aspect: Choice of component to read and save the file
+
+* **Alternative 1 (current choice):** Read and save image file through `Storage`.
+** Pro: Reading and saving files through `Storage` follows the architecture that the project is built upon.
+** Con: Informing the user of invalid file path is much more complicated.
+
+* **Alternative 2:** Read and save image file through `ImageCommand`.
+** Pro: Informing the user of invalid file path will be similar to when an invalid command is given.
+** Con: Reading and saving the image file from `ImageCommand` breaks the architecture of the project.
+
+==== Aspect: Image type
+* **Alternative 1 (current choice):** Only `.jpg` image files.
+** Pro: Copying the image will be easier since all images saved will be in the form of `.jpg`.
+** Con: Limiting users to only being able to upload one type of image file.
+
+* **Alternative 2:** Allow for multiple image file types i.e `.jpg`, `.png`.
+** Pro: Increasing the valid image file types allows users to have more choices when choosing the picture to upload.
+** Con: Copying of the image will be more complicated since all images will be saved as a `.jpg` image file type.
+
+// end::image[]
+
+// tag::search[]
+=== Search feature
+
+==== Current Implementation
+The search feature allows the user to search for persons who in Hallper using their room number, school and CCAs.
+
+It implements the following operation:
+
+* `SearchCommand#execute(Model model, CommandHistory history)` -- Updates the filtered persons list with persons that
+has fields that match any of the predicates.
+
+This operation is exposed in the `Model` interface as `Model#updateFilteredPersonList(Predicate<Person> predicate)`.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+*Step 1.* The user specifies the keywords to search Hallper with.
+
+*Step 2.* `SearchCommandParser` checks for the keywords after the search command word. If there are no keywords
+after the search command word, a `ParseException` is thrown. Any keywords that comes after the search command word
+will be successfully parsed into a `FieldsContainsKeywordsPredicate`
+
+*Step 3.* `SearchCommand#execute(Model model, CommandHistory history)` is then called and uses the predicate to update
+the filtered persons list.
+
+*Step 4.* After updating the list, the `PersonListPanel` is then updated to display the search result.
+
+The following sequence diagram shows how the search operation works:
+
+image::Search Sequence Diagram.png[width="600"]
+_Figure 4.10.1.1: Sequence diagram for search operation_
+
+The following activity diagram summarizes what happens when a user executes the search command:
+
+image::Search Activity Diagram.png[width="500"]
+_Figure 4.10.1.2: Activity diagram for search operation_
+
+==== Design Considerations
+
+===== Aspect: Fields to search
+
+* *Alternative 1 (current choice):* Limit choice to only room number, school and CCA.
+** Pro: The search command will only search for the fields that are the most commonly used.
+** Con: The fields that can be used as keywords are limited.
+
+* *Alternative 2:* Include all available fields to be the search criteria.
+** Pro: Allows the command to search using more criteria.
+** Con: Including name as a search criteria will overlap with the current find command and phone numbers
+are not commonly used as search criterias.
+
+// end::search[]
+
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== [Proposed] Data encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
@@ -333,18 +1191,22 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and
+logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Logging level can be controlled using the `logLevel` setting in the configuration file (See
+<<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the
+specified logging level
+* Current log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Detect critical problem which may possibly cause the termination of the application.
+* `WARNING` : Able to continue, but with caution.
+* `INFO` : Show information on the noteworthy actions by the App.
+* `FINE` : Display eetails that is not usually noteworthy but may be useful in debugging e.g. print the actual list
+instead of just its size.
 
 [[Implementation-Configuration]]
 === Configuration
@@ -358,16 +1220,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -378,11 +1240,11 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+_Figure 5.3.1: Saving documentation as PDF files in Chrome_
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -390,7 +1252,7 @@ The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-spec
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
-.List of site-wide attributes
+_Table 5.4.1: List of site-wide attributes_
 |===
 |Attribute name |Description |Default value
 
@@ -412,7 +1274,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -422,7 +1284,7 @@ Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built
 Attributes left unset in `.adoc` files will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
-.List of per-file attributes, excluding Asciidoctor's built-in attributes
+_Table 5.5.1: List of per-file attributes, excluding Asciidoctor's built-in attributes_
 |===
 |Attribute name |Description |Default value
 
@@ -440,7 +1302,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -458,7 +1320,10 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+Testing is a crucial part of developing your application.
+Testing allows you to verify the correctness and usability of your app, before releasing it to users.
+
+=== Running tests
 
 There are three ways to run tests.
 
@@ -499,7 +1364,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -507,22 +1372,24 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+This section describes the tools used for building, testing, and releasing the application.
+
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -531,7 +1398,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
@@ -820,13 +1687,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* JCRC member of a Hall of NUS
+* has to manage a significant number of hall residents
+* has to manage budget for CCAs
+* has to consolidate hall event dates
+* has to notify hall residents about events
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage hall residents faster and easier than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -836,35 +1707,78 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new JCRC member |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |JCRC member |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |JCRC member |delete a person |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |JCRC member |list all persons |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |JCRC member |find a person by name |locate details of persons without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |JCRC member |mass import residents' details |save time from not having to manually key in contacts one by one
+
+|`* * *` |JCRC member |delete selected groups of residents |save time from not having to search for and delete persons one by one
+
+|`* * *` |JCRC member |delete selected tags from residents |accommodate mass changes in CCA members list
+
+|`* * *` |JCRC member |compose emails |ease the process of sending emails to groups of hall residents
+
+|`* * *` |JCRC member |delete emails |remove email files that I no longer need
+
+|`* * *` |JCRC member |list all emails |see what emails exist
+
+|`* * *` |JCRC member |view emails |see the contents of an email
+
+|`* * *` |JCRC member |publish calenders |prevent clashes between events and inform hall residents of upcoming events
+
+|`* * *` |JCRC Finance Director |keep track of each CCA's budget |prevent problems during an audit
+
+|`* *` |JCRC member |list which residents are in specified CCAs |contact personnel in the CCA more efficiently
+
+|`*` |JCRC member |store pictures under contact details |easily identify hall residents and distinguish between those with similar names
+
+|`*` |JCRC member |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |JCRC member |sort persons by name |locate a resident easily
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Hallper` and the *Actor* is the `JCRC member`, unless specified otherwise)
+
+[discrete]
+=== Use case: Display usage instructions
+
+*MSS*
+
+1. JCRC member requests to view usage instructions
+2. Hallper shows usage instructions
++
+Use case ends.
+
+[discrete]
+=== Use case: Add person
+
+*MSS*
+
+1. JCRC member requests to add a person with specific details
+2. Hallper adds the person
++
+Use case ends.
 
 [discrete]
 === Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  JCRC member requests to list persons
+2.  Hallper shows a list of persons
+3.  JCRC member requests to delete a specific person in the list
+4.  Hallper deletes the person
 +
 Use case ends.
 
@@ -878,46 +1792,481 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Hallper shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: List persons
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of all persons
++
+Use case ends.
+
+[discrete]
+=== Use case: Search tag
+
+*MSS*
+
+1. JCRC member requests to search by specific tag
+2. Hallper shows list of only persons with specified tag
++
+Use case ends.
+
+[discrete]
+=== Use case: Find person
+
+*MSS*
+
+1. JCRC member requests to find person containing specific name
+2. Hallper shows list of persons with matching name
++
+Use case ends.
+
+[discrete]
+=== Use case: Clear persons
+
+*MSS*
+
+1. JCRC member requests to clear persons
+2. Hallper clears all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. JCRC member requests to clear persons with specific tag(s)
++
+[none]
+** 1a1. Hallper clears all persons with specified tag(s)
++
+Use case ends.
+
+[discrete]
+=== Use case: Import contacts
+
+*MSS*
+
+1. JCRC member requests to import contacts from file location
+2. Hallper imports contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Export contacts
+
+*MSS*
+
+1. JCRC member requests to export contacts to location
+2. Hallper exports contacts to location
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Erase tag
+
+*MSS*
+
+1. JCRC member requests to erase specific tag(s)
+2. Hallper erases specified tag(s) from all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Tag does not exist
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Compose email (index)
+
+*MSS*
+
+1. JCRC member requests to list persons.
+2. Hallper shows list of persons.
+3. JCRC member requests to compose an email to specific people in the list
+4. Hallper requests for all details of email (Sender, indexes, subject, content)
+5. JCRC member enters all details
+6. Hallper saves an output file in the computer
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. Hallper shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Compose email (list)
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of persons
+3. JCRC member requests to compose an email to the current list of persons
+4. Hallper requests for all details of email (Sender, subject, content)
+5. JCRC member enters all details
+6. Hallper saves an output file in the computer
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: List emails
+
+*MSS*
+
+1. JCRC member requests to list emails
+2. Hallper shows list of all emails
++
+Use case ends.
+
+[discrete]
+=== Use case: View email
+
+*MSS*
+
+1. JCRC member requests to view an email
+2. Hallper requests for email subject
+3. JCRC member enters subject
+4. Hallper displays email with given subject
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Email with given subject does not exist.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Select person
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of persons
+3. JCRC member requests to select a specific person in the list
+4. Hallper shows details of selected person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Publish calendar
+
+*MSS*
+
+1. JCRC member requests to publish calendar
+2. Hallper requests for the intended calendar month
+3. JCRC member enters the month
+4. Hallper saves an output file in the computer
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a calendar
+
+*MSS*
+
+1. JCRC member requests to delete a calendar
+2. Hallper requests the calendar month
+3. JCRC member enters the month
+4. Hallper deletes the specified calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Calendar does not exist
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Add event to calendar
+
+*MSS*
+
+1. JCRC member requests to add a new event to a calendar
+2. Hallper requests for all details of event (Month, year, day, start time, end time, event name)
+3. JCRC member enters all details
+4. Hallper creates a new event on the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Another event clashes with the same timing
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete event on a calendar
+
+*MSS*
+
+1. JCRC member requests to delete an event on a calendar
+2. Hallper requests for all details of event (Month, year, day, event name)
+3. JCRC member enters all details
+4. Hallper deletes the specified event on the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Event does not exist
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Add CCA
+
+*MSS*
+
+1. JCRC member requests to add a CCA.
+2. Hallper requests for details of CCA (Name of CCA and allocated budget).
+3. JCRC member enters the details.
+4. Hallper displays the details of the CCA.
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. CCA name given is in the wrong format.
++
+[none]
+** 3a1. Hallper shows an error message
++
+Use case resumes at step 3.
+
+* 3b. Budget entered is is in the wrong format.
++
+[none]
+** 3b1. Hallper shows an error message
++
+Use case resumes at step 3.
+
+[discrete]
+
+=== Use case: Update CCA
+
+*MSS*
+
+1. JCRC member requests to modify a specific CCA in the list.
+2. Hallper requests for new details of the CCA (name of CCA, names of head and vice-head, budget, transaction entry
+number, date, amount transaction remarks).
+3. JCRC member enters the details.
+4. Hallper displays the new details of the CCA.
++
+Use Case ends.
+
+*Extensions*
+
+* 3a. The given CCA does not exist in Hallper.
++
+[none]
+** 3a1. Hallper displays error message
++
+Use case resumes at step 3.
+
+* 3b. Name(s) of head and/or vice-head is/are not detected in the contact list.
++
+[none]
+** 3b1. Hallper shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. Budget entered is invalid.
++
+[none]
+** 3c1. Hallper shows an error message.
++
+Use case resumes at step 3.
+
+* 3d. Transaction number not valid for CCA or date. amount, or remarks not in the correct format.
++
+[none]
+** 3d1. Hallper shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete CCA
+
+*MSS*
+
+1. JCRC member requests to delete a specific CCA in the list.
+2. Hallper requests for confirmation of deletion.
+3. JCRC member confirms.
+4. Hallper deletes the CCA.
++
+Use Case ends.
+
+*Extensions*
+
+* 3a. The given CCA does not exist in Hallper.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all CCAs
+
+*MSS*
+
+1. JCRC member requests for list of CCAs.
+2. Hallper displays list of CCAs.
++
+Use Case ends.
+
+[discrete]
+=== Use case: Add CCA Transaction
+
+*MSS*
+
+1. JCRC member requests to add a transaction for a specific CCA in the list.
+2. Hallper requests transaction details (date, amount, remarks).
+3. JCRC member enters transaction details
+4. Hallper displays details of the CCA
++
+Use Case ends.
+
+*Extensions*
+
+* 3a. The given CCA is not in Hallper.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 1.
+
+* 3b. Date, amount and remarks are not in the correct format.
++
+[none]
+** 3b1. Hallper shows an error message
++
+Use case resumes at step 1.
+
+[discrete]
+
+=== Use case: Sort contacts
+
+*MSS*
+
+1. JCRC member requests sort the contacts
+2. Hallper sorts the contacts
++
+Use case ends.
+
+[discrete]
+=== Use case: Add image
+
+*MSS*
+
+1. JCRC member requests to add a person's image
+2. Hallper requests for room number and image location
+3. JCRC member enters room number and image location
+4. Hallper adds the image
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+*  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
 
-[appendix]
-== Product Survey
+[[cca]] CCA::
+Co-Curricular Activity that residents can join within their respective halls.
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[jcrc]] JCRC::
+Junior Common Room Committee in charge of administrative duties within their respective halls.
 
 [appendix]
 == Instructions for Manual Testing
@@ -927,7 +2276,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launching and shutting down
 
 . Initial launch
 
@@ -941,11 +2290,10 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all persons are listed.
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
@@ -955,12 +2303,317 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Composing an email to all currently listed residents
 
-=== Saving data
+. Composing an email while all persons are listed.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: `compose_email_list from/john@gmail.com subject/Example Subject content/Example Content` +
+   Expected: Email displayed on the BrowserPanel with the emails of all listed contacts as recipients of the email.
 
-_{ more test cases ... }_
+.. Test case: `compose_email_list from/john@gmail.com subject/    content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+.. Test case: `compose_email_list from/john subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+. Composing an email while no persons are listed.
+
+.. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
+
+.. Test case: `compose_email_list from/john@gmail.com subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Composing an email to specified indexes
+
+. Composing an email while all persons are listed.
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+.. Test case: `compose_email_index from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email displayed on the BrowserPanel with the emails of the first and second contact as recipients of the email.
+
+.. Test case: `compose_email_index from/john@gmail.com to/100 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+.. Test case: `compose_email_index from/john@gmail.com to/0 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+. Composing an email while no persons are listed.
+
+.. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
+
+.. Test case: `compose_email_index from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Deleting an email
+
+. Deleting an email that exists
+
+.. Prerequisites: Email to delete exists in the directory in the computer.
+
+.. Test case: `delete_email Valid Subject` +
+   Expected: Email with subject 'Valid Subject' is deleted from the computer.
+
+. Deleting an email that does not exist
+
+.. Prerequisites: Email to delete does not exist in the directory in the computer.
+
+.. Test case: `delete_email Invalid Subject` +
+   Expected: Error details shown in the status message.
+
+=== Listing emails
+
+. Listing all emails
+
+.. Test case: `list_emails` +
+   Expected: Existing emails displayed on the BrowserPanel.
+
+=== Viewing an email
+
+. Viewing an email that exists
+
+.. Prerequisites: Email to view exists in the directory in the computer.
+
+.. Test case: `view_email Valid Subject` +
+   Expected: Email displayed on the BrowserPanel.
+
+. Viewing an email that does not exist
+
+.. Prerequisites: Email to view does not exist in the directory in the computer.
+
+.. Test case: `view_email Invalid Subject` +
+   Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Creating a monthly calendar
+. Creating a new monthly calendar.
+
+.. Test case: `create_calendar month/oct year/2018` +
+   Expected: "Calendar created: OCT-2018.ics". The GUI remains at the same state as it was before the command execution.
+
+.. Test case: `create_calendar month/october year/2018` +
+   Expected: The GUI remains at the same state as it was before the command execution. Error details shown in the status message.
+
+.. Test case: `create_calendar month/oct year/-2018` +
+   Expected: The GUI remains at the same state as it was before the command execution. Error details shown in the status message.
+
+. Creating an existing monthly calendar.
+
+.. Test case: `create_calendar month/oct year/2018` +
+   Expected: The GUI remains at the same state as it was before the command execution. Error details shown in the status message.
+
+It is recommend to test the calendar and its relevant commands using the present month and year as arguments. This is because the calendar GUI will always display the current week as its default time frame.
+
+=== Viewing a monthly calendar
+. Viewing an existing calendar.
+
+.. Test case: `view_calendar month/oct year/2018` +
+   Expected: The monthly calendar displays on the UI with the current week as its default time frame.
+
+. Viewing a non-existing calendar.
+
+.. Test case: `view_calendar month/sep year/1998` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+=== Adding an all day event into monthly calendar
+* Adding a new all day event into the calendar.
+
+.. Test case: `add_all_day_event month/oct year/2018 date/25 title/Example` +
+   Expected: The updated calendar displays on the UI with the current week as its default time frame.
+
+.. Test case: `add_all_day_event month/oct year/2018 date/-1 title/Example` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+* Adding an already existing identical all day event into the calendar.
+
+.. Test case: `add_all_day_event month/oct year/2018 date/25 title/Example` +
+   Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event already exist in the calendar and its duplicate is not created.
+
+Events in Hallper are considered the same if they have the same start date, end date and title (case-sensitive).
+
+=== Adding an event into monthly calendar
+* Adding a new event with a specified time frame into the calendar.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/30 title/Example` +
+   Expected: The updated calendar displays on the UI with the current week as its default time frame.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/24 smin/0 edate/2 ehour/17 emin/30 title/Example` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/60 title/Example` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+* Adding an already existing identical event into the calendar.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/30 title/Example` +
+   Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event already exist in the calendar and its duplicate is not created.
+
+=== Deleting an event from monthly calendar
+* Deleting an existing event from the monthly calendar.
+
+.. Test case: `delete_event month/oct year/2018 sdate/25 edate/25 title/example` +
+   Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event doesn't exist in the calendar and nothing is deleted. (Event titles are case-sensitive)
+
+.. Test case: `delete_event month/oct year/2018 sdate/25 edate/25 title/Example` +
+   Expected: The updated calendar displays on the UI with the current week as its default time frame.
+
+=== Clearing persons
+. Clearing persons while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `clear soccer` (where `soccer` exists in list) +
+   Expected: Person(s) associated with `soccer` is/are cleared from the list.
+.. Test case: `clear A123` (where `A123` exists in list) +
+   Expected: Person(s) associated with `A123` is/are cleared from the list.
+.. Test case: `clear soccer A123` (where `soccer` and/or `A123` exist in list) +
+   Expected: Person(s) associated with `soccer` or `A123` is/are cleared from the list.
+.. Test case: `clear invalidCCA` (where `invalidCCA` does not exist in list) +
+   Expected: No person(s) are deleted. No persons cleared message displayed.
+
+=== Erasing CCAs
+. Erasing CCAs while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `erase basketball` (where `basketball` exists in list) +
+   Expected: `basketball` is removed from associated person(s) in list.
+.. Test case: `clear basketball soccer` (where `basketball` and `soccer` exist in list) +
+   Expected: `basketball` and `soccer` are removed from associated person(s) in list.
+.. Test case: `clear invalidCCA` (where `invalidCCA` does not exist in list) +
+   Expected: No CCA is erased. No CCAs erased message displayed.
+
+=== Exporting data
+. Exporting Hallper persons to the computer.
+
+.. Prerequisites: `C://Users/Me/Documents` and `~/Desktop` are valid, accessible paths.
+.. Test case: `export dst/C://Users/Me/Documents fn/export.xml` +
+   Expected: Hallper data exported to `export.xml` in `C://Users/Me/Documents`.
+.. Test case: `export dst/~/Desktop fn/export.xml` +
+   Expected: Hallper data exported to `export.xml` in `~/Desktop`.
+.. Test case: `export dst/~/Desktop fn/export.txt` +
+   Expected: Data not exported. Invalid file type message displayed.
+
+=== Importing data
+. Importing data files from computer to update Hallper.
+
+.. Prerequisites: Data files created in accessible path on computer with valid format and named `import.xml`.
+   Refer to User Guide Section 4.1.9 for valid data formats. `C://Users/Me/Documents` and `~/Desktop` are valid,
+   accessible paths.
+.. Test case: `import dst/C://Users/Me/Documents/import.xml` +
+   Expected: Data imported from `import.xml` in `C://Users/Me/Documents`.
+.. Test case: `import f/~/Desktop/import.xml` +
+   Expected: Data imported from `import.xml` in `~/Desktop`.
+.. Test case: `import f/C://Users/Me/Documents/import.txt` +
+   Expected: Data not imported. Invalid file type message displayed.
+
+=== Searching persons
+
+. Searching persons in Hallper.
+
+.. Prerequisites: Multiple persons in Hallper.
+.. Test case: `search soccer` (where a person has `soccer` tagged).
+   Expected: Persons that are in `soccer` will be displayed in the Peron List Panel. Number of persons message displayed.
+.. Test case: `search FoS` (where `FoS` is not tagged to any persons). +
+   Expected: Person Panel List will be empty. 0 persons message displayed.
+
+=== Uploading a profile picture
+
+. Uploading of person profile picture from computer to Hallper.
+
+.. Prerequisites: Image files created in accessible path on computer with valid format and named `image.jpg`. Refer
+   to User Guide Section 4.1.2 for valid data formats. Hallper has at least 1 valid person.
+.. Test case: `image r/A123 f/C://Users/Me/Documents/image.jpg` +
+   Expected: Image file copied and pasted into Hallper `out/production/resources/profile_picture. The image is named
+   after the person's room number.
+.. Test case: `image r/A111 f/C://Users/Me/Documents/image.jpg` (where there is no resident tagged to `A111`). +
+   Expected: Image not copied. No such person message displayed.
+.. Test case: `image r/A123 f/NotAFilePath` +
+   Expected: Image not copied. File path error message displayed.
+.. Test case: `image r/A123 f/FileDontExist.jpg` +
+   Expected: Image not copied. Invalid image error message displayed.
+
+=== Creating CCA
+. Adds a CCA with a given budget
+
+.. Prerequisites: The name of the given CCA only contains alphabets. The budget given is numeric and the only symbol
+can be used is dash.
+.. Test case: `create n/Basketball budget/500` +
+   Expected: New CCA added: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `create n/Basketball` +
+   Expected: Invalid command format!
+             create: Create a new CCA to the address book.
+             Parameters: n/CCA NAME budget/BUDGET
+             Example: create n/Basketball budget/500
+.. Test case: `create` +
+    Expected: Invalid command format!
+              create: Create a new CCA to the address book.
+              Parameters: n/CCA NAME budget/BUDGET
+              Example: create n/Basketball budget/500
+.. Test case: `create n/Basketball-M budget/500` +
+    Expected: CCA names should only contain alphabet characters and spaces, and it should not be blank!
+.. Test case: `create n/Basketball budget/$500`
+    Expected: Budget should only contain numbers and it should not be blank.
+
+=== Deleting CCA
+. Deletes a CCA in Hallper.
+
+.. Prerequisites: The specified CCA must exist in Hallper.
+.. Test case: `delete_cca c/basketball` +
+   Expected: Deleted CCA: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `delete_cca c/tennis` +
+    Expected: The CCA does not exist.
+.. Test case: `delete_cca` +
+    Expected: Invalid command format!
+              delete_cca: Deletes the CCA specified
+              Parameters: c/CCA
+              Example: delete_cca c/ basketball
+
+=== Updating CCA
+. Update the details of a CCA.
+
+.. Prerequisites: The specified CCA must exist in Hallper. The fields provided must be in the correct format.
+.. Test case: `update c/hockey h/Peter Park` +
+   Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
+.. Test case: `update c/tennis h/Peter Park` +
+    Expected: The CCA does not exist.
+.. Test case: `update c/hockey trans/1 amount/200` +
+    Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
+
+=== Adding a transaction entry
+. Adds a transaction entry for a specified CCA in Hallper
+
+.. Prerequisites: The specified CCA must exist in Hallper. The details of the transaction must all be provided and
+are in the correct format.
+.. Test case: `add_trans c/hockey date/20.12.2018 amount/-100 remarks/venue booking` +
+   Expected: Transaction added: Hockey Head: Alex Yeoh Vice-Head: Bernice Yu Budget: 500
+.. Test case: `add_trans c/tennis date/20.12.2018 amount/-100 remarks/venue booking` +
+   Expected: The CCA does not exist. Please create the CCA before. adding its transaction
+.. Test case: `add_trans c/tennis date/20.12.2018 amount/-100` +
+    Expected: All the fields must be provided.
+              add_trans: Add a new transaction to the specified Cca
+              Parameters: c/CCA date/DD.MM.YYYY amount/AMOUNTremarks/REMARKS
+              Example: add_trans c/basketball date/13.12.2018 amount/-100 remarks/Purchase of equipment
+
+=== Deleting a transaction entry
+. Deletes a transaction entry for a specified CCA in Hallper.
+
+.. Prerequisites: The specified CCA must exist in Hallper. The transaction entry must exist for that CCA.
+.. Test case: `delete_trans c/basketball trans/1` +
+   Expected: Deleted Cca Transaction Entry:  Entry Number: 1 Date: 13.11.2013 Amount: -300 Remarks: Purchase of Equipment
+.. Test case: `delete_cca c/basketball` +
+    Expected: delete_trans: Deletes the specified transaction entry of the specified CCA
+              Parameters: c/CCA INDEX (must be a positive integer)
+              Example: delete_trans c/ basketball 2
+.. Test case: `delete_trans c/tennis trans/1` +
+    Expected: The CCA does not exist.
+
+=== Showing CCAs' budget
+. Displays the CCA information and its transaction history.
+
+.. Prerequisites: The specified CCA must exist in Hallper.
+.. Test case: `budget` +
+   Expected: Display budget.
+.. Test case: `budget c/basketball` +
+   Expected: Display budget.
+.. Test case: `budget c/tennis` +
+    Expected: The CCA does not exist.

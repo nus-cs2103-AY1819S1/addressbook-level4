@@ -41,6 +41,7 @@ public class SampleDataTest extends AddressBookSystemTest {
         } catch (IOException ioe) {
             throw new AssertionError(ioe);
         }
+
     }
 
     @Test

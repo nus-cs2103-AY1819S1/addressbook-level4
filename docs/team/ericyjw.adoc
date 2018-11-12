@@ -1,0 +1,101 @@
+= ERIC YANG JIA WEI- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Hallper
+
+---
+
+== 1) Overview
+
+The purpose of this portfolio is to document the contributions I have done to the project and provide an overview of
+what the project is about.
+
+This project is undertaken by myself and four other Computer Science students as part of our Software Engineering
+module. Titled as Hallper, our project is a desktop application specially designed for the Junior Common Room
+Committee (JCRC). The JCRC is a student representative body from every Hall in National University of Singapore,
+responsible for managing student affairs. Hallper aims to facilitate the JCRC in its day-to-day management by
+providing a combined platform that encompasses different functions that are mainly used by the JCRC. This allows the
+JCRC to carry out its  duties more efficiently and systematically.
+
+To use Hallper, the user keys in specific commands to create emails, calendar events and manage the Hall's
+budget -- all of the main concerns of the JCRC addressed on a single platform.
+
+
+== 2) Summary of contributions
+These are my personal contributions to the project:
+
+* *Major enhancement 1*: added *the budget feature*
+** What it does: It allows the user to allocate budgets to the CCAs and key in future transactions to keep
+track of each CCA's spending.
+** Justification: This feature improves Hallper's functionality where it provides an extra option to assist the user
+in managing finances and monitor the hall's budget more easily. By centralising the different CCAs' spending onto
+ a centralised platform, the user can manage hall finances in a more straightforward manner.
+** Highlights: The budget feature adds on to the existing address book and creates a separate budget book to store
+new information regarding the CCAs, their budget and spending. The tags used in the address book are used to
+link the address book and budget book together. The budget feature requires in-depth understanding of
+the source code as it adds and deletes CCAs and transactions, similar to adding and deleting a person in an address
+book.
+
+* *Major enhancement 2*: added *the budget window*
+** What it does: It opens up another window that displays the list of CCAs available and their transaction history.
+** Justification: This feature improves the user experience as the user can obtain the financial information of each
+CCA easily. The separate window allows the user to go back to the main Hallper window easily when he wants to look up
+ for a person in the address book. The separate windows allow the user to tend to financial matters while searching
+ for the person-in-charge concurrently.
+** Highlights: This budget window requires a deep understanding of Java FXML API, JavaFX and XML, and how they work
+together. It is challenging as it requires interaction with the main window.
+
+* *Minor enhancement*: added a F2 button to allow the user to switch between the budget window and the main Hallper
+window.
+
+* *Code contributed*:
+[ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ericyjw[RepoSense] ]
+
+* *Other contributions*:
+
+** Documentation:
+*** Updated About Us: (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/1[#1],
+ https://github.com/CS2103-AY1819S1-W16-1/main/pull/8[#8],
+  https://github.com/CS2103-AY1819S1-W16-1/main/pull/10[#10],
+  https://github.com/CS2103-AY1819S1-W16-1/main/pull/16[#16])
+*** Organised the User Guide to make it more reader friendly:
+ https://github.com/CS2103-AY1819S1-W16-1/main/pull/113/commits/59679dc3edf8c607b42ed6fd02889aa79d8f7152[#113]
+*** Vetted the User Guide, Developer Guide and About Us:
+(Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/168[#162])
+
+** Enhancement:
+*** Increased the code coverage from 68% to 81%:
+(Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/162[#162])
+
+** Community:
+*** Provided feedback for the other group's project: (Issue:
+https://github.com/CS2103-AY1819S1-F10-3/main/issues/265[#265],
+https://github.com/CS2103-AY1819S1-F10-3/main/issues/269[#269],
+https://github.com/CS2103-AY1819S1-F10-3/main/issues/270[#270])
+
+
+== 3) Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=create]
+
+include::../UserGuide.adoc[tag=update]
+
+include::../UserGuide.adoc[tag=budget]
+
+== 4) Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=create]
+
+include::../DeveloperGuide.adoc[tag=budget]
+

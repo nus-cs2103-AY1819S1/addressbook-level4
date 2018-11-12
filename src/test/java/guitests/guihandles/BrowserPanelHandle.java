@@ -2,6 +2,8 @@ package guitests.guihandles;
 
 import java.net.URL;
 
+import org.w3c.dom.Document;
+
 import guitests.GuiRobot;
 import javafx.concurrent.Worker;
 import javafx.scene.Node;
@@ -60,5 +62,12 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      */
     public boolean isLoaded() {
         return isWebViewLoaded;
+    }
+
+    /**
+     * Returns the {@code htmlString} of the currently loaded profile.
+     */
+    public Document getLoadedProfile() {
+        return ProfileViewUtil.getLoadedProfile(getChildNode(BROWSER_ID));
     }
 }
