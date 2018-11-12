@@ -629,7 +629,7 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::mc[]
 ==== Generating medical certificate: `mc`
 
-Clinic staff can use this command to generate a medical certificate for the Served Patient. +
+Does the patient need to be excused from school or work to rest? Let's give him a medical certificate! +
 Format: `mc INDEX`
 
 [WARNING]
@@ -647,7 +647,7 @@ image::mc_fig.png[width="600"]
 // tag::receipt[]
 ==== Generating receipt: `receipt`
 
-Clinic staff can use this command to generate a receipt for the Served Patient. +
+How much does today's visit to the clinic cost? Let's create a receipt for the patient! +
 Alias: `rec` +
 Format: `receipt INDEX`
 
@@ -666,7 +666,7 @@ image::receipt_fig.png[width="600"]
 // tag::refer[]
 ==== Generating referral letter: `refer`
 
-Clinic staff can use this command to generate a referral letter for the Served Patient. +
+Does the patient need to consult a specialist? Let's give him a referral letter! +
 Alias: `ref` +
 
 Format: `refer INDEX`
