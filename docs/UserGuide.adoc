@@ -24,7 +24,7 @@ If you can type fast, CAPTracker is the ideal application for monitoring your cu
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure you have Java version `10` or later installed in your Computer.
 .  Download the latest `captracker.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you would want to use as the home folder for
 your CAP Tracker.
