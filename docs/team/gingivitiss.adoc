@@ -5,11 +5,11 @@
 
 == PROJECT: ClinicIO
 
-The project
+ClinicIO is a desktop clinic management application used for teaching Software Engineering principles. The user interacts with it using a CLI. It is written in Java, and has about 10 kLoC.
 
 == Overview
 
-ClinicIO is a desktop clinic management application used for teaching Software Engineering principles. The user interacts with it using a CLI. It is written in Java, and has about 10 kLoC.
+This portfolio contains
 
 == Summary of contributions
 
@@ -23,6 +23,7 @@ ClinicIO is a desktop clinic management application used for teaching Software E
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=gingivitiss&sort=displayName&since=2018-09-30&until=2018-11-12&timeframe=day&reverse=false&repoSort=true
 
 ** Documentation:
 *** Added command information regarding the appointment feature into the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/119

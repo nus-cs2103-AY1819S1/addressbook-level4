@@ -11,8 +11,10 @@ import javafx.scene.layout.VBox;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 
-
-public class AppointmentDisplay extends UiPart<Region>{
+/**
+ * A ui to display appointment details.
+ */
+public class AppointmentDisplay extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
     private static final String FXML = "AppointmentDisplay.fxml";
