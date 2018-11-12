@@ -271,7 +271,7 @@ automatically tagged as `Patient`.
 .Register Patient Sequence Diagram
 image::RegisterPatientSequenceDiagram.png[width="600"]
 
-Patient model contains a List of upcoming appointment and ArrayList of past appointments. We implemented
+Patient model contains a List of upcoming appointment and List of past appointments. We implemented
 the patient model in this way to allow ease of addition of new upcoming appointment to the patient.
 
 Step 1. The user types in `register-patient` in the command box followed by the parameters `n/John Doe p/91234567
