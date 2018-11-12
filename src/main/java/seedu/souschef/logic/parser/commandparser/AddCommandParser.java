@@ -98,7 +98,8 @@ public class AddCommandParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_HPNAME, PREFIX_TWEIGHT, PREFIX_CWEIGHT,
                         PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_HPNAME, PREFIX_AGE)
+        if (!argMultimap.arePrefixesPresent(PREFIX_HPNAME, PREFIX_AGE, PREFIX_TWEIGHT, PREFIX_CWEIGHT, PREFIX_CHEIGHT,
+                PREFIX_AGE, PREFIX_DURATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_HEALTHPLAN_USAGE));
         }
