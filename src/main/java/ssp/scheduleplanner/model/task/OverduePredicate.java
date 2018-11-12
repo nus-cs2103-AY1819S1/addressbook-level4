@@ -12,6 +12,11 @@ public class OverduePredicate implements Predicate<Task> {
         this.date = date;
     }
 
+    /**
+     * A function to see if the date of the task is before or after the current date.
+     * @param task The task to test.
+     * @return true if the task's date is after the current date, false if the task's date is before.
+     */
     @Override
     public boolean test(Task task) {
         return date - task.getDate().yymmdd > 0 ? true : false;

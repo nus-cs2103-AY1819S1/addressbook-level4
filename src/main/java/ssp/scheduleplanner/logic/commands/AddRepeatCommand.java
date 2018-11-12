@@ -60,6 +60,7 @@ public class AddRepeatCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        // Add the first task.
         int interval = Integer.parseInt(repeatInterval.value);
         DateFormat schedulerFormat = new SimpleDateFormat("ddMMyy");
         Calendar baseDate = toAdd.getDate().calendar;
@@ -67,18 +68,18 @@ public class AddRepeatCommand extends Command {
         Date date = new Date(newDate);
         Task newTask = new Task(toAdd.getName(), date,
                 toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
-
+        // If the first task is not a duplicate task, add it.
         if (!model.hasTask(newTask)) {
             model.addTask(newTask);
         }
-
+        // Loop through to add the rest of the tasks.
         for (int i = 1; i < Integer.parseInt(repeat.value); i++) {
             baseDate.add(Calendar.DAY_OF_YEAR, interval);
             newDate = schedulerFormat.format(baseDate.getTime());
             date = new Date(newDate);
             newTask = new Task(toAdd.getName(), date,
                     toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
-
+            // Add the task only if there is no duplicate task within the model.
             if (!model.hasTask(newTask)) {
                 model.addTask(newTask);
             }
