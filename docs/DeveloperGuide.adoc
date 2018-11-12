@@ -459,14 +459,15 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 ----
 
 Scenario 3: The doctor prescribes the patient he is serving a medicine. The `dispensemedicine` command is entered.
-The stock level of the medicine is then updated.
+The stock level of the medicine is then updated. The *sequence diagram* below shows how the code works:
 
 .Sequence Diagram for `dispensemedicine`
 image::DispenseMedicineSequenceDiagram.png[width="800"]
 
 Scenario 4: The clinic receptionist needs to check for the stock level of every medicine.
 He executes the `checkStock` command
-which lists *all* medicines that are below their _Minimum Stock Quantity_.
+which lists *all* medicines that are below their _Minimum Stock Quantity_. See the figure below for an example
+of how the filter works:
 
 .Filter medicines that are low in supply
 image::checkstockfilter.png[width="450"]
