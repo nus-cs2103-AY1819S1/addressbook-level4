@@ -382,7 +382,7 @@ return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
 
 The `LogicManager` executes the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
 the list of rides and it will check if the ride fulfils the required predicate(s). The `RideContainsConditionPredicate`
-will test each ride using this method:
+will test if each ride fulfills the required conditions using this method:
 
 [source,java]
 ----
@@ -395,17 +395,18 @@ will test each ride using this method:
     }
 ----
 So it should be pretty simple to add new ``NumericAttribute``s to the rides like ratings if you wish to with minimal
-changes to other classes. After that a list of filtered rides would be returned after each ride is tested with the predicate.
+changes to other classes, as long as relevant methods are added to `FilterCommandParser` to handle the new ``NumericAttribute``s.
+After all of the rides in the application are tested, a list of filtered rides would be returned and shown to the user.
 
 ==== Design Considerations
 
 ===== Aspect: Data structure to support filter commands
-* **Alternative 1(Current Choice):** Abstracting attributes that contain numeric values into a separate class and creating a
+* **Alternative 1(Current Choice):** Abstract attributes that contain numeric values into a separate class and create a
 AttributePredicate to test the attribute
 ** Pros: More numeric attributes can be easily added  and minimal changes are required to filter new attributes
 ** Cons: More classes would need to be implemented to handle this feature
 
-* **Alternative 2:** Gives the entire string condition to the RideContainsConditionPredicate to test.
+* **Alternative 2:** Give the entire string condition to the RideContainsConditionPredicate to test.
 ** Pros: Classes do not need to abstracted, and thus would be easier to implement
 ** Cons: RideContainsConditionPredicate would carry out parsing functions which would make it less cohesive
 
