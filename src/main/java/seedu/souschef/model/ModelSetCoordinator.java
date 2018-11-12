@@ -110,6 +110,10 @@ public class ModelSetCoordinator implements ModelSet {
         return favouriteModel;
     }
 
+    private void setFeatureStorage(Context context) {
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(context));
+    }
+
     @Subscribe
     protected void handleMealPlanDeletedEvent(MealPlanDeletedEvent event) {
         Day toDelete = event.day;
@@ -121,9 +125,9 @@ public class ModelSetCoordinator implements ModelSet {
                 h.getMealPlans().remove(toDelete);
             }
         }
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.HEALTH_PLAN));
+        setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(event.context));
+        setFeatureStorage(event.context);
     }
 
     @Subscribe
@@ -143,9 +147,9 @@ public class ModelSetCoordinator implements ModelSet {
                 }
             }
         }
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
+        setFeatureStorage(Context.MEAL_PLAN);
         mealPlannerModel.indicateAppContentChanged();
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.RECIPE));
+        setFeatureStorage(Context.RECIPE);
     }
 
     @Subscribe
@@ -155,8 +159,8 @@ public class ModelSetCoordinator implements ModelSet {
         for (HealthPlan hp : hpList) {
             hp.getMealPlans().clear();
         }
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.HEALTH_PLAN));
+        setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
+        setFeatureStorage(Context.MEAL_PLAN);
     }
 }
