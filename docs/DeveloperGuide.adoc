@@ -1343,3 +1343,92 @@ Images that are currently being viewed. For example, if there are 16 images in t
 Action that is performed on an image
 
 [appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test Piconso manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Changing a directory
+
+. Traversing between directories
+
+.. Prerequisites: Users is aware of the current directory they are in from the status bar footer.
+.. Test case: `cd Desktop` +
+   Expected: User is now in Desktop. The full path of Desktop is shown in the status message. The current directory in the status bar is updated.
+.. Test case: `cd ..` +
+   Expected: User is now in the previous directory. The full path is shown in the status message. The current directory in the status bar is updated.
+.. Test case (only for Windows): `cd C://Users` +
+   Expected: User is now in `C:/Users`. The full path is shown in the status message. The current directory in the status bar is updated.
+.. Test case: `cd ` +
+   Expected: User is unable to traverse to any directory. Error message is shown in the status message. The status bar remains the same.
+.. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
+   Expected: Similar to previous.
+
+. `Tab` function to auto-complete directory name
+
+.. Prerequisites: Users is aware of the current directory they are in from the status bar footer.
+.. Test case: `cd Desk` +
+   Expected: `cd Desktop` is shown in the command box.
+.. Test case (only for Windows): `cd C://Use` +
+   Expected (only in Windows): `cd C://Users` is shown in the command box.
+.. Test case: `cd 12345` +
+   Expected: User does not observe any changes.
+.. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
+   Expected: Similar to previous.
+
+=== Opening an image
+
+. Opening images in current directory
+
+.. Prerequisites: `cd` into a existing directory with at at least 5 images to view the first batch of images in the directory.
+.. Test case: `open 1` +
+   Expected: The first image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
+.. Test case: `open 3` +
+   Expected: The third image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
+.. Test case: `open 0` +
+   Expected: The user is unable to open the image. Error message is shown in the status message.
+.. Other incorrect open commands to try: `open 11` (as index exceeds batch size of 10), `open x` (where x exceeds the total images in the current batch),
+   `open abc` +
+   Expected: Similar to previous.
+
+=== Traversing between image batches
+
+. Accessing the next/previous batch of images
+
+.. Prerequisites: `cd` into a existing directory with 11-20 images to view the first batch of 10 images in the directory.
+.. Test case: `next` +
+   Expected: The next 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `next` +
+   Expected: The user is unable to access the next batch of images as it exceeds the total number of images in the list. Error message is shown in the status message.
+.. Test case: `prev` +
+   Expected: The first 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `prev` +
+   Expected: The user is unable to access the prev batch of images as it is already at the start of the list. Error message is shown in the status message.
+.. Other incorrect next commands to try: `prev` (when list the already at the start), `next` (when user is viewing the end of list) +
+   Expected: Similar to previous.
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
