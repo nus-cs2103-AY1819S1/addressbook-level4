@@ -31,11 +31,12 @@ This section summarizes my contribution to the project.
 * *Major enhancement:*
 ** added the ability to find and edit multiple expenses by specific keywords
 *** What it does: Allow user to filter out the particular expenses by entering relevant keywords. Allow user to edit
-all these expenses at the same time.
-*** Justification: This feature improves the product significantly because it is more convenient for user to find and edit particular expenses.
-Now users can easily view the list of expenses with desired details, i.e.,specific name, category, cost, etc.
+all targeted expenses at the same time.
+*** Justification: This feature improves the product significantly because now it is more convenient for user to find and edit particular expenses.
+Now users can easily view the list of expenses with desired details, for example,specific name, category, cost and date.
 With mass edit, users can easily correct the wrongly recorded expenses.
-*** Highlights: This feature enhances the original filtering function and makes filtering more flexible.
+*** Highlights: This feature enhances the original filtering function. This makes the application more user-friendly as
+filtering is one of the most frequently used command in this application.
 
 * *Minor enhancement:*
 ** Refactored original `AddressBook` and `Person` class into `ExpenseTracker` and `Expense` class.

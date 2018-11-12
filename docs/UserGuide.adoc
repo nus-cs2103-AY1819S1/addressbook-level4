@@ -315,7 +315,7 @@ Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \->
 * COST should be a non-zero positive number with two decimal places
 * DATE should be in the format of "dd-mm-yyyy".
 * DATE can be a date in the future
-* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
+* Only `Tag` keywords can have multiple keywords. `Name`/`Category`/`Cost`/`Date` can only have one keywords.
 ====
 
 // end::massedit2[]
@@ -355,7 +355,7 @@ Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...]`
 * `find c/School` +
 Find all the expenses under the `School` category.
 * `find d/1-10-2018:7-10-2018` +
-Find all the expenses which have dates between 1-10-2018 to 7-10-2018.
+Find all the expenses which have dates between 1-10-2018 and 7-10-2018(inclusive).
 * `find d/1-10-2018` +
 Find all the expenses with dates on 1-10-2018
 * `find $/10.00:20.00` +
@@ -370,9 +370,10 @@ Find all the expenses under the "School" category, with "lunch" tags and dates o
 ====
 * At least one keyword should be provided
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
-* Keywords can contain multiple words, i.e. the KEYWORD `have lunch` are permitted
+* Keywords can contain multiple words, i.e. the KEYWORD `have lunch` is permitted
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
 * Partial words will be matched, i.e. using the KEYWORD `Hav` for expense name will give an expense with the name `Have`
+* Only `Tag` keywords can have multiple keywords. `Name`/`Category`/`Cost`/`Date` can only have one keywords.
 ====
 
 // end::find2[]
