@@ -35,7 +35,7 @@ Software Engineering. The user interacts with it using a CLI, and it has a GUI c
 ** Documentation:
 *** Modified the Developer Guide (Architecture, Logic, Model and Storage sections), including the class and sequence diagrams, to reflect the modifications we made to the original AddressBook (Level 4) (Pull Requests: https://github.com/CS2103-AY1819S1-T10-1/main/pull/119[#119], https://github.com/CS2103-AY1819S1-T10-1/main/pull/122/files[#122])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T10-1/main/pull/17[#17], https://github.com/CS2103-AY1819S1-T10-1/main/pull/60[#60], https://github.com/CS2103-AY1819S1-T10-1/main/pull/67[#67]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T10-1/main/pull/17[#17], https://github.com/CS2103-AY1819S1-T10-1/main/pull/60[#60], https://github.com/CS2103-AY1819S1-T10-1/main/pull/67[#67], https://github.com/CS2103-AY1819S1-T10-1/main/pull/78[#78]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-F11-4/main/issues/170[1], https://github.com/CS2103-AY1819S1-F11-4/main/issues/192[2])
 
 == Contributions to the User Guide
