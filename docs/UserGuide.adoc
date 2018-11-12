@@ -800,7 +800,6 @@ Selects the 2nd reservation in the reservations list.
 Selects the 7th reservation in the reservations list.
 //end::reservations[]
 
-
 // tag::salesmanagement[]
 === Sales Management
 
@@ -1017,7 +1016,6 @@ Selects the 2nd record in the record list.
 
 `ss 6` +
 Selects the 6th record in the record list.
-
 // end::salesmanagement[]
 
 === Upcoming Features
@@ -1068,6 +1066,7 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
+// tag::salesv20[]
 ==== Auto-compute sales profit `[coming in v2.0]`
 Automatically determines the cost incurred in each sales record and computes its profit. The concept of profit
 will be extended to the following features: +
@@ -1099,6 +1098,7 @@ Format: `export-sales DATE` or `exs DATE`
 ==== Exporting sales chart `[coming in v2.0]`
 Exports the sales chart into a pdf file. +
 Format: `export-chart` or `exc`
+// end::salesv20[]
 
 ==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
 
@@ -1209,6 +1209,7 @@ contains the data of your previous *MeNUS* folder.
 *Graphical User Interface* allows the use of icons or other visual indicators to interact with electronic devices,
 rather than using only text via the command line.
 
+// tag::salesglossary[]
 [[sales-record]] Sales record::
 A *sales record* is created whenever you <<record-sales, record the sales volume of an item>>. It is represented by a
 single entry in the record list. It comprises 6 different attributes, namely +
@@ -1222,3 +1223,4 @@ single entry in the record list. It comprises 6 different attributes, namely +
 [[record-list]] Record list::
 The *record list* contains all the sales records you have recorded till date. It is shown under the
 `List of data` section of the sales component in MeNUS's <<user-interface, user interface>>.
+// end::salesglossary[]

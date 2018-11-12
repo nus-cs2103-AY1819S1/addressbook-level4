@@ -51,7 +51,7 @@ Responsibilities: Logic
 image::hyperionnkj.png[width="150", align="left"]
 {empty}[http://github.com/hyperionnkj[github]] [<<hyperionnkj#, portfolio>>]
 
-Role: Schedule + Tracking +
-Responsibilities: Storage
+Role: Integration, Code quality, Schedule + Tracking
+Responsibilities: Storage + UI
 
 '''

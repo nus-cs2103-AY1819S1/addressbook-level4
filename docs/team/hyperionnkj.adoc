@@ -93,7 +93,7 @@ between various management systems of MeNUS.
 ** Community:
 *** https://github.com/CS2103-AY1819S1-F10-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3AHyperionNKJ+[Reviewed]
  more than 75 PRs.
-*** Gave non-trivial comments and suggestions in many PRs.
+*** Ensured code quality through non-trivial comments and suggestions in many PRs.
 (https://github.com/CS2103-AY1819S1-F10-4/main/pull/267[#267])
 (https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[#256])
 (https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250])
@@ -111,8 +111,13 @@ between various management systems of MeNUS.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections are my contributions to the User Guide. They reflect my ability to write clear and concise
+documentation targeting non-technical readers.
 |===
+
+include::../UserGuide.adoc[tag=salesmanagement]
+include::../UserGuide.adoc[tag=salesv20]
+include::../UserGuide.adoc[tag=salesglossary]
 
 == Contributions to the Developer Guide
 
@@ -121,4 +126,7 @@ between various management systems of MeNUS.
 documentation, draw UML diagrams and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=salesmanagement]
+include::../UserGuide.adoc[tag=ucsales]
+
+
