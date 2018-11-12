@@ -53,13 +53,8 @@ compare the values with the `Maintenance` and `WaitTime` of a ride class.
 *** Find can now search tags and addresses in addition to the names of the rides
 *** Refactored `Address Book` to `Thane Park` in the code.
 
-** Project management: Reviewed Pull Requests(PR) on github with code:
- [https://github.com/CS2103-AY1819S1-W14-2/main/pull/34[#34]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/39[#39]],
- [https://github.com/CS2103-AY1819S1-W14-2/main/pull/42[#42]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/47[#47]],
- [https://github.com/CS2103-AY1819S1-W14-2/main/pull/55[#55]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/74[#74]],
- [https://github.com/CS2103-AY1819S1-W14-2/main/pull/77[#77]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/96[#96]],
- [https://github.com/CS2103-AY1819S1-W14-2/main/pull/102[#102]], [https://github.com/CS2103-AY1819S1-W14-2/main/pull/105[#105]],
- [https://github.com/CS2103-AY1819S1-W14-2/main/pull/108[#108]]
+** Project management: Reviewed Pull Requests(PR) on github:
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Akeenlok[Reviewed Pull Requests]]
 
 ** Documentation:
 
