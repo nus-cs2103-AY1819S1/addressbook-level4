@@ -146,6 +146,8 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
+[NOTE]
+This command also resets the waiting time field to zero.
 
 // end::manage[]
 
@@ -153,6 +155,9 @@ Format: `open <index>`
 
 Closes the ride for maintenance. Display statistics for the ride on that day. +
 Format: `maintain <index>`
+
+[NOTE]
+This command also resets both waiting time and maintenance fields to zero.
 
 
 ==== Clearing all entries : `clear`
@@ -392,7 +397,7 @@ and viewing different lists of rides.
 ==== Viewing detailed information of a specific ride: `view`
 
 Display all available information about a single ride on the list of displayed rides.
-The `index` field specifies the index of the ride that the user wants to view.
+The `index` field specifies the index of the ride that you want to view.
 
 Format: `view <index>`
 
@@ -413,7 +418,6 @@ image::./ui_screenshots/view-example-2.png[width="600"]
 
 When `view 4` is executed, the display shows the name, status, days since last maintenance and waiting time for  the selected ride.
 
-a|
 Example 2: `view 17`
 
 Note how the information within the red box at the top changes when `view 17` is executed.
@@ -456,7 +460,6 @@ image::./ui_screenshots/viewstatus-example-2.png[width="600"]
 As seen in the diagram above, once `viewstatus open` is executed, the list of rides in the box at the left only contains rides that are open.
 In addition, the response box at the top of the diagram displays the total number of rides that are open.
 
-a|
 Example 2: `viewstatus MainTenaNce`
 
 `viewstatus MainTenaNce` command accepts inputs with mixed cases in the status field.
@@ -469,6 +472,7 @@ image::./ui_screenshots/viewstatus-example-4.png[width="600"]
 
 As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce` and display rides with the status `MAINTENANCE`.
 |===
+// end::viewstatus[]
 
 ==== Viewing all available rides: `viewall`
 
@@ -492,7 +496,6 @@ As seen in the diagram above, the response box at the top of the diagram will di
 with a break down of the total number of rides of different statuses.
 The list box at the left of the diagram is also updated to show all the rides in ThanePark, regardless of status.
 |===
-// end::viewstatus[]
 
 // tag::filter[]
 === Find the relevant list of rides
@@ -596,6 +599,7 @@ Format: `logout`
 |*Update* |`update <index> <tag> <value>`
 |*Shutdown* |`shutdown <index>`
 |*Open* |`open <index>`
+|*Maintain* |`maintain <index>`
 |*Clear* |`clear`
 
 2+|*Get help and accessibility*
@@ -608,8 +612,8 @@ Format: `logout`
 
 2+|*View information on the list of rides*
 |*View all* |`viewall`
-|*View* |`view`
-|*View status* |`viewstatus <name>`
+|*View* |`view <index>`
+|*View status* |`viewstatus <status>`
 
 2+|*Find the relevant list of rides*
 |*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`

@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
 [discrete]
 = PROJECT: ThanePark
@@ -32,23 +33,20 @@ My role in ThanePark is to implement the `viewstatus` feature and to update docu
 ** Credits: This feature is based on the way find feature works, with a `RideStatusPredicate` instead of a
             `RideContainsKeywordsPredicate`.
 
-* *Minor enhancement*: The addition of the `maintain` feature.
-** What it does: This feature allows the user to update the status of a selected ride to `MAINTENANCE`.
-** Justification: This feature allows the user to keep track of the status of the ride.
-** Highlight: This enhancement involves changing the status of the ride to `MAINTENANCE`.
-  In doing so, the command also updates the maintenance and waiting time field to zero
-** Credits: The maintain feature is based on the way update feature works, by updating the `status`, `maintenance` and `waiting time` fields instead of all other fields.
+* *Minor enhancement*: The addition of the `maintain` feature, which allows the user to update the status of a selected ride to `MAINTENANCE`.
+  Also, the feature resets the maintenance and waiting time field to zero.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiajunteo&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Functional and test code]]
+
+<<<
 
 * *Other contributions*:
 
 ** Documentation:
-*** Updated the section of the User Guide on view information of rides [https://github.com/CS2103-AY1819S1-W14-2/main/pull/154[Pull Request #154]]
-*** Updated the section of the Developer Guide on View Status feature [https://github.com/CS2103-AY1819S1-W14-2/main/pull/101[Pull Request #101]]
+*** Updated the section 4.3 of the User Guide on view information of rides [https://github.com/CS2103-AY1819S1-W14-2/main/pull/154[Pull Request #154]]
+*** Updated the section 5.4 of the Developer Guide on view status feature [https://github.com/CS2103-AY1819S1-W14-2/main/pull/101[Pull Request #101]]
 
-** Community:
-*** Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-1/main/issues/144[T09-1 Issue #144]]
+** Community: Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-1/main/issues/144[T09-1 Issue #144]]
 
 
 == Contributions to the User Guide
