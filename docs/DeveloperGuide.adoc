@@ -1147,6 +1147,7 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Requires internet access to carry out operations in the HealthBook
 
+// tag::glossary[]
 [appendix]
 == Glossary
 
@@ -1170,7 +1171,9 @@ The medicine prescribed for the appointment
 
 Medical History::
 Allergies and/or conditions that a patient may have
+// end::glossary[]
 
+// tag::manualtesting[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1218,3 +1221,4 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No patient is viewed if no patient with such name exists. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `view-patient` +
    Expected: Similar to previous.
+// end::manualtesting[]
