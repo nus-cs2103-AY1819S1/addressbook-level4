@@ -36,11 +36,8 @@ enhances the using of playlist management feature.
 *** Implemented corresponding test cases to cover newly-implemented codes.
 
 ** Project management:
-*** Tools
-**** Configured RepoSense.
-**** Configured Codacy.
-*** Issue Tracker Management +
- Issues relevant to individual responsibility were assigned and handled.
+*** Tools: configured RepoSense and Codacy.
+*** Issue Tracker Management: Issues relevant to individual responsibility were assigned and handled.
 **** UI component: https://github.com/CS2103-AY1819S1-T13-3/main/issues/34[#34],
 https://github.com/CS2103-AY1819S1-T13-3/main/issues/39[#39]
 **** Commands implemnented: https://github.com/CS2103-AY1819S1-T13-3/main/issues/22[#22],

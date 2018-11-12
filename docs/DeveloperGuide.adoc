@@ -965,6 +965,8 @@ Use case ends.
 +
 Use case ends.
 
+// end::useCase_yingnan[]
+
 [discrete]
 === Use case: Delete a track from playlist
 
@@ -1150,8 +1152,6 @@ Use case ends.
 2.  System randomly reorders the sequence of tracks inside the playlist.
 +
 Use case ends.
-
-// end::useCase_yingnan[]
 
 [appendix]
 == Non Functional Requirements
