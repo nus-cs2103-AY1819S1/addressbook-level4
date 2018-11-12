@@ -1239,7 +1239,7 @@ Use case ends.
 Use case ends.
 
 * 1c. This task to be completed has unfulfilled dependencie(s) that must be completed first.
-** 1b1. Application displays a relevant error message.
+** 1c1. Application displays a relevant error message.
 
 Use case ends.
 
