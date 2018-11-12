@@ -420,6 +420,12 @@ An empty line is provided at the end of the certificate for manual signing off. 
 ====
 To avoid exported file name clashes for volunteers with the same name, we have appended the volunteer's NRIC to the filename as well. Exported file names will have the format '<VOLUNTEER NAME>_<VOLUNTEER NRIC>.pdf' (E.g. John Doe_S8512345A.pdf)
 ====
+
+You can refer to the following flowchart to better understand the feedback messages displayed by the application, and derive what your subsequent actions should be. (E.g. If you get the message "The volunteer index provided is invalid.", then try replacing the <INDEX> you had input.)
+
+.`exportcert` command flowchart
+[.thumb]
+image::command_exportcert_ad.png[width="500"]
 // end::exportcert[]
 
 // tag::eventmanagement[]
