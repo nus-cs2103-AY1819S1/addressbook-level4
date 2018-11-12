@@ -306,7 +306,7 @@ Examples:
 Adds an event in the system with information specified by the user.
 
 Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/EVENT_ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
-
+// end::addEvent[]
 The user can input values for the following fields when adding an event: +
 
 * Event name +
@@ -322,6 +322,7 @@ Note that each of these fields, except for address, contact indices and event ty
 before the event can be successfully added into the system.
 In addition, note the following constraints for the input values.
 
+// tag::addEvent2[]
 [TIP]
 ====
 * Event names and descriptions should only contain alphanumeric characters
@@ -336,8 +337,6 @@ in EventsPlus+, it has to be added in before creating the event with the new eve
 * If no event address is supplied by the user, "TBD" will be set in place of the address.
 ====
 
-//A notification will be sent to the user only 24 hours before the event.
-//(refer to <<Notification, notification>> feature)
 
 Examples:
 
@@ -355,7 +354,8 @@ Examples:
 
 In EventsPlus+, the events can be found in the Events tab,
 and are displayed according to their date, in decreasing date order.
-Within each date, the events are ordered from earliest to latest.
+Within each date, the events are ordered from earliest to latest. +
+// end::addEvent2[]
 
 After the user executes the command `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`,
 a message indicating successful execution of the command will be displayed.
@@ -369,10 +369,10 @@ If no address is supplied, "TBD" will be set in place of the address field. For 
 The address field is set to "TBD".
 
 image::add-event-no-address.PNG[Adding an event without an address, width="790"]
-// end::addEvent[]
 
 [[seeEventContacts]]
 //tag::seeEventContacts[]
+
 === Viewing an event's contacts: `seeEventContacts`, alias `sec`
 
 Shows an event's contacts in the persons list. The information displayed in aligned with that in the UI
@@ -389,15 +389,16 @@ hence the command `seeEventContacts d/2018-04-01 i/1` will refer to this event. 
 The event named "Lecture" is the 2nd event on the date 2018-10-18,
 hence the command `seeEventContacts d/2018-10-18 i/2` will refer to this event.
 * When a person is deleted or no longer exists in the system, he/she will not appear in the displayed persons list.
-Also, when hovering over the event contact in the UI, a message indicating that this person no longer exists in EventsPlus+ is displayed.
-* If a person has been edited such that it still has the same identity as the original person added as an event contact into
-the event, the updated details (which is the latest information of the edited person) is shown, both in the persons list
+When hovering over the event contact in the UI, a message indicating this person no longer exists in EventsPlus+ is displayed.
+* If a person has been edited but still has the same identity as the original person added as an event contact,
+the updated details (latest information of the edited person) is shown, both in the persons list
 and when hovering over the event contact.
 ====
 
 Example:
 
-* `seeEventContacts d/2018-04-01 i/1`
+* `seeEventContacts d/2018-04-01 i/1` +
+//end::seeEventContacts[]
 
 image::see-event-contacts-1.PNG[Event contact display, width="790"]
 
@@ -422,10 +423,10 @@ As `Alex` has been deleted, no persons are shown.
 
 image::see-event-contacts-4.PNG[Event contact display after delete, width="790"]
 
-//end::seeEventContacts[]
 
 [[addEventTag]]
 // tag::addEventTag[]
+
 === Adding an event tag: `addEventTag`, alias `aet`
 
 Adds an event tag specified by the user into the system.
@@ -441,6 +442,7 @@ Executing `addEventTag t/MEETING t/meeting` will only result in the first tag be
 Executing `addEventTag t/MEETING` again will not be successful, as the tag already exists in the system.
 * Event tags should only be alphanumeric (A-Z, a-z, 0-9) and hence should exclude any spaces, special characters or symbols such as '%', '*', '~'
 ====
+// end::addEventTag[]
 
 Example:
 
@@ -449,9 +451,9 @@ Adds the event tags into the system, if they do not already exist in the system.
 The newly added tags are highlighted in green below.
 
 image::add-event-tag_new-event-tag.PNG[Adding an event tag, width="790"]
-// end::addEventTag[]
 
 // tag::deleteEvent[]
+
 === Deleting an event: `deleteEvent`, alias `de`
 
 Adds an event in the system with information specified by the user.
@@ -470,6 +472,7 @@ hence the command `deleteEvent d/2018-04-01 i/1` will delete this event. +
 The event named "Lecture" is the 2nd event on the date 2018-10-18,
 hence the command `deleteEvent d/2018-10-18 i/2` will delete this event.
 ====
+// end::deleteEvent[]
 
 Example:
 
@@ -482,17 +485,13 @@ image::delete-event-before.PNG[Deleting an event, width="790"]
 **After Deletion**
 
 image::delete-event-after.PNG[Deleting an event, width="790"]
-// end::deleteEvent[]
 
 //tag::editEvent[]
+
 === Edit event address: `editEventAddress`, alias `eea`
 Edits the address of the specified event in the address book.
 
 Format: `editEventAddress d/DATE(YYYY-MM-DD) i/EVENT_INDEX a/EVENT_ADDRESS`
-
-Example:
-
-* `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
 
 [TIP]
 ====
@@ -504,6 +503,11 @@ The event named "Lecture" is the 2nd event on the date 2018-10-18,
 hence the command `deleteEvent d/2018-10-18 i/2` will delete this event.
 * the EVENT_ADDRESS field is mandatory
 ====
+//end::editEvent[]
+
+Example:
+
+* `editEventAddress d/2018-04-01 i/1 a/NUS SoC`
 
 **Before command execution**
 
@@ -513,8 +517,6 @@ image::edit-address-before.PNG[Editing an event address, width="790"]
 
 image::edit-address-after.PNG[Editing an event address, width="790"]
 
-//end::editEvent[]
-
 // tag::listEvent[]
 === List all events: `listEvent`, alias `lse`
 
@@ -523,6 +525,7 @@ Format: `listEvent`
 // end::listEvent[]
 
 // tag::findEvent[]
+
 === Find events by event tags: `findEvent`, alias `fe`
 
 Shows a list of all events in the address book which are tagged as the specified tags in the command.
@@ -530,6 +533,7 @@ Event tags are case-insensitive, as described in the <<addEventTag, addEventTag>
 i.e. `MEETING` and `meeting` are regarded as the same tag.
 
 Format: `findEvent EVENT_TAG [EVENT_TAG...]`
+// end::findEvent[]
 
 Examples:
 
@@ -548,7 +552,6 @@ image::find-event-lecture.PNG[Finding an event, width="790"]
 Shows all the events tagged as `lecture` or `class`
 
 image::find-event-lecture-class.PNG[Finding an event, width="790"]
-// end::findEvent[]
 
 // tag::importContacts[]
 === Import Contacts: `importContacts`, alias `ic`

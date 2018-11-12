@@ -9,11 +9,11 @@
 
 == Overview
 
-EventsPlus+ is a desktop address book application catered for busy university students to
+EventsPlus+ is a Command Line Interface (CLI) desktop address book application catered for busy university students to
 manage their contacts, events, project meetings and ad-hoc events efficiently.
-EventsPlus+ aims to simplify some of the more time-consuming administrative tasks
-such as coordinating location and date of ad-hoc events using a Command Line Interface (CLI)
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+It aims to simplify some of the more time-consuming administrative tasks
+such as coordinating location and date of ad-hoc events.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has more than 10 kLoC.
 
 == Summary of contributions
 
@@ -48,7 +48,6 @@ be modified by the user. This feature sets the foundation for the inclusion of m
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/121[#121],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
 *** Added the add event tag/find event functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
@@ -82,13 +81,13 @@ be modified by the user. This feature sets the foundation for the inclusion of m
 |_Given below are some excerpts of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 include::../UserGuide.adoc[tag=addEvent]
-//include::../UserGuide.adoc[tag=editEvent]
+include::../UserGuide.adoc[tag=addEvent2]
+include::../UserGuide.adoc[tag=seeEventContacts]
+include::../UserGuide.adoc[tag=addEventTag]
 include::../UserGuide.adoc[tag=deleteEvent]
-//include::../UserGuide.adoc[tag=seeEventContacts]
-//include::../UserGuide.adoc[tag=addEventTag]
-//include::../UserGuide.adoc[tag=listEvent]
-//include::../UserGuide.adoc[tag=findEvent]
-//include::../UserGuide.adoc[tag=autoComplete]
+include::../UserGuide.adoc[tag=editEvent]
+include::../UserGuide.adoc[tag=listEvent]
+include::../UserGuide.adoc[tag=findEvent]
 
 
 == Contributions to the Developer Guide
@@ -96,11 +95,24 @@ include::../UserGuide.adoc[tag=deleteEvent]
 |===
 |_Given below are some excerpts of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-include::../DeveloperGuide.adoc[tag=events]
-//include::../DeveloperGuide.adoc[tag=seeEventContacts]
-//include::../DeveloperGuide.adoc[tag=editEventAddress]
-//include::../DeveloperGuide.adoc[tag=eventTags]
-//include::../DeveloperGuide.adoc[tag=filterEvents]
-//include::../DeveloperGuide.adoc[tag=autoComplete]
-//include::../DeveloperGuide.adoc[tag=tab]
+include::../DeveloperGuide.adoc[tag=addEventsHeader]
+include::../DeveloperGuide.adoc[tag=addEvents]
+More details can be found in the <<DeveloperGuide.adoc#AddDeleteEvents, Developer Guide>>.
+include::../DeveloperGuide.adoc[tag=addEvents2]
+include::../DeveloperGuide.adoc[tag=seeEventContacts]
+General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#seeEventContacts, Developer Guide>>. +
+
+include::../DeveloperGuide.adoc[tag=seeEventContacts2]
+include::../DeveloperGuide.adoc[tag=editEventAddress]
+General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#EditEventAddress, Developer Guide>>. +
+
+include::../DeveloperGuide.adoc[tag=editEventAddress2]
+include::../DeveloperGuide.adoc[tag=eventTags]
+General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#EventTags, Developer Guide>>. +
+
+include::../DeveloperGuide.adoc[tag=eventTags2]
+include::../DeveloperGuide.adoc[tag=filterEvents]
+General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#filteringEvents, Developer Guide>>. +
+
+include::../DeveloperGuide.adoc[tag=filterEvents2]
 //include::../DeveloperGuide.adoc[tag=userStories]
