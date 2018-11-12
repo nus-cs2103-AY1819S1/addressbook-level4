@@ -42,7 +42,7 @@ lists to show only relevant information of the group.
 - Minor enhancement:
 * Updated list command to show all groups, meetings or persons.
 
-- Code contributed: -- To be added --
+- Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeffreyooi&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=false[RepoSense]][https://github.com/CS2103-AY1819S1-W17-3/main/pulls?q=is%3Apr+author%3Ajeffreyooi[Pull Requests]]
 
 - Other contributions:
 
@@ -126,16 +126,19 @@ Examples:
 
 Display all existing groups on the group list / meetings on the meeting list / persons on the person list display.
 
-Format: `list [group|meeting|person]`
+Format: `list <group|meeting|person|all>` +
+Shorthand: `list <g|m|p|a>`
 
 [NOTE]
 If the list is unfiltered, the list will remain the same.
+If list command does not have parameters entered, it will execute list all by default.
 
 Examples:
 
 * `list group`: list all groups.
-* `list meeting`: list all meetings.
+* `list m`: list all meetings.
 * `list person`: list all persons.
+* `list a`: list all groups, meetings and persons.
 
 == Contributions to the Developer Guide
 
@@ -182,15 +185,15 @@ Step 1. The user launches the application for the first time.
 The `ModelManager` will be initialized with the initial MeetingBook state, and `UniquePersonList`, `UniqueMeetingList` and `UniqueGroupList` contains all person, meetings and groups respectively without filter.
 
 Step 2. The user executes `select` command to select the item type with the specified index in the MeetingBook.
-The `SelectCommandParser` parses the command to determine the select type, and the command calls executes the following steps:
+The `SelectCommandParser` parses the command to determine the select type, and the command executes the following steps:
 
-* Step 2.1. If the select type is `SELECT_TYPE_GROUP`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
+* Step 2.1. If the prefix is `g/`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
 `Model#updateFilteredPersonList` is called to filter `UniquePersonList` to contain only person that are associated with the group,
 and `Model#updateFilteredMeetingList` is called to filter `UniqueMeetingList` to show only meeting that is associated with the group.
 
-* Step 2.2. If the select type is `SELECT_TYPE_MEETING`, a `JumpToMeetingListRequestEvent` is sent to the UI to select the meeting card.
+* Step 2.2. If the prefix is `m/`, a `JumpToMeetingListRequestEvent` is sent to the UI to select the meeting card.
 
-* Step 2.3. If the select type is `SELECT_TYPE_PERSON`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
+* Step 2.3. If the prefix is `p/`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
 
 [NOTE]
 If a group is selected, subsequent `select` calls to person and meeting list will only select the person or meeting in the filtered
@@ -206,15 +209,11 @@ image::SelectActivityDiagram.png[width="800"]
 
 ===== Aspect: Data structure to support the select command
 
-* **Alternative 1 (current choice):** Use prefix to differentiate between selecting group, meeting or person, and use a
-single select class to perform all select operations.
+* **Alternative 1 (current choice):** Use a single select class to perform all select operations.
 ** Pros: Easy to implement as there are fewer lines of code required.
 ** Cons: Harder to extend if need to implement select command for other items, select class will become bloated if too
 many items require select command.
-* **Alternative 2:** Individual command for selecting group, meeting and person.
-** Pros: Easy to extend functionality to select other items as all select commands are independent.
-** Cons: Requires more code to implement.
-* **Alternative 3:** Abstract select class containing required variables and methods without implementation, and select
+* **Alternative 2:** Abstract select class containing required variables and methods without implementation, and select
 commands inherit from the abstract class and implement the execution functionality.
-** Pros: Good data structure.
+** Pros: Good data structure, easy to extend functionality to select other items.
 ** Cons: Requires more code to implement.
