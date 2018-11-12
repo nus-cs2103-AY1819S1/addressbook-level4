@@ -582,7 +582,7 @@ up most of your budget.
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
 
 Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
-depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
+depending on the specified `PERIOD_AMOUNT` and `PERIOD`, starting from the current day or month. +
 
 .Statistics Panel showing a bar chart in Time mode
 image::userguide/barChart.png[width="790"]
