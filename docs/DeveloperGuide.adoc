@@ -449,7 +449,7 @@ Step 2. Upon hitting enter, the `Appointment` will be removed from the HealthBoo
 // tag::completeappointment[]
 === Complete Appointment Feature
 ==== Current Implementation
-The complete appointment features are facilitated by `CompleteAppointmentCommand`. This feature allows user to complete existing appointments
+The complete appointment features are facilitated by `CompleteAppointmentCommand`. This feature allows user to complete existing appointments that has already passed
 in the HealthBook which change the status of the `Appointment` from `UPCOMING` to `COMPLETED`.
 
 .Complete Appointment Sequence Diagram
