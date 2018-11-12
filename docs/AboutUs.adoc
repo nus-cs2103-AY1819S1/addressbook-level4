@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chua Chenlu
 image::chenlu-chua.png[width="150", align="left"]
-{empty}[https://github.com/chenlu-chua[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chenlu-chua[github]] [<<chenlu-chua#, portfolio>>]
 
 Role: Team lead + Testing
 
@@ -51,7 +51,7 @@ Responsibilities: Storage
 
 === Xiong Haoran
 image::hrxiong.png[width="150", align="left"]
-{empty}[http://github.com/hrxiong[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/hrxiong[github]] [<<hrxiong#, portfolio>>]
 
 Role: Testing + Integration
 

@@ -13,19 +13,25 @@ TutorPal is a desktop application used by private home tutors for managing stude
 
 == Summary of contributions
 
-* *Major enhancement*: implemented the *earnings feature*
-** What it does: Allows tutors to calculate the amount of money earned from giving tuition between a range of dates.
-** Justification: As money is perhaps the most important motivation for becoming a tuition teacher, it is important to calculate the amount
-of money earned. This feature allows tutor to ensure that future earnings are sufficient, and also assist the tutor in
-planning and organizing current and future student intakes.
-
-* *Major enhancement*: implemented the *promote feature*
+* *Major enhancement*: implemented the *promote feature* to allow tutor to promote multiple students simultaneously.
 ** What is does: Allow tutors to raise the educational grade of the students stored in TutorPal. Tutors
 can choose to promote all students or selectively.
-** Justification: The decision to not automate the promotion of students as a year passed is deliberate.
+** Justification: This function is an efficient and yet flexible solution to swiftly increase the
+educational grade of students as a year passes.
+The decision to *not automate the promotion of students* is deliberate.
 This provides the users with a higher level of autonomy when using TutorPal. +
 In providing such feature instead of relying on promoting the students stored in TutorPal automatically,
 undesirable outcomes like promoting all students when the system time is changed to other years are avoided.
+As a private tutor, it is not uncommon to encounter parents who wish for their children to begin tuition lessons
+even before the start of an academic year. A situation like this is an example of why greater flexibility is more
+beneficial to a user, even if it means taking an additional step to manually promote the students in TutorPal.
+
+* *Minor enhancement*: implemented the *earnings feature*
+** What it does: Allows tutors to calculate the amount of money earned from giving tuition between a range of dates.
+** Justification: It is important to calculate and keep track of his/her income. This feature allows tutor to ensure that
+future earnings are sufficient, and also assist the tutor in planning and organizing current and future student intakes.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chenlu-chua
 
 * *Other contributions*:
 
@@ -39,10 +45,9 @@ undesirable outcomes like promoting all students when the system time is changed
 *** Updated the add command to allow adding of educational level and grade.
 *** Added an Education field to the person object in TutorPal to
 allow users to store the educational level of students.
-*** Implemented tuition fees of students. Tuition fees are based on student's
+*** Implemented tuition fees attribute to student. Tuition fees are based on student's
 educational level and grade, irrespective of the subject(s) taught to them.
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide and README.
 *** Removed obsolete AB4 information and updated relevant documents with TutorPal project.
 
 == Contributions to the User Guide
