@@ -65,7 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
-        //Update dependencies with the hash of the new task (since task was edited
+        //Update dependencies to target task with the hash of the edited task if task was edited and hashcode changed
         String oldHash = Integer.toString(target.hashCode());
         String newHash = Integer.toString(editedTask.hashCode());
         if (!oldHash.equals(newHash)) {
@@ -117,10 +117,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * Returns a {@code Task} with the dependency removed.
      *
      * @param dependantTask An immutable task passed to have its attributes copied
+     * @oaram dependeeTask A task that dependant wants to remove dependency to
      * @return A new immutable task similar to dependantTask but without dependency to dependee
      */
     public static Task createUndependantTask(Task dependantTask, Task dependeeTask) {
-        return dependeeTask.spliceDependency(dependeeTask);
+        return dependantTask.spliceDependency(dependeeTask);
     }
 
 

@@ -21,7 +21,8 @@ public class DependencyCommand extends Command {
     public static final String COMMAND_WORD = "dependency";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Toggles dependency of dependant on dependee.\n"
-            + "Parameters: Index of task dependant, Index of task dependee\n"
+            + "Parameters: INDEX of task dependant (must be positive integer), INDEX of task dependee(must be positive "
+            + "integer)\n"
             + "Example: \"" + COMMAND_WORD + " 1 2\" will add/remove the dependency of task at index 1 to task "
             + "at index 2";
     public static final String MESSAGE_ADD_SUCCESS = "You have added dependency for :\n[%1$s] to [%2$s]\n"
@@ -34,7 +35,7 @@ public class DependencyCommand extends Command {
             + "introduce a cyclic dependency";
     public static final String MESSAGE_COMPLETED_DEPENDENCY_UNCOMPLETED_FAILURE = "Dependency rejected as "
             + "dependant task cannot be completed while the dependee task is uncompleted.\n The introduction of this "
-            + "dependency will make the COMPLETE state of the dependant task invalid as it will depend on a task that"
+            + "dependency will make the COMPLETE state of the dependant task invalid as it will depend on a task that "
             + "is uncompleted";
     private final Index dependantIndex;
     private final Index dependeeIndex;
