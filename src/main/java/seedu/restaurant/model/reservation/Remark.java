@@ -10,9 +10,9 @@ public class Remark {
     private final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code Remark}.
      *
-     * @param remark A valid address.
+     * @param remark A valid remark.
      */
     public Remark(String remark) {
         requireNonNull(remark);
