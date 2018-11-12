@@ -106,6 +106,7 @@ Plays the playlist named "Favourites" if it exists in the library folder.
 // end::PlayTPlayP_david[]
 
 // tag::pause_hayden[]
+
 === Pausing a playing track : `pause`
 
 Pauses a playing track. +
@@ -116,6 +117,7 @@ Examples:
 * `play t/Some Song` +
 `pause` +
 The track is paused.
+
 // end::pause_hayden[]
 
 // tag::Play_david[]
@@ -227,6 +229,7 @@ Creates a new playlist with the name Favourites and adds the tracks named Some S
 =======
 
 // tag::playlistDel_hayden[]
+
 === Deleting a playlist : `playlist del`
 
 Removes an existing playlist from the library. +
