@@ -1753,12 +1753,12 @@ Use case ends.
 *MSS*
 
 .  User login to the system
-.  Oasis shows home page
-.  User enters leave, start date and end date
-.  Oasis displays confirmation message
+.  OASIS shows home page
+.  User enters description, start date and end date
+.  OASIS displays confirmation message
 .  User enters confirm
-.  Oasis sends the application to the manager
-.  Oasi shows success message
+.  OASIS sends the application to the manager
+.  OASIS shows success message
 +
 Use case ends.
 
@@ -1779,7 +1779,72 @@ Use case resumes at step 2.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: List leave applications
+
+*MSS*
+
+.  User login to the system
+.  OASIS shows home page
+.  User enters command to view leave applications
+.  OASIS lists all leave applications of the user
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The format is invalid
++
+** 3a1. OASIS shows an error message
++
+Use case resumes at step 2.
+
+* 4a. The user has permissions to be able to view all employee leaves.
++
+** 4a1. OASIS lists all leave applications of all users
++
+Use case ends.
+
+[discrete]
+=== Use case: Approve a leave application
+
+*MSS*
+
+.  User login to the system
+.  OASIS shows home page
+.  User <<Use case: View leave applications, lists leave applications (Use case: View leave applications)>>
+.  User enters command to approve a leave, and chooses the leave application to approve
+.  OASIS approves the leave application
+.  OASIS shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 4a. The format is invalid
++
+** 4a1. OASIS shows an error message
++
+* 4b. The index is does not exist
++
+** 4b1. OASIS shows an error message
++
+* 4c. The user does not have the permissions to approve leaves
++
+** 4c1. OASIS shows an error message
++
+Use case resumes at step 2.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1797,23 +1862,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
