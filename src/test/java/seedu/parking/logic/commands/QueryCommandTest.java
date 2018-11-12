@@ -28,6 +28,10 @@ public class QueryCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
+    /**
+     * Calls the API and load all the car parks information
+     * @return An array of car parks
+     */
     private List<Carpark> readCarpark(List<List<String>> carparkData) {
         List<Carpark> carparkList = new ArrayList<>();
         for (List<String> carpark : carparkData) {
