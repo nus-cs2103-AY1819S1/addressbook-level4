@@ -343,7 +343,6 @@ Edits the module of INDEX 1 in TheTracker: edits the module code to CS1101S.
 *Notice*
 
 * You should edit at least one field
-* You can edit multiple fields
 * The INDEX must be valid:
 ** Be a positive number
 ** Not larger than the size of the module list
@@ -362,7 +361,6 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 *Notice*
 
 * You should edit at least one field
-* You can edit multiple fields
 * The INDEX must be valid:
 ** Be a positive number
 ** Not larger than the size of the occasion list
@@ -655,7 +653,7 @@ e.g. `delete 2`
 e.g. `editperson 1 p/91234567 e/johndoe@example.com`
 
 * *Edit Module* : `editmodule INDEX [mc/MODULE CODE] [mt/MODULE TITLE] [ay/ACADEMIC YEAR] [sem/SEMESTER] [t/TAG]...` +
-e.g. `editmodule 1 mc/CS1101S `
+e.g. `editmodule 1 mc/CS1101S`
 
 * *Edit Occasion* : `editoccasion INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...` +
 e.g. `editoccasion 1 on/Barbecue od/2019-6-17 loc/NUS`
