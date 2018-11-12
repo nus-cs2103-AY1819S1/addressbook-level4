@@ -5,16 +5,19 @@
 
 == Overview
 
-I am a year 2 Computer Science major, specialising in Software Engineering. This portfolio page collates and document my contributions towards the development of the project, LoanBook. It serves to showcase the technical knowledge I have learned throughout the course in CS2103T. My resume and full portfolio can be found https://weineng.io[here].
+Hello there, I am _Wei Neng_. I am currently studying at National University of Singapore (NUS), majoring in Computer Science and specialising in Software Engineering. This portfolio page collates and document my contributions towards the development of the project, LoanBook. It serves to showcase the technical knowledge I have learned throughout the course in CS2103T. My resume and full portfolio can be found https://weineng.io[here].
 
 == LoanBook
 
 Physical management of bicycle loans using pen and paper is hard to organise, unfriendly to the environment and extremely slow.
 Coupled with the rising competition from bicycle sharing companies such as ofo and MoBike, it is more important than ever for bicycle rental companies
-to streamline their process and be more efficient to stay competitive. Introducing LoanBook,
+to streamline their process and be more efficient to stay competitive.
+
+Introducing LoanBook,
 the all-in-one free inventory management software that promises to improve the efficiency of your bicycle rental business!
 It comes out of the box with every feature that your business will require.
 By parsing commands typed by users, a mouse is no longer required to use the app. Compared to a Graphical User Interface (GUI) or the traditional pen and paper, fast typists will find that LoanBook allows user to manage bicycle loans much faster.
+LoanBook was built with love together with 4 other students in NUS, namely David Kum, Lim Fong Yuan, Liu Xiaohang and Muhammad Irham.
 
 *Noteworthy features includes*
 
