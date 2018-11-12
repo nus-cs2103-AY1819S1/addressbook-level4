@@ -1,0 +1,5 @@
+{
+  "appTitle" : "CLInic",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json"
+}
