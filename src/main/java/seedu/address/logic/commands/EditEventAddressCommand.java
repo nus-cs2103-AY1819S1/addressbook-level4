@@ -80,6 +80,9 @@ public class EditEventAddressCommand extends Command {
         * unless it is the same event as eventToEdit. Date and time is not edited
         * in this command, so there should not be any existing event with same date/time
         * in the address book, else there is a clashing event.
+        *
+        * Also, as clashing events are not allowed, by Event#isSameEvent, we will also never have the case
+        * whereby editedEvent is the same event as both eventToEdit AND another event in the address book.
         */
         assert (!(!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)));
 
