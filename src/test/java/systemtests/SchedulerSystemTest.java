@@ -35,7 +35,7 @@ import seedu.address.model.ModelToDo;
 import seedu.address.model.Scheduler;
 import seedu.address.model.ToDoList;
 import seedu.address.testutil.TypicalEvents;
-import seedu.address.testutil.TypicalToDoEvents;
+import seedu.address.testutil.TypicalTodoListEvents;
 import seedu.address.ui.CommandBox;
 
 
@@ -83,7 +83,7 @@ public abstract class SchedulerSystemTest {
     }
 
     protected ToDoList getInitialDataToDo() {
-        return TypicalToDoEvents.getTypicalToDoList();
+        return TypicalTodoListEvents.getTypicalToDoList();
     }
 
     /**
