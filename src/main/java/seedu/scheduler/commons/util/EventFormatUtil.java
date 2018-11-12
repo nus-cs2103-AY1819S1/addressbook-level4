@@ -149,13 +149,13 @@ public class EventFormatUtil {
      *
      * @throws CommandException if any
      */
-    private Event convertGoogleEventToLocalEvent(com.google.api.services.calendar.model.Event googleEvent,
-                                                 HashMap<String, RepeatType> googleICalAndRepeatType,
-                                                 HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime)
+    private Event convertGoogleEventToLocalEvent(
+            com.google.api.services.calendar.model.Event googleEvent,
+            HashMap<String, RepeatType> googleICalAndRepeatType,
+            HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime)
             throws CommandException {
-        assert (googleEvent != null);
-        assert (googleICalAndRepeatType != null);
-        assert (googleiCalAndRepeatUntilTime != null);
+        checkNotNullForConvertGoogleEventToLocalEvent(googleEvent, googleICalAndRepeatType,
+                googleiCalAndRepeatUntilTime);
         DateTime start = retrieveStartDateTimeFromGoogleEvent(googleEvent);
         //Text location is specified by Google
         int yearMonthDateStartPosition = 0;
@@ -180,7 +180,7 @@ public class EventFormatUtil {
         Description description = convertDescriptionToLocalFormatFrom(googleEvent);
         Venue venue = convertVenueToLocalFormatFrom(googleEvent);
         //Converts reminders
-        ReminderDurationList reminderDurationList = ConvertReminderDurationListToLocalFormatFrom(googleEvent);
+        ReminderDurationList reminderDurationList = convertReminderDurationListToLocalFormatFrom(googleEvent);
         //Converts repeatUntilDateTime
         seedu.scheduler.model.event.DateTime repeatUntilDateTime = convertsRepeatUntilDaTimeToLocalFormat(
                 googleEvent, googleiCalAndRepeatUntilTime, endDateTime);
@@ -192,6 +192,20 @@ public class EventFormatUtil {
                 repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
 
+    /**
+     * Checks the necessary objects cannot be null
+     * @param googleEvent                  a Google Event object
+     * @param googleICalAndRepeatType      a map storing iCalId and its RepeatType
+     * @param googleiCalAndRepeatUntilTime a map storing iCalId and its RepeatUntilDateTime
+     */
+    private void checkNotNullForConvertGoogleEventToLocalEvent(com.google.api.services.calendar.model.Event googleEvent,
+                                                               HashMap<String, RepeatType> googleICalAndRepeatType,
+                                                               HashMap<String, seedu.scheduler.model.event.DateTime> googleiCalAndRepeatUntilTime) {
+        assert (googleEvent != null);
+        assert (googleICalAndRepeatType != null);
+        assert (googleiCalAndRepeatUntilTime != null);
+    }
+
     private DateTime retrieveStartDateTimeFromGoogleEvent(com.google.api.services.calendar.model.Event googleEvent) {
         assert (googleEvent != null);
         DateTime start = googleEvent.getStart().getDateTime();
@@ -201,7 +215,7 @@ public class EventFormatUtil {
         return start;
     }
 
-    private ReminderDurationList ConvertReminderDurationListToLocalFormatFrom(
+    private ReminderDurationList convertReminderDurationListToLocalFormatFrom(
             com.google.api.services.calendar.model.Event googleEvent) {
         ReminderDurationList reminderDurationList = new ReminderDurationList();
         Reminders reminder = googleEvent.getReminders();

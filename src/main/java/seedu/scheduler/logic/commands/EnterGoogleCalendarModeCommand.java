@@ -97,7 +97,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
         List<Event> eventsToAdd;
         HashMap<String, RepeatType> googleiCalAndRepeatType = new HashMap<>();
         HashMap<String, DateTime> googleiCalAndRepeatUntilTime = new HashMap<>();
-        prepareRepeatEvent(events, googleiCalAndRepeatType, googleiCalAndRepeatUntilTime);
+        getAListOfRepeatEventAndSingleEvents(events, googleiCalAndRepeatType, googleiCalAndRepeatUntilTime);
 
         List<com.google.api.services.calendar.model.Event> listOfGoogleEvents;
         //Obtain a list Of Google Events instances (previously only Events, not instances)
@@ -121,6 +121,12 @@ public class EnterGoogleCalendarModeCommand extends Command {
         return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
 
+    /**
+     * Adds a list of events to local database
+     *
+     * @param model       the local model
+     * @param eventsToAdd a list of events to add
+     */
     private void addToLocalDatabase(Model model, List<Event> eventsToAdd) {
         for (Event event : eventsToAdd) {
             logger.info("Adding events to local databse");
@@ -128,8 +134,20 @@ public class EnterGoogleCalendarModeCommand extends Command {
         }
     }
 
-    private void prepareRepeatEvent(Events events, HashMap<String, RepeatType> googleiCalAndRepeatType,
-                                    HashMap<String, DateTime> googleiCalAndRepeatUntilTime)
+    /**
+     * Gets a list Of RepeatEvent (not the instances) And SingleEvents
+     *
+     * @param events                       the events object from Google Calendar
+     * @param googleiCalAndRepeatType      a Map of Google Event and its RepeatType
+     * @param googleiCalAndRepeatUntilTime a Map of Google Event and its RepeatUntilTime
+     *
+     * @throws CommandException         if any
+     * @throws ParseException           if any
+     * @throws java.text.ParseException if any
+     */
+    private void getAListOfRepeatEventAndSingleEvents
+    (Events events, HashMap<String, RepeatType> googleiCalAndRepeatType,
+     HashMap<String, DateTime> googleiCalAndRepeatUntilTime)
             throws CommandException, ParseException, java.text.ParseException {
         //Obtain a list of Google Events
         logger.info("Obtaining a list of Google Events with NO instances");
