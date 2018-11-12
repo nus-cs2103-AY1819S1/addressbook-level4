@@ -3,70 +3,109 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: ClinicIO
 
 ---
 
-== Overview
+== 1. Overview
+// command line constraint
+// 2 paragraphs
+// number sections
+// pdf
+This page showcases my contributions to an open source software engineering group project as part of a university module.
+ClinicIO is a desktop application intended for medical clinic receptionists and doctors. It allows them to effortlessly
+manage a multitude of clinic processes such as managing queues. While there is a Graphical User Inteface (GUI) for
+displaying results, a key constraint for the module was to ensure that the application is used through a text interface.
+The program logic is written in Java in an Object Oriented manner and the GUI is written in JavaFX.
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+In the management of the project, I was responsible for ensuring the quality of the project's documentation. This
+involved a decided focus on reviewing language, ensuring that it is in-depth and simple to understand. I believe this is
+important to enable our program to be adopted by users and external developers.
 
-== Summary of contributions
+My individual role was as a developer in charge of managing the program's data. To this end, I worked together with my
+group members to understand their features and subsequently integrated the ability to view analytics for each of them.
+In addition, I contributed the ability to export data out of the program.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+== 2. Summary of contributions
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+This section lays out my contributions to the project.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=arsalanc-v2[my code]
 
-* *Other contributions*:
+==== 2.1 Major enhancement: the ability to view detailed statistics and visualizations.
+** _What it does_: It allows the user to track the activity of a clinic through objective metrics, in a simple manner.
+Analytics are enabled for patients, appointments and doctors.
+** _Justification_: This feature improves the product significantly because it provides a user with insight to make
+decisions regarding the clinic's processes. This can be used to improve the efficiency and the experience for both staff
+ and patients. It ensures that the clinic is able to improve with time, in order to benefit all stakeholders.
+** _Highlights_: This enhancement integrates across the major functions of a clinic. It was a challenge to design and
+implement a flexible yet powerful interface through which different types of visualizations can be easily created. A
+consistent and visually appealing graphical user interface was also a key part of this. This was done in order to
+ensure that many more metrics can be programmed to be tracked in the future.
+
+The following code snippet adds a summary of statistics to be displayed:
+
+`statData.updateSummary("title goes here", "list of labels go here", "list of values go here")`
+
+* *Minor enhancement*: the ability to export various types of patient data to a human editable format (CSV).
+// * *Minor enhancement*: a representation of a doctor-patient consultation with fields such as the patient's arrival
+// time.
+
+==== 2.2 Other contributions:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Added handy git tips that helped group members:
+https://github.com/CS2103-AY1819S1-W14-1/main/projects/1#card-13922007[1],
+https://github.com/CS2103-AY1819S1-W14-1/main/projects/1#card-13903185[2]
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added the ability to switch between GUI panels on top of an existing GUI placeholder:
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/227[#227]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the developer guide appendices: https://github.com/CS2103-AY1819S1-W14-1/main/pull/20[#20],
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/61[#61]
+*** Added a section to guide users on previewing user interfaces:
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/120/files[#120]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reviewed team mates' code contributions (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/60[#60],
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132],
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/140[#140]
+// https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144],
+// https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152],
+// https://github.com/CS2103-AY1819S1-W14-1/main/pull/179[#179],
+// https://github.com/CS2103-AY1819S1-W14-1/main/pull/238[#238]
 
-_{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the cohort:
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/148[1],
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/157[2],
+https://github.com/CS2103-AY1819S1-W13-2/main/issues/163[3]
+// https://github.com/CS2103-AY1819S1-W13-2/main/issues/167[4],
+// https://github.com/CS2103-AY1819S1-W13-2/main/issues/170[5]
 
-== Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
-
-== Contributions to the Developer Guide
+== 3. Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users
+._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=analyticscommands]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+You can view my user guide contribution towards the export feature here:
+https://github.com/CS2103-AY1819S1-W14-1/main/blob/master/docs/UserGuide.adoc#exporting-patient-data[exporting patient data]
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_The following below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=analytics]
+
+include::../DeveloperGuide.adoc[tag=export]
 
 
-== PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_

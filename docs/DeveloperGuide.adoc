@@ -553,45 +553,133 @@ In the example outlined in Step 5, if the `Model#hasMedicine(Paracetamol)` retur
 
 // tag::analytics[]
 === Analytics feature
-The analytics feature allows users to view numerical statistics and visualizations across the various functions of a
-clinic.
 
-==== Current Implementation
-The following class diagram represents the relationships between the classes in the `analytics` package.
+==== Implementation
+The following class diagram represents the relationships between classes in the `analytics` package.
 
-image::AnalyticsClassDiagram.png[width="800"]
+image::AnalyticsClassDiagram.png[width="500"]
 
-The abstract `Statistics` class specified methods for the computation and retrieval of two groups of statistics. The
+The abstract `Statistics` class specifies methods for the computation and retrieval of two groups of statistics. The
 first group consists of statistics to be displayed as a summary while the second is for ones that are visualized. Each
 of the statistics classes inherit from `Statistics`. They are encapsulated in `Analytics` which acts as a
-wrapper class and employs the delegation pattern. Additionally, each of them depend on `DateTimeCount` which provides
-the number of occurrences for various date and time periods.
+wrapper class for the various statistics and employs the delegation pattern. Each of the statistics classes may depend
+on`DateUtil` and `TimeUtil`. These classes contain utility methods for date and time information such as the number of
+occurrences in a certain date or time period. The occurrences can be of events such as appointments.
 
-The following operations are implemented: +
+===== Data Management
+Each of the statistics classes depend on the following classes for storing data:
 
-* `patientstats` Command - displays information on patients.
-* `apptstats` Command - displays information on appointments.
-* `doctorstats` Command - displays information on doctors.
-* `medstats` command - displays information on medicines.
+* `StatData`:
+** acts as a structure to encapsulate all statistics data to be displayed for simpler transport from `Analytics` to
+`AnalyticsDisplay`.
+** contains `SummaryData` and `CircularList` objects. The latter stores `VisualizationData` objects.
+** interfaces directly with the statistics classes to receive data.
+** used by `AnalyticsDisplay` to obtain fields required to create summary and visualizations.
 
-==== `patientstats` Command
+* `SummaryData`:
+** acts as a structure to encapsulate information required to create summaries.
+** contains the following fields:
+*** `title`: the title of the summary information.
+*** `summaryElements`: the texts and their accompanying values.
+* `CircularList`:
+** used for storing `VisualizationData` objects. Allows visualizations to be cycled backwards and forwards on the user
+interface.
+* `VisualizationData`:
+** acts a structure to encapsulate information required to create visualizations.
+** contains the following fields:
+*** `id`: the id of the chart. Used as an identifier to apply Cascading Style Sheet (CSS) to style each chart
+individually.
+*** `type`: the type of the chart. May be either one of a vertical bar chart, horizontal bar chart, vertically stacked
+bar chart or a line chart.
+*** `isContinuous`: indicates if the chart is continuous or categorical. Used by `Plot` to create the appropriate chart.
+*** `chartTitle`: the title of the chart.
+*** `xTitle`: the title of the horizontal axis if the chart is vertical or the vertical axis if horizontal.
+*** `yTitle`: the title of the vertical axis if the chart is vertical or the horizontal axis if horizontal.
+*** `dataGroups`: the groups of data points to be plotted. [red]*Must* be the same in number as `dataGroupsLabels`.
+*** `dataGroupsLabels`: the label for each group of data. Used in the legend of the chart. [red]*Must* be the same in
+number as
+ `dataGroups`.
+* `Tuple`:
+** used to store pairs of values as a convenient means by which to transport data points.
+** used mostly within a `List`, allowing order to be preserved.
 
-{add implementation details}
+==== Processes
+This section describes the processes that take place in order to display analytics.
 
-==== `apptstats` Command
+===== All Statistics Commands
 
-{add implementation details}
+The following apply to all the different types of statistics:
 
-==== `doctorstats` Command
+. `Analytics` updates the appropriate statistics object with the latest appropriate lists (e.g. appointments) from
+`ModelManager`.
+. The particular statistics object then calculates the summary for the various time periods mentioned above.
+. The particular statistics object then calculates data for one or more visualizations and updates `StatData`.
+. `Analytics` retrieves `StatData` from the statistics object and passes it to `ModelManager`.
+. `ModelManager` raises an `AnalyticsDisplayEvent` containing `StatData`.
+. `AnalyticsDisplay` retrieves `StatData` from `AnalyticsDisplayEvent` and passes it to `AnalyticsPlot`.
+. `AnalyticsPlot` updates the summary user interface.
+. `AnalyticsPlot` decides and plots the appropriate chart on the user interface.
 
-{add implementation details}
+====== `patientstats` Command
 
-==== `medstats` Command
+The following are the processes performed specifically by `PatientStatistics`:
 
-{add implementation details}
+. `PatientStatistics` calculates the summary of the number of patients.
+. `PatientStatistics` calculates the number of patients for the following time periods in a day:
+** `9AM - 12PM`, `12PM - 3PM`, `3PM - 6PM`, `6PM -9PM`
+
+. `PatientStatistics` updates `StatData` with this data for a vertical bar chart visualization.
+. `PatientStatistics` calculates the total historical number of patients for each day in a week.
+. `PatientStatistics` updates `StatData` with this data for a vertical bar chart visualization.
+
+===== `apptstats` Command
+
+[NOTE]
+By default, 24 appointment slots are available in day.
+
+The following are the processes performed specifically by `AppointmentStatistics`:
+
+. `AppointmentStatistics` calculates the summary of the number of appointments.
+. `AppointmentStatistics` calculates the number of scheduled and available appointment slots for each day of the
+following week.
+. `AppointmentStatistics` updates `StatData` object with this data for a stacked bar chart visualization.
+. `AppointmentStatistics` calculates the number of scheduled appointments for each date in the current year.
+. `AppointmentStatistics` updates `StatData` object with this data for a line chart visualization.
+
+===== `doctorstats` Command
+
+The following are the processes performed specifically by `DoctorStatistics`:
+
+. `DoctorStatistics` calculates the summary of the average number of consultations per doctor.
+. `DoctorStatistics` calculates the number of patients who prefer each doctor.
+. `DoctorStatistics` updates `StatData` object with data for a horizontal bar chart visualization.
 
 ==== Design Considerations
+===== Aspect: Computing statistics
+* **Alternative 1 (current choice):** Compute statistics only upon request
+** Pro: This reduces unnecessary computational workload.
+** Con: There is greater computational workload upon request of the statistics which may result in the user having to
+wait longer (if at all) to view them.
+* **Alternative 2:** Compute statistics every time there is a change in the underlying data
+** Pro: There is no chance of the user having to wait to view statistics.
+** Con: This increases the computational workload which may provide little benefit if statistics are not viewed
+frequently by the user.
 
+===== Aspect: User interface for the different types of statistics
+
+* **Alternative 1 (current choice):** Single, predetermined user interface
+** Pros: It is consistent, making it easier for users to process the information. It easier to implement due to the
+reusability of code.
+** Con: It lowers flexibility by mandating all statistics types to only have a summary and visualization component.
+* **Alternative 2:** Customized user interface for each type of statistic
+** Pro: It allows displays of quantitative information that are better suited for each individual statistics type. This
+results in greater flexibility even in the future as users may have changing analytics needs.
+** Cons: It may lower design consistency, forcing users to readjust each time they view it. It is more difficult to
+implement.
+* **Alternative 3:** Allow users to pick and choose which statistics they want to view.
+** Pro: This provides the greatest flexibility as users have total control in which statistics they view.
+** Cons: The burden is placed on the user having to decide which statistics they want to view. It is more difficult to
+implement as a consistent user interface needs to be designed to accomodate all the possible combinations.
 // end::analytics[]
 
 // tag::export[]
@@ -600,9 +688,9 @@ The export feature allows users to extract patient related data out of the progr
 format.
 
 ==== Current Implementation
-The following activity diagram represents the workflow of the export functionality.
+The following swimlane diagram represents the workflow of the export functionality.
 
-image::ExportActivityDiagram.png[width="800"]
+image::ExportSwimlaneDiagram.png[width="500"]
 
 The `ExportPatientData` class contains `static` methods for filtering and organizing the relevant data. These methods
 depend on a list of patients. It then passes the data to `ExportUtil` in order to write to a CSV file. `ExportUtil` also
@@ -621,21 +709,25 @@ The following operations are implemented: +
 ===== Aspect: File format
 
 * **Alternative 1 (current choice):** CSV
-** Pros: Human readable. Simple schema, easy to edit manually. Supported on all target platforms. Easier to implement.
-** Con: Does not allow complex relationships, resulting in repetitive data.
+** Pros: It is human editable and has a simple schema, making it easier to understand. It is supported on all target
+platforms. Additionally, it is easier to implement.
+** Con: It does not allow complex relationships. This may result in repetitive data.
 * **Alternative 2:** XLS (Native Excel format)
-** Pros: Can store more complex relationships between data. Data can be stored in the form of charts and graphs.
-** Cons: Less widely supported. Consumes more memory. More difficult to implement.
+** Pros: It allows more complex relationships between data to be stored. Data can also be stored in the form of charts
+and graphs.
+** Cons: It is less widely supported and consumes more memory. It is also more difficult to implement.
 
-===== Aspect: File location and Naming
+===== Aspect: File location and naming
 
-* **Alternative 1 (current choice):** Predetermined within the program to be stored in the root folder with fixed names.
-** Pros: Users can easily find it as it is in the same location as the program and has a standard name. Faster
-operation. Easier to implement.
-** Con: Reduces flexibility, another step is required if the user needs it in another directory.
-* **Alternative 2:** Specifiable by user
-** Pro: Gives users more control.
-** Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.
+* **Alternative 1 (current choice):** File location and naming are predetermined within the program and they are to be
+stored in the root folder.
+** Pros: Users can easily find it as it is in the same location as the program and has a standard name. It also
+results in a quicker operation and is easier to implement.
+** Con: It reduces flexibility as another step is required if the user needs it in another directory.
+* **Alternative 2:** File location and naming are specifiable by user.
+** Pro: This would give users more control.
+** Cons: It results in a slower operation due to the time taken to enter filename and location. It is also more
+difficult to implement.
 // end::export[]
 
 // tag::login[]
