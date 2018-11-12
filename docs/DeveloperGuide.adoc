@@ -734,7 +734,6 @@ Given below are the steps of an example scenario of how `BudgetPanel` is updated
 
 . The user executes an `add` command. As the `add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
-
 [NOTE]
 If a command fails its execution or does not affect budget or expenses, `UpdateBudgetPanelEvent` will not be posted.
 
@@ -2116,9 +2115,9 @@ categories and costs.
 . Toggling Notifications On and Off
 
 .. Prerequisites: User must be logged in. Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
-.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00` +
+.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`. +
    Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
-.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00` +
+.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`. +
    Expected: No new notifications should appear on the `NotificationPanel`.
 .. Test case: `notification n/tip t/on` +
    Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
