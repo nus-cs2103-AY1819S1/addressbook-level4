@@ -1259,6 +1259,19 @@ These instructions only provide a starting point for testers to work on; testers
 ... For tag prompt window: `[]` `,yes` +
    Expected: Similar to previous.
 
+. Adding a Disease
+
+.. Test case: `add disease d/acne s/pustules s/blackheads` +
+   Expected: Disease acne with its symptoms including pustules and blackheads is added. This can be verified with find command.
+.. Test case: `add disease d/autism s/loneliness` +
+   Expected: Disease autism with its symptom loneliness is added. This can be verified with find command.
+.. Test case: `add disease d/obesity d/obesities s/overweight` +
+   Expected: Disease will not be added. Error message will be shown in the CommandResult box.
+.. Test case: `add disease d/averylongdiseaseparameter s/dummySymptom` +
+   Expected: Disease will not be added. Error message will be shown in the CommandResult box.
+.. Test case: `add disease d/invalid,disease s/dummySymptom` +
+   Expected: Disease will not be added. Error message will be shown in the CommandResult box.
+
 === Delete
 
 . Deleting a patient
@@ -1310,13 +1323,38 @@ These instructions only provide a starting point for testers to work on; testers
 . Listing patients
 
 .. Test case: `list patient` +
-   Expected: Displays the list of patients which have not been deleted.
+   Expected: This displays the list of patients which have not been deleted.
 .. Test case: `list patient all` +
-   Expected: Lists all patients, including deleted ones.
+   Expected: This lists all patients, including deleted ones.
 
 . Listing appointments
 
 .. Test case: `list appointment` +
-   Expected: Displays the list of appointments which take place from now.
+   Expected: This displays the list of appointments which take place from now.
 .. Test case: `list appointment all` +
-   Expected: List all appointments, including those that took place in the past.
+   Expected: This lists all appointments, including those that took place in the past.
+
+. Listing diseases
+
+.. Test case: `list disease` +
+   Expected: This displays the list of diseases which have been stored in alphabetic order.
+
+=== find
+. finding diseases
+
+.. Test case: `find disease hIV` +
+   Expected: This displays the list of symptoms of hiv in alphabetic order.
+.. Test case: `find disease influenza` +
+   Expected: This displays the list of symptoms of influenza in alphabetic order.
+.. Test case: `find disease sad` +
+   Expected: No list of symptoms is displayed. The error message will be shown in the CommandResult box.
+
+=== predict
+. predicting diseases
+
+.. Test case: `predict s/fever s/blackout` +
+   Expected: This displays the list of diseases containing the symptoms above in alphabetic order.
+.. Test case: `predict s/cry` +
+   Expected: No list of diseases is displayed. The error message will be shown in the CommandResult box.
+.. Test case: `predict s/` +
+   Expected: No list of diseases is displayed. The error message will be shown in the CommandResult box.
