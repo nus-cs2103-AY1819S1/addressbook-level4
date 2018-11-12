@@ -38,10 +38,10 @@ Responsibilities: Leave System (Applying, Accepting, Rejecting)
 
 === Raynard Hadiwidjaja
 image::rnardha.png[width="150", align="left"]
-{empty}[http://github.com/RnardHa[github]]
+{empty}[http://github.com/RnardHa[github]][https://cs2103-ay1819s1-f10-1.github.io/main/team/rnardha.html[portfolio]]
 
 Role: Developer +
-Responsibilities: Projects
+Responsibilities: Assignments (Adding, Removing, Editing, Listing)
 
 '''
 
