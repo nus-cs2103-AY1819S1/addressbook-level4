@@ -535,6 +535,35 @@ Format: `logout` -> Disconnects you from Google Photos
 
 Format: `exit` -> Closes the application
 
+== Upcoming Features (in v2.0)
+
+=== Batch Apply
+
+Format: `b-apply [operation] (arg1) (arg2)` -> Applies the transformation to all images in the current directory and saves them as a copy of themselves.
+
+Example:
+
+In a directory with `y.png`, `z.png`.
+
+* `b-apply colorspace gray` -> Transformation applied to both images in directory and they are saved as `y_edit.png` and `z_edit.png`
+
+=== Export
+
+Format: `export [SYSTEM] (FOLDER_NAME)` -> Batch exports the images into sizes suitable for the OS stated into a new folder in the current directory (if specified). This is especially useful if you're a developer for mobile environments.
+
+* _Parameter_ : `[System]`
+** Android: Exports to hdpi, mdpi, xhdpi, xxhdpi, xxxhdpi sizes
+** iOS: Exports to 1x, 2x, 3x of original size.
+
+Examples:
+
+* `export android` - Saves canvas into sizes hdpi, mdpi, xhdpi, xxhdpi, xxxhdpi in currently opened directory +
+* `export android AND` - Saves canvas into sizes hdpi, mdpi, xhdpi, xxhdpi, xxxhdpi into a newly created folder `AND` in currently opened directory +
+
+=== Ruler
+
+Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will help you in estimating the number of pixels to move when using `layer position` or resizing objects.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -542,32 +571,106 @@ Format: `exit` -> Closes the application
 
 == Command Summary
 
-* *Help* : `help` +
-* *Ls* : `ls` +
-* *Cd* : `cd [DIRECTORY_NAME]` +
-* *Open* : `open [INDEX 1-10]` +
-e.g. `open 1` +
-* *Next* : `next` +
-* *Previous* : `prev` +
-* *Apply* `apply [TRANSFORMATION]` +
-e.g. `apply rotate 180` +
-* *Save* : `save [IMAGE_NAME]/[SET_NAME]` +
-e.g. `save exampleImage.jpg` +
-* *Undo* : `undo` +
-* *Undo All* : `undo-all` +
-* *Redo* : `redo` +
-* *Redo All* : `redo-all` +
-* *Canvas auto-resize* : `canvas auto-resize [on/off]`
-* *Background color* : `canvas bgcolor [color]`
-* *Canvas size* : `canvas size (heightxwidth)`
-* *Add layer* : `layer add [INDEX]`
-* *Delete layer* : `layer delete [INDEX]`
-* *Reposition layer* : `layer position [newXxnewY]`
-* *Select layer* : `layer select [INDEX]`
-* *Swap the order of two layers* : `layer swap [INDEX 1] [INDEX 2]`
-* *Login* : `login` +
-* *Google List* : `g ls OR g ls /a OR g ls <ALBUM_NAME>` +
-* *Download* : `g dl /i<IMAGE_NAME> OR g dl /a<ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +
-* *Upload* : `g ul <IMAGE_NAME> OR g ul all` +
-* *Logout* : `logout` +
-* *Exit* : `exit`
+
+*LEGEND*
+
+* `[PARAMETER]` -> Represents a compulsory parameter
+* `(PARAMETER)` -> Represents an optional parameter
+* `<PARAMETER>` -> Represents a parameter that must be typed with `< >`
+* `/a, /i, @` -> Compulsory flags that must be typed.
+[width="70%",cols="<20%,<32%,48%",options="header",]
+|=======================================================================
+|Feature |Format |Purpose
+|*Help* |`help` |Pulls up the help guide.
+
+|*List* |`ls` |Lists all images and folders in current directory
+
+|*Change directory* |`cd [DIRECTORY_NAME]` | Moves to the specified directory
+
+|*Open image* |`open [IMAGE_INDEX]` | Opens the image associated with the index
+
+|*Show next batch* |`next` | Moves to the next batch of 10 images in the current directory.
+
+|*Show previous batch* |`prev` | Moves to the previous batch of 10 images in the current directory.
+
+|*Apply* |`apply [TRANSFORMATION]` | Applies a transformation to the image (table below shows all available transformations)
+
+|*Save* |`save [IMAGE_NAME]` | Saves the image as the name provided
+
+|*Create* |`create [newName] [op1 \| arg1 \| arg2 \|...] [op2 \| arg1 \| arg2 \| ...]` | Creates a custom transformation
+
+|*Undo* |`undo` | Undo most recent transformations on current layer
+
+|*Undo all* |`undo-all` | Undoes all transformations on current layer
+
+|*Redo* |`redo` | Redo most recent transformation on current layer
+
+|*Redo all* |`redo-all` | Redoes all undone transformation on current layer
+
+|*Canvas auto-resize* |`canvas auto-resize [ON/OFF]` | Toggles the canvas auto-resize.
+
+|*Set background color* |`canvas bgcolor [COLOR]` | Changes the color of the background of the canvas.
+
+|*Changes the canvas size* |`canvas size (HEIGHTxWIDTH)` | Changes the size of the canvas.
+
+|*Add layer* |`layer add [INDEX]` | Adds the selected image index as a new layer.
+
+|*Delete layer* |`layer delete [INDEX]` | Deletes the layer at the selected index.
+
+|*Reposition layer* |`layer position [XPOSxYPOS]` | Repositions the layer to the specified position.
+
+|*Select layer* |`layer select [INDEX]` | Changes to layer at the selected index.
+
+|*Swap layers* |`layer swap [INDEX 1] [INDEX 2]` | Swaps the order of the two layers.
+
+|*Login* |`login` | Prompts you to login to Google Photos (GP).
+
+|*List images on GP* |`g ls` | Lists the photos you have on GP.
+
+|*List albums on GP* |`g ls /a` | Lists the albums you have on GP. Try `g ls <ALBUM>` to list images from a specific album
+
+|*Download image* |`g dl /i<IMAGE>` | Allows you to download specified image from GP
+
+|*Download album* |`g dl /a<ALBUM>` | Allows you to download an entire album from GP. Try `g dl /a<ALBUM> /i<IMAGE` to download an image from a specific album
+
+|*Upload image* |`g ul <IMAGE>` | Allows you to upload specified image to GP
+
+|*Upload folder* |`g ul all` | Allows you to upload all images in current directory to GP
+
+|*Logout* |`logout` | Logs you out of GP
+
+|*Exit* |`exit` | Exits Piconso
+
+|=======================================================================
+
+== Transformation Summary
+
+* Read Section 4.8 for more details on parameter values
+
+[width="70%",cols="<20%,<32%,48%",options="header",]
+|=======================================================================
+|Transformation |Usage |Purpose
+|*Custom* |`apply @[CUSTOM_NAME]` |Applies a custom transformation you have created before hand, `@` is compulsory.
+
+|*Blur* |`apply blur [RadiusxSigma]` Values -> Radius (0-99),  Sigma (0-99)|Blurs your entire layer accordingly to the radius & sigma values.
+
+|*Motion Blur* |`apply motion-blur [RadiusxSigma+Angle]` Values -> Radius (0-29),  Sigma (0-19), Angle (0-99)| Simulates a motion blur on the layer
+
+|*Colorspace* |`apply colorspace [color space] Values -> sRGB/RGB/GRAY/LAB/CMYK`| Changes the range of colors allowed on the image.
+
+|*Contrast* |`apply contrast`| Enhances the intensity differences between the lighter and darker elements
+
+|*Sigmoidal Contrast* |`apply sigmoidal-contrast [ContrastxMidpoint]`| Contrasts the image without saturating highlights or shadows.
+
+|*Noise* |`apply noise [Radius]` Values -> Radius (0-29) | Increases the noise in the image
+
+|*Resize* |`apply resize [percentage]` | Resizes the image
+
+|*Rotate* |`apply rotate [value], Value -> (-360 to 360)`| Rotates an image
+
+|*Sharpen* |`apply sharpen [RadiusxSigma]` Values -> Radius (0-29),  Sigma (0-29) | Sharpens the currently opened image
+
+|*Advanced* |`apply raw [arg1] [arg2]` | Directly passes arguments entered to ImageMagick.
+
+|=======================================================================
+
