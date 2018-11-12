@@ -394,6 +394,7 @@ Format: `select INDEX` +
 Aliases: `selec` OR `sele` OR `sel` OR `se` OR `s` in place of `select` +
 _Coming in V2.0: Command format can be typed case-insensitive_
 
+// tag::Reminder Feature[]
 === Reminder Operations: `addReminder` `deleteReminder` `postponeReminder`
 Customised commands to add, delete reminders incrementally, and postpone all reminders for the event. +
 
@@ -491,6 +492,8 @@ Reminders displayed become: 0S. Reminders will pop up right at the start time.
 =====
 * If the identified event has no reminders, it will have no effect.
 =====
+
+// end::Reminder Feature[]
 
 
 === Listing entered commands : `history`
