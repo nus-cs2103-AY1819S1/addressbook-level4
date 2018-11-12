@@ -795,27 +795,21 @@ The code snippet below showcase how MeetingBook toggle between the behaviour.
 [source, java]
 ----
 public void merge(ReadOnlyMeetingBook imported, boolean overwrite) {
-    // ... check if imported is the same as current MeetingBook ....
-
-    if (imported instanceof MeetingBook) {
-        MeetingBook importedBook = (MeetingBook) imported;
-        Iterator<Person> personItr = importedBook.persons.iterator();
-        while (personItr.hasNext()) {
-            Person importPerson = personItr.next();
-            if (!hasPerson(importPerson)) {
-                addPerson(importPerson);
-            } else {
-                if (overwrite) {
-                    Person samePerson = getPersonByName(importPerson.getName());
-                    updatePerson(samePerson, importPerson);
-                }
-            }
+        // If Both book contains same entries
+        if (equals(imported)) {
+            return;
         }
 
-      // ... Do likewise for group...
+        if (!(imported instanceof MeetingBook)) {
+            return;
+        }
+        MeetingBook importedBook = (MeetingBook) imported;
+        importedBook.persons.iterator()
+                .forEachRemaining((person) -> mergePerson(person, overwrite));
 
+        importedBook.groups.iterator()
+                .forEachRemaining((group) -> mergeGroup(group, overwrite));
     }
-}
 ----
 
 
