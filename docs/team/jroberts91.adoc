@@ -49,16 +49,16 @@ This feature improves OASIS significantly as it removes unwanted employee inform
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
 ** Enhancements to existing features:
-*** Updated the GUI to show a ListPicker to toggle between active and archive list. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
-*** Updated DeleteCommand to delete from either active or archive list depending on which list the user is on. (Pull requests)
-*** Updated ClearCommand to clear all employees in OASIS, both active and archive. (Pull requests)
-*** Wrote tests for features. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
+*** Updated the GUI to show a ListPicker to toggle between active and archive list. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/115[#115], https://github.com/CS2103-AY1819S1-F10-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-F10-1/main/pull/178/files[#178])
+*** Updated DeleteCommand to delete from either active or archive list depending on which list the user is on. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/178[#178], https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
+*** Updated ClearCommand to clear all employees in OASIS, both active and archive. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183 [#183])
+*** Wrote tests for features. (Pull request https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
 
 ** Documentation:
 *** Updated the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[Model class diagram] and link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[UI class diagram] in the Developer Guide to reflect all the changes that we did.
 
 ** Community:
-*** `Listpicker` menu feature that I added was adopted by several other class mates ()
+*** `Listpicker` menu feature that I added was adopted by several other class mates (Pull request https://github.com/CS2103-AY1819S1-F10-1/main/pull/184[#184])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/125[1], https://github.com/CS2103-AY1819S1-W12-3/main/issues/124[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/139[3],
 https://github.com/CS2103-AY1819S1-W12-3/main/issues/135[4])
 
