@@ -18,7 +18,7 @@ By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-The JxMusic Player is a music platform that lets you add to, organize and play your digital audio collection on your computer. The player is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+The JxMusic is a music platform that lets you add to, organize and play your digital audio collection on your computer. The player is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 // tag::quickStart_yingnan[]
 == Quick Start
