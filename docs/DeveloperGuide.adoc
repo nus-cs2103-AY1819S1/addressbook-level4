@@ -563,7 +563,7 @@ The following sequence diagram illustrates how the mechanism works:
 
 .Sequence Diagram of archive task command
 
-image::Archive.png[width="800"]
+image::ArchiveTaskCommand.png[width="800"]
 
 ==== Design Considerations
 
@@ -572,9 +572,9 @@ image::Archive.png[width="800"]
 * **Alternative 1 (current choice):** Save archived tasks in a separate list.
 Implement two task lists in Schedule Planner, one for normal tasks, another for archived tasks. For archived tasks,
 instead of using UniqueTaskList, implement a new class that allow duplicates.
-** Pros: When listing normal tasks, program does not have to filter out archived tasks every time, which makes the
+** Pros: When listing normal tasks, the program does not have to filter out archived tasks every time; which makes the
 algorithm more efficient. Besides, users is able to add in new task with same attributes as an archived task,
-which is more reasonable for user.
+which makes the design logic more reasonable for user and more user-friendly as well.
 ** Cons: Listing archived tasks will need a new approach, different from other list commands; new class has to be
  implemented to store archived tasks.
 
@@ -591,7 +591,7 @@ Besides, user cannot add in new task with same attributes as archived tasks, whi
 The automatic deletion feature removes archived tasks with deadlines date earlier than 2 weeks ago from current time
 point from archived task list. There are two main reasons behind this feature. +
 Firstly, we want to optimize the user experience of viewing archived tasks. Users should be able to view archived tasks,
-but displaying all archived tasks will be too bulky and hard to view. In other words, we want to stop the archived task
+but displaying all archived tasks would make the archived task list too bulky and hard to view. In other words, we want to stop the archived task
 list from growing to infinity. +
 Another reason is we want to save storage space used by our application as much as possible.
 
@@ -618,8 +618,8 @@ We had a rough idea of deleting away "old" tasks. However, how should we define 
 * **Alternative 1 (current choice):** Delete tasks with deadline date earlier than 2 weeks before current date.
 ** Pros: This implementation is easier for testing. Testers do not have to alternate their system time to
 test the feature.
-** Cons: The logic may be less user-friendly comparing to Alternative 2. Usually what users expect is more likely
-to be "able to check tasks that were archived recently". For example, if user has just archived a
+** Cons: The logic may be less user-friendly comparing to Alternative 2. A user's expectation is more likely
+to be "I can check tasks that were archived recently". For example, if user has just archived a
 task that has been overdue for 1 month (the deadline date of this task is 1 month earlier than current date),
 he/she may find it not so intuitive if next time he/she runs the app, the task cannot be found in archived task list.
 
@@ -1006,11 +1006,12 @@ image::ListArchivedSequenceDiagram.png[width="650"]
 //tag::sorting[]
 === Sort tasks
 The sorting feature enables tasks to be displayed in the order of deadline date and priority.
+This feature applies to all tasks except archived tasks.
 
 ==== Current Implementation
 Sorting feature does not require any user input command.
-Whenever the tasks are listed, it will always be listed according to deadline date, then priority.
-3 is the highest priority, while 1 is the lowest. +
+Whenever the tasks are listed, they are always listed according to deadline date, then priority. Our application offers
+3 priority levels from 1 to 3, 3 is the highest priority and 1 is the lowest. +
 
 Assume there are two tasks in a task list, task A and task B. Given below is the scenario when
 task list is retrieved from schedule planner using any kind of `list` command and how the sorting mechanism
@@ -1025,7 +1026,9 @@ behanves.
 
 ... If task A has higher priority than task B, the order will be task A followed by task B and vice versa.
 ... If task A and task B have the same priority, then `Name#compare()` is called,
-which compares the task name of A and B according to JAVA `compareTo()` method of `String` class.
+which compares the task name of A and B according to JAVA `compareTo()` method of `String` class. +
+
+Given below is a sequence diagram of the sorting feature.
 
 .Sequence diagram of sorting feature.
 
@@ -1099,7 +1102,9 @@ public class UniqueCategoryList implements Iterable<Category> {
 Given below is an example usage scenario and how the category mechanism behaves at each step: +
 
 Step 1. User enters command `addcat c/Game list` to add a category named `Game list`.
-The `addcat` command is executed. `AddCategoryCommand#execute()` calls `Model#addCategory()`, which then calls `VersionedSchedulePlanner#addCategory()`.
+
+. The `addcat` command is executed. `AddCategoryCommand#execute()` calls `Model#addCategory()`.
+. `Model#addCategory()` then calls `VersionedSchedulePlanner#addCategory()`.
 `SchedulePlanner#addCategory()` then calls `UniqueCategoryList#add()`. `UniqueCategoryList#add()` checks if
 the existing category list contains any category with identical name as new category, if exists, `DuplicateCategoryException()`
 is thrown; if not, new category is created and added to category list.
