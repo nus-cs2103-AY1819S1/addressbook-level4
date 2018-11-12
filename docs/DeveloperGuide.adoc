@@ -694,18 +694,37 @@ The Game Manager is responsible for the gamification aspects of WatchOver.
 image::GameManagerClassDiagram.png[width="1200"]
 
 The Task Manager owns a GameManager object, which handles the core logic of gamification. All xp calculations are
-handled exclusively by the current GameManager. 
+handled exclusively by the current GameManager.
 
 The GameManager, in turn, owns a GameMode object. GameMode is implemented as an abstract class, and specific
 implementations of game modes must extend the abstract GameMode. The GameMode handles the actual appraisal of tasks
 for xp, delegated from the GameManager. Individual variations of GameMode will contain their own logic to determine
-xp earned, accessible through `appraiseXpChange(Task taskFrom, Task taskTo)`. 
-
-
+xp earned, accessible through `appraiseXpChange(Task taskFrom, Task taskTo)`.
 
 ==== Mechanism
 
+When a task is completed, `ModelManager::updateTaskStatus(Task target, Task updatedTask)` is used to change the
+target task into the updated task. `TaskManager::appraiseXpChange(target, updatedTask)` is then called (from
+the current `versionedTaskManager` instance).
+
+At this point, the `TaskManager` calls `GameManager::appraiseXpChange(Task taskFrom, Task taskTo)`, passing
+control to the gamification component.
+
+image::GameManagerSequenceDiagram.png[width="1200"]
+
+The GameManager delegates the xp calculation to its owned GameMode through
+`GameMode::appraiseXpChange((Task taskFrom, Task taskTo))`. The GameMode first checks if the tasks are valid. In
+particular, the tasks must be the same tasks (that is, they have the same fields), and the status change must be
+a valid change (e.g. from `IN_PROGRESS` to `COMPLETED`, and not something like `COMPLETED` to `OVERDUE`).
+
+Following that, the GameMode performs the specific calculations unique to each GameMode, to determine the xp
+to be awarded.
+
 ==== Storage
+
+The current GameManager is persisted in WatchOver's storage.
+
+The `XmlSerializableTaskManager` contains a field 
 
 ==== Design Considerations
 
