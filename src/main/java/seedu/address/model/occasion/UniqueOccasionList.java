@@ -100,7 +100,7 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     public void remove(Occasion occasionToRemove) {
         requireNonNull(occasionToRemove);
         if (!internalList.remove(occasionToRemove)) {
-            throw new DuplicateOccasionException();
+            throw new OccasionNotFoundException();
         }
     }
 
