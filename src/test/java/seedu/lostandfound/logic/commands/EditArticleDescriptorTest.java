@@ -6,6 +6,7 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_FINDER_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_RED;
@@ -38,6 +39,10 @@ public class EditArticleDescriptorTest {
         // different name -> returns false
         EditArticleDescriptor editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK)
                 .withName(VALID_NAME_MOUSE).build();
+        assertFalse(DESC_POWERBANK.equals(editedAmy));
+
+        // different finder -> returns false
+        editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK).withFinder(VALID_FINDER_MOUSE).build();
         assertFalse(DESC_POWERBANK.equals(editedAmy));
 
         // different phone -> returns false

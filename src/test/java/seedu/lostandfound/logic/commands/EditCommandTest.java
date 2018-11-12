@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_FINDER_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
@@ -62,10 +63,10 @@ public class EditCommandTest {
 
         ArticleBuilder articleInList = new ArticleBuilder(lastArticle);
         Article editedArticle = articleInList.withName(VALID_NAME_MOUSE).withPhone(VALID_PHONE_MOUSE)
-                .withTags(VALID_TAG_BLUE).build();
+                .withTags(VALID_TAG_BLUE).withFinder(VALID_FINDER_MOUSE).build();
 
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE)
-                .withPhone(VALID_PHONE_MOUSE).withTags(VALID_TAG_BLUE).build();
+                .withPhone(VALID_PHONE_MOUSE).withFinder(VALID_FINDER_MOUSE).withTags(VALID_TAG_BLUE).build();
         EditCommand editCommand = new EditCommand(indexLastArticle, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);

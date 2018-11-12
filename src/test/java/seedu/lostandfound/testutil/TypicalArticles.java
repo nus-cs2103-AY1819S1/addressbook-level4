@@ -56,7 +56,6 @@ public class TypicalArticles {
             .withIsResolved(true).withPhone("8182427").withName("Nice Pen").withOwner("Carl Kurz")
             .withEmail("Dee@example.com").withDescription("Found at Little India").build();
 
-
     // Manually added
     public static final Article SHIRT = new ArticleBuilder().withName("Blue PayPal Shirt").withPhone("8482424")
             .withEmail("stefan@example.com").withDescription("Found at little india").withIsResolved(false)

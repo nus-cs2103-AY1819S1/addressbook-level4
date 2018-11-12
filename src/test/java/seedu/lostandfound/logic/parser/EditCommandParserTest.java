@@ -5,8 +5,11 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC
 import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_FINDER_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -19,6 +22,8 @@ import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTIO
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_FINDER_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_FINDER_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_POWERBANK;
@@ -83,6 +88,8 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_FINDER_DESC,
+                Name.MESSAGE_CONSTRAINTS); // invalid finder
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC,
@@ -93,7 +100,7 @@ public class EditCommandParserTest {
                 Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_POWERBANK,
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_POWERBANK + FINDER_DESC_POWERBANK,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
@@ -109,17 +116,17 @@ public class EditCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser,
                 "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_DESCRIPTION_POWERBANK
-                        + VALID_PHONE_POWERBANK, Name.MESSAGE_CONSTRAINTS);
+                        + VALID_PHONE_POWERBANK + FINDER_DESC_POWERBANK, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_ARTICLE;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_MOUSE + TAG_DESC_RED
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_MOUSE + TAG_DESC_RED + FINDER_DESC_POWERBANK
                 + EMAIL_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK + NAME_DESC_POWERBANK + TAG_DESC_BLUE;
 
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_POWERBANK)
-                .withPhone(VALID_PHONE_MOUSE).withEmail(VALID_EMAIL_POWERBANK)
+                .withPhone(VALID_PHONE_MOUSE).withEmail(VALID_EMAIL_POWERBANK).withFinder(VALID_FINDER_POWERBANK)
                 .withDescription(VALID_DESCRIPTION_POWERBANK).withTags(VALID_TAG_BLUE, VALID_TAG_RED).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -145,6 +152,12 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + NAME_DESC_POWERBANK;
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_POWERBANK).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // finder
+        userInput = targetIndex.getOneBased() + FINDER_DESC_POWERBANK;
+        descriptor = new EditArticleDescriptorBuilder().withFinder(VALID_FINDER_POWERBANK).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
@@ -178,11 +191,11 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK
                 + EMAIL_DESC_POWERBANK + TAG_DESC_BLUE + PHONE_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK
                 + EMAIL_DESC_POWERBANK + TAG_DESC_BLUE + PHONE_DESC_MOUSE + DESCRIPTION_DESC_MOUSE
-                + EMAIL_DESC_MOUSE + TAG_DESC_RED;
+                + EMAIL_DESC_MOUSE + TAG_DESC_RED + FINDER_DESC_POWERBANK + FINDER_DESC_MOUSE;
 
         EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withPhone(VALID_PHONE_MOUSE)
                 .withEmail(VALID_EMAIL_MOUSE).withDescription(VALID_DESCRIPTION_MOUSE)
-                .withTags(VALID_TAG_RED, VALID_TAG_BLUE)
+                .withTags(VALID_TAG_RED, VALID_TAG_BLUE).withFinder(VALID_FINDER_MOUSE)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -200,9 +213,9 @@ public class EditCommandParserTest {
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_MOUSE + INVALID_PHONE_DESC + DESCRIPTION_DESC_MOUSE
-                + PHONE_DESC_MOUSE;
+                + PHONE_DESC_MOUSE + FINDER_DESC_MOUSE;
         descriptor = new EditArticleDescriptorBuilder().withPhone(VALID_PHONE_MOUSE).withEmail(VALID_EMAIL_MOUSE)
-                .withDescription(VALID_DESCRIPTION_MOUSE).build();
+                .withDescription(VALID_DESCRIPTION_MOUSE).withFinder(VALID_FINDER_MOUSE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

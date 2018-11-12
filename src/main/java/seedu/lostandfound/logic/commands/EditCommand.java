@@ -236,6 +236,7 @@ public class EditCommand extends Command {
             EditArticleDescriptor e = (EditArticleDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getFinder().equals(e.getFinder())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getDescription().equals(e.getDescription())
