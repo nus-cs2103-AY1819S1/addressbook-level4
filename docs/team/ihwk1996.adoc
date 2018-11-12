@@ -18,6 +18,9 @@ Piconso is a robust yet simple image-editing tool. Catered towards power users, 
 Unlike other heavy image editors, Piconso has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
 In addition, Piconso is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
 
+.A view of Piconso
+image::../images/Ui.png[width="602"]
+
 == Role
 
 My role was to facilitate the history of transformations of images within each layer. As the undo and redo feature is done using memoization, images need to be cached after each transformation. I constructed the base class to manage the caching and retrieval of images, then linked it to the Model and Storage components. In addition, I wrote rigorous tests and test utilities to ensure high reliability and simpler maintenance.
