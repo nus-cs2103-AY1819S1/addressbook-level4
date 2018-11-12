@@ -164,14 +164,22 @@ Format: `list`
 
 // tag::filterpatient[]
 === Filtering patients from list : `filter-patient`
-Shows a list of all patients in the Healthbook. +
+Shows a list of all patients in the HealthBook. +
 Format: `filter-patient`
+
+[WARNING]
+`list` command has to be called after `filter-patient` is called before proceeding
+with other command operations
 // end::filterpatient[]
 
 // tag::filterdoctor[]
 === Filtering doctors from list : `filter-doctor`
-Shows a list of all doctors in the Healthbook. +
+Shows a list of all doctors in the HealthBook. +
 Format: `filter-doctor`
+
+[WARNING]
+`list` command has to be called after `filter-doctor` is called before proceeding
+with other command operations
 // end::filterdoctor[]
 
 // tag::addappointment[]
@@ -264,6 +272,7 @@ Examples:
 ****
 * Either allergy or condition must be provided.
 * Duplicated allergy or condition is not allowed.
+* Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 ****
 
 [TIP]
@@ -284,7 +293,8 @@ Examples:
 ****
 * Either allergy or condition must be provided.
 * Input allergy or condition must exist in the HealthBook.
-* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` are treated as the same).
+* Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
 ****
 // end::deletemedicalhistory[]
 

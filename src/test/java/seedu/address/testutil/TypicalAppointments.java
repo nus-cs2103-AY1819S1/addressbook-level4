@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.appointment.Appointment;
 
 
@@ -51,10 +51,10 @@ public class TypicalAppointments {
     private TypicalAppointments() {} //prevents instantiation
 
     /**
-     * Returns an {@Code AddressBook} with al the typical appointments
+     * Returns an {@Code HealthBook} with al the typical appointments
      */
-    public static AddressBook getTypicalAddressBookWithAppointments() {
-        AddressBook ab = new AddressBook();
+    public static HealthBook getTypicalAddressBookWithAppointments() {
+        HealthBook ab = new HealthBook();
         for (Appointment appointment : getTypicalAppointments()) {
             ab.addAppointment(appointment);
         }

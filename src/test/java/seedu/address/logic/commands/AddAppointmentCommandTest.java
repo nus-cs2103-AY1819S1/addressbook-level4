@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -69,7 +69,7 @@ public class AddAppointmentCommandTest {
         expectedPatient.addUpcomingAppointment(expectedAppointment);
         expectedDoctor.addUpcomingAppointment(expectedAppointment);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
 
         for (int i = 0; i < 5; i++) {
             model.incrementAppointmentCounter();
