@@ -1,0 +1,52 @@
+= Aaron Seah  - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ClinicIO
+
+---
+
+== Overview
+
+ClinicIO is a clinic management desktop application so that a receptionist can manage a clinic with ease and efficiency.
+ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to organise the medicines in the clinic*
+** What it does: allows the user to add, delete, update quantities, and view details of various medicines.
+** Justification: This feature improves the product significantly because a target user will need an efficient way to access information on medicines.
+** Highlights: This enhancement adds new commands to the existing software.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Wrote additional tests for existing features.
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+** Tools:
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=medicinecommands]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=medicineinventory]
