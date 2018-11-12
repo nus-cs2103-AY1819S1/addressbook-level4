@@ -159,12 +159,6 @@ include::../DeveloperGuide.adoc[tag=listmonth]
 
 include::../DeveloperGuide.adoc[tag=filtertags]
 
-include::../DeveloperGuide.adoc[tag=usecase]
-
-include::../DeveloperGuide.adoc[tag=usecasefilter]
-
-include::../DeveloperGuide.adoc[tag=usecaselistmonth]
-
 include::../DeveloperGuide.adoc[tag=appendix]
 
 include::../DeveloperGuide.adoc[tag=manualtestfilter]

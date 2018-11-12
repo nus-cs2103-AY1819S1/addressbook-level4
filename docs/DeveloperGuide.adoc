@@ -687,7 +687,7 @@ Step 5. The updated task list would be reflected on `UI` to be displayed to the 
 The following sequence diagram illustrates how the mechanism works:
 
 .Sequence Diagram of ListMonth Command
-image::ListMonthSequenceDiagram.png[]
+image::ListMonthSequenceDiagram.png[width:300]
 
 ==== Design Considerations
 
@@ -897,7 +897,7 @@ predicate which tests for the tags 'tutorial' and 'CS2100'. `FilterCommand.execu
 
 The following sequence diagram summarizes what happens when a user executes a new filter command:
 
-image::FilterSequenceDiagram.png[width="650"]
+image::FilterSequenceDiagram.png[width="300"]
 
 ==== Design Considerations
 
