@@ -188,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
         titleScreen = new TitleScreen();
         titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
-        //displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
+        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
         displayPanelPlaceholder.getChildren().add(browserPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
