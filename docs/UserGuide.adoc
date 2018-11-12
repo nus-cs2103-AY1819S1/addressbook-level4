@@ -120,7 +120,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Shows a list of all persons in Tutor Pal. +
 Format: `list`
 
-// tag::addTime[]
+// tag::addtimecommand[]
 === Adding tuition time of a student : `addTime`
 
 Adds a tuition timing for a student in Tutor Pal.
@@ -136,7 +136,7 @@ Example:
 
 * `addTime 1 ts/mon 1300 1500` +
 Adds the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
-// end::addTime[]
+// end::addtimecommand[]
 
 === Edit certain class time of certain student: `editTime`
 
@@ -178,7 +178,7 @@ The ordinal number of the time is 0 base.
 If the the corresponding time-slot doesn't exit based on the ordinal number, then return invalid input.
 ====
 
-// tag::deleteTime[]
+// tag::deletetimecommand[]
 === Deleting tuition time of a student : `deleteTime`
 
 Deletes a tuition timing for a student in Tutor Pal.
@@ -193,7 +193,7 @@ Example:
 
 * `deleteTime 1 ts/mon 1300 1500` +
 Deletes the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
-// end::deleteTime[]
+// end::deletetimecommand[]
 
 === Deleting grade of a student : `deleteGrade`
 
