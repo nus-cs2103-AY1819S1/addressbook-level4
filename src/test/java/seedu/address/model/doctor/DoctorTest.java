@@ -71,7 +71,7 @@ public class DoctorTest {
     public void completeAppointment() {
         Doctor doctor = new DoctorBuilder().build();
         Appointment appointmentToAdd = new AppointmentBuilder().build();
-        Appointment anotherAppointmentToAdd = new AppointmentBuilder().withComments("Hello").build();
+        Appointment anotherAppointmentToAdd = new AppointmentBuilder().withAppointmentId(1234).build();
         Appointment moreAppointmentNotAdded = new AppointmentBuilder().withAppointmentId(123).build();
 
         doctor.addUpcomingAppointment(appointmentToAdd);
