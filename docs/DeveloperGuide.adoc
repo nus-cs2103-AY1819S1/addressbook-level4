@@ -108,8 +108,10 @@ When you are ready to start coding,
 [[Design-Architecture]]
 === Architecture
 
+// tag::ArchitectureDiagram_david[]
 .Architecture Diagram
 image::Architecture.png[width="600"]
+// end::ArchitectureDiagram_david[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -234,6 +236,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the library data in json format and read it back.
 
+// tag::DesignPlayerComponent_david[]
 [[Design-Player]]
 === Player component
 
@@ -247,6 +250,8 @@ The `Player` component,
 * interfaces with JavaFX Media to play sounds
 * handles media control with mp3 files
 
+// end::DesignPlayerComponent_david[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -256,6 +261,7 @@ Classes used by multiple components are in the `seedu.jxmusic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::ImplementationPlayerComponent_david[]
 === Player Component
 ==== Current Implementation
 
@@ -303,7 +309,7 @@ Therefore, any test that depends on MediaPlayer are skipped by using `Assume.ass
 ** Pros:
 *** No additional dependency (link:https://www.oracle.com/technetwork/java/javafx/downloads/supportedconfigurations-1506746.html[at least on common operating systems])
 ** Cons:
-*** <<Skipped-Tests>>
+*** See <<Skipped-Tests>>
 
 * **Alternative 2:** Use 3rd party mp3 player library such as JLayer
 ** Pros:
@@ -311,6 +317,8 @@ Therefore, any test that depends on MediaPlayer are skipped by using `Assume.ass
 ** Cons:
 *** Additional dependency
 *** Existing mp3 libraries for java are old and badly documented.
+
+// end::ImplementationPlayerComponent_david[]
 
 // tag::ReadLibrary[]
 === ReadLibrary
@@ -409,6 +417,7 @@ image::TrackAddCommandActivityDiagram.png[width="800"]
 === Playback Feature
 Four functionalities are implemented to achieve the playback task in JxMusic Player. `play` enables users to play musics. `pause` allows the break off of playing and `stop` terminates playing. `seek` functionality achieves the requirement of seeking the playing to a certain time point. To aid the use of `seek`, `duration` command is implemented to let users get the duration of track.
 
+// tag::ImplementationPlaybackFeaturePlay_david[]
 ==== Play
 PlayCommand caters for commands having the word `play` in it, in particular, `play`, `play p/` and `play t/` commands. It consists of 5 modes:
 
@@ -449,6 +458,8 @@ image::PlayablePlaylistObjectDiagram3.png[width="800"]
 ** Cons:
 *** Slightly worse performance
 *** More complex implementation
+
+// end::ImplementationPlaybackFeaturePlay_david[]
 
 // tag::playbackFeature_yingnan[]
 ==== Pause
@@ -1155,6 +1166,7 @@ Playlist:: list of tracks
 Library:: list of playlists and also name of folder which contains all tracks .mp3 files and library.json
 
 [appendix]
+// tag::InstructionsForManualTesting_david[]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1426,3 +1438,4 @@ Expected: First playlist shown in panel is removed.
 Expected: Displays "index provided is invalid" error message.
 
 === Thank you for testing our project! <3
+// end::InstructionsForManualTesting_david[]

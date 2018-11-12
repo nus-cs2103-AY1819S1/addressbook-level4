@@ -69,6 +69,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::PlayTPlayP_david[]
 === Playing a track : `play t/`
 
 Plays a track. If there is a playlist or track playing, it will be stopped and the track will be played. +
@@ -102,6 +103,7 @@ Examples:
 Plays the first playlist in the library folder if there is any.
 * `play p/Favourites` +
 Plays the playlist named "Favourites" if it exists in the library folder.
+// end::PlayTPlayP_david[]
 
 === Pausing a playing track : `pause`
 
@@ -114,6 +116,7 @@ Examples:
 `pause` +
 The track is paused.
 
+// tag::Play_david[]
 === Continuing a paused track : `play`
 
 Continues a paused track. +
@@ -125,6 +128,7 @@ Examples:
 `pause` +
 `play` +
 "Some Song" will continue playing from where it is paused.
+// end::Play_david[]
 
 // tag::command_yingnan[]
 === Stopping a play : `stop`
@@ -197,6 +201,7 @@ Examples:
 * `playlist search Fav` +
 Searches for playlists that has Fav in their names.
 
+// tag::PlaylistNew_david[]
 === Creating a playlist : `playlist new`
 
 Creates a new playlist with specific tracks and saves it into the library. +
@@ -211,6 +216,8 @@ Examples:
 
 * `playlist new p/Favourites t/Some Song t/Some Song 2` +
 Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
+
+// end::PlaylistNew_david[]
 
 === Deleting a playlist : `playlist del`
 

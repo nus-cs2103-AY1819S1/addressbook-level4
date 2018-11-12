@@ -1,0 +1,102 @@
+= David Choo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JxMusic
+
+---
+
+== Overview
+
+JxMusic is a desktop music player application developed as a school project for the learning of Software
+Engineering principles. The project is built upon https://se-edu.github.io/addressbook-level4/[AddressBook(Level 4)].
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=hidingmode[*Code contributed*]
+
+* *Major enhancement*: Implemented Player component
+** What it does: Handles all audio related functionalities by interfacing with JavaFX Media.
+** Justification: This is the core feature of JxMusic as it handles audio related interactions in a music player application.
+** Highlights: This enhancement supports new media control commands. Existing mp3 player libraries for Java were briefly evaluated. Before settling on JavaFX Media, I created a https://gist.github.com/hidingmode/7b138634854569400fed9fbd6ec4e0b0[prototype player] to experiment on its API. However, the implementation of Player experienced some setbacks due to unforeseen issues with JavaFX Media.
+*** Discovery of https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8210828[confirmed JavaFX Media bug]
+*** Resolution of https://github.com/CS2103-AY1819S1-T13-3/main/issues/35[another suspected JavaFX Media bug]
+*** Incompatibility of https://github.com/CS2103-AY1819S1-T13-3/main/pull/101/commits/a4c5170c53c234f023e48b3e0ade3654457fd225#diff-197aef6c54da4c4e85898e9156e245b4R37[JavaFX Media and JUnit, and by extension, Travis and AppVeyor].
+*** Asynchronous nature of JavaFX Media
+
+* *Major enhancement*: Coordinated refactoring process of entire code base
+** What it does: Transforms most of the original address book 4 codes to fit as a music player.
+** Justification: As the original code base was an address book application, a major overhaul was made to transform it into a music player application.
+** Highlights: Written elaborative and detailed issues and PRs.
+https://github.com/CS2103-AY1819S1-T13-3/main/issues/34[Guiding principle] was to transform `AddressBook` to `Library`, `Person` to `Playlist`, `Tag` to `Track`. https://github.com/CS2103-AY1819S1-T13-3/main/pull/42[Source refactored] in 2 days and https://github.com/CS2103-AY1819S1-T13-3/main/pull/49[tests refactored] in 3 days.
+
+* *Major enhancement*: Implemented `play`, `playlist new`, `duration` commands.
+** What it does:
+*** https://github.com/CS2103-AY1819S1-T13-3/main/pull/63[`play`]: Plays a playlist/track or resume from a pause
+*** https://github.com/CS2103-AY1819S1-T13-3/main/commit/ff264c5af1fe731f7bc4c9b641bcd650db6be9fa#diff-23a2194e30915cb772a3d1546d69fc5d[`playlist new`]: Creates a new playlist
+*** https://github.com/CS2103-AY1819S1-T13-3/main/commit/bd0e7ebed3283be366708556debad5b3bd9a5708#diff-76e971f55875fb7bcd7f30543550f829[`duration`]: Shows the duration of a playing track
+** Justification: These are just some of the many commands the team worked on as a whole.
+** Highlights:
+`play` command caters for 5 modes of usage - `play p/`, `play p/<playlist>`, `play t/`, `play t/<track>`, and `play`
+
+
+* *Other contributions*:
+** *Minor enhancement*: https://github.com/CS2103-AY1819S1-T13-3/main/pull/49/commits/3ab8ec79d21476eac49d5e91aed4c668c6120ff0#diff-d6dedaa869e5f06f11b19f555ba08a07R33[Modified the parser regex] to cater for command phrases instead of just single command word.
+** *Minor enhancement*: Implemented simple https://github.com/CS2103-AY1819S1-T13-3/main/commit/17453bd6a806696c3101d55663ac7395bae31db9#diff-d7278ba9866fb6c2c946f04fee81fbd7[validation checks for tracks using mp3 file header bytes].
+** Test: Written https://github.com/CS2103-AY1819S1-T13-3/main/commit/82c1cdab0b7cad0f62474f3da3f811df83c35f20#diff-197aef6c54da4c4e85898e9156e245b4[test for `play`] command
+
+* *Project management:*
+** Set up https://travis-ci.org/CS2103-AY1819S1-T13-3/main/[Travis] and https://ci.appveyor.com/project/docsautopublisher/main[AppVeyor]
+** Managed https://github.com/CS2103-AY1819S1-T13-3/main/releases[releases] `v1.1` - `v1.4` (4 releases) on GitHub
+** Used issue tracker as backlog by https://github.com/CS2103-AY1819S1-T13-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Ahidingmode[listing user stories]
+** Coordinated release branching strategy https://github.com/CS2103-AY1819S1-T13-3/main/pull/52[v1.2], https://github.com/CS2103-AY1819S1-T13-3/main/pull/62[v1.3], https://github.com/CS2103-AY1819S1-T13-3/main/pull/104[v1.4].
+
+* *Evidence of helping others:* Bug reports of testing other team's product +
+https://github.com/CS2103-AY1819S1-F11-4/main/issues/183[here], https://github.com/CS2103-AY1819S1-F11-4/main/issues/191[here], and https://github.com/CS2103-AY1819S1-F11-4/main/issues/185[here]
+
+* *Evidence of technical leadership:* Occasional participation on the module forum
+** Suggestions/responses
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/40#issuecomment-424299702[feedback to AB4]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/15[module website]
+*** https://github.com/TEAMMATES/teammates/issues/9115[TEAMMATES website]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/119#issuecomment-432974823[reply to a similar issue I encountered]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/17[sharing of an issue I thought others might face]
+** Questions
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/67[Immutability of model]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/104[Verbose Travis logs]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/46[Comparing PR merge methods]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/97[Overriding equals for many classes]
+*** https://github.com/nus-cs2103-AY1819S1/forum/issues/116[Purpose of preamble]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=PlayTPlayP_david]
+
+include::../UserGuide.adoc[tag=Play_david]
+
+include::../UserGuide.adoc[tag=PlaylistNew_david]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ArchitectureDiagram_david]
+
+include::../DeveloperGuide.adoc[tag=DesignPlayerComponent_david]
+
+include::../DeveloperGuide.adoc[tag=ImplementationPlayerComponent_david]
+
+include::../DeveloperGuide.adoc[tag=ImplementationPlaybackFeaturePlay_david]
+
+include::../DeveloperGuide.adoc[tag=InstructionsForManualTesting_david]
