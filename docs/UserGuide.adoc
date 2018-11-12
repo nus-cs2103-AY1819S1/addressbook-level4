@@ -98,12 +98,10 @@ Allows for multiple tags to be input: [blue]`t/tutorial`,
  [blue]`t/tutorial t/CS2100` etc.
 ====
 
-//tag::sorting[]
-[TIP]
-All tasks will be *sorted chronologically by default*. Tasks that are due earlier will appear before tasks that are
-due later. If *two tasks have the same deadline, they will be arranged according to priority*. 3 is the highest
-priority, while 1 is the lowest. +
-//end::sorting[]
+[WARNING]
+Please take note that naming is case-sensitive in Student Schedule Planner. For example, `cats` and `Cats` are
+considered different. This applies to task, tag as well as category. Only [blue]`find` and [blue]`filter` commands
+are case-insensitive for keywords.
 
 === Viewing Help
 
@@ -122,9 +120,20 @@ Example: +
 ====
 [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 
-Adds a task named [blue]`exam` with priority level [blue]`3`,
+Adds a task named `exam` with priority level `3`,
 tag `CS3241` and deadline of `101018` , venue at `mpsh1`.
 ====
+The priority level must be a number between 1 to 3, where 3 denotes highest priority.
+
+
+[WARNING]
+Duplicate tasks are not allowed in Student Schedule Planner; two tasks are considered identical if they
+have same name, deadline date, tags, and venue. If two tasks have same attributes except for priority,
+they are still considered as identical.
+Please take note that task name is case-sensitive. For example, task name `study` and `Study` are
+considered different.
+
+
 [NOTE]
 The priority value must be a number between 1 to 3, where 3 denotes highest priority.
 
@@ -139,6 +148,9 @@ Name, Priority, Deadline, and Venue fields are compulsory, and therefore require
 When you add tasks with new tags (tags that have not been added to any existing categories),
 these tags will be automatically added to default category `Others`. For details about Category and Tags, refer to
 <<Adding a Category>> and <<Adding a Tag to a Category>>.
+When you add new tasks with new tags (tags that have not been added to any existing categories),
+these tags will be automatically added to default category `Others`. For detailed guide about category and tags,
+please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
 // tag::addrepeat[]
 
@@ -163,6 +175,7 @@ image::beforeafteraddrepeat.png[width="800"]
 [NOTE]
 The number of repeats should be a positive integer (≥1). Setting the repeat as 1 has the same
 effect as using the `add` command.
+The number of repeats should be an integer that is greater or equals to 1. Setting the repeat as 1 has the same effect as using the [blue]`add` command.
 
 [TIP]
 Use this command to schedule tasks that you carry out regularly.
@@ -196,9 +209,19 @@ The task at index `3` will have it's priority value changed to [blue]`1` , and i
 according to its index number.
 The [blue]`INDEX` *must be a positive integer* (≥1)
 
+The `INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The `INDEX` *must be a positive integer* 1, 2, 3, ...
+
 [CAUTION]
 At least one of the optional fields must be provided. Existing values of provided field
 will be updated to the input values.
+
+[WARNING]
+Duplicate tasks are not allowed in Student Schedule Planner; two tasks are considered identical if they
+have same name, deadline date, tags, and venue. If two tasks have same attributes except for priority,
+they are still considered as identical.
+Please take note that task name is case-sensitive. For example, task name `study` and `Study` are
+considered different.
 
 [NOTE]
 As we have implemented auto-sorting, if you edited `date` or `priority`, the task might get reordered in the task
@@ -206,7 +229,7 @@ list. For more detailed guide about auto-sorting, please refer to <<Sorting Task
 
 [WARNING]
 Existing tags of a task will be removed when its tag is edited. If input is
-[blue]`edit 3 t/project`, then the resulting tag(s) of task 3 will be [blue]`project` only.
+[blue]`edit 3 t/project`, then the resulting tag(s) of task 3 will be `project` only.
 
 [TIP]
 To remove all tags of an existing task e.g for task with index number `3`, you can type [blue]`edit 3 t/`, all the
@@ -226,9 +249,11 @@ Example:
 
 Task with index `3` will be deleted from schedule planner.
 ====
-[blue]`INDEX` refers to the index of the task in the displayed task list. Refer to the task according to its index
+The `INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The `INDEX` *must be a positive integer* 1, 2, 3, ...
+`INDEX` refers to the index of the task in the displayed task list. Refer to the task according to its index
 number.
-The [blue]`INDEX` *must be a positive integer*(≥1)
+The `INDEX` *must be a positive integer*(≥1)
 
 [TIP]
 Use the [BLUE]`list` command to find out the index of the task to be deleted.
@@ -253,9 +278,11 @@ Below is the partial screenshots of task list before and after executing the arc
 
 image::archiveTask.png[width="300"]
 ====
-[blue]`INDEX` refers to the index of the task in the displayed task list. Refer to the task according to its index
+The `INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The `INDEX` *must be a positive integer* 1, 2, 3, ...
+`INDEX` refers to the index of the task in the displayed task list. Refer to the task according to its index
 number.
-The [blue]`INDEX` *must be a positive integer*(≥1)
+The `INDEX` *must be a positive integer*(≥1)
 [TIP]
 Use the [blue]`listarchived` command to find out the index of the task to be archived.
 View <<Viewing Archived Tasks>> for detailed guide.
@@ -339,6 +366,8 @@ List tasks due from current date till the end of the current week. +
 
 Example:
 ====
+The following diagram illustrates that when you used [blue]`listweek` command on the date `021118` (02 Nov '18), you will only see tasks
+until `041118` (04 Nov '18) which is the closest Sunday.
 [blue]`listweek` (on the date 021118)
 
 The following diagram illustrates the SSP when [blue]`listweek` is executed on the date `021118`. Only tasks until
@@ -366,6 +395,8 @@ The following diagram illusatrates the SSP when [blue]`listmonth` is executed on
 `301118`, which is the last day of the month, will be displayed.
 
 image::ListMonth_Before_After.png[width="600"]
+
+Tasks from 02 Nov '18 to end of the month (30 Nov '18) are listed.
 ====
 // end::listmonth[]
 
@@ -425,6 +456,8 @@ E.g for finding [blue]`tutorial`, [blue]`tutorial` must be used, [blue]`tut` or 
 The order of the keywords does not matter. For example,  [blue]`find apples buy` and [blue]`find buy apples` both return
  the
 same tasks. +
+You can include multiple keywords when using `find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
+`CS3230` or `CS5229`.
 
 
 // tag::filtertags[]
@@ -440,7 +473,9 @@ Example:
 ====
 - [blue]`filter tutorial` +
 
-Tasks with the tag [blue]`tutorial` are listed.
+image::b-a filter tutorial.png[width="600"]
+
+Tasks with the tag `tutorial` are listed.
 
 The diagram below illustrates the SSP when [blue]`filter tutorial` is executed.
 
@@ -454,12 +489,14 @@ The diagram below illustrates the SSP when [blue]`filter tutorial cs2100` is exe
 
 image::b-a filter tutorial cs2100.png[width="600"]
 
+Tasks with either `tutorial`, `2100` tags, or both, are listed.
 ====
 [NOTE]
 The keyword must be a whole word. +
 E.g for filtering [blue]`tutorial`, [blue]`tutorial` must be used, `tut` or other variations would not be allowed.
 
 [TIP]
+The search is case insensitive. e.g `apples` matches `Apples`.
 The order of the keywords does not matter. For example,  [blue]`filter tutorial cs2103` and [blue]`filter cs2103
 tutorial` both return the same tasks. +
 
@@ -475,7 +512,8 @@ Example:
 ====
 - [blue]`filterstrict tutorial` +
 
-Tasks with the tag [blue]`tutorial` are listed.
+
+Tasks with the tag `tutorial` are listed.
 
 The diagram below illustrates the SSP when [blue]`filterstrict tutorial` is executed.
 
@@ -483,7 +521,7 @@ image::b-a filterstrict tutorial.png[width="600"]
 
 -  [blue]`filterstrict tutorial geh1034` +
 
-Tasks with both [blue]`tutorial` and [blue]`2100` tags are listed.
+Tasks with both `tutorial` and `2100` tags are listed.
 
 The diagram below illustrates the SSP when [blue]`filterstrict tutorial geh1034` is executed.
 
@@ -529,14 +567,14 @@ image::FirstDayCommand_UG_Before_After.png[width="500"]
 There would not be any visible changes upon using the command. The changes are only reflected after relaunching the
 application.
 
-[blue]`DDMMYY` refers to the date format of day, month and year. It must fulfil the following criteria:
+`DDMMYY` refers to the date format of day, month and year. It must fulfil the following criteria:
 
-1. [blue]`DDMMYY` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
+1. `DDMMYY` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
 will be rejected as they are considered as more than one set of date.
 
-2. [blue]`DDMMYY` must be a valid date within 21st century.
+2. `DDMMYY` must be a valid date within 21st century.
 
-3. [blue]`DDMMYY` must be a Monday.
+3. `DDMMYY` must be a Monday.
 // end::firstday[]
 
 //tag::addingcat[]
@@ -557,10 +595,17 @@ Example:
 image::addingcat.png[width="300"]
 
 ====
-[NOTE]
-Category names may contain spaces. For example, [blue]`Steam`, [blue]`Steam2`,
-[blue]`Steam shopping list` are all valid category names. +
+Category name can contain space. For example, `Steam`, `Steam2`,
+`Steam shopping list` are all valid category names. +
 
+
+`Modules` and `Others` are two categories exist by default.
+
+[WARNING]
+Please take note that category is case-sensitive. For example, category `cats` and category `Cats` are
+considered different.
+
+[WARNING]
 Duplicated categories are not allowed in schedule planner. All
 categories must have different names.
 
@@ -588,13 +633,17 @@ Example:
 
 image::addtag.png[width="300"]
 ====
-Duplicated tags are not allowed under same category. +
 
-For instance, in above example, you cannot add another tag [blue]`Overwatch`
-to category [blue]`Steam shopping list`. However you can save same tag under multiple categories.
+[WARNING]
+Duplicated tags are not allowed under same category. +
+For instance, in above example, you cannot add another tag `Overwatch`
+to category `Steam shopping list`. However you can save same tag under multiple categories.
+Please take note that naming of tag is case-sensitive. For example, tag name `cat` and `Cat`
+are considered different.
+
 [TIP]
 When you add new tasks with new tags (tags that have not been added to any existing categories),
-these tags will be automatically added to default category [blue]`Others`.
+these tags will be automatically added to default category `Others`.
 
 [TIP]
 For how to remove tags from categories, please refer to <<Clearing a Category>>.
@@ -637,7 +686,7 @@ Example:
 image::removecat.png[width="300"]
 ====
 [WARNING]
-Default categories [blue]`Modules` and [blue]`Others` cannot be removed. The only operation available for default categories is to delete
+Default categories `Modules` and `Others` cannot be removed. The only operation available for default categories is to delete
 all tags saved under these two categories.
 For more detailed guide about how to do so, please refer to <<Clearing a Category>>.
 //end::removecat[]
@@ -751,10 +800,21 @@ Step 3: [blue]`undo` (reverses the [blue]`clear` command) +
 Step 4: [blue]`undo` (reverses the [blue]`delete 1` command) +
 ====
 
-[NOTE]
-====
-Undoable commands: those commands that modify the schedule planner's content (`add`, `delete`, `edit` and `clear`).
-====
+
+Undoable commands are those commands that modify the schedule planner's content:
+
+** [blue]`add`
+** [blue]`delete`
+** [blue]`edit`
+** [blue]`archive`
+** [blue]`clear`
+** [blue]`addtag`
+** [blue]`addcat`
+** [blue]`editcat`
+** [blue]`removecat`
+** [blue]`clearcat`
+
+
 
 [TIP]
 Use the `history` command to decide if you want to undo the previous _undoable_ command.
