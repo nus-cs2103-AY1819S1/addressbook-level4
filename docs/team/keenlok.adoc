@@ -41,7 +41,7 @@ This allows the implementation of the predicate class `AttributePredicate`, whic
 compare the values with the `Maintenance` and `WaitTime` of a ride class.
 
 ** Credits: The `filter` feature is based on the way the `find` feature works, with a `RideContainsConditionPredicate` instead of a
-`RideContainsKeywordsPredicate`.
+`RideContainsKeywordsPredicate` to test the rides.
 
 * *Minor enhancement*: The `find` feature can now parse "zone" and "tags" in addition to "z/" and "t/".
 
@@ -62,7 +62,7 @@ compare the values with the `Maintenance` and `WaitTime` of a ride class.
 *** Updated the user guide for the `filter` and `find` features
 
 *** Updated the developer guide for the implementation of the `filter` feature with sequence and activity diagrams of how
-the `filter` command works.
+the `filter` command executes and works.
 
 *** Updated my personal portfolio page
 

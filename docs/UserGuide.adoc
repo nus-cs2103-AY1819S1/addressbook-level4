@@ -432,7 +432,7 @@ Finds and displays the list of attractions in ThanePark with the name "accelerat
 You can only use `find` to look for a full word in the name. This means a part of the name like "accel" will not work
 and only the full name like "accelerator" will work.
 
-The list of results should like this if no changes were made to the application (ie. delete or add or update): +
+The list of results should be like this if no changes were made to the application (ie. delete or add or update): +
 
 image::./ui_screenshots/find-example-1.png[width="600"]
 
