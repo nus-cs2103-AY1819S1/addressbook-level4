@@ -447,7 +447,7 @@ obtain priority value * 3 xp, and a task completed on time will receive priority
 Format: `mode [Optional: GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 	`GAME_MODE` can be `flat` (default), `decreasing`, `increasing`, `priority`;
 	`GAME_DIFFICULTY` can be `easy`, `medium` (default), `hard`, `extreme`.
-	Difficulty can only be specified if Mode has been specified.
+	`GAME_MODE` must be specified in order to also set `GAME_DIFFICULTY`.
 
 
 [%hardbreaks]

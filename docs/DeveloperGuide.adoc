@@ -1402,44 +1402,111 @@ Expected: Description shown will be different during both invocations of
 `mode`. 
 
 . Correct xp awarded in Flat mode
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Prerequisites: +
+Set game mode by running `mode flat`
+.. Test case: +
+`clear` +
+`add n/Task One t/01-01-2019 p/1 d/Some description` +
+`edit 1 t/01-01-2018` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`complete 2` +
++
+Expected: +
+Task One is overdue, and should award 30 xp under Flat mode, medium difficulty. +
+Task Two is on time, and should award 60 xp. 
 
 . Correct xp awarded in Increasing mode
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Prerequisites: +
+Set game mode by running `mode increasing`
+.. Test case: +
+`clear` +
+`add n/Task One t/01-01-2019 p/1 d/Some description` +
+`edit 1 t/01-01-2018` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`complete 2` +
++
+Expected: +
+Task One is overdue, and should award 60 xp under Increasing mode, medium difficulty. +
+Task Two is on time, and should award 30 xp. +
+Setting Task Two to a different date within 3 days of the current date should award xp in between 30 xp and 60 xp.
 
 . Correct xp awarded in Decreasing mode
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Prerequisites: Set game mode by running `mode decreasing`
+.. Test case: +
+`clear` +
+`add n/Task One t/01-01-2019 p/1 d/Some description` +
+`edit 1 t/01-01-2018` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`complete 2` +
++
+Expected: +
+Task One is overdue, and should award 30 xp under Decreasing mode, medium difficulty. +
+Task Two is on time, and should award 60 xp. +
+Setting Task Two to a different date within 3 days of the current date should award xp in between 30 xp and 60 xp.
 
 . Correct xp awarded in Priority mode
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Prerequisites: Set game mode by running `mode priority`
+.. Test case: +
+`clear` +
+`add n/Task One t/31-12-2019 p/1 d/Some description` +
+`add n/Task Two t/31-12-2019 p/10 d/Some description` +
+`add n/Task Three t/01-01-2019 p/1 d/Some description` +
+`add n/Task Four t/01-01-2019 p/10 d/Some description` +
+`edit 3 t/01-01-2018` +
+`edit 4 t/01-01-2018` +
+`complete 1` +
+`complete 2` +
+`complete 3` +
+`complete 4` +
++
+Expected: +
+Task One has priority value 1 and is not overdue, and should award 6 xp under Priority mode, medium difficulty. +
+Task Two has priority value 10 and is not overdue, and should award 60 xp. +
+Task Three has priority value 1 and is overdue, and should award 3 xp. +
+Task Four has priority value 10 and is overdue, and should award 30 xp. +
 
-. Correct xp awarded in various game difficulties
+. Correct xp awarded in various game difficulties 
 .. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Test case: +
+`clear` +
+`mode flat easy` +
+`add n/Task One t/31-12-2019 p/1 d/Some description` +
+`complete 1` +
+`mode flat extreme` +
+`add n/Task Two t/31-12-2019 p/1 d/Some description` +
+`complete 2` +
++
+Expected: +
+Task One was completed in Easy mode, and should award 50 xp. +
+Task Two was completed in Extreme mode, and should award 80 xp.
 
 . Game mode persists between sessions
 .. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Test case: +
+`mode` +
+`exit` +
+Restart application +
+`mode` +
++
+Expected: Mode should remain the same before and after exiting
 
 . Change of game mode can be undone
 .. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
-
-. Application is robust against missing xml fields
-.. Prerequisites: -
-.. Test case: `mode` +
-Expected: 
+.. Test case: +
+`mode priority easy` +
+`mode` +
+`mode flat extreme` +
+`mode` +
+`undo` +
+`mode` +
+`redo` +
+`mode` +
++
+Expected: +
+Undoing will return the mode to the previous Priority mode, and redoing will restore the subsequent Flat mode.
 
 // end::gamemode-test[]
 
