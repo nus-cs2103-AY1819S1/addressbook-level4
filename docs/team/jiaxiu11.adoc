@@ -3,13 +3,12 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
-
+== PROJECT: WatchOver
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+WatchOver is a gamified desktop task manager.
 
 == Summary of contributions
 
@@ -24,14 +23,14 @@ As the achievement information is presented on the GUI rather than via the CLI o
 to toggle back the achievement panel GUI display (e.g. from all-time to today) on undo/redo command. +
 The whole mechanism requires extensive support and modification of all of the model, storage, logic and UI components of the existing software.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiaxiu11[RepoSense]].
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiaxiu11[RepoSense].
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed release `v1.4` on GitHub.
 ** Enhancements to existing features:
-*** Added a status field to the tasks to different between in-progress, completed and overdue tasks.
+*** Added a status field to tasks to differentiate between in-progress, completed and overdue tasks.
 *** Refactored the model component of address book to task manager.
 ** Documentation:
 *** Overseeing UserGuide, formatted UserGuide and added in the unmodified features from the original software.
@@ -67,3 +66,4 @@ include::../UserGuide.adoc[tag=achievements-usage]
 |===
 
 include::../DeveloperGuide.adoc[tag=achievements]
+include::../DeveloperGuide.adoc[tag=achievements-testing]
