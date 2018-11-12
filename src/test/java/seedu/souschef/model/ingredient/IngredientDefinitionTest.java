@@ -15,7 +15,7 @@ public class IngredientDefinitionTest {
     @Test
     public void getNameTest() {
         assertEquals(onion.getName(), otherOnion.getName());
-        assertEquals(onion.getName(), carrot.getName());
+        assertNotEquals(onion.getName(), carrot.getName());
     }
 
     @Test

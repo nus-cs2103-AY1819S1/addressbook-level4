@@ -16,7 +16,7 @@ public class IngredientPortionTest {
     @Test
     public void getNameTest() {
         assertEquals(onion.getName(), otherOnion.getName());
-        assertEquals(onion.getName(), carrot.getName());
+        assertNotEquals(onion.getName(), carrot.getName());
     }
 
     @Test
@@ -27,8 +27,9 @@ public class IngredientPortionTest {
 
     @Test
     public void getAmountTest() {
-        assertNotEquals(onion.getAmount(), otherOnion.getAmount());
-        assertEquals(otherOnion.getAmount(), carrot.getAmount());
+        assertEquals(200.0, onion.getAmount().getValue(), 0.0);
+        assertEquals(100.0, otherOnion.getAmount().getValue(), 0.0);
+        assertEquals(1.0, carrot.getAmount().getValue(), 0.0);
     }
 
     @Test
