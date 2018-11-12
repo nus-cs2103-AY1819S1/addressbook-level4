@@ -55,6 +55,10 @@ public class CircularList<T> {
         return lst.get(index);
     }
 
+    public void clear() {
+        lst.clear();
+    }
+
     public void reset() {
         index = -1;
     }

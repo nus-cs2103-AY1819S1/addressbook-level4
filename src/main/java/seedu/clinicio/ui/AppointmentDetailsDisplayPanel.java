@@ -14,7 +14,7 @@ import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 
 /**
- * Ui to display appointment details.
+ * A ui to display appointment details.
  */
 public class AppointmentDetailsDisplayPanel extends UiPart<Region> {
 
@@ -75,6 +75,5 @@ public class AppointmentDetailsDisplayPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setAllText(event);
         appointmentBox.setVisible(true);
-    }
 
 }
