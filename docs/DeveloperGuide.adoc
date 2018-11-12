@@ -551,22 +551,21 @@ image::viewPermissionSequenceDiagram.png[width="700"]
 ** Cons: Person card can get very cluttered if employee have many permissions.
 
 
-
 // tag::keyboardshortcuts[]
 === Command Shortcuts
 
-With various keyboard combinations user will be able to invoke commands' keyword.
+With various keyboard combinations user will be able to access command keywords quickly.
 
 ==== Current Implementation
 
-Keyboard shortcuts in OASIS is implemented in the KeyEvent handler within the `CommandBox` class.
+Keyboard shortcuts in OASIS is implemented using KeyEvent handler within the `CommandBox` class.
 
-When valid key combination is pressed, the text in the Command Box will be replaced with the corresponding command word.
+When valid key combination is pressed, the text in the command box will be replaced with the corresponding command word.
 
 ==== Aspect: Logic & UI
 
-Within the `CommandBox` class, there is KeyEvent handler method which will detect keyboard strokes. If the key pressed is a valid
-combination, then the text in the command box will be replaced with the text corresponding to one of the existing commands.
+Within the `CommandBox` class, there is KeyEvent handler method which handles keyboard’s input. If the key pressed is a valid
+combination, then the text field in command box will be replaced with the command corresponding to one of the existing commands.
 
 ==== Design Consideration
 
@@ -576,7 +575,6 @@ Current Implementation: Use the KeyEvent handler in the `CommandBox` class.
 
 ** Cons: As the number of commands increase, there might not be
 enough key combination to accommodate all the commands.
-
 
 // end::keyboardshortcuts[]
 
@@ -602,13 +600,17 @@ The following sequence diagram shows how adding an assignment works:
 
 image::AddAssignmentSequenceDiagram.png[width="1000"]
 
-Below is an example oh how add assignment mechanism behaves when a new assignment
+Below is an example on how addassignment mechanism behaves when a new assignment
 is added.
 
-1. When user executes `addassignment -au ASSIGNMENTNAME -au AUTHOR -de DESCRIPTION` command,
-new `Assignment` object will be initialized. It will then be compared to the existing assignments
-in the system with `hasAssignment(toAdd)` method. If the new object is unique, then it will be added
-into the system. However, if there is duplicate, the system will throw `DuplicateAssignmentException`.
+1. When user executes `addassignment -au ASSIGNMENTNAME -au AUTHOR -de DESCRIPTION` command, it
+will be parsed, then new `Assignment` object will be initialized. If the current user does not have
+the permission to add new assignment, error message will be thrown.
+
+2. If user has the required permission, then the current `Assignment` object will
+be compared to the existing assignments in the system with `hasAssignment(toAdd)`
+method. If the new object is unique, then it will be added into the system. However,
+if there is duplicate, the system will throw `DuplicateAssignmentException`.
 
 2. The new `Assignment` will then be copied and transformed to become `XmlAdaptedAssignment` object,
 which is then saved into a file by the <<25-storage-component, Storage>> component.
@@ -632,15 +634,27 @@ and finally delete it. It will then update the list in the <<25-storage-componen
 
 ===== List Assignment
 
-The sequence of listing all assignments is similar to deleting an assignment. In addition, there is no permission
+The parsing sequence of listing all assignments is similar to adding and deleting an assignment. In addition, there is no permission
 required to run `listassignment` command.
 
 When user executes `listassignment` command, system will retrieve all assignment data in the <<25-storage-component, Storage>>
-component and list all the assignments.
+component using `updateFilteredAssignmentList()` and update the User Interface to list all the assignments.
+
+.ListAssignmentCommand.java
+[source,java]
+----
+public CommandResult runBody(Model model, CommandHistory history) {
+        requireNonNull(model);
+        model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);<1>
+        EventsCenter.getInstance().post(new AssignmentListEvent());
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+----
+<1> The method to retrieve all assignments.
 
 ===== Edit Assignment
 
-The way edit assignment parse information is similar to `deleteassignment` command.
+Parsing the command when executing `editassignment` is similar to `deleteassignment` command.
 
 1. When user executes `editassignment 1 -an ASSIGNMENTNAME` command, the command will be parsed. The given prefix and field indicate that the corresponding field of `Assignment` should be edited with the new field.
 To do so, `EditAssignmentDescriptor` object will be produce. This object has the newly edited `Assignment` object.
