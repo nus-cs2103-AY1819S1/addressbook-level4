@@ -10,12 +10,12 @@ import org.junit.Test;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 
-public class SuggestionCommandTest {
+public class SuggestionCommandByIndexTest {
 
 
     @Test
     public void equals() {
-        String first = "Alice";
+        String first = "1";
         SuggestionCommand suggestionFirstCommand = new SuggestionCommand(first);
         // same object -> returns true
         assertTrue(suggestionFirstCommand.equals(suggestionFirstCommand));
@@ -27,7 +27,7 @@ public class SuggestionCommandTest {
         // different types -> returns false
         assertFalse(suggestionFirstCommand.equals(1));
 
-        String second = "Bob";
+        String second = "2";
 
         SuggestionCommand suggestionSecondCommand = new SuggestionCommand(second);
         // same object -> returns true

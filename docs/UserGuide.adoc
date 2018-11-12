@@ -67,6 +67,7 @@ e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 
 Format: `help`
 
+// tag::add[]
 === Adding a person: `add`
 
 
@@ -90,9 +91,16 @@ e.g. `... g/mid-test 100 ...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney`
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4` +
+Add a person without grade and tag.
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney` +
+Add a person with one or more than one grades and tags. +
+// end::add[]
 
+
+// tag::edit[]
 [[edit]]
+
 === Editing a person : `edit`
 
 Edits an existing person in the student list. +
@@ -115,55 +123,49 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `alex@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
 * `edit 5 el/Secondary 1` +
 Edits the educational level of the 5th student to Secondary 1.
+* `edit 2 g/Y1819S1_Mid 100 ` +
+Change the score of an exam.
+* `edit 1 g/test1 100 g/test2 99` +
+Add more new grade records for a student.
 
 [NOTE]
 ====
 By editing the educational level of any student using this command will remove any "Graduated" +
 tag by default. To promote the educational grade of a student, please use the `promote` command.
 ====
+// end::edit[]
 
 === Listing all persons : `list`
 
 Shows a list of all persons in Tutor Pal. +
 Format: `list`
 
+// tag::addtimecommand[]
 === Adding tuition time of a student : `addTime`
 
-Adds a tuition time slot for a student in the address book.
+Adds a tuition timing for a student in Tutor Pal.
 
-Format: `addTime n/NAME ts/TIME`
+Format: `addTime INDEX ts/TIME`
 
 ****
-* The student with the name `NAME` must be already be in the address book.
-* Adds the tuition time `TIME` for the student called `NAME`.
-* `TIME` must not clash with any other tuition time in the address book.
+* Adds tuition timing `TIME` for a student at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
+* `TIME` must not clash with any other tuition timings already in Tutor Pal.
 ****
 
 Example:
 
-* `addTime n/John Doe ts/mon 1300 1500` +
-Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+* `addTime 1 ts/mon 1300 1500` +
+Adds the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
+// end::addtimecommand[]
 
-=== Edit certain class time of certain student: `editTime`
-
-Edit certain class time of certain student +
-Format: `editTime n/NAME ts/OLD_TIME_SLOT ts/NEW_TIME_SLOT`
-
-****
-* filter result: list the person's name who takes class at given time.
-****
-
-[NOTE]
-====
-If no one is qualified then shows cannot find.
-====
-
+// tag::exchange[]
 === Edit certain class time of certain student: `exchangeTime`
 
 Exchange class time between two students who are in the same grade of same education level +
-Format: `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDINAL_NUMBER`
+Format: `exchangeTime A_TIME_SLOT_ORDINAL_NUMBER B_TIME_SLOT_ORDINAL_NUMBER n/NAME_A n/NAME_B`
 
 ****
 * exchange result: exchanged the time between the given students with given time found by the ordinal number.
@@ -171,7 +173,7 @@ Format: `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDIN
 
 Examples:
 
-* `exchangeTime Alice 0 Bob 0`
+* `exchangeTime 0 0 Alice Bob`
 Exchange Alice first time slot and Bob first time slot.
 
 [NOTE]
@@ -185,22 +187,26 @@ It will be considered as invalid command.
 The ordinal number of the time is 0 base.
 If the the corresponding time-slot doesn't exit based on the ordinal number, then return invalid input.
 ====
+// end::exchange[]
 
+// tag::deletetimecommand[]
 === Deleting tuition time of a student : `deleteTime`
 
-Deletes a tuition time slot for a student in the address book.
-Format: `deleteTime n/NAME ts/TIME`
+Deletes a tuition timing for a student in Tutor Pal.
+Format: `deleteTime INDEX ts/TIME`
 
-* The student with the name `NAME` must be already be in the address book.
-* `TIME` must already exist in the student's tuition timings.
-* The student with the name `NAME` will have the tuition timing `TIME` deleted.
+****
+* Deletes tuition timing `TIME` for the student at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
+* `TIME` must already exist for the student's tuition timings in Tutor Pal.
+****
 
 Example:
 
-* `deleteTime n/John Doe ts/mon 1300 1500` +
-Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+* `deleteTime 1 ts/mon 1300 1500` +
+Deletes the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person shown in the displayed person list in Tutor Pal.
+// end::deletetimecommand[]
 
-
+// tag::deleteGrade[]
 === Deleting grade of a student : `deleteGrade`
 
 Deletes a grade record for a student in the address book.
@@ -214,19 +220,27 @@ Example:
 * `deleteGrade 1 Y1819S1_Mid` +
 Deletes grade record named "Y1819S1_Mid" for the first person in the display panel.
 
+// end::deleteGrade[]
 
+
+// tag::find[]
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g. `hans` will match `Hans`
-* The search allows fuzzy matching when the length of the keyword is greater than 3 (with Levenshtein Distance < 3). e.g. `challotto` will match `Charlotte`
-* If the length of the keyword you type in is smaller or equal to 3, the keyword must be exactly the same to expected (but still case insensitive). e.g. `Lo` will not match `Li`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. +
+e.g. `hans` will match `Hans`
+* The search allows fuzzy matching when the length of the keyword is greater than 3 (with Levenshtein Distance < 3). +
+e.g. `challotto` will match `Charlotte`
+* If the length of the keyword you type in is smaller or equal to 3, the keyword must be exactly the same to expected (but still case insensitive). +
+e.g. `Lo` will not match `Li`
+* The order of the keywords does not matter. +
+e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). +
+e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -237,11 +251,13 @@ Returns `john` and `John Doe`
 Returns `Charlotte Oliveiro`
 * `find David Roy John` +
 Returns any person having names `David`, `Roy`, or `John`
+// end::find[]
 
+// tag::find/a[]
 === Locating persons by address: `find/a`
 
 Finds persons whose addresses contain all the given keywords. +
-Format: `find/a KEYWORD [MORE_KEYWORDS]`
+Format: `find/a KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search will search for persons whose addresses contain all the keywords. +
@@ -271,11 +287,13 @@ Returns `John Doe` (the order of the keywords does not matter)
 Returns person whose addresses containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li`
 * `find/a srangon` +
 Returns persons whose addresses containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li` (fuzzy matching)
+// end::find/a[]
 
+// tag::find/e[]
 === Locating persons by email address: `find/e`
 
 Finds a person through his/her email address. +
-Format: `find/e EMAIL`
+Format: `find/e EMAIL [MORE_EMAILS]...`
 
 ****
 * The search is case insensitive. +
@@ -294,11 +312,13 @@ Returns `John Doe` whose email address is `John@example.com`
 Returns `David Li` whose email address is `lidavid@example.com` (case insensitive)
 * `find/e lidavd@exmple.com` +
 Returns `David Li` whose email address is `lidavid@example.com` (fuzzy matching)
+// end::find/e[]
 
+// tag::find/p[]
 === Locating persons by phone number: `find/p`
 
 Finds a person through his/her phone number. +
-Format: `find/p PHONE_NUMBER`
+Format: `find/p PHONE_NUMBER [MORE_PHONE_NUMBER]...`
 
 ****
 * Only the phone number is searched.
@@ -315,6 +335,7 @@ Returns `John Doe` whose phone number is `98765432`
 Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
 * `find/p 98765433` +
 Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
+// end::find/p[]
 
 === Deleting a person : `delete`
 
@@ -356,6 +377,7 @@ Selects the 2nd person in the student list.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+// tag::filter1[]
 === Filter students by tuition fee: `filterByFee`
 
 List all the students whose tuition fee is greater or equal to the input fee. +
@@ -376,6 +398,11 @@ If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
 
+image::Fee.png[width="790"]
+
+// end::filter1[]
+
+// tag::filter2[]
 === Filter students by educational level: `filterByEducation`
 
 List all the students with given educational level +
@@ -400,6 +427,11 @@ If no students qualify the filter criteria, an empty list is returned along with
 The input of the education level must be "JC" "Secondary" or "Primary". Other input will be considered invalid input.
 ====
 
+image::Education.png[width="790"]
+
+// end::filter2[]
+
+// tag::filter3[]
 === Filter students by grade: `filterByGrade`
 
 List all the students whose grades fall between the minimum and maximum grade(both inclusive). +
@@ -421,10 +453,14 @@ If the input minimal grade is larger than maximal grade, then it will be regarde
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
 
+image::Grade.png[width="790"]
+// end::filter3[]
+
+// tag::filter4[]
 === Filter students by time slot: `filterByTime`
 
 List the student who has class at the given time. +
-Format: `filterByTime TIME_SLOT`
+Format: `filterByTime ts/TIME_SLOT`
 
 ****
 * filter result: A student who has a lesson at the given time slot.
@@ -432,7 +468,7 @@ Format: `filterByTime TIME_SLOT`
 
 Examples:
 
-* `filterByTime mon 1300 1400` +
+* `filterByTime ts/mon 1300 1400` +
 returns the student whose has tuition time in monday 1300-1400.
 
 [NOTE]
@@ -441,7 +477,10 @@ The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "w
 
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
+image::Time.png[width="790"]
+// end::filter4[]
 
+// tag::suggestq[]
 === Give Suggestions to students: `suggestion`
 
 Give Suggestions to students +
@@ -461,6 +500,29 @@ Show the suggestion to Alice according to her performance.
 If the student has not taken any exam before
 No suggestion gonna be shown.
 ====
+// end::suggestq[]
+
+// tag::suggest2[]
+=== Give Suggestions to students: `suggestionByIndex`
+
+Give Suggestions to students +
+Format: `suggestion index (base 1)`
+
+****
+* result: show the suggestions.
+****
+
+Examples:
+
+* `suggestion 1`
+Show the suggestion to the first student in the list according to his or her performance.
+
+[NOTE]
+====
+If the student has not taken any exam before
+No suggestion gonna be shown.
+====
+// end::suggest2[]
 
 === Listing entered commands : `history`
 
@@ -472,6 +534,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::grade[]
 [[grade]]
 === Grades attribute
 
@@ -504,6 +567,7 @@ Edit grade will not delete the previous grades as tap attribute.
 Change grade:
 
 if you need to change the score of a exam, you can use edit as well.
+// end::grade[]
 
 // tag::promote[]
 === Promote students stored in TutorPal : `promote`

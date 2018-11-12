@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 
@@ -18,10 +20,11 @@ public class ExchangeTimeCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Already exchanged the time"
             + " between the given students with given time!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": ExchangeTime. "
-            + "StudentA: "
-            + "The Ordinal number of the wanted time//base 0"
-            + "StudentB: "
-            + "The Ordinal number of the wanted time//base 0";
+            + "The Ordinal number of the wanted time of first student//base 0"
+            + "The Ordinal number of the wanted time of first student//base 0"
+            + PREFIX_NAME + "StudentA: "
+            + PREFIX_NAME + "StudentB: ";
+
 
     private String nameA;
     private String nameB;
@@ -31,18 +34,17 @@ public class ExchangeTimeCommand extends Command {
     /**
      * Change timeslot command
      *
-     * @param args
+     * @param indexOne
+     * @param indexTwo
+     * @param nameA
+     * @param nameB
      */
-    public ExchangeTimeCommand(String args) {
-        String[] stringCommand = args.trim().split(" ");
-        if (stringCommand.length != 4) {
-            this.nameA = "invalid";
-        } else {
-            this.nameA = stringCommand[0];
-            this.numA = Integer.parseInt(stringCommand[1]);
-            this.nameB = stringCommand[2];
-            this.numB = Integer.parseInt(stringCommand[3]);
-        }
+    public ExchangeTimeCommand(int indexOne, int indexTwo, String nameA, String nameB) {
+
+        this.numA = indexOne;
+        this.numB = indexTwo;
+        this.nameA = nameA;
+        this.nameB = nameB;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class ExchangeTimeCommand extends Command {
         Person targetPersonA = model.getFilteredPersonList().get(0);
         ArrayList<String> pplList2 = new ArrayList<>();
         pplList2.add(nameB);
+
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList2));
         if (model.getFilteredPersonList().isEmpty()) {
             return new CommandResult("Cannot find the student or the input is not complete,"
@@ -75,22 +78,22 @@ public class ExchangeTimeCommand extends Command {
         // Execute the display of student's grades here
         requireNonNull(model);
 
-        if (numA >= targetPersonA.getTime().size() || numA <= 0) {
+        if (numA >= targetPersonA.getTime().size() || numA < 0) {
             return new CommandResult("Cannot find the wanted timeSlot, please enter valid timeSlot");
         }
 
-        if (numB >= targetPersonB.getTime().size() || numB <= 0) {
+        if (numB >= targetPersonB.getTime().size() || numB < 0) {
             return new CommandResult("Cannot find the wanted timeSlot, please enter valid timeSlot");
         }
 
         Time timeA = (Time) targetPersonA.getTime().get(numA);
-        Time timeB = (Time) targetPersonB.getTime().get(numA);
+        Time timeB = (Time) targetPersonB.getTime().get(numB);
 
         targetPersonA.getTime().remove(timeA);
         targetPersonB.getTime().remove(timeB);
         targetPersonA.addTime(timeB);
         targetPersonB.addTime(timeA);
-
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult("the time slot changed successfully");
     }

@@ -6,23 +6,23 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FilterByGradeCommand;
+import seedu.address.logic.commands.SuggestionCommand;
 
-public class FilterByGradeCommandParserTest {
-    private FilterByGradeCommandParser parser = new FilterByGradeCommandParser();
+public class SuggestionCommandByIndexParserTest {
+    private SuggestionCommandParser parser = new SuggestionCommandParser();
 
     @Test
     public void parseEmptyArgThrowsParseException() {
-        assertParseFailure(parser, " ", String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, FilterByGradeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "  ", String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, SuggestionCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
-        FilterByGradeCommand expectedFindCommand =
-                new FilterByGradeCommand("3 100");
-        assertParseSuccess(parser, "3 100", expectedFindCommand);
+        SuggestionCommand expectedFindCommand =
+                new SuggestionCommand("1");
+        assertParseSuccess(parser, "1", expectedFindCommand);
 
 
     }

@@ -1,0 +1,92 @@
+= Chen Juan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TutorPal
+
+---
+
+== Overview
+
+TutorPal is a desktop application used by private home tutors for managing student information. The useage is primarily through CLI. It is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented the *Filter command* in aspect of *fee* *grade* *timeslot* *education*
+** What it does:
+***FilterByFee enable user to read the list of students whose tuition fee is equal or larger than the given minimal limit fee.
+***FilterByGrade enable user to read the list of students whose gradeslist include the given grade range from a to b.
+***FilterByEducation enable user to read the list of students whose education level is the same.
+***FilterByTimeSlot enable user to get the student whose timeslot is the same as input timeslot.
+** Justification: Filter is an important command for the user to search according to different features, given the range and
+list the qualified students can provide a simple review in aspect to certain features.
+
+* *Major enhancement*: implemented the *exchange Time command*
+** What is does: To exchange the time slot between two students whose education is the same.
+** Justification: Since it is not allowed to simply add the new time slot when a time slot is already
+be taken, so exchanging Time between two students is different from simply delete and add time slot,
+this command allow two student to exchange their time slot without bringing any crush on time slots.
+
+* *Major enhancement*: implemented the *Suggestion command*
+** What is does: To provide suggestion to students according to his or her average grades.
+** Justification: This command allow user to clearly see the overall performance of certain students
+by analysing the average grades. If the student has not taken any exams yet, there is no suggestion gonna
+be provided.
+
+* *Other contributions*:
+
+** Project management:
+*** Make sure every editing of any features is compatible with current code
+*** Improve features added by others in order to match the command request.
+*** Initiate the creative thought about the project.
+*** Arrange specific work for everyone during meeting.
+*** Managed project Milestone.
+** Documentation:
+*** Add the section on Reporting Module to the UserGuide.
+*** Add the use cases of Reporting Module to the Developer Guide.
+** Enhancements to others features:
+*** Add the predicate for filtering the grade, fee, education and time slot.
+*** Improve the time and education features by adding setting method and enums.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=filter1]
+
+include::../UserGuide.adoc[tag=filter2]
+
+include::../UserGuide.adoc[tag=filter3]
+
+include::../UserGuide.adoc[tag=filter4]
+
+include::../UserGuide.adoc[tag=suggest1]
+
+include::../UserGuide.adoc[tag=suggest2]
+
+include::../UserGuide.adoc[tag=exchange]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=filter1]
+
+include::../DeveloperGuide.adoc[tag=filter2]
+
+include::../DeveloperGuide.adoc[tag=filter3]
+
+include::../DeveloperGuide.adoc[tag=filter4]
+
+include::../DeveloperGuide.adoc[tag=suggest1]
+
+include::../DeveloperGuide.adoc[tag=suggest2]
+
+include::../DeveloperGuide.adoc[tag=exchange]
+

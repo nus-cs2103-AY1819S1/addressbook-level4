@@ -18,7 +18,7 @@ public class FindEmailCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds a person through his/her email address "
             + "and displays that person.\n"
-            + "Parameters: Email\n"
+            + "Parameters: EMAIL [MORE_EMAILS]...\n"
             + "Example: " + COMMAND_WORD + " e1234567@u.nus.edu";
 
     private final EmailContainsKeywordsPredicate predicate;

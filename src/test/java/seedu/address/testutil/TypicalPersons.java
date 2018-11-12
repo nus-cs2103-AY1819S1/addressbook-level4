@@ -2,16 +2,23 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_G1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_G2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_GRADE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -62,6 +69,18 @@ public class TypicalPersons {
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withGrades("Y1819S1_Mid 99")
             .withEmail("hans@example.com").withAddress("chicago ave").withEducation("Secondary 4").build();
+    public static final Person NONEGRADE = new PersonBuilder().withName("grade0").withPhone("8482412")
+            .withEmail("stefan@example.com").withAddress("little india").withEducation("Secondary 4")
+            .withTags("gradeTest").build();
+    public static final Person ONEGRADE = new PersonBuilder().withName("grade1").withPhone("8482142")
+            .withGrades("Y1819S1_Mid 99")
+            .withEmail("stefan@example.com").withAddress("little india").withEducation("Secondary 4")
+            .withTags("gradeTest").build();
+    public static final Person MULTIGRADE = new PersonBuilder().withName("grade2").withPhone("8425344")
+            .withGrades("Y1819S1_Mid1 97").withGrades("Y1819S1_Mid2 98")
+            .withGrades("Y1819S1_Mid3 99")
+            .withEmail("stefan@example.com").withAddress("little india").withEducation("Secondary 4")
+            .withTags("gradeTest").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -71,6 +90,10 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withEducation(VALID_EDUCATION_BOB)
             .withGrades(VALID_GRADES_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    public static final Person GRADETEST = new PersonBuilder().withName(VALID_NAME_GRADE).withPhone(VALID_PHONE_GRADE)
+            .withEmail(VALID_EMAIL_GRADE).withAddress(VALID_ADDRESS_GRADE).withEducation(VALID_EDUCATION_GRADE)
+            .withGrades(VALID_GRADES_G1).withGrades(VALID_GRADES_G2)
+            .withTags(VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

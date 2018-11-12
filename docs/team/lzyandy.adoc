@@ -1,0 +1,74 @@
+= Liu Zhaoyu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TutorPal
+
+---
+
+== Overview
+
+TutorPal is a desktop application used by private home tutors for managing student information. The useage is primarily through CLI. It is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: enhanced *FindCommand* to make it support fuzzy matching
+** What it does: allows the user to find Person by name and supports fuzzy matching, which means even if the user has a small typo, it can still find Persons with similar names.
+** Justification: This feature enhancement makes this command more practical because sometimes users may type wrongly during searching. However, fuzzy matching allows small mistakes in typing and makes searching much easier.
+** Highlights: This search allows fuzzy matching (with Levenshtein Distance < 3) only when the length of the keyword is greater than 3. If the length of the keyword you type in is smaller or equal to 3, the keyword must be exactly the same to expected
+
+* *Major enhancement*: extended FindCommand to *FindAddressCommand， FindEmailCommand, and FindPhoneCommand*
+** What it does: allows the user to find Persons by address, email, and phone number and support fuzzy matching, which means even if the user has a small typo, it can still find Persons with similar address, email, or phone number.
+** Justification: These features largely improve the convenience for finding a specific Person or a list of Persons. For instance, a Person now can be found by his or her address, email or phone number, and multiple step of find command can be used to find a person by more than one kind of conditions.
+** Highlights: All these commands are case insensitive and support fuzzy matching (however, with some restrictions, which are specified in User Guide).
+
+* *Minor enhancement*:
+** Built tests case for *Find* related commands and UI.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Set milestones for `v1.2 - v1.4` on GitHub
+*** Opened issues for `v1.2 - v1.4` on GitHub
+*** Set up milestone deadlines, close issues accordingly on GitHub
+** Enhancements to existing features:
+*** Modified the UI and added related test case (Pull requests https://github.com/CS2103-AY1819S1-T13-1/main/pull/169[#169], https://github.com/CS2103-AY1819S1-T13-1/main/pull/178[#178])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S1-T13-1/main/pull/101[#101])
+** Documentation:
+*** Modified the format and changed some inaccurate expressions for the whole User Guide: https://github.com/CS2103-AY1819S1-T13-1/main/pull/167[#167]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T13-1/main/pull/166[#166], https://github.com/CS2103-AY1819S1-T13-1/main/pull/175[#175], https://github.com/CS2103-AY1819S1-T13-1/main/pull/182[#182], https://github.com/CS2103-AY1819S1-T13-1/main/pull/183[#183]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W10-2/main/issues/257[#257])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=find/a]
+
+include::../UserGuide.adoc[tag=find/e]
+
+include::../UserGuide.adoc[tag=find/p]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=findfeature]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
