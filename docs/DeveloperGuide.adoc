@@ -2444,3 +2444,4 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Image not copied. File path error message displayed.
 .. Test case: `image r/A123 f/FileDontExist.jpg` +
    Expected: Image not copied. Invalid image error message displayed.
+   
