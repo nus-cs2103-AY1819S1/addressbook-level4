@@ -295,7 +295,7 @@ to the implementation of the HealthBook. Hence, we chose to implement the data s
 ** Cons: List is not sorted
 
 * Alternative 2 (Alternative Choice): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within an
-ArrayList. This allows the appointments to be added in a non-chronological order. Past appointments can also be iterated
+ArrayList. This allows the appointments to be added in a chronological order. Past appointments can also be iterated
 through easily when required.
 ** Pros: Appointments can be added in a non chronological order.
 ** Cons: Need to do parsing before passing to model and storage. Hard to manage.
