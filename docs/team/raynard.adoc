@@ -9,12 +9,7 @@
 
 == Overview
 
-OASIS is an employee management application that brings your office together. 
-It is an all-in-one tool for office administration and communication that runs on any computer. 
-With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done
-faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are 
-employee records management, authentication and permissions, assignment management, and leave management. Sounds good? Jump 
-to Section 2, <<Quick Start, Quickstart>> to get started. Enjoy!
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management. Sounds good? Jump to Section 2, <<Quick Start, Quickstart>> to get started. Enjoy!
 
 == Summary of contributions
 
@@ -32,8 +27,7 @@ will be computirized. Therefore, managing assignments will be more efficient
 and how information is stored is needed.
 
 ** Delete assignment: `deleteassignment` 
-*** What it does: This allows authorized users to delete assignment from the system when
-it is no longer needed.
+*** What it does: This allows authorized users to delete assignment from the system when it is no longer needed.
 *** Justification: Having an overwhealming number of data might not necessarily be good.
 Especially, when the data is no longer important. Therefore, when the assignment data is
 not used anymore, it can be remove from the system.
