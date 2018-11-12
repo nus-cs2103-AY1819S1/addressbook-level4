@@ -100,9 +100,9 @@ public class CommandBox extends UiPart<Region> {
                 autoComplete();
                 caretPosition = commandTextField.getCaretPosition(); // save last position
             } catch (ParseException e) {
-                // handle command failure
+                // handle autocomplete failure
                 setStyleToIndicateCommandFailure();
-                logger.info("Invalid command: " + commandTextField.getText());
+                logger.info("Auto-complete failed with command: " + commandTextField.getText());
                 raise(new NewResultAvailableEvent(e.getMessage()));
             }
             break;
@@ -117,7 +117,7 @@ public class CommandBox extends UiPart<Region> {
      *
      * @exception ParseException exception if invalid or ambiguous command is used at input
      */
-    private void autoComplete() throws ParseException {
+    public void autoComplete() throws ParseException {
 
         String input = commandTextField.getText().trim();
 
@@ -167,6 +167,23 @@ public class CommandBox extends UiPart<Region> {
             EventsCenter.getInstance().post(new NewResultAvailableEvent(
                 MESSAGE_ALREADY_FULL_COMMAND_FORMAT));
 
+        } else if (isCalculateCommandFormat(input)) {
+            List<Integer> indicesList = new ArrayList<>();
+            indicesList.add(input.indexOf(CalculateCommand.FIRST_ARG));
+            indicesList.add(input.indexOf(CalculateCommand.SECOND_ARG));
+            indicesList.add(input.indexOf(CalculateCommand.THIRD_ARG));
+            indicesList.add(input.indexOf(CalculateCommand.FOURTH_ARG));
+
+            // Convert List<Integer> to int[]
+            int[] indicesArray = indicesList.stream().mapToInt(i -> i).filter(n -> n != -1).toArray();
+            if (indicesArray.length > 0) {
+                selectNextField(indicesArray);
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                    MESSAGE_SELECT_NEXT_HOLDER_SUCCESS));
+            } else {
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                    MESSAGE_ALREADY_FULL_COMMAND_FORMAT));
+            }
         } else if (isFilterCommandFormat(input)) {
             List<Integer> indicesList = new ArrayList<>();
             indicesList.add(input.indexOf(FilterCommand.FREEPARKING_FIRST_ARG));
@@ -257,6 +274,17 @@ public class CommandBox extends UiPart<Region> {
     private boolean isNotifyCommandFormat(String input) {
         return input.startsWith(NotifyCommand.COMMAND_WORD)
             && input.trim().length() > NotifyCommand.COMMAND_WORD.length();
+    }
+
+    /**
+     * autocomplete helper function to check if the text input is already in
+     * calculate command format.
+     * @param input input by the user
+     * @return true if it is of calculate command format and false otherwise
+     */
+    private boolean isCalculateCommandFormat(String input) {
+        return input.startsWith(CalculateCommand.COMMAND_WORD)
+            && input.split(" ").length == 5;
     }
 
     /**
