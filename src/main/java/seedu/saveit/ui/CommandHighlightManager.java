@@ -10,10 +10,11 @@ import org.fxmisc.richtext.InlineCssTextArea;
  */
 public class CommandHighlightManager {
 
-    public static final String STYLE_COMMAND_WORD = "-fx-fill: #f4ad42;";
+    public static final String STYLE_COMMAND_WORD = "-fx-fill: #e2a03d;";
     public static final String STYLE_PARAMETER_KEY = "-fx-fill: #ffff00;";
     public static final String STYLE_INDEX = "-fx-fill: #55ae47;";
     public static final String STYLE_NORMAL_VALUE = "-fx-fill: #42c3f4;";
+
 
     /**
      * highlight user input in different colors.
@@ -22,8 +23,6 @@ public class CommandHighlightManager {
         String userInput = commandTextField.getText();
         StringBuilder commandWord = new StringBuilder();
         int position = 0;
-        boolean indexHighlighted = false;
-        boolean indexNeedHighlight;
 
         // if there are space chars before command word, pos++
         while (isShorterThanInput(userInput, position) && isSpace(userInput, position)) {
@@ -37,17 +36,31 @@ public class CommandHighlightManager {
             position++;
         }
 
-        // check for some command word that does not require index
-        indexNeedHighlight = checkCommandWord(commandWord);
+        highlightCommandKeyValue(commandTextField, userInput, commandWord, position);
+
+    }
+
+    /**
+     * This is to highlight the command index, parameters and values
+     */
+    private static void highlightCommandKeyValue(InlineCssTextArea commandTextField, String userInput,
+        StringBuilder commandWord, int position) {
+
+        boolean indexHighlighted = false;
+        boolean indexNeedToHighlight;
+        // some command words do not require the index, to avoid confusing, the index will not be highlighted
+        indexNeedToHighlight = checkCommandWord(commandWord);
 
         // highlight the following parameters, which are key-value pairs
         while (isShorterThanInput(userInput, position)) {
-            while (indexNeedHighlight && !indexHighlighted && isIndex(userInput, position) && !isSpace(userInput,
+            // highlight index
+            while (indexNeedToHighlight && !indexHighlighted && isIndex(userInput, position) && !isSpace(userInput,
                 position)) {
                 commandTextField.setStyle(position, position + 1, STYLE_INDEX);
                 position++;
             }
 
+            // highlight parameters
             if (isShorterThanInput(userInput, position) && isParameter(userInput, position)) {
                 commandTextField.setStyle(position - 1, position + 1, STYLE_PARAMETER_KEY);
                 position++;
@@ -84,6 +97,9 @@ public class CommandHighlightManager {
         return position < userInput.length();
     }
 
+    /**
+     * check if the parameter is index
+     */
     private static boolean isIndex(String userInput, int position) {
         return isShorterThanInput(userInput, position) && Character.isDigit(userInput.charAt(position));
     }
@@ -93,7 +109,7 @@ public class CommandHighlightManager {
      * @return true if parameter, otherwise false
      */
     private static boolean isParameter(String userInput, int position) {
-        if (userInput.charAt(position) == '/') {
+        if (userInput.charAt(position) == '/' && userInput.charAt(position - 2) == ' ') {
             StringBuilder input = new StringBuilder();
             input.append(userInput.charAt(position - 1));
             input.append(userInput.charAt(position));

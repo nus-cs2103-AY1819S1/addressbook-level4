@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -25,6 +26,7 @@ public class SaveIt implements ReadOnlySaveIt {
 
     private final UniqueIssueList issues;
     private Directory currentDirectory;
+    private Comparator<Issue> currentSortType;
 
 
     /*
@@ -37,6 +39,7 @@ public class SaveIt implements ReadOnlySaveIt {
     {
         issues = new UniqueIssueList();
         currentDirectory = new Directory(0, 0);
+        currentSortType = null;
     }
 
     public SaveIt() {}
@@ -69,7 +72,7 @@ public class SaveIt implements ReadOnlySaveIt {
             if (directory.isIssueLevel() && directory.getIssue() > issues.size()) {
                 throw new IllegalValueException("Refer to non-existent directory.");
             } else if (directory.isSolutionLevel() && directory.getSolution()
-                    > issues.getSolutionNumber(Index.fromOneBased(directory.getSolution()))) {
+                    > issues.getSolutionNumber(Index.fromOneBased(directory.getIssue()))) {
                 throw new IllegalValueException("Refer to non-existent directory.");
             }
             currentDirectory = directory;
@@ -79,12 +82,20 @@ public class SaveIt implements ReadOnlySaveIt {
     }
 
     /**
+     * Update the current sortType.
+     */
+    public void setCurrentSortType(Comparator<Issue> sortType) {
+        currentSortType = sortType;
+    }
+
+    /**
      * Resets the existing data of this {@code SaveIt} with {@code newData}.
      */
     public void resetData(ReadOnlySaveIt newData) {
         requireNonNull(newData);
         setIssues(newData.getIssueList());
         setCurrentDirectory(newData.getCurrentDirectory());
+        setCurrentSortType(newData.getCurrentSortType());
     }
 
     //// issue-level operations
@@ -117,14 +128,12 @@ public class SaveIt implements ReadOnlySaveIt {
      * Adds an issue to the saveIt.
      * The issue must not already exist in the saveIt.
      */
-    public void addSolution(Index index, Solution solution) {
-        Issue issueToEdit = issues.getIssue(index);
-        List<Solution> solutionsToUpdate = new ArrayList<>(issueToEdit.getSolutions());
+    public void addSolution(Issue targetIssue, Solution solution) {
+        List<Solution> solutionsToUpdate = new ArrayList<>(targetIssue.getSolutions());
         solutionsToUpdate.add(solution);
-
-        Issue updateIssue = new Issue(issueToEdit.getStatement(), issueToEdit.getDescription(),
-                solutionsToUpdate, issueToEdit.getTags(), issueToEdit.getFrequency());
-        updateIssue(issueToEdit, updateIssue);
+        Issue updateIssue = new Issue(targetIssue.getStatement(), targetIssue.getDescription(),
+                solutionsToUpdate, targetIssue.getTags(), targetIssue.getFrequency(), targetIssue.getCreatedTime());
+        updateIssue(targetIssue, updateIssue);
     }
 
 
@@ -140,7 +149,7 @@ public class SaveIt implements ReadOnlySaveIt {
     }
 
     /**
-     * Adds tag(s) to the existing data of this {@code SaveIt} with {@code tagList} for a range of {@code index} issue.
+     * Adds tag(s) to the existing data of this {@code SaveIt} with {@code tagList} for a range of {@code issues}.
      */
     public void addTag(Set<Issue> issues, Set<Tag> tagList) {
         requireNonNull(tagList);
@@ -166,7 +175,7 @@ public class SaveIt implements ReadOnlySaveIt {
     }
 
     /**
-     * Adds tag(s) to the existing data of this {@code SaveIt} issue with {@code tagList} for {@code index} issue.
+     * Replace the {@code oldTag} to the {@code newTag} for all issue entries in the {@code SaveIt}
      */
     public boolean refactorTag(Tag oldTag, Tag newTag) {
         boolean isEdit = false;
@@ -201,7 +210,7 @@ public class SaveIt implements ReadOnlySaveIt {
 
     private void updateTags(Issue issueToUpdate, Set<Tag> tagsToUpdate) {
         Issue updateIssue = new Issue(issueToUpdate.getStatement(), issueToUpdate.getDescription(),
-            issueToUpdate.getSolutions(), tagsToUpdate, issueToUpdate.getFrequency());
+            issueToUpdate.getSolutions(), tagsToUpdate, issueToUpdate.getFrequency(), issueToUpdate.getCreatedTime());
         updateIssue(issueToUpdate, updateIssue);
     }
 
@@ -229,6 +238,11 @@ public class SaveIt implements ReadOnlySaveIt {
     @Override
     public Directory getCurrentDirectory() {
         return currentDirectory;
+    }
+
+    @Override
+    public Comparator getCurrentSortType() {
+        return currentSortType;
     }
 
     @Override

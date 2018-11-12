@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.saveit.commons.core.Messages;
 import seedu.saveit.logic.CommandHistory;
+import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.issue.IssueContainsKeywordsPredicate;
 
@@ -28,11 +29,16 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.filterIssues(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_ISSUES_LISTED_OVERVIEW, model.getFilteredAndSortedIssueList().size()));
+        if (model.getCurrentDirectory().isRootLevel()) {
+            model.filterIssues(predicate);
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_ISSUES_LISTED_OVERVIEW,
+                            model.getFilteredAndSortedIssueList().size()));
+        } else {
+            throw new CommandException(Messages.MESSAGE_WRONG_DIRECTORY);
+        }
     }
 
     @Override

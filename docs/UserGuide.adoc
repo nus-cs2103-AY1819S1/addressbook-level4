@@ -33,7 +33,7 @@ To get started with SaveIt, please follow the  instructions below:
 .  Double-click the file to start the app. The GUI should appear in a few seconds, as shown below.
 +
 .Application Interface
-image::UI_Design.png[width="790"]
+image::UI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -45,7 +45,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 
-[[Features]]
 == Features
 The following is a list of commands that you can use in the application.
 
@@ -61,7 +60,7 @@ The following is a list of commands that you can use in the application.
 
 === Viewing help : `(h)help`
 
-Types `help` to view the handy help page!
+Type `help` to view the handy help page!
 
 Format: `help`
 
@@ -70,22 +69,9 @@ Examples:
 * `help`
 ****
 
-=== Highlighting command parameters
-
-When the user types the command in the command line, it is difficult for users to distinguish their inputs and parameters. Hence command gets highlighted is essential to differentiate the parameter and values that user input.
-
-Examples:
-****
-.Command highlight 1
-image::command-highlight1.png[width="790"]
-
-.Command highlight 2
-image::command-highlight2.png[width="790"]
-****
-
 === Selecting an issue/solution  : `(s)select`
 
-If the user is at the root directory, the command selects
+If the user is at the home directory, the command selects
  an issue identified by the index number used in the issue panel.
   The command also displays the solutions
   of the selected issue in the solution panel. Now the edit directory
@@ -95,17 +81,29 @@ is changed to issue level.
 ====
 * When an issue is selected, the directory is changed to `SaveIt/Issue */`. Then
 the user is not allowed to add, edit, or select issue.
+The change directory will be displayed in the UI as shown below.
 ====
-
-If the user is at the issue directory, the command load the web link
- of the indexed solution in the built-in browser.
-
 Format: `select INDEX`
 
 Example:
 ****
-* `select 5`
+.Direcotry Change
+image::directory-change.png[width="300"]
+.Select an Issue
+image::select issue.png[width="790"]
 ****
+If the user is at the issue directory, the command load the web link
+ of the indexed solution in the built-in browser.
+
+Example:
+****
+* `select 2`
+
+.Seleting a Solution
+image::select solution.png[width="790"]
+****
+
+
 
 [NOTE]
 ====
@@ -115,94 +113,140 @@ Example:
 * All properties of this solutions will be displayed at the left side of the interface.
 ====
 
-=== Adding an issue: `(a)add`
+// tag::add[]
+
+=== Adding: `(a)add`
 
 Adds an issue to the SaveIt App.
 
 Format: `add i/ISSUE_STATEMENT d/DESCRIPTION [t/TAG]...`
 
-Format: `add s/SOLUTION_LINK2 r/REMARK`
+Adds a solution to an existing issue in SaveIt App.
+
+Format: `add s/SOLUTION_LINK r/REMARK`
 [TIP]
 ====
-* Select an issue before adding solution
+* Select an issue before adding a solution
+* The link validation check only provides most basic format checking
 ====
 
 Examples: +
 
 ****
-* `add i/ArrayIndexOutOfBound d/issue description t/unsolved`
+* `add i/ArrayIndexOutOfBound d/issue description t/unsolved` +
+Adds a new issue which has a issue statment called `ArrayIndexOutOfBounds` and issue description called `issue description`
 
 .Add new issue to the issue list
-image::AddingNewIssue.png[width="800"]
+image::AddingNewIssue.png[width="700"]
 * `select 3`
-* `add s/www.example1a.com r/use functional programming`
+* `add s/www.stackoverflow.com r/use functional programming` +
+Adds a new solution which has a solution link called `www.stackoverflow.com` and a solution remark called `use functional programming`
 
 .Add new solution to the third issue in the issue list
-image::AddingNewSolution.png[width="800"]
+image::AddingNewSolution.png[width="700"]
 ****
 
 [NOTE]
 ====
+* The order of the issues may be updated if the user uses sort command.
+* If multiple identical prefixes are entered, the last prefix value will be accepted
 * An issue can have only one statement and description
 * An issue can have any number of tags (including 0)
 * The index refers to the index number shown in the displayed issue list.
 * The index *must be a positive integer* and `1, 2, 3, ...`
 * The index cannot be bigger than the number of issues.
 * User needs to select the issue index to add a solution to that issue
-* The display panel will display the first solution link of the issue at the specified `INDEX`.
 * A solution contains one solution link and one remark
 * User can add solutions to the same issue continuously
 ====
+// end::add[]
+
+// tag::setprimary[]
+=== Choosing one primary solution: `(sp)setprimary`
+
+Chooses one solution of the issue and make it the primary solution.
+
+If there is an existing primary solution, `setprimary` will reset the primary solution to the latest one.
+
+The primary solution is shown on the top of the solution list and is highlighted in white.
+
+Format: `setprimary INDEX`
+
+[NOTE]
+====
+* The index refers to the index number on the solution list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The index cannot be larger than the number of solutions of this issue.
+* This command can only be executed in the issue or solution directory.
+====
+// end::setprimary[]
+
+// tag::resetprimary[]
+=== Resetting the primary solution: `(rp)resetprimary`
+
+Resets the primary solution and make all solutions normal and not highlighted.
+
+Even if there is no primary solution, this command can still be executed, but no change will be shown.
+
+Format: `resetprimary`
+
+[NOTE]
+====
+* This command can only be executed in the issue or solution directory.
+====
+// end::resetprimary[]
 
 // tag::edit[]
 
-=== Editing an issue : `(e)edit`
+=== Editing: `(e)edit`
 
-To edit an existing issue or solution in the SaveIt App.
+Edits an issue in the SaveIt App.
 
 Format: `edit INDEX [i/NEW_ISSUE] [d/NEW_DESCRIPTION] [t/TAG]...`
+
+Edits a solution in an exit solution in the issue.
 
 Format: `edit INDEX s/NEW_SOLUTION_LINK r/NEW_SOLUTION_REMARK`
 
 [TIP]
 ====
-* Select an issue before editing solution
+* Select an issue before editing the solution.
 ====
 
 Examples: +
 ****
-* `edit 1 i/map function d/how to use map` +
-Edits the issue statement and description of the first issue to be `map function` and `how to use map` respectively.
 * `edit 3 i/git command t/git` +
-Edits the issue statement and tags of the third issue to be `git command` and `git` respectively.
+Edits the issue statement and the tag of the third issue to become `git command` and `git` respectively.
+* `edit 1 i/map function d/how to use map` +
+Edits the issue statement and  description of the first issue to become `map function` and `how to use map` respectively.
 
 
-.Command Edit solution link to a solution
+.Edits issue statement and tag of an issue
 image::edit-issue.png[width="790"]
 
 * `select 1` +
-select the first issue
-* `edit 3 s/https://github.com/joshnh/Git-Commands` +
-Edits the third solution link to be `https://github.com/joshnh/Git-Commands`
+Selects the first issue.
+* `edit 1 s/https://github.com/joshnh/Git-Commands` +
+Edits the first solution link to be `https://github.com/joshnh/Git-Commands`.
 
-.Command Edit solution link to a solution
+.Edits solution link and remark of a solution
 image::edit-solution.png[width="790"]
 ****
 
 [NOTE]
 ====
-* Edits the issue at the specified `INDEX`. The index refers to the index number shown in the displayed statement list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the issue at the specified `INDEX`, which refers to the index number shown in the displayed issue list.
+* Edits the solution at the specified `Index`, which refers to the index number shown in the displayed solution list.
+* The index *must be a positive integer* (1, 2, 3...), otherwise it will be considered as invalid command.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the statement will be removed i.e. adding of solutions is not cumulative.
-* You can remove all the tags by typing `t/` without specifying any tags after it.
+* Removes all the tags by typing `t/` without specifying any tags after it.
 ====
-// tag::edit[]
+// end::edit[]
 
-// tag::refacotrTag[]
+// tag::refactortag[]
 === Refactoring tag: `(rt)refactortag`
 
-To rename or remove a specific tag for all entries with that tag.
+Renames or removes a specific tag for all entries with that tag.
 
 Format: `refactortag t/OLD_TAG [n/NEW_TAG]`
 
@@ -214,29 +258,32 @@ Format: `refactortag t/OLD_TAG [n/NEW_TAG]`
 
 Examples:
 ****
-* `refactorTag t/solved n/TIL` +
-Changes all entries tagged `solved` to be tagged `TIL`.
-* `refactorTag t/solved` +
-Removes the tag `solved` from all entries.
+* `refactortag t/notSolved n/solved` +
+Changes all issue entries tagged with `notSolved` to be tagged with `solved`.
 
+.Refactor tag （rename)
+image::refactor-tag2.png[width="790"]
 
-.Refactor tag
-image::refactor-tag.png[width="790"]
+* `refactortag t/solved` +
+Removes the tag `solved` from all issue entries.
+
 ****
 
 [NOTE]
 ====
 * The old tag must be provided.
-* If the user provides multiple old tags or new tags, only take the one as an effect.
+* If user provides multiple old tags or new tags, only take the last one as an effect.
 * If the new tag exits in the issue already, it will only remove the old tag.
+* The order of the issues may be updated if the user uses sort command.
+* This command can only be executed in the home directory.
 ====
 // end::refactortag[]
 
-// tag::addTag[]
+// tag::addtag[]
 
 === Adding tag: `(at)addtag`
 
-To add tags for issue(s).
+Adds tags for issue(s).
 
 Format: `addtag INDEX t/TAG1 [t/TAG2]...`
 
@@ -246,24 +293,31 @@ Examples:
 Adds the `python` tag to the first issue in the issue list.
 * `addtag 2 t/python t/java` +
 Adds the `python` and `java` tag to the second issue in the issue list.
-* `addtag 2 3 5 t/python t/java` +
-Adds the `python` and `java` tag to the second, third and fifth issues in the issue list.
-* `addtag 2-5 t/python t/java` +
-Adds the `python` and `java` tag from second to fifth issues in the issue list.
+* `addtag 1 2 3 t/difficult` +
+Adds the `difficult` tag to the first, second and third issues in the issue list.
+* `addtag 1-4 t/TIL t/java` +
+Adds the `TIL` tag from first to fourth issues in the issue list.
+
+.Add tag (range index)
+image::add-tag.png[width="790"]
 ****
 
 [NOTE]
 ====
-* If the tag exits in the issue already, it will not take any actions.
+* It will not take any action if the tag exits in the issue.
 * The INDEX refers to the index number shown in the issue list.
-* The index must be a positive integer (1, 2, 3...).
-* Range of the index can be used.
-* The lower limit of range must be smaller than or equal to the upper limit (2-4, 2-2).
+* The index *must be a positive integer* (1, 2, 3...), otherwise it will be considered as invalid command.
+* The range of the index can be used.
+* The lower limit of the range must be smaller than or equal to the upper limit (2-4, 2-2).
+* The range cannot be used with multiple index(es) together.
+* The order of the issues may be updated if the user uses sort command.
+* This command can only be executed in home directory.
 ====
 // end::addtag[]
 
+// tag::retrieve[]
 === Retrieving a solution link: `(rv)retrieve`
-Retrieves the solution link to the system clipboard
+Retrieves the solution link so that the link is copied to the system clipboard
 
 Format: `retrieve INDEX`
 
@@ -283,6 +337,7 @@ Examples: +
 * The index *must be a positive integer* 1, 2, 3, ...
 * The index cannot be bigger than the number of solutions of a certain issue.
 ====
+// end::retrieve[]
 
 === Deleting a statement : `(d)delete`
 Deletes the specified issue from SaveIt App.
@@ -299,12 +354,12 @@ Examples: +
 * The index refers to the index number on the issue list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * The index cannot be bigger than the number of issues.
+* This command can only be executed in the home directory.
 ====
 
-
-=== Locating issues by statement or description: `(f)find`
-
-Finds issues whose statement and description contain any of the given search queries.
+// tag::find[]
+=== Locating issues by statement: `(f)find`
+Finds issues whose statement contain any of the given search queries.
 
 Format: `find [KEYWORDS...]`
 
@@ -324,11 +379,15 @@ Examples:
 ====
 * The search is case-insensitive. e.g hans will match Hans
 * The order of the keywords does not matter. e.g. ‘kill port’ will match ‘port kill’
-* Searches through the issue statement or description.
-* The keywords can partially match the statement or description.
+* Searches through the issue statement.
+* The keywords can partially match the statement.
 * Issues matching at least one keyword will be returned.
 * Searching the keyword will increment the search frequency of the issue (so that it can be ordered accordingly later on).
+* This command can only be executed in the home directory.
 ====
+// end::find[]
+
+// tag::findtag[]
 
 === Locating issues by tags: `(ft)findtag`
 
@@ -342,8 +401,8 @@ Finds issues that contain the tags entered in the search queries.
 
 Examples:
 ****
-* `findtag java`
-* `findtag cplusplus segmentationFault`
+* `findtag t/java`
+* `findtag t/cplusplus t/segmentationFault`
 ****
 
 [NOTE]
@@ -353,27 +412,106 @@ Examples:
 * If multiple tags are searched, only issues containing *all* the searched tags will be displayed
 * A matched issue can have other tags (aside from the ones searched).
 e.g `issue[cplusplus][segmentation]` will match with a single searched tag `[cplusplus]`
+* This command can only be executed in the home directory.
+====
+// end::findtag[]
+
+=== Listing all issues : `(l)list`
+
+Shows a list of all issues.
+
+[NOTE]
+====
+* This command can only be executed in the home directory.
 ====
 
-=== Returning to home directory  : `(h)home`
+// tag::sort[]
+=== Sorting the list of issues: `(sr)sort`
 
-Changes the current editing directory to the root directory. Besides, Shows a list of all issues in the issue list by index.
+Sorts the list of issues according to a specified sort type.
 
-Format: `home`
+The list *always follows the specified sort type* until another sort command is executed.
 
+Format: `sort`
 [TIP]
 ====
-* Return to the home directory
+* Sorts the issues based on the time when they are created. The first issue created has the highest priority.
+====
+
+Format: `sort chro`
+[TIP]
+====
+* Sorts the issues by their last modified time chronologically. The last modified one has the highest priority.
+* Creation is considered as a modification, i.e. last modified time is set to the created time when an issue is added.
+====
+
+Format: `sort freq`
+[TIP]
+====
+* Sorts the issues by their search frequency. The one which matches the search keywords most frequently has the highest priority.
+====
+
+Format: `sort tag`
+[TIP]
+====
+* Sorts the issues by each issue's tag set in a lexicographical order, following ASCII lexicography.
+* Puts the issues without tags at the end of the displayed issue list.
+====
+
+[NOTE]
+====
+* This command can only be executed in the home directory.
 ====
 
 Examples:
 ****
+* `sort`
+
+* `edit 1 d/First edited issue` (edit to update last modified time) +
+`edit 4 d/Second edited issue` +
+`add i/Third created issue d/Third created issue` (add a new issue) +
+`sort chro`
+
+.Sort Chro Command
+image::sort-chro-command.png[width="790"]
+
+* `find ArrayIndexOutOfBounds` (find to update search frequency) +
+`list` +
+`find ClassNotFoundException` +
+`find ClassNotFoundException` +
+`list` +
+`sort freq`
+
+.Sort Freq Command
+image::sort-freq-command.png[width="790"]
+
+* sort tag
+
+.Sort Tag Command
+image::sort-tag-command.png[width="790"]
+****
+// end::sort[]
+
+=== Returning to home directory  : `(hm)home`
+
+Changes the current editing directory to the home directory. Besides,
+ Shows a list of all issues in the list panel by index.
+
+Format: `home`
+
+Examples:
+****
 * `home`
+
+.Return to Home Directory
+image::home.png[width="790"]
 ****
 
 [NOTE]
 ====
-* All issues are listed in chronological order by default in home directory.
+* All issues are listed in the list panel in home directory.
+* The following commands can only be executed at home directory:
+ `sort`, `addtag`, `refactortag`, `find`, `findtag`.
 ====
 
 === Undoing previous command : `(u)undo`
@@ -384,17 +522,17 @@ Format: `undo`
 
 [TIP]
 ====
-* Undoable commands: those commands that modify the application’s content (add, addE, edit, editE, delete, deleteE, and clear).
+* Undoable commands: those commands that modify the application’s content (add, edit, delete, and clear).
 ====
 
 Examples:
 ****
 * `delete 1` +
-`list chr` +
+`sort chro` +
 `undo` (reverses the `delete 1` command)
 
 * `select 1` +
-`list chr` +
+`sort chro` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -437,19 +575,26 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // tag::clear[]
 === Clearing all entries : `(c)clear`
 
-Clears all issues from the saveIt App.
+Clears all issues and their solutions from SaveIt.
 
 Format:  `clear`
 
 Example:
 ****
 * `clear`
+
+.Clear Command - Ask for confirmation
+image::clear-command-ask-for-confirmation.png[width="400"]
+* `Yes` or `Y` (confirm the clear decision)
+
+.Clear Command - Confirmed
+image::clear-command-confirmed.png[width="400"]
 ****
 
 [NOTE]
 ====
-* User need confirm to execute this operation.
-* User can undo this operation to restore the issue lists.
+* The user needs to confirm this command before the operation can be executed.
+* The user can undo this operation to restore the issue lists.
 ====
 // end::clear[]
 
@@ -476,97 +621,17 @@ Examples:
 * `exit`
 ****
 
-
-=== Listing all issues : `(l)list`
-
-Shows a list of all issues.
-
-// tag::sort[]
-=== Sorting the list of issues: `(sr)sort`
-
-Sorts the list of issue according to a specified sort type.
-
-The list always follow this sort type until another sort command is executed.
-
-Format: `sort`
-[TIP]
-====
-* Sort the issue list based on the time when they are added. The first issue added has the highest priority.
-====
-
-Format: `sort chro`
-[TIP]
-====
-* Sort the issue list by their last modified time chronologically. The last modified one has the highest priority.
-====
-
-Format: `sort freq`
-[TIP]
-====
-* Sort the issue list based on search frequency. The one which matches the search keywords most frequently has the highest priority.
-====
-
-Format: `sort tag`
-[TIP]
-====
-* Sort the issue list by their tag in alphabetical order.
-If their first tags start with the same character, the following tags are compared until there is a difference or one tag set comes to the end.
-In the second case, the issue with fewer tags is give higher priority.
-* Sort the issues without tags at the end of the display issue list.
-====
-
-Examples:
-****
-* sort
-* sort freq
-* sort tag
-
-.Sort Tag Command
-image::sort-command.png[width="790"]
-****
-// end::sort[]
-
-// tag::setprimary[]
-=== Choosing one primary solution: `(sp)setprimary`
-
-Chooses one solution of the issue and make it the primary solution.
-
-If there is an existing primary solution, `setprimary` will reset the primary solution to the latest one.
-
-The primary solution is shown on the top of the solution list and is highlighted.
-
-Format: `setprimary INDEX`
-
-[NOTE]
-====
-* The index refers to the index number on the solution list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The index cannot be bigger than the number of issues.
-* This command can only be executed *after you select an issue or a solution*.
-====
-// end::setprimary[]
-
-=== Resetting the primary solution: `(rp)resetprimary`
-
-Resets the primary solution and make all solutions normal and not highlighted.
-
-Even if there is no primary solution, this command can still be executed.
-
-Format: `resetprimary`
-
-[NOTE]
-====
-* This command can only be executed *after you select an issue or a solution*.
-====
-
+// tag::suggestion[]
 === Autosuggesting existing issue in find command
-To prevent the issue list is so large that user can hardly remember all the issues, whenever user types in any keyword in find command, SaveIt will auto suggest any related issue name according to the keyword entered.
+To prevent the issue list is so large such that user can hardly remember all the issues, whenever user types in any keyword in find command, SaveIt will auto suggest any related issue name according to the keyword entered.
 
 Example:
 
 .Autosuggesting of exsiting issues statements
-image::FindIssueAutoSuggestion.png[width="800"]
+image::FindIssueAutoSuggestion.png[width="500"]
+// end::suggestion[]
 
+// tag::findbytagsuggestion[]
 === Autosuggesting existing tags in findByTag command
 
 To prevent the user from creating many similar tags / duplicates, whenever the user creates a record with a tag, or modifies a record’s tag, the application searches for similar tags in the system and prompts the user with a list of similar tags.
@@ -574,9 +639,10 @@ To prevent the user from creating many similar tags / duplicates, whenever the u
 Example:
 
 .Autosuggesting of existing tags
-image::autosuggest-tag.png[width="790"]
+image::autosuggest-tag.png[width="600"]
+// end::findbytagsuggestion[]
 
-
+// tag::copyexistingsuggestion[]
 === Suggesting to copy existing values
 When editing fields in an issue (e.g. Editing an issue statement), if only slight modifications are required, the user will have to copy paste the existing issue statement and modify it, or type it out again.
 To make things more convenient, after the application prompts the user if they want to copy the existing value onto the command line.
@@ -585,8 +651,28 @@ Example:
 
 .Copying existing fields
 image::copy-existing.png[width="790"]
+// end::copyexistingsuggestion[]
 
+// tag::commandhighlight[]
 
+=== Highlighting command parameters
+
+When the user types the command in the command line, it is difficult for user to distinguish his inputs and parameters. Hence highlighted command is essential to help user to differentiate the parameters and values that he inputs.
+
+Examples:
+****
+.Command highlight 1
+image::command-highlight1.png[width="400"]
+
+.Command highlight 2
+image::command-highlight2.png[width="400"]
+****
+
+[NOTE]
+====
+* The index will be highlighted only for certain commands that requires index (e.g. `edit`, `select`).
+====
+// end::commandhighlight[]
 
 
 === Team based - Creating / Switching projects [coming in v2.0]
@@ -604,7 +690,7 @@ Developers usually work in teams, and since they are working on the same code ba
 * Switching projects: switch 1 OR switch cs2103project
 
 === Highlighting the page : `highlight` [coming in v2.0]
-Highlight the certain part of the page that shows on the window, use an annotation box.
+Highlights the certain part of the page that shows on the window, use an annotation box.
 Format: `highlight`
 
 
@@ -630,31 +716,33 @@ For issues: `add i/[ISSUE_STATEMENT] d/[DESCRIPTION] t/[Tag]` +
 e.g. `add i/Bug d/exception thrown not handled t/java` +
 For solutions: `add s/[SOLUTION_LINK] r/[REMARK]` +
 e.g. `add s/www.github.com r/A git website`
+* *Set Primary* : `setprimary [INDEX]`
+* *Reset Primary* : `resetprimary`
 * *Edit* +
 For issues: `edit INDEX i/[ISSUE_STATEMENT] d/[DESCRIPTION]` +
 e.g. `edit 2 i/exception thrown not handled d/statement solved` +
 For solutions: `edit INDEX s/[SOLUTION_LINK] r/[REMARK]` +
 e.g. `edit 3 s/www.google.com r/add a catch block`
+* *Refactor Tag* : `refactortag t/OLDTAG [n/NEWTAG]` +
+e.g. `refactortag t/java n/C++`
+* *Add Tag* : `addtag INDEX t/TAG1 [t/TAG2]...` +
+e.g. `addtag 2 t/python t/java t/TIL`
 * *Retrieve* : `retrieve INDEX` +
 For solutions: `retrieve SOLUTION_INDEX` +
 e.g. `retrieve 3`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
-e.g. `Search BST`
-* *Add Tag* : `addtag INDEX t/TAG1 [t/TAG2]...` +
-e.g. `addtag 2 t/python t/java t/TIL`
-* *Refactor Tag* : `refactor t/OLDTAG [n/NEWTAG]` +
-e.g. `refactorTag t/java n/C++`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find BST`
+* *Find Tag* : `findtag KEYWORD [MORE_KEYWORDS]` +
+e.g. `findtag python`
+* *List* : `list`
 * *Home* : `home`
-* *Clear* : `clear`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *List* : `list`
+* *Clear* : `clear`
 * *History* : `history`
 * *Exit* : `exit`
-* *List* : `list`
-* *Sort* : `sort TYPE`
-* *Set Primary* : `setprimary [INDEX]`
-* *Reset Primary* : `resetprimary`
-* *Refactor Tag* : `refactor [OLDTAG] [NEWTAG]` +
-e.g. `refactorTag java C++`
+* *Sort* : `sort TYPE` +
+e.g. `sort chro`

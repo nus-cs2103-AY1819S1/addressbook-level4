@@ -39,12 +39,12 @@ public class SetPrimaryCommand extends Command {
         Directory currentDirectory = model.getCurrentDirectory();
         List<Issue> lastShownIssueList = model.getFilteredAndSortedIssueList();
 
-        if (!currentDirectory.isIssueLevel()) {
+        if (!currentDirectory.isIssueLevel() && !currentDirectory.isSolutionLevel()) {
             throw new CommandException(Messages.MESSAGE_WRONG_DIRECTORY);
         }
 
         Issue issueSelected = lastShownIssueList.get(currentDirectory.getIssue() - 1);
-        List<Solution> solutionList = model.getFilteredSolutionList();
+        List<Solution> solutionList = model.getFilteredAndSortedSolutionList();
         int zeroBasedIndex = index.getZeroBased();
 
         if (zeroBasedIndex < 0 || zeroBasedIndex >= solutionList.size()) {

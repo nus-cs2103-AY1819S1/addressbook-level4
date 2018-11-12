@@ -30,7 +30,7 @@ public class ResetPrimaryCommand extends Command {
         Directory currentDirectory = model.getCurrentDirectory();
         List<Issue> lastShownIssueList = model.getFilteredAndSortedIssueList();
 
-        if (!currentDirectory.isIssueLevel()) {
+        if (!currentDirectory.isIssueLevel() && !currentDirectory.isSolutionLevel()) {
             throw new CommandException(Messages.MESSAGE_WRONG_DIRECTORY);
         }
 

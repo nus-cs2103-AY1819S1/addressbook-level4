@@ -51,7 +51,7 @@ public class ResetPrimaryCommandTest {
 
     @Test
     public void execute_underRootLevel_success() {
-        Directory rootDirectory = new DirectoryBuilder().build();
+        Directory rootDirectory = Directory.formRootDirectory();
         model.resetDirectory(rootDirectory);
         expectedModel.resetDirectory(rootDirectory);
 

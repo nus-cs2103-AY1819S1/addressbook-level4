@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.saveit.commons.core.index.Index;
 import seedu.saveit.model.Issue;
 import seedu.saveit.model.issue.Description;
 import seedu.saveit.model.issue.IssueSearchFrequency;
@@ -24,13 +25,15 @@ public class IssueBuilder {
     private static final String DEFAULT_DESCRIPTION = "new bug";
     private static final String DUMMY_STATEMENT = "dummyStatement";
     private static final String DUMMY_DESCRIPTION = "dummyDescription";
-
+    private static final String DUMMY_SOLUTION_REMARK = "dummySolutionRemark";
+    private static final String DUMMY_SOLUTION_LINK = "https://www.dummySolutionLink.com";
 
     private IssueStatement statement;
     private Description description;
-    private List<Solution> solutions;
+    private List<Solution> solutions = new ArrayList<>();
     private Set<Tag> tags;
     private IssueSearchFrequency frequency;
+    private Timestamp createdTime;
     private Timestamp lastModifiedTime;
 
     public IssueBuilder() {
@@ -39,7 +42,8 @@ public class IssueBuilder {
         solutions = new ArrayList<>();
         tags = new LinkedHashSet<>();
         frequency = new IssueSearchFrequency(TypicalIssues.COMMON_ISSUE_FREQUENCY);
-        lastModifiedTime = new Timestamp(new Date().getTime());
+        createdTime = new Timestamp(new Date().getTime());
+        lastModifiedTime = createdTime;
     }
 
     /**
@@ -51,6 +55,7 @@ public class IssueBuilder {
         solutions = new ArrayList<>(issueToCopy.getSolutions());
         tags = new LinkedHashSet<>(issueToCopy.getTags());
         frequency = issueToCopy.getFrequency();
+        createdTime = issueToCopy.getCreatedTime();
         lastModifiedTime = issueToCopy.getLastModifiedTime();
     }
 
@@ -63,8 +68,7 @@ public class IssueBuilder {
     }
 
     /**
-     * Sets the {@code IssueStatement} of the {@code Issue} that we are building
-     * to dummy statement.
+     * Sets the {@code IssueStatement} of the {@code Issue} that we are building to dummy statement.
      */
     public IssueBuilder withDummyStatement() {
         this.statement = new IssueStatement(DUMMY_STATEMENT);
@@ -74,15 +78,24 @@ public class IssueBuilder {
     /**
      * Parses the {@code solutions} into a {@code Set<Solution>} and set it to the {@code Issue} that we are building.
      */
-    public IssueBuilder withSolutions (Solution... solutions) {
+    public IssueBuilder withSolutions(Solution... solutions) {
         this.solutions = SampleDataUtil.getSolutionList(solutions);
+        return this;
+    }
+
+    /**
+     * Parses the {@code solution} into a {@code Set<Solution>} with {@code Index} issue and set it to the {@code Issue}
+     * that we are building.
+     */
+    public IssueBuilder withSolution(Index index, Solution solution) {
+        solutions.set(index.getZeroBased(), solution);
         return this;
     }
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Issue} that we are building.
      */
-    public IssueBuilder withTags(String ... tags) {
+    public IssueBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -96,8 +109,7 @@ public class IssueBuilder {
     }
 
     /**
-     * Sets the {@code Description} of the {@code Issue} that we are
-     * building to dummy description.
+     * Sets the {@code Description} of the {@code Issue} that we are building to dummy description.
      */
     public IssueBuilder withDummyDescription() {
         this.description = new Description(DUMMY_DESCRIPTION);
@@ -121,15 +133,11 @@ public class IssueBuilder {
     }
 
     /**
-     * Sets the {@code Timestamp} of the {@code Issue} that we are building.
+     * Create new Issue.
      */
-    public IssueBuilder withLastModifiedTime() {
-        this.lastModifiedTime = new Timestamp(new Date().getTime());
-        return this;
-    }
-
     public Issue build() {
-        return new Issue(statement, description, solutions, tags, frequency);
+        return new Issue(statement, description, solutions, tags, frequency,
+            new Timestamp(new Date().getTime()), lastModifiedTime);
     }
 
 }

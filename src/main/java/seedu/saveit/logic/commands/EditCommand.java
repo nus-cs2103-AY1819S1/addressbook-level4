@@ -10,7 +10,7 @@ import static seedu.saveit.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -42,23 +42,29 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ISSUE = "This issue already exists in the saveIt.";
     public static final String MESSAGE_EDIT_ISSUE_SUCCESS = "Edited Issue: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
     public static final String MESSAGE_USAGE =
-        "Edit issue or solution by the index number (positive integer) used in the displayed list: \n"
+        COMMAND_WORD + " issue or solution by the index number (positive integer)"
+            + " used in the displayed list. At least one field must be provided.\n"
             + "******  " + COMMAND_WORD + " INDEX "
             + "[" + PREFIX_STATEMENT + "ISSUE_STATEMENT] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Edit solution by the index number used in the displayed solution list: \n"
+            + "Edit solution by the index number used in the displayed solution list. "
+            + "At least one field must be provided.\n"
             + "******  " + COMMAND_WORD + " INDEX "
             + "[" + PREFIX_SOLUTION_LINK + "NEW_SOLUTION_LINK] "
-            + "[" + PREFIX_REMARK + "NEW_SOLUTION_REMARK] \n";
+            + "[" + PREFIX_REMARK + "NEW_SOLUTION_REMARK]";
 
 
     public static final String DUMMY_SOLUTION_REMARK = "dummySolutionRemark";
     public static final String DUMMY_SOLUTION_LINK = "https://www.dummySolutionLink.com";
 
+    protected static int defaultSolutionIndex = -1;
+
     private final Index index;
     private final EditIssueDescriptor editIssueDescriptor;
+
 
     /**
      * @param index of the issue in the filtered issue list to edit
@@ -79,8 +85,7 @@ public class EditCommand extends Command {
 
         if (currentDirectory.isRootLevel() && editIssueDescriptor.isAnyIssueFieldEdited()) {
             issueToEdit = getIssueToEdit(lastShownList, lastShownList.size(), index.getZeroBased());
-        } else if ((currentDirectory.isIssueLevel() || currentDirectory.isSolutionLevel()) && editIssueDescriptor
-            .isAnySolutionFieldEdited()) {
+        } else if (!currentDirectory.isRootLevel() && editIssueDescriptor.isAnySolutionFieldEdited()) {
             int issueIndex = currentDirectory.getIssue() - 1;
             int solutionListSize = lastShownList.get(issueIndex).getSolutions().size();
             issueToEdit = getIssueToEdit(lastShownList, solutionListSize, issueIndex);
@@ -132,7 +137,8 @@ public class EditCommand extends Command {
         Description updatedDescription = editIssueDescriptor.getDescription().orElse(issueToEdit.getDescription());
         Set<Tag> updatedTags = editIssueDescriptor.getTags().orElse(issueToEdit.getTags());
 
-        return new Issue(updatedName, updatedDescription, updatedSolutions, updatedTags);
+        return new Issue(updatedName, updatedDescription, updatedSolutions, updatedTags,
+            issueToEdit.getFrequency(), issueToEdit.getCreatedTime());
     }
 
     /**
@@ -150,11 +156,11 @@ public class EditCommand extends Command {
         Solution updatedSolution;
 
         SolutionLink updatedSolutionLink =
-                newSolution.getLink().getValue().equals(DUMMY_SOLUTION_LINK) ? oldSolution.getLink()
-                        : newSolution.getLink();
+            newSolution.getLink().getValue().equals(DUMMY_SOLUTION_LINK) ? oldSolution.getLink()
+                : newSolution.getLink();
         Remark updatedSolutionRemark =
-                newSolution.getRemark().getValue().equals(DUMMY_SOLUTION_REMARK) ? oldSolution.getRemark()
-                        : newSolution.getRemark();
+            newSolution.getRemark().getValue().equals(DUMMY_SOLUTION_REMARK) ? oldSolution.getRemark()
+                : newSolution.getRemark();
 
         if (oldSolution.isPrimarySolution()) {
             updatedSolution = new PrimarySolution(updatedSolutionLink, updatedSolutionRemark);
@@ -193,7 +199,7 @@ public class EditCommand extends Command {
         private List<Solution> solutions;
         private Description description;
         private Set<Tag> tags;
-        private int index = -1;
+        private int index = defaultSolutionIndex;
         private Solution solution;
 
         public EditIssueDescriptor() {
@@ -249,6 +255,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(solution);
         }
 
+        public void setSolution(Solution solution) {
+            this.solution = solution;
+        }
+
+        public void setIndex(Index index) {
+            this.index = index.getZeroBased();
+        }
+
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
@@ -265,7 +279,7 @@ public class EditCommand extends Command {
          * Sets {@code tags} to this object's {@code tags}. A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+            this.tags = (tags != null) ? new LinkedHashSet<>(tags) : null;
         }
 
         /**

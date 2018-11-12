@@ -67,14 +67,14 @@ public class SetPrimaryCommandTest {
         model.resetDirectory(newDirectory);
         expectedModel.resetDirectory(newDirectory);
         issueSelected = expectedModel.getFilteredAndSortedIssueList().get(selectedIssueOneBasedIndex.getZeroBased());
-        solutionList = expectedModel.getFilteredSolutionList();
+        solutionList = expectedModel.getFilteredAndSortedSolutionList();
     }
 
     /**
      * Reset the directory of model and expected to Root Level.
      */
     private void setUpRootLevel() {
-        Directory rootDirectory = new DirectoryBuilder().build();
+        Directory rootDirectory = Directory.formRootDirectory();
         model.resetDirectory(rootDirectory);
         expectedModel.resetDirectory(rootDirectory);
         issueSelected = null;

@@ -12,44 +12,42 @@
 
 This document is written for summarizing my contributions in the project SaveIt.
 
-SaveIt is geared at keeping track of the issues that the user finds and to link it with the email found on google.
-More importantly, SaveIt is ​optimized for those who prefer to work with a Command Line Interface​ (CLI) while still having the benefits of a Graphical User Interface (GUI).
-It is designed for programmers who are used to CLI applications and are good at typing.
+SaveIt is geared at keeping track of the issues and solutions that the user finds online.
+It is designed for programmers who are used to Command Line Interface​ (CLI) applications and are good at typing while still having the benefits of a Graphical User Interface (GUI).
 
-SaveIt​ is implemented for applying CS2103 learning outcomes and show understanding of the software design.
-It is implemented by a group of CS2103 students, including myself. My key contribution is sort command.
-SaveIt is written in Java and JavaFX, and is morphed from AddressBook-level4, the application used for teaching Software Engineering principles.
+SaveIt​ is implemented for applying CS2103 learning outcomes and showing understanding of the software design.
+It is implemented by a group of CS2103 students, including myself. My key contribution is *sort command and User Interface (UI) related with this function*.
+
+SaveIt is written in Java and JavaFX and is morphed from AddressBook-level4, the application used for teaching Software Engineering principles.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to sort issue list*
-** What it does: It allows the user to sort issues shown.
-** Justification: This feature improves the product significantly because a user can view the issues in the order that they want, helping them to organize issues better.
-** Highlights: This command changed the way how issues are listed in the application. It needs effort to combine sorting and filtering together properly.
+* *Major enhancement*: Add *the ability to sort issue list* and UI of the sort type
+** What it does: It allows the user to sort issues shown in the list.
+** Justification: This feature improves the product significantly because it helps the user to view the issues in the order that they want so that they can organize the record of issues better. That can help users to search and learn more efficiently.
+** Highlights: This command changes the way how issues are listed in the application. It needs efforts to combine sorting and filtering together properly and make sure the correct issue can be retrieved from the sorted list. Backend structure also needs to be changed for comparing the issues in different order.
 
 * *Minor enhancement*:
-** Added a confirmation check for clear command.
-** Added the ability to set and reset primary solution.
-** Update solution structure.
+** Add the ability to set and reset the primary solution. https://github.com/CS2103-AY1819S1-T12-4/main/pull/177[#177]
+** Add confirmation check for danger command (i.e. clear command for current version). https://github.com/CS2103-AY1819S1-T12-4/main/pull/116[#116]
+** Improve Solution structure. https://github.com/CS2103-AY1819S1-T12-4/main/pull/180[#180]
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yshu7[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed milestones and checked issue status on GitHub
+*** Manage milestones and checked issue status on GitHub
 ** Enhancements to existing features:
-*** Updated tests to fit mid-v1.2 features (Pull requests https://github.com/CS2103-AY1819S1-T12-4/main/pull/52[#52])
+*** Update tests to fit mid-v1.2 features: https://github.com/CS2103-AY1819S1-T12-4/main/pull/52[#52]
 ** Documentation:
 *** Update About Us Page: https://github.com/CS2103-AY1819S1-T12-4/main/pull/2[#2]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-4/main/pull/25[#25],
-https://github.com/CS2103-AY1819S1-T12-4/main/pull/32[#32], https://github.com/CS2103-AY1819S1-T12-4/main/pull/77[#77],
-https://github.com/CS2103-AY1819S1-T12-4/main/pull/123[#123], https://github.com/CS2103-AY1819S1-T12-4/main/pull/168[#168],
-https://github.com/CS2103-AY1819S1-T12-4/main/pull/169[#169],https://github.com/CS2103-AY1819S1-T12-4/main/pull/178[#178],
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-4/main/pull/168[#168],
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/169[#169], https://github.com/CS2103-AY1819S1-T12-4/main/pull/178[#178],
 
-*** Reported bugs and suggestions for other team members in the group:  https://github.com/CS2103-AY1819S1-T12-4/main/issues/111[111], https://github.com/CS2103-AY1819S1-T12-4/main/issues/115[115]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Report bugs and suggestions for other team members in the group: https://github.com/CS2103-AY1819S1-T12-4/main/issues/111[111], https://github.com/CS2103-AY1819S1-T12-4/main/issues/115[115],
+https://github.com/CS2103-AY1819S1-T12-4/main/issues/203[203], https://github.com/CS2103-AY1819S1-T12-4/main/issues/237[237]
 
 == Contributions to the User Guide
 
@@ -64,6 +62,8 @@ include::../UserGuide.adoc[tag=clear]
 
 include::../UserGuide.adoc[tag=setprimary]
 
+include::../UserGuide.adoc[tag=resetprimary]
+
 == Contributions to the Developer Guide
 
 |===
@@ -76,8 +76,4 @@ include::../DeveloperGuide.adoc[tag=confirmation]
 
 include::../DeveloperGuide.adoc[tag=setprimary]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=resetprimary]

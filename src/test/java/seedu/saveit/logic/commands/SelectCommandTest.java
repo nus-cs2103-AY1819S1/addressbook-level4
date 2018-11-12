@@ -7,6 +7,7 @@ import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.saveit.logic.commands.CommandTestUtil.showIssueAtIndex;
 import static seedu.saveit.testutil.TypicalIndexes.INDEX_FIRST_ISSUE;
+import static seedu.saveit.testutil.TypicalIndexes.INDEX_FIRST_SOLUTION;
 import static seedu.saveit.testutil.TypicalIndexes.INDEX_SECOND_ISSUE;
 import static seedu.saveit.testutil.TypicalIndexes.INDEX_THIRD_ISSUE;
 import static seedu.saveit.testutil.TypicalIssues.getTypicalSaveIt;
@@ -18,10 +19,12 @@ import seedu.saveit.commons.core.Messages;
 import seedu.saveit.commons.core.directory.Directory;
 import seedu.saveit.commons.core.index.Index;
 import seedu.saveit.commons.events.ui.JumpToListRequestEvent;
+import seedu.saveit.commons.events.ui.JumpToSolutionListRequestEvent;
 import seedu.saveit.logic.CommandHistory;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.ModelManager;
 import seedu.saveit.model.UserPrefs;
+import seedu.saveit.testutil.DirectoryBuilder;
 import seedu.saveit.ui.testutil.EventsCollectorRule;
 
 /**
@@ -36,18 +39,18 @@ public class SelectCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIssueIndexUnfilteredList_success() {
         Index lastIssueIndex = Index.fromOneBased(model.getFilteredAndSortedIssueList().size());
 
         assertExecutionSuccess(INDEX_FIRST_ISSUE);
-        model.resetDirectory(new Directory(0, 0));
+        model.resetDirectory(Directory.formRootDirectory());
         assertExecutionSuccess(INDEX_THIRD_ISSUE);
-        model.resetDirectory(new Directory(0, 0));
+        model.resetDirectory(Directory.formRootDirectory());
         assertExecutionSuccess(lastIssueIndex);
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_failure() {
+    public void execute_invalidIssueIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredAndSortedIssueList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex,
@@ -55,7 +58,7 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIssueIndexFilteredList_success() {
         showIssueAtIndex(model, INDEX_FIRST_ISSUE);
         showIssueAtIndex(expectedModel, INDEX_FIRST_ISSUE);
 
@@ -63,7 +66,7 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_failure() {
+    public void execute_invalidIssueIndexFilteredList_failure() {
         showIssueAtIndex(model, INDEX_FIRST_ISSUE);
         showIssueAtIndex(expectedModel, INDEX_FIRST_ISSUE);
 
@@ -73,6 +76,30 @@ public class SelectCommandTest {
 
         assertExecutionFailure(outOfBoundsIndex,
                 Messages.MESSAGE_INVALID_ISSUE_DISPLAYED_INDEX + "\n" + SelectCommand.MESSAGE_USAGE);
+    }
+
+    @Test
+    public void execute_validSolutionIndex_success() {
+        model.resetDirectory(new DirectoryBuilder().withIssueIndex(INDEX_THIRD_ISSUE).build());
+        expectedModel.resetDirectory(new DirectoryBuilder().withIssueIndex(INDEX_THIRD_ISSUE).build());
+        eventsCollectorRule.eventsCollector.reset();
+
+        Index lastSolutionIndex = Index.fromOneBased(model.getFilteredAndSortedIssueList()
+                .get(INDEX_THIRD_ISSUE.getZeroBased()).getSolutions().size());
+        assertExecutionSuccess(INDEX_THIRD_ISSUE, INDEX_FIRST_SOLUTION);
+        assertExecutionSuccess(INDEX_THIRD_ISSUE, lastSolutionIndex);
+    }
+
+    @Test
+    public void execute_invalidSolutionIndex_failure() {
+        model.resetDirectory(new DirectoryBuilder().withIssueIndex(INDEX_THIRD_ISSUE).build());
+        expectedModel.resetDirectory(new DirectoryBuilder().withIssueIndex(INDEX_THIRD_ISSUE).build());
+        eventsCollectorRule.eventsCollector.reset();
+
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredAndSortedIssueList()
+                .get(INDEX_THIRD_ISSUE.getZeroBased()).getSolutions().size() + 1);
+        assertExecutionFailure(outOfBoundsIndex,
+                Messages.MESSAGE_INVALID_SOLUTION_DISPLAYED_INDEX + "\n" + SelectCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -109,6 +136,22 @@ public class SelectCommandTest {
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+    }
+
+    /**
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * is raised with the correct index.
+     */
+    private void assertExecutionSuccess(Index issueIndex, Index solutionIndex) {
+        SelectCommand selectCommand = new SelectCommand(solutionIndex);
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_ISSUE_SUCCESS, issueIndex.getOneBased())
+                + String.format(SelectCommand.MESSAGE_SELECT_SOLUTION_SUCCESS, solutionIndex.getOneBased());
+
+        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        JumpToSolutionListRequestEvent lastEvent = (JumpToSolutionListRequestEvent) eventsCollectorRule
+                .eventsCollector.getMostRecent();
+        assertEquals(solutionIndex, Index.fromZeroBased(lastEvent.targetIndex));
     }
 
     /**

@@ -58,6 +58,7 @@ public class CommandBox extends UiPart<Region> {
         this.suggestionLogic = suggestionLogic;
         this.popUpWindow = new ContextMenu();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextArea.textProperty().addListener((observable, oldValue, newValue) -> setStyleToDefault());
         commandTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             highlight(observable, oldValue, newValue);
             suggestionLogic.updateCaretPosition(commandTextArea.getCaretPosition());
@@ -180,7 +181,6 @@ public class CommandBox extends UiPart<Region> {
         setCommandInput(historySnapshot.next());
     }
 
-
     /**
      * Handles the Enter button pressed event.
      */
@@ -233,6 +233,13 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Sets the command box style to use the default style.
+     */
+    private void setStyleToDefault() {
+        commandTextArea.getStyleClass().remove(ERROR_STYLE_CLASS);
+    }
+
+    /**
      * Sets the command box style to indicate a failed command.
      */
     private void setStyleToIndicateCommandFailure() {
@@ -241,6 +248,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
         commandTextArea.setStyle(0, commandTextArea.getText().length(), ERROR_STYLE_CLASS);
+        styleClass.add(ERROR_STYLE_CLASS);
     }
 
     @Subscribe

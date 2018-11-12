@@ -15,7 +15,7 @@ image::zhengwei143.png[width="150", align="left"]
 {empty}[https://github.com/zhengwei143[github]] [<<zhengwei143#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Search
+Responsibilities: Autosuggestion, Find
 
 '''
 
@@ -24,7 +24,7 @@ image::jasonvank.png[width="150", align="left"]
 {empty}[https://github.com/jasonvank[github]] [<<jasonvank#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Edit
+Responsibilities: Edit exiting data, Command Highlight
 
 '''
 
@@ -33,7 +33,7 @@ image::leo-1997.png[width="150", align="left"]
 {empty}[http://github.com/leo-1997[github]] [<<leo-1997#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Add + Delete
+Responsibilities: Add, Retrieve Link, AutoSuggestion for Find
 
 '''
 
@@ -42,7 +42,7 @@ image::xllliu.png[width="150", align="left"]
 {empty}[http://github.com/xllliu[github]] [<<xllliu#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Command related features
+Responsibilities: UI
 
 '''
 
@@ -51,6 +51,6 @@ image::yshu7.png[width="150", align="left"]
 {empty}[http://github.com/yshu7[github]] [<<yshu7#, portfolio>>]
 
 Role: Developer +
-Responsibilities: List
+Responsibilities: Sort, Set Primary Solution
 
 '''

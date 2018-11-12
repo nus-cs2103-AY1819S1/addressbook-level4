@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
 == PROJECT: SaveIt
 
@@ -9,40 +10,47 @@
 
 == Overview
 
-SaveIt​ is geared at keeping track of the issues that the user finds and to link it with the email found on google.
-More importantly, SaveIt is ​optimized for those who prefer to work with a Command Line Interface​ (CLI) while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, SaveIt can help you search the same statement that save previously faster than traditional GUI apps.
+This document is to summarize and elaborate all my contributions to the project.
+Our project, SaveIt, is a issue tracker application which is morphed from AddressBook4.
+
+SaveIt dedicates to providing a platform for storing, managing and viewing their programming related issues during daily practice for the programmers. Its main features include adding new issue and solution, managing existing issues as well as finding existing issues. It is especially designed for the user who prefers command line interface (CLI) as all the commands require command line input. It also preserves the benefits of a Graphical User Interface (GUI) at the same time. If you can type fast, SaveIt can help you search the same issue that save previously faster than traditional GUI apps.
+
+The project is implemented for applying and showing the learning outcomes of CS2103T, and it is done by a group of five CS2103T students including myself.
+
 == Summary of contributions
+This section is to summarize and explain my contributions towards this project.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: add the *solution filed to model structure along with enable adding solution or issue*
+** What it does: It constitutes the basic model structure by adding new issue and new solution into SaveIt. This allows all the following features to be carried out in SaveIt.
+** Justification: This feature improves the product significantly as a user can now add more issues and solutions to the application. This is the most important and fundamental function our application aims to achieve.
+** Highlights: This enhancement involves not only model component but also GUI, storage components in the application and it requires a lot of effort to build it properly. The add command on the other hand needs to handle different requests in different directories.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** Implement basic autosuggestion feature for find and findByTag command. https://github.com/CS2103-AY1819S1-T12-4/main/pull/107[#107]
+** Refactor autosuggestion component. https://github.com/CS2103-AY1819S1-T12-4/main/pull/168[#168]
+** Add retrieve command to copy the solution link to system clipboard. https://github.com/CS2103-AY1819S1-T12-4/main/pull/85[#85]
+** Refactor the application from AddressBook Level 4 to SaveIt. https://github.com/CS2103-AY1819S1-T12-4/main/pull/4[#4] https://github.com/CS2103-AY1819S1-T12-4/main/pull/56[#56] https://github.com/CS2103-AY1819S1-T12-4/main/pull/68[#68]
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=leo-1997[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=leo-1997[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Manage milestones and check issue status on GitHub
+** Improve JUnit tests:
+*** Rewrite existing failing tests and add new tests:
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/219[#219],
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/233[#233],
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/253[#253]
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Update the Auto-Suggestion window(Pull requests https://github.com/CS2103-AY1819S1-T12-4/main/pull/168[#168])
+*** Update ArgumentMultimap to enable hashing the prefix with its relative position(Pull requests https://github.com/CS2103-AY1819S1-T12-4/main/pull/165[#165])
+*** Write additional tests for existing features to increase coverage from 79% to 81% (Pull requests https://github.com/CS2103-AY1819S1-T12-4/main/pull/219[#219], https://github.com/CS2103-AY1819S1-T12-4/main/pull/233[#223])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Modify the undo/redo implementation diagrams to fit current edition of Developer Guide: (Pull requests https://github.com/CS2103-AY1819S1-T12-4/main/pull/243[#243])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Review PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-4/main/pull/169[#169], https://github.com/CS2103-AY1819S1-T12-4/main/pull/170[#170], https://github.com/CS2103-AY1819S1-T12-4/main/pull/180[#180], https://github.com/CS2103-AY1819S1-T12-4/main/pull/208[#208], https://github.com/CS2103-AY1819S1-T12-4/main/pull/215[#215]
+*** Report bugs and suggestions for other teammates in the group (https://github.com/CS2103-AY1819S1-T12-4/main/issues/188[#188], https://github.com/CS2103-AY1819S1-T12-4/main/issues/197[#197] https://github.com/CS2103-AY1819S1-T12-4/main/issues/199[#199], https://github.com/CS2103-AY1819S1-T12-4/main/issues/200[#200], https://github.com/CS2103-AY1819S1-T12-4/main/issues/202[#202], https://github.com/CS2103-AY1819S1-T12-4/main/issues/204[#204], https://github.com/CS2103-AY1819S1-T12-4/main/issues/222[#222], https://github.com/CS2103-AY1819S1-T12-4/main/issues/223[#223])
 
 == Contributions to the User Guide
 
@@ -51,14 +59,20 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=retrieve]
+
+include::../UserGuide.adoc[tag=suggestion]
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=add]
 
----
+include::../DeveloperGuide.adoc[tag=retrieve]
 
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=suggestion]

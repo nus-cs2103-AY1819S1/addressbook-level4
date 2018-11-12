@@ -5,7 +5,7 @@ package seedu.saveit.logic.commands;
  */
 public abstract class DangerCommand extends Command {
     public static final String ASK_FOR_CONFIRMATION = "Are you sure to %s ? Please enter Yes(Y) to confirm.";
-    public static final String CONFIRMATION_FAILED = "Didn't %s.";
+    public static final String CONFIRMATION_FAILED = "Command: '%s' is canceled.";
 
     public abstract CommandResult askForConfirmation();
     public abstract CommandResult failedConfirmation();

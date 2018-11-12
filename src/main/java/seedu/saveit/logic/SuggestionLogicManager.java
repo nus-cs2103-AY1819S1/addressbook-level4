@@ -53,7 +53,8 @@ public class SuggestionLogicManager implements SuggestionLogic {
     @Override
     public SuggestionResult evaluate(String userInput) {
         Suggestion suggestion = parseUserInput(userInput);
-        if (suggestion == null) {
+        // Autosuggestions should only be at the root level - for issues
+        if (suggestion == null || !model.getCurrentDirectory().isRootLevel()) {
             return new SuggestionResult(new LinkedList<>(), "", "", 0, 0);
         }
         return suggestion.evaluate();
@@ -69,7 +70,7 @@ public class SuggestionLogicManager implements SuggestionLogic {
     /**
      * Instantiates a {@code Suggestion} based on the {@code userInput}
      */
-    private Suggestion parseUserInput(String userInput) {
+    public Suggestion parseUserInput(String userInput) {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput);
 
         if (!matcher.matches()) {
@@ -197,7 +198,7 @@ public class SuggestionLogicManager implements SuggestionLogic {
 
         switch (startPrefix.getPrefix()) {
 
-        case START_MARKER:
+        case PREFIX_TAG_STRING:
             return handleTagNameSuggestion(posArgs, startPrefix, endPrefix);
 
         default:

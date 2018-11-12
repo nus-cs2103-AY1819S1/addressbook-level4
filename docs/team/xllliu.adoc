@@ -7,32 +7,48 @@
 
 == 1. Overview
 
-SaveIt​ is geared at keeping track of the issues that the user finds and to link it with the url of the web-page found on the Internet.
-More importantly, SaveIt is ​optimized for those who prefer to work with a Command Line Interface​ (CLI) while still having the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10 kLoC.
+The document is written to summarize my contributions to the CS2103T project.
+As a group, we have morphed Addressbook-Level4 into a new bookmark app: SaveIt.
+I am mainly in charge in the UI part in the project.
+
+SaveIt​ is geared at keeping track of the issues that the user
+finds and their solutions found on the Internet.SaveIt is ​optimized for those who prefer to work with a
+Command Line Interface​ (CLI). But it still has the benefits of a Graphical
+User Interface (GUI) created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == 2. Summary of contributions
-* *Major enhancement*: Redesign the solution list panel in GUI
-** What it does: allow the users to view solutions in the list panel when they select a sepecific issue.
-** Justification: This feature improves the product significantly because a user may want to view the different solutions of an issue and load the web-page of the solution seperately. This enhancement is important as morphing changes the original UI structure of Addressbook level 4, the new GUI is more user-friendly.
-** Credits: Addressbook level 4.
+* *Major enhancement*: Redesign the list panel in GUI
+** What it does: It allows the users to view solutions and issues in the list panel
+ when they are at the specified directory.
+** Justification: This feature improves the product significantly
+because it allows the users to manage the data in the form of a directory system.
+ This enhancement is important as morphing changes the original
+UI and model structure of Addressbook-level 4, the new GUI is more user-friendly.
+** Credits: Addressbook-level 4.
 
-* *Minor enhancement*: There are three minor enhancements as listed below:
+* *Minor enhancements*: There are three minor enhancements as listed below:
 ** Add a home command that allows the user to return to home directory for edition.
 ** Refactor the selection command that allows the user to change edit directory.
 ** Enable the user to load solution web-page.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=xllliu[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Manage releases `v1.2`, `v1.4` (2 releases) on GitHub
+*** Manage releases `v1.2` on GitHub
+** Improve JUnit tests:
+*** Rewrite exiting failing tests and added new tests: https://github.com/CS2103-AY1819S1-T12-4/main/pull/110[#110]
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/140[#140],
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/171[#171],
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/221[#221],
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/234[#234],
 ** Documentation:
-*** Add cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Add cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-T12-4/main/pull/55[#55]
+*** Update README.adoc: https://github.com/CS2103-AY1819S1-T12-4/main/pull/46[#46]
 ** Community:
-*** Review PRs (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contribut to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Report bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Review PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-4/main/pull/170[#170], https://github.com/CS2103-AY1819S1-T12-4/main/pull/215[#215]
+*** Report bugs and suggestions for other team members in the group: https://github.com/CS2103-AY1819S1-T12-4/main/issues/251[#251]
 
 
 == 3. Contributions to the User Guide
@@ -42,16 +58,41 @@ More importantly, SaveIt is ​optimized for those who prefer to work with a Com
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Selecting a statement : `(s)select`
+=== Selecting an issue/solution  : `(s)select`
 
-Selects an issue identified by the index number used in the displayed issue list and change the current editing directory to the issue selected.
+If the user is at the home directory, the command selects
+ an issue identified by the index number used in the issue panel.
+  The command also displays the solutions
+  of the selected issue in the solution panel. Now the edit directory
+is changed to issue level.
 
+[TIP]
+====
+* When an issue is selected, the directory is changed to `SaveIt/Issue */`. Then
+the user is not allowed to add, edit, or select issue.
+The change directory will be displayed in the UI as shown below.
+====
 Format: `select INDEX`
 
-Examples:
+Example:
 ****
-* `select 5`
+.Direcotry Change
+image::directory-change.png[width="300"]
+.Select an Issue
+image::select issue.png[width="790"]
 ****
+If the user is at the issue directory, the command load the web link
+ of the indexed solution in the built-in browser.
+
+Example:
+****
+* `select 2`
+
+.Seleting a Solution
+image::select solution.png[width="790"]
+****
+
+
 
 [NOTE]
 ====
@@ -61,58 +102,27 @@ Examples:
 * All properties of this solutions will be displayed at the left side of the interface.
 ====
 
-=== Returning to home directory  : `(h)home`
+=== Returning to home directory  : `(hm)home`
 
-Changes the current editing directory to the root directory. Besides, Shows a list of all issues in the issue list by index.
+Changes the current editing directory to the home directory. Besides,
+ Shows a list of all issues in the list panel by index.
 
 Format: `home`
-
-[TIP]
-====
-* Return to the home directory
-====
 
 Examples:
 ****
 * `home`
+
+.Return to Home Directory
+image::home.png[width="790"]
 ****
 
 [NOTE]
 ====
-* All issues are listed in chronological order by default in home directory.
+* All issues are listed in the list panel in home directory.
+* The following commands can only be executed at home directory:
+ `sort`, `addtag`, `refactortag`, `find`, `findtag`.
 ====
-
-=== Command Summary
-Here is a summary of all command formats for your reference. Please note that some commands may implement more than one format.
-
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *Add*  +
-For issues: `add i/[ISSUE_STATEMENT] d/[DESCRIPTION] t/[Tag]` +
-e.g. `add i/Bug d/exception thrown not handled t/java` +
-For solutions: `add s/[SOLUTION_LINK] r/[REMARK]` +
-e.g. `add s/www.github.com r/A git website`
-* *Edit* +
-For issues: `edit INDEX i/[ISSUE_STATEMENT] d/[DESCRIPTION]` +
-e.g. `edit 2 i/exception thrown not handled d/statement solved` +
-For solutions: `edit INDEX s/[SOLUTION_LINK] r/[REMARK]` +
-e.g. `edit 3 s/www.google.com r/add a catch block`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
-e.g. `Search BST`
-* *Home* : `home`
-* *Clear* : `clear`
-* *Undo* : `undo`
-* *Redo* : `redo`
-* *History* : `history`
-* *Exit* : `exit`
-* *List* : `list`
-* *Sort* : `sort` TYPE
-* *Refactor Tag* : `refactor [OLDTAG] [NEWTAG]` +
-e.g. `refactorTag java C++`
-* *Highlight* : `highlight`
 
 
 == 4.Contributions to the Developer Guide
@@ -120,27 +130,88 @@ e.g. `refactorTag java C++`
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-=== UI component
 
-.Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+=== Directory Level Model
 
-The figure above shows the breakdown of the smaller components involved in the `UI` Component. The `UI` Component is the interface (abstraction barrier) between the user and the underlying components - `Model` and `Logic`.
+SaveIt manages a list of issues, with each issue containing a list of solutions.
+ To manage the data with two-level structure, SaveIt implemented a directory model
+  in the Model component and UI component.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+==== Current Implementation
+Currently a directory class is maintained in `SaveIt`. It consist of `root` level and `issue` level.
+ The solution level is disabled for now as the complexity of current version of SaveIt
+  does not require the three-level directory system.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+===== Command Execution
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+Before any command is executed,
+ it will query the current directory and determine the command result.
+  Some commands will have different command word and command result at different directory, such as:
+  `edit`, `add`. Some commands can only be executed at root level
+  , such as `sort`, `addtag`, `refactortag`, `find`, `findtag`.
 
-The `UI` component,
+===== Home Command
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+To traverse between `root` and `issue` level, a new command `home` is added to the command list.
+`home` Command changes the current directory to `root` level and post `DirectoryChangedEvent`,
+ which invokes the UI to load the issue list in the list panel. It is shown in the sequence
+ diagram below
+
+.Home Command Sequence Diagram
+image::HomeCommandSequenceDiagram.png[width="800"]
+
+==== Design Consideration
+===== Aspect: How to manage the issues and solutions with two-level structure
+
+* **Alternative 1 (current choice):** Implement a directory level model explicitly.
+
+** Pros: The data structure is clearer. Target users are familiar
+ with director level system, such as file system in Linux.
+
+** Cons: Changing directory may be inconvenient for users.
+
+* **Alternative 2:** Manage the issue-solution structure by specifying index in commands.
+
+** Pros: No need to change the previous structure.
+** Cons:The structure is not clear and the users may be confused.
+
+=== UI Enhancement
+The figures below show the current UI for SaveIt v1.4.
+
+.SaveIt UI Displaying Issue List
+image::UI.png[width="790"]
+
+.SaveIt UI Displaying Solution List
+image::UI2.png[width="790"]
+
+In the above figures, the left column is the list panel which displays the list of issues or
+the list of solutions. The browser panel at bottom right displays the web page of the url as in the solution link.
+When no page is loaded, it displays the default page as above. Whenever a solution is selected,
+the browser panel loads the url given in the solution link as below.
+
+.Browser Panel loading Web-Page
+image::after selecting solution.png[width="790"]
+
+==== Current Implementation
+Currently the list panel implements a two-level structure. When the directory is at root level, it displays
+a list of issues. When the directory is at issue level, it displays the solution list of the selected issue.
+The list panel interacts with other components through `DirectoryChangedEvent` and `JumpToListRequestEvent`.
+The sequence diagram is as shown below.
+
+.Change From Solution List to Issue List
+image::UI_Sequence_Diagram_1.png[width="790"]
+
+.Change from Issue List to Solution List
+image::UI_Sequence_Diagram_2.png[width="790"]
+
+==== Design Consideration
+* **Alternative 1 (current choice):** Use one panel and switch between the two list.
+** Pros: The panel takes less space. It also represents the directory structure model in UI.
+** Cons: Need to switch between lists. Cannot display the issues while displaying the solutions.
+
+* **Alternative 2:** Use two panels to display the issue list and solution list.
+** Pros: Both lists can be viewed at the same time. Implementation is easier.
+** Cons: It takes too much space in the UI.
 
 
-== 5.PROJECT: SaveIt
-
----
 

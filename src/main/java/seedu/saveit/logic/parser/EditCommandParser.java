@@ -39,8 +39,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer
-                .tokenize(args, PREFIX_STATEMENT, PREFIX_DESCRIPTION, PREFIX_SOLUTION_LINK, PREFIX_REMARK, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_STATEMENT, PREFIX_DESCRIPTION, PREFIX_SOLUTION_LINK,
+                PREFIX_REMARK, PREFIX_TAG);
 
         Index index;
         try {
@@ -50,17 +50,23 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         // check if the command is correct
-        if ((arePrefixesPresent(args, PREFIX_STATEMENT, PREFIX_DESCRIPTION, PREFIX_TAG)) && arePrefixesNotPresent(args,
-            PREFIX_SOLUTION_LINK, PREFIX_REMARK)) {
-
+        if (isEditIssueCommand(args)) {
             return getIssueLevelEditCommand(argMultimap, index);
-        } else if (arePrefixesNotPresent(args, PREFIX_STATEMENT, PREFIX_DESCRIPTION, PREFIX_TAG) && (
-            arePrefixesPresent(args, PREFIX_SOLUTION_LINK, PREFIX_REMARK))) {
+        } else if (isEditSolutionCommand(args)) {
             return getSolutionLevelEditCommand(argMultimap, index);
-
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+    }
+
+    private boolean isEditSolutionCommand(String args) {
+        return arePrefixesNotPresent(args, PREFIX_STATEMENT, PREFIX_DESCRIPTION, PREFIX_TAG)
+            && (arePrefixesPresent(args, PREFIX_SOLUTION_LINK, PREFIX_REMARK));
+    }
+
+    private boolean isEditIssueCommand(String args) {
+        return (arePrefixesPresent(args, PREFIX_STATEMENT, PREFIX_DESCRIPTION, PREFIX_TAG))
+            && arePrefixesNotPresent(args, PREFIX_SOLUTION_LINK, PREFIX_REMARK);
     }
 
     private EditCommand getIssueLevelEditCommand(ArgumentMultimap argMultimap, Index index) throws ParseException {
@@ -76,6 +82,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editIssueDescriptor::setTags);
+
         return new EditCommand(index, editIssueDescriptor);
     }
 
@@ -87,9 +94,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             ? argMultimap.getValue(PREFIX_REMARK).get() : EditCommand.DUMMY_SOLUTION_REMARK;
 
         Solution solution = parseSolutionForEdit(solutionLink, solutionRemark);
-        EditIssueDescriptor editIssueDescriptorForSolution = new EditIssueDescriptor(index, solution);
+        EditIssueDescriptor editSolutionDescriptor = new EditIssueDescriptor(index, solution);
 
-        return new EditCommand(index, editIssueDescriptorForSolution);
+        return new EditCommand(index, editSolutionDescriptor);
     }
 
     /**

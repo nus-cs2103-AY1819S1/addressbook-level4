@@ -131,7 +131,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/saveit/MainApp.java[`MainApp`]. It is responsible for:
 
 * At app launch: Initializing the components in the correct sequence, and connects them up with each other.
 * At shut down: Shutting down the components and invokes cleanup method where necessary.
@@ -186,17 +186,19 @@ image::UiClassDiagram.png[width="800"]
 
 The figure above shows the breakdown of the smaller components involved in the `UI` Component. The `UI` Component is the interface (abstraction barrier) between the user and the underlying components - `Model` and `Logic`.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/saveit/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/saveit/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+// tag::logiccomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -205,20 +207,44 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-The `Logic` Component encapsulates the execution of all commands. Each command is represented its own class (e.g. `FindCommand.java`, `AddCommand.java`) which all inherit from an abstract `Command.java` class.
+The `Logic` Component can be split into two subcomponents:
+
+*1. Command Logic Subcomponent*
+
+The command logic subcomponent encapsulates the execution of all commands. Each command is represented its own class (e.g. `FindCommand.java`, `AddCommand.java`) which all inherit from an abstract `Command.java` class.
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/saveit/logic/Logic.java[`Logic.java`]
+
 
 .  `Logic` uses the `SaveItParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a statement) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+*2. Suggestion Logic Subcomponent*
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+The suggestion logic subcomponent encapsulates the evaluation of user inputs as it is keyed into the command line, differing from the command logic in that command logic is only executed upon entering the command, whereas suggestion logic is called whenever the user input changes (without the need to enter).
+
+*API* :
+link:{repoURL}/src/main/java/seedu/saveit/logic/SuggestionLogic.java[`SuggestionLogic.java`]
+
+
+. `SuggestionLogic` parses user inputs whenever it changes.
+. This determines which `Suggestion` object is created by the `SuggestionLogicManager`.
+. The evaluation of the `Suggestion` object reads data from the `Model` (e.g. finds a specific `Issue`).
+. The result of the evaluation is encapsulated as a `SuggestionResult` object which is passed back to the `Ui`.
+
+
+Given below is the Sequence Diagram for interactions within the `Logic` component when an API call is made. The Sequence Diagram is split into two branches of logic:
+
+. *Command logic:* Shows an example command execution of the `delete 1` Command, which calls the `DeleteCommand`.
+. *Suggestion logic:* Shows an example suggestion evaluation of the user input `edit 1 i/`, which calls the `CopyExistingSuggestion`.
+
+.Example Interactions Inside the Logic Component for the command and suggestion logic subcomponents.
+image::SDexamplesForLogic.png[width="800"]
+
+// end::logiccomponent[]
 
 [[Design-Model]]
 === Model component
@@ -228,7 +254,7 @@ image::ModelComponentClassDiagram.png[width="900"]
 
 The `Model` Component contains the classes which are representations of the data stored by the application, and how each data objects are linked with each other.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/saveit/model/Model.java[`Model.java`]
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the SaveIt data.
@@ -237,7 +263,7 @@ The `Model` Component contains the classes which are representations of the data
 
 [NOTE]
 ====
-* As a more OOP model, we can store a `Tag` list in `SaveIt`, which `Issue` can reference. This would allow `SaveIt` to only require one `Tag` object per unique `Tag`, instead of each `Issue` needing their own `Tag` object.
+* As a more OOP model, we can store a `Tag` list in `SaveIt`, which `Issue` can reference. This will allow `SaveIt` to only require one `Tag` object per unique `Tag`, instead of each `Issue` needing their own `Tag` object.
 
 * The current model implements a `currentDirectory` to difference edition of issue and edition of solution with the same edit command. Besides, `AddCommand`, `ClearCommand` may also work differently for issues and solutions.
 ====
@@ -250,7 +276,7 @@ The `Storage` Component is the interface that involves reading and storing the d
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/saveit/storage/Storage.java[`Storage.java`]
 
 * can save `UserPref` objects in json format and read it back.
 * can save the SaveIt data in xml format and read it back.
@@ -264,19 +290,20 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented. Note that this section does not fully encompass all the features, but the more core features of the application.
 
+// tag::add[]
 === Add feature
 The add command can add both issue and solution to SaveIt. It includes two levels:
 
-* Issue level
+* Root level
 ** Issue statement
 ** Issue description
 ** Issue tags
-* Solution level
+* Issue level
 ** Solution link
 ** Solution remark
 
 ==== Add issue
-Add issue happens on the issue level
+Adding a new issue can only happen at the root level
 
 ===== Current implementation
 The `SaveItParser` is used to call `AddCommandParser` so as to pass the entered issue. In order to build a new `Issue` object, a dummy solution link and dummy solution remark will be used. After that, `AddCommand` is invoked which will ask model to add the issue to the `Model` component.
@@ -287,13 +314,13 @@ The following sequence diagram illustrates how the add new issue feature functio
 .Add Issue Command Sequence Diagram
 image::AddNewIssue.png[width="800"]
 
-This diagram gives a clear procedure that how the user input is passed step by step and calling different methods and objects at different sequences.
+This diagram gives a clear procedure that how the user input is passed step by step by calling different methods and objects in different sequences.
 
 ==== Add solution to existing issue
-Add solution happens on the solution level
+Adding a new solution can only happen at the issue level
 
 ===== Current implementation
-The `SaveItParser` is used to call `AddCommandParser` just like how add issue features functions as above mentioned. However, this time, the new solution link and solution remark is provided to `AddCommand` instead. In order to build a new `Issue` object, dummy issue statement and dummy issue description will be used. During execution, `addSolution` method, which was newly added, in Model component will be invoked, to add the solution. The detailed implementation of `addSolution` in model component is quite simple. Since the list stored in application is immutable, each time, a new issue will be created with original statement and description, then the new solution will be added to that particular issue. Finally, `updateIssue` method will be called to replace the issue in `versionedSaveIt`.
+The `SaveItParser` is used to call `AddCommandParser` just like how adding issue feature functions as above mentioned. However, this time, the new solution link and solution remark is provided to `AddCommand` instead. In order to build a new `Issue` object, dummy issue statement and dummy issue description will be used. During execution, `addSolution` method, which was newly added, in Model component will be invoked to add the solution. The detailed implementation of `addSolution` in model component is quite simple. Since the list stored in application is immutable, each time, a new issue will be created with original statement and description, then the new solution will be added to that particular issue. Finally, `updateIssue` method will be called to replace the issue in `versionedSaveIt`.
 
 The following sequence diagram illustrates how the add solution feature functions
 
@@ -304,7 +331,7 @@ This diagram shows the sequence that how add solution command is executed. It co
 
 ==== Design Considerations
 ===== Aspect: How add solutions executes
-* **Alternative 1 (current choice):** Combine AddIssue and AddSolution combined together and distinguishes them at the stage of `AddCommandParser`
+* **Alternative 1 (current choice):** Combine AddIssue and AddSolution together and distinguish them at the stage of `AddCommandParser`
 ** Pros: Consistent syntax between the two features, so the command is more user-friendly.
 ** Cons: Need to put more effort on distinguishing the difference between these two requests, `AddCommandParser` is relatively complex compared to the other parser component.
 * **Alternative 2:** Build a new command especially for adding solution
@@ -312,45 +339,41 @@ This diagram shows the sequence that how add solution command is executed. It co
 ** Cons: The command set becomes too complex for the user.
 
 ===== Aspect: How add command distinguishes between adding solution and adding issue
-* **Alternative 1 (current choice):** Passing a new created issue with dummy issue statement or dummy solution link
+* **Alternative 1 (current choice):** Pass a newly created issue with dummy issue statement or dummy solution link
 ** Pros: Consistent coding style and less change on logic structure
 ** Cons: Quite complex implementation compared to other command
-* **Alternative 2:** Overloading Issue constructor so that different issues will be passing to `AddCommand` accordingly.
+* **Alternative 2:** Overload Issue constructor so that different issues will be passed to `AddCommand` accordingly.
 * Pros: Relatively easier to implement
 * Cons: Lots of changes on structure.
+// end::add[]
 
-// tag::sort
+// tag::sort[]
 === Sort feature
 
 The sort command can sort an issue list shown in the GUI.
 
 ==== Current implementation
 
-We use JavaFX `SortedList` and the Comparator provided by `IssueSort` to sort the list, `ModelManager#getSortedList()` to retrieve the sorted list.
+We use JavaFX `SortedList` and the Comparator provided by `SortType` to sort the list.
 
-In order to allow sort work with filtered list, we implement the new method `getFilteredAndSortedList()`, which calls `getSortedList()` and apply it to the filtered list.
+In order to allow sorting to work with the filtered list, we wrap `FilteredList` with `SortedList` and retrieve this new list with a new method `getFilteredAndSortedList()`.
 
 The following sequence diagram illustrates how the mechanism works:
 
 .Sort Command Sequence Diagram
 image::SortCommandSequenceDiagram.png[width="800"]
 
-.Reference Frame Initialize Comparator
-image::InitializeComparator.png[width="800"]
+This diagram shows that after the input is parsed, a SortType object is initialized before the SortCommand object.
 
+As shown in the diagram, a SortType object can provide the required comparator and we use the retrieved Comparator to sort the list when the sort command is executed.
 
-This two diagrams show that after the input is parsed, a IssueSort object is initialized before the SortCommand object.
+The following is a class diagram for SortType.
 
-As shown in the diagram, an IssueSort object can provide the required comparator with the input String passed from SortCommand.
-We use the retrieved Comparator the sort the list when executing the sort command.
+.SortType Class Diagram
+image::SortType.png[width="500"]
 
-The following is a class diagram for IssueSort.
-
-.IssueSort Class Diagram
-image::IssueSort.png[width="800"]
-
-It shows that Comparator is an attribute of IssueSort class. We create three different classes that implement the Comparator Interface.
-They can serve the three sort type we provide in SaveIt. When more sort type is needed, we can simple create another class implementing Comparator, and add anther case in switch statement.
+It shows that Comparator is an attribute of SortType class. We create three different classes that implement the Comparator Interface.
+They can serve the three sort types (excluding the default one) we provide in SaveIt. When more sort types are needed, we can simply create another class implementing Comparator, and add another case in the switch statement.
 
 ==== Design Considerations
 
@@ -360,13 +383,13 @@ They can serve the three sort type we provide in SaveIt. When more sort type is 
 
 ** Pros: Consistent sorting. Doesn't affect the memory of issue lists.
 
-** Cons: Need effort to make sure the correct list is retrieved.
+** Cons: Need efforts to make sure the correct list is retrieved.
 
-* **Alternative 2:** Reconstruct UniqueIssueList directly, sort at Storage
+* **Alternative 2:** Reconstruct UniqueIssueList directly, sort in Storage
 
-** Pros: Easy to understand and implement
+** Pros: Easy to understand and implement.
 
-** Cons: Time consuming.
+** Cons: Break the persistence of the backend list.
 // end::sort[]
 
 // tag::undoredo[]
@@ -393,14 +416,13 @@ Step 2. The user executes `delete 5` command to delete the 5th statement in the 
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new statement. The `add` command also calls `Model#commitSaveIt()`, causing another modified SaveIt state to be saved into the `saveItStateList`.
+Step 3. The user executes `add i/Array...` to add a new issue. The `add` command also calls `Model#commitSaveIt()`, causing another modified SaveIt state to be saved into the `saveItStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
 [NOTE]
 If a command fails its execution, it will not call `Model#commitSaveIt()`, so the SaveIt state will not be saved into the `saveItStateList`.
 
-Step 4. The user now decides that adding the statement was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSaveIt()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous SaveIt state, and restores the SaveIt to that state.
+Step 4. The user now decides that adding the issue was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSaveIt()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous SaveIt state, and restores the SaveIt to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -419,8 +441,7 @@ If the `currentStatePointer` is at index `saveItStateList.size() - 1`, pointing 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the SaveIt, such as `list`, will usually not call `Model#commitSaveIt()`, `Model#undoSaveIt()` or `Model#redoSaveIt()`. Thus, the `saveItStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitSaveIt()`. Since the `currentStatePointer` is not pointing at the end of the `saveItStateList`, all SaveIt states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSaveIt()`. Since the `currentStatePointer` is not pointing at the end of the `saveItStateList`, all SaveIt states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add i/Array ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -457,15 +478,21 @@ For the current version, `clear` is the only command that needs confirmation.
 
 ==== Current Implementation
 
-Instead of letting LogicManager execute the command directly after parsing it, we now check if we need confirmation before the command is executed.
+.Clear Command Activity Diagram
+image::ClearCommand.png[width="800"]
+
+As shown in the diagram, instead of letting Logic execute the command directly after parsing it, we now check if we need confirmation before the command is executed.
 
 In order to connect the confirmation with the command: +
 
-Step 1. We buffer the command that waits for confirmation. +
+Step 1. We buffer the command that requires confirmation. +
 
-Step 2. Generate the CommandResult according to the confirmation message entered. +
+Step 2. Wait for the user to input confirmation message. +
 
-Step 3. Clear the buffer.
+Step 3. Clear the buffer. +
+
+Step 4. Generate the CommandResult according to the confirmation message entered.
+
 
 ==== Design Consideration
 
@@ -481,15 +508,15 @@ Step 3. Clear the buffer.
 
 ** Pros: Easy to implement.
 
-** Cons: Command information leaked. Inaccurate, e.g. two classes from different package can have the same class name.
+** Cons: Command information leaked. Inaccurate, e.g. two classes from different packages can have the same class name.
 
 ===== Aspect: How to connect the confirmation message with the command requiring it
 
 * **Alternative 1 (current choice):** Buffer the command
 
-** Pros: Protect CommandBox from Command Class.
+** Pros: Protect CommandBox from being accessed by Command, i.e. retrieve the input message in Command Class
 
-** Cons: Another variable introduced. Need effort to deal with the buffered command properly.
+** Cons: Another variable introduced. Need efforts to deal with the buffered command properly.
 
 * **Alternative 2:** Let Command check the confirmation message
 
@@ -518,47 +545,94 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-=== New Command: Home
+=== Directory Level Model
 
-A new command--`home` is implemented to allow users to return to the root directory after editing a certain issue.
+SaveIt manages a list of issues, with each issue containing a list of solutions.
+ To manage the data with two-level structure, SaveIt implemented a directory model
+  in the Model component and UI component.
 
-=== GUI Enhancement
-The  figure below shows the expected GUI for SaveIt v1.3.
+==== Current Implementation
+Currently a directory class is maintained in `SaveIt`. It consist of `root` level and `issue` level.
+ The solution level is disabled for now as the complexity of current version of SaveIt
+  does not require the three-level directory system.
 
-.GUI Draft 1
-image::UI_Design.png[width="800"]
+===== Command Execution
 
-In the above figure, it is shown the left column displays the list of all issues,
- The column in the middle displays solutions of the selected issue. The blank part
-  at bottom right displays the web page of the url as in the solution link.
+Before any command is executed,
+ it will query the current directory and determine the command result.
+  Some commands will have different command word and command result at different directory, such as:
+  `edit`, `add`. Some commands can only be executed at root level
+  , such as `sort`, `addtag`, `refactortag`, `find`, `findtag`.
 
-  *The web page should be able to be accessed via the Internet as well as loaded locally.
+===== Home Command
 
-For SaveIt v1.4, The list of issues and list of solutions can be displayed in the same
- column, as shown below, Besides, the display panel will be used to display the website
- or the content of issue remark.
+To traverse between `root` and `issue` level, a new command `home` is added to the command list.
+`home` Command changes the current directory to `root` level and post `DirectoryChangedEvent`,
+ which invokes the UI to load the issue list in the list panel. It is shown in the sequence
+ diagram below
 
-.GUI Draft 2, scenario 1
-image::UI_Design1.png[width="800"]
+.Home Command Sequence Diagram
+image::HomeCommandSequenceDiagram.png[width="800"]
 
-.GUI Draft 2, scenario 2
-image::UI_Design2.png[width="800"]
+==== Design Consideration
+===== Aspect: How to manage the issues and solutions with two-level structure
 
+* **Alternative 1 (current choice):** Implement a directory level model explicitly.
 
-// end::edit[]
+** Pros: The data structure is clearer. Target users are familiar
+ with director level system, such as file system in Linux.
+
+** Cons: Changing directory may be inconvenient for users.
+
+* **Alternative 2:** Manage the issue-solution structure by specifying index in commands.
+
+** Pros: No need to change the previous structure.
+** Cons:The structure is not clear and the users may be confused.
+
+=== UI Enhancement
+The figures below show the current UI for SaveIt v1.4.
+
+.SaveIt UI Displaying Issue List
+image::UI.png[width="790"]
+
+.SaveIt UI Displaying Solution List
+image::UI2.png[width="790"]
+
+In the above figures, the left column is the list panel which displays the list of issues or
+the list of solutions. The browser panel at bottom right displays the web page of the url as in the solution link.
+When no page is loaded, it displays the default page as above. Whenever a solution is selected,
+the browser panel loads the url given in the solution link as below.
+
+.Browser Panel loading Web-Page
+image::after selecting solution.png[width="790"]
+
+==== Current Implementation
+Currently the list panel implements a two-level structure. When the directory is at root level, it displays
+a list of issues. When the directory is at issue level, it displays the solution list of the selected issue.
+The list panel interacts with other components through `DirectoryChangedEvent` and `JumpToListRequestEvent`.
+The sequence diagram is as shown below.
+
+.Change From Solution List to Issue List
+image::UI_Sequence_Diagram_1.png[width="790"]
+
+.Change from Issue List to Solution List
+image::UI_Sequence_Diagram_2.png[width="790"]
+
+==== Design Consideration
+* **Alternative 1 (current choice):** Use one panel and switch between the two list.
+** Pros: The panel takes less space. It also represents the directory structure model in UI.
+** Cons: Need to switch between lists. Cannot display the issues while displaying the solutions.
+
+* **Alternative 2:** Use two panels to display the issue list and solution list.
+** Pros: Both lists can be viewed at the same time. Implementation is easier.
+** Cons: It takes too much space in the UI.
+
+// tag::edit[]
 === Edit Feature
 The edit feature allows users to edit any field of the issue and solution.
 
 ==== Current Implementation
-The edit mechanism is facilitated by `editCommandParser` and `editCommand`. Users are allowed to edit any field in the issue list. includes: +
-
-* root level
-** Issue statement
-** Issue description
-** Issue tags
-* Issue level
-** Solution link
-** Solution remark
+The edit mechanism is facilitated by `editCommandParser` and `editCommand`. Users are allowed to edit any field in the issue list.
 
 The `editCommandParser` extends `Parser` and implements the following operations:
 
@@ -570,14 +644,14 @@ The `editCommandParser` extends `Parser` and implements the following operations
 
 If it fails to parse the command, it will throw `ParseException` and display edit command usage message.
 
-* `editCommand#execute(Model model, CommandHisotry history)`
-** Analyses the user in the root directory or issue directory. If the user in the root directory but provide solution edit command or in issue level but provide issue edit command +
+* `editCommand#execute(Model model, CommandHistory history)`
+** Analyses the user in the home directory or issue directory. Since the home directory can only edit issues, if user provides solution related command, it will fail to execute. Also, in the issue directory, it only allows to edit solution, it will fail to execute the issue related command. Then it will
 throw `CommandException` and show wrong directory information.
 
 ** Checks if the user index in editDescriptor is larger than the size of the issue list or solution list. +
 Throw `CommandException` and show invalid index warning. Otherwise, call the function `model.updateIssue(issueToEdit, editedIssue)` to update issue list.
 
-Please refer to the Sequence Diagram below for the edit operation.
+Please refer to the Sequence Diagram below for the illustration of edit operation.
 
 .Edit Command Sequence Diagram
 image::edit-command-sequence-diagram.jpg[width="800"]
@@ -593,37 +667,60 @@ image::edit-command-sequence-diagram.jpg[width="800"]
 
 ** Pros: It will use less memory.
 
-** Cons: It has lower security if it the issue is the mutable object.
+** Cons: It has lower security if the issue is the mutable object.
+// end::edit[]
 
+// tag::retrieve[]
 === Retrieve Feature
-The retrieve feature allows user to choose a solution link to copy to the system clipboard.
+The retrieve feature allows user to choose a solution link and copy it to the system clipboard.
 
 ==== Current Implementation
 
 The retrieve feature basically takes the user entered index and call `getFilteredAndSortedList` method in `Model` to get the selected solution. Then Java `Toolkit` package is used to copy the url link of solution to the system clipboard.
+// end::retrieve[]
 
-=== Set Primary feature
-The set primary feature allows users to choose one solution as primary solution.
+
+// tag::setprimary[]
+=== Set Primary Feature
+The set primary feature allows users to choose one solution as primary.
 
 ==== Current Implementation
 
-The set primary mechanism is facilitated by the method `isPrimarySolution()` override by `PrimarySolution` inheriting from `Solution`.
+The set primary solution mechanism is facilitated by the method `isPrimarySolution()`, which is overrode by `PrimarySolution` inheriting from `Solution`.
 
 ==== Design Consideration
 ===== Aspect: How to distinguish between PrimarySolution and Solution
 * **Alternative 1 (current choice):** Use PrimarySolution as a subclass of Solution
 
-** Pros: No flag attribute is introduced. Solution structure remains the same.
+** Pros: No flag attribute is introduced. More sustainable.
 
 ** Cons: New object is created. May affect performance.
 
 * **Alternative 2:** Add a flag attribute to Solution
 
-** Pros: Easy to understand.
+** Pros: Easy to understand and implement.
 
 ** Cons: Solution constructor is affected. The flag attribute is redundant for non-primary solutions.
 
-=== Refactor tag Feature
+* **Alternative 3:** Store the primary solution index in the solution list.
+
+** Pros: No new constructor and attribute are introduced.
+
+** Cons: Need to check if the index is affected every time when the solution list is updated.
+// end::setprimary[]
+
+// tag::resetprimary[]
+=== Reset Primary Feature
+The reset primary feature allows users to reset the primary solution and make all solutions normal and not highlighted.
+
+==== Current Implementation
+
+The reset primary solution mechanism goes through the solution list once and checks if a solution is primary or not.
+If it is primary, we replace it with a new Solution object with the same data of the primary solution. If it is not primary, we continue checking until we reach the end of the list.
+// end::resetprimary[]
+
+// tag::refactortag[]
+=== Refactor Tag Feature
 The refactor tag feature allows users to rename or remove a specified tag for all entries with that tag.
 
 ==== Current Implementation
@@ -633,96 +730,172 @@ The `RefactorTagCommandParser` extends `Parser` and implements the following ope
 
 * `refactorTagCommandParser#parser(String args)`
 ** Checks the arguments for empty strings and throws a `ParseException` if an empty string is found.
-** Analyses the argument to check if it is a valid command format. Users are only allowed to use two prefixes in refactor tag command.
-*** `t/` the tag that user wants to refactor, which must be input by the user, otherwise throws `ParserException` and shows refactor tag command usage message.
-*** `n/` the new tag that user wants to replace the original one, which is optional. (if the user does not provide, then remove the original one)
+** Analyses the argument to check if it is a valid command format. Users are not allowed to provide other prefixes, except `t/` and `n/` in refactor tag command.
+*** `t/` the tag that user wants to refactor, which must be input by users, otherwise throws `ParserException` and shows refactor tag command usage message.
+*** `n/` the new tag that the user wants to replace the original one with, which is optional. (if the user does not provide, then remove the original one)
 
 If it fails to parse the command, it will throw `ParseException` and display refactor tag command usage message.
 
 * `refactorTagCommand#execute(Model model, CommandHisotry history)`
-** update the issue list and return success message if it has edited an issue, otherwise show an unsuccessful message.
-** It will iterate all the issues in the saveIt, if it contains the old tag, it will replace with the new tag if provided. Then update the list.
+** updates the issue list and returns success message if it has edited an issue, otherwise shows an unsuccessful message.
+** Iterates all the issues in the saveIt, if it contains the old tag, it will replace with the new tag if provided. Then update the list.
 
 Please refer to the Sequence Diagram below for the refactor tag operation.
 
-.Refactor Tag Command Activity Diagram
-image::refactor-tag.jpeg[width="800"]
+.Refactor Tag Activity Diagram
+image::refactor-tag-activity-diagram.png[width="400"]
 
 ==== Design Consideration
 
 ===== Aspect: Implementation of RefactorTag command parser.
-* Alternative 1 (current choice): Allows only to rename or remove the old tags that user input lastly.
+* **Alternative 1 (current choice):** Allows only to rename or remove the old tags that user input lastly.
 ** Pros: It is easy to implement.
-** Cons: It is inconvenient if the user wants to replace the tags once.
+** Cons: It is inconvenient if the user wants to replace multiple tags once.
 * Alternative 2: Allows to rename or remove multiple old tags with multiple new tags.
 ** Pros: It is convenient for users to replace or remove the tags once.
 ** Cons: It is not clear for users to see the changes since tags are displayed disordered.
-// end::refactorTag[]
+// end::refactortag[]
 
 
 
-// tag::addTag[]
+// tag::addtag[]
 === Add tag Feature
 The add tag feature allows users to add `Tag(s)` to specified `Indexed` issues.
 
 ==== Current Implementation
 The add tag mechanism is facilitated by `AddTagCommandParser` and `AddTagCommand`.
 
-Please refer to the Sequence Diagram below for the add tag operation.
+Please refer to the Sequence Diagram below for the illustration of add tag operation.
 
 .Add Tag Command Sequence Diagram
-image::add-tag-sequence-diagram.jpeg[width="800"]
+image::add-tag-sequence-diagram.jpeg[width="600"]
 
 ==== Design Consideration
 
 ===== Aspect: Implementation of AddTag command parser.
-* Alternative 1 (current choice):** Allows range of `Index` to be accepted as index parameter.
+* **Alternative 1 (current choice):** Allows a range of index and multiple indexes to be accepted as index parameter.
 ** Pros: It is efficient to add multiple `Tags` to multiple issues instead of doing it singly.
 ** Cons: It has to consider various conditions of the user input.
-* Alternative 2: Creates a IndexRange class for index.
+* Alternative 2: Creates an `IndexRange` class for index.
 ** Pros: It is easy to understand and maintain.
-** Cons: It will increase coupling between IndexRange class and Index class
-// end::addTag[]
+** Cons: It increases coupling between `IndexRange` class and `Index` class
+// end::addtag[]
 
-=== Suggestion for find command Feature
-The suggestion for find command allows user to quickly find the desired issue in SaveIt by showing a drop-down window when related keyword is matched.
+// tag::suggestion[]
+=== Suggestion Feature
+The suggestion feature allows user to quickly complete commands by showing a drop-down window of suggested values when the user input matches a specific keyword or identifier.
 
 ==== Current Implementation
 
 The figure below shows a basic relationship between each class.
 The `SuggestionLogicManager` implements `SuggestionLogic` interface and overrides the `evaluate` method. Similarly, `IssueNameSuggestion`, `TagNameSuggestion` and `CopyExistingSuggestion` implement `Suggestion` interface and override `evaluate` method.
 
-.Suggestion Diagram
+.SuggestionLogic Class Diagram
 image::SuggestionClassUML.png[width="400"]
+// end::suggestion[]
 
-Since the suggestion component has to retrieve the data from model component to give suggestion according user's entered keywords, it is considered as a part of `Logic` component. By listening to the text field which locates in `CommandBox`, `SuggestionLogicManager` will be able to decide which type of suggestion should be given through parsing the prefix from `ArgumentTokenizer`. Once the `parseFindCommandSuggestion` is triggered, a new `IssueNameSuggestion` class will be created. By calling `getCurrentIssueStatementSet`, `IssueNameSuggestion` is able to match the user input and thus gives the relevant issue statement as a suggestion. The returned `SuggestionResult` will be passed to the `displaySuggestion` method in `CommandBox`. One thing to be noticed, the drop-down window will be hidden once a user input is matched any given suggestion value.
+Since the suggestion component has to retrieve the data from model component to give a suggestion according to the user's input, it is considered as a part of `Logic` component. By listening to changes in the text field, which is handled in `CommandBox`, the `SuggestionLogicManager` will be able to decide which type of suggestion should be given by parsing the following fields:
 
-.IssueNameSuggestion Sequence
+. The command typed
+. The prefixes from `ArgumentTokenizer`
+. The caret position (position of the text cursor in the user input string)
+
+For example, when entering `find issueName` as the user input, the command is parsed to match `SuggestionLogicManager#parseFindCommandSuggestion`. The prefixes are then matched accordingly and a new `IssueNameSuggestion` object will be instantiated. By calling `Model#getCurrentIssueStatementSet`, `IssueNameSuggestion` is able to find the relvant issue statements based on the user input. The returned `SuggestionResult` will be passed to the `CommandBox#displaySuggestion` method to handle the displaying of the results.
+
+One thing to take note of, the drop-down window will be hidden once a user input is matched any given suggestion value.
+
+.IssueNameSuggestion Sequence Diagram
 image::IssueNameSuggestionDiagram.png[width="800"]
 
+// tag::suggestionDesignConsiderations[]
+
 ==== Design Consideration
-===== Aspect: How to distinguish value of each field and recognize the order of each value
-Since the original tokenizer hashes prefix, there is no way to distinguish the order of each value after prefix. For instance, if several prefixes of tag appear, it is impossible to distinguish each tag using tokenizer.
 
-* **Alternative 1 (current choice):** Hash Prefix with its relative distance together
+===== Aspect 1: Architecture Design of the Suggestion Logic subcomponent
+The architecture behind the Suggestion Logic subcomponent is designed by mimicking the original `Logic` component that handles the command logic. This is because the required implementation behind both is actually similar, needing to access both the `Ui` and the `Model` components. Hence, the `SuggestionLogic` and `Suggestion` are built similar to the original Logic component which has the corresponding classes `Logic` and `Command` that serves as interfaces to the `Ui` and `Model` components respectively. However, the internal implementation of the internal classes of the Suggesetion Logic subcomponent is different (i.e. `Parser`).
 
-** Pros: Code has a high readability and easy to understand
+* **Alternative 1 (current choice):** Create parser methods all within `SuggestionLogicManager` that parse the user input directly - first parsing them based the commands (handled in `SuggestionLogicManager#parseUserInput`) and subsequently parsing based on the `Prefix` that the text cursor is at.
 
-** Cons: Quite hard to implement as other commands do not require to distinguish the order of each value but suggestion component does. Once hash with prefix and distance, it needs to handle both situation.
+** Pros: Keeps the code DRY.
 
-* **Alternative 2:** Using subString to get each field from command line input
+** Cons: Deviates from the original internal structure of the Command Logic subcomponent.
 
-** Pros: Easy to implement.
+* **Alternative 2:** Create parser classes for each command (e.g. `EditSuggestionParser`) that handles the further parsing of the `Prefix` and creates the relevant `Suggestion` object.
 
-** Cons: Bad readability and code quality, no consistency.
+** Pros: Code is more modularized since the parsing is now handled by classes.
 
-// tag::commandHighlight[]
+** Cons: Code is repeated in each `SuggestionParser` class.
+
+We use the first alternative as it best handles the issue of having duplicate logic. The internal parsing of the user inputs for suggestions differs from the Command Logic in that, Command Logic only has one level of parsing (parsing commands), whereas Suggestion Logic requires two levels (parsing commands and parsing prefixes). In order to ensure the same way of handling the same prefix in different commands (e.g. `findtag t/` and `edit 1 t/`), methods are created to do so (e.g. `SuggestionLogicManager#handleTagNameSuggestion`). This keeps the code DRY and reduces repeats logic in the code.
+
+Further abstractions can be made to this in the future as more `Suggestion`(s) added, by moving the suggestion handlers (`SuggestionLogicManager#handleTagNameSuggestion`) into a new `Suggestion` class (instead of an interface) that the specific `XYZSuggestion`(s) inherit from.
+
+===== Aspect 2: Deciding on how to parse the user input
+We have two options to parse the user input and find the prefixes and their values.
+
+* **Alternative 1 (current choice):** Use the existing `ArgumentTokenizer` and `ArgumentMultimap` to parse the user input
+
+** Pros: The logic for separating the prefixes in `ArgumentTokenizer` and storing them in `ArgumentMultimap` is similar to what we need to parse our user input. By reusing the code, it prevents us from needing to rewrite code with duplicated logic elsewhere in our code base, which keeps our code DRY.
+
+** Cons: `ArgumentTokenizer` and `ArgumentMultimap` is also used by the command logic subcomponent, by reusing this code in the suggestion logic subcomponent, it increases the coupling between the implementation of the two subcomponents which can result in new issues arising (aspects 3 and 4).
+
+* **Alternative 2:** Parse the input by using a separate piece of code (duplicated logic from the `ArgumentTokenizer` and `ArgumentMultimap`). Slight modifications will need to be made to the duplicated logic due to differences in implementation.
+
+** Pros: Reduces the coupling between the two command and suggestion logic subcomponents. Although the logic behind the implementation will be similar to `ArgumentTokenizer`, having it as a duplicate piece of code means that any changes will not affect and cause bugs in the other subcomponent.
+
+** Cons: Having it duplicated logic might affect future development, especially when this duplicated logic needs to be modified, then the implementation for both pieces of code will have to be modified as well. If not documented properly, this could cause bugs if only one piece of code was modified.
+
+===== Aspect 3: Data structure of Prefix
+The original implementation of `Prefix` only stored the value of the prefix string (e.g. `/t` or `/i`), however since the implementation of the suggestion logic subcomponent uses `ArgumentMultimap`, it requires that the position of the `Prefix` in the user input string be known as well.
+
+* **Alternative 1 (current choice):** Store an additional field `position` in `Prefix`
+
+** Pros: Since the prefix and its location are related, this keeps all the information pertaining to the prefix encapsulated in a single class, which helps with the modularity of the code.
+
+** Cons: The command logic subcomponent does not require the `position` field in `Prefix`, which results in it being unused. This might be confusing for future developers. This also resulted in having another aspect to consider later on (aspect 4).
+
+* **Alternative 2:** Move the implementation and checks for the prefix position out of `Prefix`
+
+** Pros: This does not affect the code implemented in the Command logic subcomponent, and we will have less to fix.
+
+** Cons: Related pieces of code will be separated (i.e. since the position is stored separately, it is not properly encapsulated).
+
+===== Aspect 4: Distinguishing each Prefix in ArgumentMultimap
+The original hashcode used by `Prefix` only hashes the prefix string, as such, adding a `position` field will not make a difference since two same prefixes with different positions (e.g. `/t ... /t`) will still hash to the same key. The previous implementation handles this by having the value in the `HashMap` within `ArgumentMultimap` store a `List<String>` which will append all values with the same prefix.
+
+* **Alternative 1 (current choice):** Set the hashcode of `Prefix` to use both the prefix string and the position.
+
+** Pros: The prefixes now hash differently if they have the same prefix string but different position, this allows us to have finer control needed for the Suggestion logic subcomponent when handling the prefixes in `ArgumentMultimap`.
+
+** Cons: The Command logic subcomponent does not make use of the `position` field. As such, when attempting to extract out the values of each `Prefix` at the `Parser`, it cannot find the values as they are now hashed with the `position` as this is unknown to the `Parser` (an indirect result of the coupling due to the chosen implementation in aspect 2).
+
+* **Alternative 2:** Use the original implementation
+
+** Pros: Code does not affect the Command logic subcomponent, which already takes up a significant portion of the code base, hence less changes are needed.
+
+** Cons: The code and logic are not be well encapsulated (for the `Prefix`) and we will have repeated logic in the codebase.
+
+We eventually chose Alternative 1 as it provides a better structure and encapsulation for our code overall. We also came up with a workaround for Alternative 1's cons, by modifying the method `ArgumentMultimap#getValue`.
+
+// end::suggestionDesignConsiderations[]
+
+// tag::commandhighlight[]
 === Command Highlight
 The command highlight feature is to differentiate command word, index, prefix and values that user input in Command Line.
 
 ==== Current Implementation
-The Command Highlight mechanism uses `InlineCssTextArea` class. It uses listener to detect the change in the `commandTextField` and check if it is command word, parameter, index or values and assign different colors correspondingly.
-// end::commandHighlight[]
+The Command Highlight mechanism uses `InlineCssTextArea` class. It uses listener to detect the change in the `commandTextArea` and check if it contains command word, parameter, index or values and assign different colors correspondingly.
+
+==== Design Consideration
+===== Aspect: Implementation of command highlight manager.
+
+* **Alternative 1 (current choice):** Check the character in the command box and assign different colors based on precondition.
+** Pros: easy to implement by checking the prefix, index and command word.
+** Cons: due to the limitation of using the character '/' as part of the prefix, it may still have some corner cases that we cannot cover.
+* **Alternative 2:** Parse the user command simultaneously when user input command.
+** Pros: if user inputs wrong command format, it will highlight the color correspondingly. Hence, user can correct his input immediately.
+** Cons: difficult to implement.
+// end::commandhighlight[]
 
 
 == Documentation
@@ -904,7 +1077,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/saveit/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -928,7 +1101,7 @@ Suggested path for new programmers:
 [[GetStartedProgramming-EachComponent]]
 === Improving each component
 
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
+Each individual exercise in this section is component-based (i.e. you will not need to modify the other components to get it to work).
 
 [discrete]
 ==== `Logic` component
@@ -942,10 +1115,10 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/saveit/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/saveit/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:{repoURL}/src/main/java/seedu/saveit/logic/parser/SaveItParser.java[`SaveItParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/saveit/logic/parser/SaveItParser.java[`SaveItParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/saveit-level4/pull/785[PR] for the full email.
@@ -963,12 +1136,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/saveit.java[`saveit`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/saveit/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/saveit/model/saveit.java[`saveit`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/Saveit.java[`Saveit`] and link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/Saveit.java[`Saveit`] allows you to update an issue, and link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/saveit/model/Saveit.java[`Saveit`] and link:{repoURL}/src/main/java/seedu/saveit/model/Issue.java[`Issue`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/saveit/model/Saveit.java[`Saveit`] allows you to update an issue, and link:{repoURL}/src/main/java/seedu/saveit/model/Issue.java[`Issue`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/saveit.java[`saveit`]. Loop through each statement, and remove the `tag` from each statement.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `saveit#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/saveit/model/saveit.java[`saveit`]. Loop through each statement, and remove the `tag` from each statement.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/saveit/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/saveit/model/ModelManager.java[`ModelManager`] should call `saveit#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/saveit-level4/pull/790[PR] for the full email.
 ****
@@ -993,7 +1166,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[the `IssueCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/saveit/ui/IssueCard.java[the `IssueCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
@@ -1002,7 +1175,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:{repoURL}/src/main/java/seedu/saveit/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/saveit/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -1014,11 +1187,11 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:{repoURL}/src/main/java/seedu/saveit/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/saveit/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/saveit/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:{repoURL}/src/main/java/seedu/saveit/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:{repoURL}/src/main/java/seedu/saveit/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}/src/main/java/seedu/saveit/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
 *** The system tests link:{repoURL}/src/test/java/systemtests/SaveItSystemTest.java[`SaveItSystemTest#assertCommandBoxShowsDefaultStyle() and SaveItSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
@@ -1026,7 +1199,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of issues in the SaveIt.
+. Modify the link:{repoURL}/src/main/java/seedu/saveit/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of issues in the SaveIt.
 +
 **Before**
 +
@@ -1039,10 +1212,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the SaveIt is updated.
+** link:{repoURL}/src/main/java/seedu/saveit/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the SaveIt is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of issues when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleSaveItChangedEvent(SaveItChangedEvent)`] to update the number of issues whenever there are new changes to the saveit.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/saveit/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of issues when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/saveit/ui/StatusBarFooter.java[`StatusBarFooter#handleSaveItChangedEvent(SaveItChangedEvent)`] to update the number of issues whenever there are new changes to the saveit.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of issues status, just like what we did for save location and sync status.
 ** For system tests, modify link:{repoURL}/src/test/java/systemtests/SaveItSystemTest.java[`SaveItSystemTest`] to also verify the new total number of issues status bar.
 ** See this https://github.com/se-edu/saveit-level4/pull/803[PR] for the full email.
@@ -1060,8 +1233,8 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/SaveItStorage.java[`SaveItStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlSaveItStorage.java[`XmlSaveItStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/saveit/storage/SaveItStorage.java[`SaveItStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/saveit/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/saveit/storage/XmlSaveItStorage.java[`XmlSaveItStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/saveit-level4/pull/594[PR] for the full email.
 ****
@@ -1090,13 +1263,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/saveit/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:{repoURL}/src/main/java/seedu/saveit/logic/parser/SaveItParser.java[`SaveItParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/SaveItParserTest.java[`SaveItParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/saveit/logic/parser/SaveItParserTest.java[`SaveItParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -1105,33 +1278,33 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SaveItParser.java[`SaveItParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/saveit/logic/parser/SaveItParser.java[`SaveItParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/SaveItParserTest.java[`SaveItParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/saveit/logic/parser/SaveItParserTest.java[`SaveItParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `IssueCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`] s to display a remark for each statement later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/saveit/ui/IssueCard.java[`IssueCard`] s to display a remark for each statement later.
 
 **Main:**
 
 . Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`] to tie the variable to the actual label.
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/saveit/ui/IssueCard.java[`IssueCard`] to tie the variable to the actual label.
 
 **Tests:**
 
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/IssueCardHandle.java[`IssueCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/saveit/model/Issue.java[`Issue`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/statement/Remark.java[`Remark`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/saveit/model/statement/Remark.java[`Remark`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -1139,16 +1312,16 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Issue` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/saveit/model/Issue.java[`Issue`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`].
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/saveit/model/Issue.java[`Issue`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the statement will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `saveit.xml` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/saveit/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `saveit.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedIssue` class
-We now have `Remark` s for `Issue` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedIssue.java[`XmlAdaptedIssue`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Issue` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/saveit/storage/XmlAdaptedIssue.java[`XmlAdaptedIssue`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -1159,23 +1332,23 @@ We now have `Remark` s for `Issue` s, but they will be gone when we exit the app
 . Fix `invalidAndValidIssueSaveIt.xml`, `typicalIssuesSaveIt.xml`, `validSaveIt.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `IssueBuilder`
-Since `Issue` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/IssueBuilder.java[`IssueBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/Issue.java[`Issue`].
+Since `Issue` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/saveit/testutil/IssueBuilder.java[`IssueBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/saveit/model/Issue.java[`Issue`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/IssueBuilder.java[`IssueBuilder`]. This method will create a new `Remark` for the statement that it is currently building.
-. Try and use the method on any sample `Issue` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/saveit/testutil/IssueBuilder.java[`IssueBuilder`]. This method will create a new `Remark` for the statement that it is currently building.
+. Try and use the method on any sample `Issue` in link:{repoURL}/src/test/java/seedu/saveit/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `IssueCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+Our remark label in link:{repoURL}/src/main/java/seedu/saveit/ui/IssueCard.java[`IssueCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/IssueCard.java[`IssueCard`]'s constructor to bind the `Remark` field to the `Issue` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/saveit/ui/IssueCard.java[`IssueCard`]'s constructor to bind the `Remark` field to the `Issue` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysIssue(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/src/test/java/seedu/saveit/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysIssue(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
@@ -1527,9 +1700,9 @@ _{ more test cases ... }_
 
 === Editing an issue
 
-. Editing an issue in root directory
+. Editing an issue in home directory
 
-.. Prerequisites: User is in root directory
+.. Prerequisites: User is in home directory
 .. Test case: `edit 1 i/problem` +
    Expected: First issue is edited. Its new issue statement is problem.
 .. Test case: `edit 1 d/description d/newdescription` +

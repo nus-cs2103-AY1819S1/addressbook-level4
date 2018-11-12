@@ -2,63 +2,70 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
-== PROJECT: SaveIt
+= PROJECT: SaveIt
 
 ---
 
 == Overview
 
-SaveIt​ is geared at keeping track of the issues that the user finds and to link it with the email found on google.
-More importantly, SaveIt is ​optimized for those who prefer to work with a Command Line Interface​ (CLI) while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, SaveIt can help you search the same statement that save previously faster than traditional GUI apps.
+This document outlines the contributions that **Tan Zheng Wei** has made to the **SaveIt** project.
+
+**SaveIt** is targetted at programmer, and aims to help the user store and keep track of problems and solutions that they encounter. The application is meant to replace traditional use of bookmarks on browsers, and is customized especially for programmers, to make it easier for them to search for previously found solutions online. **SaveIt** is a desktop application that uses the Command Line Interface (CLI) as a mode to interact with it.
+
+**SaveIt** is a project that is built over the course of CS2103T with a group of five members including myself.
+
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Suggestion Logic Subcomponent
+** What it does: This is a component of the codebase that allows the application to make suggestions to the user as they type.
+** Justification: This assists the user to type in commands, by automatically suggesting some possible values that the user might want to enter, it allows the user to complete the command much faster and with less effort.
+** Highlights: The architecture is built in a way that allows easy additions of other types of suggestions by future developers.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Other enhancements*:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Feature: Search for Issues - https://github.com/CS2103-AY1819S1-T12-4/main/pull/60[#60].
+** Feature: Searching Issues by Tags - https://github.com/CS2103-AY1819S1-T12-4/main/pull/89[#89].
+** Feature: Suggestion to copy existing fields to the command line - https://github.com/CS2103-AY1819S1-T12-4/main/pull/120[#120].
+** Architecture: Designed and implemented the overall architecture of the Suggestion Component - https://github.com/CS2103-AY1819S1-T12-4/main/pull/167[#167].
+
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zhengwei143&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Manage milestones and issues on the repository
+** Testing
+*** Additional tests written that covers the new features and Suggestion component - https://github.com/CS2103-AY1819S1-T12-4/main/pull/178[#178], https://github.com/CS2103-AY1819S1-T12-4/main/pull/230[#230], https://github.com/CS2103-AY1819S1-T12-4/main/pull/242[#242], https://github.com/CS2103-AY1819S1-T12-4/main/pull/245[#245]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Update images of diagrams for User Guide and Developer Guide, as well as documentation for new features - https://github.com/CS2103-AY1819S1-T12-4/main/pull/73[#73], https://github.com/CS2103-AY1819S1-T12-4/main/pull/74[#74], https://github.com/CS2103-AY1819S1-T12-4/main/pull/127[#127], https://github.com/CS2103-AY1819S1-T12-4/main/pull/254[#254]
 
-_{you can add/remove categories in the list above}_
+** Community:
+*** Reported bugs and suggestions for other teams in the class - https://github.com/CS2103-AY1819S1-T10-2/main/issues/84[#84], https://github.com/CS2103-AY1819S1-T10-2/main/issues/91[#91], https://github.com/CS2103-AY1819S1-T10-2/main/issues/95[#95]
 
 == Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=findtag]
+
+include::../UserGuide.adoc[tag=findbytagsuggestion]
+
+include::../UserGuide.adoc[tag=copyexistingsuggestion]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-== PROJECT: PowerPointLabs
 
----
+include::../DeveloperGuide.adoc[tag=logiccomponent]
 
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=suggestionDesignConsiderations]

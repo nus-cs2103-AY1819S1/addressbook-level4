@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + COMMAND_WORD
             + ": Adds a solution to a existing issue. "
             + "Parameters: "
-            + PREFIX_SOLUTION_LINK_STRING + "SOLUTION_LINK"
+            + PREFIX_SOLUTION_LINK_STRING + "SOLUTION_LINK "
             + PREFIX_REMARK_STRING + "SOLUTION_REMARK";
     public static final String MESSAGE_ISSUE_SUCCESS = "New issue added: %1$s";
     public static final String MESSAGE_DUPLICATE_ISSUE = "This issue already exists in the saveIt";
@@ -100,7 +100,8 @@ public class AddCommand extends Command {
         if (model.hasSolution(index, solutionToBeAdded)) {
             throw new CommandException(MESSAGE_DUPLICATE_SOLUTION);
         }
-        model.addSolution(index, solutionToBeAdded);
+        Issue issueToBeAdded = model.getFilteredAndSortedIssueList().get(index.getZeroBased());
+        model.addSolution(issueToBeAdded, solutionToBeAdded);
         model.commitSaveIt();
     }
 

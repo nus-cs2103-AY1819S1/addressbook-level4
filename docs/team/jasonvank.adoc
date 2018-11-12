@@ -4,40 +4,55 @@
 :stylesDir: ../stylesheets
 :sectnums:
 
-== PROJECT: SaveIt
+= PROJECT: SaveIt
 
 ---
 
 == Overview
 
-This document is written for summarizing my contributions in the project SaveIt.
+This project portfolio is intended to document my contributions to the development of SaveIt App.
+
+*SaveIt* is an issue tracker application targeting programmers. It provides a platform for storing, managing and viewing their programming related issues during daily practices. It was developed as part of the module requirements for CS2103T (Software Engineering).
 
 == Summary of contributions
-SaveIt is a platform for you to keep track of issues that you encounter and the corresponding solutions that you found on through your search engine.
-More importantly, SaveIt is ​optimized for those who prefer to work with a Command Line Interface​ (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-* *Major enhancements*:
-** Improved *Edit* Command feature
-*** What it does: It allows a user to edit any fields in the issue and solution.
-*** Justification: The current data structure is an issue is bound to multiple solutions. Since a solution includes a solution link and a solution remark, users should be able to edit any field in a solution instead of replacing the whole solution.
-*** Highlights: It requires a depth analysis for different conditions whether the command is valid. Also, we need to tell the user if he is in the wrong directory. It improves the efficiency to edit their issues and solutions.
+* *Major enhancement*: Enhance *the ability to edit `issue`, `solution` and `tag`*.
 
-** Implemented *Add Tags*
-*** What it does: It allows the user to add tags to specified issues.
-*** Justification: This feature allows users to add tags to an issue if they forgot to add tags when they create an issue. It is troublesome to replace all the issues when using `edit` command.
-*** Highlights: It requires a depth analysis to decide whether the command should be accepted. It is flexible to users as they can provide a range of indexes or some discrete indexes to add tags in one execution.
+*** What it does: This feature allows a user to edit any fields in an issue and solution. Also it improves flexibility to edit tags. (Relevant commands: `edit`, `addtag` and `refactortag`)
+*** Justification: This feature improves this application significantly, by reducing the amount of time needed to edit existing entries, instead of deleting the issue and adding a new issue.
+*** Highlights: This feature allows users to edit issue and solution easily. Also, they can add tags by range of indexes and change tags for all issue entries easily. It requires a depth analysis of different conditions to judge if the command is valid.
 
 * *Minor enhancements*:
-** Implemented `refactortag` command: Allows users to rename or remove a specific tag for all entries with that tag.
-** Implemented `command highlight` feature: Allows users to differentiate their inputs by highlight command word,  parameters and values in different colors.
-** Implemented `command alias` feature: Allows users to type command words less but achieving the same functionality.
+** Implement `command highlight` feature: Allows users to differentiate their inputs by highlighting command word, index, parameters and values in different colors.
+** Implement `command alias` feature: Allows users to type less command words but achieve the same functionality.
+** Morph the application from AddressBook Level 4 to SaveIt app. https://github.com/CS2103-AY1819S1-T12-4/main/issues/30[#30], https://github.com/CS2103-AY1819S1-T12-4/main/pull/44[#44]
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jasonvank[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jasonvank[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
+*** Manage releases v1.1, v1.3.* - v1.4.* (6 releases) on GitHub.
+*** Manage milestones and check issue status on GitHub.
+*** Set up `Code Coverage` and `Code Quality` badges for tracking of project status.
+
+** Enhancements to existing features:
+*** Write additional tests for existing features to increase coverage. https://github.com/CS2103-AY1819S1-T12-4/main/pull/216[#216]
+*** Improve Solution link validation https://github.com/CS2103-AY1819S1-T12-4/main/pull/162[#162], https://github.com/CS2103-AY1819S1-T12-4/main/pull/164[#164]
+
+** Documentation:
+*** Draft the User Guide for the team. https://github.com/CS2103-AY1819S1-T12-4/main/pull/1[#1], https://github.com/CS2103-AY1819S1-T12-4/main/pull/76[#76]
+*** Modify the app name to SaveIt and create app logo
+*** Update team landing page https://github.com/CS2103-AY1819S1-T12-4/main/pull/183[#183]
+
 ** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-4/main/pull/31[#31], https://github.com/CS2103-AY1819S1-T12-4/main/pull/32[#32]
+https://github.com/CS2103-AY1819S1-T12-4/main/pull/180[#180], https://github.com/CS2103-AY1819S1-T12-4/main/pull/215[#215].
+
+*** Report bugs and suggestions for other team members in the group::
+https://github.com/CS2103-AY1819S1-T12-4/main/issues/103[103], https://github.com/CS2103-AY1819S1-T12-4/main/issues/131[131],
+https://github.com/CS2103-AY1819S1-T12-4/main/issues/132[132], https://github.com/CS2103-AY1819S1-T12-4/main/issues/133[133], https://github.com/CS2103-AY1819S1-T12-4/main/issues/134[134], https://github.com/CS2103-AY1819S1-T12-4/main/issues/201[201]
+
 
 == Contributions to the User Guide
 
@@ -46,10 +61,25 @@ More importantly, SaveIt is ​optimized for those who prefer to work with a Com
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=edit]
+
+include::../UserGuide.adoc[tag=refactortag]
+
+include::../UserGuide.adoc[tag=addtag]
+
+include::../UserGuide.adoc[tag=commandhighlight]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=edit]
+
+include::../DeveloperGuide.adoc[tag=refactortag]
+
+include::../DeveloperGuide.adoc[tag=addtag]
+
+include::../DeveloperGuide.adoc[tag=commandhighlight]
 
