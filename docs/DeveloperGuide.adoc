@@ -515,7 +515,7 @@ include::UserGuide.adoc[tag=find]
 
 ===== Structure of `find` command
 
-image::FindCommandClassDiagram.png[width="400"]
+image::FindCommandClassDiagram.png[width="700"]
 
 When the user executes a `find` command, the `FindCommandParser` returns either a `FindPersonCommand`, a `FindMeetingCommand`, or a `FindGroupCommand`,
  depending on the user's input. `FindPersonCommand`, `FindMeetingCommand`, and `FindGroupCommand` extends the
@@ -552,7 +552,7 @@ Referring to the code snippet above, `FindCommand<E>` implements the `equals()` 
 
 ===== Structure of Predicates
 
-image::PredicateClassDiagram.png[width="400"]
+image::PredicateClassDiagram.png[width="700"]
 
 The predicates are created using the abstract class `EntityContainsKeywordsPredicate<E>`.
 `PersonNameContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Person>`,
