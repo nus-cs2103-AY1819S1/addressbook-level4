@@ -426,6 +426,18 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 
 Format: `select INDEX MEAL`
 
+==== Find recipe: `find`
+
+Finds the Day with the specified date.
+
+Format: `find DATE`
+
+==== List all recipes: `list`
+
+Lists all the currently planned Days in the Meal Planner.
+
+Format: `list`
+
 // end::mealplanner[]
 
 // tag::healthplan[]
@@ -621,6 +633,8 @@ or +
 * Delete day: `delete INDEX`
 * Clear planner: `clear`
 * View recipe details: `select INDEX MEAL`
+* Find recipe by date: `find DATE`
+* List all recipes: `list`
 
 *Health Plan Commands*
 

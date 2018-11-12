@@ -411,13 +411,13 @@ within the Meal Planner.
 indicating which meal index each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner),
 and a *String* _slot_ containing its corresponding name.
 
-* *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
+** *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
 Contains a predefined integer index of 0 and a predefined String slot name of "breakfast".
 
-* *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
+** *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
 Contains a predefined integer index of 1 and a predefined String slot name of "lunch".
 
-* *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
+** *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
 Contains a predefined integer index of 2 and a predefined String slot name of "dinner".
 
 ** An empty *Meal* is defined as having no recipe, i.e. empty *Optional*.
@@ -484,6 +484,16 @@ The *Day* is specified by its index as seen on the list panel. +
 *MealPlannerParser* invokes the parseMealPlan() method of *DeleteCommandParser*. The user input
 is then parsed to get the index of the *Day* to be deleted. The *Day* object at the given index
 of the _mealPlannerModel_ list is then deleted.
+
+====== Alternative implementation
+Earlier MealPlanner implementation used a ObservableHashMap with LocalDate and Day as the key and value
+pairs, each LocalDate being the key for the Day with the same LocalDate. Theoretically, this
+would work as well. However, this was scrapped as a simple ObservableList of Days would work
+equally well. In addition, since AB4 already has an implemented UniqueList, using a simple
+List makes it easier to integrate the Meal Planner into the existing infrastructure. +
+HashMaps are mainly used as they give a time complexity advantage, having an O(1) time complexity.
+However, that advantage is not present here since our Lists usually access elements by index,
+and thus also have a time complexity of O(1).
 
 // end::mealplannerimplementation[]
 
