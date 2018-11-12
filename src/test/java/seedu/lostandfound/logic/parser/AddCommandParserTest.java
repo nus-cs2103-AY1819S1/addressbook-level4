@@ -92,7 +92,7 @@ public class AddCommandParserTest {
         // zero tags
         Article expectedArticle = new ArticleBuilder(POWERBANK).withTags().build();
         assertParseSuccess(parser, NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
-                        + DESCRIPTION_DESC_POWERBANK + FINDER_DESC_POWERBANK, new AddCommand(expectedArticle));
+                + DESCRIPTION_DESC_POWERBANK + FINDER_DESC_POWERBANK, new AddCommand(expectedArticle));
     }
 
     @Test
@@ -101,19 +101,19 @@ public class AddCommandParserTest {
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_MOUSE + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE
-                        + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
+                + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
 
         // missing phone prefix
         assertParseFailure(parser, NAME_DESC_MOUSE + VALID_PHONE_MOUSE + EMAIL_DESC_MOUSE
-                        + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
+                + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
 
         // missing email prefix
         assertParseFailure(parser, NAME_DESC_MOUSE + PHONE_DESC_MOUSE + VALID_EMAIL_MOUSE
-                        + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
+                + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
 
         // missing description prefix
         assertParseFailure(parser, NAME_DESC_MOUSE + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE
-                        + VALID_DESCRIPTION_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
+                + VALID_DESCRIPTION_MOUSE + FINDER_DESC_MOUSE, expectedMessage);
 
         // missing finder prefix
         assertParseFailure(parser, NAME_DESC_MOUSE + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE
@@ -121,7 +121,7 @@ public class AddCommandParserTest {
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_MOUSE + VALID_PHONE_MOUSE + VALID_EMAIL_MOUSE
-                        + VALID_DESCRIPTION_MOUSE + VALID_FINDER_MOUSE, expectedMessage);
+                + VALID_DESCRIPTION_MOUSE + VALID_FINDER_MOUSE, expectedMessage);
     }
 
     @Test
@@ -155,11 +155,11 @@ public class AddCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE
-                        + INVALID_DESCRIPTION_DESC + FINDER_DESC_MOUSE, Name.MESSAGE_CONSTRAINTS);
+                + INVALID_DESCRIPTION_DESC + FINDER_DESC_MOUSE, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_MOUSE + PHONE_DESC_MOUSE + EMAIL_DESC_MOUSE
-                + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_RED + TAG_DESC_BLUE,
+                        + DESCRIPTION_DESC_MOUSE + FINDER_DESC_MOUSE + TAG_DESC_RED + TAG_DESC_BLUE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

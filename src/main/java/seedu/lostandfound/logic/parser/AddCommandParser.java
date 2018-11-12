@@ -48,7 +48,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Image image = ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get());
+        Image image = Image.DEFAULT;
+        if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
+            image = ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get());
+        }
         Name finder = ParserUtil.parseName(argMultimap.getValue(PREFIX_FINDER).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
