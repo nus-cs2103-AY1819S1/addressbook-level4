@@ -1,0 +1,70 @@
+= HaydenPhillips - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JxMusic
+
+---
+
+== Overview
+
+JxMusic is a desktop music player application developed as a school project for the learning of Software
+Engineering principles. The project is built upon https://se-edu.github.io/addressbook-level4/[AddressBook(Level 4)].
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions:
+
+* *Major enhancement*:
+Playlist Management
+*** What it does: Allows the ability to add to, delete from, and search for playlists within the music library.
+*** Justification: Allows the user to organise their music collection to suit their listening preferences. Users can sort their music by creating playlist based on genre, likeability, age etc.
+The user can easily search through large collections of music via the search command.
+When the playlist is no longer used or needed, one can simply delete.
+*** Highlights:
+Playlist names can allow not just single words, but phases.
+Searching for a playlist has been made easier by utilising the ability to find matching sub-strings of the playlist names.
+Can create a new playlist while simultaneously adding tracks to the playlist
+
+* *Minor enhancement*: Added the ability to pause a track that is currently playing
+
+* *Code contributed*:
+*https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=haydenphillips&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=true[*Code contributed*]
+
+== Other contributions:
+
+Project management:
+
+** Issue Tracker management:
+**** Logic Component: https://github.com/CS2103-AY1819S1-T13-3/main/issues/34[#34], https://github.com/CS2103-AY1819S1-T13-3/main/issues/38[#38]
+**** Commands implemented: https://github.com/CS2103-AY1819S1-T13-3/main/issues/22[#22], https://github.com/CS2103-AY1819S1-T13-3/main/issues/26[#26]
+** Ensure there are no coding standard violations
+** Implemented corresponding test cases to cover newly-implemented Playlist management feature.
+
+Enhancements to existing features:
+
+** Refactored code throughout the Logic component
+
+Community:
+
+** PRs reviewed (with non-trivial review comments)
+** Reported bugs and suggestions for other teams in the class
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=intro_hayden]
+include::../UserGuide.adoc[tag=playlistSearch_hayden]
+include::../UserGuide.adoc[tag=playlistDel_hayden]
+include::../UserGuide.adoc[tag=pause_hayden]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=playlistNew_hayden]
+include::../DeveloperGuide.adoc[tag=userStories_hayden]

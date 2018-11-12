@@ -1,0 +1,69 @@
+= Hansel Chia - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: JxMusic
+
+---
+
+== Overview
+
+JxMusic is a desktop music player application developed as a school project for the learning of Software
+Engineering principles. The project is built upon https://se-edu.github.io/addressbook-level4/[AddressBook(Level 4)].
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+* https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=handshou[*Code contributed*]
+* https://github.com/CS2103-AY1819S1-T13-3/main/commits?author=handshou[*Commits contributed*]
+
+* *Major enhancement*: added *the ability to manage playlist by adding and deleting tracks*, including writing tests
+** What it does: allows the user to add or remove tracks. Adding tracks is done in two ways. Firstly, by using index of the track in the panel. Otherwise, by using the track's name. Multiple tracks can be added in one line of command, by track index or track name. Deleting tracks are done by referencing tracks in the playlist card.
+** Justification: This feature improves the usability of playlists because a user can initiate multiple tracks into a playlist with one line of command. Tracks can be be deleted too.
+** Highlights: The implementation of adding and deleting tracks extend beyond commands, into model, playlist and track. To reduce coupling, implemented methods in Playlist and ModelHelper.
+
+** Credits: _AddressBook's_ implementation of *rest operator* in https://github.com/se-edu/addressbook-level4/blob/dbb73f0157f52c79d474d6df643e58703b8dcc62/src/main/java/seedu/address/logic/parser/AddCommandParser.java#L56[arePrefixesPresent()]. Applied the idea for multiple parameters to overloading TrackAddCommand() constructor to accept multiple Tracks.
+
+* *Minor enhancement*: added *playlist* methods, enhanced *track* and *model* methods to support major enhancements. Small changes with helper methods in *CommandTestUtil*, *ParserUtil* and *ModelHelper*. Notable mention:
+** *[https://github.com/CS2103-AY1819S1-T13-3/main/blame/master/src/main/java/seedu/jxmusic/model/Playlist.java[Playlist]]* boolean:isEmpty, Playlist:copy, boolean:deleteTrack, boolean:hasTrack, Index:getTrackIndex
+** *[https://github.com/CS2103-AY1819S1-T13-3/main/blame/master/src/main/java/seedu/jxmusic/model/Track.java[Track]]* boolean:equals (critical for TrackAdd and TrackDel), int:hashCode
+
+* *Other contributions*:
+** Project management:
+*** Managed some issues: https://github.com/CS2103-AY1819S1-T13-3/main/issues/69[#69],
+https://github.com/CS2103-AY1819S1-T13-3/main/issues/71[#71]
+*** Managed some pull requests:
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/60[#60],
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/70[#70],
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/104[#104],
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/107[#107]
+
+** Community:
+*** PRs reviewed:
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/61[#61],
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/55[#55],
+https://github.com/CS2103-AY1819S1-T13-3/main/pull/100[#100]
+
+*** Reported bugs for other teams in the class:  https://github.com/CS2103-AY1819S1-W12-4/main/issues/129[1], https://github.com/CS2103-AY1819S1-W12-4/main/issues/120[2]
+
+** Tools:
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=trackcommands]
+include::../UserGuide.adoc[tag=commandSummary_hansel]
+include::../UserGuide.adoc[tag=commandSummary2_hansel]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Trackaddandremove]

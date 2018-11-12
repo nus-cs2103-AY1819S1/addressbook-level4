@@ -25,7 +25,6 @@ public class LibraryDeserializer implements JsonDeserializer<Library> {
         Playlist[] playlist = context.deserialize(jsonObject.get("playlists"), Playlist[].class);
         List<Playlist> playListList = Arrays.asList(playlist);
         final Library library = new Library();
-        System.out.println(playListList);
         library.setPlaylists(playListList);
         return library;
     }

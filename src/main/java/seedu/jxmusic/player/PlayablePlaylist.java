@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.util.Duration;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Playlist;
 
 /**
@@ -26,11 +27,9 @@ public class PlayablePlaylist implements Playable {
                 next();
             });
         }
-        // this.playableTrackList = Arrays.asList(new PlayableTrack());
     }
     @Override
     public void play(boolean unpause) {
-        System.out.println("playableplaylist play");
         if (current == null) {
             currentIndex = 0;
             current = playableTrackList.get(currentIndex);
@@ -40,7 +39,6 @@ public class PlayablePlaylist implements Playable {
 
     @Override
     public void pause() {
-        System.out.println("playableplaylist pause");
         if (current == null) {
             currentIndex = 0;
             current = playableTrackList.get(currentIndex);
@@ -50,16 +48,24 @@ public class PlayablePlaylist implements Playable {
 
     @Override
     public void stop() {
-        System.out.println("playableplaylist stop");
         current.stop();
         currentIndex = 0;
         current = playableTrackList.get(currentIndex);
     }
 
     @Override
-    public void seek(Duration time) {
-        System.out.println("playableplaylist seek to " + time.toSeconds() + " second(s)");
+    public Status getStatus() {
+        return current.getStatus();
+    }
+
+    @Override
+    public void seek(Duration time) throws CommandException {
         current.seek(time);
+    }
+
+    @Override
+    public Duration getDuration() {
+        return current.getDuration();
     }
 
     /**

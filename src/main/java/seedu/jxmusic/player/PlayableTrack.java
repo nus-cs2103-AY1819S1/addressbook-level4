@@ -3,6 +3,7 @@ package seedu.jxmusic.player;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Track;
 
 /**
@@ -10,22 +11,14 @@ import seedu.jxmusic.model.Track;
  */
 public class PlayableTrack implements Playable {
     private MediaPlayer mediaPlayer;
-    // static cos otherwise java garbage collects mediaplayer in like 5 seconds
-    // then the track only play for 5 seconds before it suddenly stop
+    private Media media;
     private String fileName;
     private Track track;
 
     public PlayableTrack(Track track) {
-        // fileName = "library/Ihojin no Yaiba.mp3";
-        // Media media = new Media(new File(fileName).toURI().toString());
-        Media media = new Media(track.getFile().toURI().toString());
+        this.track = track;
+        media = new Media(track.getFile().toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setOnReady(() -> {
-            System.out.println("ready");
-        });
-        mediaPlayer.setOnEndOfMedia(() -> {
-            System.out.println("end of media");
-        });
     }
 
     public String getTrackName() {
@@ -34,7 +27,6 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void play(boolean unpause) {
-        System.out.println("playabletrack play");
         if (!unpause) {
             mediaPlayer.setStartTime(new Duration(0));
         }
@@ -43,20 +35,37 @@ public class PlayableTrack implements Playable {
 
     @Override
     public void stop() {
-        System.out.println("playabletrack stop");
         mediaPlayer.stop();
     }
 
     @Override
     public void pause() {
-        System.out.println("playabletrack pause");
         mediaPlayer.pause();
     }
 
     @Override
-    public void seek(Duration time) {
+    public Status getStatus() {
+        switch (mediaPlayer.getStatus()) {
+        case PLAYING: return Status.PLAYING;
+        case PAUSED: return Status.PAUSED;
+        case STOPPED: return Status.STOPPED;
+        default: return Status.ERROR;
+        }
+    }
+
+    @Override
+    public void seek(Duration time) throws CommandException {
+        Duration trackDuration = media.getDuration();
+        if (time.compareTo(trackDuration) > 0) {
+            throw new CommandException("Required time is beyond track's duration");
+        }
         System.out.println("playabletrack seek to " + time.toSeconds() + " second(s)");
         mediaPlayer.seek(time);
+    }
+
+    @Override
+    public Duration getDuration() {
+        return media.getDuration();
     }
 
     public void setOnEndOfMedia(Runnable runnable) {

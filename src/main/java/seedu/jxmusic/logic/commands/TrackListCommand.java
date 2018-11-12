@@ -16,12 +16,6 @@ public class TrackListCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredTrackList(Model.PREDICATE_SHOW_ALL_TRACKS);
-        // ReadOnlyLibrary library = model.getLibrary();
-        // ObservableSet<Track> tracks = library.getTracks();
-        // String tracklist = "List of tracks: ";
-        // for (Track track : tracks) {
-        //     tracklist = tracklist + track.getFileName() + ", ";
-        // }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

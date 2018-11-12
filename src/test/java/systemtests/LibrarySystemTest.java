@@ -36,7 +36,6 @@ import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistSearchCommand;
-import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.testutil.TypicalPlaylistList;
@@ -153,15 +152,7 @@ public abstract class LibrarySystemTest {
      */
     protected void showPlaylistsWithName(String keyword) {
         executeCommand(PlaylistSearchCommand.COMMAND_PHRASE + " " + keyword);
-        assertTrue(getModel().getFilteredPlaylistList().size() < getModel().getLibrary().getPlaylistList().size());
-    }
-
-    /**
-     * Selects the playlist at {@code index} of the displayed list.
-     */
-    protected void selectPlaylist(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
+        assertTrue(getModel().getFilteredPlaylistList().size() <= getModel().getLibrary().getPlaylistList().size());
     }
 
     /**

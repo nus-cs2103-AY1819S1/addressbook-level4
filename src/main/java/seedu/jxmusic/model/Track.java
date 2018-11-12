@@ -14,7 +14,7 @@ import seedu.jxmusic.commons.util.CollectionUtil;
  * Represents a track in JxMusic
  * Guarantees: immutable; file is supported by javafx media as declared in {@link #isSupported(File)}
  */
-public class Track {
+public class Track implements Comparable {
     public static final String MESSAGE_FILE_NOT_EXIST =
             "Track file does not exist";
     public static final String MESSAGE_FILE_NOT_SUPPORTED =
@@ -52,7 +52,6 @@ public class Track {
         CollectionUtil.requireAllNonNull(file);
         AppUtil.checkArgument(file.exists(), MESSAGE_FILE_NOT_EXIST);
         AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
-        // AppUtil.checkArgument(isSupported(file), file.getName() + MESSAGE_FILE_NOT_SUPPORTED);
         this.file = file;
         String fileNameDotMp3 = file.getName();
         fileNameWithoutExtension = removeMp3Extension(fileNameDotMp3);
@@ -82,14 +81,9 @@ public class Track {
         try {
             Media media = new Media(file.toURI().toString());
             if (!hasMp3Header(file)) {
-                // System.out.println("is not mp3");
                 return false;
             }
         } catch (MediaException e) {
-            // if (e.getType() == MediaException.Type.MEDIA_UNSUPPORTED) {
-            //     return false;
-            // }
-            // System.out.println("mediaexception");
             return false;
         }
         return true;
@@ -106,11 +100,7 @@ public class Track {
         try {
             FileInputStream fis = new FileInputStream(file);
             fis.readNBytes(first3Bytes, 0, 3);
-            // for (byte b : first3Bytes) {
-            // System.out.println(b);
-            // }
         } catch (IOException e) {
-            // System.out.println("fail to read");
             return false;
         }
         boolean hasId3V2 = true;
@@ -121,7 +111,6 @@ public class Track {
             }
         }
         if (hasId3V2) {
-            // System.out.println("has id3v2");
             return true;
         }
         boolean isMp3WithoutId3V2 = true;
@@ -132,7 +121,6 @@ public class Track {
             }
         }
         if (isMp3WithoutId3V2) {
-            // System.out.println("no id3v2 but is mp3");
             return true;
         }
         return false;
@@ -146,8 +134,8 @@ public class Track {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Track // instanceof handles nulls
-                && fileNameWithoutExtension.toLowerCase().equals((
-                        (Track) other).fileNameWithoutExtension.toLowerCase())); // state check
+                && fileNameWithoutExtension.equalsIgnoreCase((
+                        (Track) other).fileNameWithoutExtension)); // state check
     }
 
     @Override
@@ -158,5 +146,12 @@ public class Track {
     @Override
     public String toString() {
         return fileNameWithoutExtension;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        String otherName = ((Track) o).getFileNameWithoutExtension().toLowerCase();
+        return this.getFileNameWithoutExtension().toLowerCase()
+                .compareTo(otherName);
     }
 }

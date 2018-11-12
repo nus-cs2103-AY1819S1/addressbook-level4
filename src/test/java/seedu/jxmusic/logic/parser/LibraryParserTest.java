@@ -16,7 +16,6 @@ import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
-import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.TrackListCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Playlist;
@@ -32,7 +31,6 @@ public class LibraryParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Playlist playlist = new PlaylistBuilder().build();
-        System.out.println(PlaylistUtil.getPlaylistNewCommand(playlist));
         PlaylistNewCommand command = (PlaylistNewCommand) parser.parseCommand(
                 PlaylistUtil.getPlaylistNewCommand(playlist));
         assertEquals(new PlaylistNewCommand(playlist), command);
@@ -57,16 +55,6 @@ public class LibraryParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
-    // @Test
-    // public void parseCommand_find() throws Exception {
-    //     List<String> keywords = Arrays.asList("foo", "bar", "baz");
-    //     System.out.println(PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect
-    // (Collectors.joining(" ")));
-    //     PlaylistSearchCommand command = (PlaylistSearchCommand) parser.parseCommand(
-    //             PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect(Collectors.joining(" ")));
-    //     assertEquals(new PlaylistSearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    // }
-
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
@@ -83,13 +71,6 @@ public class LibraryParserTest {
     public void parseCommand_trackList() throws Exception {
         assertTrue(parser.parseCommand(TrackListCommand.COMMAND_PHRASE) instanceof TrackListCommand);
         assertTrue(parser.parseCommand(TrackListCommand.COMMAND_PHRASE + " 3") instanceof TrackListCommand);
-    }
-
-    @Test
-    public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PLAYLIST), command);
     }
 
     @Test

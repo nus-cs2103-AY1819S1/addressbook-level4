@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.Command;
 //import seedu.jxmusic.logic.commands.EditCommand;      //todo
+import seedu.jxmusic.logic.commands.DurationCommand;
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
@@ -18,7 +19,6 @@ import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.PlaylistSearchCommand;
 import seedu.jxmusic.logic.commands.SeekCommand;
-import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
 import seedu.jxmusic.logic.commands.TrackAddCommand;
 import seedu.jxmusic.logic.commands.TrackDeleteCommand;
@@ -60,12 +60,14 @@ public class LibraryParser {
         case PauseCommand.COMMAND_WORD:
             return new PauseCommand(); // todo parse (argument)
 
+        case DurationCommand.COMMAND_PHRASE:
+            return new DurationCommand();
+
         case StopCommand.COMMAND_WORD:
             return new StopCommand();
 
-        case SeekCommand.COMMAND_WORD:
-            //double time = arguments.toInt() sth like this, change the string to time in double
-            //return new SeekCommand(time);
+        case SeekCommand.COMMAND_PHRASE:
+            return new SeekCommandParser().parse(arguments);
 
         case PlaylistListCommand.COMMAND_PHRASE:
             return new PlaylistListCommand();
@@ -85,20 +87,11 @@ public class LibraryParser {
         case TrackSearchCommand.COMMAND_PHRASE:
             return new TrackSearchCommandParser().parse(arguments);
 
-        // case EditCommand.COMMAND_PHRASE:
-        //     return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        // case ListCommand.COMMAND_PHRASE:
-        //     return new ListCommand();
 
         case PlaylistDelCommand.COMMAND_PHRASE:
             return new PlaylistDelCommandParser().parse(arguments);

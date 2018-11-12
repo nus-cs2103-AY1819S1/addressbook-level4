@@ -51,9 +51,6 @@ public class SampleDataUtil {
         for (Playlist samplePlaylist : getSamplePlaylists()) {
             tracksOnlyLib.addPlaylist(samplePlaylist);
         }
-        for (Playlist p : tracksOnlyLib.getPlaylistList()) {
-            System.out.println(p);
-        }
         return tracksOnlyLib;
     }
 

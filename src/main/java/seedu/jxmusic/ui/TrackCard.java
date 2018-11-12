@@ -51,14 +51,6 @@ public class TrackCard extends UiPart<Region> {
         //name check
         Track track1 = ((TrackCard) other).track;
         return name.getText().equals(track1.getFileNameWithoutExtension());
-
-        //state check
-        /*
-        TrackCard card = (TrackCard) other;
-        return id.getText().equals(card.id.getText())
-                && track.equals(card.track);
-         */
-
     }
 }
 
