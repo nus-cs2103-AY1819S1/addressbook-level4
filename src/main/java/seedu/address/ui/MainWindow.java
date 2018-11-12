@@ -232,28 +232,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //if (logic.getFilteredPersonList().size() > 0) {
-        //    Person firstPerson = logic.getFilteredPersonList().get(0);
-        //    personBrowserPanel = new PersonBrowserPanel(firstPerson);
-        //} else { // Means that there are no modules within the addressbook.
         personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
                 new UniqueOccasionList().asUnmodifiableObservableList());
-        //}
-
-        //if (logic.getFilteredModuleList().size() > 0) {
-        //    Module firstModule = logic.getFilteredModuleList().get(0);
-        //    moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
-        //} else {
         moduleBrowserPanel = new ModuleBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
-        //}
-
-        //if (logic.getFilteredOccasionList().size() > 0) {
-        //    Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
-        //    occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
-        //            .getAttendanceList().asUnmodifiableObservableList());
-        //} else {
         occasionBrowserPanel = new OccasionBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
-        //}
 
         getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
 
