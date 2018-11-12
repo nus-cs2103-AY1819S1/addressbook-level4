@@ -1449,6 +1449,41 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect find event commands to try: `find event to/` `find event from/16 Nov 5pm to/15 Nov 8pm`
    Expected: Similar to previous.
 
+=== Adding a todolist event
+
+. Adding a new todolist event to the todolist
+
+.. Prerequisites: Nil
+.. Test case: `add todo t/CS2103 assignment d/Practical Exam p/M` +
+   Expected: New todolist event is added. Details of the new todolist event shown in the status message.
+.. Test case: `add todo t/CS2103 assignment d/Practical Exam p/M` +
+   Expected: New todolist event is not added as it is a duplicate of the earlier one. Error details shown in the status message.
+.. Other incorrect add todo commands to try: `add todo`, `add todo {without all the required prefixes}`
+   Expected: Similar to previous.
+
+=== Deleting a todolist event
+
+. Deleting a todolist event while all todolist events are listed
+
+.. Prerequisites: List all todolist events using the `list todo` command. Multiple todolist events in the list.
+.. Test case: `delete todo 1` +
+   Expected: First todolist event is deleted from the list. Details of the deleted todolist event shown in the status message.
+.. Test case: `delete todo 0` +
+   Expected: No todolist event is deleted. Error details shown in the status message.
+.. Other incorrect delete todo commands to try: `delete todo`, `delete todo x` (where x is larger than the list size)
+   Expected: Similar to previous.
+
+=== Showing description of a todolist event
+
+. Showing description of a todolist event while all todolist events are listed
+
+.. Prerequisites: List all todolist events using the `list todo` command. Multiple todolist events in the list. Success details shown in the status message.
+.. Test case: `show todo 1` +
+   Expected: Description of first todolist event is showed with a popup window.
+.. Test case: `show todo 0` +
+   Expected: No Description of todolist event is showed. Error details shown in the status message.
+.. Other incorrect show todo commands to try: `shows todo`, `show todo x` (where x is larger than the list size)
+   Expected: Similar to previous.
 
 === Saving data
 
