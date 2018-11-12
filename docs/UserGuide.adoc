@@ -435,7 +435,9 @@ The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "w
 
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
+
 image::Time.png[width="790"]
+
 // end::filter4[]
 
 // tag::suggestq[]
