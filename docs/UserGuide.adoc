@@ -366,9 +366,6 @@ List tasks due from current date till the end of the current week. +
 
 Example:
 ====
-The following diagram illustrates that when you used [blue]`listweek` command on the date `021118` (02 Nov '18), you will only see tasks
-until `041118` (04 Nov '18) which is the closest Sunday.
-[blue]`listweek` (on the date 021118)
 
 The following diagram illustrates the SSP when [blue]`listweek` is executed on the date `021118`. Only tasks until
 `041118`, which is the closest Sunday, will be displayed.
