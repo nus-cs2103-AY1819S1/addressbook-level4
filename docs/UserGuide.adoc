@@ -86,7 +86,7 @@ Format: `add todo t/TITLE d/DESCRIPTION p/{H/M/L}`
 * Since it is difficult to type a rigidly formatted date and time, a natural language date parser will try to parse the input for calendar events.
 * The start and end datetimes can be word descriptions, such as 'the day after tomorrow', or '1 week from now'.
 * If only a time is specified, the application will assume you mean today.
-* The priority can be `H`, `M` or `L` for high, medium or low respectively, in upper case.
+* For todo items, the priority can be `H`, `M` or `L` for high, medium or low respectively, in upper case.
 ****
 
 [TIP]
@@ -147,8 +147,8 @@ Format: `find event [KEYWORD MORE_KEYWORDS...] [from/DATE & TIME] [to/DATE & TIM
 ** Shows events that occur in the interval from the `from` date & time, to the `to` date & time.
 *** i.e. the event must be ongoing at some point in the time interval starting at the `from` date and ending at the `to` date
 ** You can choose to include only one of the 2 (`from` or `to`) date & times
-** Date & time are parsed using Natural Language Parsing, thus they can be input in most human-readable formats, e.g. `16 nov 8am`
-*** Note: sometimes date & time inputs may be parsed unexpectedly - see Question 3 in the <<FAQ,FAQ>>
+** Date & time are parsed using natural language parsing, thus they can be input in most human-readable formats, e.g. `16 nov 8am`
+*** Note: sometimes date & time inputs may be parsed in an unexpected manner - see Question 3 in the <<FAQ,FAQ>>
 * Filter by Tags
 ** In order for an event to be shown, it must have a tag that is *exactly matching* (although case-insensitive) with the input tag.
 ** If multiple tags are input, the filter will only show the events with ALL the input tags.
@@ -176,7 +176,7 @@ Format: `delete {event/todo} INDEX`
 
 ****
 * Deletes the calendar event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed calendar event list.
+* The index refers to the index number shown in the displayed calendar event list / todo list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -194,13 +194,13 @@ Deletes the 1st todo item in the todo list.
 // end::delete[]
 
 // tag::select[]
-=== Selecting: `select`
+=== Selecting event: `select event`
 
 Selects the calendar event identified by the index number used in the displayed list. +
 Format: `select event INDEX`
 
 ****
-* Selects the calendar event and loads the Google search page the calendar event at the specified `INDEX`.
+* Selects the calendar event at the specified index on the list, and jumps to the event in the calendar display..
 * The index refers to the index number shown in the displayed calendar event list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -216,7 +216,7 @@ Selects the 1st calendar event in the results of the `find event` command.
 // end::select[]
 
 // tag::showDes[]
-=== Showing description: `showDescription`
+=== Showing description: `show todo`
 
 Shows description of the specified todo item from the todo list. +
 Format: `show todo INDEX`
@@ -377,9 +377,9 @@ e.g. `edit event 1 d/Abstraction v/i3 Auditorium`
 e.g. `find event CS2103 Lecture from/16 Nov 8am tag/PE`
 * *List* : `list {event/todo}`
 * *Help* : `help`
-* *Select* : `select {event/todo} INDEX` +
+* *Select* : `select event INDEX` +
 e.g.`select event 2`
-* *ShowDescription* : `show todo INDEX` +
+* *Show Description* : `show todo INDEX` +
 e.g.`show todo 2`
 * *History* : `history`
 * *Undo* : `undo`
