@@ -80,8 +80,6 @@ just a single command line as multiple keywords can be specified at once in any 
 It has been documented and worded to facilitate mastering of features by end-users.
 |===
 
-include::../UserGuide.adoc[tag=clearAll]
-
 include::../UserGuide.adoc[tag=clear]
 
 include::../UserGuide.adoc[tag=erase]
@@ -99,8 +97,6 @@ introduction.
 |===
 
 include::../DeveloperGuide.adoc[tag=clear]
-
-include::../DeveloperGuide.adoc[tag=erase]
 
 include::../DeveloperGuide.adoc[tag=export]
 
