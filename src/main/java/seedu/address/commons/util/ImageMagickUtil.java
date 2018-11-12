@@ -28,7 +28,6 @@ import seedu.address.storage.JsonConvertArgsStorage;
 
 /**
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
- *
  * @author lancelotwillow
  */
 public class ImageMagickUtil {
@@ -44,7 +43,6 @@ public class ImageMagickUtil {
 
     /**
      * get the path of the package location
-     *
      * @return
      * @throws NoSuchElementException
      */
@@ -74,7 +72,6 @@ public class ImageMagickUtil {
 
     /**
      * get the platform;
-     *
      * @return
      */
     public static int getPlatform(String osName) {
@@ -90,7 +87,6 @@ public class ImageMagickUtil {
 
     /**
      * with a path and the transmission, return the bufferedimage processed.
-     *
      * @param path
      * @param transformation
      * @return
@@ -123,7 +119,6 @@ public class ImageMagickUtil {
 
     /**
      * parse the argument passing to the imageMagic to check the validation about the arguments
-     *
      * @param transformation
      * @return
      * @throws IOException
@@ -141,7 +136,6 @@ public class ImageMagickUtil {
 
     /**
      * .
-     *
      * @param transformation
      * @return
      * @throws ParseException
@@ -153,23 +147,22 @@ public class ImageMagickUtil {
         String operation = transformation.getOperation();
         URL fileUrl = ImageMagickUtil.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
         if (fileUrl == null) {
-            throw new ParseException("Unknown transformation detected. \nYou may check what transformations are "
-                    + "available by typing `help` and viewing Section 4.8");
+            throw new ParseException("Operation is invalid");
         }
         //in order to get the template of the argument.
         List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "arg");
         int num = cmds.size();
         String template = cmds.toString();
         if (num != trans.size() - 1) {
-            throw new IllegalArgumentException("Invalid values provided!\nThe transformation should be in the following"
-                    + " format: " + operation + " " + template.substring(1, template.length() - 1));
+            throw new IllegalArgumentException("Invalid arguments, the arguments should be "
+                    + operation + " " + template.substring(1, template.length() - 1));
         }
         //get the pattern for the argument, check validation.
         List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "pattern");
         for (int i = 0; i < patterns.size(); i++) {
             if (!trans.get(i + 1).matches(patterns.get(i))) {
-                throw new IllegalArgumentException("Invalid values provided!\nThe transformation should be in the"
-                    + " following format: " + operation + " " + template.substring(1, template.length() - 1));
+                throw new IllegalArgumentException("Invalid arguments, the arguments should be:"
+                        + operation + " " + template.substring(1, template.length() - 1));
             }
         }
         return trans;
@@ -177,7 +170,6 @@ public class ImageMagickUtil {
 
     /**
      * .
-     *
      * @param transformation
      * @return
      * @throws ParseException
@@ -188,7 +180,7 @@ public class ImageMagickUtil {
         String operation = transformation.getOperation().substring(1);
         File file = new File(commandSaveFolder + "/" + operation + ".json");
         if (!file.exists()) {
-            throw new ParseException("The custom transformation was not found, please try re-creating it.");
+            throw new ParseException("Operation is invalid");
         }
         return new ArrayList<>(JsonConvertArgsStorage.retrieveCommandArguments(file));
     }
@@ -196,8 +188,7 @@ public class ImageMagickUtil {
     /**
      * Given a list of arguments to ImageMagick, calls the actual ImageMagick executable with the output set to the
      * path provided
-     *
-     * @param args   An ArrayList of arguments, the first of which needs to be a legal ImageMagick executable.
+     * @param args An ArrayList of arguments, the first of which needs to be a legal ImageMagick executable.
      * @param output An URL to the output file.
      * @return
      * @throws IOException
@@ -226,7 +217,6 @@ public class ImageMagickUtil {
 
     /**
      * copy the imageMagick outside of the jarfile in order to call it.
-     *
      * @author lancelotwillow
      * @param userPrefs
      * @throws IOException
@@ -242,7 +232,7 @@ public class ImageMagickUtil {
         switch (getPlatform(osName)) {
         case MAC:
             Process process = new ProcessBuilder(
-                "tar", "zxvf", zipFile.getPath(), "-C", currentPath.toString()).start();
+                    "tar", "zxvf", zipFile.getPath(), "-C", currentPath.toString()).start();
             process.waitFor();
             //remove the __MACOSX folder in the mac
             new ProcessBuilder("rm", "-rf", currentPath.toString() + "/__MACOSX").start();
@@ -272,10 +262,8 @@ public class ImageMagickUtil {
     }
 
     //@@author j-lum
-
     /**
      * Creates a ProcessBuilder instance to merge/flatten layers.
-     *
      * @param c - A canvas to be processed
      * @return a buffered image with a merged canvas.
      */
@@ -284,16 +272,23 @@ public class ImageMagickUtil {
         ArrayList<String> args = new ArrayList<>();
         String output = tmpPath + "/modified.png";
         args.add(getConvertExecutablePath());
-        args.add("-size");
-        args.add(String.format("%dx%d", c.getWidth(), c.getHeight()));
-        args.add("-background");
-        args.add(String.format("%s", c.getBackgroundColor()));
+        boolean pageSizeDefined = false;
 
-        for (Layer l : c.getLayers()) {
+        for (Layer l: c.getLayers()) {
+            if (!c.isCanvasAuto() && !pageSizeDefined) {
+                args.add("-page");
+                args.add(String.format("%dx%d+%d+%d", c.getWidth(), c.getHeight(), l.getX(), l.getY()));
+                args.add(String.format("%s", l.getImage().getCurrentPath()));
+                pageSizeDefined = true;
+            }
             args.add("-page");
             args.add(String.format("+%d+%d", l.getX(), l.getY()));
             args.add(String.format("%s", l.getImage().getCurrentPath()));
         }
+
+        args.add("-background");
+        args.add(String.format("%s", c.getBackgroundColor()));
+
         if (c.isCanvasAuto()) {
             args.add("-layers");
             args.add("merge");
@@ -337,8 +332,7 @@ public class ImageMagickUtil {
 
     /**
      * Given any canvas, renders it to the target panel.
-     *
-     * @param c      - Canvas to render
+     * @param c - Canvas to render
      * @param logger - an instance of the logger
      * @param target - the name of the ImagePanel to target
      */

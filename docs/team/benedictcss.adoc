@@ -10,25 +10,23 @@
 == Overview
 
 This portfolio seeks to document my contributions to our team’s project, Piconso. Piconso is an CLI
-(Command Line Interface) Image Editor designed and developed for quick and efficient image-editing on your Desktop. With
-Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of
-working with a mouse. Our project team consists of:
-
-* Jeffry Lum -- Project Advisor.
-* Ivan Ho -- Team Lead. Responsible for UI component.
-* Benedict Chua -- Developer. Responsible for Data management.
-* Ong Kai Le -- Developer. Responsible for Development Operations and Threading.
-* Zhang Tianyang -- Developer. Responsible for UI component as well.
+(Command Line Interface) Image Editor designed and developed for quick and efficient image-editing on your Desktop.
+All traditional image-editing features can be performed solely through text commands, removing the hassle of
+working with a mouse. Piconso does not only benefit the power users but also serves as a learning platform for new users
+with its simple command line tools.
 
 Below is a list of main features of our application:
 
 * Several traditional image-editing features such as rotate, blur etc.
 * Capability to define own custom transformation set.
-* Ability to access all your images in your local drive.
+* A wide range of edit-text commands that remove the need for a mouse.
 * Direct access to images on Google Photos (download and upload).
 
 
 == Summary of contributions
+|===
+|_This section summarises the implementations and contributions I've made for this project._
+|===
 
 * *Major enhancement*: added the ability to cd into different directories.
 ** What it does: allows the user to traverse between folders in their home system.
@@ -51,20 +49,21 @@ Below is a list of main features of our application:
 ** Project Management:
 *** Managed labels, milestones and issues for issue tracker on GitHub
 *** Participated in tagging issues and merging/reviewing PRs
-*** Set up appveyor build and coveralls on Github
+*** Set up appveyor build, coveralls and reposense config file on Github.
 ** Documentation:
-*** Added detailed implementation documentation for the directories command in Developer Guide, including diagrams: https://github.com/CS2103-AY1819S1-T09-3/main/pull/57[#57] https://github.com/CS2103-AY1819S1-T09-3/main/pull/98[#98]
+*** Added detailed implementation documentation for the directories command in Developer Guide, including diagrams: https://github.com/CS2103-AY1819S1-T09-3/main/pull/213[#213]
 *** Updated diagrams for Logic, Model and UI component. https://github.com/CS2103-AY1819S1-T09-3/main/pull/174[#174]
 ** Enhancement to existing features:
-*** Updated the icon of of the application
-*** Wrote additional test for existing features
+*** Updated the icon of the application. https://github.com/CS2103-AY1819S1-T09-3/main/pull/111[#111]
+*** Wrote additional test for existing features. https://github.com/CS2103-AY1819S1-T09-3/main/pull/107[#107]
 ** Community:
 *** PRs reviewed: https://github.com/CS2103-AY1819S1-T09-3/main/pull/56[#56]
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=dir]
@@ -72,7 +71,8 @@ include::../UserGuide.adoc[tag=dir]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide.
+ They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=cd]
