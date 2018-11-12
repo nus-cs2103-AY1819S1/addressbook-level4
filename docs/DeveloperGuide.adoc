@@ -1373,3 +1373,40 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Importing contacts
+
+. Importing a fresh list of contacts into an empty InsuRen.
+
+.. Prerequisites: clear all persons using the `clear` command. No persons in the list.
+Also ensure that there is a populated csv file within the application's ROOT directory. An example of an acceptable csv is shown in the user guide. Let's call this file asdf.csv
+.. Test case: `import l/asdf.csv` +
+   Expected: InsuRen will be populated with the contacts in asdf.csv.
+
+. Importing a contact into InsuRen when such contacts are already in InsuRen.
+
+.. Prerequisites: Take the starting point of this test to be the end of the previous - ie. after you have
+successfully imported contacts from asdf.csv.
+.. Test case: `import` +
+   Expected: A file browser will pop up. Navigate to and select asdf.csv one more time. Error messages should be
+   displayed, stating that no contacts have been imported as InsuRen has found duplicate contacts.
+   
+. Importing invalid contacts into InsuRen.
+
+.. Prerequisites: Clear InsuRen like in (1) above, then deliberately corrupt some of the entries in asdf.csv by removing names or giving invalid phone numbers, meetings etc.
+.. Test case: `import l/asdf.csv` +
+   Expected: Valid contacts will be imported into InsuRen. Additionally, an error will be displayed, stating that InsuRen has found invalid contacts.
+   
+=== Exporting contacts
+
+. Exporting InsuRen's current contacts into a new csv file.
+
+.. Prerequisites: Ensure that InsuRen has at least 1 contact.
+.. Test case: `export contacts.csv` +
+   Expected: A new contacts.csv file will appear in the ROOT directory, populated with InsuRen's current contacts.
+
+. Exporting into an invalid file.
+
+.. Prerequisites: Ensure that InsuRen has at least 1 contact.
+.. Test case: `export asdf` +
+   Expected: Error message will be thrown by InsuRen, stating that an incorrect export file name has been provided.
