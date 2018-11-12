@@ -46,7 +46,7 @@ Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == User Interface
-After logging in, the interface looks something like this:
+After logging in, the interface will display as such:
 
 .User interface
 image::userguide/ui.png[width="790"]
@@ -55,70 +55,89 @@ There are five main components to Expense Tracker, each highlighted by the colou
 
 === Left Panel
 
-This is the portion highlighted by the red box. There are two modes to this panel, Expense List mode and Statistics Panel mode.
-You are able to change to the Expense List mode by using the `list` command and Statistics Mode
-by using the `stats` command. +
-See <<ListCommand,`list`>> and <<StatsCommand, `stats`>> commands for more details on these commands.
+This component is highlighted by the red box. There are two modes to this panel:
+
+ * Expense List mode
+ * Statistics Panel mode
+
+You are able swap between Expense List mode and Statistics Panel mode by using the `list` command and
+ `stats` command, respectively.
+
+ See <<ListCommand,`list`>> and <<StatsCommand, `stats`>> commands for more details on these commands.
 
 ==== Expense List mode
-In Expense List mode, the Left Panel shows the list of expenses which looks similar to the figure below.
+In Expense List mode, the Left Panel displays the list of all expenses, as shown below:
 
 .Left Panel in Expense List mode
 image::userguide/expenseList.png[width="790"]
 
-When commands which alter the Expense List such as `find` and `list` are used, they change which expenses will be shown.
+Commands that alter the Expense List, such as `find` and `list`, will change the expenses that are shown.
 
-See <<FindCommand, `find`>> and <<ListCommand, `list`>> commands for more details.
+ See <<FindCommand, `find`>> and <<ListCommand, `list`>> commands for more details.
 
-[NOTE]
-====
 Each expense has an index number next to the expense name. These are relevant to the `delete` and `edit` commands.
 
-See <<DeleteCommand, `delete`>> and <<EditCommand, `edit`>> commands for more details.
-====
+ See <<DeleteCommand, `delete`>> and <<EditCommand, `edit`>> commands for more details.
+
 
 ==== Statistics Panel mode
-In Statistics Panel mode, the Left Panel shows statistics about expenses which looks similar to the figure below.
+In Statistics Panel mode, the Left Panel contains upper and lower sections, similar to what is shown below:
 
 .Left Panel in Statistics Panel mode
 image::userguide/statisticsPanel.png[width="790"]
 
-In the top half, statistics about your expenses are shown. These can be changed by the `stats` command.
-See <<StatsCommand, `stats`>> command for more details.
+The upper section displays statistical information about expenses.
 
-In the bottom half, all the category budgets you set using the `setCategoryBudget` command can be seen.
-See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
+The type of statistics shown can be changed via the `stats` command.
+
+ See <<StatsCommand, `stats`>> command for more details.
+
+The lower section shows four of the category budgets that have been set using the `setCategoryBudget` command.
+
+ See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
 === Budget Tracker
 
-This is the portion highlighted by the blue box.
+This component is highlighted by the blue box.
 
 The Budget Tracker shows information about your total expenditure and
 the budget which you set using the `setBudget` command.
-See <<SetBudgetCommand, `setBudget`>> command for more details.
+ See <<SetBudgetCommand, `setBudget`>> command for more details.
 
 === Notifications Panel
 
 This is the portion highlighted by the green box.
 
-The Notifications Panel is where any notifications will appear. These include warnings about your expenditure and
+The Notifications Panel is where any automated notifications will appear. These include warnings about your expenditure and
 saving tips that you should consider.
+
+[NOTE]
+The Notification Panel will only display a maximum of 10 notifications. If the Notification Panel is full, the oldest notification will be replaced by the newest notification.
+
+You can toggle notifications on and off with the `notification` command.
+ See <<NotificationCommand, `notification`>> command for more details.
 
 === Command Box and Console
 
-This is the portion highlighted by the yellow box.
+This component is highlighted by the yellow box.
 
 The Command Box is where the "Enter command here..." is located. To enter a command in the Command Box, use your mouse
 and click anywhere within the box, then proceed to type a command. +
 
-The Console is where any success and error messages, relevant to the most recent command entered, will appear.
+The Console displays any success and error messages that is relevant to the most recent command entered.
 
 === Menu Bar
 
-This is the portion highlighted by the orange box.
+This component is highlighted by the orange box.
 
-The menu bar contains two submenus, which allows you to either exit the application or to open the help window.
-These have the same effect as using the commands `exit` and `help` respectively.
+The menu bar contains two submenus, "file" and "help".
+
+Click on "file" to reveal a dropdown containing the option "exit". Clicking on "exit" will close the application.
+Entering the command `exit` into the Command Box achieves the same outcome.
+
+Click on "help" to reveal a dropdown containing the option "help". Clicking on "help", or pressing the `F1` key on your
+keyboard, will open a Help Window.
+Entering the command `help` into the Command Box achieves the same outcome.
 
 [[Features]]
 == Features
@@ -370,7 +389,8 @@ Format: `list`
 // tag::budget[]
 [[SetBudgetCommand]]
 === Setting a total budget: `setBudget`
-Sets the total budget that you should spend for Expense Tracker. +
+Sets a total budget. Expense Tracker will warn you when you are going to spend over your budget so you can prevent
+yourself from overspending
 
 Available spending is defined as the total amount of expenses you can add before you exceed your budget.
 
@@ -401,6 +421,14 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 === Setting a recurrence frequency for total budget: `setRecurrenceFrequency`
 Sets the recurrence frequency for resetting the available spending of the total budget of Expense Tracker.
 
+If you draw a salary/have an allowance, this would allow you to track the portion of money you have spent against
+your salary/allowance. This ensures that you do not overspend on a certain day, causing you to not have enough money
+until you draw your next salary/allowance.
+
+If you have a daily budget, setting the recurrence frequency to 24 hours causes your available spending to reset
+everyday. Likewise, if you have a weekly budget, setting the frequency to 168 (24*7) hours causes your available
+spending to reset every week.
+
 Expense Tracker will reset your available spending after every user defined frequency.
 A detailed use case is given below:
 
@@ -412,6 +440,12 @@ to inform you that this is done. This is shown in the figure below.
 
 .Notification that is shown when the expense tracker resets the available spending.
 image::reset_notif.PNG[width="790"]
+
+A walk-through of the above steps is clearly shown in the diagram below.
+
+.Diagram showing the operation of the setRecurrenceFrequency feature
+image::userguide/recurrenceFrequencyGuide.PNG[width="790"]
+
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -577,14 +611,36 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 ====
 // end::statistics[]
 
+// tag::notification[]
+[[NotificationCommand]]
 === Toggling Notifications: `notification`
 
 Toggles the ability of `Expense Tracker` to send notifications.
 
-There are three notification types to toggle: Warning` and Tip, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
-To toggle both, omit `NOTIFICATION_TYPE`.
+There are two types of notification to toggle:
 
-There are two toggle options, `on` and `off`, which can be indication by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter. `TOGGLE_OPTION` is required.
+ . Warning - Referenced by `warning` as the `NOTIFICATION_TYPE` parameter. These notifications will be sent when you are over
+ or about to go over your budget.
+
+As shown below, Tip type Notifications can be indicated by exclamation mark image displayed along with the notification:
+
+.Example of a Warning Type Notification
+image::userguide/warningExample.png[width="790"]
+
+ . Tip - Referenced by typing `tip` as the `NOTIFICATION_TYPE` parameter. These notifications are saving tips that will be sent
+ when you log onto an account on a new day.
+
+As shown below, Tip type Notifications can be indicated by light bulb image displayed along with the notification:
+
+.Example of a Tip Type Notification
+image::userguide/tipExample.png[width="790"]
+
+
+
+
+There are two toggle options, `on` and `off`, which can be indicated by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter.
+
+'TOGGLE_OPTION` is a required parameter. `NOTIFICATION_TYPE` can be omitted.
 
 Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
 
@@ -607,6 +663,8 @@ Disables the sending of both types of notifications. +
 * TOGGLE_OPTION can only be 'on' or 'off'
 * NOTIFICATION_TYPE is optional
 ====
+
+// end::notification[]
 
 === Clearing all entries : `clear`
 
@@ -741,6 +799,7 @@ This is a list of mappings of commands to their command shorthands in Expense Tr
 * `undo`: `u`
 * `redo`: `r`
 * `stats`:  `su`
+* `notification`: `n`
 * `clear`: `c`
 * `exit`: `x`
 
