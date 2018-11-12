@@ -700,6 +700,7 @@ The following activity diagram summarizes what happens when a user executes `Log
 .Activity Diagram for the `LoginCommand`
 image::LoginActivityDiagram.png[width="1080"]
 {sp} +
+
 ===== `LogoutCommand`
 
 The `LogoutCommand` post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
