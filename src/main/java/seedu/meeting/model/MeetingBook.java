@@ -98,7 +98,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return persons.contains(person);
+        return persons.hasEquivalentPerson(person);
     }
 
     // @@author Derek-Hardy
@@ -292,6 +292,38 @@ public class MeetingBook implements ReadOnlyMeetingBook {
     }
 
     /**
+     * merges the {@code importedPerson} into the MeetingBook with regards to the {@code overwrite} flag.
+     */
+    private void mergePerson(Person importedPerson, boolean overwrite) {
+        if (!hasPerson(importedPerson)) {
+            addPerson(importedPerson);
+        } else if (overwrite) {
+            Person samePerson = getPersonByName(importedPerson.getName());
+            updatePerson(samePerson, importedPerson);
+        }
+    }
+
+    /**
+     * merges the {@code importedGroup} into the MeetingBook with regards to the {@code overwrite} flag.
+     */
+    private void mergeGroup(Group importedGroup, boolean overwrite) {
+        List<Person> inValidMembers = importedGroup
+                .getMembersView()
+                .stream()
+                .filter((p) -> !persons.contains(p))
+                .collect(Collectors.toList());
+        inValidMembers.forEach(importedGroup::removeMemberNoGroups);
+
+        if (!hasGroup(importedGroup)) {
+            addGroup(importedGroup);
+        } else if (overwrite) {
+            Group sameGroup = getGroupByTitle(importedGroup.getTitle());
+            updateGroup(sameGroup, importedGroup);
+
+        }
+    }
+
+    /**
      * Merge another MeetingBook into current MeetingBook.
      *
      */
@@ -300,48 +332,17 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         if (equals(imported)) {
             return;
         }
-        if (imported instanceof MeetingBook) {
-            MeetingBook importedBook = (MeetingBook) imported;
-            Iterator<Person> personItr = importedBook.persons.iterator();
-            while (personItr.hasNext()) {
-                Person importPerson = personItr.next();
-                if (!hasPerson(importPerson)) {
-                    addPerson(importPerson);
-                } else {
-                    if (overwrite) {
-                        Person samePerson = getPersonByName(importPerson.getName());
-                        updatePerson(samePerson, importPerson);
-                    }
-                }
-            }
 
-            Iterator<Group> groupItr = importedBook.groups.iterator();
-            while (groupItr.hasNext()) {
-                Group importGroup = groupItr.next();
-                List<Person> importGroupPersons = importGroup.getMembersView();
-                for (Person p: importGroupPersons) {
-                    for (Person p1 : persons.asUnmodifiableObservableList()) {
-                        if (!p1.equals(p)) {
-                            importGroup.removeMemberNoGroups(p);
-                            break;
-                        }
-                        if (importGroupPersons.isEmpty()) {
-                            break;
-                        }
-                    }
-                }
-                if (!hasGroup(importGroup)) {
-                    addGroup(importGroup);
-                } else {
-                    if (overwrite) {
-                        Group sameGroup = getGroupByTitle(importGroup.getTitle());
-                        updateGroup(sameGroup, importGroup);
-
-                    }
-                }
-            }
-
+        if (!(imported instanceof MeetingBook)) {
+            return;
         }
+
+        MeetingBook importedBook = (MeetingBook) imported;
+        importedBook.persons.iterator()
+                .forEachRemaining((person) -> mergePerson(person, overwrite));
+
+        importedBook.groups.iterator()
+                .forEachRemaining((group) -> mergeGroup(group, overwrite));
     }
 
     @Override
