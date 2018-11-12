@@ -355,7 +355,10 @@ Format: +
 === Ingredient-Recipe Query Commands (Only applicable in cross context)
 
 ==== View Recipes based on Ingredients `view`
-By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
+By default, the page show the recipe list that is same with the recipe list shown in recipe context at the point of
+initiation of the
+application. User can
+filter or sort the recipes
 based on ingredients contained in recipes. Also, needed amounts of ingredients are calculated by considering the number
  of
 serving units and ingredients stored in ingredient manager, so
