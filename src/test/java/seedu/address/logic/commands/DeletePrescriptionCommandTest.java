@@ -42,10 +42,10 @@ public class DeletePrescriptionCommandTest {
 
     @Test
     public void execute_allFieldsSpecified_success() {
-        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
-        Prescription toDelete = firstAppointment.getPrescriptions().get(0);
+        Appointment appointmentToEdit = model.getFilteredAppointmentList().get(3);
+        Prescription toDelete = appointmentToEdit.getPrescriptions().get(0);
 
-        Appointment editedAppointment = new AppointmentBuilder(firstAppointment).build();
+        Appointment editedAppointment = new AppointmentBuilder(appointmentToEdit).build();
         editedAppointment.deletePrescription(toDelete.getMedicineName().toString());
 
         List<Person> personList = model.getFilteredPersonList();
@@ -54,12 +54,12 @@ public class DeletePrescriptionCommandTest {
 
         for (Person person : personList) {
             if (person instanceof Doctor) {
-                if (firstAppointment.getDoctor().equals(person.getName().toString())) {
+                if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
                     doctorToEdit = (Doctor) person;
                 }
             }
             if (person instanceof Patient) {
-                if (firstAppointment.getPatient().equals(person.getName().toString())) {
+                if (appointmentToEdit.getPatient().equals(person.getName().toString())) {
                     patientToEdit = (Patient) person;
                 }
             }
@@ -69,10 +69,10 @@ public class DeletePrescriptionCommandTest {
         }
 
         Patient editedPatient = new PatientBuilder(patientToEdit).build();
-        editedPatient.setAppointment(firstAppointment, editedAppointment);
+        editedPatient.setAppointment(appointmentToEdit, editedAppointment);
 
         Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
-        editedDoctor.setAppointment(firstAppointment, editedAppointment);
+        editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
 
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(toDelete.getId(),
                 toDelete.getMedicineName());
@@ -81,7 +81,7 @@ public class DeletePrescriptionCommandTest {
                 toDelete.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.updateAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
@@ -90,13 +90,13 @@ public class DeletePrescriptionCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedWithoutCaseSensitivity_success() {
-        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
-        Prescription firstPrescription = firstAppointment.getPrescriptions().get(0);
+        Appointment appointmentToEdit = model.getFilteredAppointmentList().get(3);
+        Prescription firstPrescription = appointmentToEdit.getPrescriptions().get(0);
         Prescription toDelete = new PrescriptionBuilder(firstPrescription)
                 .withMedicineName(firstPrescription.getMedicineName().toString().toUpperCase())
                 .build();
 
-        Appointment editedAppointment = new AppointmentBuilder(firstAppointment).build();
+        Appointment editedAppointment = new AppointmentBuilder(appointmentToEdit).build();
         editedAppointment.deletePrescription(toDelete.getMedicineName().toString());
 
         List<Person> personList = model.getFilteredPersonList();
@@ -105,12 +105,12 @@ public class DeletePrescriptionCommandTest {
 
         for (Person person : personList) {
             if (person instanceof Doctor) {
-                if (firstAppointment.getDoctor().equals(person.getName().toString())) {
+                if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
                     doctorToEdit = (Doctor) person;
                 }
             }
             if (person instanceof Patient) {
-                if (firstAppointment.getPatient().equals(person.getName().toString())) {
+                if (appointmentToEdit.getPatient().equals(person.getName().toString())) {
                     patientToEdit = (Patient) person;
                 }
             }
@@ -120,10 +120,10 @@ public class DeletePrescriptionCommandTest {
         }
 
         Patient editedPatient = new PatientBuilder(patientToEdit).build();
-        editedPatient.setAppointment(firstAppointment, editedAppointment);
+        editedPatient.setAppointment(appointmentToEdit, editedAppointment);
 
         Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
-        editedDoctor.setAppointment(firstAppointment, editedAppointment);
+        editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
 
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(toDelete.getId(),
                 toDelete.getMedicineName());
@@ -132,7 +132,7 @@ public class DeletePrescriptionCommandTest {
                 firstPrescription.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.updateAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();

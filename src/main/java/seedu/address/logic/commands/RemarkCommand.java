@@ -32,7 +32,7 @@ public class RemarkCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE" + "] "
-            + PREFIX_REMARK + "REMARK "
+            + PREFIX_REMARK + "REMARK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98371931 "
@@ -104,7 +104,7 @@ public class RemarkCommand extends Command {
             Doctor doctorToEdit = (Doctor) personToEdit;
             Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(),
                     doctorToEdit.getEmail(), doctorToEdit.getAddress(), remark, doctorToEdit.getTags(),
-                    doctorToEdit.getUpcomingAppointments());
+                    doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
             model.updatePerson(doctorToEdit, editedDoctor);
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

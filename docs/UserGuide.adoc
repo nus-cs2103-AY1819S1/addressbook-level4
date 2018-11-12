@@ -190,6 +190,10 @@ Examples:
 Delete a doctor's appointment for the patient by its ID. +
 Format: `delete-appointment APPOINTMENT_ID`
 
+****
+* Only able to delete upcoming appointments
+****
+
 Examples:
 
 * `delete-appointment 10001`

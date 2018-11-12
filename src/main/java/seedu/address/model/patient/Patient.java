@@ -136,6 +136,7 @@ public class Patient extends Person {
             for (Appointment pastAppt : pastAppointments) {
                 if (pastAppt.getAppointmentId() == target.getAppointmentId()) {
                     indexToBeDeleted = pastAppointments.indexOf(pastAppt);
+                    System.out.println(indexToBeDeleted);
                     inPastAppointments = true;
                     break;
                 }
@@ -170,6 +171,12 @@ public class Patient extends Person {
      */
     public boolean hasAppointment(int appointmentId) {
         for (Appointment app : upcomingAppointments) {
+            if (app.getAppointmentId() == appointmentId) {
+                return true;
+            }
+        }
+
+        for (Appointment app : pastAppointments) {
             if (app.getAppointmentId() == appointmentId) {
                 return true;
             }

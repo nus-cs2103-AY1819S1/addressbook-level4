@@ -25,7 +25,6 @@ import seedu.address.model.patient.Allergy;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
-
 /**
  * Adds a prescription to an appointment
  */
@@ -34,7 +33,7 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "add-prescription";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. \n"
             + "Parameters: "
             + "APPOINTMENT_ID "
             + PREFIX_MEDICINE_NAME + "MEDICINE_NAME "
@@ -97,12 +96,16 @@ public class AddPrescriptionCommand extends Command {
         for (Person person : personList) {
             if (person instanceof Doctor) {
                 if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
-                    doctorToEdit = (Doctor) person;
+                    if ((((Doctor) person).hasAppointment(id))) {
+                        doctorToEdit = (Doctor) person;
+                    }
                 }
             }
             if (person instanceof Patient) {
                 if (appointmentToEdit.getPatient().equals(person.getName().toString())) {
-                    patientToEdit = (Patient) person;
+                    if (((Patient) person).hasAppointment(id)) {
+                        patientToEdit = (Patient) person;
+                    }
                 }
             }
             if (doctorToEdit != null && patientToEdit != null) {
@@ -114,15 +117,15 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
         }
 
+
         // check if patient is allergic to medicine
-        for (Allergy allergy: patientToEdit.getMedicalHistory().getAllergies()) {
+        for (Allergy allergy : patientToEdit.getMedicalHistory().getAllergies()) {
             String allergyString = allergy.toString();
             if ((allergyString.toLowerCase().equals(prescriptionToAdd.getMedicineName().toString().toLowerCase()))) {
                 throw new CommandException(String.format(MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE, allergy));
             }
         }
 
-        //TODO update google calendar
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
                 patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
                 patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
@@ -130,7 +133,7 @@ public class AddPrescriptionCommand extends Command {
 
         Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
                 doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
-                doctorToEdit.getUpcomingAppointments());
+                doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
 
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
