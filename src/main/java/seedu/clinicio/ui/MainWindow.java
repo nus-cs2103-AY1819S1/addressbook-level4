@@ -62,6 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     private AppointmentDetailsDisplayPanel appointmentDetailsDisplayPanel;
     private AnalyticsDisplayPanel analyticsDisplay;
     private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
+    private MedicineDetailsDisplayPanel medicineDetailsDisplayPanel;
     private TitleScreen titleScreen;
 
     @FXML
@@ -204,6 +205,8 @@ public class MainWindow extends UiPart<Stage> {
         appointmentDetailsDisplayPanel.setVisible(false);
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         patientDetailsDisplayPanel.getRoot().setVisible(false);
+        medicineDetailsDisplayPanel = new MedicineDetailsDisplayPanel();
+        medicineDetailsDisplayPanel.getRoot().setVisible(false);
         browserDisplayPanel = new BrowserDisplayPanel();
         browserDisplayPanel.setVisible(false);
 
@@ -212,6 +215,7 @@ public class MainWindow extends UiPart<Stage> {
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
         displayPanelPlaceholder.getChildren().add(appointmentDetailsDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+        displayPanelPlaceholder.getChildren().add(medicineDetailsDisplayPanel.getRoot());
     }
 
     /**
@@ -257,6 +261,7 @@ public class MainWindow extends UiPart<Stage> {
         patientListPanelPlaceholder.setVisible(false);
         appointmentListPanelPlaceholder.setVisible(false);
         queuePanelPlaceholder.setVisible(false);
+        medicineListPanelPlaceholder.setVisible(false);
         splitPane.setVisible(false);
         titleScreenPlaceHolder.setVisible(true);
         titleScreenPlaceHolder.setManaged(true);
@@ -271,6 +276,7 @@ public class MainWindow extends UiPart<Stage> {
         patientListPanelPlaceholder.setVisible(true);
         appointmentListPanelPlaceholder.setVisible(true);
         queuePanelPlaceholder.setVisible(true);
+        medicineListPanelPlaceholder.setVisible(true);
         splitPane.setVisible(true);
         titleScreenPlaceHolder.setVisible(false);
         titleScreenPlaceHolder.setManaged(false);
@@ -353,35 +359,36 @@ public class MainWindow extends UiPart<Stage> {
      * @param isShowAnalytics Check whether want to show analytics display panel.
      * @param isShowBrowser Check whether want to show browser display panel.
      * @param isShowPatientDetails  Check whether want to show patient details display panel.
+     * @param isShowMedicineDetails  Check whether want to show medicine details display panel.
      * @param isShowAppointmentDetails Check whether to show appointment details display panel.
      */
     private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails,
-                                 boolean isShowAppointmentDetails) {
+                                  boolean isShowMedicineDetails, boolean isShowAppointmentDetails) {
         analyticsDisplay.setVisible(isShowAnalytics);
         browserDisplayPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
+        medicineDetailsDisplayPanel.getRoot().setVisible(isShowMedicineDetails);
         appointmentDetailsDisplayPanel.setVisible(isShowAppointmentDetails);
     }
 
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        showDisplayPanel(true, false, false, false);
+        showDisplayPanel(true, false, false, false, false);
     }
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        showDisplayPanel(false, true, false, true);
+        showDisplayPanel(false, true, false, false, true);
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-
-        showDisplayPanel(false, false, true, false);
+        showDisplayPanel(false, false, true, false, false);
     }
 
     @Subscribe
     private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
-        showDisplayPanel(false, true, false, false);
+        showDisplayPanel(false, false, false, true, false);
     }
 
     @Subscribe
