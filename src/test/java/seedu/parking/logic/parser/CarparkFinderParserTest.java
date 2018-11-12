@@ -216,7 +216,6 @@ public class CarparkFinderParserTest {
 
     @Test
     public void parseCommand_calculate() throws Exception {
-        
         Date inputStart = null;
         Date inputEnd = null;
         try {
