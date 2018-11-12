@@ -40,6 +40,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`list todo`* : lists all todo items
 * **`add event`**`t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/16 nov 4pm e/16 nov 6pm v/i3 Auditorium tag/lecture` : adds a calendar event titled `CS2103 Lecture` to the calendar.
 * **`add todo`**`t/CS2103 Assignment d/Version Control p/H` : adds a todo item titled `CS2103 Assignment` to the todo list.
+* **`find event cs2103` : shows all events with title, description or venue matching `cs2103`
 * **`delete event`**`3` : deletes the calendar event marked `3`.
 * **`delete todo`**`3` : deletes the todo item marked `3`.
 * **`show todo`**`3` : show the description of todo item marked `3`.
@@ -93,7 +94,7 @@ A calendar event can have any number of tags. (including 0)
 
 Examples:
 
-* `add event t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tag/lecture`
+* `add event t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/16 oct 2pm e/16 oct 4pm v/i3 Auditorium tag/lecture`
 * `add todo t/CS2103 Assignment d/Version Control p/L`
 // end::add[]
 
@@ -146,7 +147,7 @@ Format: `find event [KEYWORD MORE_KEYWORDS...] [from/DATE & TIME] [to/DATE & TIM
 ** Shows events that occur in the interval from the `from` date & time, to the `to` date & time.
 *** i.e. the event must be ongoing at some point in the time interval starting at the `from` date and ending at the `to` date
 ** You can choose to include only one of the 2 (`from` or `to`) date & times
-** Date & time are parsed using Natural Language Parsing, thus they can be input in any human-readable format
+** Date & time are parsed using Natural Language Parsing, thus they can be input in most human-readable formats, e.g. `16 nov 8am`
 *** Note: sometimes date & time inputs may be parsed unexpectedly - see Question 3 in the <<FAQ,FAQ>>
 * Filter by Tags
 ** In order for an event to be shown, it must have a tag that is *exactly matching* (although case-insensitive) with the input tag.
