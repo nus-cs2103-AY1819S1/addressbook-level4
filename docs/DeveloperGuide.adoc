@@ -545,6 +545,7 @@ of the current solution which might affect the test ability.
 // end::useraccount[]
 
 // tag::auto-ingredient-update[]
+[[auto-ingredient-update]]
 === Auto-ingredient update feature
 
 The auto-ingredient update mechanism is facilitated by `RecordSalesCommand` and triggers whenever the "record-sales"
@@ -700,8 +701,10 @@ search to fill in the `ObservableList<SalesRecord>` every time a sales report is
 takes up an O(N) memory space.
 // end::displaySales[]
 
-// tag::deleteingredient[]
-===  Delete Ingredient feature
+// tag::ingredient[]
+===  Delete ingredient feature
+This feature allows the user to delete an ingredient from the ingredient list, specified by its name or index.
+
 ==== Current Implementation
 
 The delete ingredient mechanism is facilitated by `DeleteIngredientCommand`. It is implemented as an abstract class
@@ -713,28 +716,75 @@ with the following abstract methods:
 `DeleteIngredientByIndexCommand` and `DeleteIngredientByNameCommand` extends `DeleteIngredientCommand` and implement
 their own behaviour for these methods.
 
+* `DeleteIngredientCommandByIndexCommand#execute()` - Removes an ingredient specified by a valid index
+* `DeleteIngredientCommandByNameCommand#execute()` - Removes an ingredient specified by a valid name
+
 The following sequence diagrams illustrate how the delete operation works.
 
 * Diagram 1: When user enters `delete-ingredient 1`
 
-image::DeleteIngredientByIndexSequenceDiagram.png[width="1000"]
+image::DeleteIngredientByIndexSequenceDiagram.png[width="800"]
+
+_Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 
 * Diagram 2: When user enters `delete-ingredient apple`
-
-image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
++
+image::DeleteIngredientByNameSequenceDiagram.png[width="800"]
+_Figure 4.6.1.1: Component interactions for `delete-ingredient apple` command_
 
 ==== Design Considerations
 
 ===== Aspect: Implementation of delete ingredient command
+Two different implementations were considered.
 
 * **Alternative 1 (current choice):** Separate classes to handle deleting by index and deleting by name.
 ** Pros: Allows different attributes and method implementation for each class.
 ** Cons: Tight coupling between `DeleteIngredientCommand` and the inheriting classes
 * **Alternative 2:** Single class to handle deleting by both index and name.
 ** Pros: Less coupling since the methods related to the delete ingredient command are confined to a single class.
-** Cons: Two attributes are required, but only one has a value while the other has to be set to null. This makes the
+** Cons: Two attributes are required, but only one has a value while the other has to be set to `null`. This makes the
 `equals()` method difficult to implement.
-// end::deleteingredient[]
+
+===  Stock up ingredient feature
+This feature allows the user to stock up one or more ingredients in the ingredient list.
+
+==== Current Implementation
+The Stock Up mechanism involves mainly the `StockUpCommandParser`, `StockUpCommand` and the `Model`
+interface. The `StockUpCommandParser` parses the command input from the user, creating a `HashMap` mapping
+`IngredientName` keys to `NumUnits` values. This `HashMap` represents the ingredients to be stocked up, and their
+respective stock up amounts. With this `HashMap`, the `StockUpCommandParser` creates a `StockUpCommand` object. The
+`StockUpCommand` executes the stock up operation, which is exposed in the `Model` interface as
+`Model#stockUpIngredients()`.
+
+[WARNING]
+The operation is atomic, thus if it fails for one ingredient, none of the ingredients will be stocked up and an
+exception is thrown
+
+The following activity diagram shows what happens when the user executes the `stockup` command:
+
+image::StockUpActivityDiagram.png[width="1000"]
+_Figure 4.7.1: Flow of events after a user executes the `stockup` command_
+
+==== Design Considerations
+
+===== Aspect: Implementation of Stock Up command
+Two different implementations were considered.
+
+* **Alternative 1 (current choice):** Create a stock up operation exposed in the `Model`. A list of ingredients is
+passed as a `HashMap` argument to the model interface to perform the stock up on all ingredients.
+** Pros: Maintains good abstraction. The sales feature can call upon the stock up operation of the interface without
+needing to know its implementation or creating any Ingredient objects.
+** Cons: Additional code has to be written and maintained, as opposed to using existing methods.
+* **Alternative 2:** Use the edit operation of the `Model` interface exposed as `Model#updateIngredient()`. For each
+ingredient to be stocked up, a new ingredient with the updated number of units is created and then passed as an
+argument to `updateIngredient()`.
+** Pros: Simple to implement, by using the existing `updateIngredient()` method.
+** Cons: Difficult to integrate different features while maintaining abstraction. The
+<<auto-ingredient-update, auto-update-ingredient>> feature would require the sales component to create each
+updated ingredient, before calling the `updateIngredient()` method. This means poor abstraction and possibly a
+violation of the Law of Demeter.
+
+// end::ingredient[]
 
 // tag::menu[]
 === Menu management feature
@@ -1342,6 +1392,16 @@ Use case ends.
 *Extensions*
 
 [none]
+* 1a. The user enters an invalid command format.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to add ingredient again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
+
+[none]
 * 2a. The ingredient name entered is already in the ingredient list.
 [none]
 ** 2a1. App returns a message telling user the ingredient name already exists.
@@ -1351,16 +1411,7 @@ Steps 2a1-2a2 are repeated until an ingredient name which does not exist is ente
 +
 Use case resumes at step 3.
 
-[none]
-* 2b. The user enters an invalid command format.
-[none]
-** 2b1. App returns a message telling user that the command format is invalid.
-** 2b2. User requests to add ingredient again.
-+
-Steps 2b1-2b2 are repeated until a valid command format is entered.
-+
-Use case resumes at step 3.
-
+// tag::ucingredient[]
 [discrete]
 === Use case: UC202 - Delete ingredient
 
@@ -1424,13 +1475,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The given index is invalid.
-+
+* 1a. The given index or name is invalid.
 [none]
-** 1a1. App returns a message telling user that the index is invalid.
+** 1a1. App returns a message telling user the index or name entered is invalid.
 ** 1a2. User requests to edit ingredient again.
 +
-Steps 1a1-1a2 are repeated until a valid index is entered.
+Steps 1a1-1a2 are repeated until a valid index or name is entered.
 +
 Use case resumes at step 2.
 
@@ -1444,6 +1494,16 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until at least one optional field is entered.
 +
 Use case resumes at step 2.
+
+[none]
+* 2a. The ingredient name does not exist.
+[none]
+** 2a1. App returns a message telling user that the ingredient cannot be found.
+** 2a2. User requests to edit ingredient again.
++
+Steps 2a1-2a2 are repeated until an existing ingredient name is entered.
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: UC204 - Stock up ingredient
@@ -1459,50 +1519,25 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The ingredient name does not exist.
-+
+ * 1a. The user enters an invalid format.
 [none]
-** 1a1. App returns a message telling user that the ingredient does not exist.
-** 1a2. User requests to stock up ingredient again.
-+
-Steps 1a1-1a2 are repeated until a valid ingredient name is entered.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: UC205 - Consume ingredient
-
-*MSS*
-
-1.  User requests to consume a specific ingredient.
-2.  App updates the count of the specified ingredient.
-3.  App returns a success message confirming the specified ingredient has been consumed.
-+
-Use case ends.
-
-*Extensions*
+ ** 1a1. App returns a message telling user that the command format is invalid.
+ ** 1a2. User requests to stock up ingredient again.
+ +
+ Steps 1a1-1a2 are repeated until a valid command format is entered.
+ +
+ Use case resumes at step 2.
 
 [none]
-* 1a. The ingredient name does not exist.
-+
+ * 2b. The ingredient name does not exist.
 [none]
-** 1a1. App returns a message telling user that the ingredient does not exist.
-** 1a2. User requests to consume ingredient again.
-+
-Steps 1a1-1a2 are repeated until a valid ingredient name is entered.
-+
-Use case resumes at step 2.
-
-[none]
-* 1b. The intended consumption is more than the number of units available.
-+
-[none]
-** 1b1. App informs user that there is not enough of the ingredient.
-** 1b2. User requests to consume ingredient again.
-+
-Steps 1b1-1b2 are repeated until the number of units entered is less than the number of units available.
-+
-Use case resumes at step 2.
+ ** 2b1. App returns a message telling user that the ingredient does not exist.
+ ** 2b2. User requests to stock up ingredient again.
+ +
+ Steps 2b1-2b2 are repeated until a valid ingredient name is entered.
+ +
+ Use case resumes at step 3.
+// end::ucingredient[]
 
 // tag::ucmenu[]
 [discrete]
@@ -2114,6 +2149,90 @@ be able to register a new account as the user role feature will only be implemen
 .. Prerequisite: User must be logged in.
 .. Test case: `list-accounts` +
    *Expected*: The list of accounts will be shown at the panel on the left of the GUI.
+
+=== Ingredient Management
+. Adding an ingredient
+
+.. Pre-requisites: The ingredient must not have the same name as another existing ingredient in the ingredient list
+and must be logged in.
+.. Test case: `add-ing n/Chicken Thigh u/kilogram p/14.00 m/20` +
+   *Expected*: Ingredient is added into the ingredient list. Details of the added ingredient is shown in the
+   status message. Timestamp in the status bar is updated.
+.. Test case: add-ing n/ +
+   *Expected*: No ingredient is added. Error details are shown in the status message. Status bar remains the
+   same.
+.. Other incorrect `add-ing` commands to try: `add-ing`, `add-ing n/123 u/kilogram p/14.00 m/20`,
+`add-ing n/Chicken Thigh u/+++ p/14.00 m/20` +
+   *Expected*: Similar to previous.
+
+. Listing all ingredients
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `list-ing` +
+   *Expected*: All ingredients are listed at the panel on the left of the UI.
+
+. Listing all the items that are low on stock
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `low-stock` +
+   *Expected*: All ingredients that have a number of units less than its minimum value are listed.
+
+. Deleting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `delete-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing Chicken Thigh` +
+   *Expected*: The ingredient with the specified name is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing 0` +
+   *Expected*: No ingredient is deleted. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `delete-ing` commands to try: `delete-ing`, `delete-ing x` (where x is larger
+ than the ingredient list size) +
+   *Expected*: Similar to previous.
+
+. Editing an ingredient
+
+.. Pre-requisites: The ingredient to be edited must be an existing entry in the ingredient list and must be logged in.
+The edited ingredient must not have the same name as another ingredient existing in the ingredient list.
+.. Test case: `edit-ing 1 n/Chicken Drumstick` +
+   *Expected*: Edited ingredient replaces the existing ingredient in the ingredient list. Details of the edited
+   ingredient is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-ing Chicken Thigh n/Chicken Drumstick` +
+   *Expected*: Similar to previous.
+.. Test case: `edit-ing n/` +
+   *Expected*: No ingredient is edited. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `edit-ing` commands to try: `edit-ing`, `edit-ing Chicken Drumstick+` +
+   *Expected*: Similar to previous.
+. Stocking up an ingredient or multiple ingredients
+
+.. Pre-requisites: The ingredient(s) to be stocked up must be an existing entry or existing entries in the ingredient
+list and must be logged in.
+.. Test case: `stockup n/Chicken Drumstick nu/10` +
+   *Expected*: The number of units of the ingredient increases by the specified number. The name of the
+   ingredient being restocked is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `stockup n/Chicken Drumstick nu/10 n/Cheese nu/15` +
+   *Expected*: Similar to previous.
+.. Test case: `stockup n/Chicken Drumstick` +
+   *Expected*: No ingredient is stocked up. Error details are shown in the status message. Status
+    bar remains the same.
+.. Other incorrect `stockup` commands to try: `stockup`, `stockup n/Chicken Drumstick n/Cheese nu/10 nu/20` +
+   *Expected*: Similar to previous.
+
+. Selecting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `select-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is selected. Details of the selected ingredient is
+   shown in the right panel of the UI.
+.. Test case: `select-ing 0` +
+   *Expected*: No ingredient is selected. Error details are shown in the status message.
+.. Other incorrect `select-ing` commands to try: `select-ing`, `select-ing x` (where x is larger
+ than the ingredient list size)
+   *Expected*: Similar to previous.
 
 // tag::testMenu[]
 === Menu Management
