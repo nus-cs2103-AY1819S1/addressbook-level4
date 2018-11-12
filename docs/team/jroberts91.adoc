@@ -6,11 +6,14 @@
 == PROJECT: OASIS
  ---
 == Overview
-Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
- This project portfolio summarizes the contributions that I have to the project.
+Hi, I am Joshua and welcome to my Project Portfolio. Office Assistance Specialized Integrated System (OASIS) is one of the projects I have done in my 2nd year studying Computer Science in NUS. OASIS was built up by enhancing, improving and morphing an existing AddressBook application. This project is written in Java and has about 12 kLoC.
+
+OASIS is an employee management application catered for small-to-medium sized enterprises. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. OASIS comes with many efficient problem-solving features that solve employee management problems of today, some of these features are: employee records management, authentication and permissions, assignment management, archiving of employees, and leave management.
+
+This document summarizes my contribution of work done in OASIS.
 
 == Summary of contributions
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Link to reposense]]
+* *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Reposense]
 
 * *Major enhancement*: Added *the ability to archive and restore employees*
 ** Added *the ability to delete active employees and archive them*
@@ -40,20 +43,19 @@ This feature improves OASIS significantly as it removes unwanted employee inform
 * *Minor enhancements*:
 ** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
 
-
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases v1.1 - v1.4 on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
 ** Enhancements to existing features:
-*** Updated the GUI to show a `ListPicker` to toggle between active and archive list. (Pull requests)
-*** Updated `DeleteCommand` to delete from either active or archive list depending on which list the user is on.
-*** Updated `ClearCommand` to clear all employees in OASIS, both active and archive.
-*** Wrote tests for features. ((Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183]))
+*** Updated the GUI to show a ListPicker to toggle between active and archive list. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
+*** Updated DeleteCommand to delete from either active or archive list depending on which list the user is on. (Pull requests)
+*** Updated ClearCommand to clear all employees in OASIS, both active and archive. (Pull requests)
+*** Wrote tests for features. (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183])
 
 ** Documentation:
-*** Updated class diagrams for `UI` and `Model` component in the Developer Guide.
+*** Updated the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[Model class diagram] and link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[UI class diagram] in the Developer Guide to reflect all the changes that we did.
 
 ** Community:
 *** `Listpicker` menu feature that I added was adopted by several other class mates ()
