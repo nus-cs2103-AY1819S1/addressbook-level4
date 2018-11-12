@@ -97,7 +97,7 @@ tag `CS3241` and deadline of `101018` , venue at `mpsh1`.
 The priority level must be a number between 1 to 3, where 3 denotes highest priority.
 
 [WARNING]
-The name, priority level and deadline fields are compulsory and required for every task. Tags are optional.
+The name, priority level, deadline and venue fields are compulsory and required for every task. Tags are optional.
 
 [TIP]
 When you add new tasks with new tags (tags that have not been added to any existing categories),
