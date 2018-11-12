@@ -1,5 +1,6 @@
 package seedu.address.logic.util;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,11 +16,13 @@ import javafx.util.Pair;
 
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerId;
+
 
 /**
  * Populates and exports a PDF file containing supplied volunteer information to the given file path.
@@ -59,6 +62,18 @@ public class CertGenerator {
      * @throws IOException if there are issues writing to the file
      */
     private void populatePdf() throws IOException {
+        // Define some constants used in the population
+        int maxEventNameLength = 43;
+        int titleHeightOffset = 740;
+        int bodyIndentWidth = 20;
+        String bullet = "\u2022  ";
+        Color borderColor = Color.DARK_GRAY;
+        float titleLeading = 20f;
+        float bodyLeading = 17f;
+        int titleFontSize = 24;
+        int bodyFontSize = 14;
+
+
         // Create a new page and add it to the document
         PDPage page = new PDPage();
         doc.addPage(page);
@@ -66,30 +81,37 @@ public class CertGenerator {
         // Setup a new content stream to write to a page
         PDPageContentStream contStream = new PDPageContentStream(doc, page);
 
+        // Draw a dark gray border around the page
+        contStream.setStrokingColor(borderColor);
+        contStream.addRect(bodyIndentWidth / 2,
+                bodyIndentWidth / 2,
+                page.getMediaBox().getWidth() - bodyIndentWidth,
+                page.getMediaBox().getHeight() - bodyIndentWidth);
+        contStream.stroke();
+
         // Retrieve the selected volunteer's attributes
         VolunteerId volunteerId = volunteer.getVolunteerId();
         Name volunteerName = volunteer.getName();
 
         contStream.beginText();
-        contStream.setLeading(20f);
+        contStream.setLeading(titleLeading);
 
         // Set title font
         PDFont titleFont = PDType1Font.TIMES_BOLD_ITALIC;
-        float titleFontSize = 24;
         contStream.setFont(titleFont, titleFontSize);
 
         // Input title to the center of the page
         String title = "Certificate of Recognition";
         float titleWidth = titleFont.getStringWidth(title) * titleFontSize / 1000f;
-        contStream.newLineAtOffset(page.getMediaBox().getWidth() / 2 - titleWidth / 2, 740);
+        contStream.newLineAtOffset(page.getMediaBox().getWidth() / 2 - titleWidth / 2, titleHeightOffset);
         contStream.showText(title);
         contStream.newLine();
         contStream.newLine();
 
         // Volunteer Name, ID and current date section
-        contStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 14);
+        contStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, bodyFontSize);
 
-        contStream.newLineAtOffset(-(page.getMediaBox().getWidth() / 2 - titleWidth / 2) + 20, 0);
+        contStream.newLineAtOffset(-(page.getMediaBox().getWidth() / 2 - titleWidth / 2) + bodyIndentWidth, 0);
 
         String volunteerNameLine = "Volunteer Name: " + volunteerName;
         contStream.showText(volunteerNameLine);
@@ -105,7 +127,7 @@ public class CertGenerator {
         contStream.newLine();
 
         // Reduce the leading for main body of certificate
-        contStream.setLeading(17f);
+        contStream.setLeading(bodyLeading);
 
         // Standardised formality text
         String formalityTextLine1 = "To whomever it may concern,";
@@ -117,31 +139,47 @@ public class CertGenerator {
                 + "'s contributions to our organisation via the following event(s):";
         contStream.showText(formalityTextLine2);
         contStream.newLine();
+        contStream.newLine();
 
         // Event contribution information
-        contStream.newLine();
+        int totalHours = 0;
         for (Pair<Record, Event> pair: volunteerRecordEventPairs) {
-            // Information from event record
-            Hour eventHours = pair.getKey().getHour();
+            // Input information from event record
+            Record thisRecord = pair.getKey();
+            Event thisEvent = pair.getValue();
 
-            seedu.address.model.event.Name eventName = pair.getValue().getName();
-            Date startDate = pair.getValue().getStartDate();
-            Date endDate = pair.getValue().getEndDate();
+            Hour eventHours = thisRecord.getHour();
+            String eventName = thisEvent.getName().fullName;
+            EventId eventId = thisEvent.getEventId();
+            Date endDate = thisEvent.getEndDate();
+            Date startDate = thisEvent.getStartDate();
 
-            String eventEntryLine = eventName + " - " + eventHours + " hour(s) from " + startDate + " to " + endDate;
+            // Trim event name to prevent exceeding page width
+            if (eventName.length() > maxEventNameLength) {
+                eventName = eventName.substring(0, maxEventNameLength - 1) + "...";
+            }
 
-            contStream.showText("\u2022  "); // bullet
+            String eventEntryLine = eventName + " [" + eventId + "]" + " - " + eventHours + " hour(s) from "
+                    + startDate + " to " + endDate;
+
+            contStream.showText(bullet);
             contStream.showText(eventEntryLine);
             contStream.newLine();
-        }
 
+            totalHours += Integer.parseInt(eventHours.toString());
+        }
+        contStream.newLine();
+
+        // Input the total hours from across all records
+        String totalHoursLine = "Total hours contributed: " + totalHours;
+        contStream.showText(totalHoursLine);
+        contStream.newLine();
         contStream.newLine();
 
         String appreciationLine = "We greatly appreciate " + volunteerName
                 + "'s services rendered to our organisation.";
         contStream.showText(appreciationLine);
         contStream.newLine();
-
         contStream.newLine();
 
         String regardsLine = "Regards,";
