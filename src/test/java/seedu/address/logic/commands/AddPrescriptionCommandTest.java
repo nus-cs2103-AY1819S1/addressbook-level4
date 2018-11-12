@@ -15,7 +15,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -80,7 +80,7 @@ public class AddPrescriptionCommandTest {
 
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setAppointment(firstAppointment, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
@@ -128,7 +128,7 @@ public class AddPrescriptionCommandTest {
 
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setAppointment(firstAppointment, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
