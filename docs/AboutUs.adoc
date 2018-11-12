@@ -26,7 +26,7 @@ image::javenseow.png[width="150", align="left"]
 {empty}[https://github.com/javenseow[github]][<<javenseow#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of profile view GUI feature & email feature
+Responsibilities: In charge of search, image and profile view features
 
 '''
 
