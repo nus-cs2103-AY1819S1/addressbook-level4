@@ -752,11 +752,12 @@ to ClinicIO.
 === Patient Management
 
 ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
+This patient management is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
 
 ==== Current Implementation
 
-The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, `EditPatientCommand` and `DeletePatientCommand`
-which is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
+The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, and `FindPatientCommand`.
+
 
 ===== `AddPatientCommand`
 
@@ -790,11 +791,7 @@ The following code snippet shows how `AddPatientCommand` is executed:
 
 The `ListPatientCommand` retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
 
-===== `EditPatientCommand`
-
-{Add implementation}
-
-===== `DeletePatientCommand`
+===== `FindPatientCommand`
 
 {Add implementation}
 
