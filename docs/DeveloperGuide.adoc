@@ -2043,10 +2043,36 @@ These instructions only provide a starting point for testers to work on; testers
    *Expected*: User will be logged in to the `root` account, and the username will be set accordingly at the
    top-right corner of the GUI.
 .. Test case: `login pw/1122qq id/root` +
-   *Expected*: Same as previous as you can enter the parameters in any order.
+   *Expected*: Same as previous as the parameters can be supplied in any order.
 .. Test case: `login id/helloworld pw/lalala` +
    *Expected*: Account does not exists and user will be shown an error message.
 .. Test case: `login id/root pw/` +
    *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields.
 .. Test case: `login id/ pw/1122qq` or `login` +
-   *Expected*: Same as previous.
+   *Expected*: Same to previous.
+
+. Logout
+
+.. Prerequisite: User must be logged in first.
+.. Test case: `logout`
+   *Expected*: User will be logged out, and the username will be reset back to `Guest` at the top-right corner of the
+    GUI.
+
+. Changing Password
+
+.. Prerequisite: User must be logged in. The old and new password can be the same.
+.. Test case: `change-password npw/newpassword`
+   *Expected*: User's password will be updated. The new password must be used for future login.
+.. Test case: `change-password npw/newpassword npw/evennewerpassword`
+   *Expected*: `evennewerpassword` will be recorded as the new password.
+.. Test case: `change-password npw/`
+   *Expected*: User will be prompted to provide a valid password.
+.. Test case: `change-password`
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields..
+
+
+=== Saving data
+. Dealing with missing/corrupted data files
+.. To simulate missing/corrupted data file, simply go to the `data` folder, open up `restaurantbook.xml` and remove
+any XML tags, or simply delete the `restaurantbook.xml` file. The next time the application is launched, a clean
+`restaurantbook.xml` will be re-generated.
