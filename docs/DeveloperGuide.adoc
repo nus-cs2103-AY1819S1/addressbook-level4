@@ -1598,7 +1598,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Adding a `MedicalRecord` to patient
+=== Adding a `MedicalRecord` to `Patient`
 . Adding a `MedicalRecord` to a `Patient` referenced from filtered list
 
 .. Prerequisites: List all `Patients` using the `list` command. Multiple `Patients` in the list. `Patient` at index `1` has not had any `MedicalRecord` added yet.
@@ -1687,7 +1687,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect `Restock` commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
    Expected: No `Medicine` is restocked. Error details shown in the status message. Status bar remains the same.
 
-=== Check the `Stocks` of all `Medicines`
+=== Checking the `Stock` of all `Medicines`
 
 . Listing all `Medicines` that are low in supply in the records
 
