@@ -78,7 +78,7 @@ public class CommandBox extends UiPart<Region> {
             return passwordFormatter.maskPassword(commandTextField.getText(), false, false);
         }
     }
-    
+
     /**
      * Updates the text field with the previous input in {@code historySnapshot},
      * if there exists a previous input in {@code historySnapshot}

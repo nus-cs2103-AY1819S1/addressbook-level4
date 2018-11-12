@@ -10,11 +10,11 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PASSWORD;
 public class PasswordPrefixFormatter {
 
     private StringBuilder tempPassword;
-    
+
     private int passwordPrefixIndex;
     private int spaceAfterPasswordIndex;
     private String prefixesBeforePasswordPrefix;
-    
+
     public PasswordPrefixFormatter() {
         tempPassword = new StringBuilder();
         passwordPrefixIndex = -1;
