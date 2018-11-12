@@ -12,6 +12,7 @@ public class FuzzySearchComparator implements Comparator<CalendarEvent> {
     private final List<String> keywords;
 
     public FuzzySearchComparator(List<String> keywords) {
+        assert keywords != null;
         this.keywords = keywords;
     }
 

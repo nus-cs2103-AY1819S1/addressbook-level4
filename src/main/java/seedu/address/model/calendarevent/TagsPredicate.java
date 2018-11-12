@@ -12,6 +12,7 @@ public class TagsPredicate implements Predicate<CalendarEvent> {
     private final Set<String> tags;
 
     public TagsPredicate(Set<String> tags) {
+        assert tags != null;
         this.tags = tags;
     }
 

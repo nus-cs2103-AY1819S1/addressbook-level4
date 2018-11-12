@@ -14,6 +14,7 @@ public class FuzzySearchFilterPredicate implements Predicate<CalendarEvent> {
     private final List<String> keywords;
 
     public FuzzySearchFilterPredicate(List<String> keywords) {
+        assert keywords != null;
         this.keywords = keywords;
     }
 
