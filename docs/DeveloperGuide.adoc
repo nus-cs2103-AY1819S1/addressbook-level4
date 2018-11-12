@@ -525,7 +525,7 @@ adds it to the `Patient` s `AppointmentHistory` (not shown). `ClinicIO#removeApp
 
 [NOTE]
 Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
-of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+of changing appointment status and addition into the patient's appointment history seems redundant. In v2.0, the usage of
 pre-existing patients to make appointments will make these additional tasks more useful.
 
 ==== Design Considerations
@@ -537,7 +537,7 @@ pre-existing patients to make appointments will make these additional tasks more
 ** Pros: Makes it easier to implement.
 ** Cons: Requires additional code to convert into integers when carrying out calculating methods.
 
-==== Aspect: How to cancel appointments
+===== Aspect: How to cancel appointments
 * **Alternative 1 (current choice):** Differentiate between cancellation and deletion
 ** Pros: Reduces the occurrences of directly manipulating a Patient's history. It also upholds the
 Separation of Concerns Principle.
@@ -546,7 +546,7 @@ Separation of Concerns Principle.
 ** Pros: Makes it easier to implement and prevents redundancy in code.
 ** Cons: Violates Separation of Concerns Principle.
 
-==== Aspect: How to display appointments
+===== Aspect: How to display appointments
 * **Alternative 1 (current choice):** Display appointments in a tab
 ** Pros: Creates an intuitive and easily navigable screen to access appointments.
 ** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
