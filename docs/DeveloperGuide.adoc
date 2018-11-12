@@ -424,6 +424,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 [[AddDeleteEvents]]
 //tag::addEventsHeader[]
+
 === Add/Delete Events feature
 
 ==== Current Implementation
@@ -440,7 +441,9 @@ doing so will also allow the developer to alter the definition of the different 
 `Event` class easily.
 
 //tag::eventDiagram[]
+
 image::Event.png[Event class]
+
 //end::eventDiagram[]
 
 //tag::addEvents[]
@@ -666,6 +669,7 @@ Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag
 
 [[filteringEvents]]
 //tag::filterEvents[]
+
 === Filtering of Events
 [[FindEvent]]
 ==== Find Event (by tag) feature

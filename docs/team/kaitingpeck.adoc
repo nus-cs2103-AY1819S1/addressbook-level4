@@ -101,19 +101,20 @@ include::../DeveloperGuide.adoc[tag=addEvents]
 More details can be found in the <<DeveloperGuide.adoc#AddDeleteEvents, Developer Guide>>.
 include::../DeveloperGuide.adoc[tag=addEvents2]
 include::../DeveloperGuide.adoc[tag=seeEventContacts]
-General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#seeEventContacts, Developer Guide>>. +
+General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#seeEventContacts, Developer Guide>>. +
 
 include::../DeveloperGuide.adoc[tag=seeEventContacts2]
 include::../DeveloperGuide.adoc[tag=editEventAddress]
-General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#EditEventAddress, Developer Guide>>. +
+General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#EditEventAddress, Developer Guide>>. +
 
 include::../DeveloperGuide.adoc[tag=editEventAddress2]
 include::../DeveloperGuide.adoc[tag=eventTags]
-General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#EventTags, Developer Guide>>. +
+General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#EventTags, Developer Guide>>. +
 
 include::../DeveloperGuide.adoc[tag=eventTags2]
 include::../DeveloperGuide.adoc[tag=filterEvents]
-General steps are as follows. Detailed diagrams can be found in the <<DeveloperGuide.adoc#filteringEvents, Developer Guide>>. +
+General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#filteringEvents, Developer Guide>>. +
 
 include::../DeveloperGuide.adoc[tag=filterEvents2]
-//include::../DeveloperGuide.adoc[tag=userStories]
+The implementation of the <<../DeveloperGuide.adoc#listEvent, listEvent>> feature is similar to the above,
+and more details can be found in <<../DeveloperGuide.adoc#listEvent, Developer Guide>>
