@@ -22,8 +22,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.person.Username;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.project.AssignmentName;
 import seedu.address.model.project.Project;
-import seedu.address.model.project.ProjectName;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -129,19 +129,19 @@ public class SampleDataUtil {
 
     public static Assignment[] getSampleAssignments() {
         return new Assignment[] {
-            new Assignment(new ProjectName("OASIS"), new Name("Amy Bee"),
+            new Assignment(new AssignmentName("OASIS"), new Name("Amy Bee"),
                     new Description("Project Management System.")),
-            new Assignment(new ProjectName("FALCON"), new Name("Bob Choo"),
+            new Assignment(new AssignmentName("FALCON"), new Name("Bob Choo"),
                     new Description("Home Security System.")),
-            new Assignment(new ProjectName("SCRUB DADDY"), new Name("Billy Bo"),
+            new Assignment(new AssignmentName("SCRUB DADDY"), new Name("Billy Bo"),
                     new Description("World's most friendly scrubber.")),
-            new Assignment(new ProjectName("BEARY"), new Name("John Ale"),
+            new Assignment(new AssignmentName("BEARY"), new Name("John Ale"),
                     new Description("Creating innovative teddy bear that is not just a bear")),
-            new Assignment(new ProjectName("SHARK TANK"), new Name("Marcus Ban"),
+            new Assignment(new AssignmentName("SHARK TANK"), new Name("Marcus Ban"),
                     new Description("Development for world's largest aquarium.")),
-            new Assignment(new ProjectName("ANLGENE"), new Name("Terry Cook"),
+            new Assignment(new AssignmentName("ANLGENE"), new Name("Terry Cook"),
                     new Description("Creating the best water bottle that is bullet proof and featherlight")),
-            new Assignment(new ProjectName("COLE HAAN"), new Name("Han Ming"),
+            new Assignment(new AssignmentName("COLE HAAN"), new Name("Han Ming"),
                     new Description("The leading company in trendy wallet."))
         };
     }

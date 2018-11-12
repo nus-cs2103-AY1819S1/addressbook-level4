@@ -84,7 +84,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedAssignment}.
      */
     public static void assertCardDisplaysAssignment(Assignment expectedAssignment, AssignmentCardHandle actualCard) {
-        assertEquals(expectedAssignment.getProjectName().fullProjectName, actualCard.getProjectName());
+        assertEquals(expectedAssignment.getAssignmentName().fullProjectName, actualCard.getProjectName());
         assertEquals("Author: " + expectedAssignment.getAuthor().fullName, actualCard.getAuthor());
         assertEquals("Description: " + expectedAssignment.getDescription().value, actualCard.getDescription());
     }

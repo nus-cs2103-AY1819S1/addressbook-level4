@@ -4,7 +4,7 @@ import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -26,7 +26,7 @@ public class EditAssignmentDescriptorBuilder {
      */
     public EditAssignmentDescriptorBuilder(Assignment assignment) {
         descriptor = new EditAssignmentCommand.EditAssignmentDescriptor();
-        descriptor.setAssignmentName(assignment.getProjectName());
+        descriptor.setAssignmentName(assignment.getAssignmentName());
         descriptor.setAuthor(assignment.getAuthor());
         descriptor.setDescription(assignment.getDescription());
     }
@@ -35,7 +35,7 @@ public class EditAssignmentDescriptorBuilder {
      * Sets the {@code AssignmentName} of the {@code EditAssignmentDescriptor} that we are building.
      */
     public EditAssignmentDescriptorBuilder withAssignmentName(String name) {
-        descriptor.setAssignmentName(new ProjectName(name));
+        descriptor.setAssignmentName(new AssignmentName(name));
         return this;
     }
 

@@ -48,7 +48,7 @@ public class AssignmentCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code assignment}.
      */
     public boolean equals(Assignment assignment) {
-        return getProjectName().equals(assignment.getProjectName().fullProjectName)
+        return getProjectName().equals(assignment.getAssignmentName().fullProjectName)
                 && getAuthor().equals(assignment.getAuthor().fullName)
                 && getDescription().equals(assignment.getDescription().value);
     }

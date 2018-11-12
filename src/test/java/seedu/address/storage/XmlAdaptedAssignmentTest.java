@@ -12,7 +12,7 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Name;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedAssignmentTest {
@@ -20,7 +20,7 @@ public class XmlAdaptedAssignmentTest {
     private static final String INVALID_ASSIGNMENT_NAME = "O@S!S";
     private static final String INVALID_AUTHOR = "r@Ch";
     private static final String INVALID_DESCRIPTION = " ";
-    private static final String VALID_ASSIGNMENT_NAME = OASIS.getProjectName().fullProjectName;
+    private static final String VALID_ASSIGNMENT_NAME = OASIS.getAssignmentName().fullProjectName;
     private static final String VALID_AUTHOR = OASIS.getAuthor().fullName;
     private static final String VALID_DESCRIPTION = OASIS.getDescription().value;
 
@@ -34,14 +34,14 @@ public class XmlAdaptedAssignmentTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedAssignment assignment =
                 new XmlAdaptedAssignment(INVALID_ASSIGNMENT_NAME, VALID_AUTHOR, VALID_DESCRIPTION);
-        String expectedMessage = ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS;
+        String expectedMessage = AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, assignment::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         XmlAdaptedAssignment assignment = new XmlAdaptedAssignment(null, VALID_AUTHOR, VALID_DESCRIPTION);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ProjectName.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignmentName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, assignment::toModelType);
     }
 

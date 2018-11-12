@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.model.person.Name;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 public class AddAssignmentCommandParserTest {
     private AddAssignmentParser parser = new AddAssignmentParser();
@@ -48,7 +48,7 @@ public class AddAssignmentCommandParserTest {
         // invalid project name
         assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_DESC + AUTHOR_ASSIGNMENT_DESC_OASIS
                         + ASSIGNMENT_DESC_OASIS,
-                ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
+                AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
 
         // invalid author
         assertParseFailure(parser, NAME_ASSIGNMENT_DESC_OASIS + INVALID_ASSIGNMENT_AUTHOR_DESC + ASSIGNMENT_DESC_OASIS,
@@ -57,6 +57,6 @@ public class AddAssignmentCommandParserTest {
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_DESC + INVALID_ASSIGNMENT_AUTHOR_DESC
                 + ASSIGNMENT_DESC_OASIS,
-                ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
+                AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
     }
 }
