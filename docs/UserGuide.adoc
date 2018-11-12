@@ -231,7 +231,8 @@ Updates the panel displaying the list of volunteers to display the list of event
 The following figure shows the expected panel before and after entering the `switch` command.
 
 .Panel display changing from volunteers to events
-image::command_switch.png[switch, 600]
+image::command_switch.png[switch, 500]
+//end::command-switch[]
 
 [[command-overview]]
 ==== Viewing overview: `overview`
@@ -548,7 +549,7 @@ Example(s):
 See the figures below for a step by step guide.
 
 .Execute `switch -e`
-image::command_switch.png[switch execution, 600]
+image::command_switch.png[switch execution, 500]
 
 .`manage 1` targets the event at index 1
 image::command_record_manage_eventIndex.png[switch execution, 200]
@@ -562,6 +563,7 @@ The following changes are observed:
 . Name of event being managed and total number of volunteers assigned to it.
 . List of volunteers currently assigned to the event. It will be empty if there are no volunteers assigned.
 
+//end::command-record[]
 [[command-record-add]]
 ==== Adding volunteer to event: `add`
 
@@ -592,7 +594,7 @@ Expected display box is shown in the figure below.
 
 .Output of `add 1`
 image::command_record_add_after1.png[add command, 600]
-//end::command-record[]
+
 * `add 1 h/5 r/Driver` +
 Adds a volunteer at index 1 to the event with 5 hours and remarks of 'Driver'. +
 Expected display box is shown in the figure below.
