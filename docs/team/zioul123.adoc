@@ -56,3 +56,9 @@ include::../UserGuide.adoc[tag=byNameCommands]
 |===
 
 include::../DeveloperGuide.adoc[tag=byNameCommands]
+
+include::../DeveloperGuide.adoc[tag=addUseCase]
+
+include::../DeveloperGuide.adoc[tag=editUseCase]
+
+include::../DeveloperGuide.adoc[tag=deleteUseCase]

@@ -1013,6 +1013,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `InsuRen` and the *Actor* is the `user`, unless specified otherwise)
 
+// tag::addUseCase[]
 [discrete]
 === Use Case: Add Clients
 
@@ -1031,6 +1032,7 @@ Use case ends.
 [none]
 ** 1a1. InsuRen shows an error message.
 Use case resumes at step 1.
+// end::addUseCase[]
 
 [discrete]
 === Use case: Delete person
@@ -1163,6 +1165,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+// tag::editUseCase[]
 [discrete]
 === Use Case: Edit Clients by Name
 
@@ -1192,10 +1195,12 @@ Use case resumes at step 1.
 *	1c. There are multiple clients with the same name.
 +
 [none]
-** 1b1. InsuRen shows an error message, prompting the user to either use a more specific name, or edit by index.
+** 1c1. InsuRen shows an error message, prompting the user to either use a more specific name, or edit by index.
 +
 Use case resumes at step 1.
+// end::editUseCase[]
 
+// tag::deleteUseCase[]
 [discrete]
 === Use Case: Delete Clients by Name
 
@@ -1215,12 +1220,13 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-*	1c. There are multiple clients with the same name.
+*	1b. There are multiple clients with the same name.
 +
 [none]
 ** 1b1. InsuRen shows an error message, prompting the user to either use a more specific name, or delete by index.
 +
 Use case resumes at step 1.
+// end::deleteUseCase[]
 
 // tag::picUseCase[]
 [discrete]
