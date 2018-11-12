@@ -470,64 +470,91 @@ image::AddCommandActivityDiagram.png[width="650"]
 // end::add[]
 
 
-// tag::Pop-up Alert[]
-=== Pop-up Alert
+// tag::Reminder Feature[]
+=== Reminder Operations
 
 ==== Current Implementation
-The pop-up function is currently implemented with the `add` and `edit` command as input fields. We will implement a separate command `setReminder` for a later iteration.
-The format for input is `[re/xxHxxMxxS]` and multiple inputs are allowed for one event.
+The input is duration in the following format: `[re/xxHxxMxxS]` , meaning a reminder will pop up xxHxxMxxS before the event start time. Multiple unique reminders are allowed for one event. +
 
-* `add ... [/re xxHxxMxxS]` -- set pop-up alert `xxHxxMxxS` before the event start time. +
-   This will be replaced with `setReminder index xxHxxMxxS` in later iteration.
-* `edit ... [/re xxHxxMxxS]` -- change pop-up time for the event. +
-   This will be replaced with `addReminder` and `deleteReminder` commands in a later iteration.
+The reminder operations are first implemented with the `add` and `edit` command as input fields. Commands `addReminder`, `deleteReminder`, `postponeReminder`
+are then implemented by inheriting editCommand class for more customised reminder operations. The differences in logic between three reminder commands and `edit` are explained below:
 
-Pop-up Alert feature requires the interaction between both 'Logic' and 'Model' Component as explained below. The main utility responsible for this feature is `PopUpManager`.
+* `addReminder INDEX [/re xxHxxMxxS]...[-a|-u]` +
+   Add reminders INCREMENTALLY to the event, whereas `edit` will replace the reminders of the event by input durations.
+* `deleteReminder INDEX [/re xxHxxMxxS]...[-a|-u]` +
+   Delete reminders if present. If edit is used for delete reminders, user will have to input all the reminders he/she wants to keep.
+* `postponeReminder INDEX [/re xxHxxMxxS] [-a|-u]` +
+   Postpone all reminders of the event by the duration specified.
 
-The storage for pop-up info is together with `Event` object in an XML file. It is stored as a `ReminderDurationList` object which is a `HashMap` of `Duration` object (parsed from xxHxxMxxS) and `Boolean` that indicates whether that time has popped-up.
-Every time `Event` object is updated or the Scheduler is opened, it will trigger an update in the `PopUpManager`.
+Pop-up Alert feature requires the interaction between both 'Logic' and 'Model' Component as shown by the class diagram and explanation below.
+The class diagram only shows relevant classes for clarity.
 
-`PopUpManager` will call `EventPopUpInfo` in `Model` to generate `EventPopUpInfo` objects according to the number of reminder times the event has. If the event has 3 pop-up times,
-it will generate 3 `EventPopUpInfo` with 3 different `PopUp Time` while the rest of the info fields are the same.
+image::ReminderClassDiagram.png[width="700"]
 
-The generated  `EventPopUpInfo` objects will be pushed to the `PopUp Queue` maintained by the `PopUpManager`. Its underlying data structure is a `Priority Queue`
-and key of the Reminder Time. When the App is opened, `PopUpManager` runs on a parallel thread to constantly check the queue to determine when to pop-up what alert.
-Once the reminder has popped up, `PopUpManager` will use `eventUid` (of `UUID` type) stored in the `PopUpInfo` object to find the `Event` and set True corresponding to the `Duration` that has popped up.
+The main utility responsible for this feature is `PopUpManager`, which is implemented in a singleton pattern since it should have no more than just one instance. +
 
-The overall workflow can be represented by the below activity diagram:
+`Event` has a field `ReminderDurationList` which is a set of `Duration` objects. A `Duration` such as `30m` represents the period before the event start time that reminder will pop up.
+Therefore each `Event` object can have multiple unique `Duration` objects in `ReminderDurationList`, and thus multiple reminders. +
 
-image::PopUpActivityDiagram.png[width="500"]
+Each `Duration`, together with the `Event` object itself, will be used by `PopUpManager` to generate 1 `EventPopUpInfo` object, which correspond to 1 reminder. +
 
-Below is an example usage scenario and explanation on the pop-up Alert mechanism behavior behind each step.
+Except for `Duration`, `EventPopUpInfo` object also has a `DateTime` field (PopUpTime) calculated by `Start Time - Duration`. It is the time the corresponding reminder should popped up.
+The rest of the fields of `EventPopUpInfo` is the same as the `Event` object. Descriptive fields such as `Description`, `Venue`, `EndTime` are needed for display reminders.
+While the two IDs are used for `PopUpManager` 's various updating methods. +
+
+`PopUpManager` takes in `Event` object to generate `EventPopUpInfo` objects and then stores them in a `PriorityQueue` (PopUpQueue)
+order by PopUpTime. The startRunning() method in PopUpManager will run in parallel
+to constantly check when to pop an `EventPopUpInfo` and call `PopUp` in `UI` to display the reminder. +
+
+
+Every time a command is executed and handled by `ModelManager`, `ModelManager` will call relevant method in `PopUpManager` to update PopUpQueue.
+The sequence diagram below illustrate a generic case when user key in `edit` command. Some parts are omitted for clarity. +
+
+image::ReminderSequenceDiagram.png[width="800"]
+
+
+Below is an example usage scenario with sequence diagram to illustrate how `PopUpManager` is updated +
+
+**Step 0** +
+The user has a set of recurring events: CS2103 lecture that happen every Friday 4pm - 6pm. He has set reminders to be 1H before the start time.
 
 **Step 1** +
-The user opens Scheduler. The `PopUpManager` initializes the PopUp Queue and checks if any PopUp should have been popped up when the app is closed. +
-For example, the user opens the Scheduler at 10:00. He has a pop-up set at 9:30. It will appear once he opens the app to remind him that the event has passed. +
-At the same time, the `PopUpManager` will keep checking the Queue concurrently when the app is open.
+Now is week 7 and the time for the lectures has just changed onwards. So he "edit 7 s/xxx 2pm e/xxx 4pm -u".
 
 **Step 2** +
-The user adds a new event "Assignment Due" and he wants to have two pop-up reminders before the deadline. He keys in `add n/Assignment Due s/today 10PM /re 4H /re 2H`. +
-The `AddCommandParser` will parse the input to a ReminderDurationList: `4H: False, 2H: False`
-The `AddCommand` will also trigger `PopUpManager` to update the Popup Queue. Two 'EventPopUpInfo' objects with 'PopUpTime' 6 PM and 8 PM separately will be initiated and added into the PopUp Queue.
-The user can close the Scheduler or use other functions of the Scheduler.
+When updateUpcomingEvents(eventToEdit, editedEvents) in `ModelManager` is called, this method will call editUpcoming(eventToEdit, editedEvents) in `PopUpManager`, which
+runs deleteUpcoming(..) and then add(..) +
 
 **Step 3** +
-At 6 PM on that day, if the Scheduler is open, a pop-up alert will appear. The `PopUpManager` pop out the corresponding `EventPopUpInfo`.
-Meanwhile, it will use the `eventUid` (of `UUID` type) stored in `EventPopUpInfo` to find the `Event` object and set `4H: True`. +
-The 8 PM pop-up is still in the Pop-up queue.
+deleteUpcoming will delete all `EventPopUpInfo` objects that share the same `SetId` with eventToEdit but have
+a later start time. Then add method will generate all editedEvents' corresponding 'EventPopUpInfo' and add them to PopUpQueue.
+
+[Note]
+====
+* At any time, ONLY EventPopUpInfo with PopUpTime in the future will be added to the queue.
+* Any updates to the Scheduler will trigger corresponding updates in PopUpManager.
+====
+
+The updates in `PopUpManager` takes place on the main thread. However, the checking of PopUpQueue takes place on a parallel thread as illustrated by the activity diagram.
+
+image::ReminderActivityDiagram.png[width="500"]
+
 
 ==== Design Considerations
-* **Use HashMap to store ReminderDurationList** (current choice)
-** Pro: Faster searching when deleting. The user can also view the reminder times he has set as part of the event info since it will not be deleted when it popped up.
-** Con: More complex implementation
-
-* **Use ArrayList to store ReminderDurationList** (alternative)
-** Store the `Durations` in an ArrayList, every time the `EventPopUpInfo` is popped out, delete the corresponding `Duration`
+* **Use Set to store ReminderDurationList** (current choice)
+** Store the `Durations` in a Set. Do nothing to the Set when `EventPopUpInfo` is popped out. Every time adding `EventPopUpInfo` to PopUpQueue,
+only those with future PopUpDateTime will be added.
 ** Pro: Easier implementation
-** Con: Searching and Deleting the Duration will take longer time.
+** Con: Will not be able to keep track of those reminders that have passed when the app is not open. Past reminders cannot pop up when the app opens.
 
-// end::Pop-up Alert[]
+* **Use HashMap to store ReminderDurationList** (alternative)
+** Store as `Duration`: `Boolean` (if the reminder has popped up). Every time a reminder pops up, set to `True`.
+** Pro: Will be able to keep track of those reminders that have passed when the app is not open.
+When the user open the app, `Duration` with `False` will generate corresponding `EventPopUpInfo` to add to the queue.
+They will be popped up as past reminders to remind the users they might have miss some important events.
+** Con: This design will be complicated and affect `undo` and `redo` function.
 
+// end::Reminder Feature[]
 
 // tag::addDeleteListTag[]
 === Add/Delete/List Tags
