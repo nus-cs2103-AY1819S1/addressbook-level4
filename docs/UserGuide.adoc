@@ -685,7 +685,7 @@ fields are `date`, `amount` and `remarks`.
 [NOTE]
 ====
 * The CCA specifed must exist in the Hallper.
-* The names of the head and vice head must eixst in the Hallper.
+* The names of the head and vice head must exist in the Hallper.
 * The transaction number specified with `trans/` must exist.
 * `undo` and `redo` command does not apply to `update`.
 ====
@@ -725,7 +725,7 @@ _Figure 4.5.6.2: Budget Window showing the transaction history of Softball_
 ****
 
 image::BudgetWindowCcaPanel.png[width=200"]
-_Figure 4.5.6.3: CCA panel of the Budget Window._
+_Figure 4.5.6.3: CCA panel of the Budget Window_
 
 [NOTE]
 ====
@@ -886,7 +886,7 @@ e.g. `add_trans c/Basketball date/31.01.2018 amount/-200 remarks/Competition Fee
 e.g. `delete_cca c/basketball`
 * *Delete Transaction* : `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER` +
 e.g. `delete_trans c/netball trans/1`
-* *Update CCA Details* : `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEAD] [budget/BUDGET]
+* *Update CCA Details* : `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VICE_HEAD] [budget/BUDGET]
 [trans/ENTRY_NUMBER] [date/DATE] [amount/AMOUNT] [remarks/REMARKS]` +
 e.g. `update c/track n/Track F h/Alice vh/June Ong budget/500 trans/1 date/28.02.2018 amount/100 remarks/Fund Raising`
 * *View CCAs' budget* : `budget [c/CCA_NAME]` +

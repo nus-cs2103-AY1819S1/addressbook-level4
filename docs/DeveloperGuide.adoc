@@ -633,7 +633,8 @@ The library is widely used and easy to understand so any new developer can easil
 ==== Current Implementation
 
 The budget feature in Hallper is implemented with reference to `AddressBook`. It stores `Cca` instead of `Person`, and
-each `Cca` contains the a `Budget` and a set of transaction `Entries`. The budget feature is facilitated by
+each `Cca` contains the `Name` of the head and vice-head, `Budget` allocated, `Spent` and `Outstanding` and a set of
+transaction `Entries`. Each `Entry` contains a `Date`, `Amount` and `Remarks`. The budget feature is facilitated by
 `BudgetBook` and `BudgetBookStorage`, and can also read and write onto the `ccabook.xml`, just like the  AddressBook.
  The purpose of this budget feature is to keep track of each `Cca` transaction.
 
@@ -734,7 +735,8 @@ _Figure 4.4.1.2: Sequence diagram for update command_
 
 The `add_trans` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 When a transaction entry is to be added, it looks up the `BudgetBook` in the `BudgetBookStorage` of
-the `Model` for the CCA and add the specified entry to the CCA. It then update the `Cca` stored inside the `ccabook.xml` file in the
+the `Model` for the CCA and add the specified entry to the CCA. It then updates the `Cca` stored inside the `ccabook
+.xml` file in the
 local directory.
 It implements the following commands:
 
@@ -2467,8 +2469,8 @@ Events in Hallper are considered the same if they have the same start date, end 
 === Creating CCA
 . Adds a CCA with a given budget
 
-.. Prerequisites: The name of the given CCA is alphanumeric. The budget given is numeric and the only symbol can be
-used is dash.
+.. Prerequisites: The name of the given CCA only contains alphabets. The budget given is numeric and the only symbol
+can be used is dash.
 .. Test case: `create n/Basketball budget/500` +
    Expected: New CCA added: Basketball Head: - Vice-Head: - Budget: 500
 .. Test case: `create n/Basketball` +
