@@ -456,8 +456,9 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
-* `cancelappt` Command - Cancels appointments found within the appointment schedule.
 * `listappt` Command - Lists the appointment schedule of the date specified.
+* `listallappt`Command - Lists all appointments.
+* `cancelappt` Command - Cancels appointments found within the appointment schedule.
 
 The class diagram below illustrates the interactions between the Appointment class and associated classes.
 
@@ -482,7 +483,7 @@ appointment.
 The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
 parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
 upon the complete implementation of the `Patient` class  in v2.0. The image below shows how the `Appointment` object is
-constructed.+
+constructed.
 
 [NOTE]
 The image does not include the method calls to construct a `Patient` object.
@@ -497,8 +498,8 @@ This means that this command can be undone or redone.
 
 ==== `listappt` Command
 
-The `listappt` command searches for that land on the date that was entered by the user.
-The filtered appointments are found in the found in `ModelManager`. The list instantiated by filtering the `UniqueAppointmentList`
+The `listappt` command searches for appointments that land on the date that was entered by the user.
+The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueAppointmentList`
 using `AppointmentContainsDatePredicate` which is created from the `Date` argument supplied by the user.
 
 ==== `listallappt` Command
@@ -518,8 +519,8 @@ The index is parsed using the `parseIndex()` and is used in `execute()`. A filte
 appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
 
 The `cancelAppointment()` method, under `Model`, is then called on the `targetAppointment`. The process of cancellation
-has two parts, `cancelAppointment` and `removeAppointment`. `cancelAppointment` simply changes the status of the appointment and
-adds it to the `Patient` s `AppointmentHistory` (not shown). `removeAppointment` actually removes the appointment from the
+has two parts, `cancelAppointment` and `removeAppointment`. `ClinicIO#cancelAppointment` simply changes the status of the appointment and
+adds it to the `Patient` s `AppointmentHistory` (not shown). `ClinicIO#removeAppointment` actually removes the appointment from the
 `UniqueAppointmentList`.
 
 [NOTE]
@@ -538,12 +539,20 @@ pre-existing patients to make appointments will make these additional tasks more
 
 ==== Aspect: How to cancel appointments
 * **Alternative 1 (current choice):** Differentiate between cancellation and deletion
-** Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
-the mistake to the patient's appointment history.
-** Cons: Violates Don't Repeat Yourself principle.
+** Pros: Reduces the occurrences of directly manipulating a Patient's history. It also upholds the
+Separation of Concerns Principle.
+** Cons: Violates Don't Repeat Yourself Principle.
 * **Alternative 2:** Lump deletion into cancellation
 ** Pros: Makes it easier to implement and prevents redundancy in code.
 ** Cons: Violates Separation of Concerns Principle.
+
+==== Aspect: How to display appointments
+* **Alternative 1 (current choice):** Display appointments in a tab
+** Pros: Creates an intuitive and easily navigable screen to access appointments.
+** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
+* **Alternative 2:** Have appointments appear when using an appointment command
+** Pros: Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
+** Cons: Increases difficulty in freelu accessing appointments.
 
 //end::apptfeature[]
 
