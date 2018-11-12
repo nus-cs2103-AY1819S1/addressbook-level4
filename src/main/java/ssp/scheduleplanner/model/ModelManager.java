@@ -243,7 +243,8 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedSchedulePlanner.equals(other.versionedSchedulePlanner)
                 && (filteredTasks.equals(other.filteredTasks)
-                || this.sortFilteredTasks().equals(other.sortFilteredTasks()));
+                || this.sortFilteredTasks().equals(other.sortFilteredTasks()))
+                && (getCategoryList().equals(other.getCategoryList()));
     }
 
 }
