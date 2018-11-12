@@ -142,6 +142,8 @@ Entering the command `help` into the Command Box achieves the same outcome.
 [[Features]]
 == Features
 
+Take note of these instructions related to the format of the commands before using them:
+
 ====
 *Command Format*
 
@@ -567,7 +569,11 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 Changes the Expense List to show the Statistics Panel if the Expense List is currently showing, then
 displays a graph of your expenditure over a specified time period, in a given `MODE`. +
 
+You can use this command to analyse your expenses, observe your spending patterns and to identify categories which take
+up most of your budget.
+
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
+
 Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
 depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
 
@@ -604,6 +610,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 * PERIOD_AMOUNT must be a positive integer
 * PERIOD can only be `d` or `m`, for day and month respectively
 * MODE can only be `t` or `c`, for time and category respectively
+* Leaving all parameters blank, i.e. typing the command `stats`, defaults in showing expenses for the past 7 days in Time mode.
 ====
 // end::statistics[]
 
@@ -779,7 +786,8 @@ e.g. `notification n/tip t/off`
 
 == Command Shorthands
 
-This is a list of mappings of commands to their command shorthands in Expense Tracker:
+Commands also come with command shorthands which can be used in place of the command word. I.e. using `h` has the same outcome as `help`
+This is a list of commands and their command shorthands in Expense Tracker:
 
 * `signup`: `su`
 * `login`: `li`
