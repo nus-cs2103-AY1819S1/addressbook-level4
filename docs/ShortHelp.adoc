@@ -10,6 +10,7 @@ Command syntax summary, enter `help more` for full manual.
 |update <index> <tag> <value>
 |shutdown <index>
 |open <index>
+|maintain <index>
 |clear
 |=======================================================================
 
