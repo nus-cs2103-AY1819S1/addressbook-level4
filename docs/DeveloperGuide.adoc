@@ -461,7 +461,8 @@ both `CommandBox` and `ResultDisplay` may be required.
 * **Alternative 2:** Store command entries using the existing `LogsCenter` for ThanePark.
 ** Pros: High code reuse. Developers know that all logging within the ThanePark is done by `LogsCenter`.
 ** Cons: High dependency and difficult to implement. When a modification to `LogsCenter` is required,
-the modification of command history storage may be required.
+the modification of command history storage may be required. Additionally, the parsing of command history
+from the existing `LogsCenter` logs may require substantial modifications.
 
 // end::commandManagement[]
 
