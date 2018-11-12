@@ -339,6 +339,9 @@ image::PersonMakeShallowDuplicate.png[width="800"]
 
 As can be seen from the above image `makeShallowDuplicate` creates a replica of a `Person` such that the respective `UniqueModuleList` and `UniqueOccasionList`
 are empty.
+
+// end::duplicationoflists[]
+
 // tag::updatinglists[]
 
 [[Updating-Lists]]
@@ -639,10 +642,6 @@ A shallow duplicate of Module contains an empty students list.
 
 The reason why this is done will be explained in the design considerations below.
 
-The following sequence diagram shows how the `removeperson` operation works:
-
-image::RemovePersonSequenceDiagram.png[width="800"]
-
 ==== Design Considerations
 For this feature to be possible, it has to be possible to somehow remove the link between said `Person`
 and `Module`/`Occasion`.
@@ -717,6 +716,10 @@ private void handlePerson() {
 The above code shows how the `MainWindow` deals with the context switch, which includes the
 setting of the active type (the context of the current window), so that contextual commands
 such as `delete` and `select` are able to function properly with correct indices.
+
+The following sequence diagram shows how the `listperson` operation works:
+
+image::ListPersonSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 We had to examine whether it was better to:
