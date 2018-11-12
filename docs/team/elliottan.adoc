@@ -21,27 +21,23 @@ This section documents the major and minor contributions that I have made to thi
 ** Highlights: This enhancement required careful deliberation of how it was to be designed. It was necessary to have an in-depth understanding of the existing code-base and how the many components worked together, so that I could consider the pros and cons of each design alternative that I conceptualized.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: 
 
-* *Code contributed*: see on link::https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]
+* *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]
 
-* *Other contributions*:
+* *Other contributions*: I helped my team mates with understanding and using the Storage component during development. I was in-charge of getting to know the in-and-outs of this component in the initial phases of the project, and then use this knowledge to assist whoever needed help with it.
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
+*** Added the basic backend support in the Model and Storage components for a user's profile picture. This was to facilitate future development where a user will be allowed to upload a profile picture.
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote tests for the features I implemented (!!!! Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added : https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W10-2/main/issues/265[1], https://github.com/CS2103-AY1819S1-W10-2/main/issues/270[2], https://github.com/CS2103-AY1819S1-W10-2/main/issues/269[3], https://github.com/CS2103-AY1819S1-W10-2/main/issues/268[4], https://github.com/CS2103-AY1819S1-W10-2/main/issues/267[5], https://github.com/CS2103-AY1819S1-W10-2/main/issues/266[6])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
 _{you can add/remove categories in the list above}_
 
@@ -57,7 +53,7 @@ include::../UserGuide.adoc[tag=leaveapplication]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation targeted at future developers (like NUS Copmuter Science students) of OASIS, and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=leaveapplication]
