@@ -686,18 +686,14 @@ image::ReminderSequenceDiagram.png[width="800"]
 
 Below is an example usage scenario with sequence diagram to illustrate how `PopUpManager` is updated +
 
-**Step 0** +
-The user has a set of recurring events: CS2103 lecture that happen every Friday 4pm - 6pm. He has set reminders to be 1H before the start time.
+1. The user has a set of recurring events: CS2103 lecture that happen every Friday 4pm - 6pm. He has set reminders to be 1H before the start time.
 
-**Step 1** +
-Now is week 7 and the time for the lectures has just changed onwards. So he "edit 7 s/xxx 2pm e/xxx 4pm -u".
+2. Now is week 7 and the time for the lectures has just changed onwards. So he "edit 7 s/xxx 2pm e/xxx 4pm -u".
 
-**Step 2** +
-When updateUpcomingEvents(eventToEdit, editedEvents) in `ModelManager` is called, this method will call editUpcoming(eventToEdit, editedEvents) in `PopUpManager`, which
+3. When updateUpcomingEvents(eventToEdit, editedEvents) in `ModelManager` is called, this method will call editUpcoming(eventToEdit, editedEvents) in `PopUpManager`, which
 runs deleteUpcoming(..) and then add(..) +
 
-**Step 3** +
-deleteUpcoming will delete all `EventPopUpInfo` objects that share the same `SetId` with eventToEdit but have
+4. deleteUpcoming will delete all `EventPopUpInfo` objects that share the same `SetId` with eventToEdit but have
 a later start time. Then add method will generate all editedEvents' corresponding 'EventPopUpInfo' and add them to PopUpQueue.
 
 [Note]
