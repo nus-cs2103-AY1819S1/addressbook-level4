@@ -394,7 +394,7 @@ Step 1. The user opens an image with the `open` command. The `Canvas` is initial
 [NOTE]
 A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
 
-
+.After opening an image
 image::undoRedo1.png[width="800"]
 
 Step 2. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
@@ -402,6 +402,7 @@ Step 2. The user executes a series of transformations. Each time, the newly tran
 [NOTE]
 If a command fails its execution, it will not call `Model#updateCurrentPreviewImage()`, so nothing will be cached.
 
+.After executing transformations
 image::undoRedo2.png[width="800"]
 
 Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
@@ -410,11 +411,13 @@ Step 3. The user wants to undo the previous action by using the `undo` command. 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
+.After exucuting undo
 image::undoRedo3.png[width="800"]
 
 
 Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
 
+.After comitting and purging redundant states
 image::undoRedo4.png[width="800"]
 
 //Step 5. The user decides to undo several actions. The user uses the `undo` command followed by the number of actions to undo eg.`2`. The `currentStatePointer` derements accordingly. The model's `previewImage` is to the pointed state.
@@ -477,7 +480,7 @@ image::historyPanel.png[width="200"]
 ** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like `blur` and `colorspace`.
 // end::undoredo[]
 
-// tag::apply[]
+// tag::transformation[]
 
 === Transformations and ImageMagick
 ==== Current Implementation
@@ -490,13 +493,31 @@ The transformation feature mainly consists of:
 * `createApplyCommand`: Allows users to define their own custom transformation set.
 
 The following describes main operations and processes contained in the classes above.
+
 ==== ImageMagickUtil:
 
 This class is used to provide utility methods to facilitate interoperability with ImageMagick such as:
 
 * `copyOutside()` -- Copies the OS-specific payload for ImageMagick.
+* `parseOperationArguments()` -- Parse the build in arguments and customised operations, return a list of String passed into process builder.
 * `processImage()` -- Converts user input to a valid ImageMagick command.
 * `runProcessBuilder()` -- Given a valid ImageMagick command, runs the command and retrieves the output.
+
+This class is separated from the model and acts as a Util for image editing, whenever editing the image,
+a transformation will be passed to the processImage, and it will be parses basing on the command templates
+stored in the app, then a list of arguments will be parsed from the transformation and a new process builder will be created
+and call the ImageMagick executable file to handle the image processing.
+
+When starting the app, methods in ImageMagickUtil will be called to check the environment and prepare the ImageMagick package.
+
+.Activity Diagram for Transformation feature with ImageMagick
+image::TransformationActivityDiagram.png[width="800"]
+
+===== Design Considerations:
+As ImageMagick is an independent portable package and it differs from system to system, in order to make sure that
+piconso will be able to work on multiple operating system, it needs to check the current system, choose the correct package
+and prepare the suitable environment for using ImageMagick.
+
 
 ==== ApplyCommand:
 
@@ -504,33 +525,35 @@ This command validates a transformation provided by the user and attempts to add
 
 Given below is an example usage scenario and how the command should behave at each step.
 
-. Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
+Step 1. Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
 
-. The user opens an image with the `open` command. The method `model.getPreviewImage()` will be called to read the appropriate `BufferedImage` from disk.
+Step 2. The user opens an image with the `open` command. The method `model.getPreviewImage()` will be called to read the appropriate `BufferedImage` from disk.
 
-. The user enters the command (e.g. `apply blur 0x8`). The entered command is parsed and the corresponding transformation is created.
+Step 3. The user enters the command (e.g. `apply blur 0x8`). The entered command is parsed and the corresponding transformation is created.
 
 [NOTE]
 If an invalid transformation is provided, a reminder of how to use the command will be given to the user and no ImageMagick command will be run.
 
-[start=4]
-. `ImageMagick#processImage` is a quasi-factory method that creates an instance of `ProcessBuilder` which contains the all the necessary information for ImageMagick to apply a transformation to the image.
-. The same method also executes the `ProcessBuilder` and reads the output back from the temporary folder.
+Step 4. Call `ImageMagick#processImage` which is a quasi-factory method that creates an instance of `ProcessBuilder` which contains the all the necessary information for ImageMagick to apply a transformation to the image,
+executes the `ProcessBuilder` and reads the output back from the temporary folder.
 [NOTE]
 While normal `apply` commands will show a useful help message after a failure, an `apply raw` command cannot provide the same granularity and will return a generic error message.
 
-[start=6]
-. If successful, the transformation that is just executed will be added to the `PreviewImage`++'s++ `TransformationSet`.
+Step 5. If successful, the transformation that is just executed will be added to the `PreviewImage`++'s++ `TransformationSet`.
 
-. The command will then request the UI to update its components, namely the `HistoryListPanel` and `ImagePanel` if any transformation was applied.
+Step 6. The command will then request the UI to update its components, namely the `HistoryListPanel` and `ImagePanel` if any transformation was applied.
+
+===== Design Considerations
+
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify,
+ intermediate images have to be stored in a temp folder first.
+
+ - For senior users, or users who are familiar with ImageMagick, `apply raw` will provide more flexibility and enable them to do further image editting.
 
 .Sequence Diagram for Apply Command
 image::ApplyCommandSequenceDiagram.png[width="800"]
 
-// end::apply[]
 
-
-// tag::create[]
 ==== CreateApplyCommand:
 
 This command allows users to create a named set of commands and store in the disk. All transformation sets will first be validated by `ImageMagickUtil#parseCustomiseCommand`.
@@ -546,13 +569,16 @@ If any of the specified transformations have an invalid name or argument, an err
 
 Step 3. The validated new command will be stored in the json for in the PiconsoCommands folder create when first time run the app.
 
+.Activity Diagram for CreateApply Command
+image::CreateTransformationActivityDiagram.png[width="800"]
+
 ==== Design Considerations
 
- - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify,
- intermediate images have to be stored in a temp folder first.
+ - Combination of the transformations are commonly needed in our daily lives. When users design a serious of operations and
+ plan to apply them to multiple images, or store them for future use, this feature will make the image editing more efficient
+ and flexible, thus we implemented the create command.
 
- - Combination of the transformations are commonly needed in our daily lives, thus we implemented the create command.
-// end::create[]
+// end::transformation[]
 
 // tag::save[]
 
@@ -565,9 +591,16 @@ User enters the name of the image and the format of the name will be validated.
 
 Given is an example of how to use the command
 
-Step 1. parse the image name user enters, get the name and the format of the filename.
+Step 1. Parse the argument entered, if no argument, store to original image.
 
-Step 2. check the format of the image, if the format is not supported, error will be thrown
+Step 2. If there is an argument, parse the image name user enters, get the name and the format of the filename.
+
+Step 3. Check the format of the image as well as the filename entered. If the format is not supported or the filename is already in use,
+a reminder will be shown to user and the image will not be saved.
+
+==== Design Considerations
+- as there is already an option for user to save to original image, when user specifies a filename, in order to avoid
+unintended overwritten of other images, using existing filename is forbidden.
 
 .Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width="800"]
@@ -1310,3 +1343,92 @@ Images that are currently being viewed. For example, if there are 16 images in t
 Action that is performed on an image
 
 [appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test Piconso manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Changing a directory
+
+. Traversing between directories
+
+.. Prerequisites: Users is aware of the current directory they are in from the status bar footer.
+.. Test case: `cd Desktop` +
+   Expected: User is now in Desktop. The full path of Desktop is shown in the status message. The current directory in the status bar is updated.
+.. Test case: `cd ..` +
+   Expected: User is now in the previous directory. The full path is shown in the status message. The current directory in the status bar is updated.
+.. Test case (only for Windows): `cd C://Users` +
+   Expected: User is now in `C:/Users`. The full path is shown in the status message. The current directory in the status bar is updated.
+.. Test case: `cd ` +
+   Expected: User is unable to traverse to any directory. Error message is shown in the status message. The status bar remains the same.
+.. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
+   Expected: Similar to previous.
+
+. `Tab` function to auto-complete directory name
+
+.. Prerequisites: Users is aware of the current directory they are in from the status bar footer.
+.. Test case: `cd Desk` +
+   Expected: `cd Desktop` is shown in the command box.
+.. Test case (only for Windows): `cd C://Use` +
+   Expected (only in Windows): `cd C://Users` is shown in the command box.
+.. Test case: `cd 12345` +
+   Expected: User does not observe any changes.
+.. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
+   Expected: Similar to previous.
+
+=== Opening an image
+
+. Opening images in current directory
+
+.. Prerequisites: `cd` into a existing directory with at at least 5 images to view the first batch of images in the directory.
+.. Test case: `open 1` +
+   Expected: The first image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
+.. Test case: `open 3` +
+   Expected: The third image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
+.. Test case: `open 0` +
+   Expected: The user is unable to open the image. Error message is shown in the status message.
+.. Other incorrect open commands to try: `open 11` (as index exceeds batch size of 10), `open x` (where x exceeds the total images in the current batch),
+   `open abc` +
+   Expected: Similar to previous.
+
+=== Traversing between image batches
+
+. Accessing the next/previous batch of images
+
+.. Prerequisites: `cd` into a existing directory with 11-20 images to view the first batch of 10 images in the directory.
+.. Test case: `next` +
+   Expected: The next 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `next` +
+   Expected: The user is unable to access the next batch of images as it exceeds the total number of images in the list. Error message is shown in the status message.
+.. Test case: `prev` +
+   Expected: The first 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `prev` +
+   Expected: The user is unable to access the prev batch of images as it is already at the start of the list. Error message is shown in the status message.
+.. Other incorrect next commands to try: `prev` (when list the already at the start), `next` (when user is viewing the end of list) +
+   Expected: Similar to previous.
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_

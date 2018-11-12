@@ -1,5 +1,4 @@
 = ZHANG TIANYANG - Project Portfolio
-
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -23,7 +22,7 @@ Unlink other image processing tools, without a long term learning process, picon
 *** What it does: It parses the arguments specified by user, validate the transforamtion and apply the transformation to images.
 *** Justification: This feature improves the product significantly, because apply the transformations to the image is the main feature and purpose of piconso.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands, preparing packages, and touching the external package and excutbale files.
-*** Credits: _{The processing of images is done by ImageMagic by calling the executable file in the processbuilder}_+
+*** Credits: _{The processing of images is done by ImageMagic by calling the executable file in the processbuilder}_
 
 ** *The ability to customise transformation basing on the transformations currectly*
 *** What it does: This feature allows user to design and apply their own transformation.
@@ -47,8 +46,8 @@ https://github.com/CS2103-AY1819S1-T09-3/main/pull/125[#125]
 *** Uploading User Guide for transforamtion and save features.
 https://github.com/CS2103-AY1819S1-T09-3/main/pull/177[#177]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T09-3/main/pull/195[#195], https://github.com/CS2103-AY1819S1-T09-3/main/pull/128[#128]
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/131[#131], https://github.com/nus-cs2103-AY1819S1/forum/issues/167[#167])
+*** PRs reviewed (with non-trivial review comments, examples): https://github.com/CS2103-AY1819S1-T09-3/main/pull/195[#195], https://github.com/CS2103-AY1819S1-T09-3/main/pull/128[#128]
+*** Contributed to forum discussions (examples):  https://github.com/nus-cs2103-AY1819S1/forum/issues/131[#131], https://github.com/nus-cs2103-AY1819S1/forum/issues/167[#167]
 *** Create demo usage of the command, for testing of other team mates.(Example command, has been removed now)
 ** Tools:
 *** Integrated a third party library (ImageMagic) to the project (https://github.com[#42])
@@ -58,11 +57,14 @@ https://github.com/CS2103-AY1819S1-T09-3/main/pull/177[#177]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../UserGuide.adoc[tag=apply]
+include::../UserGuide.adoc[tag=create]
+include::../UserGuide.adoc[tag=save]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-include::../DeveloperGuide.adoc[tag=apply]
+include::../DeveloperGuide.adoc[tag=transformation]
+include::../DeveloperGuide.adoc[tag=save]
 

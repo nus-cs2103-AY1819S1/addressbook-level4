@@ -3,15 +3,23 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Piconso
+== Introduction
 
----
+image::ihwk1996.png[width="200", align="left"]
+{empty}[http://github.com/ihwk1996[github]] [https://linkedin.com/in/ivanhowengkwong[linkedin]]
+
+Hello there! I am Ivan, a Year 2 Computer Science student in NUS. This portfolio documents the contributions I have made to several projects. These projects have exposed me to new technologies and helped me to develop relevant skills en route to being a Software Engineer.
+
+== PROJECT: Piconso
 
 == Overview
 
 Piconso is a robust yet simple image-editing tool. Catered towards power users, Piconso users interact through the Command Line Interface (CLI), while providing visual feedback through Graphical User Interface (GUI).
 Unlike other heavy image editors, Piconso has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively.
 In addition, Piconso is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
+
+.A view of Piconso
+image::../images/Ui.png[width="602"]
 
 == Role
 
@@ -40,9 +48,9 @@ My role was to facilitate the history of transformations of images within each l
 ** Enhancements to existing features:
 *** Wrote tests for undo/redo feature including various test utility classes to assist other team members in their testing (Pull requests https://github.com/CS2103-AY1819S1-T09-3/main/pull/105[#105], https://github.com/CS2103-AY1819S1-T09-3/main/pull/110[#110])
 ** Documentation:
-*** Added detailed implementation documentation for the undo/redo feature in Developer Guide, including diagrams: https://github.com/CS2103-AY1819S1-T09-3/main/pull/56[#56], https://github.com/CS2103-AY1819S1-T09-3/main/pull/60[#60]
+*** Added detailed implementation documentation for the undo/redo feature in Developer Guide, including diagrams (Pull requests https://github.com/CS2103-AY1819S1-T09-3/main/pull/56[#56], https://github.com/CS2103-AY1819S1-T09-3/main/pull/60[#60])
 ** Community:
-*** PRs reviewed: https://github.com/CS2103-AY1819S1-T09-3/main/pull/37[#37], https://github.com/CS2103-AY1819S1-T09-3/main/pull/55[#55], https://github.com/CS2103-AY1819S1-T09-3/main/pull/57[#57], https://github.com/CS2103-AY1819S1-T09-3/main/pull/61[#61]
+*** Reviewed and gave feedback to team members. PRs reviewed: https://github.com/CS2103-AY1819S1-T09-3/main/pull/37[#37], https://github.com/CS2103-AY1819S1-T09-3/main/pull/55[#55], https://github.com/CS2103-AY1819S1-T09-3/main/pull/57[#57], https://github.com/CS2103-AY1819S1-T09-3/main/pull/61[#61]
 ** Tools:
 *** Set up Travis(Continuous Integration) to perform automated testing of test cases and auto-publishing of documentation
 
