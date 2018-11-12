@@ -46,10 +46,8 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
         this();
         if (appContent != null) {
             this.appContent = appContent;
-        } else {
-            appContent = new AppContent();
         }
-        recipes.addAll(appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
+        recipes.addAll(this.appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
                 .collect(Collectors.toList()));
     }
 
