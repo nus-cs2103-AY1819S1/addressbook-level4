@@ -17,6 +17,8 @@ My main contribution to the project includes adding the ability to add appointme
 
 == 2. Summary of Contributions
 
+This section summarises my contributions to the project.
+
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kumuwu[Code]]
 
 * *Main feature implemented*: added *the ability to add appointments into the schedule system using natural expressions and in a conversational process*.
@@ -43,7 +45,7 @@ My main contribution to the project includes adding the ability to add appointme
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write easy-to-follow documentation targeting end-users._
 |===
 
 === Add an appointment : `add appointment`
@@ -128,9 +130,11 @@ Tags:
 
 === Natural Language Processing for Adding an Appointment
 
+This feature facilitates scheduling, which enables the user to add appointments into the schedule system with user input phrased in natural expressions, and does so in a conversational process enabled by several prompt windows.
+
 ==== Current Implementation
 
-This feature facilitates scheduling, which enables the user to add appointments into the schedule system with user input phrased in natural expressions, and does so in a conversational process enabled by several prompt windows. It mainly implements a `ScheduleEvent` parser which parses natural language user input, and creates the intended `ScheduleEvent` object to be stored.
+This feature currently mainly implements a `ScheduleEvent` parser which parses natural language user input, and creates the intended `ScheduleEvent` object to be stored.
 
 There are five steps involved in the processing of this feature:
 
@@ -158,6 +162,7 @@ Step 1. Breaking Down: The user input string, starting with `for`, is passed int
 
 The activity diagram below illustrates this process:
 
+.Activity Diagram to Illustrate Step 1 Breaking Down
 image::breakDownInputActivityDiagram.png[width="800"]
 
 Step 2. Patient Parsing: The string `David Lee` is parsed and converted into the corresponding `PersonId` object:
@@ -179,9 +184,12 @@ Step 5. Generating Appointment: Results from the previous steps are used to fill
 
 The sequence diagram below summarises this feature, showing notable steps. Note that step 4 and 5 are omitted in the diagram as they are relatively trivial:
 
+.Sequence Diagram to Illustrate Feature
 image::NaturalLanguageProcessingSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
+
+This section discusses design considerations for current and alternative implementations for this feature.
 
 ===== Aspect: Abstraction over time slot
 
@@ -194,7 +202,9 @@ image::NaturalLanguageProcessingSequenceDiagram.png[width="800"]
 
 ===== Aspect: Algorithm to find available time slots given a list of already scheduled appointments in an interval
 
-* **Alternative 1 (current choice):** Loop through the list of appointments twice. The first time is to find available time slots in days where there are scheduled appointments. The second time is to find completely free days. The code snippets below show the two loops.
+* **Alternative 1 (current choice):** Loop through the list of appointments twice. The first time is to find available time slots in days where there are scheduled appointments. The second time is to find completely free days. Refer to the code snippets below for illustration.
+** Pros: It is easy to implement.
+** Cons: Performance is adversely affected because the list has to be searched through twice.
 
     private List<Pair<Calendar>> getAvailableSlotList(List<ScheduleEvent> scheduledAppts, Pair<Calendar> dateInterval) {
         // ...
@@ -216,8 +226,8 @@ image::NaturalLanguageProcessingSequenceDiagram.png[width="800"]
         // ...
     }
 
-** Pros: It is easy to implement.
-** Cons: Performance is adversely affected because the list has to be searched through twice.
+.Code Snippets to Illustrate the Algorithm to find Available Time Slots
+
 * **Alternative 2:** Keep a day pointer and loop through the list of appointments only once to find all available time slots.
 ** Pros: It enhances performance because the list is searched through only once.
 ** Cons: It is harder to implement, due to the difficulties in manipulating `java.util.Calendar` as a day pointer. Edge cases such as crossing the year boundaries are difficult to handle.
