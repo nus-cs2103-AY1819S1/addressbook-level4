@@ -17,9 +17,9 @@ This portfolio serves as a summary to showcase my contribution for https://githu
 
 The following section shows my various contributions for OASIS.
 
-*Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kokjianyu&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Link to RepoSense]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kokjianyu&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Link to RepoSense]]
 
-=== Major Enhancement: Implemented Permission System to control what commands each employee can use in OASIS
+* *Major Enhancement*: Added *Permission System* to *control what commands each employee can use* in OASIS
 
 ** What it does:
 *** Ensures that commands are executed only by employees with the permission required for it. It also allow users with the required permission(`ASSIGN_PERMISSION` permission), to view and modify the permissions other employees have.
@@ -31,30 +31,30 @@ authorization. Usage of permission allows the admins to easily ensure that previ
 Therefore, implementation was challenging as it requires in-depth knowledge of the different components.
 *** This feature is coded to be simple to use and extensible. New permissions can be added simply into `Permission` enum class, and any new Command class only need to 1 line of code to ensure that it can only be executed by authorized employees.
 
-=== Minor Enhancement: Added Command Auto-Complete feature
+* *Minor Enhancement*: Added *Command Auto-Complete* feature
 ** What it does:
 *** When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
 ** Justification:
 *** Users might find it hard to memorize commands in OASIS. Having this enhancement will make it easier for them to find the commands they want to execute.
 
-==== Other contributions
+* *Other contributions*
 
-* Project management:
-** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-* Enhancements to existing features:
-** Update `DeleteCommand` to prevent user from deleting themself (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/141[#141])
-** Wrote tests for all features implemented by me.(Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/121[#121], https://github.com/CS2103-AY1819S1-F10-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-F10-1/main/pull/85[#85], https://github.com/CS2103-AY1819S1-F10-1/main/pull/77[#77])
-* Community:
-** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T10-3/main/issues/137[#1], https://github.com/CS2103-AY1819S1-T10-3/main/issues/136[#2], https://github.com/CS2103-AY1819S1-T10-3/main/issues/134[#3], https://github.com/CS2103-AY1819S1-T10-3/main/issues/135[#4],
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Update `DeleteCommand` to prevent user from deleting themself (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/141[#141])
+*** Wrote tests for all features implemented by me.(Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/121[#121], https://github.com/CS2103-AY1819S1-F10-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-F10-1/main/pull/85[#85], https://github.com/CS2103-AY1819S1-F10-1/main/pull/77[#77])
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T10-3/main/issues/137[#1], https://github.com/CS2103-AY1819S1-T10-3/main/issues/136[#2], https://github.com/CS2103-AY1819S1-T10-3/main/issues/134[#3], https://github.com/CS2103-AY1819S1-T10-3/main/issues/135[#4],
 https://github.com/CS2103-AY1819S1-T10-3/main/issues/133[#5],
 https://github.com/CS2103-AY1819S1-T10-3/main/issues/141[#6])
-** Provided feedback on forum issues(example: https://github.com/CS2103-AY1819S1-F10-1/main/issues/169[#1])
-* Documentation:
-** Added documentation for https://cs2103-ay1819s1-f10-1.github.io/main/DeveloperGuide.html#permission-system[Permission System] in the Developer guide.
-** Added documentation for https://cs2103-ay1819s1-f10-1.github.io/main/DeveloperGuide.html#supporting-commands-for-permission-system[Supporting commands for Permission System Section] in the Developer guide
-** Added documentation for Command Auto Complete feature in OASIS at https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#Commands[Commands Section] in User guide.
-** Added documentation for the following commands in UserGuide. https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#modify-permissions-of-an-emplyee-code-modifypermission-code[Modify Permission] and https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#view-all-the-permissions-that-an-employee-has-code-viewpermission-code[View Permission].
-** Added https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#command-summary[Command Summary] into User Guide.
+*** Provided feedback on forum issues(example: https://github.com/CS2103-AY1819S1-F10-1/main/issues/169[#1])
+** Documentation:
+*** Added documentation for https://cs2103-ay1819s1-f10-1.github.io/main/DeveloperGuide.html#permission-system[Permission System] in the Developer guide.
+*** Added documentation for https://cs2103-ay1819s1-f10-1.github.io/main/DeveloperGuide.html#supporting-commands-for-permission-system[Supporting commands for Permission System Section] in the Developer guide
+*** Added documentation for Command Auto Complete feature in OASIS at https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#Commands[Commands Section] in User guide.
+*** Added documentation for the following commands in UserGuide. https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#modify-permissions-of-an-emplyee-code-modifypermission-code[Modify Permission] and https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#view-all-the-permissions-that-an-employee-has-code-viewpermission-code[View Permission].
+*** Added https://cs2103-ay1819s1-f10-1.github.io/main/UserGuide.html#command-summary[Command Summary] into User Guide.
 
 == Contributions to the User Guide
 
