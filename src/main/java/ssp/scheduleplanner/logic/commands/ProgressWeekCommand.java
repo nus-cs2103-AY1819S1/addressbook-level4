@@ -29,7 +29,12 @@ public class ProgressWeekCommand extends Command {
         int uncompleted = model.getFilteredTaskList().size();
         int completed = model.getFilteredArchivedTaskList().size();
         int total = uncompleted + completed;
-        float percentage = (float) completed * 100.0f / (float) total;
+        float percentage;
+        if (total == 0) {
+            percentage = 0.0f;
+        } else {
+            percentage = (float) completed * 100.0f / (float) total;
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, percentage));
     }
 }
