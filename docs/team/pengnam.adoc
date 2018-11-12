@@ -55,14 +55,8 @@ CS2103-AY1819S1-W17-4 [#195:Non-unique tasks] [#241: Files with changed names]
 
 *** Did a significant amount of initial refactoring for the team: [PR 41, 47, 48, 50, 51, 54, 66]
 
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the Developer Guide
-*** Actively maintained the Developer Guide
-
 ** Community:
-*** Reported bug on module website
-(examples:  https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/3[#3],
-https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2[#2])
+*** Reported bug on module website [Module webpage GH issue 2,3]
 *** PRs reviews : [PR 76, 95, 154, 67, 213, 241]
 
 ** Tools:
@@ -94,11 +88,11 @@ include::../UserGuide.adoc[tag=add]
 
 include::../DeveloperGuide.adoc[tag=effective_duedate]
 
-include::../DeveloperGuide.adoc[tag=seanmanualtest]
-
 include::../DeveloperGuide.adoc[tag=command]
 
 include::../DeveloperGuide.adoc[tag=dependency]
 
 include::../DeveloperGuide.adoc[tag=time]
+
+include::../DeveloperGuide.adoc[tag=seanmanualtest]
 
