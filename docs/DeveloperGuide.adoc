@@ -360,7 +360,7 @@ The `tracklist` and `tracksearch` commands are implemented to view and filter tr
 .Sequence of track list command
 image::TrackListCommandSequenceDiagram.png[width="800"]
 
-.Sequence of track search command
+.Activity of track search command
 image::TrackSearchCommandSequenceDiagram.png[width="800"]
 
 
@@ -388,6 +388,23 @@ image::TrackSearchCommandSequenceDiagram.png[width="800"]
 ==== Future Enhancements
 Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
 // end::Tracksearchandlist[]
+
+=== Track Adding and Removing Feature
+Simple-to-use track management commands that add tracks to a specified playlist.
+
+==== Current Implementation
+When managing a playlist, you can customise it by adding and removing tracks from it.
+
+.Sequence of track add command
+image::TrackAddCommandSequenceDiagram.png[width="800"]
+
+.Activity of track add command
+image::TrackAddCommandActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+
+==== Future Enhancements
 
 === Playback Feature
 Four functionalities are implemented to achieve the playback task in JxMusic Player. `play` enables users to play musics. `pause` allows the break off of playing and `stop` terminates playing. `seek` functionality achieves the requirement of seeking the playing to a certain time point. To aid the use of `seek`, `duration` command is implemented to let users get the duration of track.
@@ -560,6 +577,8 @@ image::PlaylistNewActivityDiagram.png[width="800"]
 ** Pros: Keeps the most recent / relevant playlists at the top and easily accessible.
 ** Cons: Has larger compute time cost when list is large
 // end::playlistNew[]
+
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -1377,7 +1396,7 @@ Expected: Displays "track file does not exist" error message.
 .. **Prerequisites:** List all tracks using the `track list` command. Multiple tracks in the list.
 .. [green]#Test case:# `track add p/Favourites i/1` +
 Expected: "Favourites" playlist to be added with first track in panel.
-.. [green]#Test case:# `track add p/Favourites i/1 i/2` +
+.. [green]#Test case:# `track add p/Favourites i/1 2` +
 Expected: "Favourites" playlist to be added with first and second tracks in panel.
 .. [red]#Test case:# `track add p/non existing i/1` +
 Expected: Displays "playlist does not exist" error message.

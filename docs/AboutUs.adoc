@@ -11,46 +11,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === David Choo
-image::hidingmode.png[width="150", align="left"]
-{empty}[http://github.com/hidingmode[github]] [<<johndoe#, portfolio>>]
+image::hidingmode.png[width="130", align="left"]
+{empty}[http://github.com/hidingmode[Github]] [<<johndoe#, Portfolio>>]
 
-Role: Developer +
-Responsibilities: Model refactoring
+Roles: Project lead, task master +
+Responsibilities: Model refactoring and player implementation
 
 '''
 
 === Hansel Chia Chen Young
 image::handshou.png[width="150", align="left"]
-{empty}[http://github.com/handshou[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/handshou[Github]] [<<handshou#, Portfolio>>]
 
-Role: Developer +
-Responsibilities: ___
+Roles: Refining lead, developer +
+Responsibilities: Model and command implementation
 
 '''
 
 === Liu Yingnan
 image::nancyquris.png[width="150", align="left"]
-{empty}[http://github.com/NancyQuris[github]] [<<nancyquris#, portfolio>>]
+{empty}[http://github.com/NancyQuris[Github]] [<<nancyquris#, Portfolio>>]
 
-Role: Developer +
+Roles: Design lead, developer +
 Responsibilities: UI and command implementation
 
 '''
 
 === Hayden Phillips
 image::haydenphillips.png[width="150", align="left"]
-{empty}[http://github.com/HaydenPhillips[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/HaydenPhillips[Github]] [<<johndoe#, Portfolio>>]
 
-Role: Developer +
-Responsibilities: Logic refactoring
+Roles: Keynote lead, developer +
+Responsibilities: Logic refactoring and command implementation
 
 '''
 
 === Qi Gongjie
 image::gongjie663746.png[width="150", align="left"]
-{empty}[http://github.com/Gongjie663746[github]] [<<gongjie663746#, portfolio>>]
+{empty}[http://github.com/Gongjie663746[Github]] [<<gongjie663746#, Portfolio>>]
 
-Role: Developer +
+Roles: Welfare lead, developer +
 Responsibilities: Storage and command implementation
 
 '''
