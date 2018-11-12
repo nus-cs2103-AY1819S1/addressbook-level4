@@ -35,6 +35,7 @@ If you are new to development, you can try working step-by-step tutorial from Or
 If you are new to contributing to ClinicIO, head over to <<intro, Introduction>> to have
 an overview of our project.
 
+[[intro]]
 == Introduction
 
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
@@ -371,54 +372,69 @@ Step 6: The user lists all patients in the queue by using `showqueue` command. A
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `ClinicIO` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedClinicIo`.
+It extends `ClinicIO` with an undo/redo history, stored internally as an `clincIoStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current ClinicIO state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous ClinicIO state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone ClinicIO state from its history.
+* `VersionedClinicIo#commit()` -- Saves the current ClinicIO state in its history.
+* `VersionedClinicIo#undo()` -- Restores the previous ClinicIO state from its history.
+* `VersionedClinicIo#redo()` -- Restores a previously undone ClinicIO state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitClinicIo()`, `Model#undoClinicIo()` and `Model#redoClinicIo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial ClinicIO state, and the `currentStatePointer` pointing to that single Clinic IO state.
+Step 1. The user launches the application for the first time. The `VersionedClinicIo` will be initialized with the initial ClinicIO state, and the `currentStatePointer` pointing to that single Clinic IO state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th patient in the ClinicIO. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the ClinicIO after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted ClinicIO state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the ClinicIO. The `delete` command calls
+`Model#commitClinicIo()`, causing the modified state of the ClinicIO after the `delete 5` command executes to be
+saved in the `clinicIoStateList`, and the `currentStatePointer` is shifted to the newly inserted ClinicIO state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified ClinicIO state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitClinicIo()`,
+causing another modified ClinicIO state to be saved into the `clinicIoStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the ClinicIO state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitClinicIo()`, so the ClinicIO state will not be saved
+into the `clinicIoStateList`.
 
-Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous ClinicIO state, and restores the ClinicIO to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoClinicIo()`, which will shift the `currentStatePointer` once to
+the left, pointing it to the previous ClinicIO state, and restores the ClinicIO to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial ClinicIO state, then there are no previous ClinicIO states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial ClinicIO state, then there are no previous ClinicIO
+states to restore. The `undo` command uses `Model#canUndoClinicIo()` to check if this is the case. If so, it will return
+an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the ClinicIO to that state.
+The `redo` command does the opposite -- it calls `Model#redoClinicIo()`, which shifts the
+`currentStatePointer` once to the right, pointing to the previously undone state, and restores the ClinicIO to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest ClinicIO state, then there are no undone ClinicIO states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `clinicIoStateList.size() - 1`, pointing to the latest ClinicIO state, then
+there are no undone ClinicIO states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the ClinicIO, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the ClinicIO, such as `list`,
+will usually not call `Model#commitClinicIo()`, `Model#undoClinicIo()` or `Model#redoClinicIo()`. Thus, the
+`clinicIoStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all ClinicIO states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitClinicIo()`. Since the `currentStatePointer` is not pointing
+at the end of the `clinicIoStateList`, all ClinicIO states after the `currentStatePointer` will be purged. We designed
+it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that
+most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -441,7 +457,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 * **Alternative 1 (current choice):** Use a list to store the history of ClinicIO states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedClinicIo`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -458,13 +474,14 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
-* `cancelappt` Command - Cancels appointments found within the appointment schedule.
 * `listappt` Command - Lists the appointment schedule of the date specified.
+* `listallappt`Command - Lists all appointments.
+* `cancelappt` Command - Cancels appointments found within the appointment schedule.
 
 The class diagram below illustrates the interactions between the Appointment class and associated classes.
 
 .Appointment class diagram.
-image::ApptClassDiagram.png[width=""]
+image::ApptClassDiagram.PNG[width=""]
 
 Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`.`Patient` contains an
 `Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. The
@@ -484,13 +501,13 @@ appointment.
 The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
 parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
 upon the complete implementation of the `Patient` class  in v2.0. The image below shows how the `Appointment` object is
-constructed.+
+constructed.
 
 [NOTE]
 The image does not include the method calls to construct a `Patient` object.
 
 .Appointment Construction Process in addappt Command.
-image::AddApptSequenceDiagram.png[width=""]
+image::AddApptSequenceDiagram.PNG[width=""]
 
 After the construction of the appointment, the appointment is added into the `UniqueAppointmentList` found in the
 `ClinicIo` class. The changes done to the list are then 'saved' via the `commitClinicIo` method.
@@ -499,8 +516,8 @@ This means that this command can be undone or redone.
 
 ==== `listappt` Command
 
-The `listappt` command searches for that land on the date that was entered by the user.
-The filtered appointments are found in the found in `ModelManager`. The list instantiated by filtering the `UniqueAppointmentList`
+The `listappt` command searches for appointments that land on the date that was entered by the user.
+The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueAppointmentList`
 using `AppointmentContainsDatePredicate` which is created from the `Date` argument supplied by the user.
 
 ==== `listallappt` Command
@@ -514,19 +531,19 @@ Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW
 `cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
 
 .Sequence diagram of cancelappt.
-image::CancelApptSequenceDiagram.png[width=""]
+image::CancelApptSequenceDiagram.PNG[width=""]
 
 The index is parsed using the `parseIndex()` and is used in `execute()`. A filtered
 appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
 
 The `cancelAppointment()` method, under `Model`, is then called on the `targetAppointment`. The process of cancellation
-has two parts, `cancelAppointment` and `removeAppointment`. `cancelAppointment` simply changes the status of the appointment and
-adds it to the `Patient` s `AppointmentHistory` (not shown). `removeAppointment` actually removes the appointment from the
+has two parts, `cancelAppointment` and `removeAppointment`. `ClinicIO#cancelAppointment` simply changes the status of the appointment and
+adds it to the `Patient` s `AppointmentHistory` (not shown). `ClinicIO#removeAppointment` actually removes the appointment from the
 `UniqueAppointmentList`.
 
 [NOTE]
 Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
-of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+of changing appointment status and addition into the patient's appointment history seems redundant. In v2.0, the usage of
 pre-existing patients to make appointments will make these additional tasks more useful.
 
 ==== Design Considerations
@@ -538,14 +555,22 @@ pre-existing patients to make appointments will make these additional tasks more
 ** Pros: Makes it easier to implement.
 ** Cons: Requires additional code to convert into integers when carrying out calculating methods.
 
-==== Aspect: How to cancel appointments
+===== Aspect: How to cancel appointments
 * **Alternative 1 (current choice):** Differentiate between cancellation and deletion
-** Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
-the mistake to the patient's appointment history.
-** Cons: Violates Don't Repeat Yourself principle.
+** Pros: Reduces the occurrences of directly manipulating a Patient's history. It also upholds the
+Separation of Concerns Principle.
+** Cons: Violates Don't Repeat Yourself Principle.
 * **Alternative 2:** Lump deletion into cancellation
 ** Pros: Makes it easier to implement and prevents redundancy in code.
 ** Cons: Violates Separation of Concerns Principle.
+
+===== Aspect: How to display appointments
+* **Alternative 1 (current choice):** Display appointments in a tab
+** Pros: Creates an intuitive and easily navigable screen to access appointments.
+** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
+* **Alternative 2:** Have appointments appear when using an appointment command
+** Pros: Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
+** Cons: Increases difficulty in freely accessing appointments.
 
 //end::apptfeature[]
 
@@ -860,9 +885,9 @@ The `logout` command post a `LogoutClinicIoEvent` to notify the UI that you want
 the `EventCenter` to communicate between components without requiring the components to register with
 each other explicitly.
 
-Here is a step-by-step on how `LogoutCommand` notify `MainWindow` that you want to log out of ClinicIo: +
+Here is a step-by-step on how `logout` command notify `MainWindow` that you want to log out of ClinicIo: +
 
-Step 1: The `LogoutCommand` post a new `LogoutClinicIoEvent` to the `EventsCenter`.
+Step 1: The `logout` command post a new `LogoutClinicIoEvent` to the `EventsCenter`.
 
 Step 2: The `eventBus` post the newly created `LogoutClinicIoEvent` (from Step 1) to make the event available to any listeners in `EventBus`.
 
@@ -905,7 +930,7 @@ to ClinicIO.
 === Patient Management feature
 
 ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
-This patient management is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
+This patient management is the equivalent of Create, Read, Update and Delete (CRUD).
 
 ==== Current Implementation
 
@@ -915,18 +940,30 @@ The Patient Management feature contains multiple operations to indirectly manipu
 * `listpatient`: Show all the patients in the ClinicIO record.
 * `findpatient`: Find the patient from the patient list.
 
-The following class diagram below illustrates the association between the Patient class and its associated class:
-
-.Class Diagram for the Patient.
-image::PatientClassDiagram.png[width="1080"]
-{sp} +
-
 ===== `addpatient` Command
 
 The `addpatient` command behaves similarly to the `add`. The command takes in parameters that required to construct patients `Nric`.
 The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
 Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
 that the `preferredDoctor` exists inside the staff records.
+
+Here is a step-by-step on how `addpatient` command execute: +
+
+Step 1: The user executes the `addpatient` command. +
+
+Step 2: The `addpatient` command calls `UserSession#isLoginAsReceptionist()` to ensure that user is logged in as a receptionist. +
+
+Step 3: Once the verfication has been made, the `addpatient` command call `Model#hasPatient()` to avoid duplicate patient being added. +
+
+Step 4: Once the verfication has been made, the `addpatient` command call `Model#hasStaff()` and `preferredDoctor.getRole().equals(DOCTOR)` to check if the preferred doctor is a doctor in ClinicIO. +
+
+Step 5: Once the verfication has been made, the `addpatient` command call `Model#addPatient` to add patient to the patient record.
+
+Step 6: The `addpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+Step 7: The `addpatient` command call `Model#commitClinicIo()` to finalise the changes made to the patient record.
+
+Step 8: The `addpatient` command provide the success message to indicate that patient has been added to ClinicIO.
 
 The following code snippet shows how `addpatient` Command is executed:
 [source,java]
@@ -973,11 +1010,64 @@ The following code snippet shows how `addpatient` Command is executed:
 
 The `listpatient` Command retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
 
+Here is a step-by-step on how `listpatient` command execute: +
+
+Step 1: The user executes the `listpatient` command. +
+
+Step 2: The `listpatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `listpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList`. +
+
+Step 4: The `listpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
 ===== `findpatient` Command
 
-The `findpatient`
+The `findpatient` Command find patient with the name as keywords using `PatientNameContainsKeywordsPredicate`.
+
+Here is a step-by-step on how `findpatient` command execute: +
+
+Step 1: The user executes the `findpatient` command by specifying all the names to search. +
+
+Step 2: The `findPatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `findpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList` containing keywords in `PatientNameContainsKeywordsPredicate`. +
+
+Step 4: The `findpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+The following sequence diagram shows how `findpatient` command works:
+
+**Logic**
+
+.Sequence Diagram for the `findpatient` Command for the logic component.
+image::FindPatientLogicSequenceDiagram.png[width="1080"]
+{sp} +
+**Model**
+
+.Sequence Diagram for the `findpatient` Command for the model component.
+image::FindPatientModelSequenceDiagram.png[width="1080"]
+{sp} +
+**Commons**
+
+.Sequence Diagram for the `findpatient` Command for the commons component.
+image::FindPatientCommonsSequenceDiagram.png[width="1080"]
+{sp} +
 
 ==== Design Considerations
+
+===== Aspect: Manipulate the list
+
+There are various places to execute command. Here are some options:
+
+* *Alternative 1 (current choice)*: Handle at the model component
+
+** Pros : Prevent logic from being heavy of data manipulaiton.
+** Cons : Too challenging to ensure all necessary methods are at the model.
+
+* *Alternative 2*: Handle at the logic component
+
+** Pros: Easy to implement by retrieving the `UniquePatientList` to do manipulation of data
+** Cons: Loses the purpose of having model and logic components. The logic will be
+loaded with codes while model will be light on codes.
 
 // end::patientManagement[]
 
@@ -1753,6 +1843,10 @@ This section is designed to provide you with definitions for
 terms that are used in this document below.
 
 [horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
 [[crud]] Create, Read, Update and Delete (CRUD)::
 These are the basic functions of a persistent database.
 
@@ -1784,7 +1878,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-. Initial launch
+You are launch the program initially
+
+Instructions:
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
@@ -1796,26 +1892,41 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a patient
 
-=== Deleting a patient
+You are adding a new patient to ClinicIO
 
-. Deleting a patient while all patients are listed
+**Prerequisites: You must be login as a receptionist.**
 
-.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Instructions:
 
-_{ more test cases ... }_
+.. Test case: `addpatient n/Steve Rogers ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust` +
+   Expected: Patient record is added to ClinicIO. The list will update immediately after adding patient.
+.. Test case: `addpatient n/Steve Johnson ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust preDr/Dr Lee` +
+   Expected: No patient is added and a error message will show "The preferred doctor is not found." +
 
-=== Saving data
+=== Login as a receptionist
 
-. Dealing with missing/corrupted data files
+You are login to ClinicIO as a receptionist.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+**Prerequisites: None.**
 
-_{ more test cases ... }_
+Instructions:
+
+.. Test case: `login r/receptionist n/Mary Jane pass/reception3` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/receptionist n/Mary Jane pass/reception151` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
+
+=== Login as a doctor
+
+You are login to ClinicIO as a doctor.
+
+**Prerequisites: None.**
+
+Instructions:
+
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1241` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +

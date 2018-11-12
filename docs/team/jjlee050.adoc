@@ -16,9 +16,8 @@ ClinicIO is a project from CS2103T intended for students to learn Software Engin
 ClinicIO is a clinic management desktop application that allows receptionists to manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
-As the team lead, I am responsible for the overall team coordination. This
-involves providing a clear set of goals and directions for the team, oversee the whole project and
-listen to teammates feedback for improvements. Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
+As the team lead, I am responsible for the overall team coordination. This involves providing a clear set of goals and directions for the team, overseeing the whole project and listening to teammates feedback for improvements.
+Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
 defining, assigning, and tracking project tasks, ensuring that project deliverables is produced on time and in the right format.
 
 As a developer, I am in charge of the UI component of this program. This involves understanding
@@ -42,7 +41,7 @@ It requires an in-depth understanding of ClinicIO's architecture.
 ** Added *User Authentication* feature
 *** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
 *** Justification: This feature provide more security to ensure that user has the appropriate rights to access the commands.
-*** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging as all commands is relying on this feature to run the system with more secure and efficient.
+*** Highlights: This enhancement affects both existing commands and commands that would be added in the future. The implementation was challenging as all commands is relying on this feature to run the system more securely and efficiently.
 *** Credits: https://github.com/patrickfav/bcrypt[BCrypt - A password hashing library for Java]
 
 * *Minor enhancement*:
@@ -66,7 +65,7 @@ https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com
 *** Did cosmetic tweaks to existing contents of the Developer Guide: -
 *** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-W14-1/main/pull/278[#278]
 ** Tools:
-*** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
+*** Integrated a third party library (BCrypt) to the project
 
 == 3. Contributions to the User Guide
 
