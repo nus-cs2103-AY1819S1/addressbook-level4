@@ -5,6 +5,7 @@ import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import seedu.restaurant.model.sales.SalesReport;
 
+//@@author HyperionNKJ
 /**
  * A handle to the {@code SalesReportWindow} of the application.
  */

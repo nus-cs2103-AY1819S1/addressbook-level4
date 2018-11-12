@@ -18,6 +18,7 @@ import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Parses input arguments and creates a new RecordSalesCommand object
  */

@@ -124,6 +124,7 @@ public class XmlRestaurantBookStorageTest {
         saveRestaurantBook(new RestaurantBook(), null);
     }
 
+    //@@author HyperionNKJ
     @Test
     public void backupRestaurantBook_nullRestaurantBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -141,8 +142,7 @@ public class XmlRestaurantBookStorageTest {
      */
     private void backupRestaurantBook(ReadOnlyRestaurantBook restaurantBook, String filePath) {
         try {
-            new XmlRestaurantBookStorage(Paths.get(filePath))
-                    .backupRestaurantBook(restaurantBook);
+            new XmlRestaurantBookStorage(Paths.get(filePath)).backupRestaurantBook(restaurantBook);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

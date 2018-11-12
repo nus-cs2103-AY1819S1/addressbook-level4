@@ -1,5 +1,7 @@
 package seedu.restaurant.logic.commands.sales;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -14,6 +16,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.ItemName;
 
+//@@author HyperionNKJ
 /**
  * Ranks the existing records' items according to revenue accumulated in past sales record in descending order
  */
@@ -31,12 +34,13 @@ public class RankItemCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         Map<ItemName, Double> itemRanking = model.rankItemBasedOnRevenue();
         if (itemRanking.isEmpty()) {
-            throw new CommandException(String.format(EMPTY_RECORD_LIST_MESSAGE));
+            throw new CommandException(EMPTY_RECORD_LIST_MESSAGE);
         }
         EventsCenter.getInstance().post(new DisplayRankingEvent(getStringRepresentation(itemRanking)));
-        return new CommandResult(String.format(DISPLAYING_RANK_ITEM_MESSAGE));
+        return new CommandResult(DISPLAYING_RANK_ITEM_MESSAGE);
     }
 
     /**
