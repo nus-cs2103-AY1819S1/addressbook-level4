@@ -6,9 +6,9 @@ import static seedu.address.testutil.TypicalPersons.addTypicalPersons;
 
 import seedu.address.model.AddressBook;
 
+//@@author waytan
 /**
  * A utility class containing three typical lists to be used in tests.
- * @author waytan
  */
 public class TypicalAddressBook {
     private TypicalAddressBook() {} // prevents instantiation

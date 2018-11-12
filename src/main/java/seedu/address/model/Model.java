@@ -70,6 +70,7 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
+    //@@author waytan
     /**
      * Replaces the given entity {@code target} with {@code editedModule}.
      * {@code target} must exist in the address book.
@@ -84,12 +85,14 @@ public interface Model {
      */
     void updateOccasion(Occasion target, Occasion editedOccasion);
 
+    //@@author
     /**
      * Deletes the given Person.
      * {@code person} must exist in the address book.
      */
     void deletePerson(Person person);
 
+    //@@author waytan
     /**
      * Deletes the given Module.
      * {@code module} must exist in the address book.
@@ -102,15 +105,18 @@ public interface Model {
      */
     void deleteOccasion(Occasion occasion);
 
+    //@@author
     /** Returns an unmodifiable view of the filtered persons list */
     ObservableList<Person> getFilteredPersonList();
 
+    //@@author waytan
     /** Returns an unmodifiable view of the filtered modules list */
     ObservableList<Module> getFilteredModuleList();
 
     /** Returns an unmodifiable view of the filtered occasions list */
     ObservableList<Occasion> getFilteredOccasionList();
 
+    //@@author
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

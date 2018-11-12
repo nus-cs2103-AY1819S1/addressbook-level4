@@ -7,10 +7,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents an Occasion's location in the address book.
  * Guarantees: immutable, is valid as declared in {@link #isValidLocation(String)}
  *
- * @author waytan
  */
 public class OccasionLocation {
-
+    //@@author waytan
     public static final String MESSAGE_OCCASIONLOCATION_CONSTRAINTS =
             "Locations should only contain alphanumeric characters and spaces, and it should not be blank";
 
@@ -39,10 +38,11 @@ public class OccasionLocation {
         fullOccasionLocation = location;
     }
 
+    //@@author spikerheado1234
     /**
      * Makes an identical deep copy of this OccasionLocation.
      */
-    public OccasionLocation makeDeepDuplicate() {
+    public OccasionLocation makeCopy() {
         if (this.fullOccasionLocation.equals("")) {
             return new OccasionLocation();
         }
@@ -50,6 +50,7 @@ public class OccasionLocation {
         return newLocation;
     }
 
+    //@@author waytan
     /**
      * Check whether a given string is a valid location.
      *

@@ -96,7 +96,7 @@ public class PersonDescriptor {
     }
 
     public Optional<UniqueModuleList> getModuleList() {
-        return (moduleList != null) ? Optional.ofNullable(moduleList) : Optional.empty();
+        return Optional.ofNullable(moduleList);
     }
 
     public void setUniqueModuleList(UniqueModuleList moduleList) {
