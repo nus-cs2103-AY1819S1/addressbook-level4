@@ -203,7 +203,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 
 [[fig-CalendarClassDiagram]]
 .Structure of the Calendar Component
-image::CalendarComponentClassDiagram.png[width="100"]
+image::CalendarComponentClassDiagram.png[width="300"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/calendar/GoogleCalendar.java[`GoogleCalendar.java`]
