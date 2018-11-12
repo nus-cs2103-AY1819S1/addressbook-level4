@@ -129,7 +129,6 @@ public class Event {
                 && eventStartTime.compareTo(event.eventEndTime) < 0;
     }
 
-    //todo: check isSameEvent constraints
     /**
      * Returns true if both events are equal
      */
