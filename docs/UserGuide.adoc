@@ -201,7 +201,7 @@ Examples:
 
 * `restore 2` to delete second employee from the archive list.
 
-Sample output when `restore 2` command is executed show below:
+Sample output when `restore 2` command is executed shown below:
 
 * Step 1: Type `archive` command in the command box on the top of the application and click enter.
 
