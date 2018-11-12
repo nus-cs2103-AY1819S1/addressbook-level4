@@ -308,12 +308,10 @@ public class MeetingBook implements ReadOnlyMeetingBook {
      * merges the {@code importedGroup} into the MeetingBook with regards to the {@code overwrite} flag.
      */
     private void mergeGroup(Group importedGroup, boolean overwrite) {
-        List<Person> inValidMembers = importedGroup
-                .getMembersView()
+        importedGroup.getMembersView()
                 .stream()
                 .filter((p) -> !persons.contains(p))
-                .collect(Collectors.toList());
-        inValidMembers.forEach(importedGroup::removeMemberNoGroups);
+                .forEach(importedGroup::removeMemberNoGroups);
 
         // @@author Zenious
         if (!hasGroup(importedGroup)) {
