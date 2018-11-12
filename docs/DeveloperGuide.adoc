@@ -1569,9 +1569,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |Log out |Prevent non-authorized users of my computer from accessing the system
 
-|`* * *` |Employee with "Department Manager" permissions |Add a new employee into my department |Have the new hire listed in the system
+|`* * *` |Employee with add employee permissions |Add a new employee into my department |Have the new hire listed in the system
 
-|`* * *` |Employee with "Department Manager" permissions |Delete an employee from my department |Remove employees that have left or have been fired
+|`* * *` |Employee with delete employee permissions |Delete an employee from my department |Remove employees that have left or have been fired
 
 |`* * *` |Employee |View all other employees in the system |Find out more about employees in the company
 
@@ -1579,17 +1579,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee |Apply for leave |Get approval for my yearly leave from my manager
 
-|`* * *` |Employee with "Department Manager" permissions |View leave application of employees in my department |See who has applied for leave
+|`* * *` |Employee with view employee leave permissions |View leave application of employees in my department |See who has applied for leave
 
-|`* * *` |Employee with "Department Manager" permissions |Approve or reject employee requests for leave |Plan out future projects
+|`* * *` |Employee with approve leave permissions |Approve or reject employee requests for leave |Plan out future projects
 
-|`* * *` |Employee with "Project Leader" permissions |Create a new project |Have the new project listed in the application
+|`* * *` |Employee with add project permissions |Create a new project |Have the new project listed in the application
 
-|`* * *` |Employee with "Project Leader" permissions |Add an employee from any department into a project I created |Have the employee listed in the project team
+|`* * *` |Employee with add project permissions |Add an employee from any department into a project I created |Have the employee listed in the project team
 
-|`* * *` |Employee with "Project Leader" permissions |Remove an employee from a project I created |Have the employee removed from the project team
+|`* * *` |Employee with add project permissions |Remove an employee from a project I created |Have the employee removed from the project team
 
-|`* * *` |Employee with "Project Leader" permissions |Assign a task to an employee in one of my projects |Delegate the required work in a project to the team
+|`* * *` |Employee with add project permissions |Assign a task to an employee in one of my projects |Delegate the required work in a project to the team
 
 |`* * *` |Employee |View all projects and project teams in the company |Find out more about ongoing projects and employees in the project teams
 
@@ -1605,7 +1605,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |Filter employees in the display list by a certain criteria |Find details of a specific employee without going through every employee in the system
 
-|`* *` |Employee with "Department Manager" permissions |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
+|`* *` |Employee with view employee leave permissions |View summary of approved leaves taken by employees in my department in the upcoming months |Better plan upcoming projects and manpower distribution
 
 |`* *` |Employee with "Department Manager" permissions |View workload of employees in my department |Delegate the work evenly
 
@@ -1617,7 +1617,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |Upload a profile picture |Other users can see my face when they access my profile in the system
 
-|`* *` |Employee with "Department Manager" permissions |View the list of past employees that have been removed from the system |Check the archives for information about previous employees
+|`* *` |Employee |View the list of past employees that have been removed from the system |Check the archives for information about previous employees
 
 |`*` |Employee with "Department Manager" permissions |See the performance of every department/sector |Keep track of which departments are not performing
 
