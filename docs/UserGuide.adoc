@@ -165,7 +165,8 @@ Example(s):
 //tag::addmh[]
 === Add to patient’s medical history: `addmh`
 Add a non-blank diagnosis entry with the name of the doctor-in-charge to an existing patient’s medical history.
-The patient must be registered within the system.
+The patient must be registered within the system and the doctor's name should contain his title which is followed by his full name.
+For all words in the doctor's name, the starting letter must be capitalised.
 
 Format: `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
 
