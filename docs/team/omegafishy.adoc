@@ -300,6 +300,7 @@ with an appropriate error message before the use case ends.
 ** Pros: Allows expandable storage of diagnoses with its dynamic size. As an ArrayList implements the list interface,
 its contracted functionality suitably represents a list of diagnoses, which makes its usage in developing intuitive.
 ** Cons: Slows down performance if the ArrayList capacity is constantly filled due to resizing costs.
+
 * **Alternative 2 (alternative implementation):** Use an Array to store diagnoses in a person.
 ** Pros: Reduces performance losses that may arise from constant resizing of filled ArrayLists.
 ** Cons: Decreases flexibility in developing as the Arrays do not support generics in Java.
