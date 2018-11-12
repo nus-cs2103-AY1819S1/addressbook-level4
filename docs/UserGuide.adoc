@@ -267,7 +267,7 @@ Format: `leaveapply -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required, and the month and day must have both digits)
-* Your leave will be applied for all the dates specified after each `-da`. You must specify at least 1 `DATE`.
+* Your leave will be for all the dates specified after each `-da`. You must specify at least 1 `DATE`.
 ****
 
 [WARNING]
@@ -275,7 +275,7 @@ If the `DATE` is of an illegal format, the command will be rejected.
 
 Example: `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
 
-The system will display a message indicating a succesful creation of the new leave. You should see something as follows:
+The system will display a message indicating a succesful creation of the new leave, as shown:
 
 image:LeaveApplyResult.PNG[width=800]
 
@@ -288,7 +288,7 @@ Displays a list leave applications that you have made.
 
 Format: `leavelist`
 
-A list of your leave records will be displayed in the panel on the left. An example of what you should see is shown below:
+A list of your leave records will be displayed in the left panel. An example is shown below:
 
 image:LeaveListResult.PNG[width=800]
 
@@ -311,7 +311,7 @@ To use this command, you must have "APPROVE_LEAVE" permissions.
 
 Example: `leaveaprove 8`
 
-The status of the 8th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `APPROVED`, as shown below:
+The status of the 8th leave application displayed with <<View a list of leave applications : `leavelist`, `leavelist`>> is changed to `APPROVED`, as shown:
 
 image:LeaveApproveResult.PNG[width=800]
 
@@ -331,7 +331,7 @@ To use this command, you must have "APPROVE_LEAVE" permissions.
 
 Example: `leavereject 7`
 
-The status of the 7th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `REJECTED`, as shown below:
+The status of the 7th leave application displayed with <<View a list of leave applications : `leavelist`, `leavelist`>> is changed to `REJECTED`, as shown:
 
 image:LeaveRejectResult.PNG[width=800]
 
