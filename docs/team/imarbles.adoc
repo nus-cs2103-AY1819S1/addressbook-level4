@@ -19,6 +19,7 @@ In addition, SocialCare has a Graphical User Interface (GUI) to display informat
 
 My main role as a developer for SocialCare was to implement *record management functions*, which enables users to do the following:
 
+* View volunteers assigned to event
 * Assign volunteers to event
 * Update volunteering records for volunteers
 * Delete volunteering records of volunteer
