@@ -562,7 +562,6 @@ Since there are no voters yet, the most popular options list is empty.
 
 image::AddOptionDisplay.png[width="800"]
 
-
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
 Format: `displayPoll i/POLL_INDEX`
