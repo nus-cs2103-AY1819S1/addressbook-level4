@@ -51,6 +51,42 @@ public class AddPersonCommandTest {
     }
 
     @Test
+    public void execute_personWithoutPhoneAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withoutPhone().build();
+
+        CommandResult commandResult = new AddPersonCommand(validPerson).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_personWithoutEmailAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withoutEmail().build();
+
+        CommandResult commandResult = new AddPersonCommand(validPerson).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_personWithouAddressAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withoutAddress().build();
+
+        CommandResult commandResult = new AddPersonCommand(validPerson).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);

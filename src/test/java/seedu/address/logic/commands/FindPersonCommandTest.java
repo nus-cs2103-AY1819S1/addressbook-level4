@@ -22,6 +22,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.PersonModuleCodeContainsKeywordsPredicate;
+import seedu.address.model.person.PersonOccasionNameContainsKeywordsPredicate;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 
 /**
@@ -166,6 +168,22 @@ public class FindPersonCommandTest {
         expectedModel.updateFilteredPersonList(addressPredicate);
         assertCommandSuccess(addressCommand, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+
+        //test findPerson using Module Code
+        PersonModuleCodeContainsKeywordsPredicate personModuleCodeContainsKeywordsPredicate =
+                preparePersonModuleCodePredicate(" ");
+        FindPersonCommand moduleCodeCommand = new FindPersonCommand(personModuleCodeContainsKeywordsPredicate);
+        expectedModel.updateFilteredPersonList(personModuleCodeContainsKeywordsPredicate);
+        assertCommandSuccess(moduleCodeCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+
+        //test findPerson using Occasion Name
+        PersonOccasionNameContainsKeywordsPredicate personOccasionNameContainsKeywordsPredicate =
+                preparePersonOccasionNamePredicate(" ");
+        FindPersonCommand occasionNameCommand = new FindPersonCommand(personModuleCodeContainsKeywordsPredicate);
+        expectedModel.updateFilteredPersonList(personOccasionNameContainsKeywordsPredicate);
+        assertCommandSuccess(occasionNameCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
@@ -233,4 +251,18 @@ public class FindPersonCommandTest {
         return new AddressContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 
+    /**
+     * Parses {@code userInput} into a {@code PersonModuleCodeContainsKeywordsPredicate}.
+     */
+    private PersonModuleCodeContainsKeywordsPredicate preparePersonModuleCodePredicate(String userInput) {
+        return new PersonModuleCodeContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+
+    /**
+     * Parses {@code userInput} into a {@code PersonOccasionNameContainsKeywordsPredicate}.
+     */
+    private PersonOccasionNameContainsKeywordsPredicate preparePersonOccasionNamePredicate(String userInput) {
+        return new PersonOccasionNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
 }
