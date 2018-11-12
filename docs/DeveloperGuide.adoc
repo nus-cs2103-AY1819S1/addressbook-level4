@@ -1069,7 +1069,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |receptionist |delete prescription to patient after appointment |remove any discrepancies found
 
-|`* * *` |receptionist |edit prescription to patient after appointment |amend any discrepancies found
+|`* *` |receptionist |edit prescription to patient after appointment |amend any discrepancies found
 
 |`* * *` |receptionist |check prescription provided by doctor |follow up with the patients if they wish to check their prescription
 
@@ -1081,13 +1081,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |receptionist |remind a particular patient of their next appointment |prevent him/her from forgetting their appointments
 
-|`* * *` |receptionist |remind all patients of their next appointment |prevent them from forgetting their appointments
+|`* *` |receptionist |remind all patients of their next appointment |prevent them from forgetting their appointments
 
 |`* * *` |receptionist |book an doctor’s appointment for patient |reserve an appointment with doctor for the patient
 
 |`* * *` |receptionist |edit an doctor’s appointment for patient |edit a reserve slot for an appointment with doctor for the patient
 
-|`* * *` |receptionist |delete an doctor’s appointment for patient |remove a reserve slot for an appointment with doctor for the patient
+|`* *` |receptionist |delete an doctor’s appointment for patient |remove a reserve slot for an appointment with doctor for the patient
 |=======================================================================
 
 [appendix]
