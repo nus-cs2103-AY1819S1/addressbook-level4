@@ -9,7 +9,7 @@ import seedu.expensetracker.commons.events.BaseEvent;
 public class SwapLeftPanelEvent extends BaseEvent {
 
     /**
-     * Stores the two types of panels to swap to.
+     * Represents the two types of panels to swap to.
      */
     public enum PanelType {
         LIST, STATISTIC

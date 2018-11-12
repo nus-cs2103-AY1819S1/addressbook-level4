@@ -44,8 +44,8 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     /**
-     * Set the {@code internalList} based on {@code Notifications}
-     * @param notifications
+     * Set the {@code internalList} based on {@code notifications}
+     * @param notifications The list of {@code Notification} to set to.
      */
     public void setNotifications(ObservableList<Notification> notifications) {
         requireNonNull(notifications);
@@ -55,7 +55,7 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     /**
-     * Checks if a {@code TipNotification} should be sent out for that day
+     * Checks if a {@code TipNotification} has been sent out for that day
      * @return true if a tip should be sent,false if otherwise.
      */
     public boolean isTimeToSendTip() {
@@ -68,8 +68,7 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     /**
-     * Checks if a warning notification should be sent
-     *
+     * Checks if a {@code WarningNotification}should be sent.
      * @return true if a warning should be sent,false if otherwise.
      */
     public boolean isTimeToSendWarning(Budget budget) {
@@ -78,7 +77,6 @@ public class NotificationHandler implements Iterable<Notification> {
 
     /**
      * Adds a notification to the internalList.
-     *
      * @param notification to add
      */
     public void add(Notification notification) {
@@ -91,7 +89,6 @@ public class NotificationHandler implements Iterable<Notification> {
 
     /**
      * Adds a the Top of internalList.
-     *
      * @param notification to add
      */
     public void addToTop(Notification notification) {
@@ -148,9 +145,9 @@ public class NotificationHandler implements Iterable<Notification> {
 
     /**
      * Modifies the fields while leaving the list intact
-     * @param date to set
-     * @param isTipEnabled to set
-     * @param isWarningEnabled to set
+     * @param date to set {@code lastTipeSentOn} to.
+     * @param isTipEnabled to set {@code isTipEnabled} to.
+     * @param isWarningEnabled to set {@code isWarningEnabled} to.
      */
     public void modifyNotificationHandlerWithoutList(LocalDateTime date, boolean isTipEnabled,
                                                      boolean isWarningEnabled) {
@@ -160,7 +157,7 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     /**
-     * Reset list to a new list
+     * Reset {@code internalList} to a new empty list
      */
     public void clearList() {
         internalList = FXCollections.observableArrayList();

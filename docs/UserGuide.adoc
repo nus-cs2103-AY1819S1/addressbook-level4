@@ -142,6 +142,8 @@ Entering the command `help` into the Command Box achieves the same outcome.
 [[Features]]
 == Features
 
+Take note of these instructions related to the format of the commands before using them:
+
 ====
 *Command Format*
 
@@ -154,7 +156,7 @@ Entering the command `help` into the Command Box achieves the same outcome.
 ** E.g. if a command format contains the parameter `t/TAG...`, the parameter can be replaced with `t/friend` or `t/friend t/family`
 * Parameters can be in any order e.g. if the command format specifies `n/NAME c/CATEGORY`, using the parameters `c/CATEGORY n/NAME` is also acceptable.
 ====
-//tag::useraccounts[]
+//tag::security1[]
 [NOTE]
 ====
 * Before you are logged in, only `login`, `signup` and `help` commands are useable.
@@ -204,18 +206,19 @@ Format: `login u/USERNAME [p/PASSWORD]`
 * If a user has no password set, then the login will be successful
 regardless of whether a PASSWORD has been provided
 ====
-
-=== Setting a password for the current user : `setpassword`
+//end::security1[]
+//tag::security2[]
+=== Setting a password for the current user : `setPassword`
 Sets a new password for the user which is currently logged in.
 
-Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
+Format: `setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
 
 ****
 *Examples:*
 
-*  `setpassword n/pass123` +
+*  `setPassword n/pass123` +
  Sets the current user's password as "pass123", provided that there is no previously set password
-*  `setpassword n/pass123 o/password1` +
+*  `setPassword n/pass123 o/password1` +
  Sets the current user's password as "pass123", provided that the current password is "password1"
 ****
 
@@ -225,7 +228,7 @@ Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
 * OLD_PASSWORD and NEW_PASSWORD are case sensitive
 * OLD_PASSWORD and NEW_PASSWORD cannot contain any spaces and must be 6 to 100 characters long
 ====
-//end::useraccounts[]
+//end::security2[]
 
 === Viewing help : `help`
 Opens up a new window with the User Guide.
@@ -573,7 +576,11 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 Changes the Expense List to show the Statistics Panel if the Expense List is currently showing, then
 displays a graph of your expenditure over a specified time period, in a given `MODE`. +
 
+You can use this command to analyse your expenses, observe your spending patterns and to identify categories which take
+up most of your budget.
+
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
+
 Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
 depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
 
@@ -610,6 +617,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 * PERIOD_AMOUNT must be a positive integer
 * PERIOD can only be `d` or `m`, for day and month respectively
 * MODE can only be `t` or `c`, for time and category respectively
+* Leaving all parameters blank, i.e. typing the command `stats`, defaults in showing expenses for the past 7 days in Time mode.
 ====
 // end::statistics[]
 
@@ -617,32 +625,30 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 [[NotificationCommand]]
 === Toggling Notifications: `notification`
 
-Toggles the ability of `Expense Tracker` to send notifications.
+Toggles the ability of `Expense Tracker` to generate and display automated notifications.
 
-There are two types of notification to toggle:
+There are 2 types of notification to toggle:
 
- . Warning - Referenced by `warning` as the `NOTIFICATION_TYPE` parameter. These notifications will be sent when you are over
+. Warning - Referenced by `warning` as the `NOTIFICATION_TYPE` parameter. These notifications will be sent when you are over
  or about to go over your budget.
 
-As shown below, Tip type Notifications can be indicated by exclamation mark image displayed along with the notification:
+. Tip - Referenced by typing `tip` as the `NOTIFICATION_TYPE` parameter. These notifications are saving tips that will be sent once
+every 24 hours when you log onto an account.
 
-.Example of a Warning Type Notification
-image::userguide/warningExample.png[width="790"]
+As shown below, Warning-type Notifications can be indicated by *exclamation mark* image displayed along with the notification:
 
- . Tip - Referenced by typing `tip` as the `NOTIFICATION_TYPE` parameter. These notifications are saving tips that will be sent
- when you log onto an account on a new day.
-
-As shown below, Tip type Notifications can be indicated by light bulb image displayed along with the notification:
-
-.Example of a Tip Type Notification
-image::userguide/tipExample.png[width="790"]
+.Example of a Warning-type Notification
+image::userguide/warningExample.png[width="400"]
 
 
+Meanwhile, Tip-type Notifications can be indicated by *light bulb* image displayed along with the notification:
 
+.Example of a Tip-type Notification
+image::userguide/tipExample.png[width="400"]
 
 There are two toggle options, `on` and `off`, which can be indicated by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter.
 
-'TOGGLE_OPTION` is a required parameter. `NOTIFICATION_TYPE` can be omitted.
+`TOGGLE_OPTION` is a required parameter. `NOTIFICATION_TYPE` can be omitted.
 
 Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
 
@@ -680,6 +686,7 @@ Exits the program. +
 
 Format: `exit`
 
+// tag::encrypt[]
 === Encrypting text using your password : `encrypt`
 WARNING: This command is for advanced users only and should be used with caution.
 
@@ -703,6 +710,9 @@ Format: `encrypt TEXT`
 ====
 
 === Decrypting text using your password : `decrypt`
+
+// end::encrypt[]
+
 WARNING: This command is for advanced users only and should be used with caution.
 
 Decrypts an encrypted text that has been encrypted using your account's password.
@@ -751,8 +761,8 @@ This is a summary of the commands available in Expense Tracker:
 e.g. `signup username123`
 * *Login* : `login u/USERNAME [p/PASSWORD]` +
 e.g. `login u/username123 p/password1`
-* *Set Password* : `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
-e.g. `setpassword n/pass1 o/passold`
+* *Set Password* : `setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
+e.g. `setPassword n/pass1 o/passold`
 * *Help* : `help`
 * *Add* `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]…​` +
 e.g. `add n/Lunch e/4 c/Food`
@@ -783,11 +793,12 @@ e.g. `notification n/tip t/off`
 
 == Command Shorthands
 
-This is a list of mappings of commands to their command shorthands in Expense Tracker:
+Commands also come with command shorthands which can be used in place of the command word. I.e. using `h` has the same outcome as `help`
+This is a list of commands and their command shorthands in Expense Tracker:
 
 * `signup`: `su`
 * `login`: `li`
-* `setpassword`: `sp`
+* `setPassword`: `sp`
 * `help`: `h`
 * `add`: `a`
 * `edit`: `e`
