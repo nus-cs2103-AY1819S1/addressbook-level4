@@ -2173,9 +2173,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 2. Showing progress
 
-.. Test case: `clear` followed by `progresstoday` +
-   Expected: Status message displays that user has completed NaN% of tasks for today.
-
 .. Test case: add 5 tasks due on the current date and archive one of them.
    Expected: Both progress bars for today and this week are 20% filled.
 
