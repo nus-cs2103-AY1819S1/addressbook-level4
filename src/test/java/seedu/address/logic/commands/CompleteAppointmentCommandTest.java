@@ -67,7 +67,7 @@ public class CompleteAppointmentCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(BENSON_PATIENT_APPT, expectedPatient);
         expectedModel.updatePerson(GEORGE_DOCTOR_APPT, expectedDoctor);
-        expectedModel.updateAppointment(SECOND, expectedAppointment);
+        expectedModel.setAppointment(SECOND, expectedAppointment);
         expectedModel.completeAppointment(expectedAppointment, expectedPatient, expectedDoctor);
         expectedModel.commitAddressBook();
 

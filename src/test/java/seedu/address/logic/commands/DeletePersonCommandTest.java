@@ -71,7 +71,7 @@ public class DeletePersonCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(IONA_PATIENT_APPT, expectedPatient);
         expectedModel.updatePerson(HELENA_DOCTOR_APPT, expectedDoctor);
-        expectedModel.updateAppointment(SIXTH, expectedAppointment);
+        expectedModel.setAppointment(SIXTH, expectedAppointment);
         expectedModel.deletePerson(expectedPatient);
         expectedModel.commitAddressBook();
 
@@ -135,7 +135,7 @@ public class DeletePersonCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updatePerson(IONA_PATIENT_APPT, expectedPatient);
         expectedModel.updatePerson(HELENA_DOCTOR_APPT, expectedDoctor);
-        expectedModel.updateAppointment(SIXTH, expectedAppointment);
+        expectedModel.setAppointment(SIXTH, expectedAppointment);
         expectedModel.deletePerson(expectedDoctor);
         expectedModel.commitAddressBook();
 

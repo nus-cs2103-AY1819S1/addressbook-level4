@@ -27,22 +27,16 @@ public class Doctor extends Person {
                   Set<Tag> tags) {
         super(name, phone, email, address, remark, tags);
         upcomingAppointments = new ArrayList<>();
-        pastAppointments = new ArrayList<>();
     }
 
     public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,
-                  Set<Tag> tags, List<Appointment> upcomingAppointments, List<Appointment> pastAppointments) {
+                  Set<Tag> tags, List<Appointment> upcomingAppointments) {
         super(name, phone, email, address, remark, tags);
         this.upcomingAppointments = upcomingAppointments;
-        this.pastAppointments = pastAppointments;
     }
 
     public List<Appointment> getUpcomingAppointments() {
         return upcomingAppointments;
-    }
-
-    public List<Appointment> getPastAppointments() {
-        return pastAppointments;
     }
 
     /**
@@ -73,7 +67,6 @@ public class Doctor extends Person {
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         int indexToBeEdited = -1;
         boolean inUpComingAppointments = false;
-        boolean inPastAppointments = false;
 
         for (Appointment appt : upcomingAppointments) {
             if (appt.getAppointmentId() == target.getAppointmentId()) {
@@ -83,21 +76,11 @@ public class Doctor extends Person {
             }
         }
 
-        if (indexToBeEdited == -1 && !inUpComingAppointments) {
-            for (Appointment pastAppt : pastAppointments) {
-                if (pastAppt.getAppointmentId() == target.getAppointmentId()) {
-                    indexToBeEdited = pastAppointments.indexOf(pastAppt);
-                    inPastAppointments = true;
-                    break;
-                }
-            }
-        }
         if (inUpComingAppointments) {
             upcomingAppointments.set(indexToBeEdited, editedAppointment);
-        } else if (inPastAppointments) {
-            pastAppointments.set(indexToBeEdited, editedAppointment);
         }
     }
+
 
     /**
      * Completes the latest appointment of the doctor, placing the records of the appointment in to the stack of
@@ -112,7 +95,6 @@ public class Doctor extends Person {
         }
         appointmentToRemove.completeAppointment();
         upcomingAppointments.remove(appointmentToRemove);
-        pastAppointments.add(appointmentToRemove);
     }
 
     /**
@@ -120,12 +102,6 @@ public class Doctor extends Person {
      */
     public boolean hasAppointment(int appointmentId) {
         for (Appointment app : upcomingAppointments) {
-            if (app.getAppointmentId() == appointmentId) {
-                return true;
-            }
-        }
-
-        for (Appointment app : pastAppointments) {
             if (app.getAppointmentId() == appointmentId) {
                 return true;
             }

@@ -47,7 +47,7 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Prescription added: %1$s";
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the appointment";
-    public static final String MESSAGE_APPOINTENT_DOES_NOT_EXIST = "This appointment does not exist";
+    public static final String MESSAGE_APPOINTMENT_DOES_NOT_EXIST = "This appointment does not exist";
     public static final String MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE = "This patient is allergic to %1$s";
 
     private final int id;
@@ -79,7 +79,7 @@ public class AddPrescriptionCommand extends Command {
 
         // if appointment does not exist
         if (appointmentToEdit == null) {
-            throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
+            throw new CommandException(String.format(MESSAGE_APPOINTMENT_DOES_NOT_EXIST));
         }
 
         // check if prescription already exists in appointment
@@ -90,6 +90,17 @@ public class AddPrescriptionCommand extends Command {
         ArrayList<Prescription> allPrescriptions = new ArrayList<Prescription>();
         allPrescriptions.addAll(appointmentToEdit.getPrescriptions());
 
+        Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
+                appointmentToEdit.getDoctor(),
+                appointmentToEdit.getPatient(),
+                appointmentToEdit.getDateTime(),
+                appointmentToEdit.getStatus(),
+                appointmentToEdit.getComments(),
+                allPrescriptions);
+        editedAppointment.addPrescription(prescriptionToAdd);
+        model.setAppointment(appointmentToEdit, editedAppointment);
+
+        // checking for patient and doctor
         List<Person> personList = model.getFilteredPersonList();
         Doctor doctorToEdit = null;
         Patient patientToEdit = null;
@@ -113,8 +124,15 @@ public class AddPrescriptionCommand extends Command {
             }
         }
 
-        if (doctorToEdit == null || patientToEdit == null) {
-            throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
+        // Doctor only stores upcoming appts while patients store both upcoming and past appt
+        if (appointmentToEdit.getStatus().equals("UPCOMING")) {
+            if (patientToEdit == null || doctorToEdit == null) {
+                throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
+            }
+        } else {
+            if (patientToEdit == null) {
+                throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
+            }
         }
 
 
@@ -126,30 +144,24 @@ public class AddPrescriptionCommand extends Command {
             }
         }
 
+
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
                 patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
                 patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
                 patientToEdit.getPastAppointments(), patientToEdit.getMedicalHistory());
-
-        Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
-                doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
-                doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
-
-        Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
-                appointmentToEdit.getDoctor(),
-                appointmentToEdit.getPatient(),
-                appointmentToEdit.getDateTime(),
-                appointmentToEdit.getStatus(),
-                appointmentToEdit.getComments(),
-                allPrescriptions);
-
-        editedAppointment.addPrescription(prescriptionToAdd);
         editedPatient.setAppointment(appointmentToEdit, editedAppointment);
-        editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
-
-        model.updateAppointment(appointmentToEdit, editedAppointment);
         model.updatePerson(patientToEdit, editedPatient);
-        model.updatePerson(doctorToEdit, editedDoctor);
+
+        if (doctorToEdit != null) {
+            Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
+                    doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
+                    doctorToEdit.getUpcomingAppointments());
+            editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
+            model.updatePerson(doctorToEdit, editedDoctor);
+        }
+
+
+
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();

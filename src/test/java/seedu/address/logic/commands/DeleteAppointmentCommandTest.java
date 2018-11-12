@@ -67,7 +67,7 @@ public class DeleteAppointmentCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(ALICE_PATIENT_APPT, expectedPatient);
         expectedModel.updatePerson(FIONA_DOCTOR_APPT, expectedDoctor);
-        expectedModel.updateAppointment(FIRST, expectedAppointment);
+        expectedModel.setAppointment(FIRST, expectedAppointment);
         expectedModel.deleteAppointment(expectedAppointment, expectedPatient, expectedDoctor);
         expectedModel.commitAddressBook();
 

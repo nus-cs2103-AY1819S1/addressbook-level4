@@ -81,7 +81,7 @@ public class AddPrescriptionCommandTest {
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.setAppointment(firstAppointment, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
@@ -129,7 +129,7 @@ public class AddPrescriptionCommandTest {
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.setAppointment(firstAppointment, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
@@ -157,7 +157,7 @@ public class AddPrescriptionCommandTest {
                 prescriptionWithOutOfBoundIndex);
 
         assertCommandFailure(addPrescriptionCommand, model, commandHistory,
-                addPrescriptionCommand.MESSAGE_APPOINTENT_DOES_NOT_EXIST);
+                addPrescriptionCommand.MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
     }
 
     @Test

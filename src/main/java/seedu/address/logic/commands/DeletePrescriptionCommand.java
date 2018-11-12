@@ -96,8 +96,7 @@ public class DeletePrescriptionCommand extends Command {
                 appointmentToEdit.getComments(),
                 allPrescriptions);
         editedAppointment.deletePrescription(medicineName.toString());
-        model.updateAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+        model.setAppointment(appointmentToEdit, editedAppointment);
 
         //editing persons
         List<Person> personList = model.getFilteredPersonList();
@@ -124,25 +123,34 @@ public class DeletePrescriptionCommand extends Command {
             }
         }
 
-        if (doctorToEdit == null || patientToEdit == null) {
-            throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
+        // Doctor only stores upcoming appts while patients store both upcoming and past appt
+        if (appointmentToEdit.getStatus().equals("UPCOMING")) {
+            if (patientToEdit == null || doctorToEdit == null) {
+                throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
+            }
+        } else {
+            if (patientToEdit == null) {
+                throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
+            }
         }
 
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
                 patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
                 patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
                 patientToEdit.getPastAppointments(), patientToEdit.getMedicalHistory());
-
-        Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
-                doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
-                doctorToEdit.getUpcomingAppointments(), doctorToEdit.getPastAppointments());
-
         editedPatient.setAppointment(appointmentToEdit, editedAppointment);
-        editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
         model.updatePerson(patientToEdit, editedPatient);
-        model.updatePerson(doctorToEdit, editedDoctor);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
+        if (doctorToEdit != null) {
+            Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
+                    doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
+                    doctorToEdit.getUpcomingAppointments());
+            editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
+            model.updatePerson(doctorToEdit, editedDoctor);
+        }
+
+        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));

@@ -135,7 +135,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment
      * in the address book.
      */
-    public void updateAppointment(Appointment target, Appointment editedAppointment) {
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireNonNull(editedAppointment);
 
         appointments.setAppointment(target, editedAppointment);
