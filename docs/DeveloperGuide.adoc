@@ -1468,23 +1468,6 @@ A contact detail that is not meant to be shared with others
 Find something whose edit distance with keyword is less than or equal to 2.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1506,26 +1489,52 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a new student
 
-=== Deleting a person
+. Adding a student to TutorPal
 
-. Deleting a person while all persons are listed
+.. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney` +
+   Expected: A new student with the above details is added to TutorPal. +
+   Details of the new student will be shown in the status message.
+.. Test case: `add n/Desmond Hume p/91234567 e/Hume.D@example.com` +
+   Expected: No student is added. Error details shown in the status message. Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Deleting a student
+
+. Deleting a student while all students are listed
+
+.. Prerequisites: List all students using the `list` command. Multiple students in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Promoting student(s)
 
-=== Saving data
+. Promote all students in TutorPal
 
-. Dealing with missing/corrupted data files
+.. Test case: `promote all` +
+   Expected: Promotes all student in TutorPal to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Promote a certain number of students in TutorPal
 
-_{ more test cases ... }_
+.. Prerequisites: The use of `List` command in conjunction with the following test case is *optional*.
+.. Test case: `promote 1 2 5` +
+   Expected: Promotes the first, second and fifth student in the displayed list to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
+
+=== Retrieving earnings
+
+. Retrieve earnings between two dates.
+
+.. Test case: `earnings 0712 2412` +
+   Expected: The amount in dollar of tuition fees earned between the two dates (current year) are shown in the status message.
+.. Test case: `earnings 0912 0912` +
+   Expected: The amount in dollar of tuition fees earned on 9 December 2018.
