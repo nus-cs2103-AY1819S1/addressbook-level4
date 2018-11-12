@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.parking.commons.util.StringUtil;
-import seedu.parking.logic.commands.FilterCommand;
 import seedu.parking.logic.parser.CarparkTypeParameter;
 import seedu.parking.logic.parser.FreeParkingParameter;
 import seedu.parking.logic.parser.ParkingSystemTypeParameter;

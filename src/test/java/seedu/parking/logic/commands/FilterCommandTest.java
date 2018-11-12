@@ -48,7 +48,8 @@ public class FilterCommandTest {
         flagList.add("ct/");
         flagList.add("ps/");
 
-        FreeParkingParameter freeParking = new FreeParkingParameter("SUN", new Date(2470200200L), new Date(3748239175L));
+        FreeParkingParameter freeParking = new FreeParkingParameter("SUN", new Date(2470200200L),
+                new Date(3748239175L));
 
         CarparkTypeParameter parkingType = new CarparkTypeParameter("COVERED");
 

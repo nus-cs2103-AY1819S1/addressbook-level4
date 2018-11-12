@@ -21,15 +21,15 @@ public class Messages {
     // filter command
     public static final String MESSAGE_FINDCOMMAND_NEEDS_TO_BE_EXECUTED_FIRST = "Please use the find command to find a "
             + "list of car parks within your preferred location first.";
-    public static final String MESSAGE_FREEPARKING_HAS_INVALID_PARAMETERS = "Filtering by free parking needs to have the following parameters:  " +
-            "f/ [day] [start time] [end time]\n     Example: filter f/ sun 7.30am 8.30pm";
-    public static final String MESSAGE_START_OR_END_TIME_HAS_INCORRECT_FORMAT = "Please input a valid start and end time."
-            + "\n     Example: 7.30am or 11.30pm";
+    public static final String MESSAGE_FREEPARKING_HAS_INVALID_PARAMETERS = "Filtering by free parking needs to have "
+            + "the following parameters: f/ [day] [start time] [end time]\n     Example: filter f/ sun 7.30am 8.30pm";
+    public static final String MESSAGE_START_OR_END_TIME_HAS_INCORRECT_FORMAT = "Please input a valid start and end "
+            + "time.\n     Example: 7.30am or 11.30pm";
     public static final String MESSAGE_DAY_IS_INVALID = "Please input a valid day.\n     Example: mon";
     public static final String MESSAGE_CARPARK_TYPE_IS_INVALID = "Please input a valid car park type: SURFACE, BASEMENT"
             + ", MULTISTOREY, MECHANISED, COVERED\n     Example: filter ct/ surface";
-    public static final String MESSAGE_PARKINGSYSTEM_TYPE_IS_INVALID = "Please input a valid parking system type: " +
-            "COUPON, ELECTRONIC\n     Example: filter ps/ coupon";
+    public static final String MESSAGE_PARKINGSYSTEM_TYPE_IS_INVALID = "Please input a valid parking system type: "
+            + "COUPON, ELECTRONIC\n     Example: filter ps/ coupon";
 
     // calculate command
     public static final String MESSAGE_INVALID_CARPARK_NAME = "The car park number input is invalid.";
