@@ -1904,6 +1904,45 @@ Windows, Linux, Unix, OS-X
 
 Given below are instructions to test the app manually.
 
+=== Sign up for an account
+
+. Sign up for an account
+
+.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user `tom` has been created successfully.
+.. Test case: `signup tom doe` +
+   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
+
+. Sign up for an account with an existing Username
+
+.. Prerequisites: There exists a user account with `Username` `tom`
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user already exists.
+
+=== Log in to an account
+
+. Log in to an account with no password
+
+.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
+.. Test case: `login u/tom`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+. Log in to an account with a password
+.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
+.. Test case: `login u/tom`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password2`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
 === Setting a budget
 
 . Setting a budget no matter what is listed.
@@ -2004,45 +2043,6 @@ one expense. +
     Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
     informing the user that adding this expense results in the budget exceeding is shown.
 
-=== Sign up for an account
-
-. Sign up for an account
-
-.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
-.. Test case: `signup tom` +
-   Expected: A message is shown to indicate that the user `tom` has been created successfully.
-.. Test case: `signup tom doe` +
-   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
-
-. Sign up for an account with an existing Username
-
-.. Prerequisites: There exists a user account with `Username` `tom`
-.. Test case: `signup tom` +
-   Expected: A message is shown to indicate that the user already exists.
-
-=== Log in to an account
-
-. Log in to an account with no password
-
-.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
-.. Test case: `login u/tom`
-   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/tom p/password1`
-   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/jon`
-   Expected: A message that indicates that the user `jon` does not exist is shown.
-
-. Log in to an account with a password
-.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
-.. Test case: `login u/tom`
-   Expected: A message that indicates that the input password is incorrect is shown.
-.. Test case: `login u/tom p/password2`
-   Expected: A message that indicates that the input password is incorrect is shown.
-.. Test case: `login u/tom p/password1`
-   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/jon`
-   Expected: A message that indicates that the user `jon` does not exist is shown.
-
 === Set password for current user
 
 . Set password for a user with no previously set password #1
@@ -2106,7 +2106,7 @@ categories and costs.
 . Updating the Notification Panel
 
 .. Prerequisites: Create a new account using `signup x` where x is any valid username. Test cases should be performed one after the other.
-.. Test case: `login x`, where x is the username of the new account.
+.. Test case: `login u/x`, where x is the username of the new account.
    Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
     to the user that their recurrence time has not been set.
 .. Test case: `add n/test c/test $/27.00`.
@@ -2122,7 +2122,7 @@ categories and costs.
 
 . Toggling Notifications On and Off
 
-.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
+.. Prerequisites: User must be logged in. Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
 .. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
    Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
 .. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
@@ -2142,7 +2142,7 @@ categories and costs.
 
 . Updating the Budget Panel
 
-.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
 .. Test case: `add n/test c/test $/4.00`
    Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
@@ -2157,7 +2157,8 @@ Test cases should be performed one after the other.
 === Category Panel
 
 . Updating the Category Panel
-.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
 .. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`
 .. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
