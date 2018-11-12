@@ -1,6 +1,7 @@
 package seedu.souschef.logic.parser.commandparser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_FAVOURITE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_HEALTHPLAN_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_DUPLICATE;
@@ -36,6 +37,7 @@ import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.recipe.Recipe;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -130,6 +132,36 @@ public class AddCommandParser {
         }
 
         return new AddCommand<>(model, toAdd);
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddFavouriteCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+
+    public AddCommand<Recipe> parseFav(Model fav, Model<Recipe> recipes, String args) throws ParseException {
+
+        if (!args.trim().matches("^[1-9]\\d*$")) {
+            throw new ParseException(MESSAGE_ADD_FAVOURITE_USAGE);
+        }
+
+        int index = Integer.parseInt(args.trim()) - 1;
+        Recipe recipe = recipes.getFilteredList().get(index);
+
+
+
+        int size = recipes.getFilteredList().size();
+        if (index < 0 || index >= size) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_FAVOURITE_USAGE));
+        }
+
+        //detect if the recipe already exists in the list
+        if (fav.getAppContent().getObservableFavouritesList().contains(recipe)) {
+            throw new ParseException(String.format(MESSAGE_DUPLICATE, "recipe"));
+        }
+
+        return new AddCommand<>(fav, recipe);
     }
 
 }

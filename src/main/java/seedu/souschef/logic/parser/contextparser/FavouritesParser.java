@@ -13,6 +13,7 @@ import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
+import seedu.souschef.logic.parser.commandparser.AddCommandParser;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
 import seedu.souschef.logic.parser.commandparser.SelectCommandParser;
@@ -39,7 +40,7 @@ public class FavouritesParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command<Recipe> parseCommand(Model modelFavourite, Model modelRecipe, String userInput)
+    public Command<Recipe> parseCommand(Model<Recipe> modelFavourite, Model<Recipe> modelRecipe, String userInput)
             throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -63,6 +64,9 @@ public class FavouritesParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand<>(modelFavourite);
+
+        case COMMAND_WORD:
+            return new AddCommandParser().parseFav(modelFavourite, modelRecipe, arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

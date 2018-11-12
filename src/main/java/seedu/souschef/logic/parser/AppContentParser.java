@@ -84,7 +84,8 @@ public class AppContentParser {
         if (FavouritesParser.isCrossContextCommand(userInput)) {
             // Consider to use Favorite command instead and remove history from param
             setFeatureStorage(Context.FAVOURITES);
-            command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput, history);
+            command = new FavouritesParser().parseCommand(modelSet.getFavouriteModel(),
+                    modelSet.getRecipeModel(), userInput);
         } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
             setFeatureStorage(Context.MEAL_PLAN);
             command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),
