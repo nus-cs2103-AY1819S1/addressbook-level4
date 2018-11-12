@@ -1179,7 +1179,6 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
 .. Test case: `groupadd groupa groupb` +
    Expected: Some exception is handled and the user will see "Only one group can be created once".
-  
 
 === Delete a word group (Manual Testing)
 . Delete a word group with all the word inside.
@@ -1204,8 +1203,6 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Some exception is handled and the user will see "Only one group can be shown once.".
 .. Test case: `showgroup stud_ispm` +
    Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
-
-
 //end::group[]
 
 === Trivia
