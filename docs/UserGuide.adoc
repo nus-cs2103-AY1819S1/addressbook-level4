@@ -28,21 +28,33 @@ endif::[]
 By: `Team T12-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*.
-SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently,
-this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
 
+This User Guide provides a comprehensive walkthrough for new-users of the Student Schedule Planner (SSP). This
+walkthrough includes instructions on how to install the latest version of java, as well as downloading and running
+the SSP application.
+
+Student Schedule Planner (SSP) is a desktop application created by Team T12-3. It is a planner customised for university
+students, and it aims to help university students manage their time effectively.
+
+SSP incorporates features that streamline the creation, organisation, and finding of tasks. In addition, it
+allows the user to keep track of the current academic week, and has a progress tracking feature, which displays the
+user's progress.
+
+Instead of utilising a conventional Graphical User Interface(GUI). SSP is optimised for users who prefer typing out
+their commands. This application has the potential to be much faster than regular planner applications, especially for
+users who are proficient in typing. Move on to the <<Quick Start>> to get started.
 
 == Quick Start
-.  Install Java `9` if you do not have it. It is available link:{https://www.oracle.com/technetwork/java/javase/downloads/index.html}[here]. +
+.  Install Java `9` if you do not yet have it installed. It is available
+ https://www.oracle.com/technetwork/java/javase/downloads/index.html[here]. +
 [WARNING]
 The application may not run correctly on Java `10` or Java `11`.
 
-.  Download the latest `studentscheduleplanner.jar` link:{repoURL}/releases[here].
+.  Download the latest `studentscheduleplanner.jar` link:https://github.com/CS2103-AY1819S1-T12-3/main/releases[here].
 .  Copy the file to the folder that you want to use as the home folder for your planner.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
-.The menu that you should see once you open the application.
+.Main menu for the SSP application upon starting the app.
 image::Ui.png[width="790"]
 
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
@@ -52,18 +64,39 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+*Understanding the command format*
 
-****
-*Command Format*
+- Parameters can be in any order: +
+====
+[blue]`n/NAME d/DEADLINE`
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, [blue]`NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
-* Items in square brackets are optional e.g [blue]`n/NAME t/[TAG]` can be used as [blue]`n/do CS2100 tutorial
-t/CS2100` or as [blue]`n/do CS2100 tutorial`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`t/[TAG]...` can be used
- as `{nbsp}` (i.e. 0 times), [blue]`t/tutorial`, [blue]`t/tutorial t/CS2100` etc.
-* Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE
+[blue]`d/DEADLINE
 n/NAME` is also acceptable.
-****
+====
+
+* Words in [blue]`UPPER_CASE` represent parameters to be entered by the user: +
+
+====
+[blue]`add n/NAME`
+
+[blue]`n/NAME` represents the task name which the user inputs, such as [blue]`n/CS2103 Tutorial`.
+====
+
+* Items in square brackets are optional: +
+====
+[blue]`n/NAME t/[TAG]`
+
+The parameter [blue]`t/[TAG]` is optional, which means [blue]`n/CS2103 tutorial
+t/CS2100`, and [blue]`n/CS2103 tutorial` are both valid commands.
+====
+
+* Items with `…`​ after them can be used multiple times including zero times: +
+====
+[blue]`t/[TAG]...`
+
+Allows for multiple tags to be input: [blue]`t/tutorial`,
+ [blue]`t/tutorial t/CS2100` etc.
+====
 
 [WARNING]
 Please take note that naming is case-sensitive in Student Schedule Planner. For example, `cats` and `Cats` are
@@ -72,15 +105,14 @@ are case-insensitive for keywords.
 
 === Viewing Help
 
-Opens the user guide page. +
+Opening the user guide page is as follows. +
 ====
 [blue]`help` +
 ====
 
-
 === Adding a Task
 
-Adds a task to the schedule planner. +
+Add a task to the schedule planner. +
 ====
 [blue]`add n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 ====
@@ -103,14 +135,19 @@ considered different.
 
 
 [NOTE]
-As we have implemented auto-sorting, if you add a task, the task added might get reordered in the task
-list. For more detailed guide about auto-sorting, please refer to <<Sorting Tasks by Deadline Date and Priority>>
+The priority value must be a number between 1 to 3, where 3 denotes highest priority.
 
+[NOTE]
+As we have implemented auto-sorting, if you add a task, it might get reordered in the task
+list. For more details about auto-sorting, please refer to <<Sorting Tasks by Deadline Date and Priority>>
 
 [WARNING]
-The name, priority level, deadline and venue fields are compulsory and required for every task. Tags are optional.
+Name, Priority, Deadline, and Venue fields are compulsory, and therefore required for every task. Tags are optional.
 
 [TIP]
+When you add tasks with new tags (tags that have not been added to any existing categories),
+these tags will be automatically added to default category `Others`. For details about Category and Tags, refer to
+<<Adding a Category>> and <<Adding a Tag to a Category>>.
 When you add new tasks with new tags (tags that have not been added to any existing categories),
 these tags will be automatically added to default category `Others`. For detailed guide about category and tags,
 please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
@@ -119,7 +156,7 @@ please refer to <<Adding a Category>> and <<Adding a Tag to a Category>>.
 
 === Adding a Recurring Task
 
-Adds copies of the same task to a specified day in the week, for a given number of weeks. +
+Add tasks that occur in regular intervals. +
 ====
 [blue]`repeat r/REPEATS i/INTERVAL n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 ====
@@ -130,10 +167,14 @@ Example: +
 Adds 4 tasks named [blue]`CS2103T Tutorial` with priority level [blue]`3`,
 tag [blue]`Tutorial`, venue at [blue]`COM1-0210`, and deadlines on the 11th October 2018, 18th October 2018, 25th October 2018, and 1st November 2018.
 
-The diagram below contains screenshots of the task list before and after the above command was entered:
+
+The diagram below illustrates the SSP before and after the above command was entered:
 
 image::beforeafteraddrepeat.png[width="800"]
 ====
+[NOTE]
+The number of repeats should be a positive integer (≥1). Setting the repeat as 1 has the same
+effect as using the `add` command.
 The number of repeats should be an integer that is greater or equals to 1. Setting the repeat as 1 has the same effect as using the [blue]`add` command.
 
 [TIP]
@@ -143,15 +184,15 @@ Use this command to schedule tasks that you carry out regularly.
 The maximum number of repetitions is 15.
 
 [CAUTION]
-Due to how the Date class was implemented, there is an unintended behavior. Any task whose deadline goes beyond the year 2099
-will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
-1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
+Tasks whose deadlines go beyond 2099 will have their deadlines set to the 21st century instead. For example, a task
+created by the AddRepeatCommand that with the deadline on 1st January 2101 will instead have the  deadline set to 1st
+ January 2001 instead.
 
 // end::addrepeat[]
 
 === Editing a Task
 
-Edits an existing task in the schedule planner. +
+Edit an existing task in the schedule planner. +
 ====
 [blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE] v/[VENUE]`
 ====
@@ -159,13 +200,19 @@ Example:
 
 ====
 [blue]`edit 3 p/1 d/121019` +
-Task with index `3` will have it's priority level change to `1` , and its deadline is changed to `121019`.
+
+The task at index `3` will have it's priority value changed to [blue]`1` , and its deadline is changed to
+[blue]`121019`.
 ====
 
+[blue]`INDEX` refers to the number shown beside each task name in the displayed task list. Refer to the task
+according to its index number.
+The [blue]`INDEX` *must be a positive integer* (≥1)
 
 The `INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The `INDEX` *must be a positive integer* 1, 2, 3, ...
 
+[CAUTION]
 At least one of the optional fields must be provided. Existing values of provided field
 will be updated to the input values.
 
@@ -177,7 +224,7 @@ Please take note that task name is case-sensitive. For example, task name `study
 considered different.
 
 [NOTE]
-As we have implemented auto-sorting, if you edited the `date` or `priority`, the task might get reordered in the task
+As we have implemented auto-sorting, if you edited `date` or `priority`, the task might get reordered in the task
 list. For more detailed guide about auto-sorting, please refer to <<Sorting Tasks by Deadline Date and Priority>>
 
 [WARNING]
@@ -188,16 +235,9 @@ Existing tags of a task will be removed when its tag is edited. If input is
 To remove all tags of an existing task e.g for task with index number `3`, you can type [blue]`edit 3 t/`, all the
 tags of the task of index number `3` will be removed.
 
-
-[TIP]
-Use [blue]`list`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
-For example, you can use [blue]`listday` to list the tasks due today, and choose the index of the task you want
- to edit.
-
-
 === Deleting a Task
 
-Deletes the specified task from the schedule planner forever. +
+Delete the specified task from the schedule planner.+
 
 ====
 [blue]`delete INDEX`
@@ -206,19 +246,24 @@ Deletes the specified task from the schedule planner forever. +
 Example:
 ====
 [blue]`delete 3` +
-Task with index number `3` delete from schedule planner.
+
+Task with index `3` will be deleted from schedule planner.
 ====
 The `INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The `INDEX` *must be a positive integer* 1, 2, 3, ...
+`INDEX` refers to the index of the task in the displayed task list. Refer to the task according to its index
+number.
+The `INDEX` *must be a positive integer*(≥1)
+
 [TIP]
 Use the [BLUE]`list` command to find out the index of the task to be deleted.
 
 //tag::archivetask[]
 === Archiving a Task
-
 Archives the specified task from the schedule planner. Once a task is archived, it will be hidden from task list. You can
 view archived tasks in archived task list using [blue]`listarchived` command. For detailed guide regarding
 viewing archived tasks, please refer to <<Viewing Archived Tasks>>. +
+
 
 ====
 [blue]`archive INDEX`
@@ -227,6 +272,7 @@ viewing archived tasks, please refer to <<Viewing Archived Tasks>>. +
 Example:
 ====
 [blue]`archive 1` +
+
 Task with index `1` is removed from the task list. +
 Below is the partial screenshots of task list before and after executing the archive command.
 
@@ -234,6 +280,9 @@ image::archiveTask.png[width="300"]
 ====
 The `INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The `INDEX` *must be a positive integer* 1, 2, 3, ...
+`INDEX` refers to the index of the task in the displayed task list. Refer to the task according to its index
+number.
+The `INDEX` *must be a positive integer*(≥1)
 [TIP]
 Use the [blue]`listarchived` command to find out the index of the task to be archived.
 View <<Viewing Archived Tasks>> for detailed guide.
@@ -245,16 +294,16 @@ deleted from schedule planner when the application relaunches.
 // tag::listarchived[]
 === Viewing Archived Tasks
 
-Shows a list of archived tasks. +
+List all archived tasks. +
 ====
 [blue]`listarchived`
 ====
 
 Example:
 ====
-We are continuing from example listed in <<Archiving a Task>>. +
 
 Step 1: [blue]`archive 1` +
+
 Below is the screenshot of task list that will appear on screen after step 1.
 
 image::archiveTask.png[width="400"]
@@ -270,7 +319,7 @@ image::listArchive.png[width="400"]
 
 === Viewing All Tasks
 
-Lists all tasks in the schedule planner. +
+Listing all tasks in the schedule planner. +
 ====
 [blue]`list`
 ====
@@ -279,18 +328,19 @@ Lists all tasks in the schedule planner. +
 
 === Viewing Overdue Tasks
 
-Shows a list all the overdue tasks. +
+Listing all the overdue tasks. +
 ====
 [blue]`listoverdue`
 ====
 
 Example:
 ====
-[blue]`listoverdue` on the date 11 Nov '18 (111118)
 
-Shows a list of tasks due on 10 Nov '18 (101118) and before.
+[blue]`listoverdue` (on the date 111118)
 
-The following diagram contains screenshots of the task list before and after the command above was entered:
+Lists tasks due on 101118 and before.
+
+The following diagram illustrates the SSP before and after [blue]`listoverdue` was entered:
 
 image::beforeafterlistoverdue.png[width="800"]
 ====
@@ -300,7 +350,7 @@ image::beforeafterlistoverdue.png[width="800"]
 // tag::listday[]
 === Viewing Tasks Due Today
 
-Shows a list of tasks that are due today. +
+List tasks due on the current date. +
 ====
 [blue]`listday`
 ====
@@ -309,7 +359,7 @@ Shows a list of tasks that are due today. +
 // tag::listweek[]
 === Viewing Tasks Due This Week
 
-Shows a list of tasks that are due from current date till the closest Sunday. +
+List tasks due from current date till the end of the current week. +
 ====
 [blue]`listweek`
 ====
@@ -318,6 +368,10 @@ Example:
 ====
 The following diagram illustrates that when you used [blue]`listweek` command on the date `021118` (02 Nov '18), you will only see tasks
 until `041118` (04 Nov '18) which is the closest Sunday.
+[blue]`listweek` (on the date 021118)
+
+The following diagram illustrates the SSP when [blue]`listweek` is executed on the date `021118`. Only tasks until
+`041118`, which is the closest Sunday, will be displayed.
 
 image::ListWeekCommand_UG_Before_After.png[width="500"]
 ====
@@ -326,14 +380,19 @@ image::ListWeekCommand_UG_Before_After.png[width="500"]
 // tag::listmonth[]
 === Viewing Tasks Due This Month
 
-Shows a list of tasks  due from current date, till the end of the current Month. +
+List tasks due from current date till the end of the current Month. +
 ====
 [blue]`listmonth`
 ====
 
 Example:
 ====
-[blue]`listmonth` (on the date 021118) +
+[blue]`listmonth` (on the date 111118) +
+
+Tasks from 111118 to end of the month (301118) are listed.
+
+The following diagram illusatrates the SSP when [blue]`listmonth` is executed on the date `111118`. Only tasks until
+`301118`, which is the last day of the month, will be displayed.
 
 image::ListMonth_Before_After.png[width="600"]
 
@@ -351,8 +410,18 @@ earlier deadline date.
 
 image::sortingdate.png[width="300"]
 
-If two tasks have the same deadline, the order then depends on priority, one that has
-higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
+=== Sorting Tasks by Deadline Date and Priority
+
+All tasks are sorted chronologically by default. The order of tasks first depends on deadline date, then priority. +
+
+Given below is an example of two tasks with different deadlines.
+Task [blue]`Do CS2030 lab` is listed before task [blue]`Self study` because it has
+earlier deadline.
+
+image::sortingdate.png[width="400" caption="Figure 1. "]
+
+If two tasks have the same deadline, then the order depends on priority, one that has
+higher priority will appear before one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
 Given below is an example of two tasks with the same deadline dates.
 
 
@@ -365,34 +434,38 @@ Please take note that archived tasks are not shown in order.
 
 === Finding Tasks by Name
 
-Finds tasks whose names match with given keyword. +
+Find tasks whose names match with given keyword. The search is case insensitive, `apples` and  `Apples` both return
+the same tasks. You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS5229` will find all
+tasks with name containing [blue]`CS3230` or [blue]`CS5229`
+
 ====
 [blue]`find NAME`
 ====
-Example:
+Example: +
 ====
 [blue]`find tutorial` +
+
 All tasks with `tutorial` in their names are listed.
 ====
+
 [NOTE]
 The keyword must be whole word. +
-E.g for finding `tutorial`, `tutorial` must be used, `tut` or other variations would not be allowed.
-
-The search is case insensitive. For example, `apples` and  `Apples` both return the same tasks.
-
-The order of the keywords does not matter. For example,  `apples buy` and `buy apples` both return the
-same tasks. +
+E.g for finding [blue]`tutorial`, [blue]`tutorial` must be used, [blue]`tut` or other variations would not be allowed.
 
 [TIP]
+The order of the keywords does not matter. For example,  [blue]`find apples buy` and [blue]`find buy apples` both return
+ the
+same tasks. +
 You can include multiple keywords when using `find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
 `CS3230` or `CS5229`.
 
 
 // tag::filtertags[]
 === Filtering Tasks by Tags (Inclusive)
-Filters tasks with tags matching ANY of those entered by the user.
-You can include multiple tags when using [blue]`filter`. For example, [blue]`filter tutorial quiz project`
-will return tasks with tags matching at least one of user-input tags.
+Filter tasks according to tags inclusively. Tags matching ANY of those entered by the user will be listed. The filter
+ is case insensitive. You may include multiple tags when using [blue]`filter`. For example, [blue]`filter tutorial quiz project`
+will return tasks with tags matching at least one of the specified tags.
+
 ====
 [blue]`filter TAG [TAG2] ...`
 ====
@@ -404,20 +477,34 @@ image::b-a filter tutorial.png[width="600"]
 
 Tasks with the tag `tutorial` are listed.
 
+The diagram below illustrates the SSP when [blue]`filter tutorial` is executed.
+
+image::b-a filter tutorial.png[width="600"]
+
 - [blue]`filter tutorial cs2100` +
+
+Tasks with either [blue]`tutorial`, [blue]`2100` tags, or both, are listed.
+
+The diagram below illustrates the SSP when [blue]`filter tutorial cs2100` is executed.
 
 image::b-a filter tutorial cs2100.png[width="600"]
 
 Tasks with either `tutorial`, `2100` tags, or both, are listed.
 ====
+[NOTE]
+The keyword must be a whole word. +
+E.g for filtering [blue]`tutorial`, [blue]`tutorial` must be used, `tut` or other variations would not be allowed.
 
 [TIP]
 The search is case insensitive. e.g `apples` matches `Apples`.
+The order of the keywords does not matter. For example,  [blue]`filter tutorial cs2103` and [blue]`filter cs2103
+tutorial` both return the same tasks. +
 
 === Filtering Tasks by Tags (Exclusive)
-Filters tasks with tags matching ALL of those entered by the user.
-You can include multiple tags when using [blue]`filterstrict`. For example, [blue]`filterstrict tutorial quiz project`
-will return tasks with tags matching ALL user-input tags.
+Filter tasks according to tags exclusively. Tags matching ALL of those entered by the user will be listed. The filter
+ is case insensitive. You may include multiple tags when using [blue]`filter`. For example, [blue]`filter tutorial quiz project`
+will return tasks with tags matching ALL of the specified tags.
+
 ====
 [blue]`filterstrict TAG [TAG2] ...`
 ====
@@ -425,26 +512,35 @@ Example:
 ====
 - [blue]`filterstrict tutorial` +
 
-image::b-a filterstrict tutorial.png[width="600"]
 
 Tasks with the tag `tutorial` are listed.
 
--  [blue]`filterstrict tutorial geh1034` +
+The diagram below illustrates the SSP when [blue]`filterstrict tutorial` is executed.
 
-image::b-a filterstrict tut geh.png[width="600"]
+image::b-a filterstrict tutorial.png[width="600"]
+
+-  [blue]`filterstrict tutorial geh1034` +
 
 Tasks with both `tutorial` and `2100` tags are listed.
 
+The diagram below illustrates the SSP when [blue]`filterstrict tutorial geh1034` is executed.
+
+image::b-a filterstrict tut geh.png[width="600"]
+
 ====
 
+[NOTE]
+The keyword must be a whole word. +
+E.g for filtering [blue]`tutorial`, [blue]`tutorial` must be used, `tut` or other variations would not be allowed.
+
 [TIP]
-The search is case insensitive. e.g `apples` matches `Apples`.
+The order of the keywords does not matter. For example,  [blue]`filterstrict tutorial cs2100` and [blue]`filterstrict
+cs2100 tutorial ` both return the same tasks. +
 // end::filtertags[]
 
 // tag::firstday[]
 === Generating Academic Calendar
-
-Generates the entire academic calendar with description, based on the first academic day and stores it in storage.
+Generate the entire academic calendar based on the first academic day and stores it in storage.
 
 Currently, the generated academic calendar is based on the academic calender of National University of Singapore
 (NUS). It may not be compatible with academic calendars from other institutions.
@@ -458,19 +554,20 @@ particular week's description to the title of the application. +
 
 Example:
 ====
-The following diagram illustrates when you used [blue]`firstday` command with the date `130818`
-and launch the application within `121118` to `181118` (Week 13 for
-NUS academic year 18/19 semester 1), the application title will be appended with "Week 13".
+
+[blue]`firstday 130818`
+
+The following diagram illustrates when you execute [blue]`firstday 130818`, and launch the application within 121118
+ - 181118 (Week 13 for NUS academic year 18/19 semester 1), the application title will be appended with "Week 13".
 
 image::FirstDayCommand_UG_Before_After.png[width="500"]
 ====
 
 [NOTE]
-There would not be any visible changes upon using the command. The reflection would only occurs after relaunching the
+There would not be any visible changes upon using the command. The changes are only reflected after relaunching the
 application.
 
-`DDMMYY` refers to the date format of day, month and year. It must complies the following three rules in
-order:
+`DDMMYY` refers to the date format of day, month and year. It must fulfil the following criteria:
 
 1. `DDMMYY` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
 will be rejected as they are considered as more than one set of date.
@@ -482,9 +579,10 @@ will be rejected as they are considered as more than one set of date.
 
 //tag::addingcat[]
 === Adding a Category
-Adds a new category to the schedule planner.
+Add a new category to the schedule planner.
 You can organize tags by adding tags to relevant categories. For detailed guide about
 how to add tags to category, please refer to <<Adding a Tag to a Category>>. +
+
 ====
 [blue]`addcat c/CATEGORY`
 ====
@@ -493,7 +591,9 @@ Example:
 ====
 [blue]`addcat c/Steam shopping list`
 
+
 image::addingcat.png[width="300"]
+
 ====
 Category name can contain space. For example, `Steam`, `Steam2`,
 `Steam shopping list` are all valid category names. +
@@ -521,8 +621,8 @@ For detailed guide about how to rename categories, please refer to <<Renaming a 
 //end::addingcat[]
 
 //tag::addingtag[]
-=== Adding a Tag to a Category
-Adds a tag to selected existing category.
+=== Adding Tags to Categories
+Add a tag to a selected existing category.
 ====
 [blue]`addtag c/CATEGORY t/TAG`
 ====
@@ -574,7 +674,7 @@ category `Modules`, the tag `CS2105` will be removed from schedule planner.
 
 //tag::removecat[]
 === Deleting a Category
-Deletes an existing category from schedule planner.
+Delete an existing category from schedule planner.
 ====
 [blue]`removecat c/CATEGORY`
 ====
@@ -593,7 +693,7 @@ For more detailed guide about how to do so, please refer to <<Clearing a Categor
 
 //tag::editcat[]
 === Renaming a Category
-Edits name of an existing category.
+Edit the name of an existing category.
 ====
 [blue]`editcat c/ORIGINAL CATEGORY NAME c/NEW CATEGORY NAME`
 ====
@@ -611,13 +711,12 @@ Default categories `Modules` and `Others` cannot be renamed.
 Duplicated categories are not allowed in schedule planner. Please make sure the new name for selected category
 does not overlap with other existing categories in your schedule planner.
 
-
 //end::editcat[]
 
 // tag::showtags[]
-=== Displaying Used Tags
+=== Displaying Category Tags
 
-Shows all tags categorised under the specified category. It expands the tab in the sidebar. +
+Show all tags categorised under the specified category. It expands the tab in the sidebar. +
 ====
 [blue]`tags c/CATEGORY`
 ====
@@ -632,43 +731,47 @@ image::Before-after-showtags.png[width="400]
 // tag::progressbar[]
 === Displaying Today's Progress
 
-Shows the percentage of tasks that have been archived for the day in the command result box and lists the uncompleted tasks for today. The progress bar is also displayed at the bottom left of the window. +
+Show the percentage of tasks archived for the day in the command result box and lists the uncompleted tasks for today
+. The progress bar is also displayed at the bottom left of the window. +
 ====
 [blue]`progresstoday`
 ====
 
 Example:
 ====
-[blue]`listday` +
-[blue]`archive 1` +
-[blue]`progresstoday` +
+Step 1: [blue]`listday` +
+Step 2: [blue]`archive 1` +
+Step 3: [blue]`progresstoday` +
 
-The diagram below contains the screenshots of what you will see after each of the commands entered above.
+The diagram below illustrates the SSP after each of the commands entered above.
 
 image::before-after-progresstoday.png[width="400"]
 ====
 
 === Displaying This Week's Progress
 
-Shows the percentage of tasks that have been archived from today to the nearest Sunday in the command result box and lists the uncompleted tasks from today until the nearest Sunday. The progress bar is also displayed at the bottom right of the window. +
+Show the percentage of tasks archived from today to the nearest Sunday in the command result box, and lists the
+uncompleted tasks from today until the nearest Sunday. The progress bar is also displayed at the bottom right of the
+window. +
 ====
 [blue]`progressweek`
 ====
+
 Example:
 ====
-[blue]`listday` +
-[blue]`archive 1` +
-[blue]`progressweek` +
+Step 1: [blue]`listday` +
+Step 2: [blue]`archive 1` +
+Step 3: [blue]`progressweek` +
 
-The diagram below contains the screenshots of what you will see after each of the commands entered above.
+The diagram below illustrates the SSP after each of the commands entered above.
 
 image::before-after-progressweek.png[width="400"]
 ====
 // end::progressbar[]
 
-===  Used Commands
+=== Displaying Previous Commands
 
-Shows a list of all the commands that you have entered in reverse chronological order. +
+Show a list of all the commands that you have entered in reverse chronological order. +
 ====
 [blue]`history`
 ====
@@ -678,12 +781,23 @@ Shows a list of all the commands that you have entered in reverse chronological 
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-
 === Undoing Previous Command
-Restores the schedule planner to the state before the previous _undoable_ command was executed. +
+Restore the schedule planner to the state before the previous _undoable_ command was executed. +
 
 ====
 [blue]`undo`
+====
+
+Examples:
+
+====
+Step 1: [blue]`delete 1` +
+
+Step 2: [blue]`clear` +
+
+Step 3: [blue]`undo` (reverses the [blue]`clear` command) +
+
+Step 4: [blue]`undo` (reverses the [blue]`delete 1` command) +
 ====
 
 
@@ -706,36 +820,41 @@ Undoable commands are those commands that modify the schedule planner's content:
 Use the `history` command to decide if you want to undo the previous _undoable_ command.
 
 
-
 === Redoing the Previous Undo Command
 
-Reverses the most recent `undo` command. +
+Reverse the most recent `undo` command. +
 ====
 [blue]`redo`
 ====
 Examples:
 
 ====
-[blue]`delete 1` +
-[blue]`clear` +
-[blue]`undo` (reverses the [blue]`clear` command) +
-[blue]`undo` (reverses the [blue]`delete 1` command) +
-[blue]`redo` (reapplies the [blue]`delete 1` command) +
-[blue]`redo` (reapplies the [blue]`clear` command) +
+Step 1: [blue]`delete 1` +
+
+Step 2: [blue]`clear` +
+
+Step 3: [blue]`undo` (reverses the [blue]`clear` command) +
+
+Step 4: [blue]`undo` (reverses the [blue]`delete 1` command) +
+
+Step 5: [blue]`redo` (reapplies the [blue]`delete 1` command) +
+
+Step 6: [blue]`redo` (reapplies the [blue]`clear` command) +
 ====
 
 
 === Clearing Schedule Planner
 
-Clears all entries from the schedule planner. Default categories `Modules` and `Others` still exists
+Clear all entries from the schedule planner. Default categories `Modules` and `Others` still exists
  after the command is executed, but they contain no tags. +
+
 ====
 [blue]`clear`
 ====
 
 === Exiting the App
 
-Exits the application. +
+Exit the application. +
 ====
 [blue]`exit`
 ====
