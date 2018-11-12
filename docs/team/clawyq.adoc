@@ -14,8 +14,8 @@ students from NUS School Of Computing as part of the `CS2103T Software Engineeri
 features of the application are coded in `Java` while the GUI is handled by `JavaFX`, `HTML` and `CSS`.
 
 `CLInic` is a desktop application made to manage and expedite operations in clinics. The main impetus behind `CLInic`
- was to distil the CLI's efficiency of typing commands from its cryptic walls of text that was intimidating to the
- general, non tech-savvy populous. `CLInic` marries the **simplistic design** and **efficient command issuing mechanism**
+ was to distil the CLI's efficiency of typing commands, as its cryptic walls of text was intimidating to the
+ general, non tech-savvy populous. Hence, `CLInic` marries the **simplistic design** and **efficient command issuing mechanism**
  of the CLI with an **intuitive** Graphical User Interface (GUI). This culminated in an application that is easy for
  **anyone** to use, all while providing the powerful functionalities and efficiencies offered by a CLI. +
  Below are some of the key features provided by `CLInic`:

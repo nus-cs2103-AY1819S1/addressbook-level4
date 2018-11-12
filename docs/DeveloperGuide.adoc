@@ -1586,114 +1586,131 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting a patient
+=== Deleting a `Patient`
 
-. Deleting a patient while all patients are listed
+. Deleting a `Patient` while all patients are listed
 
-.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
+.. Prerequisites: List all `Patients` using the `list` command. Multiple `Patients` in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First `Patient` is deleted from the list. Details of the deleted `Patient` shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No `Patient` is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Adding a medical record to patient
-. Adding a medical record to a patient referenced from filtered list
+=== Adding a `MedicalRecord` to patient
+. Adding a `MedicalRecord` to a `Patient` referenced from filtered list
 
-.. Prerequisites: List all patients using the `list` command. Multiple patients in the list. Patient at index `1` has not had any medical record added yet.
+.. Prerequisites: List all `Patients` using the `list` command. Multiple `Patients` in the list. `Patient` at index `1` has not had any `MedicalRecord` added yet.
 .. Test case: `addmedicalrecord 1 b/A+ da/Panadol d/High Fever` +
-   Expected: A medical record is added to the first person in the list with specified details. Details of added medical record shown in status message.
+   Expected: A `MedicalRecord` is added to the first `Patient` in the list with specified details. Details of added `MedicalRecord` shown in status message.
 .. Test case: `addmedicalrecord 0 b/A+` +
-   Expected: No medical record added to any patient. Error details shown in status message.
+   Expected: No `MedicalRecord` added to any `Patient`. Error details shown in status message.
 
-=== Showing all medicines
+=== Showing all `Medicines`
 
-. Listing all medicines in the records
+. Listing all `Medicines` in the records
 
-.. List all medicine using the `liststock` command.
+.. List all `Medicines` using the `liststock` command.
 .. Test case: `liststock`, `ls` +
-   Expected: All medicines are listed on the medicine panel. Timestamp in the status bar is updated.
+   Expected: All `Medicines` are listed on the medicine panel. Timestamp in the status bar is updated.
 
-=== Adding a medicine
+=== Adding a `Medicine`
 
-. Adding a medicine to the records
+. Adding a `Medicine` to the records
 
-.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be added is not in the list.
+.. Prerequisites: List all `Medicines` using the `liststock` command. Check that the `Medicine` to be added is not in the list.
 .. Test case: `addmedicine sn/12839400 mn/panadol s/122 ppu/2 msq/20` +
-   Expected: Medicine is added to the records. Name of the added medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect addmedicine commands to try: `addmedicine`, `addmedicine/e` (where e is a unrecognised parameter) +
-   Expected: No medicine is added. Error details shown in the status message. Status bar remains the same.
+   Expected: `Medicine` is added to the records. Name of the added `Medicine` shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect `Medicine` adding commands to try: `addmedicine`, `addmedicine/e` (where e is an unrecognised parameter) +
+   Expected: No `Medicine` is added. Error details shown in the status message. Status bar remains the same.
 
 === Patient Queue Management System
 
-. Registering a patient
-.. Prequisites: List all patients using `list` command.
+. Registering a `Patient`
+.. Prequisites: List all `Patients` using `list` command.
 .. Test case: `register 1` +
-   Expected: Patient with index 1 is added to the Patient Queue.
+   Expected: `Patient` with index 1 is added to the `PatientQueue`.
 
-. Inserting a patient
-.. Prerequisites: List all patients using `list` command. `Register` at least one other patient (`register 1`) first. Patient at index 2 is not registered into the queue.
+. Inserting a `Patient`
+.. Prerequisites: List all `Patients` using `list` command. `Register` at least one other `Patient` (`register 1`) first. `Patient` at index 2 is not registered into the queue.
 .. Test case: `insert 2 p/1` +
-   Expected: Patient with index 2 will now be the first in queue.
+   Expected: `Patient` with index 2 will now be the first in queue.
 .. Test case: `insert 3 p/10` +
-   Expected: Even though size of the queue might be less than 10, the patient will be added to the back of the queue.
+   Expected: Even though size of the queue might be less than 10, the `Patient` will be added to the back of the queue.
 
-. Removing a patient
-.. Prerequisites: There is someone in the patient queue.
+. Removing a `Patient`
+.. Prerequisites: There is a `Patient` in the `PatientQueue`.
 .. Test case: `remove 1` +
-   Expected: Patient that is first in the queue will be removed.
+   Expected: The `Patient` of position 1 in the `PatientQueue` will be removed.
 
-. Serving a patient
-.. Prerequisites: There is someone in the patient queue.
+. Serving a `Patient`
+.. Prerequisites: There is a `Patient` in the `PatientQueue`.
 .. Test case: `serve` +
-.. Expected: The patient that is first in the queue will become the Current Patient.
+   Expected: The `Patient` of position 1 in the `PatientQueue` will become the `CurrentPatient`.
 
-. Adding document content to Current Patient
-.. Prerequisites: There is a Current Patient.
+. Adding `DocumentContent` to `CurrentPatient`
+.. Prerequisites: There is a `CurrentPatient`.
 .. Test case: `adddocument n/Fever for past 3 days` +
-.. Expected: "Fever for past 3 days" will be added to the Current Patient's note content.
+   Expected: "Fever for past 3 days" will be added to the `CurrentPatient's` `noteContent`.
 
-. Dispensing medicine to Current Patient
-.. Prerequisites: There is a Current Patient. Medicine stock is listed, use `liststock` if it is not.
+. Dispensing `Medicine` to `CurrentPatient`
+.. Prerequisites: There is a `CurrentPatient`. Use `liststock` to list the valid `Medicines` that can be added.
 .. Test case: `dispensemedicine 1 amt/5` +
-.. Expected: 5 units of medicine at first index will be dispensed to patient.
+   Expected: 5 units of `Medicine` of position 1 in the list of `Medicines` will be dispensed to the `Patient`.
 
-. Finishing service to Current Patient
-.. Prerequisites: There is a Current Patient with existing note content added.
+. Finishing a `CurrentPatient's` consultation
+.. Prerequisites: There is a `CurrentPatient` with valid `noteContent` added.
 .. Test case: `finish` +
-.. Expected: Current Patient is transferred to Served Patient List.
+   Expected: `CurrentPatient` is transferred to the `ServedPatientList`.
 
-. Completing payment for Served Patient
-.. Prerequiisites: There is someone in the Served Patient List.
+. Completing payment for `ServedPatient`
+.. Prerequiisites: There is a `ServedPatient` in the `ServedPatientList`.
 .. Test case: `payment 1` +
-.. Expected: Served Patient of position 1 is removed from the Served Patient List.
+   Expected: `ServedPatient` of position 1 is removed from the `ServedPatientList`.
 
-=== Editing a medicine
+=== Editing a `Medicine`
 
-. Editing a medicine in the records
-.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be edited is in the list.
+. Editing a `Medicine` in the records
+.. Prerequisites: List all the `Medicines` using the `liststock` command. Check that the `Medicine` to be edited is in the list.
 .. Test case: `editmedicine 1 msq/50` +
-   Expected: Medicine at index 1 will have its minimum stock quantity changed to 50. Name of the edited medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect editmedicine commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
-   Expected: No medicine is edited. Error details shown in the status message. Status bar remains the same.
+   Expected: `Medicine` of position 1 in the list will have its `MinimumStockQuantity` changed to 50. Name of the edited `Medicine` shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect `Edit` commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
+   Expected: No `Medicine` is edited. Error details shown in the status message. Status bar remains the same.
 
-=== Restocking a medicine
+=== Restocking a `Medicine`
 
-. Restocking a medicine in the records
-.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be restocked is in the list.
+. Restocking a `Medicine` in the records
+.. Prerequisites: List all the `Medicines` using the `liststock` command. Check that the `Medicine` to be restocked is in the list.
 .. Test case: `restock 1 amt/50` +
-   Expected: Medicine at index 1 will have its stock increased by 50. Name and restocked quantity of the restocked medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect restock commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
-   Expected: No medicine is restocked. Error details shown in the status message. Status bar remains the same.
+   Expected: `Medicine` of position 1 in the list will have its `Stock` increased by 50. Name and restocked quantity of the `Medicine` shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect `Restock` commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
+   Expected: No `Medicine` is restocked. Error details shown in the status message. Status bar remains the same.
 
-=== Check the stocks of all medicines
+=== Check the `Stocks` of all `Medicines`
 
-. Listing all medicines that are low in supply in the records
+. Listing all `Medicines` that are low in supply in the records
 
-.. Prerequisites: List all medicine using the `liststock` command.
+.. Prerequisites: List all `Medicine` using the `liststock` command.
 .. Test case: `checkstock`, `cs` +
-   Expected: All medicines that have stock level equal to or lower than the minimum stock quantity are listed on the medicine panel. Timestamp in the status bar is updated.
+   Expected: All `Medicines` that have `Stock` level equal to or lower than the `MinimumStockQuantity` are listed on the `Medicine` panel. Timestamp in the status bar is updated.
+
+=== Generating `Documents`
+
+.Generating a `Receipt` for the `ServedPatient`
+.. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of `ServedPatients` in the `ServedPatientList`.
+.. Test Case: `receipt 1`
+   Expected: A `Receipt` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`. A window will pop up to show the contents of the generated `Receipt`.
+
+.Generating a `MedicalCertificate` for the `ServedPatient`
+.. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of `ServedPatients` in the `ServedPatientList` and that `mcContent` has been added to the `ServedPatient` via the `adddocument` command.
+.. Test Case: `mc 1`
+   Expected: A `MedicalCertificate` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`. A window will pop up to show the contents of the generated `MedicalCertificate`.
+
+.Generating a `ReferralLetter` for the `ServedPatient`
+.. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of `ServedPatients` in the `ServedPatientList` and that `referralContent` has been added to the `ServedPatient` via the `adddocument` command.
+.. Test Case: `refer 1`
+   Expected: A `ReferralLetter` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`. A window will pop up to show the contents of the generated `ReferralLetter`.
 
 === Saving data
 
