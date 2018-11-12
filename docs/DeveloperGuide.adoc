@@ -1072,6 +1072,7 @@ Use case ends.
 
 Use case ends.
 
+// tag::use-case-complete[]
 === Use case: Completing Task (Single)
 ==== MSS
 . User completes a task by specifying the index of the task to complete.
@@ -1141,6 +1142,7 @@ Use case ends.
 earned and tasks completed to the user.
 
 Use case ends.
+// end::use-case-complete[]
 
 [appendix]
 == Non-functional requirements
