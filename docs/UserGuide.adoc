@@ -470,7 +470,7 @@ Returns attendance graph of any student having names `Betsy`, `Tim`, or `John`
 Returns attendance graph of students tagged with `t/students`
 * `graph t/students t/colleagues` +
 Returns attendance graph of students tagged with `t/students` or `t/colleagues`
-// end:graph[]
+// end::graph[]
 
 === Saving the data
 
