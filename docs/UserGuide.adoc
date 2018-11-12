@@ -80,7 +80,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === User Uniqueness
 
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
-* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others. 
+* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others.
 
 === Timetable
 Timetable download guide
@@ -650,7 +650,7 @@ There is no need to save manually.
 * *Help* : `help`
 
 * *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [t/TAG] [i/INTEREST]...` +
-e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com pass/password a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
 // tag::yaofeng(commandsummary)[]
 * *Login*  `login n/NAME pass/PASSWORD`
@@ -661,12 +661,12 @@ e.g. `login n/John Doe pass/password`
 * *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
+`findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [i/INTEREST] ` +
 e.g. `findUser n/James i/basketball`
-// end::yaofeng(commandsummary)[]
 
 * *Delete User* : `deleteUser` +
 e.g. `deleteUser`
+// end::yaofeng(commandsummary)[]
 
 // tag::agendazhang(commandsummary)[]
 * *Add a friend*  `addFriend INDEX`
