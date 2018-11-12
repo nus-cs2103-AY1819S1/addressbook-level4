@@ -748,8 +748,11 @@ e.g. `delete 3`
 * *Delete time* : `deleteTime INDEX ts/TIME` +
 e.g. `deleteTime 1 ts/mon 1300 1500`
 * *Earnings* : `earnings START_DATE END_DATE`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Promote* : `promote all`
+* *Promote* : `promote INDEX...` +
+e.g. `promote 1 2 5 13`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [el/EDUCATIONAL_LEVEL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com el/JC 1`
 * *Edit time* : `editTime n/NAME ts/OLD_TIME_SLOT ts/NEW_TIME_SLOT` +
 e.g. `editTime n/Alice ts/mon 1300 1400 ts/tue 1300 1400`
 * *Exchange time* : `exchangeTime NAME_A A_TIME_SLOT_ORDINAL_NUMBER NAME_B B_TIME_SLOT_ORDINAL_NUMBER` +
