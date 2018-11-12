@@ -830,9 +830,34 @@ The following code snippet shows how `addpatient` Command is executed:
 
 The `listpatient` Command retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
 
+Here is a step-by-step on how `listpatient` command execute: +
+
+Step 1: The user executes the `listpatient` command. +
+
+Step 2: The `listpatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `listpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList`. +
+
+Step 4: The `listpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
 ===== `findpatient` Command
 
-The `findpatient` Command provide
+The `findpatient` Command find patient with the name as keywords using `PatientNameContainsKeywordsPredicate`.
+
+Here is a step-by-step on how `findpatient` command execute: +
+
+Step 1: The user executes the `findpatient` command by specifying all the names to search. +
+
+Step 2: The `findPatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `findpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList` containing keywords in `PatientNameContainsKeywordsPredicate`. +
+
+Step 4: The `findpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+The following sequence diagram shows how `findpatient` command works:
+
+.Sequence Diagram for `findpatient` Command
+image::FindPatientLogicSequenceDiagram.png[width=500]
 
 ==== Design Considerations
 
