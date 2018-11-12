@@ -24,10 +24,9 @@ import seedu.meeting.storage.XmlMeetingBookStorage;
  */
 public class SampleDataUtil {
 
-    public static int BUFFER_SIZE = 1024;
-    public static String DEFAULT_DATA_PATH = "/data/Default.xml";
-    public static String TEMP_FILE_NAME = "temp";
-    public static String TEMP_FILE_SUFFIX = ".tmp";
+    private static final String DEFAULT_DATA_PATH = "/data/Default.xml";
+    private static final String TEMP_FILE_NAME = "temp";
+    private static final String TEMP_FILE_SUFFIX = ".tmp";
 
     public static Person[] getSamplePersons() {
         return new Person[] {
@@ -56,7 +55,7 @@ public class SampleDataUtil {
     /**
      * Returns path to the default MeetingBook data.
      */
-    private static Path getPathToDefaultMeetingBook() throws IOException{
+    private static Path getPathToDefaultMeetingBook() throws IOException {
         InputStream defaultDataStream = MainApp.class.getResourceAsStream(DEFAULT_DATA_PATH);
 
         if (defaultDataStream == null) {
@@ -67,7 +66,7 @@ public class SampleDataUtil {
         tempFile.deleteOnExit();
 
         FileOutputStream outputStream = new FileOutputStream(tempFile);
-        byte buffer[] = defaultDataStream.readAllBytes();
+        byte[] buffer = defaultDataStream.readAllBytes();
         outputStream.write(buffer);
 
         return tempFile.toPath();
