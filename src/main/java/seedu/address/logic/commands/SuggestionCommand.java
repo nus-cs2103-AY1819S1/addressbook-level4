@@ -36,6 +36,9 @@ public class SuggestionCommand extends Command {
         ArrayList<String> pplList = new ArrayList<>();
         pplList.add(name);
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList));
+        if (model.getFilteredPersonList().size() == 0) {
+            return new CommandResult("No person named " + name);
+        }
         Person targetPerson = model.getFilteredPersonList().get(0);
         if (model.getFilteredPersonList().size() > 1) {
             return new CommandResult("The name is not specific enough, you are adviced to use "
