@@ -171,7 +171,10 @@ Examples:
 // tag::archive[]
 === View deleted employee archive : `archive`
 
-Displays the list of active employees removed from the system. To delete an employee from the OASIS completely simply remove it from archive list again.
+Displays the list of archive employees.
+
+[NOTE]
+Archived employees will remain in archive list until they are restored which will send it back to the active list or deleted from archive which will erase all selected employee data completely.
 
 Format: `archive`
 
@@ -189,11 +192,13 @@ Format: `restore INDEX`
 
 ****
 * Restored employee will be moved back to the active list.
+* Restore the employee at the specified INDEX. The index refers to the number shown in the displayed archive list. The index must be a positive integer 1, 2, 3, … and be in the range of the number of archived employees.
+* To use this command, you must be logged in and have the "RESTORE_EMPLOYEE" permission.
 ****
 
 Examples:
 
-* `restore 1`
+* `restore 2`
 // end::restore[]
 
 === List details of employee : `select`
