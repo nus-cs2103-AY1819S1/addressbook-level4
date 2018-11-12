@@ -488,13 +488,14 @@ Step 1. The user executes `complete l/many` command to complete all the tasks la
 
 Step 1.1. The argument `String` is passed to  the `CompleteCommandParser`, which checks to see
 if the user's input contains a label, then calls `CompleteCommandParser#parseLabel(...)`. As a
-result a new `CompleteLabelCommand` instance is created. It contains a
-`LabelMatchesAnyKeywordsPredicate` which will only test true against a `Task` containing a
-`Label::many`.
+result a new `CompleteLabelCommand` instance is created. It consumes a
+`LabelMatchesAnyKeywordsPredicate` which will only test true against a `Task`
+containing a `many` label.
 
 Step 1.2. A chain of event triggers, ultimately calling `CompleteCommand#execute(...)` for the
 created instance. Subsequently `CompleteLabelCommand#completeAllTasksReturnStringOfTasks(...)` is
-called which encapsulates the logic for updating all valid completable tasks matching the predicate.
+called which encapsulates the logic for updating all valid completable tasks matching the supplied
+predicate.
 
 image::CompleteViaLabelOnSuccess.png[width="700"]
 
