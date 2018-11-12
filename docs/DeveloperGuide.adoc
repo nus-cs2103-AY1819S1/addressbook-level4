@@ -1866,7 +1866,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a person while active persons are listed
 
-.. Prerequisites: List all persons using the `active` command. Multiple persons in the list.
+.. Prerequisites: The user is currently logged in as someone with the permission to delete people. List all persons using the `active` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -1875,7 +1875,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 
 . Deleting a person while archived persons are listed
-.. Prerequisites: List all persons using the `archive` command. Multiple persons in the list.
+.. Prerequisites: The user is currently logged in as someone with the permission to delete people. List all persons using the `archive` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the archive list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
