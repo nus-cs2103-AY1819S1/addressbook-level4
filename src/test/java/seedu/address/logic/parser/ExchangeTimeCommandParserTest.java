@@ -21,8 +21,8 @@ public class ExchangeTimeCommandParserTest {
     public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
         ExchangeTimeCommand expectedFindCommand =
-                new ExchangeTimeCommand("Alice 0 Bob 0");
-        assertParseSuccess(parser, "Alice 0 Bob 0", expectedFindCommand);
+                new ExchangeTimeCommand(0, 0, "Alice", "Bob");
+        assertParseSuccess(parser, "0 0 n/Alice n/Bob", expectedFindCommand);
 
     }
 

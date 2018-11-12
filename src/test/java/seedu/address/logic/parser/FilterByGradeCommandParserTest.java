@@ -24,5 +24,6 @@ public class FilterByGradeCommandParserTest {
                 new FilterByGradeCommand("3 100");
         assertParseSuccess(parser, "3 100", expectedFindCommand);
 
+
     }
 }

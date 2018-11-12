@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import seedu.address.logic.commands.FilterByTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,16 +20,18 @@ public class FilterByTimeCommandParser implements Parser<FilterByTimeCommand> {
      * @throws ParseException
      */
     public FilterByTimeCommand parse(String args) throws ParseException {
-        try {
-            Time currTime = new Time(args);
-            if (currTime.toString().isEmpty()) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
-            }
-            return new FilterByTimeCommand(args);
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIME);
+
+        if (!argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE));
         }
+        argMultimap.getValue(PREFIX_TIME).get();
+
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        if (time.toString().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByTimeCommand.MESSAGE_USAGE + "1" + args));
+        }
+        return new FilterByTimeCommand(time);
     }
 }

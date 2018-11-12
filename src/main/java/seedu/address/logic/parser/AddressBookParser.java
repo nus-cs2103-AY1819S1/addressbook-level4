@@ -33,6 +33,7 @@ import seedu.address.logic.commands.PromoteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SuggestionCommand;
+import seedu.address.logic.commands.SuggestionCommandByIndex;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -148,8 +149,10 @@ public class AddressBookParser {
         case SuggestionCommand.COMMAND_WORD:
             return new SuggestionCommandParser().parse(arguments);
 
-        default:
+        case SuggestionCommandByIndex.COMMAND_WORD:
+            return new SuggestionCommandByIndexParser().parse(arguments);
 
+        default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

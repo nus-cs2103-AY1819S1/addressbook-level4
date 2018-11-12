@@ -16,13 +16,12 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
      * @throws ParseException
      */
     public FilterByEducationCommand parse(String args) throws ParseException {
-
-
         String stringCommand = args.trim();
         if (stringCommand.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
         }
+
         if (!("Primary".equals(stringCommand) || "Secondary".equals(stringCommand) || "JC".equals(stringCommand))) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
