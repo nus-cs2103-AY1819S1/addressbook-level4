@@ -35,19 +35,17 @@ public class CrossFindCommand extends Command {
     private final Model<Ingredient> ingredientModel;
     private final CrossSortComparator comparator;
     private final CrossFilterPredicate predicate;
-    private final Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap;
     private final double numberOfServings;
 
     public CrossFindCommand(Model<CrossRecipe> crossRecipeModel,
                             Model<Ingredient> ingredientModel,
-                            CrossFilterPredicate predicate,
-                            Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap, double numberOfServings) {
+                            CrossSortComparator comparator,
+                            CrossFilterPredicate predicate, double numberOfServings) {
         requireNonNull(crossRecipeModel);
         this.crossRecipeModel = crossRecipeModel;
         this.ingredientModel = ingredientModel;
-        this.comparator = new CrossSortComparator(matchedCrossRecipeMap);
+        this.comparator = comparator;
         this.predicate = predicate;
-        this.matchedCrossRecipeMap = matchedCrossRecipeMap;
         this.numberOfServings = numberOfServings;
     }
 
