@@ -287,10 +287,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public void setPatientListPanel(ObservableList<Patient> list) {
-        patientListPanel = new PatientListPanel(list);
-    }
-
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
     }
@@ -348,9 +344,6 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PatientListPanel getPatientListPanel() {
-        return patientListPanel;
-    }
 
     /**
      * Show the display panel according to event request.

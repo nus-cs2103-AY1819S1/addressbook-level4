@@ -71,17 +71,26 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
     public void displayPatient(Patient patient) {
         Platform.runLater(() -> {
             patientTabLists.setVisible(true);
-            name.setText(patient.getName().toString());
-            nric.setText("NRIC: " + patient.getNric().toString());
-            phone.setText("Phone: " + patient.getPhone().toString());
-            email.setText("Email: " + patient.getEmail().toString());
-            address.setText("Address: " + patient.getAddress().toString());
-            preferredDoctor.setText("Preferred Doctor: " + patient
-                    .getPreferredDoctor().map(doctor -> doctor.getName().fullName).orElse("None"));
-
-            setAllListView(patient);
+            setUpPatientDetails(patient);
         });
     }
+
+    /**
+     * Set up all patient details into the display panel.
+     * @param patient The patient to be displayed.
+     */
+    private void setUpPatientDetails(Patient patient) {
+        name.setText(patient.getName().toString());
+        nric.setText("NRIC: " + patient.getNric().toString());
+        phone.setText("Phone: " + patient.getPhone().toString());
+        email.setText("Email: " + patient.getEmail().toString());
+        address.setText("Address: " + patient.getAddress().toString());
+        preferredDoctor.setText("Preferred Doctor: " + patient
+                .getPreferredDoctor().map(doctor -> doctor.getName().fullName).orElse("None"));
+
+        setAllListView(patient);
+    }
+    
 
     /**
      * Set all the list view with items.
@@ -96,9 +105,9 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
                 .stream().map(med -> med.value).collect(Collectors.toList());
         List<String> allergiesList = patient.getAllergies()
                 .stream().map(allergy -> allergy.allergy).collect(Collectors.toList());
-        setItemsInList(medProbListView, medicalProblemsList);
-        setItemsInList(medListView, medicationsList);
-        setItemsInList(alrgListView, allergiesList);
+        addItemsToListView(medProbListView, medicalProblemsList);
+        addItemsToListView(medListView, medicationsList);
+        addItemsToListView(alrgListView, allergiesList);
     }
 
     /**
@@ -106,7 +115,7 @@ public class PatientDetailsDisplayPanel extends UiPart<Region> {
      * @param listView The selected list view to add items in.
      * @param itemsList The valid list of strings.
      */
-    private void setItemsInList(ListView<String> listView, List<String> itemsList) {
+    private void addItemsToListView(ListView<String> listView, List<String> itemsList) {
         // Add the no content message if there is nothing in the items list.
         if (itemsList.isEmpty()) {
             itemsList.add("No items found.");

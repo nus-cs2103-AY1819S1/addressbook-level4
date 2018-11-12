@@ -24,7 +24,7 @@ import seedu.clinicio.ui.UiPart;
  */
 public class AnalyticsDisplayPanel extends UiPart<Region> {
 
-    private static final String FXML = "Analytics.fxml";
+    private static final String FXML = "AnalyticsDisplayPanel.fxml";
 
     @FXML
     private Label summaryBar;
