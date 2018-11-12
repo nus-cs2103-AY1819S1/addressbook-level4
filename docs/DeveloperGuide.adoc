@@ -1097,7 +1097,7 @@ _Figure 4.7.1.1: Sequence diagram for image operation_
 
 The following activity diagram summarizes what happens when a user executes the image command:
 
-image::Image Activity Diagram.png[width="400"]
+image::Image Activity Diagram.png[width="500"]
 _Figure 4.7.1.2: Activity diagram for image operation_
 
 ==== Design Considerations
@@ -1155,7 +1155,7 @@ _Figure 4.10.1.1: Sequence diagram for search operation_
 
 The following activity diagram summarizes what happens when a user executes the search command:
 
-image::Search Activity Diagram.png[width="400"]
+image::Search Activity Diagram.png[width="500"]
 _Figure 4.10.1.2: Activity diagram for search operation_
 
 ==== Design Considerations
