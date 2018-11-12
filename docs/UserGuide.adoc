@@ -16,10 +16,13 @@ endif::[]
 
 By: `Team T10-1`
 
+// tag::intro[]
 == Introduction
 
 U-Schedule is for university students who *prefer to use a desktop app for managing their schedule*. More importantly, U-Schedule is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). It features a calendar to manage regular events such as lectures and tutorials, as well as a todo list for upcoming deadlines. If you can type fast, you can manage both of these more efficiently with U-Schedule than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+// end::intro[]
 
+// tag::quickstart[]
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
@@ -35,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list event`* : lists all calendar events
 * *`list todo`* : lists all todo items
-* **`add event`**`t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tag/lecture` : adds a calendar event titled `CS2103 Lecture` to the calendar.
+* **`add event`**`t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/16 nov 4pm e/16 nov 6pm v/i3 Auditorium tag/lecture` : adds a calendar event titled `CS2103 Lecture` to the calendar.
 * **`add todo`**`t/CS2103 Assignment d/Version Control p/H` : adds a todo item titled `CS2103 Assignment` to the todo list.
 * **`delete event`**`3` : deletes the calendar event marked `3`.
 * **`delete todo`**`3` : deletes the todo item marked `3`.
@@ -44,6 +47,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+// end::quickstart[]
+
+// tag::features[]
 [[Features]]
 == Features
 
@@ -56,8 +62,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/lecture`, `tag/cs2103` etc.
 * Parameters can be in any order e.g. if the command specifies `t/TITLE d/DESCRIPTION`, `d/DESCRIPTION t/TITLE` is also acceptable.
 * The second word specifies whether the command will operate on the todo list or the calendar. For example `add event` adds an event to the calendar and `add todo` will add an item to the todo list.
-* Priorities on the todo list are either `H`, `M` or `L` for high, medium or low respectively.
+* Priorities on the todo list are either `H`, `M` or `L` for high, medium or low respectively, in upper case.
 ====
+// end::features[]
 
 === Viewing help : `help`
 
@@ -65,6 +72,7 @@ Opens the User Guide in a new window.
 
 Format: `help`
 
+// tag::add[]
 === Adding: `add`
 
 Adds a calendar event to the calendar +
@@ -77,6 +85,7 @@ Format: `add todo t/TITLE d/DESCRIPTION p/{H/M/L}`
 * Since it is difficult to type a rigidly formatted date and time, a natural language date parser will try to parse the input for calendar events.
 * The start and end datetimes can be word descriptions, such as 'the day after tomorrow', or '1 week from now'.
 * If only a time is specified, the application will assume you mean today.
+* The priority can be `H`, `M` or `L` for high, medium or low respectively, in upper case.
 ****
 
 [TIP]
@@ -86,18 +95,20 @@ Examples:
 
 * `add event t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tag/lecture`
 * `add todo t/CS2103 Assignment d/Version Control p/L`
+// end::add[]
 
+// tag::list[]
 === Listing: `list`
 
 Shows the list of all calendar events / todo items in the calendar / todo list. +
 Format: `list {event/todo}`
+// end::list[]
 
+// tag::edit[]
 === Editing: `edit`
 
 Edits an existing calendar event in the calendar. +
 Format: `edit event INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tags/TAG]...` +
-Edits an existing item in the todo list. +
-Format: `edit todo INDEX [t/TITLE] [d/DESCRIPTION] [p/{H/M/L}]`
 
 ****
 * Edits the calendar event / todo list item at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
@@ -111,30 +122,43 @@ Examples:
 
 * `edit event 1 d/Abstraction v/i3 Auditorium` +
 Edits the description and venue of the calendar event to be `Abstraction ` and `i3 Auditorium` respectively.
-* `edit todo 2 t/CS2103 Project` +
-Edits the name of the 2nd todo list item to be `CS2103 Project`.
+* `edit event 2 t/CS2103 Project Meetup` +
+Edits the name of the 2nd calendar event to be `CS2103 Project Meetup`.
+// end::edit[]
 
+// tag::find[]
 === Locating: `find`
 
-Finds calendar events whose names contain any of the given keywords.
-Also optionally filters the search by the specified tags. +
-Format: `find event KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]`
+Finds calendar events whose title, venue or description match any of the given keywords.
+Also optionally filters the search by the specified date & time interval as well as tags. +
+Format: `find event [KEYWORD MORE_KEYWORDS...] [from/DATE & TIME] [to/DATE & TIME] [tag/TAG] [tag/MORE_TAGS]`
 
 ****
-* The search is case insensitive for both keywords and tags. e.g `lecture` will match `Lecture`
-* The order of the keywords does not matter. e.g. `CS2103 Lecture` will match `Lecture CS2103`
-* Currently only the title will be searched.
-* The search does not look for only exact matches; slight differences and typos will attempt to be matched
-* `CS2103 Lecture` will match 'CS210X Lectures', or 'Lecture CS'
-* However, tags must be an exact (albeit case-insensitive) match.
+* Shows all events that match the keywords and obey the filter rules.
+* The most relevant search results are shown at the top.
+* At least one of the optional fields must be provided.
+* Fuzzy Keyword Search
+** The search is case insensitive for both keywords. e.g `lecture` will match `Lecture`
+** The order of the keywords does not matter. e.g. `CS2103 Lecture` will match `Lecture CS2103`
+** The fuzzy search allows for partial matches for keywords. e.g. `2103 lec` will match `CS2103 Lecture`.
+*** Slight differences and typos will also usually be matched. e.g. `s2130 Lecutre` will match 'CS2103 Lecture'
+* Filter by Date & Time
+** Shows events that occur in the interval from the `from/` date and time, to the `before/` date and time
+* Filter by Tags
+** In order for an event to be shown, it must have a tag that is exactly matching (although case-insensitive) with the input tag.
+** If multiple tags are input, the filter will only show the events with ALL the input tags. e.g. `tag/cs2103 tag/lecture` would not match an event without tag `Lecture`, even if it has the tag `CS2103`
+
 ****
 Examples:
 
 * `find event lecture` +
 Returns `CS2103 Lecture` and `Lecture`
 * `find event cs2103 assignment tag/Project` +
-Returns any event with the tag `Project` having `CS2103` or `assignment` in the title.
+Returns any event with the tag `Project`, whose title, venue or description matches the keywords `CS2103` or `assignment`.
+* `find event exam from/29 nov 8am to/7 dec 5pm
+// end::find[]
 
+// tag::delete[]
 === Deleting: `delete`
 
 Deletes the specified calendar event / todo item from the calendar / todo list. +
@@ -157,7 +181,9 @@ Deletes the 1st calendar event in the results of the `find event` command.
 * `list todo` +
 `delete todo 1` +
 Deletes the 1st todo item in the todo list.
+// end::delete[]
 
+// tag::select[]
 === Selecting: `select`
 
 Selects the calendar event identified by the index number used in the displayed list. +
@@ -177,7 +203,9 @@ Selects the 2nd calendar event in the calendar.
 * `find event lecture` +
 `select event 1` +
 Selects the 1st calendar event in the results of the `find event` command.
+// end::select[]
 
+// tag::showDes[]
 === Showing description: `showDescription`
 
 Shows description of the specified todo item from the todo list. +
@@ -194,6 +222,7 @@ Examples:
 * `list todo` +
 `show todo 1` +
 Shows description of the 1st todo item in the todo list.
+// end::showDes[]
 
 === Listing entered commands : `history`
 
@@ -261,7 +290,6 @@ Clears all entries from the calendar. +
 Format: `clear`
 
 // tag::calendar[]
-
 === Using the Calendar Display
 
 ==== Manual navigation:
@@ -280,7 +308,7 @@ Scrolling with the mouse wheel is also possible.
 
 [NOTE]
 ====
-The calendar display msut be in focus in order to navigate with the arrow keys.
+The calendar display must be in focus in order to navigate with the arrow keys.
 ====
 
 ==== Automatic Navigation:
@@ -292,7 +320,6 @@ the calendar display will navigate to that event and attempt to centralize it in
 
 The compact display of the calendar does not allow all the information of the event to be displayed.
 To view full details of an event, double click on it to open a dialog box containing the details of the event.
-
 // end::calendar[]
 
 === Exiting the program : `exit`
@@ -311,21 +338,20 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::faq[]
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous U-Schedule folder.
-
-// tag::faq[]
 
 *Q*: Why is the calendar display not responding to the arrow keys? +
 *A*: The calendar display must be in focus in order for it to receive the arrow key events. Try clicking on the calendar display. If a blue highlight is present around the edges, the calendar display is in focus and will now receive the key presses.
 
 *Q*: The date time parser is parsing dates unexpectedly! +
 *A*: The Natural Language Parser we used tries its best to parse a datetime out of any input. Hence, there are some inputs which even humans would not consider a valid date, but the parser would still try to find a best fit. Most of the time, if a human can understand the input, the parser will parse the input correctly.
-
 // end::faq[]
 
+// tag::summary[]
 == Command Summary
 
 * *Add* `add event t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tag/TAG]...` +
@@ -337,8 +363,6 @@ e.g. `add todo t/CS2103 Assignment d/Version Control p/L`
 e.g. `delete event 3`
 * *Edit* : `edit event INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tag/TAG]...` +
 e.g. `edit event 1 d/Abstraction v/i3 Auditorium`
-* *Edit* : `edit todo INDEX [t/TITLE] [d/DESCRIPTION] [p/{H/M/L]` +
-e.g. `edit todo 2 t/CS2103 Project`
 * *Find* : `find event KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]` +
 e.g. `find event CS2103 Lecture`
 * *List* : `list {event/todo}`
@@ -351,3 +375,4 @@ e.g.`show todo 2`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Calendar navigation* : kbd:[&uarr;] kbd:[&darr;] kbd:[&larr;] kbd:[&rarr;]
+// end::summary[]
