@@ -783,7 +783,7 @@ image::PatientClassDiagram.png[width="1080"]
 The `addpatient` command behaves similarly to the `add`. The command takes in parameters that required to construct patients `Nric`.
 The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
 Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
-that the `preferredDoctor` exists inside ClinicIO staff records in order to add patient. 
+that the `preferredDoctor` exists inside the staff records. 
 
 The following code snippet shows how `AddPatientCommand` is executed:
 [source,java]
@@ -793,20 +793,38 @@ The following code snippet shows how `AddPatientCommand` is executed:
             throws CommandException {
         requireNonNull(model);
 
-        if (!UserSession.isLogin()) { # <1>
-            throw new CommandException(MESSAGE_NOT_LOGIN);
+        if (!UserSession.isLoginAsReceptionist()) { # <1>
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
         } else if (model.hasPatient(toAdd)) { # <2>
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        } else if ((toAdd.getPreferredDoctor().isPresent())
+                && (!isPreferredDoctor(model, toAdd.getPreferredDoctor().get()))) { # <3>
+            throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
         }
-
-        model.addPatient(toAdd); # <3>
-        model.commitClinicIo();
+        
+        model.addPatient(toAdd); # <4>
+        model.switchTab(0);
+        model.commitClinicIo();        
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));    }
     }
+    
+    /**
+     * Check if the staff is the preferred doctor.
+     * @param model The current model in ClinicIO
+     * @param preferredDoctor Patient's preferred doctor
+     * @return True if the staff is a doctor found in ClinicIO.
+     */
+    public boolean isPreferredDoctor(Model model, Staff preferredDoctor) {
+        requireNonNull(preferredDoctor);
+        boolean hasStaff = model.hasStaff(preferredDoctor);
+        boolean isDoctor = preferredDoctor.getRole().equals(DOCTOR);
+        return hasStaff && isDoctor;
+    }    
 ----
-<1> Check if user is login as receptionist
-<2> Check if there is an existing patient record in ClinicIO
-<3> Add patient to ClinicIO
+<1> Check if user is login as receptionist.
+<2> Check if there is an existing patient record.
+<3> Check if the preferred doctor exist in the staff record.
+<3> Add patient to ClinicIO.
 
 ===== `ListPatientCommand`
 
