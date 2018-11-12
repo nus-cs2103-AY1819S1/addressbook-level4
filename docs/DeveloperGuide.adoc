@@ -32,19 +32,20 @@ methodology.
 *MeNUS* is an open-source project. If you are interested in contributing, see the
 link:{repoURL}/docs/AboutUs.adoc[`Contact Us`] page for more information.
 
-=== Legends
-The following *3* legends will be used throughout the documentation which you may wish to pay attention to as it may
+=== Legend
+The following *3* callouts will be used throughout the documentation which you may wish to pay attention to as it may
 contain important details:
 
 [NOTE]
-Just for your info, do not be alarmed
+Just for your info, do not be alarmed. Be sure to read these notes as it might contain some important information.
 
 [TIP]
-Perhaps something can be done using another approach, but it is up to you to decide
+Perhaps something can be done using another approach, but it is up to you to decide. Tips are often not important and
+ can be safely ignored.
 
 [WARNING]
-Some things might go wrong if you are not careful, or did not follow the instructions correctly; strongly advised to
-read whatever is in this block
+Some things might go wrong if you are not careful, or did not follow the instructions correctly. You are strongly
+advised to read whatever is in this block.
 // end::intro[]
 
 == Setting up
