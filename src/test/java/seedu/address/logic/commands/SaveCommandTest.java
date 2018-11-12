@@ -35,7 +35,7 @@ public class SaveCommandTest {
             }
             file.delete();
         } catch (CommandException e) {
-            if (e.getMessage() != null) {
+            if (e.getMessage().isEmpty()) {
                 throw e;
             }
         }
@@ -54,7 +54,7 @@ public class SaveCommandTest {
             assertCommandFailure(command, model, new CommandHistory(), Messages.MESSAGE_DUPLICATED_IMAGE);
             file.delete();
         } catch (CommandException e) {
-            if (e.getMessage() != null) {
+            if (e.getMessage().isEmpty()) {
                 throw e;
             }
         }
