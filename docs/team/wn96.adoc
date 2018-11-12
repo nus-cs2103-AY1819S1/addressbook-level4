@@ -57,7 +57,7 @@ LoanBook was built with love together with 4 other students in NUS, namely David
 *** Enforced Git discipline across the team, ensuring stability of the master branch.
 *** Ensured code quality through reviews on Github.
 **** Reviewed 37 of 90 Pull Requests not created by myself.
-**** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]], [https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125]]
+**** PRs reviewed (with non-trivial review comments): [https://github.com/CS2103-AY1819S1-F10-2/main/pull/24[#24]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/35[#35]][https://github.com/CS2103-AY1819S1-F10-2/main/pull/125[#125]]
 
 ** Project Enhancement:
 *** Add colour to tags [https://github.com/CS2103-AY1819S1-F10-2/main/pull/90[#90]]
