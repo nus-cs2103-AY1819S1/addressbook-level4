@@ -67,8 +67,9 @@ to my code on the Project Code Dashboard.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=command-switch]
 include::../UserGuide.adoc[tag=command-record]
+include::../UserGuide.adoc[tag=command-switch]
+
 
 == Contributions to the Developer Guide
 
@@ -76,6 +77,7 @@ include::../UserGuide.adoc[tag=command-record]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=command-switch]
 include::../DeveloperGuide.adoc[tag=command-manage]
+include::../DeveloperGuide.adoc[tag=command-switch]
+
 
