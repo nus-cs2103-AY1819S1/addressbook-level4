@@ -42,9 +42,9 @@ public class EditSalesCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_ITEM_NAME + "NAME] "
+            + "[" + PREFIX_ITEM_NAME + "ITEM_NAME] "
             + "[" + PREFIX_QUANTITY_SOLD + "QUANTITY_SOLD] "
-            + "[" + PREFIX_ITEM_PRICE + "PRICE]\n"
+            + "[" + PREFIX_ITEM_PRICE + "ITEM_PRICE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "25-12-2018 "
             + PREFIX_QUANTITY_SOLD + "80";

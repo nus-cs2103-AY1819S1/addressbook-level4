@@ -3,64 +3,135 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: MeNUS
-
----
-
 == Overview
+This portfolio documents my contributions towards the project I have undertaken in the course **CS2103T - Software
+Engineering**. It aims to demonstrate the theoretical and practical knowledge I have gained in the field of Software
+Engineering over the semester.
 
-*MeNUS* is an integrated restaurant management desktop application designed for restaurant managers. It incorporates
-the menus, ingredients, sales and reservations management system so restaurant managers can efficiently and
-effectively keep track of their menu, ingredient inventory, financial records and bookings all in one place. It
- provides a Command Line Interface (CLI) for restaurant managers to interact with, and is complemented with a
- Graphical User Interface (GUI) created with JavaFX. MeNUS is written with approximately 30 kLOC.
+== PROJECT: MeNUS
+*MeNUS* is an integrated restaurant management desktop application designed for restaurant owners. It comprises five
+sub-management systems - 1) Menu, 2) Inventory, 3) Sales, 4) Reservation and 5) Authentication, each of which plays an
+indispensable role in ensuring the success of a restaurant business. They were meticulously developed to streamline
+the process of tracking dishes, ingredients, bookings and sales records while upholding a substantial level of security.
+
+*MeNUS* provides a Command Line Interface (CLI) for restaurant owners to interact with and is complemented with a
+Graphical User Interface (GUI) that is constructed with https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm[JavaFX].
+MeNUS is written in https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9]
+with approximately 25 kLOC.
 
 
 == Summary of contributions
+
+|===
+|Given below are contributions I made for the project. They showcase my capability to +
+ 1) identify and specify functional and non-functional requirements for the product; +
+ 2) conduct product and implementation design to meet end-users' requirements; +
+ 3) write high quality code that is error-free, comprehensible, and reusable; +
+ 4) write effective and efficient test codes to ensure high quality assurance; +
+ 5) use various modelling and version control tools; +
+ 6) collaborate with other developers.
+|===
+
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=hyperionnkj[RepoSense]
-* *Major enhancement*: added Sales Management features to help restaurant owners keep track of financial records.
-** What it does: allows the user to record, edit and delete financial records. Besides, they can view the sales
-report of a specified date, and even the revenue ranking of the items and dates. An auto-ingredient update mechanism
-was also incorporated in command to record sales, so restaurant managers would no longer have to manually update them
- every day.
-** Justification: These features help ease the difficulty in keeping track of financial records every day. It also
-helps restaurant managers make strategic financial and marketing decisions to expand their business in the long run.
-** Highlights: This enhancement adds on to the limited number of commands available in MeNUS. It requires an in-depth
-analysis of design alternatives as well as understanding how the entire code base interacts with one another. The
-implementation too was challenging as the auto-ingredient update mechanism requires knowledge of how menus and
-ingredients management works.
+* *Major enhancement*: Developed and integrated a **Sales Management System (SMS)** into MeNUS to help restaurant owners
+keep track of financial records, analyse their financial performance and devise marketing strategies.
+** *What it does*: SMS allows owners to add, modify and remove sales records. An **Auto-ingredient update** mechanism
+is incorporated to enable automatic consumption of ingredients whenever a record is added. Also provides owners
+with analytical features to generate sales report, plot sales chart and rank dates/items according to
+profitability.
+
+** *Justification*: These features provide efficiency and effectiveness in keeping track of huge amount of financial
+records every day which can be extremely tedious if done via the conventional means of pen and paper. The
+`Auto-ingredient update mechanism` also saves restaurant managers the trouble of frequent inventory tracking which
+often takes up a significant amount of time and effort. Analytical features assists restaurant owners in making
+strategic marketing decisions, projecting business's revenue as well as monitoring its long-term growth. These ensure
+ the financial success of the restaurant in the long run.
+
+** *Highlights*: This enhancement adds on to the limited number of key management aspects MeNUS can provide. It
+requires an in-depth analysis of design alternatives as well as a thorough understanding of the entire code
+architecture. The implementation was challenging as the `Auto-ingredient update mechanism` required the integration of
+the Menus, Ingredients and Sales management system. An extensive knowledge of how each management works was therefore
+essential. Analytical features also required substantial knowledge of front-end programming languages such as
+https://www.w3schools.com/css/css_intro.asp[CSS] and https://www.w3schools.com/xml/xml_whatis.asp[XML].
 
 * *Other contributions*:
 
 ** Project Management:
-*** Manage the integration aspect of the MeNUS. Ensure interaction between various components of the app goes smoothly
-as intended.
+*** Managed the integration and collaboration aspect of MeNUS.
+https://github.com/CS2103-AY1819S1-F10-4/main/issues/147[#147]
+*** Ensured https://en.wikipedia.org/wiki/Coupling_(computer_programming)[loose coupling] and flawless coordination
+between various management systems of MeNUS.
+*** Maintained issue tracker and merging of pull requests (PRs).
+*** Oversaw the Storage component of MeNUS and preserved its functionality throughout.
 
-** Community:
-*** PRs reviewed (with non-trivial review comments)
-*** Reported bugs and suggestions for other teams in the class
+** Enhancements to existing features:
+*** Updated MeNUS's Cascading Style Sheets (CSS) theme.
 
 ** Quality Assurance:
-*** Written all the test cases related to Sales management which include unit testing, system testing and integration
- testing. This helps improve the overall coverage of the app beyond 90%.
+*** Wrote unit and integration tests which helped improve the overall code coverage beyond 94%.
 
 ** Documentation:
-*** Written the Sales command descriptions in User guide
-*** Written and updated use cases, user stories in Developer guide.
-*** Written the implementation details of display-sales and auto-ingredient update features.
-*** Drawn UML model to ease understanding and complement written explanation
-*** Made general enhancements to the User Guide and Developer Guide
+*** User Guide:
+**** Added user-centric Sales command descriptions.
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/36[#36],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/119[#119],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/192[#192],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/294[#294]
+*** Developer Guide:
+**** Wrote implementation details for `display-sales` and `Auto-ingredient update` features.
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/119[#119],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/192[#192],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/294[#294]
+**** Drew Unified Modeling Language (UML) diagrams under various sections.
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/141[#141],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/202[#202],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/266[#266]
+**** Specified requirements under user stories and use cases
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/36[#36],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/119[#119],
+
+** Community:
+*** https://bit.ly/2QAkHS9[Reviewed]
+ more than 75 PRs.
+*** Ensured code quality through non-trivial comments and suggestions in many PRs.
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/267[#267]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[#256]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/189[#189]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/170[#170]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/262[#262]
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/122[#122]
+*** Reported bugs and suggestions for other teams in the course.
+https://github.com/CS2103-AY1819S1-W17-1/main/issues/239[#239]
+https://github.com/CS2103-AY1819S1-W17-1/main/issues/240[#240]
+https://github.com/CS2103-AY1819S1-W17-1/main/issues/241[#241]
+https://github.com/CS2103-AY1819S1-W17-1/main/issues/242[#242]
+https://github.com/CS2103-AY1819S1-W17-1/main/issues/243[#243]
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|The following sections are my contributions to the User Guide. They reflect my ability to write clear and concise
+documentation targeting non-technical readers. Please refer to https://cs2103-ay1819s1-f10-4-menus.netlify
+.com/userguide[User Guide] for more of my contributions.
 |===
+
+include::../UserGuide.adoc[tag=salesmanagement]
+include::../UserGuide.adoc[tag=rankdates]
+
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|The following sections are my contributions to the Developer Guide. They reflect my ability to convey technical
+information in a comprehensible manner. It also showcases the technical depth of my contributions.
+Please refer to https://cs2103-ay1819s1-f10-4-menus.netlify.com/developerguidefor more of my contributions
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=salesmanagement]
+include::../DeveloperGuide.adoc[tag=salesmanagement1]
+
+
+include::../DeveloperGuide.adoc[tag=ucsales]
+
+
