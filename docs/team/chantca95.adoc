@@ -62,3 +62,9 @@ include::../UserGuide.adoc[tag=export]
 include::../DeveloperGuide.adoc[tag=import]
 
 include::../DeveloperGuide.adoc[tag=export]
+
+include::../DeveloperGuide.adoc[tag=manualTestingImport]
+
+include::../DeveloperGuide.adoc[tag=manualTestingExport]
+
+
