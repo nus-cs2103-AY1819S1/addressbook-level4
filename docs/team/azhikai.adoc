@@ -23,7 +23,7 @@ It is cross-platform supported and can be used on both Windows-based and Unix-ba
 
 == Summary of Contributions
 * *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=azhikai[RepoSense]
-* *Major enhancement*: Added the *user management* feature
+* *Major enhancement*: Added the *accounts management* feature
 ** *What it does*: Allows the restaurant owner to create an account for each of his employee to manage the system on his
  behalf.
 ** *Justification*: This feature implements a security layer by ensuring that only authorised employees are able to
