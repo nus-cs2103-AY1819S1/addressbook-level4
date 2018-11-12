@@ -18,16 +18,16 @@ public class TagContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        TagContainsKeywordsPredicate firstPredicate = 
+        TagContainsKeywordsPredicate firstPredicate =
                 new TagContainsKeywordsPredicate(firstPredicateKeywordList);
-        TagContainsKeywordsPredicate secondPredicate = 
+        TagContainsKeywordsPredicate secondPredicate =
                 new TagContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        TagContainsKeywordsPredicate firstPredicateCopy = 
+        TagContainsKeywordsPredicate firstPredicateCopy =
                 new TagContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 

@@ -18,14 +18,17 @@ public class FinderContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        FinderContainsKeywordsPredicate firstPredicate = new FinderContainsKeywordsPredicate(firstPredicateKeywordList);
-        FinderContainsKeywordsPredicate secondPredicate = new FinderContainsKeywordsPredicate(secondPredicateKeywordList);
+        FinderContainsKeywordsPredicate firstPredicate =
+                new FinderContainsKeywordsPredicate(firstPredicateKeywordList);
+        FinderContainsKeywordsPredicate secondPredicate =
+                new FinderContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        FinderContainsKeywordsPredicate firstPredicateCopy = new FinderContainsKeywordsPredicate(firstPredicateKeywordList);
+        FinderContainsKeywordsPredicate firstPredicateCopy =
+                new FinderContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -67,7 +70,7 @@ public class FinderContainsKeywordsPredicateTest {
         // match all but one keyword
         predicate = new FinderContainsKeywordsPredicate(Arrays.asList("Alice", "Marrissa", "Hoe"));
         assertFalse(predicate.test(new ArticleBuilder().withFinder("Alice Hoe").build()));
-        
+
         // Non-matching keyword
         predicate = new FinderContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new ArticleBuilder().withFinder("Alice Bob").build()));

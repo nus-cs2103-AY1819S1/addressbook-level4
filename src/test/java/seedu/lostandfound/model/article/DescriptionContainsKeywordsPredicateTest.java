@@ -18,16 +18,16 @@ public class DescriptionContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        DescriptionContainsKeywordsPredicate firstPredicate = 
+        DescriptionContainsKeywordsPredicate firstPredicate =
                 new DescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
-        DescriptionContainsKeywordsPredicate secondPredicate = 
+        DescriptionContainsKeywordsPredicate secondPredicate =
                 new DescriptionContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        DescriptionContainsKeywordsPredicate firstPredicateCopy = 
+        DescriptionContainsKeywordsPredicate firstPredicateCopy =
                 new DescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
