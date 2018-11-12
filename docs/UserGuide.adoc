@@ -101,24 +101,7 @@ When adding a new `Doctor` you have to to specify his/her `MedicalDepartment`.
 === Listing all relevant personnel : `list`
 
 Shows a list of all of the people in the database. +
-Format: `list [r/ROLE]`
-
-Examples:
-
-* `list` +
-Lists all doctors and patients in the database. (Refer to Figure 5 for illustration)
-
-image::listAll.png[width="600"]
-
-* `list r/doctor` +
-Lists all the doctors in the database. (Refer to Figure 6 for illustration)
-
-image::listDoc.png[width="600"]
-
-* `list r/patient` +
-Lists all patients in the database. (Refer to Figure 7 for illustration)
-
-image::listPatient.png[width="600"]
+Format: `list`
 // end::list[]
 
 === Editing a person : `edit`
@@ -346,10 +329,133 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Switching between different database : `switch`
 
-Clears all entries from the database. +
+Switches between the three different database available i.e. 1. doctor, 2. patient, 3. doctor and patient. +
+Format: `switch r/ROLE`
+
+****
+* The active database displayed is switched to that of the specified ROLE.
+* ROLE is the role of the person (patient or doctor).
+****
+
+IMPORTANT: ROLE is *case-insensitive* and it accepts only *three* different parameters as follows: +
+1. Doctor +
+2. Patient +
+3. All +
+
+NOTE: Adding a person belonging to a different database is allowed but you would not be able to view it. +
+E.g. Adding
+a new patient while viewing the doctor's database.
+
+Examples:
+
+* `switch r/Doctor` +
+Switches over to display the doctor's database as shown in the figure below:
+
+.Upon switching to doctor's database
+image::switchDoc.png[width="600"]
+
+* `switch r/Patient` +
+Switches over to display the patient's database as shown in the figure below:
+
+.Upon switching to patient's database
+image::switchPatient.png[width="600"]
+
+* `switch r/All` +
+Switches over to display a combined view of both patient's and doctor's database, shown in figure below:
+
+.Upon switching to the combined database of both patient and doctor
+image::switchAll.png[width="600"]
+
+=== Clear entries in active database : `clear`
+
+Clears only the entries in the active database (currently in view of). +
 Format: `clear`
+
+Example:
+
+`switch r/doctor` +
+Switches over to the doctor's database as shown in the figure below:
+
+.Upon switching to doctor's database
+image::clearStep1.png[width="600"]
+
+`clear` +
+Clears all the data in the currently active database i.e. clears all doctors' data only, shown in the figure below:
+
+.Clearing the active database
+image::clearStep2.png[width="600"]
+
+`switch r/patient` +
+Switches over to the patient's database and as shown in the figure below, the patients' data are
+still present:
+
+.Upon switching to patient's database
+image::clearStep3.png[width="600"]
+
+NOTE: If the current active database is the combined database containing both patients' and doctors' data, then
+executing this command would result in clearing all entries from both databases.
+
+=== Clearing all entries : `clearall`
+
+Clears all entries from both patient's and doctor's databases. +
+Format: `clearall`
+
+NOTE: This command when executed, clears all patients' and doctors' regardless of which database the user is
+currently viewing, unlike the `clear` command where the deletion of data only applies to the active database.
+
+=== Retrieving a list of available doctors : `avail`
+
+Retrieves a list of all the doctors available at that moment or base on the date and time period indicated by the
+user. +
+
+Format: `avail [d/DATE] [st/START TIME] [et/END TIME]`
+
+****
+* Date is formatted as DD.MM.YYYY and is dot separated. e.g.  `7.11.1996` is the 7th of November 1996
+* Both start and end time uses the 24-hour clock time. e.g. `1300` is 1pm
+* End Time should be the same if not a later time than the start time
+* Date and Time (start and end time) are optional parameters
+****
+
+NOTE: If no date is specified by the user, the system would use the current date by default. Similarly, if neither start
+ nor end time is specified by the user, the system would use the current time as an input for both start and end time.
+
+NOTE: Also, there is a 1 minute buffer time allocated for doctors after the end of their appointments. This means that
+ if a doctor has an appointment from 1100 to 1200, the doctor will be considered unavailable even at the time 1201.
+
+[IMPORTANT]
+Inputs for both start and end time should either be both present or both absent. There should not be
+an end time without there being a start time specified, and vice versa. +
+
+
+Examples:
+
+`avail` +
+List all doctors available at the moment (i.e. the date and time when the command is executed), as shown in the figure
+below:
+
+.Display available doctors at current datetime diagram
+image::avail.png[width="600"]
+
+`avail d/24.11.2018`
+List all doctors available on the 24th November 2018, at the time when this command is executed, as seen in the
+figure below:
+
+.Display available doctors on 24th November diagram
+image::avail2.png[width="600"]
+
+`avail d/24.11.2018 st/1200 et/1300`
+Lists all doctors available from 12pm to 1pm, on the 24th November 2018, shown in the diagram below:
+
+.Display available doctors base on the given date and time diagram
+image::avail3.png[width="600"]
+
+[WARNING]
+This command will not work should the user be viewing the patient's database, since this command applies only for
+doctors. In this case, executing this command will throw a message to prompt the user to switch the current
+active database to either the doctor's database or the combined database containing both patients' and doctors' data.
 
 // tag::displayappt[]
 === Displaying medical appointments : `select`
@@ -361,7 +467,7 @@ Format: `select INDEX`
 * Selects the person and loads the appointment list of the person at the specified `INDEX`.
 * The index is the position of the person selected from the person card list.
 * The index *must be a positive integer* `1, 2, 3, ...`
-* The appointment list will be displayed on the top right of the screen as shown in figure below.
+* The appointment list will be displayed on the top right of the screen.
 ****
 
 Examples:
@@ -371,13 +477,15 @@ Examples:
 .Display list diagram
 image::ListCommand.png[width="600"]
 +
-`select 2` selects the 2nd person in the database and display the appointments of that person as shown in the figure below.
+`select 2` selects the 2nd person in the database and display the appointments of that person
+on the top right of the screen as shown in the figure below.
 +
 .Display appointment diagram
 image::DisplayAppointment.png[width="600"]
 * `find Betsy` +
 `select 1` +
-Selects the 1st patient in the results of the `find` command and display the appointments. Similar to the example above.
+Selects the 1st patient in the results of the `find` command and display the appointments.
+This is similar to the example above.
 // end::displayappt[]
 
 // tag::schedule[]
