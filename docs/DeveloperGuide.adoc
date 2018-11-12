@@ -513,6 +513,8 @@ image::modifyPermissionSequenceDiagram.png[width="700"]
 ** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
 // end::modifypermission[]
 
+// tag::viewpermission[]
+
 ==== View Permissions of employee
 
 This feature allows the user to view the permissions that have been allocated to an employee.
@@ -551,6 +553,7 @@ image::viewPermissionSequenceDiagram.png[width="700"]
 
 ** Cons: Person card can get very cluttered if employee have many permissions.
 
+// end::viewpermission[]
 
 // tag::keyboardshortcuts[]
 === Command Shortcuts
