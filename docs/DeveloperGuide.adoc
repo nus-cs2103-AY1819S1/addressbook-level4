@@ -1079,12 +1079,12 @@ computer.
 
 The following sequence diagram shows how the image operation works:
 
-image::Image Sequence Diagram.png[width="800"]
+image::Image Sequence Diagram.png[width="730"]
 _Figure 4.7.1.1: Sequence diagram for image operation_
 
 The following activity diagram summarizes what happens when a user executes the image command:
 
-image::Image Activity Diagram.png[width="650"]
+image::Image Activity Diagram.png[width="400"]
 _Figure 4.7.1.2: Activity diagram for image operation_
 
 ==== Design Considerations
@@ -1137,12 +1137,12 @@ the filtered persons list.
 
 The following sequence diagram shows how the search operation works:
 
-image::Search Sequence Diagram.png[width="800"]
+image::Search Sequence Diagram.png[width="600"]
 _Figure 4.10.1.1: Sequence diagram for search operation_
 
 The following activity diagram summarizes what happens when a user executes the search command:
 
-image::Search Activity Diagram.png[width="650"]
+image::Search Activity Diagram.png[width="400"]
 _Figure 4.10.1.2: Activity diagram for search operation_
 
 ==== Design Considerations
