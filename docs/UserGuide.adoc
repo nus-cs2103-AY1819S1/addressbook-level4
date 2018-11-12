@@ -1160,7 +1160,7 @@ contains the data of your previous *MeNUS* folder.
 |=======================================================================
 
 [appendix]
-== Glossary
+== Acronyms
 
 [[gui]] GUI::
 *Graphical User Interface* allows the use of icons or other visual indicators to interact with electronic devices,

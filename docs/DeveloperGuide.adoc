@@ -1984,15 +1984,14 @@ Use case ends.
 .  Should work on any <<mainstream-os,Mainstream OS>> as long as it has Java `9` or higher installed.
 .  Respond fast to user input and show the respective output within milliseconds.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Menu size should not be limited.
-.  System must be secured such that only authorised staffs can access it and execute commands.
+.  System must be secured such that only authorised employees can access it and execute commands.
 .  System should not require constant maintenance and work off-the-shelf without any installation.
 .  JAR file should not exceed 50 MB.
 .  Test coverage should be at least 80%.
 .  Should always favour security over efficiency in development.
 .  Any user who has the basic proficiency of the English language should be able to use the application with the help
  of the link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`].
-.  System should not require any internet access except for updating.
+.  System should not require any internet access.
 .  Only the English language will be used.
 
 [appendix]
@@ -2001,8 +2000,17 @@ Use case ends.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[appendix]
+== Acronyms
 [[gui]] GUI::
-Graphical User Interface
+*Graphical User Interface* allows the use of icons or other visual indicators to interact with electronic devices,
+rather than using only text via the command line.
+
+[[uml]] UML::
+Unified Modeling Language is used to specify, visualize, construct and document the artifacts of software systems.
+
+[[mss]] MSS::
+Main Success Scenario describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 
 [appendix]
 == Instructions for Manual Testing
@@ -2026,3 +2034,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the `jar` file. +
    *Expected*: The most recent window size and location is retained.
 
+=== Accounts Management
+
+. Login
+
+.. Prerequisite: The account must exists in the accounts record. The `root` account exists by default.
+.. Test case: `login id/root pw/1122qq` +
+   *Expected*: User will be logged in to the `root` account, and the username will be set accordingly at the
+   top-right corner of the GUI.
+.. Test case: `login pw/1122qq id/root` +
+   *Expected*: Same as previous as you can enter the parameters in any order.
+.. Test case: `login id/helloworld pw/lalala` +
+   *Expected*: Account does not exists and user will be shown an error message.
+.. Test case: `login id/root pw/` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields.
+.. Test case: `login id/ pw/1122qq` or `login` +
+   *Expected*: Same as previous.
