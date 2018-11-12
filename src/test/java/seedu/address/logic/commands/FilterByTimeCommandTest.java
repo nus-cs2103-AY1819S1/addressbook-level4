@@ -67,13 +67,13 @@ public class FilterByTimeCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 
         Time timeS = new Time("mon 0000 0400");
-        String expectedMessageS = String.format("Cannot find " + time.toString() + " slot within the students list!");
+        String expectedMessageS = String.format("Cannot find " + timeS.toString() + " slot within the students list!");
         GradeFilterPredicate predicateS = new GradeFilterPredicate(0, 0);
 
         FilterByTimeCommand commandS = new FilterByTimeCommand(new Time("mon 0000 0400"));
 
-        expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        expectedModel.updateFilteredPersonList(predicateS);
+        assertCommandSuccess(commandS, model, commandHistory, expectedMessageS, expectedModel);
     }
 
 
