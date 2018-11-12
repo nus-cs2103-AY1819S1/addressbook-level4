@@ -206,7 +206,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[width="500"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -345,7 +345,7 @@ Step 1: The user launches TheTracker for the first time. The
 `VersionedAddressBook` will be initialised with the initial address book
 state, which the `currentStatePointer` is currently pointing to.
 
-image::AddStartingStateListDiagram.png[width="500"]
+image::AddStartingStateListDiagram.png[width="300"]
 
 Step 2: The user executes `addperson n/David...` command to add a person named David in his TheTracker. The `addperson`
 string input in the command line is passed into the `AddressBookParser` object, which parses the input and creates an
@@ -356,12 +356,12 @@ thus adding the new `Person` into the versionedAddressBook. The `addperson` comm
 then calls `Model#commitAddressBook()`, causing the modified state of TheTracker
 after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
 
-image::AddNewCommand1StateListDiagram.png[width="500"]
+image::AddNewCommand1StateListDiagram.png[width="300"]
 
 The following sequence diagram shows how the `addperson` operation works:
 `addperson n/David`
 
-image::AddCommandLogicDiagram.png[width="500"]
+image::AddCommandLogicDiagram.png[width="400"]
 
 `addmodule` and `addoccasion` works in a similar way as `addperson`
 
@@ -896,7 +896,7 @@ It can then be accessed within the `VersionedAddressBook` when executing `undo` 
 The sequence diagram below (reproduced from <<Design-Logic>>) shows that
 the high-level implementation is similar to the earlier commands.
 
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeletePersonSdForLogic.png[width="400"]
 
 However, the current implementation also allows for 2 useful functionalities in this feature:
 
@@ -905,11 +905,11 @@ However, the current implementation also allows for 2 useful functionalities in 
 
 The following activity diagram gives a broad overview of the deletion process:
 
-image::DeleteActivityDiagram.png[width="800"]
+image::DeleteActivityDiagram.png[width="400"]
 
 In performing deep deletion, almost all "related" objects are copied. +
 
-image::DeleteDeleteCommandStateListDiagram.png[width="500"]
+image::DeleteDeleteCommandStateListDiagram.png[width="400"]
 =======
 For example, suppose TheTracker is initialised in the following manner:
 
@@ -917,7 +917,7 @@ For example, suppose TheTracker is initialised in the following manner:
 * `p1` is inserted into `m1`, `m2`
 * `p2` is inserted into `m1`
 
-image::DeleteSequenceDiagram.png[width="500"]
+image::DeleteSequenceDiagram.png[width="400"]
 =======
 The current object diagram can be drawn as follows (unnecessary fields omitted):
 
@@ -949,6 +949,7 @@ It has a new `UniquePersonList` which is empty.
 * **Alternative 2 :** 3 commands `deleteperson`, `deletemodule` and `deleteoccasion` to delete from the respective list.
 ** Pros:
 *** Easier to implement
+
 ** Cons:
 *** User may delete from the wrong list without realising
 *** Inconvenient for user to type out full command
