@@ -9,33 +9,61 @@
 
 == Overview
 
-ClinicIO is a clinic management desktop application so that a receptionist can manage a clinic with ease and efficiency.
-ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
+This project portfolio serves to document my role and contributions to the ClinicIO project, and to showcase my software
+engineering work to potential employers, academic programs, and other interested parties.
+
+ClinicIO was developed by a team of five undergraduate students, as a project for a software engineering module. As a
+desktop application, ClinicIO aims to alleviate the administrative workload that doctors and receptionist face in their
+clinics every day.
+
+ClinicIO provides users with the ability to manage __patient records__, schedule __appointments__, maintain a __patient
+queue__, organize a __medicine inventory__, and analyse __clinic data__.
+
+Due to project constraints, ClinicIO was developed to be operated mainly by the command line, with a visual graphical
+interface for its users. Users will need to type commands to access the features of the application, instead of the
+usual mouse-clicking.
+
+My team consisted of a team leader, an assistant team leader, and three other developers, each with their own
+responsibilities.
+
+As a developer responsible for __code integration__, I was in charge of __versioning__ the code, maintaining the __code
+repository__, and __integrating__ various parts of the software to create a working product. Additionally, I was also in
+charge of the __Storage__ component of ClinicIO, and designed the __Medicine Inventory__ feature of the application.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to organise the medicines in the clinic*
-** What it does: allows the user to add, delete, update quantities, and view details of various medicines.
-** Justification: This feature improves the product significantly because a target user will need an efficient way to access information on medicines.
+|===
+|_This section serves to outline the contributions I have made to the development of ClinicIO. This include major and
+minor enhancements, code contributed, and other contributions made to my team and project._
+|===
+
+==== Major Enhancement 1: added *the ability to add and delete medicines in the clinic's __Medicine Inventory__*
+
+** What it does: allows the user to add and delete medicines in the medicine inventory.
+** Justification: This feature improves the product significantly because a target user will need an efficient way to
+update the list of medicines in the clinic's medicine inventory
 ** Highlights: This enhancement adds new commands to the existing software.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+==== Major Enhancement 2: added *the ability to find and view medicines in the clinic's __Medicine Inventory__*
 
-* *Other contributions*:
+** What it does: allows the user to find and view medicines in the medicine inventory.
+** Justification: A target user will need an efficient way to find and view the details of specific medicines in the
+clinic's medicine inventory
+** Highlights: This enhancement adds new commands to the existing software.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Wrote additional tests for existing features.
+==== Major Enhancement 3: added *the ability to update medicine quantities in the clinic's __Medicine Inventory__*
+
+** What it does: allows the user to increase and decrease the quantities of medicines in the clinic's medicine inventory.
+** Justification: A target user will need an efficient way to update the quantities of medicines when either prescribing
+medicines to a patient, or restocking medicines for future prescriptions.
+** Highlights: This enhancement adds new commands to the existing software.
+
+==== Other contributions:
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide
-** Community:
-*** PRs reviewed (with non-trivial review comments):
-** Tools:
+*** Did cosmetic tweaks to existing contents of the User Guide.
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
