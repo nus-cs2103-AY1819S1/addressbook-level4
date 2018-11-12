@@ -262,9 +262,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ==== Current Implementation
 The goal of this section is to explain the implementation of the
-login/logout feature and to briefly explain the changes that were made on relevant
-components of EventOrganiser, namely, the EditUser Command, and the DeleteUser Command,
-to ensure cohesiveness of the entire application.
+login/logout feature.
 
 .Sequence Diagram for the Logic component when the user issues a `login n/Alice pass/password` command.
 image::LoginFeature_SequenceDiagram_includes_Logic.png[width="800"]
@@ -333,18 +331,6 @@ of another users account.
 * **Alternative 2** : Implement login command with one-time passwords.
 ** Pros: High level of security
 ** Cons: Highly difficult to implement
-
-==== EditUser Command and DeleteUser Command
-To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
-Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
-two commands. First and foremost, we will need users to be logged in to edit or delete his/her user account. Once the user issues an `deleteUser` command, it is automatically assumed that the user wants to
-delete his/her own account. This ensures that only the user of the account is allowed to delete
-his/her account. Once the user issues an `editUser` command, it is also automatically assumed that the user wants to
-delete his/her own account. This ensures that only the user of the account is allowed to edit
-his/her account. However, due to the way users are uniquely identified in EventOrganiser,
-a user may find that they are unable to change their name or password. In these situations, the user
-is encouraged to change their name or password to a different name or password respectively from
-the new name or password that they have chosen before.
 // end::login/logout[]
 
 ////
