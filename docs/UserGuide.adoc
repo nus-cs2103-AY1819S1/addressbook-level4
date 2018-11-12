@@ -136,10 +136,16 @@ Examples:
 Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
 Format: `update <index> <tag> <value>`
 
+[NOTE]
+This command cannot update the waiting time and maintenance field when the ride is not open.
+
 ==== Shutting down attraction: `shutdown`
 
 Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <index>`
+
+[NOTE]
+This command will reset the waiting time field to zero.
 
 ==== Opening attraction: `open`
 
