@@ -473,8 +473,8 @@ system can tolerate, given the other tasks the system must otherwise fulfill.
 
 [NOTE]
 ====
-If a privileged command is executed when a session is not set, an error will be shown. Any other commands are considered privileged
-For more information on which commands are guest-executable, see the <<UserGuide#Commands, UserGuide.adoc>> for more
+If a privileged command is executed when a session is not set, an error will be shown. For more information on which
+commands are guest-executable, see the <<UserGuide#Commands, UserGuide.adoc>> for more
 information
 ====
 
