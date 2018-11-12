@@ -1712,7 +1712,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-. Initial launch
+You are launch the program initially
+
+Instructions:
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
@@ -1724,26 +1726,41 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a patient
 
-=== Deleting a patient
+You are adding a new patient to ClinicIO
 
-. Deleting a patient while all patients are listed
+**Prerequisites: You must be login as a receptionist.**
 
-.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Instructions:
 
-_{ more test cases ... }_
+.. Test case: `addpatient n/Steve Rogers ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust` +
+   Expected: Patient record is added to ClinicIO. The list will update immediately after adding patient.
+.. Test case: `addpatient n/Steve Johnson ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust preDr/Dr Lee` +
+   Expected: No patient is added and a error message will show "The preferred doctor is not found." +
 
-=== Saving data
+=== Login as a receptionist
 
-. Dealing with missing/corrupted data files
+You are login to ClinicIO as a receptionist.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+**Prerequisites: None.**
 
-_{ more test cases ... }_
+Instructions:
+
+.. Test case: `login r/receptionist n/Mary Jane pass/reception3` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/receptionist n/Mary Jane pass/reception151` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
+   
+=== Login as a doctor
+
+You are login to ClinicIO as a doctor.
+
+**Prerequisites: None.**
+
+Instructions:
+
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1241` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
