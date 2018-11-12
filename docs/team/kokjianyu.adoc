@@ -38,7 +38,7 @@ Therefore, implementation was challenging as it requires in-depth knowledge of t
 ** What it does:
 *** Modify the permissions of the employee.
 ** Justification:
-*** An employee might get promoted or demoted, and might gain/lose access to previously accessible/restricted commands. Allowing permission to be modified will allow OASIS to be updated about the change in the employee's authorization. 
+*** An employee might get promoted or demoted, and might gain/lose access to previously accessible/restricted commands. Allowing permission to be modified will allow OASIS to be updated about the change in the employee's authorization.
 
 * Added ability to *view the permissions* granted to an employee
 
