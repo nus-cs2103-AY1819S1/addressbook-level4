@@ -1329,7 +1329,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample clients. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1345,7 +1345,7 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First client is deleted from the list. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
@@ -1360,3 +1360,19 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+// tag::testingpicture[]
+=== Adding picture
+
+. Adding a picture to a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list. `/Users/John/Downloads/Insuren/images/petertan.jpg` is a valid file path.
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/petertan.jpg
+   Expected: First client's picture is updated. Details of the updated client shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `pic 0 l//Users/John/Downloads/Insuren/images/petertan.jpg
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/invalid_image_path.jpg
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+
+// end::testingpicture[]
