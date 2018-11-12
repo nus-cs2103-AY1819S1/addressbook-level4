@@ -326,55 +326,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-==== Use Cases
-===== Use case: Analyses Financial Income
-
-MSS:
-
-1.  User requests analyses financial income according to
-     certain conditions.
-2.  User can choose to enter a valid date or not enter any text and press enter.
-3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
-
-Extensions:
-
-	2a. User enters invalid date
-
-	The system raises an error specifying that the given date is invalid.
-
-	Use case ends.
-
-	2b.  User enters no conditions.
-
-	The system generates the total financial income base on all the transaction in the database.
-
-	Use case ends.
-
-	2c. User enters valid date
-
-	The system generates the total financial income up to the given date.
-
-	Use case ends.
-
-===== Use case: Filter Transactions by criteria
-
-MSS:
-
-* 1.  User requests to view transactions that matches certain criteria
-* 2.  The System displays transactions that matches the criteria specified by the user +
- Use case ends.
-
-Extensions:
-
-* 1a. User does not specify any criteria
-**  The system raises an error and indicates to the user the correct command format. +
-**  Use case ends.
-
-* 1b. User enters an invalid input for a criteria
-** The system raises an error and indicates to the user the correct input format
-** Use case ends.
-
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -875,12 +826,14 @@ Priorities:  High (should have) +
 
 [appendix]
 == Use Cases
-=== Analyse Financial Income
+
+(For all use cases below, the *System* is the `DebtTracker` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Use case: Analyse Financial Income
 
 MSS:
 
-1.  User requests analyses financial income according to
-     certain conditions.
+1.  User requests analyses financial income according to certain conditions.
 2.  User can choose to enter a valid date or not enter any text and press enter.
 3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
 
@@ -901,7 +854,7 @@ Extensions:
 	... The system generates the total financial income up to the given date.
 	... Use case ends.
 
-=== Wildcard Search
+=== Use case: Wildcard Search
 
 MSS:
 
@@ -915,7 +868,7 @@ Extensions:
     ... The system raises an error specifying that there must be a substring input.
     ... Use case ends.
 
-=== Paid
+=== Use case: Paid
 
 MSS:
 
@@ -941,3 +894,106 @@ Extensions:
     ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
     transaction without clearing any of the previous transactions.
     ... Use case ends.
+
+=== Use case: Convert transaction amounts
+
+MSS:
+
+ 1. The user requests to convert all the transaction amounts to the base currency, Singapore Dollars. +
+
+ 2. The system converts all those transaction amounts in foreign currencies to the base currency.
+    Those transaction amounts in Singapore Dollars reflect no change. +
+
+ 3. The system list all the transactions with updated amounts. +
+
+Extensions:
+
+1a. The user enters an additional parameter for the command +
+
+ ... The system ignores the additional parameter and continues with the conversion as per normal. +
+ ... Use case ends.
+
+2a. The application is not connected to the internet. +
+
+  ... The user is informed that there is an error reading the value from the API. +
+  ... Use case ends.
+
+2b. The database has no transactions contained within it. +
+
+  ... The system responds with an error message because the operation is invalid on an empty database. +
+  ... Use case ends.
+
+=== Use case: Calculate interest on transaction amounts
+
+MSS:
+
+ 1. The user requests to calculate interests on all the transaction amounts. +
+
+ 2. The user enters the interest scheme (simple/compound) and the interest rate. +
+
+ 3. The system calculates interest on the amounts of those transactions with a deadline more than a month away.
+    The amounts of the transactions with deadlines within a month period are not updated.
+
+Extensions:
+
+1a. There are no transactions in the database
+
+    ... The system responds with an error message because the operation is invalid on an empty database.
+    ... Use case ends.
+
+2a. The user enters a wrong interest scheme
+
+    ... The system responds with an error message for the user to correct the scheme.
+    ... Use case ends.
+
+2b. The user enters a wrong interest rate
+
+    ... The system responds with an error message for the user to adjust the interest rate.
+    ... Use case ends.
+
+==== Use case: Sort transactions by parameter
+
+MSS:
+
+  1. The user requests to sort the transaction based on a given parameter.
+
+  2. The system sorts all the transactions based on the given parameter. +
+
+  3. The system lists all the transactions according to the new sorting order. +
+
+Extensions:
+
+1a. The user enters an invalid parameter
+
+    ... The system sorts by the default parameter: the name of the transactor.
+    ... Use case ends.
+
+1b. The user enters no parameters
+
+    ... The system sorts by the same default parameter as above
+    ... Use case ends.
+
+2a. There are no transactions in the database
+
+    ... The system responds with an error message due to the empty database.
+    ... Use case ends.
+
+===== Use case: Filter transactions by criteria
+
+MSS:
+
+1.  User requests to view transactions that matches certain criteria
+2.  The System displays transactions that matches the criteria specified by the user +
+    Use case ends.
+
+Extensions:
+
+1a. User does not specify any criteria
+
+ ... The system raises an error and indicates to the user the correct command format. +
+ ... Use case ends.
+
+1b. User enters an invalid input for a criteria
+
+ ... The system raises an error and indicates to the user the correct input format
+ ... Use case ends.
