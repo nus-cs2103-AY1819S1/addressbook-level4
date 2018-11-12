@@ -931,16 +931,17 @@ Next, add a feature that touches multiple components to learn how to implement a
 [appendix]
 == Target User Profile
 
-Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.
+We target overworked students that like mobile games with positive reinforcement.
 
-The target age group is from 15 years old to 25 years old.
-
-Attributable to our target demographic are the following qualities:
-
-  * Adept with technology
-  * Inclined to vicariously project a virtual avatar's experience unto themselves
-  * Inclined against keeping data on physical mediums
-  * Perpetually experiencing the continuous bombardment of deadlines from assignments
+* Needs extrinsic motivation to complete tasks, such as XP system
+** Finds constant affirmation of their progress in the form of preserved
+statistics over varying time window to be particularly motivational for them.
+** Would like to spice things up with different gamified modes in earning XP.
+* Leads a multifaceted life with variation in tasks they need to do
+** Prioritises activities differently
+** Some tasks have natural dependencies on other tasks in their lives
+** Has a high volume of tasks with differing deadlines
+* Prefer CLI apps over fancy GUI
 
 [appendix]
 == Value proposition
