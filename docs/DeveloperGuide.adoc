@@ -1271,7 +1271,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Disease will not be added. Error message will be shown in the CommandResult box.
 .. Test case: `add disease d/invalid,disease s/dummySymptom` +
    Expected: Disease will not be added. Error message will be shown in the CommandResult box.
-   
+
 === Delete
 
 . Deleting a patient
