@@ -432,6 +432,11 @@ public class AddEventCommandTest {
         }
 
         @Override
+        public void updateEvent(Event target, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -488,6 +493,41 @@ public class AddEventCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateNotificationPref(boolean set) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getNotificationPref() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFavourite(String favourite) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFavourite(Event favourite) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isFavourite(Event event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getFavourite() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void indicateTabPanelSelectionChangedEvent() {
             throw new AssertionError("This method should not be called.");
         }
     }

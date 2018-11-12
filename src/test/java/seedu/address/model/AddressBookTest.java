@@ -48,6 +48,8 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getEventList());
+        assertEquals(true, addressBook.getNotificationPref());
+        assertEquals(null, addressBook.getFavourite());
     }
 
     @Test
@@ -115,16 +117,12 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateEventTags_throwsDuplicateTagException() {
-
         List<Person> newPersons = Arrays.asList(ALICE);
         List<Event> newEvents = Arrays.asList(DOCTORAPPT);
-
         // Two event tags with the same values (case-insensitive)
         Tag duplicateTag = new Tag(VALID_TAG_APPOINTMENT.toUpperCase());
         List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG, duplicateTag);
-
         AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
-
         thrown.expect(DuplicateTagException.class);
         addressBook.resetData(newData);
     }
@@ -136,20 +134,25 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasEvent_nullEvent_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        addressBook.hasEvent(null);
-    }
-
-    @Test
     public void hasEventTag_nullTag_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.hasEventTag(null);
     }
 
     @Test
+    public void hasEvent_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasEvent(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasEventTag_tagNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasEventTag(APPOINTMENT_TAG));
     }
 
     @Test
@@ -161,12 +164,6 @@ public class AddressBookTest {
     public void hasClashingEvent_clashingEventNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasClashingEvent(DOCTORAPPT));
     }
-
-    @Test
-    public void hasEventTag_tagNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasEventTag(APPOINTMENT_TAG));
-    }
-
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
@@ -228,25 +225,23 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getEventList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getEventList().add(new ScheduledEventBuilder().build());
-    }
-
-    @Test
     public void getEventTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getEventTagList().add(APPOINTMENT_TAG);
     }
-
     @Test
     public void hasPersonsImported() {
         FileReader fileReader = new FileReaderBuilder().build();
-
         AddressBook importAddressBook = getImportContactsAddressBook();
         AddressBook newAddressBook = new AddressBook();
         newAddressBook.importContacts(fileReader);
         assertEquals(importAddressBook, newAddressBook);
+    }
+
+    @Test
+    public void getEventList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getEventList().add(new ScheduledEventBuilder().build());
     }
 
     /**
@@ -256,12 +251,19 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Tag> eventTags = FXCollections.observableArrayList();
+        private boolean notificationPref = true;
+        private String favourite = null;
 
         AddressBookStub(Collection<Person> persons, Collection<Event> events, Collection<Tag> eventTags) {
             this.persons.setAll(persons);
             this.events.setAll(events);
             this.eventTags.setAll(eventTags);
         }
+
+        public ObservableList<Tag> getEventTagList() {
+            return eventTags;
+        }
+
 
         @Override
         public ObservableList<Person> getPersonList() {
@@ -274,8 +276,35 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Tag> getEventTagList() {
-            return eventTags;
+        public boolean getNotificationPref() {
+            return notificationPref;
+        }
+
+        @Override
+        public void updateNotificationPref(boolean set) {
+            this.notificationPref = set;
+        }
+
+        @Override
+        public String getFavourite() {
+            return favourite;
+        }
+
+        @Override
+        public void updateFavourite(String favourite) {
+            this.favourite = favourite;
+        }
+
+        @Override
+        public boolean isFavourite(Event event) {
+            if (favourite.equals("Event Name: " + event.getEventName()
+                    + "\nEvent Date: " + event.getEventDate() + ", " + event.getEventDay()
+                    + "\nEvent Time: " + event.getEventStartTime() + " - " + event.getEventEndTime()
+                    + "\nEvent Details: " + event.getEventDescription())) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

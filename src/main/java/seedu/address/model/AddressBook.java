@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Set;
 
 import javafx.collections.ObservableList;
@@ -31,6 +32,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueTagList eventTags;
+    private boolean notificationPref;
+    private String favourite;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -43,6 +46,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         events = new UniqueEventList();
         eventTags = new UniqueTagList();
+        notificationPref = true;
+        favourite = null;
     }
 
     public AddressBook() {}
@@ -82,6 +87,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Updates the notification preference.
+     */
+    public void setNotificationPref(boolean set) {
+        this.notificationPref = set;
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -90,7 +102,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setEventTags(newData.getEventTagList());
+        setNotificationPref(newData.getNotificationPref());
+        updateFavourite(newData.getFavourite());
     }
+
+
 
     //// person-level operations
 
@@ -160,18 +176,26 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The event must not already exist in the address book, and must not clash any of the existing events in the
      * address book. All event tags must be existing in the address book.
      */
-    //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
-    // ask the
-    // user (by raising an event which brings up a message and prompts user for further input - enter to add anyway
-    // or esc to delete) for confirmation before adding.
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
+
         for (Tag eventTag : event.getEventTags()) {
             assert hasEventTag(eventTag);
         }
 
         events.add(event);
+    }
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    public void updateEvent(Event target, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(target, editedEvent);
     }
 
     /**
@@ -182,17 +206,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         for (String s : contacts) {
             String[] parts = s.split(",");
             String nameString = parts[fileReader.getNameIndex()];
-            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("\\s", "");
+            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("[^\\d]", "");
             String addressString = parts[fileReader.getAddressIndex()];
             String emailString = parts[fileReader.getEmailIndex()];
             String facultyString = parts[fileReader.getFacultyIndex()];
-
             if (!(Name.isValidName(nameString) && Phone.isValidPhone(phoneString)
                     && Address.isValidAddress(addressString) && Email.isValidEmail(emailString))
                     && Faculty.isValidFaculty(facultyString)) {
                 continue;
             }
-
             try {
                 Name name = ParserUtil.parseName(nameString);
                 Phone phone = ParserUtil.parsePhone(phoneString);
@@ -200,20 +222,16 @@ public class AddressBook implements ReadOnlyAddressBook {
                 Address address = ParserUtil.parseAddress(addressString);
                 Set<Tag> tagList = ParserUtil.parseTags(new ArrayList<>());
                 Faculty faculty = ParserUtil.parseFaculty(facultyString);
-
                 Person person = new Person(name, phone, email, address, tagList, faculty);
-
                 if (!persons.contains(person)) {
                     persons.add(person);
-                } else {
-                    fileReader.incrementFailCounter();
+                    fileReader.incrementAddCounter();
                 }
             } catch (ParseException e) {
-                fileReader.incrementFailCounter();
+                // invalid values in contact entry, skip entry
             }
         }
     }
-
     //// tag-level operations
     /**
      * Returns true if an event tag with the same identity as {@code tag} exists in the address book.
@@ -222,14 +240,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(tag);
         return eventTags.contains(tag);
     }
-
     /**
      * Adds an event tag to the address book.
      * The event tag must not be already existing in the address book.
      */
     public void addEventTag(Tag tag) {
         assert !hasEventTag(tag);
-
         eventTags.add(tag);
     }
 
@@ -258,12 +274,48 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public boolean getNotificationPref() {
+        return notificationPref;
+    }
+
+    @Override
+    public void updateNotificationPref(boolean set) {
+        this.notificationPref = set;
+    }
+
+    @Override
+    public String getFavourite() {
+        return favourite;
+    }
+
+    @Override
+    public void updateFavourite(String favourite) {
+        this.favourite = favourite;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
                 && events.equals(((AddressBook) other).events))
                 && eventTags.equals(((AddressBook) other).eventTags);
+    }
+
+    /**
+     * Returns true if the current event is the favourite event.
+     * Formats event details into a String to be checked against "favourite" in versionedAddressBook.
+     */
+    @Override
+    public boolean isFavourite(Event event) {
+        if (favourite != null && favourite.equals("Event Name: " + event.getEventName()
+                + "\nEvent Date: " + event.getEventDate() + ", " + event.getEventDay()
+                + "\nEvent Time: " + event.getEventStartTime() + " - " + event.getEventEndTime()
+                + "\nEvent Details: " + event.getEventDescription())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

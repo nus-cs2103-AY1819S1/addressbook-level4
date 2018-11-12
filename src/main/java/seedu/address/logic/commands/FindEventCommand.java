@@ -13,6 +13,7 @@ import seedu.address.model.event.EventTagMatchesKeywordsPredicate;
  */
 public class FindEventCommand extends Command {
     public static final String COMMAND_WORD = "findEvent";
+    public static final String COMMAND_WORD_ALIAS = "fe";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all events whose event tags matches "

@@ -12,11 +12,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
 import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
+import seedu.address.commons.events.ui.TabPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -38,10 +38,12 @@ public class TabPanel extends UiPart<Region> {
 
     private LocationDisplayPanel locationDisplayPanel;
 
+    private List<Tab> tabList;
+
     @FXML
     private TabPane tabPane;
 
-    private SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private Tab webpageTab;
@@ -66,7 +68,9 @@ public class TabPanel extends UiPart<Region> {
         locationDisplayTab.setContent(locationDisplayPanel.getRoot());
 
         // set default tab
+        selectionModel = tabPane.getSelectionModel();
         selectionModel.select(eventsTab);
+        tabList = tabPane.getTabs();
 
         registerAsAnEventHandler(this);
     }
@@ -97,14 +101,6 @@ public class TabPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-
-        // switch active tab
-        selectionModel.select(eventsTab);
-    }
-
-    @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
@@ -126,6 +122,22 @@ public class TabPanel extends UiPart<Region> {
 
         // switch active tab
         selectionModel.select(locationDisplayTab);
+    }
+
+    @Subscribe
+    private void handleTabPanelSelectionChangedEvent(TabPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        //switch active tab
+        Tab curr = tabPane.getSelectionModel().getSelectedItem();
+
+        // select adjacent tab
+        for (int i = 0; i < tabList.size(); i++) {
+            if (tabList.get(i) == curr) {
+                Tab newTab = tabList.get((i + 1) % tabList.size());
+                selectionModel.select(newTab);
+            }
+        }
     }
 
     @Subscribe

@@ -13,7 +13,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 
@@ -73,13 +72,20 @@ public class FavouriteCommand extends Command {
 
         Event favouriteEvent = listToFavouriteFrom.get(targetIndex.getZeroBased());
 
-        ModelManager.updateFavourite("Event Name: " + favouriteEvent.getEventName()
-                + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
-                + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
-                + "\nEvent Details: " + favouriteEvent.getEventDescription());
+        model.updateFavourite(favouriteEvent);
+
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS
                 + favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FavouriteCommand // instanceof handles nulls
+                && targetDate.equals(((FavouriteCommand) other).targetDate)
+                && targetIndex.equals(((FavouriteCommand) other).targetIndex)); // state check
     }
 
 }

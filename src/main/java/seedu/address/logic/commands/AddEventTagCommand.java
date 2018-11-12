@@ -18,6 +18,7 @@ import seedu.address.model.tag.Tag;
 public class AddEventTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addEventTag";
+    public static final String COMMAND_WORD_ALIAS = "aet";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event tag to the address book. "
             + "Parameters: "

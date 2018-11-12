@@ -27,6 +27,13 @@ public class ScheduledEventUtil {
     }
 
     /**
+     * Returns an add command string using the command alias for adding the {@code event}.
+     */
+    public static String getAddEventCommandAlias(Event event) {
+        return AddEventCommand.COMMAND_WORD_ALIAS + " " + getEventDetails(event);
+    }
+
+    /**
      * Returns the part of command string for the given {@code event}'s details.
      */
     public static String getEventDetails(Event event) {

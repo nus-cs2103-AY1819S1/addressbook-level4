@@ -62,7 +62,7 @@ public class TypicalEvents {
                     .withEventStartTime("1200")
                     .withEventEndTime("1400")
                     .withEventContacts(ALICE)
-                    .withEventAddress("NUS")
+                    .withEventAddress("NUS i3")
                     .build();
 
     public static final Event DINNER =

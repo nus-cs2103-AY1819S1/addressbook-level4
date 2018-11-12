@@ -8,6 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EmbedGoogleMaps {
 
+    /**
+     * The following variables are the Google Maps Place IDs of locations used in the application.
+     */
     private static final String socPlaceId = "ChIJW-fkx_ga2jERSjkkKeJjaUM";
     private static final String fosPlaceId = "ChIJSfKZ6VYa2jERnuNsDKZ8moU";
     private static final String yllsomPlaceId = "ChIJx_aDLFEa2jERvhbP1ACc2t8";
@@ -26,14 +29,11 @@ public class EmbedGoogleMaps {
     private static final String humbleoriginsPlaceId = "ChIJA0UG2fka2jERCO0F5YbGzaE";
     private static final String coffeeroastersPlaceId = "ChIJJ1vrQxMZ2jERIWEJYEK-dnM";
 
-
-
     /**
      * This method returns the faculty location's Google Place ID.
-     * @param faculty The faculty that the person is from
-     * @return Google's PlaceId of the faculty location
+     * @param faculty The faculty that the person is from.
+     * @return Google's PlaceId of the faculty location.
      */
-
     public static String getPlaceId(String faculty) {
         String placeId = null;
 
@@ -62,7 +62,10 @@ public class EmbedGoogleMaps {
         return placeId;
     }
 
-    // TODO to replace this with a random generator of placeId with an assortment of places
+    /**
+     * This method randomly generates a meeting location and returns its Google Maps Place ID.
+     * @return The place ID string of the meeting location.
+     */
     public static String getMeetingPlaceId() {
         int randomNum = ThreadLocalRandom.current().nextInt(1, 8);
         String placeId = null;

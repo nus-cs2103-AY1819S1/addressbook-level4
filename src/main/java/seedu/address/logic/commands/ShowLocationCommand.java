@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
@@ -27,7 +29,10 @@ public class ShowLocationCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s. Faculty location successfully "
+            + "displayed.";
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final Index targetIndex;
 
@@ -42,8 +47,12 @@ public class ShowLocationCommand extends Command {
         List<Person> filteredPersonList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
+            logger.info("Selected person does not exist (out of list's size)."
+                    + " ShowLocationCommand will not be created.");
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
+        logger.info("Selected person exists. ShowLocationCommand to be created.");
 
         Person selectedPerson = filteredPersonList.get(targetIndex.getZeroBased());
 
@@ -56,7 +65,7 @@ public class ShowLocationCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ShowLocationCommand // instanceof handles nulls
-                && targetIndex.equals(((ShowLocationCommand) other).targetIndex)); // state check
+                && targetIndex.equals(((ShowLocationCommand) other).targetIndex));
     }
 
 }
