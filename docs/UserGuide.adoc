@@ -211,9 +211,13 @@ Sample output when `restore 2` command is executed show below:
 
 image:restoreUserGuide1.png[width=800]
 
-* Step 2: Type `restore 2` command in the same command box as Step 1 and you will see the following output on your screen:
+* Step 2: Type `restore 2` command in the same command box as Step 1 and employee at location 2 (Terrence Tan) will be removed from the archive list. You will see the following output on your screen:
 
 image:restoreUserGuide2.png[width=800]
+
+* Step 3: Type `active` command to go back to the active list. Employee Terrence Tan is now back in the active list as shown below:
+
+image:restoreUserGuide3.png[width=800]
 // end::restore[]
 
 === List details of employee : `select`
