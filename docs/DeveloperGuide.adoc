@@ -907,7 +907,7 @@ This feature allows the user's available spending to reset every user defined fr
 
 The implementation for this feature is describe in the two sections below.
 
-===== Setting the recurrence frequency
+===== 1. Setting the recurrence frequency
 This section explains the implementations of `setRecurrenceFrequency` command.
 
 * Recurrence time is set by `setRecurrenceFrequency`. If it has not been set before, the next recurrence time will
@@ -960,7 +960,7 @@ returned to
 method to update the time when the next expenses of `totalBudget` is reset.
 
 //tag::budgetPart2[]
-===== Resetting available spending.
+===== 2. Resetting available spending.
 
 This section explains the implementations of the recurring budget.
 
