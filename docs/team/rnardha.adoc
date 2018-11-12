@@ -71,7 +71,7 @@ https://github.com/CS2103-AY1819S1-T13-4/main/issues/168[#7])
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation with minimal technical terms targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=assignment]
