@@ -32,14 +32,23 @@ If you are new to development, you can try working step-by-step tutorial from Or
 - https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
 - https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
 
-If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start
-set up ClinicIO project.
+If you are new to contributing to ClinicIO, head over to <<intro, Introduction>> to have
+an overview of our project.
 
-== Setting up
+== Introduction
 
-=== Prerequisites
+ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
-Before you start setting up the project, these are the list of prerequisites that you need to install: +
+Go to the <<installation-guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
+
+[[installation-guide]]
+== Installation Guide
+
+This section is designed to help you to setup ClinicIO development environment.
+
+**Prerequisites** +
+
+Before you start setting up the project, here are the list of things that you need to install: +
 
 . *JDK `9`* or later
 +
@@ -53,7 +62,9 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-=== Setting up the project in your computer
+=== Instructions to setup the project in your computer
+
+Follow these steps to setup ClinicIO development environment in your local computer:
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -69,10 +80,15 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
+Please ensure that you verify that the project environment is able to run as expected before developing. You can verify by doing the following:
+
 . Run the `seedu.clinicio.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+
+Well done. You are done setting up the project environment. Before you start developing,
+here are the list of configurations that you need to make:
 
 ==== Configuring the coding style
 
@@ -111,14 +127,14 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
+You are now ready to start coding. You can do the following to get started:
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section is designed to help you to understand the overall design of ClinicIO.
 
 [[Design-Architecture]]
 === Architecture
@@ -664,12 +680,16 @@ Step 5: To indicate successful completion of verification, the `login` command r
 
 Step 6: Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made. +
 
-The following sequence diagram shows how the login works:
+The following sequence diagrams shows how the login works:
 
+**Logic**
+
+.Sequence Diagram for the `LoginCommand` for the logic component.
 image::LoginSequenceDiagram.png[width="1080"]
 
 The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
+.Activity Diagram for the `LoginCommand`
 image::LoginActivityDiagram.png[width="1080"]
 
 ===== `LogoutCommand`
@@ -719,6 +739,60 @@ to ClinicIO.
 
 // end::login[]
 
+// tag::patientManagement[]
+=== Patient Management
+
+ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
+
+==== Current Implementation
+
+The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, `EditPatientCommand` and `DeletePatientCommand`
+which is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
+
+===== `AddPatientCommand`
+
+The `AddPatientCommand` add patient to the ClinicIO. `AddPatientCommand` requires the current `UserSession` to be login as a receptionist
+in order to add patient.
+
+The following code snippet shows how `AddPatientCommand` is executed:
+[source,java]
+----
+    @Override
+    public CommandResult execute(Model model, CommandHistory history)
+            throws CommandException {
+        requireNonNull(model);
+
+        if (!UserSession.isLogin()) { # <1>
+            throw new CommandException(MESSAGE_NOT_LOGIN);
+        } else if (model.hasPatient(toAdd)) { # <2>
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        }
+
+        model.addPatient(toAdd); # <3>
+        model.commitClinicIo();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));    }
+    }
+----
+<1> Check if user is login as receptionist
+<2> Check if there is an existing patient record in ClinicIO
+<3> Add patient to ClinicIO
+
+===== `ListPatientCommand`
+
+The `ListPatientCommand` retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
+
+===== `EditPatientCommand`
+
+{Add implementation}
+
+===== `DeletePatientCommand`
+
+{Add implementation}
+
+==== Design Considerations
+
+// end::patientManagement[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -741,19 +815,21 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 == Documentation
 
-We use asciidoc for writing documentation.
+This section is designed for you to see how docuementation is being managed in ClinicIO.
+
+We use https://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc] for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
 === Editing Documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+You can visit <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
 === Publishing Documentation
 
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+You can visit <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
 === Converting Documentation to PDF format
 
@@ -846,6 +922,9 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+This section is designed for you to understand
+the type of testing that our project uses and ways to run our tests. +
+
 === Running Tests
 
 There are three ways to run tests.
@@ -895,9 +974,12 @@ e.g. `seedu.clinicio.logic.LogicManagerTest`
 
 == Dev Ops
 
+This section is designed to guide you through on the Dev Ops tools and practices that is used to manage
+this project. +
+
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+We use https://gradle.org/[Gradle] to perform _Build Automation_. See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
 === Continuous Integration
 
@@ -1464,6 +1546,10 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
+This section describe other requirements that is not stated in the link:UserGuide.adoc[user guide].
+
+These are the list of non-functional requirements:
+
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 concurrent users without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -1475,11 +1561,21 @@ Use case ends.
 [appendix]
 == Glossary
 
+This section is designed to provide you with definitions for
+terms that are used in this document below.
+
+[horizontal]
+[[crud]] Create, Read, Update and Delete (CRUD)::
+These are the basic functions of a persistent database.
+
+[[doctor]] Doctor::
+A person who is qualified to treat people who are ill.
+
+[[GUI]] GUI::
+Graphical User Interface
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [[medical-clinic]] Medical Clinic::
 A clinic that deal with medical issues only.
@@ -1487,8 +1583,8 @@ A clinic that deal with medical issues only.
 [[medical-clinic-receptionist]] Medical Clinic Receptionist::
 A person that is in charge of the front desk receptionist in a medical clinic.
 
-[[doctor]] Doctor::
-A person who is qualified to treat people who are ill.
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
 
 [appendix]
 == Instructions for Manual Testing
@@ -1504,7 +1600,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window will be full-screen.
 
 . Saving window preferences
 
