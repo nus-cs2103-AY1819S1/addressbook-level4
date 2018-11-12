@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import seedu.parking.commons.core.EventsCenter;
@@ -42,11 +44,22 @@ public class QueryCommand extends Command {
     public static final String COMMAND_WORD = "query";
 
     public static final String MESSAGE_SUCCESS = "%1$d car parks updated";
-    private static final String MESSAGE_LOADING = "Loading... please wait...";
+    public static final String MESSAGE_LOADING = "Loading... please wait...";
     private static final String MESSAGE_ERROR_CARPARK = "Unable to retrieve car park information from data.gov.sg\n"
             + "Please check your internet connection and try again";
 
+    private ExecutorService threadExecutor;
+    private Future<Boolean> future;
     private final Logger logger = LogsCenter.getLogger(QueryCommand.class);
+
+    public QueryCommand() {
+        threadExecutor = Executors.newSingleThreadExecutor();
+        future = CompletableFuture.completedFuture(true);
+    }
+
+    public Future<Boolean> getFuture() {
+        return future;
+    }
 
     /**
      * Calls the API and load all the car parks information
@@ -63,13 +76,13 @@ public class QueryCommand extends Command {
                     null);
             carparkList.add(c);
         }
+        logger.info("Finish reading car parks");
         return carparkList;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
 
         Callable<Boolean> task = () -> {
             try {
@@ -78,6 +91,7 @@ public class QueryCommand extends Command {
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
                 model.updateFilteredCarparkList(unused -> false);
                 List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchAllCarparkInfo());
+                logger.info("Success in fetching all car parks");
                 List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
                 model.loadCarpark(allCarparks);
                 model.commitCarparkFinder();
@@ -92,7 +106,7 @@ public class QueryCommand extends Command {
             return true;
         };
 
-        threadExecutor.submit(task);
+        future = threadExecutor.submit(task);
 
         EventsCenter.getInstance().post(new ListCarparkRequestEvent());
         return new CommandResult(MESSAGE_LOADING);
