@@ -452,7 +452,7 @@ Format: `list`
 
 Adds a health plan under the user. +
 Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
-TARGET WEIGHT, AND DURATION
+TARGET WEIGHT, AND DURATION +
 
 Format: +
 `add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
