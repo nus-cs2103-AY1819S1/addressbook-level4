@@ -1,10 +1,10 @@
-# Ling Zhi Yu - Project Portfolio
+= Ling Zhi Yu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :main: https://github.com/CS2103-AY1819S1-W14-3/main
 
-= PROJECT: HealthBase
+//= PROJECT: HealthBase
 
 == 1. Overview
 .Project Portfolio
@@ -14,7 +14,7 @@ CS2103T. Over the span of 8 weeks in AY18/19 Semester 1, my team and I were give
 made up of 10KLoC in Java.
 ****
 
-Throughout the 8-week period, we were challenged to incorporate the new Software Engineering concepts taught in class
+Throughout the 8-week period, we were challenged to incorporate the new Software Engineering condcepts taught in class
 via a series of milestones which were part of the project management process. On top of that, we planned out weekly
 goals and consistently reassessed our employed programming methodologies and practices, developing our software HealthBase
 incrementally and iteratively. Figure 1 shows the transformation we made in this brownfield project.
@@ -43,10 +43,9 @@ These features include (among others):
 ** What it does: Records a diagnosis entry into the medical history of a given patient. Each entry includes the diagnosis description, the name of the examining doctor and a timestamp.
 ** Justification: This feature serves as the primary storage of important patient data, as adjudged by the examining doctor's assessment. Past diagnoses are easily viewed on the desktop application to provide quick access for the examining doctor.
 ** Highlights: This enhancement required a detailed understanding of the Java Architecture for XML Binding software frame work (JAXB) for data storage as XML files.
-Also, the integration of the UI in the feature needed JAVAFX know-how.
-** Credits:
+Also, the integration of the UI in the feature needed JavaFX knowledge.
 
-* *Minor enhancement*:
+* *Minor enhancements*: FILL THIS UP
 
 * *Code contributed*:
 ** https://github.com/CS2103-AY1819S1-W14-3/main/commits?author=omegafishy[GitHub Commits]
@@ -56,13 +55,13 @@ Also, the integration of the UI in the feature needed JAVAFX know-how.
 *** Spearheaded project planning and managed project scope as project leader
 ** Enhancements to existing features:
 ** Documentation:
-*** Amended existing contents of documentation according : (Pull Request: {main}/pulls/130[#130])
-*** Added `addmh` component in UserGuide
+*** Refactored existing contents of documentation affected by renaming of "HMS2K18" to "HealthBase": (Pull Request: {main}/pulls/130[#132])
+*** Wrote `addmh` section in User Guide and Developer Guide.
 
 ** Community:
 *** Set up GitHub organisation and project repository.
 *** Managed organisation code repository as administrator.
-*** Reviewed pull requests and provided feedback. (Pull Requests: {main}/pulls/121[#121], {main}/pulls/122[#122], {main}/pulls/127[#127])
+*** Reviewed pull requests and provided feedback. (Pull Requests: {main}/pulls/121[#121], {main}/pulls/122[#122], {main}/pulls/127[#127], {main}/pulls/208[#208])
 *** Reported feature bugs discovered during system testing. (Issue: {main}/issues/131[#131])
 
 ** Tools:
@@ -72,15 +71,62 @@ Also, the integration of the UI in the feature needed JAVAFX know-how.
 == 3. Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+| The sections below detail my contributions to the User Guide. They demonstrate my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=addmh]
+=== Add to patient’s medical history: `addmh`
+Add a non-blank diagnosis entry with the name of the doctor-in-charge to an existing patient’s medical history.
+The patient must be registered within the system.
+
+Format: `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
+
+Example(s):
+
+* `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
+rest and rehydrate. doc/Dr. Zhang De`
+* `addmh ic/T9876543Z mh/Patient appears to have chronic cough. Referred to specialist. doc/Dr.Timothy`
+
+To try out the `addmh` command:
+
+1. Type out a valid `addmh` command which follows the stated format into the command box.
+ Such an example can be seen in Figure 2.
+
+2. Submit the input into HealthBase by pressing kbd:[Enter].
+The result display panel will show a successful `addmh` command message, and should show Figure 3.
+
+.Command box and result display panel before entering an `addmh` command.
+image::beforeAddmhCommand.png[width="800"]
+
+.Command box and result display panel after entering the valid `addmh` command.
+image::afterAddmhCommand.png[width="800"]
+
+
+****
+WARNING: The following invalid inputs will result in a command failure, and the display of an appropriate error message.
+
+* Invalid NRIC
+** The patient NRIC does not match to an existing patient in the system. The person will first need to be registered.
+* Incorrect format of the doctor's name.
+** Doctor's title must be included.
+** The first letter of all words in doctor's name must be captalised.
+* Blank diagnosis
+** An empty diagnosis will not be accepted as a valid diagnosis.
+* Missing prefixes
+** Not all the prefixes in the stated command format have been included.
+****
+[TIP]
+====
+If you want to view the newly added diagnoses to a particular patient, simply enter `view mh`.
+You may have to enter select <patient index>` or click on the patient panel card.
+To use the full capabilities of the `view` command, click <<#view-command, here>>.
+====
+
+//end::addmh[]
 
 == 4. Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+| The sections below detail my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=addmh]

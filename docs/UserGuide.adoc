@@ -132,7 +132,7 @@ Example(s):
 //end::addmeds[]
 //tag::addmh[]
 === Add to patient’s medical history: `addmh`
-Add an non-blank diagnosis entry to an existing patient’s medical history.
+Add a non-blank diagnosis entry with the name of the doctor-in-charge to an existing patient’s medical history.
 The patient must be registered within the system.
 
 Format: `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
@@ -168,8 +168,9 @@ WARNING: The following invalid inputs will result in a command failure, and the 
 ** The first letter of all words in doctor's name must be captalised.
 * Blank diagnosis
 ** An empty diagnosis will not be accepted as a valid diagnosis.
+* Missing prefixes
+** Not all the prefixes in the stated command format have been included.
 ****
-
 [TIP]
 ====
 If you want to view the newly added diagnoses to a particular patient, simply enter `view mh`.
