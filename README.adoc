@@ -7,11 +7,11 @@ https://coveralls.io/github/CS2103-AY1819S1-T13-3/main?branch=master[image:https
 image:https://api.codacy.com/project/badge/Grade/f91a3abe2719423cbbd035544c121ab3["Codacy code quality", link="https://www.codacy.com/app/NancyQuris/CS2103-AY1819S1-T13-3?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103-AY1819S1-T13-3/main&amp;utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
-image::docs/images/Ui latest.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui latest.png[width="600"]
+image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop music player application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
