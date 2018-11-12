@@ -607,11 +607,11 @@ versionedScheduler.updateEvents(target, editedEvents, event ->
 
 ===== Aspect: Generation of edited events
 
-* **Alternative 1 (current choice):** Generating edited events based on first instance of event.
+* **Alternative 1 (current choice):** Generating edited events also targets first instance of event.
 ** Pros: For `-a` option, we can generate all the repeating events starting from the first event in repeating event set even when the user targets the second event in the repeating event set.
 +
-E.g. In a set of events: `event A1, event A2 eventA3`, when we input the command `edit 2 rt/weekly -a`, we can check whether `event A1` has the same day of week as `eventA2`. If yes, we generate new events starting from `eventA1` else, start from `eventA2`.
-** Cons: New Events generated will always be based on the first event. So, when edit the `eventA2` *only* first then edit the *whole set (all)* of events starting from the `eventA2`, the subsequent events generated will be based on `eventA1` which overrides any changes that were made individually to `eventA2`.
+E.g. In a set of events: `event A1, event A2 and eventA3`, when we input the command `edit 2 rt/weekly -a`, we can check whether `event A1` has the same day of week as `eventA2`. If yes, we generate new events starting from `eventA1` else, start from `eventA2`.
+** Cons: New Events generated will always be based on the targeted event. So, when edit the `eventA1` *only* first, then edit the *whole set (all)* of events starting from the `eventA2`, the subsequent events generated will be based on `eventA2` which overrides any changes that were made individually to `eventA1`.
 * **Alternative 2:** Generating edited events based on selected event and delete previous events.
 ** Pros: Do not need to be know what is in the model before generating events.
 ** Cons: Events generated may not be as intuitive to users because the if we start editing a repeated event from the second event in a set, the first event will always be deleted.
@@ -621,7 +621,7 @@ E.g. In a set of events: `event A1, event A2 eventA3`, when we input the command
 === Delete Command
 ==== Current Implementation
 
-The `delete` command allows users to add delete existing events in the scheduler. Delete Command is facilitated by the `DeleteCommand` class.
+The `delete` command allows users to delete existing events in the scheduler. Delete Command is facilitated by the `DeleteCommand` class.
 The format of this command is `delete INDEX [-a | -u]`.
 
 `DeleteCommand` requires the interaction between both `Logic` and `Model` Component. The `Logic` component comprises of `DeleteCommandParser`.
@@ -1640,63 +1640,36 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location are retained.
 
-_{ more test cases ... }_
+=== Adding an event
 
-=== Deleting a event
+. Adds new event(s)
+
+.. Test case: `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/monthly t/ad-hoc` +
+   Expected: Adds an event with event name:'Study with Yoko', start date time:'tomorrow 3pm', description:'study again and again', repeat type:monthly, tag:ad-hoc +
+
+=== Editing an event
+
+. Edits existing events
+
+.. Prerequisites: List all events using the `list` command. Multiple events in the list.
+.. Test case: `edit 1 n/Dinner with Joy` +
+   Expected: Edits the 1st event's event name to Dinner with Joy.
+
+=== Deleting an event
 
 . Deleting an event while all events are listed
 
 .. Prerequisites: List all events using the `list` command. Multiple events in the list.
 .. Test case: `delete 1` +
-   Expected: The first event is deleted from the list. Details of the deleted event shown in the status message.
-Timestamp in the status bar is updated.
+   Expected: The first event is deleted from the list. Event name of the deleted event shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No event is deleted. Error details are shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No event is deleted. Error details are shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
 
 [appendix]
-== Release Plan
-
-*He Xinyi*
-
-- v1.1: Implementation of Pop-up function based on Event start time only +
-- v1.2: Created an input data field to enable customizable pop-up time +
-- v1.3: Full implementation of allowing the pop-up function to update accordingly whenever events are changed
-
-*Zhang Yezhong*
-
-- v1.1 Partial implementation on `GetGCEvents` command +
-- v1.2 Implementation of `GetGCEvents` command +
-- v1.3 Implementation of all relevant commands to sync with Google Calendar in real time +
-- v1.4 Upgraded implementation to synchronous version
-
-*Goh Cheng Yu*
-
-- v1.1: +
-- v1.2: +
-- v1.3: +
-
-*Wu Jiacheng*
-
-- v1.1: Partial implementation of tag book storage +
-- v1.2: Partial implementation of tag functions +
-- v1.3: Full implementation of tag functions +
-
-*Daniel Ng Sze Yao*
-
-- v1.1: Added/updated tests and started with Command Alias feature +
-- v1.2: Fully implemented Command Aliasing feature +
-- v1.3: Implemented a Auto-Completion Feature for Commands as a major feature+
-- v1.4: Updated PPP and tidied up documentation & Improved existing features
