@@ -950,7 +950,7 @@ In OASIS, an employee can make a leave application by specifying a description, 
 A leave application is represented by a `LeaveApplication` model object, as follows:
 
 .Structure of a leave application
-image::LeaveApplicationModelDiagram.png[width="400"]
+image::LeaveApplicationModelDiagram.png[width="300"]
 *API*: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
 A leave applications consists of a description, a status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
 
