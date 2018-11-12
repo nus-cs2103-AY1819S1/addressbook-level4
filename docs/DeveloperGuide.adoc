@@ -498,6 +498,28 @@ and remove any entry within the favourites list.
 While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
 execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
 list in the favourites model.
+
+==== Selecting a Favourite Recipe
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+
+==== Finding a Favourite Recipe
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+
+==== Deleting a Favourites Recipe
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+
+==== Clearing Favourites
+The clear command clears the Favourites List of all Recipes. +
+The command replaces the existing UniqueList of _favouriteModel_
+with a new empty UniqueList.
+
+
 // end::favouritesimplementation[]
 
 // tag::recipeManagement[]
