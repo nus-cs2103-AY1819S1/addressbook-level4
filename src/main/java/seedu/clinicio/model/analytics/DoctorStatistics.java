@@ -108,11 +108,9 @@ public class DoctorStatistics extends Statistics {
      * Add each doctor's patient preference count to be visualized.
      */
     public void plotPreferencesPerDoctorCount() {
-        List<Tuple<String, Integer>> preferencesDataPoints = preferencesPerDoctorCount();
-
         statData.addVisualization("doctorPreferences", ChartType.HORIZONTAL_BAR, false,
             "Number of patient preferences for each doctor", "Doctor", "Number of patients",
-            Arrays.asList(preferencesDataPoints), Arrays.asList(""));
+            Arrays.asList(preferencesPerDoctorCount()), Arrays.asList(""));
     }
 
     /**
