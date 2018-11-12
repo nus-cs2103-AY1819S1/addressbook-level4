@@ -17,6 +17,9 @@ public class PasswordPrefixFormatter {
     
     public PasswordPrefixFormatter() {
         tempPassword = new StringBuilder();
+        passwordPrefixIndex = -1;
+        spaceAfterPasswordIndex = -1;
+        prefixesBeforePasswordPrefix = "";
     }
 
     /**
