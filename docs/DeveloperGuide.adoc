@@ -1775,7 +1775,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all persons using the list command. Multiple persons in the list.
 .. Test case: `addTime 1 ts/mon 1800 2000` +
-   Expected: Student at index 1 has a tuition time "Monday 1300 1500" added. Status message display command success message and timestamp in the status bar is updated.
+   Expected: Student at index 1 has a tuition time "Monday 1800 2000" added. Status message display command success message and timestamp in the status bar is updated.
 .. Test case: `addTime 2 ts/mon 1800 2000` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
 .. Test case: `addTime 1 ts/mon 1700 2100` +
@@ -1785,7 +1785,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `addTime 1 ts/tue 6 8` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
 .. Test case: `addTime 1 ts/tue 1800 2000` +
-   Expected: Student at index 1 has a tuition time "Tuesday 1300 1500" added. Status message display command success message and timestamp in the status bar is updated.
+   Expected: Student at index 1 has a tuition time "Tuesday 1800 2000" added. Status message display command success message and timestamp in the status bar is updated.
 
 === Deleting a tuition time of a student
 
@@ -1797,7 +1797,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `deleteTime 1 ts/mon 1700 2000` +
    Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
 .. Test case: `deleteTime 1 ts/mon 1800 2000` +
-   Expected: Student at index 1 has a tuition time "Monday 1300 1500" removed. Status message display command success message and timestamp in the status bar is updated.
+   Expected: Student at index 1 has a tuition time "Monday 1800 2000" removed. Status message display command success message and timestamp in the status bar is updated.
 
 === Retrieving earnings
 
