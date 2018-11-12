@@ -34,7 +34,7 @@
 *** Change aesthetics and add text wrapping to Person Cards (Pull request https://github.com[#4])
 ** Documentation:
 *** Update the About Us page to reflect our team (Pull requests https://github.com[#14], https://github.com[#15])
-*** Update the images shown on the project page (Pull requests https://github.com[#2], https://github.com[#15], https://github.com[#28], https://github.com[#56]))
+*** Update the images shown on the project page (Pull requests https://github.com[#2], https://github.com[#15], https://github.com[#28], https://github.com[#56])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#22], https://github.com[#23], https://github.com[#40], https://github.com[#57], https://github.com[#58], https://github.com[#60], https://github.com[#71]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-F11-4/main/issues/169[1], https://github.com/CS2103-AY1819S1-F11-4/main/issues/171[2], https://github.com/CS2103-AY1819S1-F11-4/main/issues/184[3], https://github.com/CS2103-AY1819S1-F11-4/main/issues/186[4], https://github.com/CS2103-AY1819S1-F11-4/main/issues/190[5])
@@ -64,8 +64,6 @@ include::../DeveloperGuide.adoc[tag=editUseCase]
 include::../DeveloperGuide.adoc[tag=deleteUseCase]
 
 include::../DeveloperGuide.adoc[tag=testingAdd]
-
-include::../DeveloperGuide.adoc[tag=testingEdit]
 
 include::../DeveloperGuide.adoc[tag=testingDelete]
 

@@ -1529,5 +1529,38 @@ successfully imported contacts from asdf.csv.
    Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect picture commands to try: `pic`, `pic x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
 // end::testingpicture[]
+
+// tag::testingschedule[]
+=== Adding a Meeting
+
+. Adding a meeting to a person while all persons all listed.
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `schedule 1 m/21/02/18 1430` +
+   Expected: First client is scheduled for a meeting on 21st February 2018, at 1430. Timestamp in the status bar is updated.
+.. Test case: `schedule 0 m/21/02/18 1430` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `schedule 1 m/31/02/18 1430` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `schedule 1 m/21/02/18 2630` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+// end::testingschedule[]
+
+// tag::testingmeetings[]
+=== Searching by Meetings
+
+. Searching for people by meetings.
+
+.. Prerequisites: Two persons in the list. One must have a meeting scheduled on 21st February 2018, and the other must have a meeting scheduled on 23rd February 2018.
+.. Test case: `meetings 21/02/18` +
+   Expected: The client with the meeting on 21st February 2018 is listed.
+.. Test case: `meetings 23/02/18` +
+   Expected: The client with the meeting on 23rd February 2018 is listed.
+.. Test case: `meetings` +
+   Expected: Both clients are listed.
+.. Test case: `meetings 24/02/18` +
+   Expected: No clients are listed.
+.. Test case: `meetings 31/02/18` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+// end::testingmeetings[]
