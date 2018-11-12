@@ -39,8 +39,8 @@ import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.model.calendarevent.TagsPredicate;
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.CalendarEventBuilder;
-import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
 import seedu.address.testutil.CalendarEventUtil;
+import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
 import seedu.address.testutil.ToDoListEventBuilder;
 import seedu.address.testutil.ToDoListEventUtil;
 
@@ -59,7 +59,8 @@ public class SchedulerParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD) instanceof ClearCalendarCommand);
-        assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD + " 3") instanceof ClearCalendarCommand);
+        assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD + " 3")
+                instanceof ClearCalendarCommand);
     }
 
     @Test
