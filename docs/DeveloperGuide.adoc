@@ -803,15 +803,15 @@ public class ManageCommand extends Command {
 }
 ```
 
-From the code snippet above, we see that the the current state of event list from the model is stored into another another list called 'filteredEventList'.
+From the code snippet above, we see that the current state of event list from the model is stored into another list called 'filteredEventList'.
 Storing the events in another list is done so that the list can be easily referenced in later parts of the code.
 
 The volunteer list in the model is updated with the predicate so that it now contains the list of all volunteers in the system.
 
 A quick check is done to ensure that the user input is valid. Otherwise, an exception is thrown.
 
-If the user input is valid, the application can change to the record context. The selected event by the user is also stored in the model.
-The model also resets the state pointer so that the `undo` and `redo` functions will point to a fresh, new state.
+If the user input is valid, the application changes to the record context. Then, the selected event by the user is stored in the model.
+In addition, the model resets the state pointer so that the `undo` and `redo` functions will point to a fresh, new state.
 
 Lastly, all the relevant UI is updated by posting events via the `EventsCenter`.
 
