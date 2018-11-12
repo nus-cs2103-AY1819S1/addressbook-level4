@@ -332,6 +332,7 @@ InsuRen contacts are exported to `28Nov.csv`
 image::exportedCsv.png[width="790"]
 // end::export[]
 
+// tag::schedule[]
 === Add meeting time: `schedule`
 
 Add a meeting at the input date and time with a specified person. +
@@ -352,7 +353,9 @@ Example:
 
 * `schedule 1 m/12/03/19 0930` +
 InsuRen will record that a meeting is scheduled on 12 March 2019, 0930 with the first entry.
+// end::schedule[]
 
+// tag::meetings[]
 === View meeting timings: `meetings`
 
 Displays the details of the meeting at the input date and time. +
@@ -370,12 +373,15 @@ Example:
 
 * `meetings 23/02/18` +
 InsuRen displays meetings scheduled on 23rd February, 2018.
+// end::meetings[]
 
+// tag::notifs[]
 === Notifications for expiring plans `[coming in v2.0]`
 
 InsuRen entries have an optional field for date of plan expiry. You will automatically be notified of clients
 with plans expiring within a month from the day when InsuRen is initialized. +
 No additional search queries are needed.
+// end::notifs[]
 
 // tag::picture[]
 === Adding a picture to contact: `pic`
