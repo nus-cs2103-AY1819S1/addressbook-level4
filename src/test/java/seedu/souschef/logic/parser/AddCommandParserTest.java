@@ -1,12 +1,8 @@
 package seedu.souschef.logic.parser;
 //TODO : add
-import seedu.souschef.logic.parser.commandparser.AddCommandParser;
-import seedu.souschef.model.Model;
-import seedu.souschef.model.recipe.Recipe;
-
 public class AddCommandParserTest {
-    private Model<Recipe> model;
-    private AddCommandParser parser = new AddCommandParser();
+    /*private Model<Recipe> model;
+    private AddCommandParser parser = new AddCommandParser();*/
 
     /*@Test
     public void parse_allFieldsPresent_success() {
