@@ -40,6 +40,7 @@ https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41].
 *** PRs reviewed: https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/211[#211],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/281[#281],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/282[#282],
 https://github.com/CS2103-AY1819S1-F10-4/main/pull/293[#293].
 *** Reported bugs and suggestions for other teams in the class:
 https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144],
