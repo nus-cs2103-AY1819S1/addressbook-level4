@@ -462,7 +462,7 @@ The implemented operations include: +
 The class diagram below illustrates the interactions between the Appointment class and associated classes.
 
 .Appointment class diagram.
-image::ApptClassDiagram.png[width=""]
+image::ApptClassDiagram.PNG[width=""]
 
 Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`.`Patient` contains an
 `Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. The
@@ -488,7 +488,7 @@ constructed.+
 The image does not include the method calls to construct a `Patient` object.
 
 .Appointment Construction Process in addappt Command.
-image::AddApptSequenceDiagram.png[width=""]
+image::AddApptSequenceDiagram.PNG[width=""]
 
 After the construction of the appointment, the appointment is added into the `UniqueAppointmentList` found in the
 `ClinicIo` class. The changes done to the list are then 'saved' via the `commitClinicIo` method.
@@ -512,7 +512,7 @@ Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW
 `cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
 
 .Sequence diagram of cancelappt.
-image::CancelApptSequenceDiagram.png[width=""]
+image::CancelApptSequenceDiagram.PNG[width=""]
 
 The index is parsed using the `parseIndex()` and is used in `execute()`. A filtered
 appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
