@@ -541,7 +541,7 @@ Remark command allows user to input any information into a Person object with no
 If an input is empty, the previous existing remark is deleted. This command can only be called after person is created.
 
 .Remark Command Sequence Diagram
-image::RemarkSequenceDiagram.png[width="600"]
+image::RemarkCommandSequenceDiagram.png[width="600"]
 
 Step 1. The user types in `remark` in the command box followed by the parameters `appointment_id r/some remark`
 
