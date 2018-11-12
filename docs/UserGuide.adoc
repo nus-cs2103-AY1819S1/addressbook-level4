@@ -68,6 +68,9 @@ This section lists features related to updating residents in Hallper.
 Adds a resident to Hallper. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROOM NUMBER s/SCHOOL [c/CCA]...`
 
+****
+* CCA must exist in the Budget book.
+****
 [TIP]
 A resident can have any number of CCAs (including 0)
 
@@ -795,7 +798,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify Hallper's residents (`add`, `delete`, `edit` and `clear`).
+Undoable commands: Commands that modify Hallper's residents (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
