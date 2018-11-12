@@ -261,7 +261,6 @@ This section describes some noteworthy details on how certain features are imple
 === Login/Logout feature
 
 ==== Current Implementation
-
 The goal of this section is to explain the implementation of the
 login/logout feature and to briefly explain the changes that were made on relevant
 components of EventOrganiser, namely, the EditUser Command, and the DeleteUser Command,
@@ -272,10 +271,7 @@ image::LoginFeature_SequenceDiagram_includes_Logic.png[width="800"]
 
 We have assumed that a user with name as "Alice" and password as "password" already exists in Event
 Organiser. If such an user does not already exist before the login command is issued, login will
-not be successful.
-
-[NOTE]
-In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
+not be successful. In this implementation, we define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
 
 When the execute() method of the Login command is called,  the login command authenticates
 the user using the autheneticateUser() method from the model component i.e. checks that the user that is trying to logging actually exists in EventOrganiser.
@@ -300,16 +296,10 @@ image::LoginFeature_SequenceDiagram_includes_Model_EventsCenter_UI.png[width="80
 
 There are 2 indications that login was successful. First, a welcome message will be shown with
 the a message in the format: "Welcome back [NAME]!" where [NAME] is replaced by the full name
-of the user.
-
-For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
-message: "Welcome back Alex Yeoh!"
-
-Second, upon successful login the colour of the name of the user will change from white to green.
+of the user. For example, if the user, Alex Yeoh, successfully logs in to his account, he should see the welcome
+message: "Welcome back Alex Yeoh!". Second, upon successful login the colour of the name of the user will change from white to green.
 The two images below attempts to illustrate the effects of a successful login on the UI. Again,
-we will use the scenario that a user, Alex Yeoh, wants to login to his account:
-
-Alex enters his name and password as required by the login command.
+we will use the scenario that a user, Alex Yeoh, wants to login to his account. Alex enters his name and password as required by the login command.
 
 .UI before Alex Yeoh logs in.
 image::LoginFeatureBeforeLogin.png[width="300"]
@@ -347,21 +337,14 @@ of another users account.
 ==== EditUser Command and DeleteUser Command
 To ensure cohesiveness of the login/logout feature with the EditUser Command and DeleteUser
 Command that were implemented in AddressBook-Level 4, appropriate changes was made to these
-two commands.
-
-First and foremost, we will need users to be logged in to edit or delete his/her user account.
-
-Once the user issues an `deleteUser` command, it is automatically assumed that the user wants to
+two commands. First and foremost, we will need users to be logged in to edit or delete his/her user account. Once the user issues an `deleteUser` command, it is automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to delete
-his/her account.
-
-Once the user issues an `editUser` command, it is also automatically assumed that the user wants to
+his/her account. Once the user issues an `editUser` command, it is also automatically assumed that the user wants to
 delete his/her own account. This ensures that only the user of the account is allowed to edit
 his/her account. However, due to the way users are uniquely identified in EventOrganiser,
 a user may find that they are unable to change their name or password. In these situations, the user
 is encouraged to change their name or password to a different name or password respectively from
 the new name or password that they have chosen before.
-
 // end::login/logout[]
 
 ////
