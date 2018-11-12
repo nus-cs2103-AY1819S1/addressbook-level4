@@ -298,8 +298,8 @@ Navigating the calendar to viewing the events:
 
 * kbd:[&larr;]: Display previous week
 * kbd:[&rarr;]: Display next week
-* kbd:[&darr;]: Scroll up to events earlier in the day
-* kbd:[&uarr;]: Scroll down to events later in the day
+* kbd:[&uarr;]: Scroll up to events earlier in the day
+* kbd:[&darr;]: Scroll down to events later in the day
 
 [NOTE]
 ====
