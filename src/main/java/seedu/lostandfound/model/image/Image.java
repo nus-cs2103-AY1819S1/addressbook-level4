@@ -65,8 +65,6 @@ public class Image {
     public static Image create(Path path) throws IOException {
         Path target = Paths.get(IMAGE_FOLDER.toString() ,
                 SEQUENCE.next().toString() + "." + FileUtil.getExtension(path));
-        System.out.println(path);
-        System.out.println(target);
         FileUtil.copy(path, target);
         return new Image(target);
     }

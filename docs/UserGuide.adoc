@@ -70,6 +70,7 @@ Format: `help`
 === Managing articles
 This section will detail commands that are used to managed article entries in LostBUTFound.
 
+//tag::add[]
 ==== Adding an article : `add`
 Description: Add a new article to LostBUTFound.
 
@@ -109,7 +110,7 @@ Format: `list`
 ==== Editing an article : `edit`
 Description: Edits an unresolved article from LostBUTFound. Resolved articles cannot be edited.
 
-Format `edit INDEX [n/NAME] [d/DESCRIPTION] [f/FINDER] [p/PHONE] [e/EMAIL] [t/TAG]...`
+Format `edit INDEX [n/NAME] [d/DESCRIPTION] [i/IMAGE] [f/FINDER] [p/PHONE] [e/EMAIL] [t/TAG]...`
 
 * Edits the article at the specific INDEX. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
