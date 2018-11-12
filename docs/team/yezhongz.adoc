@@ -63,22 +63,11 @@ https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book sample ap
 include::../UserGuide.adoc[tag=filter-EnterGoogleCalendarMode]
 Please visit our https://cs2103-ay1819s1-F11-1.github.io/main/UserGuide.html#EnterGoogleCalendarMode[user guide]
 
-
-include::../UserGuide.adoc[tag=dataencryption]
-
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=filter-EnterGoogleCalendarMode]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
