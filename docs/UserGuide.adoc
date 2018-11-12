@@ -327,7 +327,7 @@ You just need to type in the `addpatient` command as shown below:
 .Before adding patient
 image::user-guide-addpatient-before.png[width=500]
 
-Then, the new patient will be added to the list as below:
+Then, the new patient will be added to the list as shown below:
 
 .After adding patient
 image::user-guide-addpatient-after.png[width=500]
@@ -393,7 +393,8 @@ Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing t
 
 You can find patients whose names contain any of the given keywords. +
 
-include::UserGuide.adoc[tag=login]
+[WARNING]
+You must login in order to use this feature. +
 
 Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 
@@ -410,7 +411,7 @@ You just need to type in the `findpatient` command as shown below:
 .Before finding patient
 image::user-guide-findpatient-before.png[width=500]
 
-Then, any patient that matches the keywords will be displayed as below:
+Then, any patient that matches the keywords will be displayed as shown below:
 
 .After adding patient
 image::user-guide-findpatient-after.png[width=500]
@@ -426,9 +427,21 @@ Returns any patient having names `Betsy`, `Tim`, or `John`
 
 You can view a list of all patients in the clinic record. +
 
-include::UserGuide.adoc[tag=loginUser]
+[WARNING]
+You must login in order to use this feature. +
 
 Format: `listpatient`
+
+You just need to type in the `listpatient` command as shown below:
+
+.Before showing all patient
+image::user-guide-listpatient-before.png[width=500]
+
+Then, all patients will be displayed as shown below:
+
+.After showing all patient
+image::user-guide-listpatient-after.png[width=500]
+
 
 ==== Selecting a patient : `selectpatient` `[coming in v2.0]`
 
