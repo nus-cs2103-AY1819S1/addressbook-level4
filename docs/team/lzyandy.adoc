@@ -18,20 +18,10 @@ TutorPal is a desktop application used by private home tutors for managing stude
 ** Justification: This feature enhancement makes this command more practical because sometimes users may type wrongly during searching. However, fuzzy matching allows small mistakes in typing and makes searching much easier.
 ** Highlights: This search allows fuzzy matching (with Levenshtein Distance < 3) only when the length of the keyword is greater than 3. If the length of the keyword you type in is smaller or equal to 3, the keyword must be exactly the same to expected
 
-* *Major enhancement*: extended FindCommand to *FindAddressCommand*
-** What it does: allows the user to find all the students who live in certain area by entering the keywords. When the user types one or more keywords of an address, this command can find Persons whose addresses contain all the given keywords. This command also support fuzzy matching, which means even if the user has a small typo, it can still find Persons with similar address.
-** Justification: This feature further extends the find command. If a tutor want to know all the students who live in a certain area in order to better arrange the classes, this command will help. Finding by keywords and fuzzy matching make this command more practical and easier for searching because even if the users only remember a few keywords of an address or have some typos during searching, this command can still find the Persons they want.
-** Highlights: This search is case insensitive. This search allows fuzzy matching on long keywords (long keyword means the keyword whose length is greater than 3). This search will not support fuzzy matching when the keywords are too short (≤ 3) or contain numbers. The order of the keywords does not matter.
-
-* *Major enhancement*: extended FindCommand to *FindEmailCommand*
-** What it does: allows the user to find Person by email and support fuzzy matching, which means even if the user has a small typo, it can still find the Person with similar email.
-** Justification: This feature further extends the find command. If a tutor want to find a Person by his/her email, this command will help. Besides, fuzzy matching makes this command more practical and easier for searching because some minor mistakes during typing are allowed.
-** Highlights: This search is case insensitive. This search allows fuzzy matching (with Levenshtein Distance < 4).
-
-* *Major enhancement*: extended FindCommand to *FindPhoneCommand*
-** What it does: allows the user to find Person by phone number and support fuzzy matching, which means even if the user has a small typo, it can still find the Person with similar phone number.
-** Justification: This feature further extends the find command. If a tutor want to find a Person by his/her phone number, this command will help. Besides, fuzzy matching makes this command more practical and easier for searching because some minor mistakes during typing are allowed.
-** Highlights: This search allows fuzzy matching (with Levenshtein Distance < 3).
+* *Major enhancement*: extended FindCommand to *FindAddressCommand， FindEmailCommand, and FindPhoneCommand*
+** What it does: allows the user to find Persons by address, email, and phone number and support fuzzy matching, which means even if the user has a small typo, it can still find Persons with similar address, email, or phone number.
+** Justification: These features largely improve the convenience for finding a specific Person or a list of Persons. For instance, a Person now can be found by his or her address, email or phone number, and multiple step of find command can be used to find a person by more than one kind of conditions.
+** Highlights: All these commands are case insensitive and support fuzzy matching (however, with some restrictions, which are specified in User Guide).
 
 * *Minor enhancement*:
 ** Built tests case for *Find* related commands and UI.
