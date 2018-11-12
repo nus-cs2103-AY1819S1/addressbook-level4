@@ -37,9 +37,12 @@ This section serves to inform you of the improvements I made to the project, inc
 ** What it does: allows the user to add, delete or edit assignment information globally, and add assignment mark specific to each student.
 ** Justification: This feature will help tutors keep track on student's grade so tutors can put attention towards struggling students.
 ** Highlights: Added assignment can be sorted by deadline.
-** Credits:
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=HenryJk[Project Code
+                      Dashboard]]
+* *Other contributions*:
+** Documentation:
+*** Added implementation details of `Assignment` data structure to Developer Guide.
 
 == Contributions to the User Guide
 
@@ -63,6 +66,8 @@ include::../UserGuide.adoc[tag=assignment]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=classDiagram]
 
 include::../DeveloperGuide.adoc[tag=assignment]
 
