@@ -639,7 +639,7 @@ public void updatePerson(Person target, Person editedPerson) {
 The activity diagram in Figure 13 summarises what happens when a user executes the `addmh` command.
 
 .The activity diagram for the `addmh` command
-image::AddmhActivityDiagram.png[width="800"]
+image::AddmhActivityDiagram.png[width="1000"]
 
 ****
 NOTE: If multiple patients with the entered `NRIC` exist, then the `AddmhCommand::execute` will throw a `CommandException`
@@ -717,9 +717,9 @@ To illustrate how the three commands work, examples are given below.
 
 Here are the three sequence diagrams below:
 
-image::VisitorinSequenceDiagram.png[width="800"]
-image::ViewvisitorsSequenceDiagram.png[width="800"]
-image::VisitoroutSequenceDiagram.png[width="800"]
+image::VisitorinSequenceDiagram.png[width="1000"]
+image::ViewvisitorsSequenceDiagram.png[width="1000"]
+image::VisitoroutSequenceDiagram.png[width="1000"]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
