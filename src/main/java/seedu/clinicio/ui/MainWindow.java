@@ -64,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private AnalyticsDisplayPanel analyticsDisplay;
     private PatientDetailsDisplayPanel patientDetailsDisplayPanel;
+    private MedicineDetailsDisplayPanel medicineDetailsDisplayPanel;
     private TitleScreen titleScreen;
 
     @FXML
@@ -181,6 +182,8 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay.setVisible(false);
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         patientDetailsDisplayPanel.getRoot().setVisible(false);
+        medicineDetailsDisplayPanel = new MedicineDetailsDisplayPanel();
+        medicineDetailsDisplayPanel.getRoot().setVisible(false);
         browserPanel = new BrowserPanel();
         browserPanel.setVisible(false);
 
@@ -191,6 +194,7 @@ public class MainWindow extends UiPart<Stage> {
         displayPanelPlaceholder.getChildren().add(browserPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+        displayPanelPlaceholder.getChildren().add(medicineDetailsDisplayPanel.getRoot());
 
         hideInnerParts();
         setUpListPanel();
@@ -348,30 +352,32 @@ public class MainWindow extends UiPart<Stage> {
      * @param isShowBrowser Check whether want to show browser display panel.
      * @param isShowPatientDetails  Check whether want to show patient details display panel.
      */
-    private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails) {
+    private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails,
+                                  boolean isShowMedicineDetails) {
         analyticsDisplay.setVisible(isShowAnalytics);
         browserPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
+        medicineDetailsDisplayPanel.getRoot().setVisible(isShowMedicineDetails);
     }
 
     @Subscribe
     private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        showDisplayPanel(true, false, false);
+        showDisplayPanel(true, false, false, false);
     }
 
     @Subscribe
     private void handleAppointmentPanelSelectionChangedEvent(AppointmentPanelSelectionChangedEvent event) {
-        showDisplayPanel(false, true, false);
+        showDisplayPanel(false, true, false, false);
     }
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
-        showDisplayPanel(false, false, true);
+        showDisplayPanel(false, false, true, false);
     }
 
     @Subscribe
     private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
-        showDisplayPanel(false, true, false);
+        showDisplayPanel(false, true, false, true);
     }
 
     @Subscribe
