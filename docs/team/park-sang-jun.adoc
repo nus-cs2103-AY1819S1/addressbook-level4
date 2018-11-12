@@ -10,8 +10,13 @@ PROJECT: Student Schedule Planner
 
 == Introduction
 
-[write what this project portfolio showcases]
-[introduce SSP, who u made this project with, what was the project u morphed from like eg,loc, constraints u worked under, etc]
+This project portfolio showcases my contributions to Student Schedule Planner, and how I implemented each of the features.
+
+In this project, I, together with Chen Shin, Lin Xu, Thaddeus Lim and Xiao Yilin, morphed a generic Address Book application into a specialised Student Schedule Planner aimed exclusively at university students. This was done with the constraint that a Command Line Interface (CLI) was to be the main mode of interaction with the application.
+
+As mentioned before, Student Schedule Planner targets a very specific group of people: students. We took into account the pains that we as university students faced when we were using conventional to-do lists and aimed to solve these pains during this project.
+
+Student Schedule Planner is hence a desktop application made specifically for students. The user interacts with the application using a CLI, but it has a Grap
 Student Schedule Planner is a desktop schedule planner application used by students for schedule planning. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 [optional: write ur key contributions to this project]
 
