@@ -810,6 +810,24 @@ List will remain unchanged if it does not have any filters applied before execut
 .List group sequence diagram
 image::ListCommandSequenceDiagram.png[width="800"]
 
+Below is the pseudo code of `list` command execution.
+[source, java]
+----
+public CommandResult execute(Model model, CommandHistory history) {
+    requireNonNull(model);
+    switch (listCommandType) {
+        case PERSON:
+            // Show all persons, return success
+        case GROUP:
+            // Show all groups, return success
+        case MEETING:
+            // Show all meetings, return success
+        default:
+            // Show all persons, groups and meetings, return success
+    }
+}
+----
+
 ==== Design considerations
 ===== Aspect: Data structure to support the list command
 * **Alternative 1 (current choice)** : Use a single list class to perform all list operations.
