@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
@@ -100,7 +100,7 @@ public class GsonUtil {
                 }
             }
             String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
-            list.getJsonData().add(Objects.requireNonNullElse(value, "000000"));
+            list.getJsonData().add(Optional.ofNullable(value).orElse("000000"));
             str.add(list.getJsonData());
         }
 
