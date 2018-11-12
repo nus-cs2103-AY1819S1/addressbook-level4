@@ -1368,11 +1368,15 @@ _{ more test cases ... }_
 . Adding a picture to a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list. `/Users/John/Downloads/Insuren/images/petertan.jpg` is a valid file path.
-.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/petertan.jpg
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/petertan.jpg`
    Expected: First client's picture is updated. Details of the updated client shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `pic 0 l//Users/John/Downloads/Insuren/images/petertan.jpg
+.. Test case: `pic 0 l//Users/John/Downloads/Insuren/images/petertan.jpg`
    Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
-.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/invalid_image_path.jpg
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/invalid_image_path.jpg`
    Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `pic 1 l//Users/John/Downloads/Insuren/images/invalid_image_type.mp3`
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect picture commands to try: `pic`, `pic x` (where x is larger than the list size)
+   Expected: Similar to previous.
 
 // end::testingpicture[]
