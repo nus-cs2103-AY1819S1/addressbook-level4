@@ -5,11 +5,15 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import java.util.List;
 
 import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.logic.commands.PlanMealCommand;
 import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.planner.Breakfast;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Dinner;
+import seedu.souschef.model.planner.Lunch;
 import seedu.souschef.model.recipe.Recipe;
 
 
@@ -45,6 +49,12 @@ public class SelectCommandParser {
         if (arguments.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SelectCommand.MEALPLANNER_MESSAGE_USAGE));
+        }
+
+        if (!arguments[1].equalsIgnoreCase(Breakfast.SLOT)
+            && !arguments[1].equalsIgnoreCase(Lunch.SLOT)
+            && !arguments[1].equalsIgnoreCase(Dinner.SLOT)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
         }
 
         List<Recipe> recipeList = recipeModel.getFilteredList();
