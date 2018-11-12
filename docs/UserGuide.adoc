@@ -480,6 +480,7 @@ _Figure 4.3.5.1: Result after executing `view_email Meeting on Friday`._
 
 // end::email[]
 
+// tag::calendar[]
 === Calendar
 This section lists features related to managing the calendar in Hallper.
 
@@ -606,6 +607,7 @@ Example:
 Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
 
 image::calendar_view_diagram.png[width="790"]
+// end::calendar[]
 
 // tag::budget[]
 === Budget and CCA
@@ -811,7 +813,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify Hallper's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify Hallper's contacts (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:

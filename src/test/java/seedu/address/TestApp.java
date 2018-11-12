@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
+import seedu.address.model.cca.Cca;
 import seedu.address.storage.Storage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -152,5 +153,9 @@ public class TestApp extends MainApp {
 
     public void saveComposedEmailWithoutDisplay(Email email) {
         model.saveComposedEmailWithoutDisplay(email);
+    }
+
+    public void addCcaToTestModel(Cca cca) {
+        model.addCca(cca);
     }
 }
