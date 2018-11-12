@@ -489,7 +489,7 @@ All the keywords is then added to either `permissionToAdd:Set<Permission>` or `p
 [NOTE]
 A ParseException will be thrown if any of the permission names are invalid.
 
-When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
+When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission from `permissionToAdd` and removing permissions from `permissionToRemove`.
 
 [NOTE]
 The command will be executed successfully if at least one permission is added or removed.
@@ -512,6 +512,7 @@ image::modifyPermissionSequenceDiagram.png[width="700"]
 
 ** Cons: User will have to remember 2 commands. In addition to this, User also have to execute at least 2 commands if they wish to both add and remove permission.
 // end::modifypermission[]
+
 ==== View Permissions of employee
 
 This feature allows the user to view the permissions that have been allocated to an employee.
