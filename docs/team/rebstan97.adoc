@@ -13,7 +13,7 @@ This project portfolio documents my contributions towards *MeNUS* for the module
  Command Line Interface (CLI) for restaurant managers to interact with, and has a Graphical User Interface (GUI)
  created with JavaFX. It is written with approximately 30 kLOC.
 
-== Summary of contributions
+== Summary of Contributions
 Below are my contributions in terms of feature enhancements, project management and documentation:
 
 * *Major enhancement*: Added *commands to keep track of the ingredient availability of a restuarant*
@@ -29,9 +29,8 @@ user to know which ingredients require stocking up and update the ingredient cou
 determine the availability of each ingredient. This feature reduces the need for restaurant managers
  to manually do stock taking of its restaurant's ingredients.
 *** Reduce food wastage: Restaurants often stock up in fixed quantities of ingredients, regardless of the actual
-availability in the pantry. During periods of poor business, there may be excessive ingredients in the
- pantry, leading to food wastage if these ingredients are perishable. This feature provides restaurant owners with
- more information about availability, so they only stock up what is necessary.
+availability in the pantry. This leads to food wastage, if excess ingredients are not used. This feature provides
+restaurant owners with more information about availability, so that they only stock up what is necessary.
 
 ** *Highlights*: This enhancement involves adding several new commands to *MeNUS*. It requires understanding of the
 underlying architecture and the components `logic`, `storage` and `model`. To maintain good abstraction, it

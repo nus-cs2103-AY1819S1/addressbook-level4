@@ -750,7 +750,7 @@ respective stock up amounts. With this `HashMap`, the `StockUpCommandParser` cre
 
 [WARNING]
 The operation is atomic, thus if it fails for one ingredient, none of the ingredients will be stocked up and an
-exception is thrown.
+exception is thrown
 
 The following activity diagram shows what happens when the user executes the `stockup` command:
 
