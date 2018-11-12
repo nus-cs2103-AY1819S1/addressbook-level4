@@ -577,8 +577,7 @@ Current Implementation: Use the KeyEvent handler in the `CommandBox` class.
 enough key combination to accommodate all the commands.
 
 
-// tag::keyboardshortcuts[]
-
+// end::keyboardshortcuts[]
 
 // tag::assignment[]
 === Assignment Management

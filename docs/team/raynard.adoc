@@ -9,41 +9,72 @@
 
 == Overview
 
-Office Assistance Specialized Integration System (OASIS) is all-in-one management software that helps [target] manage resources efficiently. [do what]Unlike any other management softwares, OASIS has adopts Command Line Interface(CLI) while still having the benefits of Graphical User Interface. If you can type fast, OASIS can get you manage office related work quickly and efficiently.
+OASIS is an employee management application that brings your office together. 
+It is an all-in-one tool for office administration and communication that runs on any computer. 
+With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done
+faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are 
+employee records management, authentication and permissions, assignment management, and leave management. Sounds good? Jump 
+to Section 2, <<Quick Start, Quickstart>> to get started. Enjoy!
 
 == Summary of contributions
 
-The following section highlights my contributions to OASIS.
+The following section highlights my contributions to OASIS:
 
-* *Major enhancement*: added *the function to add assignment/project*
-** What it does: It allows the user with `Create_Assignment` permission to create new assignment into the system.
-** Justification: OASIS is meant for small to medium companies. Within the companies there will be assignments that needs to be completed. Therefore to organize the assignments, it can be added into the system. This also allows the companies to have records of past and present assignments.
-** Highlights: [technical skill gotten]This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*Code Contributed:* [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=rnardha&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Link]]
 
-* *Minor enhancement*: added a shortcut key feature to allow quick input of commands.
+* *Major enhancement: Assignment Management*
+** Adding new assignment: `addasignment`
+*** What it does: This allows authorized users to create new assignment.
+*** Justification: Within a company there will be many assignment being done concurrently and the documents
+of the assignments could get messy. Howerver, with OASIS the information related to the assignments
+will be computirized. Therefore, managing assignments will be more efficient 
+*** Highlights: In order to implement and store the assignment, prior understanding the existing components relation
+and how information is stored is needed.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Delete assignment: `deleteassignment` 
+*** What it does: This allows authorized users to delete assignment from the system when
+it is no longer needed.
+*** Justification: Having an overwhealming number of data might not necessarily be good.
+Especially, when the data is no longer important. Therefore, when the assignment data is
+not used anymore, it can be remove from the system.
+
+** Edit assignment: `editassignment`
+*** What it does: This allows authorized users to make changes to existing
+document. 
+*** Justification: It is normal to make changes as the assignment is ongoing to
+make the final product better. Therefore, there is a need authorized users to make
+changes to the assignments in the system. 
+
+** List assignments: `listassignments`
+*** What it does: This allows the user to view all the existing assignments in
+the system.
+*** Justification: This will enable the users to search for infomation of the assignment
+they are working on.
+
+* *Minor enhancement:*
+** Keyboard Shortcuts
+*** What it does: With valid key combinations, command word corresponding to the
+key pressed will be inserted into the command box.
+*** Justification: Frequent users could get the command word of commonly used
+command quickly. 
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Update `AddCommand` to accept new person with assignment, if and only if
+the assignments exist withing the system.(Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/184[#1])
+*** Wrote additional tests for existing features implemented by me.(Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/116[#1])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the class
+(examples:  https://github.com/CS2103-AY1819S1-T13-4/main/issues/175[#1],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/152[#2],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/154[#3],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/156[#4],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/159[#5],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/161[#6],
+https://github.com/CS2103-AY1819S1-T13-4/main/issues/168[#7])
 
 == Contributions to the User Guide
 
@@ -52,9 +83,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=assignment]
 
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=keyboardshortcuts]
 
 == Contributions to the Developer Guide
 
@@ -62,13 +93,6 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-// include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=assignment]
 
-// include::../DeveloperGuide.adoc[tag=da/taencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=keyboardshortcuts]

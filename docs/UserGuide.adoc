@@ -55,11 +55,11 @@ image::UiLoggedin.PNG[width="790"]
 e.g. typing help and pressing Enter will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all employees.
-* *`add -n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000`* : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
-* *`find J*`* : finds all employees where any of their names start with J.
-* *`delete 1`* : Deletes employee at the first location on the current displayed list.
-* *`exit`* : exits the app
+* `list` : lists all employees.
+* `add -n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000` : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
+* `find J*` : finds all employees where any of their names start with J.
+* `delete 1` : Deletes employee at the first location on the current displayed list.
+* `exit` : exits the app
 
 .  Refer to <<Commands>> for details of each command.
 
@@ -124,7 +124,7 @@ Format: `active / archive / assignment`
 
 Adds an employee into the system.
 
-Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t ASSIGNMENT]`
+Format: `add -n NAME -e EMAIL -p NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t ASSIGNMENT]`
 
 * If username is not specified, it will default to being the same as NAME.
 
@@ -185,6 +185,7 @@ Examples:
 
 * `select 3`
 
+// tag::assignment[]
 === Add an assignment : `addassignment`
 
 Adds an assignment into the system.
@@ -232,6 +233,9 @@ The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
+
+// end::assignment[]
+
 
 === Apply for leave : `leaveapply`
 
@@ -621,7 +625,7 @@ Format: `summary`
 [width="100%",options="header"]
 |=========================================================
  |Command|Required Permission|Format|Example
- |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -p NUMBER -s SALARY [-t ASSIGNMENT] | add -n Joshua -s 15000 -e josh@gmail.com -n
  81234567 -a 81 Joshua's Road  Singapore 123456
  |Delete employee|DELETE_EMPLOYEE|delete INDEX|delete 1
  |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t ASSIGNMENT]
@@ -637,7 +641,9 @@ Format: `summary`
  |Delete an assignment|DELETE_ASSIGNMENT|deleteassignment INDEX| deleteassignment 1
  |Edit an assignment|EDIT_ASSIGNMENT|editassignment INDEX [-an ASSIGNMENT NAME] [-au AUTHOR] [-de DESCRIPTION]| editassignment 1 -an OASIS v2.0 -au MARY GOSLOW
 |=========================================================
+//end::commandsummary[]
 
+// tag::keyboardshortcuts[]
 === Keyboard Shortcuts
 
 [width="100%",options="header"]
@@ -649,7 +655,8 @@ Format: `summary`
 |Find employee | CTRL + F
 |Exit | CTRL + Q
 |=========================================================
-//end::commandsummary[]
+// end::keyboardshortcuts[]
+
 
 
 
