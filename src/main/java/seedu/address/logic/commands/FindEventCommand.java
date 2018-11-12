@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BEFORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -32,7 +32,7 @@ public class FindEventCommand extends Command {
         + "Optionally filters the search between the specified dates and times (using natural language parsing).\n"
         + "Also optionally filters the search by all the specified tags (case-insensitive).\n"
         + "Parameters: " + COMMAND_WORD + " [KEYWORD] [MORE_KEYWORDS]... [" + PREFIX_FROM + " DATE/TIME] ["
-        + PREFIX_BEFORE + " DATE/TIME] [" + PREFIX_TAG + " TAG] [" + PREFIX_TAG + " ANOTHER_TAG]...\n"
+        + PREFIX_TO + " DATE/TIME] [" + PREFIX_TAG + " TAG] [" + PREFIX_TAG + " ANOTHER_TAG]...\n"
         + "Example: " + COMMAND_WORD + "project tutorial exam " + PREFIX_FROM + " monday " + PREFIX_TAG + " cs2103";
 
     private final FuzzySearchFilterPredicate titlePredicate;

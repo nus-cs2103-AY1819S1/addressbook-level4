@@ -3,9 +3,9 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BEFORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 import static seedu.address.testutil.TypicalEvents.CAREER_FAIR;
 import static seedu.address.testutil.TypicalEvents.CHOIR_PRACTICE;
 import static seedu.address.testutil.TypicalEvents.CS2040_LAB;
@@ -141,21 +141,21 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: filter calendar events in scheduler before date/time -> 3 calendar events found */
-        command = FindEventCommand.COMMAND_WORD + " " + PREFIX_BEFORE.getPrefix() + "before/15 nov 2018 3pm";
+        command = FindEventCommand.COMMAND_WORD + " " + PREFIX_TO.getPrefix() + "before/15 nov 2018 3pm";
         ModelHelper.setFilteredAndSortedList(expectedModel, CS2104_TUTORIAL, CS2040_LAB, GOOGLE_INTERVIEW);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: filter calendar events in scheduler between 2 date/times -> 3 calendar events found */
         command = FindEventCommand.COMMAND_WORD + " " + PREFIX_FROM.getPrefix() + "15 nov 2018 8am "
-                + PREFIX_BEFORE.getPrefix() + " 16 nov 2018 8pm";
+                + PREFIX_TO.getPrefix() + " 16 nov 2018 8pm";
         ModelHelper.setFilteredAndSortedList(expectedModel, CS2103_LECTURE, FIN3101_SEMINAR, CHOIR_PRACTICE);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: search keywords and filter calendar events in scheduler before date/time -> 2 calendar event found */
         command = FindEventCommand.COMMAND_WORD + " lecture tutorial lab "
-                + PREFIX_BEFORE.getPrefix() + "14 nov 2018 5pm";
+                + PREFIX_TO.getPrefix() + "14 nov 2018 5pm";
         ModelHelper.setFilteredAndSortedList(expectedModel, CS2104_TUTORIAL, CS2040_LAB);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

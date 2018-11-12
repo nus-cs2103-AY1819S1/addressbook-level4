@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BEFORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,7 +30,7 @@ public class FindCommandParser implements Parser<FindEventCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindEventCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_BEFORE, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_TO, PREFIX_TAG);
 
         // Parses date/time from and date/time before (if any)
         DateTime dateFrom = null;
@@ -38,14 +38,14 @@ public class FindCommandParser implements Parser<FindEventCommand> {
             String dateFromString = argMultimap.getValue(PREFIX_FROM).get();
             dateFrom = ParserUtil.parseDateTime(dateFromString);
         }
-        DateTime dateBefore = null;
-        if (argMultimap.getValue(PREFIX_BEFORE).isPresent()) {
-            String dateToString = argMultimap.getValue(PREFIX_BEFORE).get();
-            dateBefore = ParserUtil.parseDateTime(dateToString);
+        DateTime dateTo = null;
+        if (argMultimap.getValue(PREFIX_TO).isPresent()) {
+            String dateToString = argMultimap.getValue(PREFIX_TO).get();
+            dateTo = ParserUtil.parseDateTime(dateToString);
         }
-        if (dateBefore != null && dateFrom != null) {
+        if (dateTo != null && dateFrom != null) {
             // Date/time from must be chronologically earlier than date/time before
-            if (dateFrom.isAfter(dateBefore)) {
+            if (dateFrom.isAfter(dateTo)) {
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
             }
@@ -69,7 +69,7 @@ public class FindCommandParser implements Parser<FindEventCommand> {
             nameKeywords = Arrays.stream(trimmedKeywords.split("\\s+"))
                     .filter(tag -> !tag.isEmpty())
                     .collect(Collectors.toList());
-        } else if (!argMultimap.getValue(PREFIX_FROM).isPresent() && !argMultimap.getValue(PREFIX_BEFORE).isPresent()
+        } else if (!argMultimap.getValue(PREFIX_FROM).isPresent() && !argMultimap.getValue(PREFIX_TO).isPresent()
                     && !argMultimap.getValue(PREFIX_TAG).isPresent()) {
             // Throws parse exception if no keywords are provided and there are no
             // valid 'from' date/time, 'before' date/time or tags
@@ -80,7 +80,7 @@ public class FindCommandParser implements Parser<FindEventCommand> {
 
         return new FindEventCommand(new FuzzySearchFilterPredicate(nameKeywords),
             new FuzzySearchComparator(nameKeywords),
-            new DatePredicate(dateFrom, dateBefore),
+            new DatePredicate(dateFrom, dateTo),
             new TagsPredicate(tagList));
     }
 }

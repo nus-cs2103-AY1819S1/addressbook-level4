@@ -28,21 +28,21 @@ public class FindEventCommandParserTest {
 
     @Test
     public void parse_invalidDates_throwsParseException() {
-        // empty from or before date/time
+        // empty from or to date/time
         assertParseFailure(parser, "from/",
                 String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
 
-        assertParseFailure(parser, "before/",
+        assertParseFailure(parser, "to/",
                 String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
 
-        assertParseFailure(parser, "from/11 nov 8pm before/",
+        assertParseFailure(parser, "from/11 nov 8pm to/",
                 String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
 
-        assertParseFailure(parser, "before/11 nov 8pm from/",
+        assertParseFailure(parser, "to/11 nov 8pm from/",
                 String.format(DateTime.MESSAGE_DATETIME_INPUT_CONSTRAINTS));
 
         // from date/time is chronologically after the before date/time
-        assertParseFailure(parser, "from/11 nov 8pm before/10/11/18 20:00",
+        assertParseFailure(parser, "from/11 nov 8pm to/10/11/18 20:00",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DatePredicate.MESSAGE_DATE_PREDICATE_CONSTRAINTS));
     }
 
@@ -51,7 +51,7 @@ public class FindEventCommandParserTest {
         assertParseFailure(parser, "tag/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, "from/20 nov 8pm before/21 nov 8pm tag/",
+        assertParseFailure(parser, "from/20 nov 8pm to/21 nov 8pm tag/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, "some keywords tag/",
@@ -77,7 +77,7 @@ public class FindEventCommandParserTest {
                         new DatePredicate(null, new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser, "before/11 nov 20:00", expectedCommand2);
+        assertParseSuccess(parser, "to/11 nov 20:00", expectedCommand2);
 
         FindEventCommand expectedCommand3 =
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
@@ -85,8 +85,8 @@ public class FindEventCommandParserTest {
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Collections.emptyList()));
 
-        assertParseSuccess(parser, "from/10 nov 8pm before/11/11/18 20:00", expectedCommand3);
-        assertParseSuccess(parser, "   \n\t from/10 nov 8pm    \t before/11/11/18 20:00   \n", expectedCommand3);
+        assertParseSuccess(parser, "from/10 nov 8pm to/11/11/18 20:00", expectedCommand3);
+        assertParseSuccess(parser, "   \n\t from/10 nov 8pm    \t to/11/11/18 20:00   \n", expectedCommand3);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class FindEventCommandParserTest {
                         new FuzzySearchComparator(Arrays.asList("some", "keywords")),
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
                         new TagsPredicate(Arrays.asList("CS2103", "Lecture")));
-        assertParseSuccess(parser, "some keywords from/10 nov 8pm before/11 nov 8pm tag/CS2103 tag/Lecture",
+        assertParseSuccess(parser, "some keywords from/10 nov 8pm to/11 nov 8pm tag/CS2103 tag/Lecture",
                                 expectedFindEventCommand2);
 
     }
