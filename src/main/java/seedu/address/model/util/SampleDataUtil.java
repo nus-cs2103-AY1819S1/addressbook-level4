@@ -25,6 +25,51 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
+    public static final ResumeEntry CAROUSELL = new EntryBuilder()
+                                                 .withCategory("work")
+                                                 .withTitle("Carousell")
+                                                 .withDuration("Nov 2017 - Jan 2018")
+                                                 .withSubHeader("Intern")
+                                                 .withTags("web", "backend")
+                                                 .addBulletToDescription("Attached to the backend team")
+                                                 .addBulletToDescription("Assisted in migrating database")
+                                                 .build();
+
+    public static final ResumeEntry ANDROID_DEV = new EntryBuilder()
+                                                   .withCategory("education")
+                                                   .withTitle("Android Development Workshop")
+                                                   .withDuration("December 2018")
+                                                   .withSubHeader("Introduction to Android Development")
+                                                   .withTags("course", "android", "mobile")
+                                                   .build();
+
+    public static final ResumeEntry MOBILE_GAME = new EntryBuilder()
+                                                   .withCategory("projects")
+                                                   .withTitle("Mobile Game Development")
+                                                   .withDuration("Nov 2018 - Feb 2019")
+                                                   .withSubHeader("Multiplayer mobile game project")
+                                                   .withTags("game", "app", "unity")
+                                                   .build();
+
+    public static final ResumeEntry GRAPHICS_PROJ = new EntryBuilder()
+                                                  .withCategory("projects")
+                                                  .withTitle("3D Graphics Project")
+                                                  .withDuration("Jan 2019 - May 2019")
+                                                  .withSubHeader("For CS3241 Computer Graphics")
+                                                  .withTags("graphics", "course", "opengl")
+                                                  .build();
+
+    public static final ResumeEntry FIRST_CLASS = new EntryBuilder()
+                                                    .withCategory("education")
+                                                    .withTitle("National University of Singapore")
+                                                    .withDuration("2017 - 2021")
+                                                    .withSubHeader("Bachelor of Computing in Computer Science")
+                                                    .withTags("uni", "course")
+                                                    .addBulletToDescription("Attained Dean's list every year")
+                                                    .addBulletToDescription("Graduated with First Class Honours")
+                                                    .build();
+
+
     public static final ResumeEntry MA1101R_TA = new EntryBuilder()
                                                  .withCategory("work")
                                                  .withTitle("Teaching Assistant for MA1101R")
@@ -84,9 +129,11 @@ public class SampleDataUtil {
 
     public static ReadOnlyEntryBook getSampleEntryBook() {
         EntryBook sampleEb = new EntryBook();
-        sampleEb.addEntry(MA1101R_TA);
-        sampleEb.addEntry(COMP_CLUB_EXCO);
-        sampleEb.addEntry(NUS_CS2103T);
+        sampleEb.addEntry(CAROUSELL);
+        sampleEb.addEntry(ANDROID_DEV);
+        sampleEb.addEntry(MOBILE_GAME);
+        sampleEb.addEntry(GRAPHICS_PROJ);
+        sampleEb.addEntry(FIRST_CLASS);
 
         return sampleEb;
     }
@@ -123,9 +170,10 @@ public class SampleDataUtil {
             dictionary.registerFullPhrase("programme");
             dictionary.registerFullPhrase("club");
 
+
         } catch (IllegalValueException willNotOccur) {
 
-            // the sample mappings will not throw this exception
+            assert false : "The sample mappings should not cause an IllegalValueException";
         }
 
         return dictionary;
