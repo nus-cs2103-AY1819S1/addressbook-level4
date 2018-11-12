@@ -628,7 +628,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (!Files.exists(ccaXslFilePath)) {
 
             try {
-                InputStream is = MainApp.class.getResourceAsStream("/docs/ccabook.xsl");
+                InputStream is = MainApp.class.getResourceAsStream("/ccabook.xsl");
 
                 File dir = new File("data");
                 dir.mkdirs();
@@ -636,9 +636,10 @@ public class ModelManager extends ComponentManager implements Model {
                 Files.copy(is, Paths.get("data", "ccabook.xsl"));
             } catch (IOException e) {
                 logger.warning("An error occurred copying the resource!");
-            } catch (NullPointerException e) {
-                logger.warning("Null pointer exception - no such path");
             }
+            //            } catch (NullPointerException e) {
+            //                logger.warning("Null pointer exception - no such path");
+            //            }
 
         }
     }

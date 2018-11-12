@@ -688,6 +688,7 @@ fields are `date`, `amount` and `remarks`.
 [NOTE]
 ====
 * The CCA specifed must exist in the Hallper.
+* The names of the head and vice head must eixst in the Hallper.
 * The transaction number specified with `trans/` must exist.
 * `undo` and `redo` command does not apply to `update`.
 ====
