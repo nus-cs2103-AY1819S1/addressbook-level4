@@ -2047,9 +2047,12 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `login id/helloworld pw/lalala` +
    *Expected*: Account does not exists and user will be shown an error message.
 .. Test case: `login id/root pw/` +
-   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields.
-.. Test case: `login id/ pw/1122qq` or `login` +
-   *Expected*: Same to previous.
+   *Expected*: User will be prompted to provide a valid password.
+.. Test case: `login id/ pw/1122qq` +
+   *Expected*: User will be prompted to provide a valid username.
+.. Test case: `login` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
 
 . Logout
 
@@ -2058,18 +2061,70 @@ These instructions only provide a starting point for testers to work on; testers
    *Expected*: User will be logged out, and the username will be reset back to `Guest` at the top-right corner of the
     GUI.
 
-. Changing Password
+. Change Password
 
 .. Prerequisite: User must be logged in. The old and new password can be the same.
-.. Test case: `change-password npw/newpassword`
+.. Test case: `change-password npw/newpassword` +
    *Expected*: User's password will be updated. The new password must be used for future login.
-.. Test case: `change-password npw/newpassword npw/evennewerpassword`
+.. Test case: `change-password npw/newpassword npw/evennewerpassword` +
    *Expected*: `evennewerpassword` will be recorded as the new password.
-.. Test case: `change-password npw/`
+.. Test case: `change-password npw/` +
    *Expected*: User will be prompted to provide a valid password.
-.. Test case: `change-password`
-   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields..
+.. Test case: `change-password` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
 
+. Register new account
+
+.. Prerequisite: User must be logged in, and the account must exists in the accounts record. _Currently, any user will
+be able to register a new account as the user role feature will only be implemented in `v2.0`. See
+<<UserGuide#User-Role, UserGuide.adoc>> for more information_
+.. Test case: `register id/johndoe pw/1122qq n/John Doe` +
+   *Expected*: A new account with the id `johndoe` will be created. Details of `johndoe` will be shown. The timestamp
+    of the status bar will be updated as well.
+.. Test case: `register id/john doe pw/1122qq n/` +
+   *Expected*: User will be prompted to provide a valid name.
+.. Test case: `register id` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+.. Other incorrect attempts: `register id/ pw/1122qq n/John Doe`, `register id/johndoe pw/1122 qq n/John Doe` +
+   *Expected*: User will be prompted with a relevant error message to provide a valid value for the field that has an
+   error.
+
+. Deregister an account
+
+.. Prerequisite: User must be logged in, and the account must exists in the accounts record.
+.. Test case: `deregister id/johndoe` +
+   *Expected*: Account with the id `johndoe` will be deregistered (i.e. deleted).
+.. Test case: `deregister id/<current logged in user's id>` +
+   *Expected*: User will be prompted an error message that they are not allowed to deregister their own account.
+.. Test case: `deregister` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+
+. Find account
+
+.. Prerequisite: User must be logged in.
+.. Test case: `find-account <ro>` +
+   *Expected*: List all accounts that contain the string `ro` in its username.
+.. Test case: `find-account` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+
+. Select account
+
+.. Prerequisite: User must be logged in.
+.. Test case: `select-account 1` +
+   *Expected*: The account at index 1 of the list will be selected.
+.. Other incorrect attempts: `select-account` or `select-account -1` or `select-account alphabet` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+
+. List all accounts
+
+.. Prerequisite: User must be logged in.
+.. Test case: `list-accounts` +
+   *Expected*: The list of accounts will be shown at the panel on the left of the GUI.
 
 === Saving data
 . Dealing with missing/corrupted data files
