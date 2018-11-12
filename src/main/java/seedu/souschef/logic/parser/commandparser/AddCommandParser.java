@@ -46,6 +46,9 @@ public class AddCommandParser {
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    private final String MESSAGE_INGREDIENT_PROMPT_EDT = "Ingredient with same name and date already exists! Please " +
+            "use edit function instead!";
+
     public AddCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);
@@ -82,6 +85,10 @@ public class AddCommandParser {
 
         Ingredient toAdd = new Ingredient(ingredientName, ingredientAmount,
                 ingredientServingUnit, ingredientDate).convertToCommonUnit();
+
+        if (model.has(toAdd)) {
+            throw new ParseException(MESSAGE_INGREDIENT_PROMPT_EDT);
+        }
 
         return new AddCommand<>(model, toAdd);
     }
