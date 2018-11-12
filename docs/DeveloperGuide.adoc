@@ -494,14 +494,15 @@ a particular `Person` object, and the consequent updating of the patient’s `Me
 
 Stated below is an example usage scenario and an explanation of the interactions that occurs as a result of the code execution.
 
-The user executes the following commands:
+The user executes the following command:
 
-* `addmh ic/S9123124A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol`
+* `addmh ic/S1234567A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol doc/Dr. Amos`
 
 *Intent*
 
 The purpose of the keyed `addmh` command line is to register and record a diagnosis under the registered patient with
-the `NRIC` S9123124A.
+the `NRIC` S1234567A.
+
 
 ==== Command execution
 
@@ -510,19 +511,135 @@ The sequence diagram below shows the execution of the given scenario:
 .Execution sequence of the `addmh` command
 image::AddmhSequenceDiagram.png[width="800"]
 
-* `addmh ic/S9123124A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol`
-** When the user-executed `addmh` line is passed into an instance of the LogicManager class, the method `AddressBookParser::parse` is executed.
-`AddressBookParser` then parses the command word `addmh` and subsequently executes `AddmhCommandParser::parse`.
+* `addmh ic/S1234567A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol doc/Dr. Amos`
 
-** Next, arguments prefixed by `ic/` and `mh/` are parsed into `NRIC` and `Diagnosis` objects to be used in the `AddmhCommand` constructor.
+** Firstly, the user input is passed into the `LogicManager::execute` method of the LogicManager instance as the only parameter.
 
-** The instantiated `AddmhCommand` will be the medium through which the `Person` with the `NRIC` S9123124A is updated.
+** Then, within the `LogicManager::execute` method the AddressBookParser::parseCommand instance method receives the user input as a parameter.
+*** This `String` argument is formatted: the first `String` token is taken as the command word, while the remaining `String` is grouped as arguments to be used later in `AddmhCommandParser`.
+*** From the command word, the AddressBookParser instance identifies the user input as an `addmh` command  and constructs an `AddmhCommandParser` instance.
+*** The `AddressBookParser ` then calls the `AddmhCommandParser::parse` method.
 
-*** In the `AddmhCommand#execute` method, a new `MedicalHistory` object is added to a new copy of the `Person` object.
-*** The new `Person` object is updated by the model by the `Model::updatePerson` method.
-*** A new `CommandResult` object is returned.
+**  Next, the `AddmhCommandParser` takes in the previously mentioned remaining arguments string, `ic/S1234567A mh/Hypertension, diagnosed “years ago”, well contracted with Metoponol doc/Dr. Amos`
+*** From this string, the relevant arguments are tokenised based on the set of prefixes involved.
+*** A check on the presence of the relevant prefixes `ic/`, `mh/` and `doc/` is done.
+[source, java]
+----
+    public AddmhCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_MED_HISTORY, PREFIX_DOCTOR);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_MED_HISTORY, PREFIX_DOCTOR)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException((String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddmhCommand.MESSAGE_USAGE)));
+        }
+
+        Nric patientNric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+        Diagnosis diagnosis = ParserUtil.parseDiagnosis(argMultimap.getValue(PREFIX_MED_HISTORY).get(),
+                argMultimap.getValue(PREFIX_DOCTOR).get());
+
+        return new AddmhCommand(patientNric, diagnosis);
+    }
+----
+
+*** If not all prefixes are present, a `ParseException` will be thrown with a error message on the proper usage of the `addmh` command.
+*** Otherwise, `Diagnosis` and `Nric`  objects are constructed and used as fields in the creation of an `AddmhCommand`.
+
+** Subsequently, the newly created `AddmhCommand` is returned to back to the `LogicManager` instance through `AddmhCommandParser` and `AddressBookParser` objects.
+
+**  When control is returned to the `LogicManager` object, it calls the `AddmhCommand::execute` method.
+*** The method takes in a `Model` object to access the application’s data context, the stored data of all persons.
+
+
+[source, java]
+----
+public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    requireNonNull(model);
+
+    Person patientToUpdate = getPatient(model); // <1>
+    Person updatedPatient = addMedicalHistoryForPatient(patientToUpdate, this.newRecord); <2>
+
+    model.updatePerson(patientToUpdate, updatedPatient); <3>
+
+    return new CommandResult(String.format(MESSAGE_SUCCESS, patientNric)); <4>
+}
+----
+
+<1> getPatient() method:
++
+[source, java]
+----
+private Person getPatient(Model model) throws CommandException {
+    ObservableList<Person> filteredByNric = model.getFilteredPersonList()
+            .filtered(p -> patientNric.equals(p.getNric()));
+
+    if (filteredByNric.size() < 1) {
+        throw new CommandException(MESSAGE_UNREGISTERED);
+    }
+
+    return filteredByNric.get(0);
+}
+----
+
+* The stored persons data is accessed in the AddmhCommand::getPatient method.
+* Model::getFilteredPersonList is called to search for a person with a `Nric` that matches the `Nric` field in the `AddmhCommand`
+* If a match is found, the `Person` is returned to the `AddmhCommand::execute` sequence.
+
+<2> addMedicalHistoryForPatient() method:
++
+[source, java]
+----
+private static Person addMedicalHistoryForPatient(Person patient, Diagnosis diagnosis) {
+    requireAllNonNull(patient, diagnosis);
+
+    MedicalHistory updatedMedicalHistory = patient.getMedicalHistory();
+    updatedMedicalHistory.add(diagnosis);
+
+    Nric nric = patient.getNric();
+    Name name = patient.getName();
+    Phone phone = patient.getPhone();
+    Email email = patient.getEmail();
+    Address address = patient.getAddress();
+    Set<Tag> tags = patient.getTags();
+
+    return new Person(nric, name, phone, email, address, tags, updatedMedicalHistory);
+}
+----
+* Updates the person’s medical history.
+* The person’s current `medicalHistory` is retrieved, and the `Diagnosis` field in the `AddmhCommand` is added it.
+* Then, a new `Person` is created with the updated fields, as part of the immutability of the `Person` class.
+
+<3> updatePerson() method:
++
+[source, java]
+----
+// ModelManager.java
+public void updatePerson(Person target, Person editedPerson) {
+    requireAllNonNull(target, editedPerson);
+
+    internalAddressBook.updatePerson(target, editedPerson);
+    indicateAddressBookChanged();
+}
+
+// AddressBook.java
+public void updatePerson(Person target, Person editedPerson) {
+    requireNonNull(editedPerson);
+
+    persons.setPerson(target, editedPerson);
+}
+----
+* Replaces the old person data with the updated person’s data.
+* Here the Model::updatePerson method is called, and it subsequently calls the VersionedAddressBook::updatePerson method
+* Replaces the person’s existing data in the addressbook storage with the person’s updated data.
+
+<4> The `AddmhCommand::execute` execution completes by returning a new `CommandResult` that contains a success message to its calling method, `LogicManager::execute`.
 
 * Command execution ends.
+
+---
+The activity diagram in Figure 13 summarises what happens when a user executes the `addmh` command.
+
+.The activity diagram for the `addmh` command
+image::AddmhActivityDiagram.png[width="800"]
 
 ****
 NOTE: If multiple patients with the entered `NRIC` exist, then the `AddmhCommand::execute` will throw a `CommandException`
@@ -530,8 +647,19 @@ with an appropriate error message before the use case ends.
 ****
 
 ==== Design Considerations
+===== Aspect: How to represent a timestamp in a diagnosis
+* **Alternative 1 (current implementation):** Use a POJO class to represent the timestamp data in the `Diagnosis` class.
+** Pros: Results in improved readability and modularity of code, due to a stronger adherence to the Object-Oriented Programming paradigm.
+** Cons: Increases in modularity can make it difficult to find information, if code becomes over-modularised.
+
+* **Alternative 2 (alternative implementation):** Use a `String` to represent the timestamp and contain date-time related functions in the `Diagnosis` class.
+** Pros: Results in more compact code.
+** Cons: Decreases code modularity, and this decreases code readability.
+
+
 
 // end::addmh[]
+
 
 === Visitorin/Viewvisitors/Visitorout
 
