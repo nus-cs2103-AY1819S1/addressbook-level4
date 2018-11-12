@@ -15,11 +15,12 @@ Software Engineering. The user interacts with it using a CLI, and it has a GUI c
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *fuzzy search with filters*
+** What it does: Allows the user to search for commands without having to type the exact matching words - e.g. "find event proj" to find a calendar event with "Project" in its name. Also allows the user to filter their search by date and time, and by tags, for more precise searching. Finally, it displays the results in decreasing order of relevance (i.e. the most relevant results first).
+** Justification: This feature improves the product significantly because it allows users to search for events more conveniently and more precisely. This would help to significantly improve the ease of use and navigation for our users.
+** Highlights: This enhancement is extensible - it has the potential to be
+This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: Uses third party library [https://github.com/xdrop/fuzzywuzzy[fuzzywuzzy]] for the fuzzy search
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -65,10 +66,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

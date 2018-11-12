@@ -41,10 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_TUTORIAL = "Monadic parsers";
     public static final String VALID_DESCRIPTION_MIDTERM = "cover all materials from week 1 to week 7";
     public static final String VALID_DESCRIPTION_ASSIGNMENT = "greedy algorithm";
-    public static final String VALID_VENUE_LECTURE = "Block 312, Amy Street 1";
-    public static final String VALID_VENUE_TUTORIAL = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_VENUE_LECTURE = "i3 Auditorium";
+    public static final String VALID_VENUE_TUTORIAL = "COM1 02-09";
+    public static final String VALID_TAG_LECTURE = "lecture";
+    public static final String VALID_TAG_TUTORIAL = "tutorial";
     public static final String VALID_START_DATETIME_LECTURE = "2018-10-16 14:00";
     public static final String VALID_END_DATETIME_LECTURE = "2018-10-16 16:00";
     public static final String VALID_START_DATETIME_LECTURE_2 = "2018-11-15 16:00";
@@ -76,8 +76,8 @@ public class CommandTestUtil {
     public static final String END_DESC_TUTORIAL = " " + PREFIX_END + VALID_END_DATETIME_TUTORIAL;
     public static final String VENUE_DESC_LECTURE = " " + PREFIX_VENUE + VALID_VENUE_LECTURE;
     public static final String VENUE_DESC_TUTORIAL = " " + PREFIX_VENUE + VALID_VENUE_TUTORIAL;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     public static final String TITLE1 = "CS100";
@@ -118,11 +118,11 @@ public class CommandTestUtil {
         DESC_LECTURE = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
             .withDescription(VALID_DESCRIPTION_LECTURE).withStart(VALID_START_DATETIME_LECTURE)
             .withEnd(VALID_END_DATETIME_LECTURE).withVenue(VALID_VENUE_LECTURE)
-            .withTags(VALID_TAG_FRIEND).build();
+            .withTags(VALID_TAG_TUTORIAL).build();
         DESC_TUTORIAL = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_TUTORIAL)
             .withDescription(VALID_DESCRIPTION_TUTORIAL).withStart(VALID_START_DATETIME_TUTORIAL)
             .withEnd(VALID_END_DATETIME_TUTORIAL).withVenue(VALID_VENUE_TUTORIAL)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL).build();
     }
 
     /**

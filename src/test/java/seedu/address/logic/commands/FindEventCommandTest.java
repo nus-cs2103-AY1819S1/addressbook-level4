@@ -5,13 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEvents.BENSON;
-import static seedu.address.testutil.TypicalEvents.CARL;
-import static seedu.address.testutil.TypicalEvents.DANIEL;
-import static seedu.address.testutil.TypicalEvents.ELLE;
-import static seedu.address.testutil.TypicalEvents.FIONA;
-import static seedu.address.testutil.TypicalEvents.GEORGE;
-import static seedu.address.testutil.TypicalEvents.LECTURE;
+import static seedu.address.testutil.TypicalEvents.CAREER_FAIR;
+import static seedu.address.testutil.TypicalEvents.CHOIR_PRACTICE;
+import static seedu.address.testutil.TypicalEvents.CS2040_LAB;
+import static seedu.address.testutil.TypicalEvents.CS2103_LECTURE;
+import static seedu.address.testutil.TypicalEvents.CS2104_TUTORIAL;
+import static seedu.address.testutil.TypicalEvents.FIN3101_SEMINAR;
+import static seedu.address.testutil.TypicalEvents.GOOGLE_INTERVIEW;
 import static seedu.address.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.util.Arrays;
@@ -90,7 +90,8 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate, datePredicate, tagsPredicate);
         expectedModel.sortFilteredCalendarEventList(comparator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredAndSortedCalendarEventList());
+        assertEquals(Arrays.asList(CS2040_LAB, CHOIR_PRACTICE, CAREER_FAIR),
+                                model.getFilteredAndSortedCalendarEventList());
     }
 
     @Test
@@ -104,7 +105,8 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate, datePredicate, tagsPredicate);
         expectedModel.sortFilteredCalendarEventList(comparator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DANIEL, ELLE, FIONA), model.getFilteredAndSortedCalendarEventList());
+        assertEquals(Arrays.asList(FIN3101_SEMINAR, CHOIR_PRACTICE, CAREER_FAIR),
+                                model.getFilteredAndSortedCalendarEventList());
     }
 
     @Test
@@ -118,7 +120,7 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate, datePredicate, tagsPredicate);
         expectedModel.sortFilteredCalendarEventList(comparator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(LECTURE), model.getFilteredAndSortedCalendarEventList());
+        assertEquals(Arrays.asList(CS2103_LECTURE), model.getFilteredAndSortedCalendarEventList());
     }
 
     @Test
@@ -132,7 +134,7 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate, datePredicate, tagsPredicate);
         expectedModel.sortFilteredCalendarEventList(comparator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON, CARL), model.getFilteredAndSortedCalendarEventList());
+        assertEquals(Arrays.asList(CS2104_TUTORIAL, CS2040_LAB), model.getFilteredAndSortedCalendarEventList());
     }
 
     @Test
@@ -146,7 +148,7 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate, datePredicate, tagsPredicate);
         expectedModel.sortFilteredCalendarEventList(comparator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON), model.getFilteredAndSortedCalendarEventList());
+        assertEquals(Arrays.asList(CS2104_TUTORIAL), model.getFilteredAndSortedCalendarEventList());
     }
 
     @Test
@@ -160,7 +162,7 @@ public class FindEventCommandTest {
         expectedModel.updateFilteredCalendarEventList(predicate, datePredicate, tagsPredicate);
         expectedModel.sortFilteredCalendarEventList(comparator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(GEORGE), model.getFilteredAndSortedCalendarEventList());
+        assertEquals(Arrays.asList(GOOGLE_INTERVIEW), model.getFilteredAndSortedCalendarEventList());
     }
 
     /**

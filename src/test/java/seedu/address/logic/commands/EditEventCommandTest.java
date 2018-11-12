@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -63,11 +63,11 @@ public class EditEventCommandTest {
         CalendarEventBuilder personInList = new CalendarEventBuilder(lastCalendarEvent);
         CalendarEvent editedCalendarEvent =
             personInList.withTitle(VALID_TITLE_TUTORIAL).withDescription(VALID_DESCRIPTION_TUTORIAL)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_LECTURE).build();
 
         EditCalendarEventDescriptor descriptor =
             new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_TUTORIAL)
-                .withDescription(VALID_DESCRIPTION_TUTORIAL).withTags(VALID_TAG_HUSBAND).build();
+                .withDescription(VALID_DESCRIPTION_TUTORIAL).withTags(VALID_TAG_LECTURE).build();
         EditEventCommand editEventCommand = new EditEventCommand(indexLastPerson, descriptor);
 
         String expectedMessage =
