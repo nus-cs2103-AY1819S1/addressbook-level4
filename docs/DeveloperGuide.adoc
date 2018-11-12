@@ -445,7 +445,7 @@ Given below is an example usage scenario and how the authentication mechanism be
 
 *Step 1*. The user launches the application for the first time. `UserPref` will be initialised with a randomly generated salt by calling `Password#generateSalt()`, and a default hashed password from `a12345`.
 
-Example of a hash salt is:
+Example of a hashing salt is:
 ```
 R9hE4pccZYI3BYfQa6etrVD5n7sLRK8G9S8KJRLUqTvdJH15oYnsR1EyrYL2FGH1xDVulTrPEYt1ByVPoVmS4uDDzKzPjZJg2i9SPvOdOMtap6xfBVZLld7ZnEqgdMuhknvLzYilwKy8yHzaEsjk0PEhR5G1XaEMd2dqw6fAhng4ML5UzvIMo2s8HmB4NU7G5pk5yyiQYvam5XrLm0k24ZLUV7zbmmhKXACYlFKcEMMI9LzQcMwBXgN5KHe08H3U
 ```
