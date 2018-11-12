@@ -492,6 +492,7 @@ Format: `mode [GAME_MODE] [Optional: GAME_DIFFICULTY]`, where:
 
 === `Complete` displays a organic random congratulatory message upon task completion.
 ** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
+
 === Completed Tasks would be automatically hidden from view.
 * Completed Tasks should be automatically hidden from view
 // end::complete-2.0[]

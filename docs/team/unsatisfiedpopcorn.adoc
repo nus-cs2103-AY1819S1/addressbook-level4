@@ -35,22 +35,20 @@ to the batch of tasks. He need not painstakingly undo them one by one.
 *** Highlights: This enhancement required careful design considerations due to the
 creation of two flavours of the complete command. Moreover, the atomicity
 required from this feature required a model rollback operation that it does not
-currently support. Moreover, this implementation was challenging as it required
-changes to other components of the application.
+currently support.
 **** Converting `CompleteCommand` into an abstract class in order to support the
-polymorphic behaviour of the two flavour of completion. Additionally, this helps
-keeps code organised neatly by following the Single Responsibility Principle.
-**** Implementing a rollback operation for the model, which could possibly be
-used to provide better data integrity of the application in future development.
+polymorphic behaviour of the two flavour of completion. This follows the Single Responsibility
+Principle and Template Method Pattern.
 
 * **Code contributed**:
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=unsatisfiedpopcorn[RepoSense]
 
 * *Other contributions*:
 ** *Minor Enhancements*:
-*** Extended the model to check if it is in an invalid state where completed tasks
-have uncompleted dependencies. Integrated this with CompleteCommand to prevent completion of
-tasks that will result in the aformentioned invalid state.
+*** Extended the model to check if it is in an invalid state where completed tasks have uncompleted
+dependencies.
+*** Implementing a rollback operation for the model, which could possibly be
+used to provide better data integrity of the application in future development.
 ** Project management:
 *** Set up team's organisation.
 *** Managed releases `v1.1`, `v1.3` (2 releases) on GitHub
@@ -93,6 +91,9 @@ include::../UserGuide.adoc[tag=complete-2.0]
 |===
 
 include::../DeveloperGuide.adoc[tag=complete-preamble]
+
+This diagram below traces the the execution path of a `CompleteCommand`, starting from its
+super class, `Command`.
 
 image::CompleteCommandActivityDiagram.png[width="800"]
 
