@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
+import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Address;
 import seedu.address.model.tag.Tag;
@@ -36,6 +37,7 @@ public class EditEventCommand extends Command {
             + PREFIX_ADDRESS + "LOCATION "
             + "[" + PREFIX_TAG + "TAG]...\n";
     public static final String MESSAGE_SUCCESS = "Event %1$s edited";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event organiser.";
 
     private final Optional<EventName> name;
     private final Optional<Address> location;
@@ -67,6 +69,8 @@ public class EditEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_EVENT_SELECTED);
         } catch (NotEventOrganiserException e) {
             throw new CommandException(Messages.MESSAGE_NOT_EVENT_ORGANISER);
+        } catch (DuplicateEventException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
     }
 

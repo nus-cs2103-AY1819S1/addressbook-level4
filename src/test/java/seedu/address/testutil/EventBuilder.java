@@ -27,6 +27,10 @@ public class EventBuilder {
     public static final String DEFAULT_ADDRESS = "NUS UTown";
     public static final String DEFAULT_TAG = "friends";
     public static final String DEFAULT_POLL = "Date";
+    public static final LocalDate DEFAULT_DATE = LocalDate.of(2018, 1, 1);
+    public static final LocalTime DEFAULT_START_TIME = LocalTime.of(12, 00);
+    public static final LocalTime DEFAULT_END_TIME = LocalTime.of(13, 30);
+
 
     private EventName name;
     private Address address;
@@ -46,9 +50,9 @@ public class EventBuilder {
         tags.add(new Tag(DEFAULT_TAG));
         polls = new ArrayList<>();
         participantList = new UniquePersonList();
-        date = LocalDate.of(2018, 1, 1);
-        startTime = LocalTime.of(12, 00);
-        endTime = LocalTime.of(13, 30);
+        date = DEFAULT_DATE;
+        startTime = DEFAULT_START_TIME;
+        endTime = DEFAULT_END_TIME;
     }
 
     /**
@@ -61,9 +65,15 @@ public class EventBuilder {
         tags = new HashSet<>(eventToCopy.getTags());
         polls = new ArrayList<>(eventToCopy.getPolls());
         participantList = eventToCopy.getParticipantList();
-        startTime = eventToCopy.getStartTime();
-        endTime = eventToCopy.getEndTime();
-        date = eventToCopy.getDate();
+        if (eventToCopy.getStartTime().isPresent()) {
+            startTime = eventToCopy.getStartTime().get();
+        }
+        if (eventToCopy.getEndTime().isPresent()) {
+            endTime = eventToCopy.getEndTime().get();
+        }
+        if (eventToCopy.getDate().isPresent()) {
+            date = eventToCopy.getDate().get();
+        }
     }
 
     /**

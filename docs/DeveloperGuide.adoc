@@ -1801,6 +1801,12 @@ The second user has name as "Bernice Yu" and interest as "play".
 .. Test case `addPoll n/Meeting date`
    Expected: a new poll with name "Meeting date" is created and displayed in the event details panel.
 
+=== Add a time poll
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Test case `addTimePoll d/19-12-2018 d2/20-12-2018`
+   Expected: a new poll with name "Time Poll" is created and displayed in
+   the event details panel. It is populated by 30 minute slots based on the schedules of the participants.
+
 === Add poll options
 .. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
 .. Test case `addOption i/1 o/12 December`
@@ -1808,10 +1814,56 @@ The second user has name as "Bernice Yu" and interest as "play".
 .. Test case `addOption i/1 o/13 December`
    Expected: a new poll option with name "13 December" is created and displayed in the event details panel.
 
+=== Delete an event
+.. Prerequisites: Event organiser "David Li" is logged in and "David Li" is the organiser of event at index 2 but not event at index 1.
+.. Test case `deleteEvent 2`
+   Expected: Event at index 2 is deleted
+.. Test case `deleteEvent 1`
+   Expected: Event 1 is not deleted, an error message "You are not the organiser of this event." is returned.
+
+=== Select an event
+.. Prerequisites: The event list is not empty.
+.. Test case `selectEvent 1`
+   Expected: The event details panel displays the details of the event at index 1.
+
+=== Display poll
+.. Prerequisites: The event at index 1 has been selected and there is a poll in the event.
+.. Test case `displayPoll 1`
+   Expected: Poll at index 1 of the poll list of the first event is displayed.
+
+=== Edit an event
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `editEvent n/CS2100 Discussion a/NUS UTown`
+   Expected: The selected event is edited to have the name "CS2100 Discussion" and the location "NUS UTown".
+.. Test case `editEvent t/URGENT`
+   Expected: The selected event is edited to have only one tag "URGENT"
+
+=== Find an event by attributes
+.. Prerequisites: The event list is not empty.
+.. Test case `findEvent e/Linguistics Reading Group`
+   Expected: all and only events with name "Linguistics Reading Group" are displayed in the event list.
+.. Test case findEvent t1/17:30 on/Charlotte Oliveiro`
+   Expected: all and only events starting at 17:30 and organised by "Charlotte Oliveiro" are displayed in the event list.
+
+=== Find event by time
+.. Prerequisites: The event list is not empty.
+.. Test case `findEventByTime d/01-12-2018 t1/07:30 t2/17:30`
+   Expected: all and only events held between 07:30 and 17:30 on 01-12-2018 are displayed.
+
+=== List all events
+.. Prerequisites: NIL
+.. Test case `listEvent`
+   Expected: All events in the event organiser are displayed in the events list.
+
 === Set date
 .. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
 .. Test case `setDate d/12-12-2018`
    Expected: the date "12-12-2018" is set and appears in the event card of the event.
+
+=== Set time
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected an event created by him.
+.. Test case `setTime t1/12:30 t2/14:30`
+   Expected: the times "12:30 - 14:30" are set and appear in the event card of the event.
 
 === Join event
 .. Prerequisites: A user "Charlotte Oliveiro" is logged in and has yet to join the first event in the list.
@@ -1825,6 +1877,8 @@ to which the event organiser has added a poll "Meeting Date" at poll index 1. In
 .. Test case `vote i/1 o/12 December`
    Expected: The user "Charlotte Oliveiro" is added to the voter list of the option "12 December"
    The most popular options list updates to include "12 December"
+
+
 
 ////
 === Deleting a person
