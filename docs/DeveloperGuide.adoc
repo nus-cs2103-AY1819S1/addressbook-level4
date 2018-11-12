@@ -2041,11 +2041,12 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the `jar` file. +
    *Expected*: The most recent window size and location is retained.
 
+// tag::testreservations[]
 === Reservation Management
 
 . Adding a reservation
 
-.. Prerequisites: The reservation to be added must not be a duplicated entry in the reservations list and you must be
+.. Prerequisites: The reservation to be added must not be a duplicated entry in the reservations list and the user must be
                   logged in.
 
 .. Test case: `add-reservation n/John Doe px/4 d/05-12-2019 ti/10:00 t/Driving` +
@@ -2063,15 +2064,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Listing reservations
 
-.. Prerequisites: Must be logged in.
+.. Prerequisites: The user must be logged in.
 
-.. Test case: `list-reservations`
+.. Test case: `list-reservations` +
    *Expected*: The reservations list will be shown.
 
 
 . Selecting a reservation
 
-.. Prerequisites: You must have at least 1 reservation in the reservations list.
+.. Prerequisites: The reservations list must contain at least 1 reservation.
 
 .. Test case: `select-reservation 1` +
    *Expected*: Selects the reservation specified by the index in the reservations list. Index of the selected
@@ -2082,7 +2083,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Editing a reservation
 
-.. Prerequisites: The reservation to be edited must be an existing entry in the reservations list and you must be
+.. Prerequisites: The reservation to be edited must be an existing entry in the reservations list and the user must be
                   logged in.
 
 .. Test case: `edit-reservation 1 d/06-10-2020` +
@@ -2092,13 +2093,13 @@ edited reservation will be shown.
 .. Test case: `edit-reservation n/` +
    *Expected*: No reservation is edited. Improper format error details shown.
 
-.. Other incorrect edit-reservation commands to try: `edit-reservation` , `edit-reservation 1 px/4@`
+.. Other incorrect edit-reservation commands to try: `edit-reservation` , `edit-reservation 1 px/4@` +
    *Expected*: Similar to previous.
 
 
 . Deleting a reservation
 
-.. Prerequisites: The reservation to be deleted must be an existing entry in the reservations list and you must be
+.. Prerequisites: The reservation to be deleted must be an existing entry in the reservations list and the user must be
                   logged in.
 
 .. Test case: `delete-reservation 1` +
@@ -2107,13 +2108,14 @@ edited reservation will be shown.
 .. Test case: `delete-reservation 0` +
    *Expected*: No reservations are deleted. Improper format error details shown.
 
-.. Other incorrect delete-reservation commands to try: `delete-reservation`, `delete-reservation all`
+.. Other incorrect delete-reservation commands to try: `delete-reservation`, `delete-reservation all` +
+   *Expected*: Similar to previous.
 
 
 . Sorting reservations
 
-.. Prerequisites: You must be logged in and the reservations list must be populated with more than one entry. +
-(and preferably be initially unsorted, to see the effects of the sort command)
+.. Prerequisites: The user must be logged in and the reservations list must be populated with more than one entry. +
+(and preferably be initially unsorted, to see the effects of the `sort-reservations` command)
 
 .. Setup: Enter these commands to populate the reservations list with an unsorted set of reservations.
 ... `add-reservation n/Mandelbrot px/3 d/06-12-2019 ti/18:00`
@@ -2122,3 +2124,4 @@ edited reservation will be shown.
 
 .. Test case: `sort-reservations` +
    *Expected*: Reservations list will be sorted by Date/Time in ascending order.
+// end::testreservations[]
