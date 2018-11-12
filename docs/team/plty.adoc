@@ -9,47 +9,46 @@
 
 == Overview
 
-Lost and Found is a desktop application used for managing lost and found articles.
+LostBUTFound is a desktop application used for managing lost and found articles.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to add images into an article*
+** What it does: allows the user add an image into an article.
+** Justification: This feature improves the product significantly because a user can add images to an article hence, ease them in differentiating two items and knowing which one is theirs and making more sense of finding and differentiate our system with the simple logbook based lost and found
+** Highlights: This feature
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a *Sequence* class
+** What it does: Allow creation of unique id.
+** Justification: unique id is needed to create a file / id without any collision, hence this is perfect for Image class, by using this as image is not replaced, image is not written in the xml file in Base64 or any other encoding but can still be undoable.
+** Highlight: Singleton is used in this Sequence class and made me realized the ingenuity of singleton.
+** Credit: inspiration from how postgresql handles their unique id by having a table specifically made for keeping track what is the last number dispatched into the tables.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=plty&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[RepoSense Report]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Setting up all of the CI before the project started, way before the start of the first sprint of `v1.1` to give a good foundation to work on.
+*** Setting up the branch protection before `v1.1`
+*** Creating and delegating tasks on `v1.1` and changing accordingly
 
-_{you can add/remove categories in the list above}_
+** Documentation:
+*** Creating the first draft of the UG DG.
+*** Updating the name of the whole project from "Item" to "Article"
+** Community:
+*** Reviewing the PR
+** Tools:
+*** Integrated the CI stack to this group
+*** Manage the Kanban which we use as a simpler scrum on the project page
 
 == Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+I co-write the general structure to the User Guide
 |===
-
-include::../UserGuide.adoc[tag=undoredo]
 
 == Contributions to the Developer Guide
 
@@ -57,10 +56,6 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=imageclass]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+// tag::imageclass[]---

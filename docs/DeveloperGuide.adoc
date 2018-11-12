@@ -379,7 +379,7 @@ public boolean test(Article article) {
 
 // tag::resolve[]
 === Resolve feature
-The `resolve` command allows users to resolve articles when they are claimed bu the owner.
+The `resolve` command allows users to resolve articles when they are claimed but the owner.
 
 ==== Current Implementation
 The below diagram illustrates the interaction between the `Logic` and `Model` components in resolving an article.
@@ -412,6 +412,27 @@ Unlike the `edit` command where there can be multiple fields edited, only 2 fiel
 ** Cons: Increase coupling of project.
 
 // end::resolve[]
+
+// tag::imageclass[]
+=== Image Class
+Image class is created to introduce image into the ecosystem of the ArticleList with ease
+
+==== Current Implementation
+Current implementation of Image is possible with help of Sequence class, in which Sequence class is creating a unique id for any new image created, to ease the import of new image this is handled by `Image.create` as this method copies the image to the jar directory such that the original image can be deleted afterwards, and because of the unique id and writing it not on the same directory on update / edit make undo-redo operation po* **Alternative 2:** Creating it from random
+
+image::imageclass.png[width="800"]
+
+==== Design Considerations
+* **Alternative 1 :** creating the image name from a hash
+** Pros: If this is safe enough for git to use SHA-1 for commit message, it is good enough for us to use the image checksum as the name. or use stronger hash like SHA256 or even SHA-3 standard like KECCAK Hash
+** Cons: We have weird and long names for the file and it's harder to refer to the specific file if the user needed it.
+* **Alternative 2:** Creating it from random
+** Pros: It is statistically impossible to create the same random twice if the word length is long enough.
+** Cons: It would be super long name to reduce the effect of birthday problem collision and reducing error.
+* **Alternative 2 (current implementation):** Sequence Class
+** Pros: It's a sequence such that it is sequential, and the name generated would be super short, we can use this class for another thing as well to create such unique id.
+** Cons: We have to create a class, introduce coupling and basically more work.
+// end::imageclass[]
 
 === Logging
 
