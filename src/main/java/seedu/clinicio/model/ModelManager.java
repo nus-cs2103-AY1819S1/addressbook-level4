@@ -601,18 +601,16 @@ public class ModelManager extends ComponentManager implements Model {
             analytics.setPatients(versionedClinicIo.getPatientList());
             analytics.setConsultations(versionedClinicIo.getConsultationList());
             break;
-
         case APPOINTMENT:
             analytics.setAppointments(versionedClinicIo.getAppointmentList());
             break;
-
         case DOCTOR:
             analytics.setDoctors(versionedClinicIo.getStaffList());
             analytics.setPatients(versionedClinicIo.getPatientList());
             analytics.setConsultations(versionedClinicIo.getConsultationList());
             break;
-
         default:
+            // consider the default statistic type to be appointments
             analytics.setAppointments(versionedClinicIo.getAppointmentList());
             break;
         }
