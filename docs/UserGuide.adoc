@@ -279,7 +279,7 @@ If the `DATE` is of an illegal format, the command will be rejected.
 Examples:
 
 * `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
-** The system will display a success message: "New leave application created:  Description: Family holiday Status: PENDING Dates: 2018-10-182018-10-19"
+** The system will display a success message, as follows: image:LeaveApplyResult.PNG[width=600]
 ** You will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command, as shown below: image:LeaveApplyResult.PNG[width=200]
 
 === View a list of leave applications : `leavelist`
