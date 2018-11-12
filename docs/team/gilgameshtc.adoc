@@ -38,7 +38,7 @@ I implemented the calendar feature with external libraries,  https://github.com/
 
 * *Minor enhancement*: added add event and delete event command that allows the user to modify calendar content.
 
-* *Code contributed*:
+* *Code contributed*: +
 [ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/main/java/seedu/address[Functional code] ]
 [ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/test/java[Test code] ]
 [ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=gilga&sort=displayName&since=2018-09-12&until=2018-11-01&timeframe=day&reverse=false&repoSort=true[RepoSense] ]
@@ -46,33 +46,38 @@ I implemented the calendar feature with external libraries,  https://github.com/
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Wrote tests for calendar features to increase coverage from 54% to 66% (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/119[#119])
+*** Wrote tests for calendar features to increase coverage from 54% to 66% +
+    (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/119[#119])
 
 ** Documentation:
-*** Updated the README:
+*** Updated the README: +
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/22[#22],
                https://github.com/CS2103-AY1819S1-W16-1/main/pull/178[#178])
-*** Updated the Developer Guide:
+*** Updated the Developer Guide: +
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/73[#73],
                https://github.com/CS2103-AY1819S1-W16-1/main/pull/97[#97],
                https://github.com/CS2103-AY1819S1-W16-1/main/pull/174[#174])
-*** Updated the User Guide:
+*** Updated the User Guide: +
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/120[#120],
                https://github.com/CS2103-AY1819S1-W16-1/main/pull/136[#136],
                https://github.com/CS2103-AY1819S1-W16-1/main/pull/178[#178])
 
 ** Community:
-*** Pull request reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-1/main/pull/13[#13]
-*** Reported bugs and suggestions for other teams in the class
+*** Pull request reviewed (with non-trivial review comments): +
+    https://github.com/CS2103-AY1819S1-W16-1/main/pull/13[#13]
+*** Reported bugs and suggestions for other teams in the class +
 (Issues: https://github.com/CS2103-AY1819S1-T16-4/main/issues/172[#172],
          https://github.com/CS2103-AY1819S1-T16-4/main/issues/173[#173],
          https://github.com/CS2103-AY1819S1-T16-4/main/issues/176[#176],
          https://github.com/CS2103-AY1819S1-T16-4/main/issues/179[#179])
 
 ** Tools:
-*** Integrated Travis CI and auto publishing of documents to the project (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/3[#3])
-*** Integrated a third party library (iCal4j) to the project (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/17[#17])
-*** Integrated a third party library (JFxtras) to the project (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/107[#107])
+*** Integrated Travis CI and auto publishing of documents to the project +
+    (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/3[#3])
+*** Integrated a third party library (iCal4j) to the project +
+    (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/17[#17])
+*** Integrated a third party library (JFxtras) to the project +
+    (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/107[#107])
 
 == 3. Contributions to the User Guide
 
@@ -82,8 +87,8 @@ I implemented the calendar feature with external libraries,  https://github.com/
 |===
 
 include::../UserGuide.adoc[tag=calendarIntro]
-include::../UserGuide.adoc[tag=calendarDesign]
-
+include::../UserGuide.adoc[tag=calendarCreate]
+include::../UserGuide.adoc[tag=calendarAddEvent]
 
 == 4. Contributions to the Developer Guide
 

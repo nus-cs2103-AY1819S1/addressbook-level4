@@ -485,6 +485,7 @@ _Figure 4.3.5.1: Result after executing `view_email Meeting on Friday`._
 This section lists features related to managing the calendar in Hallper.
 // end::calendarIntro[]
 
+// tag::calendarAddEvent[]
 ==== Adding all day event into calendar : `add_all_day_event`
 
 Adds an all day event into the calendar. +
@@ -510,6 +511,7 @@ Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar wh
 
 image::add_all_day_event_diagram_after.png[width="700"]
 _Figure 4.4.1.2: Screen after running `add_all_day_event` on Hallper._
+// end::calendarAddEvent[]
 
 ==== Adding event into calendar : `add_event`
 
@@ -540,7 +542,7 @@ the `10th` at `1800`.
 image::add_event_diagram_after.png[width="700"]
 _Figure 4.4.2.2: Screen after running `add_event` on Hallper._
 
-// tag::calendarDesign[]
+// tag::calendarCreate[]
 ==== Creating calendar : `create_calendar`
 
 Creates a calendar file in Hallper for updating of events. +
@@ -557,6 +559,7 @@ Example:
 * `create_calendar month/Feb year/2018` +
 Creates a calendar for the month of `Feb` and year `2018` and
 saves it as a *`.ics`* file.
+// end::calendarCreate[]
 
 ==== Delete event from calendar : `delete_event`
 
@@ -591,8 +594,6 @@ Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar
 
 image::delete_event_diagram_after_valid.png[width="700"]
 _Figure 4.4.4.3: Screen after running `delete_event` with an existing event in Hallper._
-
-// end::calendarDesign[]
 
 ==== Viewing calendar : `view_calendar`
 
