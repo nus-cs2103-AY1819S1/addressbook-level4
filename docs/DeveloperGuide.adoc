@@ -648,11 +648,19 @@ ClinicIO ensures appropriate user access rights are issued by authenticating use
 
 ==== Current Implementation
 
-The User Authentication feature comprises of `LoginCommand` and `LogoutCommand`.
+The User Authentication feature comprises of commands as below:
 
-===== `LoginCommand`
+* `login` Command: Allow users to login.
+* `logout` Command: Allow users to logout.
 
-The `LoginCommand` contains multiple operations to manipulate the `UniqueStaffList` indirectly.
+The following class diagram below illustrates the association between the Staff class and its associated class.
+
+.Class Diagram for the Staff.
+image::LoginClassDiagram.png[width="1080"] 
+
+===== `login` Command
+
+The `login` Command contains multiple operations to manipulate the `UniqueStaffList` indirectly.
 The implemented operations include: +
 
 * ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO
@@ -684,28 +692,28 @@ The following sequence diagrams shows how the login works:
 
 **Logic**
 
-.Sequence Diagram for the `LoginCommand` for the logic component.
+.Sequence Diagram for the `login` Command for the logic component.
 image::LoginLogicSequenceDiagram.png[width="1080"]
 {sp} +
 **Model**
 
-.Sequence Diagram for the `LoginCommand` for the model component.
+.Sequence Diagram for the `login` Command for the model component.
 image::LoginModelSequenceDiagram.png[width="1080"]
 {sp} +
 **Commons**
 
-.Sequence Diagram for the `LoginCommand` for the commons component.
+.Sequence Diagram for the `login` Command for the commons component.
 image::LoginCommonsSequenceDiagram.png[width="1080"]
 {sp} +
 The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
-.Activity Diagram for the `LoginCommand`
+.Activity Diagram for the `login` Command
 image::LoginActivityDiagram.png[width="1080"]
 {sp} +
 
-===== `LogoutCommand`
+===== `logout` Command
 
-The `LogoutCommand` post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
+The `logout` command post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
 the `EventCenter` to communicate between components without requiring the components to register with
 each other explicitly.
 
@@ -751,19 +759,31 @@ to ClinicIO.
 // end::login[]
 
 // tag::patientManagement[]
-=== Patient Management
+=== Patient Management feature
 
 ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
 This patient management is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
 
 ==== Current Implementation
 
-The Patient Management comprises of `AddPatientCommand`, `ListPatientCommand`, and `FindPatientCommand`.
+The Patient Management feature contains multiple operations to indirectly manipulate the `UniquePatientList`. The implemented operations include:
 
-===== `AddPatientCommand`
+* `addpatient`: Add patient in ClinicIO.
+* `listpatient`: Show all the patients in the ClinicIO record.
+* `findpatient`: Find the patient from the patient list.
 
-The `AddPatientCommand` add patient to the ClinicIO. `AddPatientCommand` requires the current `UserSession` to be login as a receptionist
-in order to add patient.
+The following class diagram below illustrates the association between the Patient class and its associated class.
+
+.Class Diagram for the Patient.
+image::PatientClassDiagram.png[width="1080"] 
+{sp} +
+
+===== `addpatient` Command
+
+The `addpatient` command behaves similarly to the `add`. The command takes in parameters that required to construct patients `Nric`.
+The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
+Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
+that the `preferredDoctor` exists inside ClinicIO staff records in order to add patient. 
 
 The following code snippet shows how `AddPatientCommand` is executed:
 [source,java]
@@ -794,7 +814,7 @@ The `ListPatientCommand` retrieve all patients in the `UniquePatientList` by cre
 
 ===== `FindPatientCommand`
 
-{Add implementation}
+The `FindPatientCommand`
 
 ==== Design Considerations
 
