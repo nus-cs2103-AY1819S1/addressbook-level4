@@ -29,7 +29,7 @@ LostBUTFound has a graphical user interface built with JavaFX but most of the us
 *** Managed release `v1.3.1` on GitHub
 *** Responded and assigned issues to team members
 ** Documentation:
-*** Overall updating and formating of User Guide, Developer Guide and ReadMe [https://github.com/CS2103-AY1819S1-W12-1/main/pull/71/commits/34f91727e4e30a99a4129c8ee0971088c17bee31[PR #71]] [https://github.com/CS2103-AY1819S1-W12-1/main/pull/122/commits/e065166655947ff0ac060964eedd9eceadf38c02[PR #122]]
+*** Overall updating and formatting of User Guide, Developer Guide and ReadMe [https://github.com/CS2103-AY1819S1-W12-1/main/pull/71/commits/34f91727e4e30a99a4129c8ee0971088c17bee31[PR #71]] [https://github.com/CS2103-AY1819S1-W12-1/main/pull/122/commits/e065166655947ff0ac060964eedd9eceadf38c02[PR #122]]
 ** Community:
 *** Reported bugs and suggestions for other teams in the class [https://github.com/CS2103-AY1819S1-T12-4/main/issues/154[#154]] [https://github.com/CS2103-AY1819S1-T12-4/main/issues/155[#155]] [https://github.com/CS2103-AY1819S1-T12-4/main/issues/159[#159]]
 
