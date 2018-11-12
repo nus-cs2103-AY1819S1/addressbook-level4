@@ -30,7 +30,7 @@ WatchOver is a gamified desktop task manager.
 ** Documentation:
 *** Managed non-User Guide or Developer Guide documentation; primarily About Us and README. (examples: https://github.com/CS2103-AY1819S1-F11-3/main/pull/38[#38], https://github.com/CS2103-AY1819S1-F11-3/main/pull/44[#44])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): (examples: https://github.com/CS2103-AY1819S1-F11-3/main/pull/43[#43], https://github.com/CS2103-AY1819S1-F11-3/main/pull/56[#56], https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[#84], https://github.com/CS2103-AY1819S1-F11-3/main/pull/103[#103], https://github.com/CS2103-AY1819S1-F11-3/main/pull/125[#125])
+*** PRs reviewed (with non-trivial review comments): (examples: https://github.com/CS2103-AY1819S1-F11-3/main/pull/43[#43], https://github.com/CS2103-AY1819S1-F11-3/main/pull/56[#56], https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[#84], https://github.com/CS2103-AY1819S1-F11-3/main/pull/125[#125], https://github.com/CS2103-AY1819S1-F11-3/main/pull/223[#223])
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/CS2103-AY1819S1-W14-4/main/issues/158[#158] https://github.com/CS2103-AY1819S1-W14-4/main/issues/162[#162] https://github.com/CS2103-AY1819S1-W14-4/main/issues/167[#167]  https://github.com/CS2103-AY1819S1-W14-4/main/issues/169[#169] https://github.com/CS2103-AY1819S1-W14-4/main/issues/184[#184] https://github.com/CS2103-AY1819S1-W14-4/main/issues/188[#188])
 
 == Contributions to the User Guide
