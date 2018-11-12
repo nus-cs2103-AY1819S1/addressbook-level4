@@ -785,7 +785,7 @@ image::showLocation_EventsCenter_seqDiagram.PNG[width="800"]
 
 // end::showFacultyLocationDisplay[]
 
-// tag::generateMeetinglocation[]
+// tag::generateMeetingLocation[]
 === Generate a random meeting location for event
 
 The generation of a random meeting location primarily builds upon the visual display of a ``Person``'s faculty. However

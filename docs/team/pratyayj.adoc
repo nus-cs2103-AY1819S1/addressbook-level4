@@ -30,28 +30,35 @@ directions or generating convenient meeting locations (based on faculty location
 
 
 * *Other contributions*:
-** Minor enhancements:
-*** Added a separate Location Display tab to display location-related information instead of using pre-existing Webpage tab.
+** Minor enhancements to existing features:
+*** Added a separate Location Display tab to display location-related information instead of using pre-existing Webpage tab:
 (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
+*** Application opens maximized at launch:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/176[#176])
+
 
 ** Project management:
 *** Managed release `v1.3.1` on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Added non-functional requirements to DeveloperGuide:
-(Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/69[#69])
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed issue tracker and helped close issues upon completion: (examples: https://github.com/CS2103-AY1819S1-W13-2/main/issues/152[152],
+ https://github.com/CS2103-AY1819S1-W13-2/main/issues/170[170])
 
-_{you can add/remove categories in the list above}_
+
+** Documentation:
+*** Added non-functional requirements to Developer Guide:
+(Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/69[#69])
+*** Edited and formatted use cases in Developer Guide:
+(Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/172[#172], https://github.com/CS2103-AY1819S1-W13-2/main/pull/190[#190])
+
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177], https://github.com/CS2103-AY1819S1-W13-2/main/pull/183[#183]
+*** Reported bugs and suggestions for other teams in the class:
+(examples:  https://github.com/CS2103-AY1819S1-T13-1/main/issues/134[134], https://github.com/CS2103-AY1819S1-T13-1/main/issues/142[142],
+ https://github.com/CS2103-AY1819S1-T13-1/main/issues/144[144], https://github.com/CS2103-AY1819S1-T13-1/main/issues/159[159])
+
+
+** Tools:
+*** Integrated Google Maps API into to the project: (Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
 
 == Contributions to the User Guide
 
@@ -60,7 +67,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=showFacultyLocation]
+include::../UserGuide.adoc[tag=suggestedMeetingLocation]
 
 == Contributions to the Developer Guide
 
@@ -68,11 +76,6 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=showFacultyLocationDisplay]
+include::../DeveloperGuide.adoc[tag=generateMeetingLocation]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
