@@ -628,7 +628,7 @@ The library is widely used and easy to understand so any new developer can easil
 
 // end::calendarDesign[]
 
-// tag::budget[]
+
 === Budget feature
 ==== Current Implementation
 
@@ -647,7 +647,7 @@ It implements the following commands:
  * `budget` -- Shows the transaction information of each CCA.
 
 However, only the implementation of `create`, `update`, `add_trans` and `budget` will be discussed.
-
+// tag::create[]
 ===== Create Command
 The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
@@ -682,6 +682,7 @@ The following sequence diagram shows how the create operation works:
 
 image::CreateCcaCommandSequenceDiagram.png[width="1500"]
 _Figure 4.4.1.1: Sequence diagram for create command_
+// end::create[]
 
 ===== Update Command
 The `update` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
@@ -772,6 +773,7 @@ The following sequence diagram shows how the add transaction operation works:
 image::AddTransCommandSequenceDiagram.png[width="1500"]
 __Figure 4.4.1.3: Sequence diagram for add_trans command_
 
+// tag::budget[]
 ===== Budget Command
 The `budget` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 It opens up a separate window to display the CCA information and its transaction history. It implements the
@@ -1090,12 +1092,12 @@ computer.
 
 The following sequence diagram shows how the image operation works:
 
-image::Image Sequence Diagram.png[width="800"]
+image::Image Sequence Diagram.png[width="730"]
 _Figure 4.7.1.1: Sequence diagram for image operation_
 
 The following activity diagram summarizes what happens when a user executes the image command:
 
-image::Image Activity Diagram.png[width="650"]
+image::Image Activity Diagram.png[width="400"]
 _Figure 4.7.1.2: Activity diagram for image operation_
 
 ==== Design Considerations
@@ -1148,12 +1150,12 @@ the filtered persons list.
 
 The following sequence diagram shows how the search operation works:
 
-image::Search Sequence Diagram.png[width="800"]
+image::Search Sequence Diagram.png[width="600"]
 _Figure 4.10.1.1: Sequence diagram for search operation_
 
 The following activity diagram summarizes what happens when a user executes the search command:
 
-image::Search Activity Diagram.png[width="650"]
+image::Search Activity Diagram.png[width="400"]
 _Figure 4.10.1.2: Activity diagram for search operation_
 
 ==== Design Considerations

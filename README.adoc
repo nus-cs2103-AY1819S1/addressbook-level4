@@ -20,14 +20,14 @@ Hallper is a professional desktop application that provides administrative conve
 == Key Features
 Hallper provides the following features to improve the experience of JCRC members in carrying out hall duties:
 
-* Convenient clearing and importing of multiple contacts
-* Tagging contacts by categories (CCA, block, etc)
+* Clearing and importing of multiple contacts conveniently
+* Tagging contacts by categories (CCA, room, etc)
 * Filtering through contacts quickly
-* Profile view of contacts
+* Viewing of contact profile
 * Updating of profile pictures of contacts
-* Budget allocation and management
-* Compose emails to multiple contacts
-* Calendar to update monthly events
+* Allocating and managing the budget
+* Composing emails to multiple contacts
+* Updating monthly events to the calendar
 
 == Site Map
 

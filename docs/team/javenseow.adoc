@@ -5,7 +5,7 @@
 
 == PROJECT: Hallper
 
-== Overview
+== 1. Overview
 
 This Project Portfolio Page aims to illustrate what I have learnt while working on Hallper, as well as to document my
 contributions to the project. The different sections below will specify my contributions to different aspects of the
@@ -25,7 +25,7 @@ The main features included in Hallper are email writing, budget management, cale
 uploading as well as import and export of Hallper. With all these features in place, we believe that Hallper will be the
 one-stop solution for all JCRCs.
 
-== Summary of contributions
+== 2. Summary of contributions
 
 * *Major enhancement 1*: added a *image function to upload profile pictures into Hallper*
 ** What it does: This feature allows the user to upload profile pictures for residents that the user specifies.
@@ -61,7 +61,7 @@ https://github.com/CS2103-AY1819S1-W13-2/main/issues/162[3],
 https://github.com/CS2103-AY1819S1-W13-2/main/issues/153[4])
 
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 
 |===
@@ -73,13 +73,10 @@ include::../UserGuide.adoc[tag=search]
 
 include::../UserGuide.adoc[tag=image]
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-include::../DeveloperGuide.adoc[tag=search]
-
 
 include::../DeveloperGuide.adoc[tag=image]
