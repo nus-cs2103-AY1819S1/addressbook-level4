@@ -1240,7 +1240,7 @@ Use case resumes at step 3.
 
 1. User requests to login.
 2. App authenticates the user.
-3. App returns a success message confirming that the user account has been created.
+3. App returns a success message confirming that the user has been logged in.
 +
 Use case ends.
 
@@ -1251,27 +1251,44 @@ Use case ends.
 ** 2a1. App requests for the correct data.
 ** 2a2. User enters new data.
 +
-Steps 2a1-2a2 are repeated until the data entered are correct.
+Steps 2a1-2a2 are repeated until the data entered is correct.
 +
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: UC103 - Edit account
+=== Use case: UC103 - Logout
+
+*Pre-conditions*:
+
+* User must be logged in.
+
+*Guarantees*:
+
+* User will be logged out of the App.
+
+*MSS*
+
+1. User requests to logout.
+2. App logs out the user.
+3. App returns a success message confirming that the user has been logged out.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC104 - Change password
 
 *Pre-conditions*:
 
 * User has to be logged in.
-* User must be an administrator.
 
 *Guarantees*:
 
 * Account data will remain intact if nothing changes OR
-* Account data will be updated OR
-* Account will be deleted.
+* Account data will be updated.
 
 *MSS*
 
-1. User requests to edit an account.
+1. User requests to change password.
 2. App edit the user account.
 3. App returns a success message confirming that the user account has been edited.
 +
@@ -1279,35 +1296,17 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Username does not exists.
+* 2a. New password is invalid.
 [none]
 ** 2a1. App requests for the correct data.
 ** 2a2. User enters new data.
 +
-Steps 2a1-2a2 are repeated until the data entered are correct.
+Steps 2a1-2a2 are repeated until the data entered is correct.
 +
 Use case resumes at step 3.
 * 3a. No data changed.
 +
 Use case resumes at step 3.
-
-[discrete]
-=== Use case: UC104 - Authentication logging
-
-*Pre-conditions*:
-
-* User must not be logged in.
-
-*Guarantees*:
-
-* A new record will be added into the log of the authentication attempt.
-
-*MSS*
-
-1. User requests to [.underline]#login (UC102)#.
-2. App logs attempt.
-+
-Use case ends.
 
 [discrete]
 === Use case: UC201 - Add ingredient
