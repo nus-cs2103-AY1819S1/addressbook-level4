@@ -30,7 +30,7 @@ methodology.
 * This guide offers advice for troubleshooting some common issues.
 
 *MeNUS* is an open-source project. If you are interested in contributing, see the
-link:{repoURL}/docs/AboutUs.adoc[`Contact Us`] page for more information.
+https://cs2103-ay1819s1-f10-4-menus.netlify.com/contactus[`Contact Us`] page for more information.
 
 === Legend
 The following *3* callouts will be used throughout the documentation which you may wish to pay attention to as it may
