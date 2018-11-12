@@ -467,7 +467,7 @@ allow users to configure TutorPal the promote feature to be automatic or manual.
 
 A `Time` class has been created. It represents the tuition time of the student, consisting of the day, start and end time of the tuition.
 
-* When creating a new `Time`, input for day should only include the first 3 letters of the day, and it must be in small letters. 
+* When creating a new `Time`, input for day should only include the first 3 letters of the day, and it must be in small letters.
 
 ** For example: mon, tue, wed, thu, fri, sat, sun.
 
@@ -504,7 +504,7 @@ A `timings` attribute has been added into the list of attributes of Person class
 * **Alternative 2:** Use a priority queue to store the tuition timings of a student.
 ** Pros:
 . The priority queue API allows us to ensure that the `Time` are in a particular order, either descending or ascending, depending on how we implement it.
-** Cons: 
+** Cons:
 . We can only fix it to one particular order. Hence, if we want to display the `Time` in another order, sorting still has to be done.
 
 // end::timefeature[]
