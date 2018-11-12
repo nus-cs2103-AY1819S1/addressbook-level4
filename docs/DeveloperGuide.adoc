@@ -1755,8 +1755,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-_{ more test cases ... }_
-
 === Deleting a expense
 
 . Deleting a expense while all expenses are listed
@@ -1766,10 +1764,30 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Toggling Notifications
+
+. Toggling Notifications On and Off
+
+.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`.
+.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
+   Expected: A notification should appear on the the `NotificationPanel` with the header `Warning` and the
+   body, 'You are overbudget!'.
+.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
+   Expected: No new notifications should appear on the `NotificationPanel`.
+.. Test case: `notification n/tip t/on`
+   Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
+.. Test case: `notification n/tip t/off`
+   Expected: No new notifications containing saving tips should appear after any length of time.
+.. Test case: `notification` +
+   Expected: Error details shown in the status message.
+.. Other incorrect delete commands to try: `notification`, `notification x` where x is any input,
+   `notification n/x` where x is any input other than `tip` or `warning`, `notification n/warning t/x` where
+   x is any input other than `on` or `off`.
+   Expected: Similar to previous.
+
 
 === Saving data
 
