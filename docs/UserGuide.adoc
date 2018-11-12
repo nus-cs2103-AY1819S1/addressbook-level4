@@ -257,7 +257,8 @@ You may repeat the transformation again or use `sigmodial-contrast` instead if w
 * _Example_: `convert resize 50%`
 
 [NOTE]
-As all the images will be resized to the canvas when displayed, the resize command may leave an image unaffected.
+As all the display image will be resized to fit the panel when displayed, the `resize` command may appear to have taken no effect when used on a canvas with only one layer.
+
 
 ==== `rotate`: Rotates an image
 * _Format_: `apply rotate [value]`
@@ -271,9 +272,9 @@ As all the images will be resized to the canvas when displayed, the resize comma
 ** Sigma (0-29): Determines the extent of the sharpen
 ** _Example_: `apply sharpen 0x8`
 
-*Advanced `apply` command*
+==== *Advanced `apply` commands*
 
-Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to ImageMagick. You may refer to https://www.imagemagick.org/script/command-line-options.php[guide] to view all operations.
+** Format: `apply raw [arg1] [arg2]` ->  Directly passes arguments entered to ImageMagick. You may refer to https://www.imagemagick.org/script/command-line-options.php[guide] to view all operations.
 
 [WARNING]
 **Here be dragons!** The raw command allows for powerful transformations but with power comes great responsibility to get your commands right. While we can tell you if an error occurs, we can't help you more than that so be careful!
