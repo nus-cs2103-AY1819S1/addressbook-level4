@@ -1287,16 +1287,6 @@ Use case ends.
 [none]
 ** 1a1. InsuRen shows an error message.
 Use case resumes at step 1.
-+
-Use case resumes at step 2.
-
-* 1b. The user does not include non-compulsory fields (refer to 1.).
-+
-[none]
-** 1b1. InsuRen prompts user to include any more missing fields, or to input nothing and continue otherwise.
-** 1b2. User inputs any additional fields/nothing.
-+
-Use case resumes at step 2.
 
 [discrete]
 === Use case: Delete person
@@ -1447,19 +1437,45 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-*	1b. The user does not include any field to edit
+*	1b. The user does not include any field to edit.
 +
 [none]
-** 1b1. InsuRen prompts user to include any missing fields, or to input nothing and continue otherwise.
-** 1b2. User inputs any additional fields/nothing.
+** 1b1. InsuRen shows an error message.
 +
-Use case resumes at step 2 if fields are inputted, otherwise display a confirmation message that nothing was changed.
+Use case resumes at step 1.
+
 *	1c. There are multiple clients with the same name.
 +
 [none]
-** 1c3. InsuRen prompts the user to use the standard edit command.
+** 1b1. InsuRen shows an error message, prompting the user to either use a more specific name, or edit by index.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use Case: Delete Clients by Name
+
+*MSS*
+
+1. User requests to delete a client, specifying the name of the client.
+2. InsuRen deletes the specified client from storage, and displays a confirmation message.
 +
 Use case ends.
+
+*Extensions*
+
+* 1a. The user does not include the person’s name.
++
+[none]
+** 1a1. InsuRen shows an error message.
++
+Use case resumes at step 1.
+
+*	1c. There are multiple clients with the same name.
++
+[none]
+** 1b1. InsuRen shows an error message, prompting the user to either use a more specific name, or delete by index.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use Case: Upload Picture of Client
