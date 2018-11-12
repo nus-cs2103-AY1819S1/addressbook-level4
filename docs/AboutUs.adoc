@@ -21,7 +21,7 @@ Responsibilities: UI
 image::thejrlinguist.png[width="150", align="left"]
 {empty}[http://github.com/thejrlinguist[github]] [<<thejrlinguist#, portfolio>>]
 
-Responsibilities: Model (Event)
+Responsibilities: Model (Event) +
 Feature(s): Events and polls
 
 '''
@@ -30,7 +30,7 @@ Feature(s): Events and polls
 image::adjscent.png[width="150", align="left"]
 {empty}[https://github.com/adjscent[github]] [<<adjscent#, portfolio>>]
 
-Responsibilities: Storage
+Responsibilities: Storage +
 Feature(s): Schedule
 
 '''
@@ -39,7 +39,7 @@ Feature(s): Schedule
 image::yao-feng.png[width="150", align="left"]
 {empty}[https://github.com/yao-feng[github]] [<<yao-feng#, portfolio>>]
 
-Responsibilities: Model (User)
+Responsibilities: Model (User) +
 Feature(s): Login and find users
 
 '''
@@ -48,7 +48,7 @@ Feature(s): Login and find users
 image::agendazhang.png[width="150", align="left"]
 {empty}[https://github.com/agendazhang[github]] [<<agendazhang#, portfolio>>]
 
-Responsibilities: Logic
+Responsibilities: Logic +
 Feature(s): Friends and interests
 
 '''
