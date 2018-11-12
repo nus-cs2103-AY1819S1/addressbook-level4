@@ -1,8 +1,6 @@
 package seedu.parking.commons.util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,9 +9,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -33,8 +29,6 @@ public class GsonUtil {
     private static final HashSet<CarparkJson> carparkList = new HashSet<>();
     private static final HashMap<Long, String> postalCodeMap = new HashMap<>();
     private static final HashSet<String[]> parkingData = new HashSet<>();
-
-    private static final String POSTAL_CODE_TXT = "postalcodeData.txt";
 
     private static final Logger logger = LogsCenter.getLogger(GsonUtil.class);
 
@@ -100,7 +94,7 @@ public class GsonUtil {
                 }
             }
             String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
-            list.getJsonData().add(Optional.ofNullable(value).orElse("000000"));
+            list.getJsonData().add(value == null ? "000000" : value);
             str.add(list.getJsonData());
         }
 
@@ -277,52 +271,6 @@ public class GsonUtil {
         br.close();
     }
 
-    /**
-     * Gets the postal code based off the x and y coordinate.
-     * Query an onemap API to get the information.
-     * @return A string of our postal code.
-     * @throws IOException if unable to connect to URL.
-     */
-    private static String getCarparkPostalData(String xcoord, String ycoord) throws IOException {
-        String url = "https://developers.onemap.sg/privateapi/commonsvc/revgeocodexy?location="
-                + xcoord + "," + ycoord
-                + "&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIxNDIsInVzZXJfaWQiOjIxNDIsImVtYWlsIj"
-                + "oiZm9uZ3poaXpob25nQGdtYWlsLmNvbSIsImZvcmV2ZXIiOmZhbHNlLCJpc3MiOiJodHRwOlwvXC9vbTIuZGZlLm9u"
-                + "ZW1hcC5zZ1wvYXBpXC92MlwvdXNlclwvc2Vzc2lvbiIsImlhdCI6MTU0MDY1NTE2NiwiZXhwIjoxNTQxMDg3MTY2LC"
-                + "JuYmYiOjE1NDA2NTUxNjYsImp0aSI6ImYwNzQxODgwZTE2NWQ3YjE2MzQwNDc0MWFhODc1NjNjIn0.D0vWxmcG-66k_"
-                + "cZGns2ec6hh2unWqWZJggOQcy2MKes";
-
-        InputStreamReader in;
-        JsonArray array;
-        Gson gson = new Gson();
-
-        URL link = new URL(url);
-        URLConnection communicate = link.openConnection();
-        communicate.setConnectTimeout(20000);
-        communicate.setReadTimeout(20000);
-        communicate.connect();
-
-        in = new InputStreamReader((InputStream) communicate.getContent());
-
-        array = new JsonParser()
-                .parse(in)
-                .getAsJsonObject()
-                .getAsJsonArray("GeocodeInfo");
-
-        if (array.size() > 0) {
-            JsonElement object = array.get(0);
-            if (object != null) {
-                GeocodeInfoJson geocodeInfoJson = gson.fromJson(object.toString(), GeocodeInfoJson.class);
-                return geocodeInfoJson.POSTALCODE;
-            } else {
-                logger.warning("Gson object is not available");
-            }
-        } else {
-            logger.warning("Gson array size return is 0");
-        }
-        in.close();
-        return null;
-    }
 
     /**
      * FNV hashes a String array.
@@ -335,40 +283,5 @@ public class GsonUtil {
             hash *= 0x100000001B3L;
         }
         return hash;
-    }
-
-    /**
-     * Outputs a hashmap to a txt file.
-     * @throws IOException if unable to open file.
-     */
-    private static void hashmapToTxt(HashMap<Long, String> map) throws IOException {
-        FileWriter fstream;
-        BufferedWriter out;
-
-        // create your filewriter and bufferedreader
-        fstream = new FileWriter(POSTAL_CODE_TXT);
-        out = new BufferedWriter(fstream);
-
-        // initialize the record count
-        int count = 0;
-
-        // create your iterator for your map
-        Iterator<Map.Entry<Long, String>> it = map.entrySet().iterator();
-
-        // then use the iterator to loop through the map, stopping when we reach the
-        // last record in the map or when we have printed enough records
-        while (it.hasNext()) {
-
-            // the key/value pair is stored here in pairs
-            Map.Entry<Long, String> pairs = it.next();
-
-            // since you only want the value, we only care about pairs.getValue(), which is written to out
-            out.write(pairs.getKey() + "," + pairs.getValue() + "\n");
-
-            // increment the record count once we have printed to the file
-            count++;
-        }
-        // lastly, close the file and end
-        out.close();
     }
 }
