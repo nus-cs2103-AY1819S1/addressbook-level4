@@ -103,6 +103,10 @@ Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
+[NOTE]
+Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
+1 billion.
+
 Examples:
 
 * add n/Transformers m/1 w/30 a/John street, block 123, #01-01
@@ -138,6 +142,10 @@ Format: `update <index> <tag> <value>`
 
 [NOTE]
 This command cannot update the waiting time and maintenance field when the ride is not open.
+
+[NOTE]
+Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
+1 billion.
 
 ==== Shutting down attraction: `shutdown`
 
