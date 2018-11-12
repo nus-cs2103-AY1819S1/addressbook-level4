@@ -5,9 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
@@ -25,6 +27,9 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
 public class UniqueTaskList implements Iterable<Task> {
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+
+    private final Logger logger = LogsCenter.getLogger(UniqueTaskList.class);
+
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -69,6 +74,7 @@ public class UniqueTaskList implements Iterable<Task> {
         String oldHash = Integer.toString(target.hashCode());
         String newHash = Integer.toString(editedTask.hashCode());
         if (!oldHash.equals(newHash)) {
+            logger.info("Updating dependencies to edited task");
             for (int i = 0; i < internalList.size(); i++) {
                 Task task = internalList.get(i);
                 if (task.isDependentOn(target)) {
@@ -105,6 +111,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         //Remove all dependencies that are on task to be remove
         for (int i = 0; i < internalList.size(); i++) {
+            logger.info("Removing dependencies to deleted task");
             Task task = internalList.get(i);
             if (task.isDependentOn(toRemove)) {
                 Task newTask = createUndependantTask(task, toRemove);
