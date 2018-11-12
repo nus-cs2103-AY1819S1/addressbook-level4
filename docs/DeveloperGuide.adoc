@@ -692,7 +692,7 @@ search to fill in the `ObservableList<SalesRecord>` every time a sales report is
 takes up an O(N) memory space.
 // end::displaySales[]
 
-// tag::deleteingredient[]
+// tag::ingredient[]
 ===  Delete Ingredient feature
 This feature allows the user to delete an ingredient from the ingredient list, specified by its name or index.
 
@@ -713,12 +713,14 @@ their own behaviour for these methods.
 The following sequence diagrams illustrate how the delete operation works.
 
 * Diagram 1: When user enters `delete-ingredient 1`
-
++
 image::DeleteIngredientByIndexSequenceDiagram.png[width="1000"]
+_Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 
 * Diagram 2: When user enters `delete-ingredient apple`
-
++
 image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
+_Figure 4.6.1.1: Component interactions for `delete-ingredient apple` command_
 
 ==== Design Considerations
 
@@ -732,7 +734,40 @@ Two different implementations were considered.
 ** Pros: Less coupling since the methods related to the delete ingredient command are confined to a single class.
 ** Cons: Two attributes are required, but only one has a value while the other has to be set to null. This makes the
 `equals()` method difficult to implement.
-// end::deleteingredient[]
+
+===  Stock Up Ingredient feature
+This feature allows the user to stock up one or more ingredients in the ingredient list.
+
+==== Current Implementation
+The Stock Up mechanism involves mainly the `StockUpCommandParser`, `StockUpCommand` and the `Model`
+interface. The `StockUpCommandParser` parses the command input from the user, creating a HashMap mapping
+`IngredientName` keys to `NumUnits` values. This HashMap represents the ingredients to be stocked up, and their
+respective stock up amounts. With this HashMap, it creates a `StockUpCommand` object. The `StockUpCommand` executes
+the stock up operation, which is exposed in the `Model` interface as `Model#stockUpIngredients()`. The operation is
+atomic. This means that if the operation fails for one ingredient, none of the ingredients will be stocked up.
+
+The following activity diagram shows what happens when the user executes the `stockup` command:
+image::StockUpActivityDiagram.png[width="1000"]
+
+==== Design Considerations
+
+===== Aspect: Implementation of Stock Up command
+Two different implementations were considered.
+
+* **Alternative 1 (current choice):** Create a stock up operation exposed in the `Model`. A list of ingredients is
+passed as a HashMap argument to the model interface to perform the stock up on all ingredients.
+** Pros: Maintains good abstraction. The sales feature can call upon the stock up operation of the interface without
+needing to know its implementation or creating any Ingredient objects.
+** Cons: Additional code has to be written and maintained, as opposed to using existing methods.
+* **Alternative 2:** Use the edit operation of the `Model` interface exposed as `Model#updateIngredient()`. For each
+ingredient to be stocked up, a new ingredient with the updated number of units is created and then passed as an
+argument to `updateIngredient()`.
+** Pros: Simple to implement, by using the existing `updateIngredient()` method.
+** Cons: Difficult to integrate different features while maintaining abstraction. The <<auto-ingredient-update>>
+feature would require the sales component to create each updated ingredient, before calling the `updateIngredient()`
+method. This means poor abstraction and possibly a violation of the Law of Demeter.
+
+// end::ingredient[]
 
 // tag::menu[]
 === Menu Management feature
