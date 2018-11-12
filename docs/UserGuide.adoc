@@ -606,7 +606,7 @@ Selects the 1st item in the results of the `find-item` command.
 ==== Locating items by name: `find-item` or `fi`
 
 Finds items whose names contain any of the given keywords. +
-Format: `find-item KEYWORD [MORE_KEYWORDS]`
+Format: `find-item KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `burger` will match `Burger`
@@ -628,7 +628,7 @@ Returns any item having names `Cheese`, `Chocolate`, or `Fruit`
 ==== Filter menu by tag: `filter-menu` or `fm`
 
 Finds items whose tags match any of the given keywords. +
-Format: `filter-menu KEYWORD [MORE_KEYWORDS]`
+Format: `filter-menu KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `burger` will match `Burger`
@@ -680,7 +680,7 @@ Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 * You can remove discount by typing `0` for the percentage.
-* You can give a discount to the whole menu by typing `ALL`(case-insensitive) instead of a specified `INDEX`.
+* You can give a discount to all items in the displayed item list by typing `ALL`(case-insensitive) instead of a specified `INDEX`.
 * You can give a discount to a range of items by adding the ending index `ei\INDEX`.
 * The ending index can not be smaller than starting index.
 * The percentage should only contain numbers(no negative), and it should be at most 2 digits(no decimal place).
@@ -1254,12 +1254,12 @@ fish u/kilogram p/20 m/1`
 |*Delete item by index* |`delete-item-index INDEX` |`delete-item-index 3`
 |*Delete item by name* |`delete-item-name ITEM_NAME` |`delete-item-name burger`
 |*Select item* |`select-item INDEX` |`select-item 3`
-|*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
+|*Find item* |`find-item KEYWORD [MORE_KEYWORDS]...` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
 |*Clear menu* |`clear-menu` |`clear-menu`
-|*Filter menu* |`filter-menu KEYWORD` |`filter-menu cheese`
+|*Filter menu* |`filter-menu KEYWORD [MORE_KEYWORDS]...` |`filter-menu cheese`
 |*Sort menu* |`sort-menu SORTING_METHOD` |`sort-menu NAME`
-|*Discount item* |`discount-item INDEX dp/PERCENTAGE` |`discount-item 2 dp/20`
+|*Discount item* |`discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE` |`discount-item 2 dp/20`
 |*Today's special* |`today-special` |`today-special`
 |*Add recipe to item* |`recipe-item r/RECIPE` |`recipe-item r/some recipe`
 |*Add required ingredients to item* |`add-required-ingredients n/INGREDIENT_NAME nu/NUMBER_OF_INGREDIENTS`
