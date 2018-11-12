@@ -57,7 +57,7 @@ Responsibilities: Documentation
 
 === Kenneth Goh Jun Teck
 image::guestuser0123.png[width="150", align="left"]
-{empty}[https://github.com/guestuser0123[github]] [<<kennethgoh#, portfolio>>]
+{empty}[https://github.com/guestuser0123[github]] [<<guestuser0123#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing
