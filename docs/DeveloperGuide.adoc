@@ -467,7 +467,7 @@ The command execution then ends.
 The following sequence diagram shows the execution of the `addmeds` command:
 
 .Execution sequence of the `addmeds` command
-image::AddmedsSequenceDiagram.png[width="800"]
+image::AddmedsSequenceDiagram.png[width=800]
 
 ==== Design considerations
 
