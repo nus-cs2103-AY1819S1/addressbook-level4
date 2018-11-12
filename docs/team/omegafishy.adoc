@@ -73,7 +73,8 @@ Also, the integration of the UI in the feature needed JavaFX knowledge.
 
 === Add to patient’s medical history: `addmh`
 Add a non-blank diagnosis entry with the name of the doctor-in-charge to an existing patient’s medical history.
-The patient must be registered within the system.
+The patient must be registered within the system and the doctor's name should contain his title which is followed by his full name.
+For all words in the doctor's name, the starting letter must be capitalised.
 
 Format: `addmh ic/NRIC mh/DIAGNOSIS​ doc/DOCTOR-IN-CHARGE`
 
@@ -128,12 +129,12 @@ To use the full capabilities of the `view` command, click <<#view-command, here>
 === Addmh
 ==== Current implementation
 
-The functionalities of the `addmh` command are interlinked: the former allows the user to record a diagnosis
-into a patient’s medical history
-
+The function of the `addmh` command is to allow the user to add a diagnosis to a patient's medical history.
 Each patient’s information is stored within the `Person` objects. The execution of the `addmh` command results in the retrieval of
 a particular `Person` object, and the consequent updating of the patient’s `MedicalHistory`.
 
+Each patient’s information is stored within the `Person` objects. The execution of the `addmh` command results in the retrieval of
+a particular `Person` object, and the consequent updating of the patient’s `MedicalHistory`.
 
 Stated below is an example usage scenario and an explanation of the interactions that occurs as a result of the code execution.
 

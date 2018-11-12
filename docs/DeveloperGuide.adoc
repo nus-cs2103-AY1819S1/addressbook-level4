@@ -564,12 +564,9 @@ image::AddmedsSequenceDiagram.png[width=800]
 === Addmh
 ==== Current implementation
 
-The functionalities of the `addmh` command are interlinked: the former allows the user to record a diagnosis
-into a patient’s medical history
-
+The function of the `addmh` command is to allow the user to add a diagnosis to a patient's medical history.
 Each patient’s information is stored within the `Person` objects. The execution of the `addmh` command results in the retrieval of
 a particular `Person` object, and the consequent updating of the patient’s `MedicalHistory`.
-
 
 Stated below is an example usage scenario and an explanation of the interactions that occurs as a result of the code execution.
 
@@ -1440,6 +1437,42 @@ Details on the exact range of values that the mock data can take on can be found
    Expected: No data is generated. An error message is shown.
 .. Test case: `gendata A` +
    Expected: No data is generated. An error message is shown.
+
+=== Adding a diagnosis to a patient's medical record
+
+* Add diagnosis to a registered patient while all patients are listed.
+.. Prerequisites:
+*** Patient must be listed in the list on the panel on the left-hand side. Use the `list` command to list them, if there are no listed patients.
+*** Patient must be registered in HealthBase already.
+*** Enter the following commands to set up a test scenario with only one registered patient:
+. `clear`
+. `register ic/S1234567A n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 da/aspirin da/insulin`
+
+.. Test case: `addmh ic/S1234567A mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/Dr.Ross` +
+   Expected: Patient's diagnosis is successfully added.
+.. Test case: `addmh ic/ mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/Dr.Ross` +
+   Expected: Failed addition, NRICs should consist of a starting letter (capital), followed by 7 numerical digits, followed by a letter (again capital). No such patient will exist.
+.. Test case: `addmh ic/S9876543Z mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/Dr.Ross` +
+   Expected: Failed addition, patient is not registered, cannot add diagnosis for an unregistered patient.
+.. Test case: `addmh ic/A1234567Z mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/Dr.Ross` +
+   Expected: NRICs should consist of a starting letter (capital), followed by 7 numerical digits, followed by a letter (again capital). No such patient will exist.
+.. Test case: `addmh ic/S12234598675667A mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/Dr.Ross` +
+   Expected: Failed addition, NRICs should consist of a starting letter (capital), followed by 7 numerical digits, followed by a letter (again capital). No such patient will exist.
+.. Test case: `addmh ic/S1234567A mh/ doc/Dr.Ross` +
+   Expected: Failed addition, diagnosis should not be blank.
+.. Test case: `addmh ic/S1234567A mh/  doc/Dr.Ross` +
+   Expected: Failed addition, diagnosis should not be a whitespace.
+.. Test case: `addmh ic/S1234567A mh/!#$!#$@#!!  doc/Dr.Ross` +
+   Expected: Patient's diagnosis is successfully added, diagnosis does not need to be made up of word letters.
+.. Test case: `addmh ic/S1234567A mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/dr.Ross` +
+   Expected: Failed addition, doctor's title should precede his full name. The starting letter of all words in the doctor's title should be should be spelt out with capitalisation.
+.. Test case: `addmh ic/S1234567A mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/Dr.Ross Geller Stuart Jack Ma Steve Bombamama Nojobs` +
+   Expected: Patient's diagnosis is successfully added as doctor's name is valid.
+.. Test case: `addmh ic/S1234567A mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/` +
+   Expected: Failed addition, doctor's name should not be blank.
+.. Test case: `addmh ic/S1234567A mh/Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. doc/ ` +
+   Expected: Failed addition, doctor's name cannot be a whitespace.
+
 
 === Saving data
 
