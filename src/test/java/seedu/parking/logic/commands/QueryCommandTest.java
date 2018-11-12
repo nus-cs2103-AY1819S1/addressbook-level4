@@ -1,14 +1,26 @@
 package seedu.parking.logic.commands;
 
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
+import static seedu.parking.logic.commands.QueryCommand.MESSAGE_ERROR_CARPARK;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import guitests.guihandles.MainWindowHandle;
+import seedu.parking.TestApp;
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.events.model.DataFetchExceptionEvent;
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
+import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.ModelManager;
 import seedu.parking.model.carpark.Address;
@@ -23,10 +35,52 @@ import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
+import seedu.parking.testutil.TypicalCarparks;
+import seedu.parking.ui.testutil.GuiTestAssert;
+import systemtests.SystemTestSetupHelper;
 
 public class QueryCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
+
+
+    private MainWindowHandle mainWindowHandle;
+    private TestApp testApp;
+    private SystemTestSetupHelper setupHelper;
+
+    @BeforeClass
+    public static void setupBeforeClass() {
+        SystemTestSetupHelper.initialize();
+    }
+
+    @Before
+    public void setUp() {
+        setupHelper = new SystemTestSetupHelper();
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        mainWindowHandle = setupHelper.setupMainWindowHandle();
+
+        waitUntilBrowserLoaded(mainWindowHandle.getBrowserPanel());
+    }
+
+    @After
+    public void tearDown() {
+        setupHelper.tearDownStage();
+        EventsCenter.clearSubscribers();
+    }
+
+    /**
+     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     */
+    protected CarparkFinder getInitialData() {
+        return TypicalCarparks.getTypicalCarparkFinder();
+    }
+
+    /**
+     * Returns the directory of the data file.
+     */
+    protected Path getDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    }
 
     /**
      * Calls the API and load all the car parks information
@@ -60,5 +114,13 @@ public class QueryCommandTest {
 
         assertEquals(model.getCarparkFinder().getCarparkList().size(),
                 expectedModel.getCarparkFinder().getCarparkList().size());
+    }
+
+    @Test
+    public void postEvent_dataFetchExceptionEvent_exceptionThrown() {
+        EventsCenter.getInstance().post(new DataFetchExceptionEvent(
+                new CommandException(MESSAGE_ERROR_CARPARK)));
+        mainWindowHandle = setupHelper.setupMainWindowHandle();
+        GuiTestAssert.assertResultMessage(mainWindowHandle.getResultDisplay(), MESSAGE_ERROR_CARPARK);
     }
 }
