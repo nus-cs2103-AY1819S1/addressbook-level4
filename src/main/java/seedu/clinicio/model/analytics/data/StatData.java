@@ -66,6 +66,14 @@ public class StatData {
     }
 
     /**
+     * Clears all visualizations.
+     */
+    public void clearVisualizations() {
+        allVisualizationData.clear();
+        allVisualizationData.reset();
+    }
+
+    /**
      * Creates a visualization with
      * Requires the minimum amount of information from statistics classes to represent data to be visualized.
      * @param type
