@@ -147,7 +147,7 @@ The length limit for zone and tag(s) field is 40 characters.
 
 Format: `update <index> <prefix/value>`
 
-Parameters: INDEX (must be a positive integer) [n/NAME] [m/MAINTENANCE] [w/WAITING_TIME] [z/ZONE] [t/TAG]...
+Parameters: INDEX (must be a positive integer) [n/NAME] [m/MAINTENANCE] [w/WAITING_TIME] [z/ZONE] [t/TAG].
 
 Examples:
 
@@ -169,13 +169,29 @@ Maintenance and waiting time should only contain positive integers with at least
 Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <index>`
 
-Example:
+[NOTE]
+This command will reset the waiting time field to zero.
+
+|===
+a|
+Example : `shutdown 1`
 
 * `shutdown 1` +
   Closes the 1st ride in ThanePark.
 
-[NOTE]
-This command will reset the waiting time field to zero.
+As seen in the diagram below, the status of the 1st ride changes from `open` to `shutdown` within the red box after
+`shutdown 1` is executed.
+
+.Before executing `shutdown 1`
+image::./ui_screenshots/shutdown-example-1.png[width="600"]
+
+.After executing `shutdown 1`
+image::./ui_screenshots/shutdown-example-2.png[width="600"]
+
+After `shutdown 1` is executed, the name, status, days since last maintenance, waiting time, zone and tags for
+the ride is displayed.
+
+|===
 
 ==== Opening attraction: `open`
 
