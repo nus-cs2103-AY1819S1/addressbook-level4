@@ -193,6 +193,7 @@ Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]..
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
 * Any combination of the above prefixes and keywords (let's call them conditions for now) is valid. Eg. `findUser e/EMAIL a/ADDRESS` searches based on the email and address conditions.
 * The order of the conditions does not matter.
+* At least one prefix with keywords must be present
 * The search is based on CONDITION 1 AND CONDITION 2 AND ... . For example, `findUser n/John i/dance` will search for users that satisfy the conditions of both name 'John' and interest 'dance'. Likewise for attributes that can be stated more than one (interest and tag), `findUser i/tennis i/soccer` will search for users that satisfy the conditions of both interest 'tennis' and interest 'soccer'.
 * The search for all attributes is not case sensitive. For example, `findUser n/john` will search for all users with the name 'John'.
 * Substrings or superstrings of any attribute will not be matched e.g. phone number `87438807` will not match `874388070`, and likewise, name `Ale` will not match `Alex`.
@@ -200,12 +201,35 @@ Format: `findUser [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST]..
 
 Examples:
 
+[NOTE]
+====
+* If there are multiple prefixes with accompanying valid keywords, only users that satisfy all
+the conditions will be shown.
+====
 * `findUser p/87438807 i/dance` +
-Returns any user with the phone number `87438807` and interest `dance`
+Returns any user with the phone number `87438807` AND interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
-Returns any user with the name `87438807` and email `john@example.com` and tag `teacher`
+Returns any user with the name `87438807` AND email `john@example.com` AND tag `teacher`
+
+====
+* If there are multiple of the same prefixes with accompanying valid keywords,
+only the last prefix and its keyword will be parsed.
+====
 * `findUser i/tennis i/soccer` +
-Returns any user with the interest `tennis` and interest `soccer`
+Returns any user with the interest `soccer`
+* `findUser n/Alex n/Bernice n/Li` +
+Returns any user with name `Li`
+
+====
+* Within each prefix, if the keyword has space, the keyword will be split by space. Users that
+satisfy at least one of the conditions will be shown.
+====
+
+* `findUser n/Alex Yu` +
+Returns any user with the name `Alex` OR `Yu`
+* `findUser t/SOC FASS SDE` +
+Returns any user with the tag `SOC` OR `FASS` OR `SDE`
+
 
 ==== Delete a user : `deleteUser`
 
