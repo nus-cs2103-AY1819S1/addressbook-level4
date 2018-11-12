@@ -2,16 +2,6 @@
 <scheduleplanner>
     <categories>
         <name>Modules</name>
-        <tags>CS2105</tags>
-        <tags>CS2103T</tags>
-        <tags>GEH1034</tags>
-        <tags>CS2106</tags>
-        <tags>CS2030</tags>
-        <tags>ST2334</tags>
-        <tags>CS2100</tags>
-        <tags>GEQ1000</tags>
-        <tags>CS2101</tags>
-        <tags>MA1101R</tags>
     </categories>
     <categories>
         <name>Others</name>
@@ -25,6 +15,7 @@
         <tags>Tutorial</tags>
         <tags>Study</tags>
         <tags>Exam</tags>
+        <tags>Lecture</tags>
     </categories>
     <tasks>
         <name>Do CS2030 lab</name>
@@ -156,13 +147,6 @@
     </tasks>
     <tasks>
         <name>Self study</name>
-        <date>171118</date>
-        <priority>1</priority>
-        <venue>Utown Starbucks</venue>
-        <tagged>Study</tagged>
-    </tasks>
-    <tasks>
-        <name>Self study</name>
         <date>181118</date>
         <priority>1</priority>
         <venue>Home</venue>
@@ -213,5 +197,12 @@
         <venue>Hoe</venue>
         <tagged>Tutorial</tagged>
         <tagged>GEH1034</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>Self study</name>
+        <date>171118</date>
+        <priority>1</priority>
+        <venue>Utown Starbucks</venue>
+        <tagged>Study</tagged>
     </archivedTasks>
 </scheduleplanner>

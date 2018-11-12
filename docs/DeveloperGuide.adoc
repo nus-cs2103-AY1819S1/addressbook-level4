@@ -2000,6 +2000,63 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit 1 d/999999` +
    Expected: First task is not edited. Error details shown in status message. Status bar remains the same.
 
+=== Archiving a task
+. Archiving a task from the task list
+
+.. Test case: `archive 1` +
+   Expected: First task is archived if there exists at least 1 task in your schedule planner.
+
+.. Test case: `archive 0` +
+   Expected: No task is archived. Error details shown in the status message. Status bar may grow to the right
+   depending on the deadline date and current system time.
+
+=== Managing tags and categories
+. Adding category
+.. Test case: `addcat c/Modules` +
+   Expected: No category is added, because `Modules` is a default category and it already exists in schedule planner.
+   Error details shown in status message.
+.. Test case: `addcat c/School` +
+   Expected: If there is no category named `School` in your schedule planner at this time point,
+   category `School` is now added. If there already exists a category named `School` in your schedule planner,
+   then no category is added. Error details shown in status message.
+
+. Renaming a category
+.. Test case: `editcat c/Modules c/Work`
+   Expected: No category is renamed, because `Modules` is a default category that cannot be renamed.
+   Error details shown in status message.
+.. Test case: `editcat c/School c/Work`
+   Expected: If there is no category named `School` in your schedule planner at this time point,
+   no category is renamed. Error details shown in status message. If there exists a category named `School`
+   in your schedule planner and no category named `Work` in your schedule planner, category `School` is now
+    renamed to `Work`. If there exists both a category named `School` and a category named `Work`,
+   no category is renamed. Error details shown in status message.
+
+. Removing a category
+.. Test case: `removecat c/Modules`
+   Expected: No category is added, because `Modules` is a default category that cannot be removed.
+   Error details shown in status message.
+.. Test case: `removecat c/School`
+   Expcected: If there exists a category named `School`, it is now removed from schedule planner.
+   If this category does not exist, no category is removed. Error details shown in status message.
+
+. Clearing a category
+.. Test case: `clearcat c/Modules`
+   Expected: Tag list under category `Modules` is successfully cleared. Now category `Modules`
+   contains no tags.
+.. Test case: `clearcat c/School`
+   Expected: If category `School` exists in your schedule planner, tag list under category `School` is successfully cleared. Now category `School`
+   contains no tags. If this category does not exist, no category is cleared. Error details shown in status message.
+
+. Adding a tag to a category
+.. Test case: `addtag c/Modules t/CS2101`
+   Expected: If `Modules` category currently does not contain tag `CS2101`,
+   tag `CS2101` is successfully added to category `Modules`. If `Modules` category already contains
+   tag `CS2101`, no tag is added to this category. Error details shown in status message.
+.. Test case: `addtag c/School t/Lecture`
+   Expected: If category `School` exists in your schedule planner, the result is similar to above.
+   If category `School` does not exist, no tag is added to any category. Error details shown in status message.
+
+
 === Deleting a task
 
 . Deleting a task while all tasks are listed
@@ -2064,6 +2121,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: All tasks that contain BOTH `tutorial` and `GEH1034` tags will be reflected in the task list panel in
    the `UI`
 // end::manualtestfilter[]
+
 
 === Testing GUI
 

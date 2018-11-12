@@ -694,7 +694,8 @@ Examples:
 
 === Clearing Schedule Planner
 
-Clears all entries from the schedule planner. +
+Clears all entries from the schedule planner. Default categories `Modules` and `Others` still exists
+ after the command is executed, but they contain no tags. +
 ====
 [blue]`clear`
 ====
