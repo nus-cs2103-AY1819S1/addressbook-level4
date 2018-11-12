@@ -64,7 +64,7 @@ include::../UserGuide.adoc[tag=security1]
 If the log in is successful (ie. the USERNAME and PASSWORD are correct and the user's data has no issues), then the UI will be expanded as shown in the diagram below:
 
 .Diagram showing log in success UI expansion for sample user
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
+image::userguide/LogInExpectedOutcomeDiagram.png[width="800"]
 
 include::../UserGuide.adoc[tag=security2]
 
