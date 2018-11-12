@@ -12,7 +12,7 @@ https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*].
 
 *MeNUS* is a restaurant management desktop application targeting restaurant owners in the National University
 of Singapore (NUS). It is built to help them better manage core aspects of their restaurants  --  accounts (i.e. employees), menus,
-inventory, sales and reservations management -- all within a single application!
+ingredients, sales and reservations management -- all within a single application!
 
 Restaurant owners interact with *MeNUS* using a Command Line Interface
 (CLI). *MeNUS* also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX] and it

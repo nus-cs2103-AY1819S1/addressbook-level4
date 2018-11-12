@@ -28,7 +28,7 @@ link:{repoURL}[MeNUS] is here to help you and it is the only restaurant manageme
 Introducing link:{repoURL}[MeNUS], a revolutionary restaurant management desktop application that is *optimized for
 users who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
 Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage core aspects of your restaurants --
-accounts (i.e. employees), menus, inventory, sales and reservations management -- all within a single application!
+accounts (i.e. employees), menus, ingredients, sales and reservations management -- all within a single application!
 
 === Legends
 The following *3* legends will be used throughout the documentation which you may wish to pay attention to as it may
@@ -82,10 +82,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Components]]
 == Components
-*MeNUS* consists of five core components: accounts, menus, inventory, sales and reservations management.
+*MeNUS* consists of five core components: accounts (i.e. employees), menus, ingredients, sales and reservations
+management.
 
 === Accounts
-* You can create accounts for your employees to manage the system on your behalf.
+* You can create an account for each of your employee to manage the application on your behalf, which gives them
+access to the other core components.
 
 === Menus
 * You can manage the menu by adding, editing or remove items from the menu.
