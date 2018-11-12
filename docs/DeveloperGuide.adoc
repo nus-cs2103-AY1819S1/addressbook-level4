@@ -295,6 +295,28 @@ The Add Repeat feature allows the user to add recurring tasks of a specified num
 
 ==== Current Implementation
 
+The following code snippet shows how the command is implemented:
+
+----
+...
+// Loop through to add the rest of the tasks.
+for (int i = 1; i < Integer.parseInt(repeat.value); i++) {
+    baseDate.add(Calendar.DAY_OF_YEAR, interval);
+    newDate = schedulerFormat.format(baseDate.getTime());
+    date = new Date(newDate);
+    newTask = new Task(toAdd.getName(), date,
+            toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
+    // Add the task only if there is no duplicate task within the model.
+    if (!model.hasTask(newTask)) {
+            model.addTask(newTask);
+    }
+}
+...
+----
+
+This loop occurs after the first task is added. The tasks are created within the loop with duplicate names, dates, priorities, venues and tags.
+Before adding a task, the function checks with the model if such a task already exists. If not, the task is added. If the task is a duplicate task, it is skipped and the loop proceeds until it terminates.
+
 The following sequence diagram shows how the add repeat operation works:
 
 image::AddRepeatSequenceDiagram.png[width="800"]
@@ -887,6 +909,30 @@ The `listoverdue` command allows the user to view the list of all overdue tasks.
 deadline has passed. In other words, the system's current date is after the deadline.
 
 ==== Current Implementation
+
+Given below is a code snippet of the ListOverdueCommand.
+----
+...
+public CommandResult execute(Model model, CommandHistory history) {
+    // Filter the task list using the OverduePredicate with the current date as the parameter.
+    model.updateFilteredTaskList(new OverduePredicate(SYSTEM_DATE));
+    EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
+    return new CommandResult(MESSAGE_SUCCESS);
+}
+...
+----
+
+The ListOverdueCommand calls the method updateFilteredTaskList with a new OverduePredicate which has the current date as the parameter.
+
+----
+public boolean test(Task task) {
+    return date - task.getDate().yymmdd > 0 ? true : false;
+}
+----
+
+The test function within OverduePredicate class compares the current system date with the date of the task. If the task's date is after
+the current time, the function returns false, and vice versa.
+
 Model contains a UniqueTaskList called tasks.
 
 Given below is an example usage scenario and how the list overdue mechanism behaves at each step:
@@ -1891,7 +1937,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
@@ -1958,11 +2003,35 @@ These instructions only provide a starting point for testers to work on; testers
 2. View tasks due today/this week
 
 .. Test case: `listday` +
-   Expected: All task(s) that matches the current system date will be reflected in the panel on the bottom right of
+   Expected: All task(s) that match the current system date will be reflected in the panel on the bottom right of
    `UI`.
 .. Test case: `listweek` +
-   Expected: All task(s) that matches the date from the current system date until the closest Sunday will be
+   Expected: All task(s) that match the date from the current system date until the closest Sunday will be
    reflected in the panel on the bottom right of `UI`.
+
+=== Filtering Tasks
+
+1. View tasks due this month
+
+.. Test case: `listmonth` +
+   Expected: All task(s) that match the current system date until the end of the month will be reflected in the task
+   list panel in the `UI`.
+
+.. Test case: `filter tutorial`
+   Expected: All tasks that contain the tag `tutorial` will be reflected in the task list panel in the `UI`.
+
+.. Test case: `filter tutorial CS2100`
+   Expected: All tasks that contain EITHER `tutorial`, `CS2100`, OR BOTH tags, will be  reflected in the task list
+   panel in the `UI`.
+
+.. Test case: `filterstrict tutorial`
+   Expected: All tasks that contain the tag `tutorial` will be reflected in the task list panel in the `UI`. Similar
+   to `filter tutorial`.
+
+.. Test case: `filterstrict tutorial GEH1034`
+   Expected: All tasks that contain BOTH `tutorial` and `GEH1034` tags will be reflected in the task list panel in
+   the `UI`
+
 
 === Testing GUI
 
