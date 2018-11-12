@@ -51,7 +51,7 @@ After logging in, the interface will display as such:
 .User interface
 image::userguide/ui.png[width="790"]
 
-There are five main components to Expense Tracker, each highlighted by the coloured box in the diagram above.
+There are 6 main components to Expense Tracker, each highlighted by the coloured box in the diagram above.
 
 === Left Panel
 
@@ -93,6 +93,9 @@ The type of statistics shown can be changed via the `stats` command.
  See <<StatsCommand, `stats`>> command for more details.
 
 The lower section shows four of the category budgets that have been set using the `setCategoryBudget` command.
+
+[NOTE]
+If there are no category budgets set, the lower section will be empty, save for the title.
 
  See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
@@ -139,8 +142,17 @@ Click on "help" to reveal a dropdown containing the option "help". Clicking on "
 keyboard, will open a Help Window.
 Entering the command `help` into the Command Box achieves the same outcome.
 
+=== Status Bar
+This component is highlighted by the pink box.
+
+On the leftmost side, the Status Bar displays the date and time of the last update to the Expense Tracker.
+
+On the rightmost side, the Status Bar displays the directory or folder where the updated data was saved to.
+
 [[Features]]
 == Features
+
+Take note of these instructions related to the format of the commands before using them:
 
 ====
 *Command Format*
@@ -284,7 +296,7 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 * DATE can be a date in the future
 ====
 
-// tag::massedit[]
+// tag::massedit1[]
 === Editing multiple expenses : `massedit`
 
 Edits the all expenses which match the keywords specified.
@@ -292,6 +304,8 @@ Existing values of the expense will be edited according to the value of the para
 
 Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \-> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 
+// end::massedit1[]
+// tag::massedit2[]
 ****
 *Examples:*
 
@@ -314,10 +328,11 @@ Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \->
 * COST should be a non-zero positive number with two decimal places
 * DATE should be in the format of "dd-mm-yyyy".
 * DATE can be a date in the future
-* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
+* Only `Tag` keywords can have multiple keywords. `Name`,`Category`,`Cost`,`Date` can only have one keyword, i.e.
+`find t/lunch t/family` is permitted but `find n/school n/book` is not permitted.
 ====
 
-// end::massedit[]
+// end::massedit2[]
 [[DeleteCommand]]
 === Deleting a expense : `delete`
 
@@ -338,20 +353,23 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the Expense List.
 ====
 
-// tag::find[]
+// tag::find1[]
 [[FindCommand]]
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...] `
 
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...]`
+// end::find1[]
+
+// tag::find2[]
 ****
 *Examples:*
 
 * `find c/School` +
 Find all the expenses under the `School` category.
 * `find d/1-10-2018:7-10-2018` +
-Find all the expenses which have dates between 1-10-2018 to 7-10-2018.
+Find all the expenses which have dates between 1-10-2018 and 7-10-2018(inclusive).
 * `find d/1-10-2018` +
 Find all the expenses with dates on 1-10-2018
 * `find $/10.00:20.00` +
@@ -366,12 +384,13 @@ Find all the expenses under the "School" category, with "lunch" tags and dates o
 ====
 * At least one keyword should be provided
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
-* Keywords can contain multiple words, i.e. the KEYWORD `have lunch` are permitted
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
-* Partial words will be matched, i.e. using the KEYWORD `Hav` for expense name will an expense with the name `Have`
+* Partial words will be matched, i.e. using the KEYWORD `Hav` for expense name will give an expense with the name `Have`
+* Only `Tag` keywords can have multiple keywords. `Name`,`Category`,`Cost`,`Date` can only have one keyword, i.e.
+`find t/lunch t/family` is permitted but `find n/school n/book` is not permitted.
 ====
 
-// end::find[]
+// end::find2[]
 [[ListCommand]]
 === Listing all expenses : `list`
 
@@ -554,9 +573,13 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 Changes the Expense List to show the Statistics Panel if the Expense List is currently showing, then
 displays a graph of your expenditure over a specified time period, in a given `MODE`. +
 
+You can use this command to analyse your expenses, observe your spending patterns and to identify categories which take
+up most of your budget.
+
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
+
 Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
-depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
+depending on the specified `PERIOD_AMOUNT` and `PERIOD`, starting from the current day or month. +
 
 .Statistics Panel showing a bar chart in Time mode
 image::userguide/barChart.png[width="790"]
@@ -591,6 +614,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 * PERIOD_AMOUNT must be a positive integer
 * PERIOD can only be `d` or `m`, for day and month respectively
 * MODE can only be `t` or `c`, for time and category respectively
+* Leaving all parameters blank, i.e. typing the command `stats`, defaults in showing expenses for the past 7 days in Time mode.
 ====
 // end::statistics[]
 
@@ -766,7 +790,8 @@ e.g. `notification n/tip t/off`
 
 == Command Shorthands
 
-This is a list of mappings of commands to their command shorthands in Expense Tracker:
+Commands also come with command shorthands which can be used in place of the command word. I.e. using `h` has the same outcome as `help`
+This is a list of commands and their command shorthands in Expense Tracker:
 
 * `signup`: `su`
 * `login`: `li`

@@ -147,11 +147,7 @@ quick overview for each component
 * Initialising the components in the correct sequence and connecting them up with each other when the app is launched.
 * Shutting down the components and invoking cleanup methods where necessary when the app is shut down.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
-
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events.
-See <<Event-driven, Event-Driven Design>> from more details.
-* `LogsCenter` : This class is used by many components to write log messages to Expense Tracker's log file.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 
 `Logic` is the command executor. It defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 Read <<Design-Logic,*`Logic`*>> for more details.
@@ -267,7 +263,16 @@ As per the diagram above, `StorageManager` implements the `Storage` interface, w
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.expensetracker.commons` package.
+Two classes in `Commons` play important roles at the architecture level:
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events.
+See <<Event-driven, Event-Driven Design>> from more details.
+* `LogsCenter` : This class is used by components to write log messages to Expense Tracker's log file.
+
+`Commons` also contains utility and exception classes which can be used by components.
+See the link:{repoURL}/src/main/java/seedu/expensetracker/commons/util[`Utilities`]
+and link:{repoURL}/src/main/java/seedu/expensetracker/commons/exceptions[`Exceptions`]
+folders for all the utility and exception classes available.
 
 == Implementation
 
@@ -359,8 +364,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
 //tag::security[]
+//tag::security1[]
 
 === Data Security
 The Expense Tracker ensures the security of users' data through the user accounts system and data encryption.
@@ -375,7 +380,8 @@ On initialization, `MainApp` class loads all xml files within the data folder ac
 ====
 The username value will be forced to match the name of the xml data filename (ignoring file extentions).
 ====
-
+//end::security1[]
+//tag::modelsecurity[]
 This feature is facilitated by newly added methods in the Model interface which now supports the following operations:
 
 * `Model#loadUserData(Username, Password)` -- Logs in to the user with the input `Username` and `Password` and loads the associated data into `Model`. Returns true if the `Password` matches the user's `Password`, else the user is not logged into and false is returned
@@ -387,7 +393,8 @@ This feature is facilitated by newly added methods in the Model interface which 
 * `Model#isMatchPassword(Password)` -- Checks if the input `Password` matches the name
 * `Model#encryptString(String)` -- Encrypts the input `String` using the currently logged in user's encryption key
 * `Model#decryptString(String)` -- Decrypts the input `String` using the currently logged in user's encryption key.
-
+//end::modelsecurity[]
+//tag::security2[]
 When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. I.e your method should look like this:
 
 .New method example
@@ -396,9 +403,7 @@ When implementing methods in `ModelManager` that requires a user to already be l
 @Override
 public void methodName() throws NoUserSelectedException {
     requireUserSelected();
-    /*
-    Perform required operations here.
-    */
+    // Rest of the method body...
 }
 ----
 
@@ -408,7 +413,7 @@ The classes `Username` and `Password` have also been implemented and have the fo
 * `Username` cannot be constructed with a `String` containing a white space or any of the following characters: _" > < : \ / | ? *_
 * When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal `String` in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
-
+//end::security2[]
 Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
 
 * `EncryptionUtil#decryptString(String, String)` -- Decrypts a `String` with by using the input encryption key
@@ -416,7 +421,7 @@ Utility methods related to data encryption are implemented in the `EncryptionUti
 * `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password `String`. Equivalent passwords will always map to equivalent keys.
 * `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an `EncryptedExpense` instance of the given `Expense` by encrypting its data using the given encryption key
 * `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an `EncryptedExpenseTracker` instance of the given `ExpenseTracker` by encrypting it using its encryption key. This is always called when sending users' data to `Storage` for saving.
-
+//tag::security3[]
 Encrypted versions of the `ExpenseTracker` and most of the classes it contains were implemented. These classes have their class names prepended with `Encrypted` and are shown in the class diagram below:
 
 .Class diagram for `Enrypted` classes
@@ -438,22 +443,23 @@ Below is an example usage scenario and how the User Account System behaves at ea
 Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
 
 .Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="450"]
 
 Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
 . The user executes the command `signup john` to create a user with the `Username` john
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
 . The user then executes the command `login u/john` to log in to his user account
-. The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
+. The `login` command calls the `LoginCredentials(Username, String)` constructor with a null `String` password as a password was not provided.
+. The `login` command then calls `Model#loadUserData(LoginCredentials)` with the `LoginCredentials` instance created in the previous step. The method is executed successfully as the user `john` has no password set.
 . `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty `String` is used as the password since `john`&#8217;s account has no password).
 . The selected data in `Model` is switched to `john`&#8217;s and an `UserLoggedInEvent` is raised for `UI` to show `john`&#8217;s Expense Tracker data
-
+//end::security3[]
 Below is the UML sequence diagram that shows how `SignUpCommand` works.
 
 .Sequence diagram showing how `SignUpCommand` works
 image::implementation/SignUpCommandSequenceDiagram.png[width="800"]
-
+//tag::security4[]
 Below is the UML sequence diagram that shows how `LoginCommand` works.
 
 .Sequence diagram showing how `LoginCommand` works
@@ -461,8 +467,8 @@ image::implementation/LoginCommandSequenceDiagram.png[width="800"]
 
 Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
 
-. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
-. The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
+. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setPassword o/password1 n/password2` to change his password to `password2`
+. The `setPassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
 . The `Model#setPassword(Password)` method changes `john`&#8217;s account password to `password2`
 . `john`&#8217;s expense data gets encrypted using a new encryption key generated from the `String` `password2`. This also applies in future whenever it is saved to the data file.
 
@@ -472,15 +478,6 @@ Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
 image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: Storage of Separate User Data
-
-* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
-** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
-** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
-* **Alternative 2:** Save all the separated user data in a single xml data file
-** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
-** Cons: Users will be unable to easily transfer their individual data to another computer
-
 ===== Aspect: Loading of User Data
 
 * **Alternative 1 (current choice):** Loading of User data is only done on initialization of Expense Tracker
@@ -489,13 +486,22 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 * **Alternative 2:** User data is loaded only when the user attempts to log in
 ** Pros: Unnecessary data is not kept in memory so memory space is not wasted
 ** Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user's data.
-// end::security[]
+// end::security4[]
+===== Aspect: Storage of Separate User Data
+
+* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
+** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
+** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
+* **Alternative 2:** Save all the separated user data in a single xml data file
+** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
+** Cons: Users will be unable to easily transfer their individual data to another computer
+//end::security[]
 
 // tag::statistics[]
 === Statistics
 
-The implementation of the Statistics function can be divided into two parts - preparation and execution.
-Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.
+The implementation of the Statistics function can be divided into two phases - preparation and execution.
+Given below is an explanation of how the statistics mechanism behaves at each phase.
 
 ==== Preparation
 In the preparation phase, the program parses the command for statistics, prepares filters used by the model
@@ -503,47 +509,77 @@ and posts events in `EventsCenter`.
 Below is the UML sequence diagram and a step-by-step explanation of the preparation stage.
 
 .Sequence diagram of the preparation stage in the statistics mechanism
-image::implementation/StatsPreparationSequenceDiagram.png[width="800"]
+image::implementation/StatsPreparationSequenceDiagram.png[]
 
-. User enters command `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls `StatsCommandParser#parse()`
-to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
+. User enters command `stats` command e.g. `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls
+creates `StatsCommand` and calls `StatsCommandParser#parse()` to create `StatsCommand`.
 
-. `LogicManager` then calls `StatsCommand#execute()`, which updates `Predicate` and `StatsMode` in `ModelManager and
-also posts a `ShowStatsRequestEvent` and `SwapLeftPanelEvent` event to `EventsCenter`.
+. If no parameters are provided by the user, `StatsCommand#StatsCommand()` is called to create `StatsCommand` with the
+default parameters of `periodAmount` as `7`, `period` as `d` and `mode` as `t`. Otherwise,
+`StatsCommand#StatsCommand(periodAmount, period, mode)` is called to create `StatsCommand` with the specified parameters.
 
-In this example, `Predicate` is set to filter out expenses which have dates within the last 7 days and
-`StatsPeriod` is set to TIME, which will be used later to have the UI display a bar chart instead of a pie chart.
+. `StatsCommand` checks if the parameters are valid. If any parameter is invalid, an exception will be raised and a
+message will be displayed to the user. Otherwise, the parameters are stored in instance variables and
+`StatsCommand` is returned to `LogicManager`.
+
+. `LogicManager` then calls `StatsCommand#execute()`, which updates `expensePredicate`, `statsMode`, `statsPeriod` and
+`periodAmount` in `ModelManager`, which are variables in `ModelManager` relevant for statistics.
+`StatsCommand#execute()` also posts `ShowStatsRequestEvent` and `SwapLeftPanelEvent` events to `EventsCenter`.
 
 ==== Execution
-In the execution phase, the program handles the events posted by `StatsCommand` by
+In the execution phase, the program handles `ShowStatsRequestEvent` posted by `StatsCommand` by
 processing and retrieving the data to be displayed and finally displaying it.
 Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
 .Sequence diagram of the execution stage in the statistics mechanism
-image::implementation/StatsExecutionSequenceDiagram.png[width="800"]
+image::implementation/StatsExecutionSequenceDiagram.png[width="500"]
 
 . The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which calls 'StatisticsPanel#setData()'
 and passes the data as parameters by calling
 `Logic#getExpenseStats()`, `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()`.
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
-an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `Predicate`, and sorted by date.
-`Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
-the x and y values of the chart. In this case, `StatsMode` is set to TIME, which results in a x,y values of date and cost.
-If `StatsMode` is set to CATEGORY, the x,y values will be set to category and cost.
+an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `ModelManager#expensePredicate`, and sorted by date.
 
+. `Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
+the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
+If `StatsMode` is set to CATEGORY, the key value pair represents category and cost. Regardless of mode, the values are
+cumulative and is implemented using the algorithm in the following code snippet, using the example of category mode:
++
+```
+LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+for (Expense e : expenseList) {
+    String category;
+    category = e.getCategory().categoryName;
+
+    if (stats.containsKey(category)) {
+        stats.put(
+                category,
+                stats.get(category) + e.getCost().getCostValue()
+        );
+    } else {
+        stats.put(category, e.getCost().getCostValue());
+    }
+}
+```
 . `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
  by calling the method of the same name in `Model`.
 
 . Once the parameters are passed into `StatisticsPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear
-any display elements in `StackPane`.
+any display elements in `StackPane`. Then there are three scenarios which could happen:
 
-. In this case, `StatsMode` is set to TIME, which results in `StatisticsPanel#setTimeBasedData()` to be called, which
-generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
-If `StatsMode` is set to CATEGORY, which results in `StatisticsPanel#setCategoryBasedData()` to be called, which
-generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
-If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
+.. If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
 which informs the user that there are no expenditures
+.. If `StatsMode` is set to TIME, `StatisticsPanel#setTimeBasedData()` will be called, which
+generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+.. If `StatsMode` is set to CATEGORY, `StatisticsPanel#setCategoryBasedData()` will be called, which
+generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+
+All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
+either a bar chart or a pie chart like the ones in the diagram below:
+
+.Example bar and pie charts for Statistics Panel
+image::StatsCharts.png[]
 
 ==== Design Considerations
 
@@ -569,6 +605,12 @@ which informs the user that there are no expenditures
 // tag::find[]
 === Find
 
+This feature allows users to filter out specific expenses by entering multiple keywords.
+Only the expenses which contain all the keywords will be shown on the expense list panel.
+
+This implementation is under `Logic` and `Model` Components.
+
+==== Current Implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of find mechanism
@@ -595,17 +637,36 @@ new predicate.
 . Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
 and returned to `LogicManager`.
 
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the target expenses are found.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to filter out targeted expenses
+* **Alternative 1 (current choice):** Check through all expenses and select those with all the keywords
+** Pros: Easy to implement. No need to change original architecture.
+** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separate files and only check the relevant files while filtering.
+** Pros: More efficient. No need to check every expense.
+** Cons: Need to change the original architecture of storage.
+
 // end::find[]
 
 // tag::massedit[]
 === Mass Edit
 
+This feature allows users to edit multiple expenses at the same time. Users need to enter the keywords to identify the
+targeted expenses as well as the fields they would like to edit.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Current implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of mass edit mechanism
 image::implementation/MassEditCommandSequenceDiagram.png[width="800"]
 
-. User enters command `massedit c/school -> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
+. User enters command `massedit c/school \-> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
   which then creates a `MassEditCommandParser` Object and calls `MassEditCommandParser#parse()` method.
 
 . `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
@@ -620,11 +681,26 @@ two `ArgumentMultimap` Objects.
 . `LogicManager` then calls `MassEditCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
 method to update the predicate of FilterList<Expense>. `Model#getFilteredExpenseList()` is called to return the FilterList<Expense>.
 
-. A loop starts and for each `Expense` in the FilterList<Expense>, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
+. All the `Expense` in the FilterList<Expense> are then added to a new list.
+A loop starts and for each `Expense` in the list, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
 Then `Model#updateExpense` is called to replace the original `Expense` with edited `Expense`.
 
-. When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
+. When loop ends, `Model#updateFilteredExpenseList()` is called to show the edit `Expense` to the user.
 A `CommandResult` is then created and returned to `LogicManager`.
+
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the target expenses are edited.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to Edit the targeted expenses
+* **Alternative 1(current choice):** Filter out the targeted expenses and replace them with edited expenses.
+** Pros: Easy to implement. Align with current architecture.
+** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separate files. When the expenses are edited, move them
+to another file according to the edited fields.
+** Pros: Easy to identify the targeted expenses by checking relevant files. No need to check every expense.
+** Cons: Need to change original architecture of storage. May need to create new files during edition.
 
 // end::massedit[]
 
@@ -1325,6 +1401,10 @@ Use case ends.
     ** 1b1. Expense Tracker sends warning to the user that they have almost gone over budget.
     ** Use Case ends.
 
+* 1d.Expense Tracker detects that the user is not logged into an account.
+    ** 1d1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Delete expenditure
@@ -1343,8 +1423,13 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker cannot find specified expenditure.
-    ** 1a1. Expense Tracker informs user that it cannot find the specified expenditure.
+* 1b.Expense Tracker cannot find specified expenditure.
+    ** 1b1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1365,8 +1450,13 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker cannot find specified expenditure.
-    ** 1a1. Expense Tracker informs user that it cannot find the specified expenditure.
+* 1b.Expense Tracker cannot find specified expenditure.
+    ** 1b1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1387,6 +1477,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 * 3a.Expense Tracker detects error in the entered data.
@@ -1415,6 +1509,10 @@ Use case ends
     ** 1a1. Expense Tracker inform user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Set a recurring budget
@@ -1433,6 +1531,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 * 4a.Expense Tracker detects that the specified period of time has not passed.
@@ -1454,6 +1556,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1499,32 +1605,7 @@ Use case ends
     ** Use case ends.
 
 * 1a. Expense Tracker detects that the account is password-protected.
-** 1a1. Expense tracker informs the user that a password is required.
-** Use case ends
-
-[discrete]
-
-=== Use case: Login without password
-
-*MSS*
-
-1. User keys in command to login to an account.
-2. Expense Tracker logs user into account.
-+
-Use case ends
-
-*Exceptions*
-
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
-    ** Use case ends.
-
-* 1a.Expense Tracker detects that specified user does not exist.
-    ** 1a1. Expense Tracker informs user that user does not exist
-    ** Use case ends.
-
-* 1a. Expense Tracker detects that the account is password-protected.
-** 1a1. Expense tracker informs the user that a password is required.
+** 1a1. Expense tracker informs the user that a password is incorrect.
 ** Use case ends
 
 [discrete]
@@ -1570,8 +1651,12 @@ Use case ends
     ** Use case ends.
 
 
-* 1a.Expense Tracker detects that the user is not logged in.
-    ** 1a1. Expense Tracker informs user that they need to log into an account.
+* 1b.Expense Tracker detects that the user is not logged in.
+    ** 1b1. Expense Tracker informs user that they need to log into an account.
+    ** Use case ends.
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1585,6 +1670,10 @@ Use case ends
 3. Expense Tracker displays a success message.
 +
 Use case ends
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
 
 [discrete]
 
@@ -1601,6 +1690,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1621,6 +1714,10 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: View statistics
@@ -1637,6 +1734,10 @@ Use case ends
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1672,6 +1773,10 @@ Use case ends
     ** 1a1. Expense Tracker informs user that are no commands to redo.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Undo Command
@@ -1686,6 +1791,10 @@ Use case ends
 
 * 1a.Expense Tracker detects that are no commands to undo.
     ** 1a1. Expense Tracker informs user that are no commands to undo.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1704,6 +1813,10 @@ Use case ends
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Encrypt
@@ -1714,12 +1827,19 @@ Use case ends
 +
 Use case ends
 
+<<<<<<< HEAD
+=======
 *Extensions*
 
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+>>>>>>> 907c64a3e5a7173ddb3ac77e068786dd16e2ec13
 [discrete]
 
 === Use case: Decrypt
@@ -1732,12 +1852,21 @@ Use case ends
 
 *Extensions*
 
+<<<<<<< HEAD
+* 1a.Expense Tracker detects that the specified `String` was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified `String` was not encrypted with the user's encryption key.
+=======
 * 1a.Expense Tracker detects error in the entered data.
     ** 1a1. Expense Tracker informs user of the error.
     ** Use case ends.
 
-* 1a.Expense Tracker detects that the specified `String` was not encrypted with the user's encryption key.
-    ** 1a1. Expense Tracker informs user that the specified `String` was not encrypted with the user's encryption key.
+* 1b.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1b1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
+    ** Use case ends.
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
+>>>>>>> 907c64a3e5a7173ddb3ac77e068786dd16e2ec13
     ** Use case ends.
 
 [discrete]

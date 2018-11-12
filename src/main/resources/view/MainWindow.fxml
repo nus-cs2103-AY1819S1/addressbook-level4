@@ -56,7 +56,6 @@
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
                    prefWidth="900" prefHeight="150">
         </StackPane>
-
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" prefHeight="100"/>
       </VBox>
     </Scene>
