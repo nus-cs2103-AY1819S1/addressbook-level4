@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.ui.UiPart;
 
+//@@author rebstan97
 /**
  * An UI component that displays information of an {@code Ingredient}.
  */

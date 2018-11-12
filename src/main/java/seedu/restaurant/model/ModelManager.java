@@ -86,6 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new RestaurantBookChangedEvent(versionedRestaurantBook));
     }
 
+    //@@author HyperionNKJ
     //=========== Sales =================================================================================
 
     @Override
@@ -204,6 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Ingredients ===============================================================================
 
+    //@@author rebstan97
     @Override
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);

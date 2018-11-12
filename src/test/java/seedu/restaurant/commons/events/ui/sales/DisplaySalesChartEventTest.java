@@ -14,6 +14,7 @@ import org.junit.Test;
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.sales.Date;
 
+//@@author HyperionNKJ
 public class DisplaySalesChartEventTest {
     private Map<Date, Double> salesData;
 

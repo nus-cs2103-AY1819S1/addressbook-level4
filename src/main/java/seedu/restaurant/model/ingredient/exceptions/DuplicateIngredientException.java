@@ -1,5 +1,6 @@
 package seedu.restaurant.model.ingredient.exceptions;
 
+//@@author rebstan97
 /**
  * Signals that the operation will result in duplicate Ingredients (Ingredients are considered
  * duplicates if they have the same identity).

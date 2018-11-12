@@ -16,6 +16,7 @@ import java.util.List;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.ingredient.Ingredient;
 
+//@@author rebstan97
 /**
  * A utility class containing a list of {@code Ingredient} objects to be used in tests.
  */

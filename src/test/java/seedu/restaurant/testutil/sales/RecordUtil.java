@@ -8,6 +8,7 @@ import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescript
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * A utility class for {@code SalesRecord}.
  */

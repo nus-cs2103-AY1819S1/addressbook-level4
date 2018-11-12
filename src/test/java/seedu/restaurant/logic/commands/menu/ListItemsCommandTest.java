@@ -1,7 +1,7 @@
 package seedu.restaurant.logic.commands.menu;
 
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.restaurant.logic.commands.menu.MenuCommandTestUtil.showItemAtIndex;
+import static seedu.restaurant.logic.commands.CommandTestUtil.showItemAtIndex;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 

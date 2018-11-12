@@ -35,6 +35,7 @@ import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 public class AddIngredientCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

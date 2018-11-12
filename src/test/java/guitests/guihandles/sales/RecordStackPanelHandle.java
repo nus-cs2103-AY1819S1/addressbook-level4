@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Provides a handle to the stack panel in sales list
  */

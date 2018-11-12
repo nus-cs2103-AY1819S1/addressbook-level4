@@ -15,6 +15,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 public class IngredientTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

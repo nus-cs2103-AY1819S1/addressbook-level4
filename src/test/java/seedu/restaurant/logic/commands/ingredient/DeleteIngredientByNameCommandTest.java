@@ -18,6 +18,7 @@ import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 
+//@@author rebstan97
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code
  * DeleteIngredientByNameCommand}.

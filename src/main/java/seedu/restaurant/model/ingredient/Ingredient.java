@@ -4,6 +4,7 @@ import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+//@@author rebstan97
 /**
  * Represents an ingredient in the restaurant management app.
  * Guarantees: details are present and not null, field values are validated, immutable.

@@ -24,7 +24,6 @@ import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
 //@@author rebstan97
-
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectIngredientCommand}.
  */

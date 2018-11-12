@@ -23,6 +23,8 @@ public class RestaurantBookBuilder {
         this.restaurantBook = restaurantBook;
     }
 
+
+    //@@author HyperionNKJ
     /**
      * Adds a new {@code Record} to the {@code RestaurantBook} that we are building.
      */

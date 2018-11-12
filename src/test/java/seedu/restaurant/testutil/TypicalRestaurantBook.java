@@ -42,6 +42,8 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+
+    //@@author HyperionNKJ
     /**
      * Returns an {@code RestaurantBook} with {@code SalesRecord} objects only.
      */
@@ -64,6 +66,7 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+    //@@author rebstan97
     /**
      * Returns an {@code RestaurantBook} with {@code Ingredient} objects only.
      */

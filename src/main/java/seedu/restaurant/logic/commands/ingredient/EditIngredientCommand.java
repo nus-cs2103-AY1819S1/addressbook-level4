@@ -2,6 +2,7 @@ package seedu.restaurant.logic.commands.ingredient;
 
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_MINIMUM;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_ORIGINAL_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_PRICE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_UNIT;
 
@@ -20,6 +21,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 import seedu.restaurant.model.ingredient.NumUnits;
 
+//@@author rebstan97
 /**
  * Edits the details of an existing ingredient in the restaurant book.
  */
@@ -30,14 +32,19 @@ public abstract class EditIngredientCommand extends Command {
     public static final String COMMAND_ALIAS = "edit-ing";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the ingredient identified "
-            + "by the index number used in the displayed ingredient list. "
+            + "by the index number used in the displayed ingredient list or its name. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: [INDEX (must be a positive integer)] "
+            + "[" + PREFIX_INGREDIENT_ORIGINAL_NAME + "ORIGINAL_NAME] "
             + "[" + PREFIX_INGREDIENT_NAME + "NAME] "
             + "[" + PREFIX_INGREDIENT_UNIT + "UNIT] "
             + "[" + PREFIX_INGREDIENT_PRICE + "PRICE] "
             + "[" + PREFIX_INGREDIENT_MINIMUM + "MINIMUM] "
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_INGREDIENT_PRICE + "$5.60 "
+            + PREFIX_INGREDIENT_MINIMUM + "15 "
+            + "OR " + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_ORIGINAL_NAME + "chicken "
             + PREFIX_INGREDIENT_PRICE + "$5.60 "
             + PREFIX_INGREDIENT_MINIMUM + "15";
 

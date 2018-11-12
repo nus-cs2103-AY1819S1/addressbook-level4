@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author rebstan97
 public class DisplayIngredientListRequestEventTest {
     @Test
     public void createEvent_success() {

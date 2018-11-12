@@ -11,7 +11,7 @@ import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.sales.Date;
 
-
+//@@author HyperionNKJ
 class DisplaySalesCommandParserTest {
 
     private DisplaySalesCommandParser parser = new DisplaySalesCommandParser();

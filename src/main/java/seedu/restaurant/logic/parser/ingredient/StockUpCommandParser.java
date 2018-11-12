@@ -4,7 +4,7 @@ import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NUM;
 import static seedu.restaurant.model.ingredient.IngredientName.MESSAGE_NAME_CONSTRAINTS;
-import static seedu.restaurant.model.ingredient.NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS;
+import static seedu.restaurant.model.ingredient.NumUnits.MESSAGE_NUM_UNITS_CONSTRAINTS;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +59,7 @@ public class StockUpCommandParser implements Parser<StockUpCommand> {
 
             String numUnits = argPair.getValue();
             if (!StringUtil.isUnsignedInteger(numUnits)) {
-                throw new ParseException(MESSAGE_NUMUNITS_CONSTRAINTS);
+                throw new ParseException(MESSAGE_NUM_UNITS_CONSTRAINTS);
             }
             Integer validNumUnits = Integer.parseInt(numUnits);
 

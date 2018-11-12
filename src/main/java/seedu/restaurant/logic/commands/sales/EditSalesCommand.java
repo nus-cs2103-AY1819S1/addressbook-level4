@@ -14,6 +14,7 @@ import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.JumpToRecordListRequestEvent;
 import seedu.restaurant.commons.util.CollectionUtil;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
@@ -26,6 +27,7 @@ import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * Edits the details of an existing sales record in the restaurant book.
  */
@@ -86,6 +88,7 @@ public class EditSalesCommand extends Command {
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
         model.commitRestaurantBook();
         EventsCenter.getInstance().post(new DisplayRecordListRequestEvent());
+        EventsCenter.getInstance().post(new JumpToRecordListRequestEvent(index));
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
 

@@ -21,13 +21,12 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
 import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.testutil.sales.ReportBuilder;
 
+//@@author HyperionNKJ
 public class UniqueRecordListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -153,7 +152,7 @@ public class UniqueRecordListTest {
         uniqueRecordList.add(RECORD_TWO);
         SalesReport report = uniqueRecordList.generateSalesReport(RECORD_DEFAULT.getDate());
 
-        ObservableList<SalesRecord> recordList = FXCollections.observableArrayList();
+        List<SalesRecord> recordList = new ArrayList<>();
         recordList.add(RECORD_DEFAULT);
         recordList.add(recordWithDefaultDate);
         assertEquals(new ReportBuilder(RECORD_DEFAULT.getDate(), recordList).build(), report);

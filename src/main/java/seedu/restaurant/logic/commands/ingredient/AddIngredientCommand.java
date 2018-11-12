@@ -15,6 +15,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ingredient.Ingredient;
 
+//@@author rebstan97
 /**
  * Adds an ingredient to the restaurant book.
  */

@@ -11,6 +11,7 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 
+//@@author rebstan97
 /**
  * Deletes an ingredient identified using its name from the restaurant book.
  */

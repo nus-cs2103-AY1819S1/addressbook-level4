@@ -2,10 +2,10 @@ package seedu.restaurant.model.sales;
 
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
-import javafx.collections.ObservableList;
-
+//@@author HyperionNKJ
 /**
  * Represents a sales report of a specific date in the sales book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -13,13 +13,13 @@ import javafx.collections.ObservableList;
 public class SalesReport {
 
     private final Date date;
-    private final ObservableList<SalesRecord> records;
+    private final List<SalesRecord> records;
     private final double totalRevenue;
 
     /**
      * Every field must be present and not null.
      */
-    public SalesReport(Date date, ObservableList<SalesRecord> records) {
+    public SalesReport(Date date, List<SalesRecord> records) {
         requireAllNonNull(date, records);
         this.date = date;
         this.records = records;
@@ -30,7 +30,7 @@ public class SalesReport {
         return date;
     }
 
-    public ObservableList<SalesRecord> getRecords() {
+    public List<SalesRecord> getRecords() {
         return records;
     }
 
@@ -43,7 +43,7 @@ public class SalesReport {
      * @param records List of SalesRecord belonging to the day of interest
      * @return the total revenue for the day
      */
-    private double computeTotalRevenue(ObservableList<SalesRecord> records) {
+    private double computeTotalRevenue(List<SalesRecord> records) {
         double total = 0;
         for (SalesRecord s: records) {
             total += s.getRevenue();

@@ -10,6 +10,7 @@ import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.model.sales.SalesRecord;
 
+//@@author HyperionNKJ
 /**
  * A utility class to help with building SalesRecord objects.
  */

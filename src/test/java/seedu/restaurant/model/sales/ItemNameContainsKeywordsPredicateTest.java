@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class ItemNameContainsKeywordsPredicateTest {
 
     @Test

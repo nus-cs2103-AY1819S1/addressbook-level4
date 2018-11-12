@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.restaurant.logic.commands.sales.SelectSalesCommand;
 
+//@@author HyperionNKJ
 public class SelectSalesCommandParserTest {
 
     private SelectSalesCommandParser parser = new SelectSalesCommandParser();

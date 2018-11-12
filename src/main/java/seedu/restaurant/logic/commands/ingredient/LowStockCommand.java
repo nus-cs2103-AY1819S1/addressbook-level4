@@ -12,6 +12,7 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ingredient.Ingredient;
 
+//@@author rebstan97
 /**
  * Lists all ingredients in the restaurant book to the user.
  */

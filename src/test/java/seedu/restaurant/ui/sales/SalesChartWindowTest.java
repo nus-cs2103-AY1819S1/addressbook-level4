@@ -16,6 +16,7 @@ import org.testfx.api.FxToolkit;
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author HyperionNKJ
 public class SalesChartWindowTest extends GuiUnitTest {
 
     private SalesChartWindow salesChartWindow;

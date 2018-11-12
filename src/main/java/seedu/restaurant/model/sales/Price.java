@@ -3,6 +3,7 @@ package seedu.restaurant.model.sales;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author HyperionNKJ
 /**
  * Represents the price of a menu item sold in the sales record
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
@@ -11,7 +12,7 @@ public class Price {
 
     public static final String MESSAGE_PRICE_CONSTRAINTS =
             "Price should be a positive number.";
-    private final float value;
+    private final double value;
 
     /**
      * Constructs a {@code Price}.
@@ -21,10 +22,10 @@ public class Price {
     public Price(String price) {
         requireNonNull(price);
         checkArgument(isValidPrice(price), MESSAGE_PRICE_CONSTRAINTS);
-        value = Float.parseFloat(price);
+        value = Double.parseDouble(price);
     }
 
-    public float getValue() {
+    public double getValue() {
         return value;
     }
 
@@ -33,7 +34,7 @@ public class Price {
      */
     public static boolean isValidPrice(String test) {
         try {
-            float price = Float.parseFloat(test);
+            double price = Double.parseDouble(test);
             return price > 0.0;
         } catch (NumberFormatException e) {
             return false;

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author HyperionNKJ
 public class DisplayRankingEventTest {
     private Map<String, String> ranking;
 

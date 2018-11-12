@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
+import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.JumpToRecordListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -25,6 +27,7 @@ import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.exceptions.RequiredIngredientsNotFoundException;
 
+//@@author HyperionNKJ
 /**
  * Record the sales volume of a menu item
  */
@@ -41,25 +44,26 @@ public class RecordSalesCommand extends Command {
             + PREFIX_QUANTITY_SOLD + "QUANTITY SOLD "
             + PREFIX_ITEM_PRICE + "ITEM_PRICE\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + " 25-09-2018 "
+            + PREFIX_DATE + "25-09-2018 "
             + PREFIX_ITEM_NAME + "Fried Rice "
             + PREFIX_QUANTITY_SOLD + "35 "
             + PREFIX_ITEM_PRICE + "5.50";
 
-    public static final String MESSAGE_RECORD_SALES_SUCCESS = "Sales volume recorded.\n%1$s";
+    public static final String MESSAGE_RECORD_SALES_SUCCESS = "Sales volume recorded: %1$s";
     public static final String MESSAGE_DUPLICATE_SALES_RECORD = "Sales record of \"%1$s\" already exists on the same "
             + "date.";
-    public static final String MESSAGE_ITEM_NOT_FOUND = "However, the item does not exist in the menu section. "
+    public static final String MESSAGE_ITEM_NOT_FOUND = "However, the item does not exist in the menu list. "
             + "Please add the item into the menu and specify the ingredients it requires to enable auto-ingredient "
             + "update.";
     public static final String MESSAGE_REQUIRED_INGREDIENTS_NOT_FOUND = "However, the ingredients required to make "
             + "this item have not been specified. Please specify the ingredients required to enable auto-ingredient."
             + "update.";
-    public static final String MESSAGE_INGREDIENT_NOT_FOUND = "However, some ingredient(s) required to make this item"
-            + " were not found in the ingredient list. Please add the ingredient(s) to enable auto-ingredient update.";
-    public static final String MESSAGE_INGREDIENT_NOT_ENOUGH = "However, some ingredient(s) in the ingredient section"
-            + " fall short of that required to make the amount of item specified in the quantity sold field. Please "
-            + "stockup your ingredients to enable the auto-ingredient update.";
+    public static final String MESSAGE_INGREDIENT_NOT_FOUND = "However, one or more ingredients required to make this "
+            + "item were not found in the ingredient list. Please add the ingredient(s) to enable auto-ingredient "
+            + "update.";
+    public static final String MESSAGE_INGREDIENT_NOT_ENOUGH = "However, one or more required ingredients are "
+            + "insufficient to make the amount of item specified in the quantity sold field. Please stock up your "
+            + "ingredients to enable auto-ingredient update.";
     public static final String MESSAGE_INGREDIENT_UPDATE_SUCCESS = "Ingredient list has been updated.";
 
     private SalesRecord toAdd;
@@ -97,6 +101,8 @@ public class RecordSalesCommand extends Command {
         model.addRecord(toAdd); // record will be added even if one of the four exceptions above was caught
         model.commitRestaurantBook();
         EventsCenter.getInstance().post(new DisplayRecordListRequestEvent());
+        Index newRecordIndex = Index.fromOneBased(model.getFilteredRecordList().size());
+        EventsCenter.getInstance().post(new JumpToRecordListRequestEvent(newRecordIndex)); // display the added record
         return new CommandResult(String.format(MESSAGE_RECORD_SALES_SUCCESS, toAdd) + "\n"
                 + ingredientsUpdateStatus);
     }
@@ -123,7 +129,9 @@ public class RecordSalesCommand extends Command {
      * @return A Map representation of the required ingredients per unit of "item"
      */
     private Map<IngredientName, Integer> getRequiredIngredients(Model model) throws ItemNotFoundException {
-        Name itemName = new Name(toAdd.getName().toString());
+        String recordItemName = toAdd.getName().toString();
+        assert Name.isValidName(recordItemName);
+        Name itemName = new Name(recordItemName);
         Item item = model.findItem(itemName);
         return model.getRequiredIngredients(item);
     }

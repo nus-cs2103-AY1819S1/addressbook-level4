@@ -20,6 +20,7 @@ import seedu.restaurant.model.ingredient.exceptions.IngredientNotEnoughException
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 public class UniqueIngredientListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

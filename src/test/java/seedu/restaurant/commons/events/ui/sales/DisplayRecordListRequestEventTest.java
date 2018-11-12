@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author HyperionNKJ
 public class DisplayRecordListRequestEventTest {
     @Test
     public void createEvent_success() {

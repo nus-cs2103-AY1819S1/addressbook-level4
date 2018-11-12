@@ -6,6 +6,7 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 
+//@@author rebstan97
 /**
  * Deletes an ingredient identified using its displayed index or name from the restaurant book.
  */

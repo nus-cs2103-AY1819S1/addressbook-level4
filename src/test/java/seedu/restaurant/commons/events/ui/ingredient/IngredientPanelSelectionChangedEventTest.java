@@ -8,6 +8,7 @@ import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
+//@@author rebstan97
 public class IngredientPanelSelectionChangedEventTest {
 
     private final Ingredient ingredient = new IngredientBuilder().withName("Sugar").withNumUnits(100).withMinimum(1)

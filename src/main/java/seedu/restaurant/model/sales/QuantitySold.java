@@ -3,6 +3,7 @@ package seedu.restaurant.model.sales;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author HyperionNKJ
 /**
  * Represents the quantity of a menu item sold in the sales record
  * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}

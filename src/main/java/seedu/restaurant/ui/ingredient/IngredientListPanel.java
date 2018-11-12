@@ -16,6 +16,7 @@ import seedu.restaurant.commons.events.ui.ingredient.JumpToIngredientListRequest
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.ui.UiPart;
 
+//@@author rebstan97
 /**
  * Panel containing the list of ingredients.
  */

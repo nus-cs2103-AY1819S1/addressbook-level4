@@ -14,6 +14,7 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 
+//@@author rebstan97
 /**
  * Edits the details of an existing ingredient in the restaurant book.
  */

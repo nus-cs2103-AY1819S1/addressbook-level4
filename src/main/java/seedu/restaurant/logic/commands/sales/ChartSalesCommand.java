@@ -1,5 +1,7 @@
 package seedu.restaurant.logic.commands.sales;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
@@ -11,6 +13,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.Date;
 
+//@@author HyperionNKJ
 /**
  * Display revenue-date sales chart
  */
@@ -27,9 +30,10 @@ public class ChartSalesCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         Map<Date, Double> salesData = model.getChronologicalSalesData();
         if (salesData.isEmpty()) {
-            throw new CommandException(String.format(EMPTY_RECORD_LIST_MESSAGE));
+            throw new CommandException(EMPTY_RECORD_LIST_MESSAGE);
         }
         EventsCenter.getInstance().post(new DisplaySalesChartEvent(salesData));
         return new CommandResult(DISPLAYING_CHART_MESSAGE);

@@ -12,6 +12,7 @@ import seedu.restaurant.model.ingredient.IngredientUnit;
 import seedu.restaurant.model.ingredient.MinimumUnit;
 import seedu.restaurant.model.ingredient.NumUnits;
 
+//@@author rebstan97
 /**
  * JAXB-friendly version of the Ingredient.
  */
@@ -156,7 +157,7 @@ public class XmlAdaptedIngredient {
                     NumUnits.class.getSimpleName()));
         }
         if (!NumUnits.isValidNumUnits(numUnits)) {
-            throw new IllegalValueException(NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS);
+            throw new IllegalValueException(NumUnits.MESSAGE_NUM_UNITS_CONSTRAINTS);
         }
     }
 
