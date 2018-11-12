@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Pratyay Jaidev - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,29 +9,39 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+EventsPlus+ is a desktop address book application catered for busy university students to manage their contacts, events, project meetings and ad-hoc events efficiently.
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events
+using a Command Line Interface (CLI). The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pratyayj[RepoSense]]
+* *Major enhancement*: added *location-related functionality*
+** What it does: The two features added provide the following: 1. the ability to visually display the faculty location of a contact on a map and 2. the ability to generate a (random) meeting location
+for events or meetings and display this location on a map.
+** Justification: Events cannot take place without a location set in place. Adding location-related functionality with respect to a contact's faculty and events
+improves the user experience significantly by providing the user one-stop location functionality without having to exit the application at all.
+** Highlights: A Faculty field is added to the Person class which is crucial given that this application is primarily targeted toward university students.
+The selection of which particular Google Maps API that was to be integrated into the application required careful consideration (the Embed API was chosen for its flexibility with the JavaFX web browser).
+In the long run, the implementation of this foundational functionality allows for further development of other location-related features such as generating
+directions or generating convenient meeting locations (based on faculty locations) which is one of the features to be done in V2.0.
+** Credits: Google Maps Embed API was used for the map display.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
+** Minor enhancements:
+*** Added a separate Location Display tab to display location-related information instead of using pre-existing Webpage tab.
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.3.1` on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added non-functional requirements to DeveloperGuide:
+(Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/69[#69])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
