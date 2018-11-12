@@ -329,6 +329,8 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::switch[]
+
 === Switching between different database : `switch`
 
 Switches between the three different database available i.e. 1. doctor, 2. patient, 3. doctor and patient. +
@@ -368,6 +370,8 @@ Switches over to display a combined view of both patient's and doctor's database
 .Upon switching to the combined database of both patient and doctor
 image::switchAll.png[width="600"]
 
+// end::switch[]
+
 === Clear entries in active database : `clear`
 
 Clears only the entries in the active database (currently in view of). +
@@ -405,6 +409,8 @@ Format: `clearall`
 NOTE: This command when executed, clears all patients' and doctors' regardless of which database the user is
 currently viewing, unlike the `clear` command where the deletion of data only applies to the active database.
 
+// tag::avail[]
+
 === Retrieving a list of available doctors : `avail`
 
 Retrieves a list of all the doctors available at that moment or base on the date and time period indicated by the
@@ -422,7 +428,7 @@ Format: `avail [d/DATE] [st/START TIME] [et/END TIME]`
 NOTE: If no date is specified by the user, the system would use the current date by default. Similarly, if neither start
  nor end time is specified by the user, the system would use the current time as an input for both start and end time.
 
-NOTE: Also, there is a 1 minute buffer time allocated for doctors after the end of their appointments. This means that
+NOTE: There is a 1 minute buffer time allocated for doctors after the end of their appointments. This means that
  if a doctor has an appointment from 1100 to 1200, the doctor will be considered unavailable even at the time 1201.
 
 [IMPORTANT]
@@ -436,26 +442,28 @@ Examples:
 List all doctors available at the moment (i.e. the date and time when the command is executed), as shown in the figure
 below:
 
-.Display available doctors at current datetime diagram
+.Display available doctors at current datetime
 image::avail.png[width="600"]
 
 `avail d/24.11.2018`
 List all doctors available on the 24th November 2018, at the time when this command is executed, as seen in the
 figure below:
 
-.Display available doctors on 24th November diagram
+.Display available doctors on 24th November
 image::avail2.png[width="600"]
 
 `avail d/24.11.2018 st/1200 et/1300`
 Lists all doctors available from 12pm to 1pm, on the 24th November 2018, shown in the diagram below:
 
-.Display available doctors base on the given date and time diagram
+.Display available doctors base on the given date and time
 image::avail3.png[width="600"]
 
 [WARNING]
 This command will not work should the user be viewing the patient's database, since this command applies only for
 doctors. In this case, executing this command will throw a message to prompt the user to switch the current
 active database to either the doctor's database or the combined database containing both patients' and doctors' data.
+
+// end::avail[]
 
 // tag::displayappt[]
 === Displaying medical appointments : `select`
