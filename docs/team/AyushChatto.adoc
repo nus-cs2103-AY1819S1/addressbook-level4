@@ -52,3 +52,7 @@ include::../UserGuide.adoc[tag=notifs]
 |===
 
 include::../DeveloperGuide.adoc[tag=schedule]
+
+include::../DeveloperGuide.adoc[tag=testingschedule]
+
+include::../DeveloperGuide.adoc[tag=testingmeetings]
