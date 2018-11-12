@@ -1,4 +1,7 @@
 = gongjie663746 - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == PROJECT: JxMusic
 
