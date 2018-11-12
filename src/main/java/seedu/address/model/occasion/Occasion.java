@@ -114,11 +114,11 @@ public class Occasion {
      * Make an identical deep copy of this occasion.
      */
     public Occasion makeDeepDuplicate() {
-        OccasionName newName = this.occasionName.makeDeepDuplicate();
-        OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
-        OccasionLocation newLocation = this.location.makeDeepDuplicate();
+        OccasionName newName = this.occasionName.makeCopy();
+        OccasionDate newDate = this.occasionDate.makeCopy();
+        OccasionLocation newLocation = this.location.makeCopy();
         UniquePersonList newList = this.attendanceList.makeDeepDuplicate();
-        Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        Set<Tag> newTags = this.tags.stream().map(value -> value.makeCopy()).collect(Collectors.toSet());
         return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
     }
 
@@ -126,11 +126,11 @@ public class Occasion {
      * Make an identical copy of this occasion with an empty person list.
      */
     public Occasion makeShallowDuplicate() {
-        OccasionName newName = this.occasionName.makeDeepDuplicate();
-        OccasionDate newDate = this.occasionDate.makeDeepDuplicate();
-        OccasionLocation newLocation = this.location.makeDeepDuplicate();
+        OccasionName newName = this.occasionName.makeCopy();
+        OccasionDate newDate = this.occasionDate.makeCopy();
+        OccasionLocation newLocation = this.location.makeCopy();
         UniquePersonList newList = new UniquePersonList();
-        Set<Tag> newTags = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        Set<Tag> newTags = this.tags.stream().map(value -> value.makeCopy()).collect(Collectors.toSet());
         return new Occasion(newName, newDate, newLocation, newTags, TypeUtil.OCCASION, newList.asNormalList());
     }
 

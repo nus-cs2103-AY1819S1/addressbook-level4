@@ -41,7 +41,7 @@ public class Address {
     /**
      * Makes an identical deep copy of this Address.
      */
-    public Address makeDeepDuplicate() {
+    public Address makeCopy() {
         if (this.value.equals("")) {
             return new Address();
         }

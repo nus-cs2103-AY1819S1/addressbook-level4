@@ -21,6 +21,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.testutil.ModuleDescriptorBuilder;
 
+//@@author waytan
 /**
  * Contains helper methods for testing commands.
  */
@@ -66,6 +67,7 @@ public class CommandModuleTestUtil {
     public static final ModuleDescriptor DESC_CS2100;
     public static final ModuleDescriptor DESC_ST2131;
 
+    //@@author waytan
     static {
         DESC_CS2100 = new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
                 .withModuleCode(VALID_MODULECODE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100)

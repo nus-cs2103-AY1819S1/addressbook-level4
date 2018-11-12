@@ -53,7 +53,7 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     }
 
     /**
-     * Makes an copy of this UniqueOccasionList with shallow copies of the occasions inside.
+     * Makes a copy of this UniqueOccasionList with shallow copies of the occasions inside.
      */
     public UniqueOccasionList makeShallowDuplicate() {
         List<Occasion> newOccasions = this.internalList

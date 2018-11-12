@@ -60,9 +60,10 @@ public class AttendanceListUtil {
     /**
      * Removes a person from the attendanceList of all associated Occasions.
      */
-    public static void removePersonFromAssociatedOccasions(Model model, Person personToDelete) {
+    public static void removePersonFromAssociatedOccasions(Model model, Person personToRemove) {
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         List<Occasion> completeOccasionList = model.getFilteredOccasionList();
+
         ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
 
         while (occasionListIterator.hasNext()) {
@@ -70,7 +71,7 @@ public class AttendanceListUtil {
             occasion.getAttendanceList()
                     .asNormalList()
                     .stream()
-                    .filter(person -> person.isSamePerson(personToDelete))
+                    .filter(person -> person.isSamePerson(personToRemove))
                     .findFirst()
                     .ifPresent(removePersonFromOccasion(model, occasion));
         }
@@ -80,16 +81,18 @@ public class AttendanceListUtil {
     /**
      * Removes a person from the studentList of all associated Modules.
      */
-    public static void removePersonFromAssociatedModules(Model model, Person personToDelete) {
+    public static void removePersonFromAssociatedModules(Model model, Person personToRemove) {
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         List<Module> completeModuleList = model.getFilteredModuleList();
+
         ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
+
         while (moduleListIterator.hasNext()) {
             Module module = moduleListIterator.next();
             module.getStudents()
                     .asNormalList()
                     .stream()
-                    .filter(person -> person.isSamePerson(personToDelete))
+                    .filter(person -> person.isSamePerson(personToRemove))
                     .findFirst()
                     .ifPresent(removePersonFromModule(model, module));
         }
@@ -99,18 +102,41 @@ public class AttendanceListUtil {
     /**
      * Removes a module from the moduleList of all associated Persons.
      */
-    public static void removeModuleFromAssociatedPersons(Model model, Module moduleToDelete) {
+    public static void removeModuleFromAssociatedPersons(Model model, Module moduleToRemove) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> completePersonList = model.getFilteredPersonList();
+
         ListIterator<Person> personListIterator = completePersonList.listIterator();
+
         while (personListIterator.hasNext()) {
             Person person = personListIterator.next();
             person.getModuleList()
                     .asNormalList()
                     .stream()
-                    .filter(module -> module.isSameModule(moduleToDelete))
+                    .filter(module -> module.isSameModule(moduleToRemove))
                     .findFirst()
                     .ifPresent(removeModuleFromPerson(model, person));
+        }
+    }
+
+    //@@author waytan
+    /**
+     * Removes an Occasion from the occasionList of all associated Persons.
+     */
+    public static void removeOccasionFromAssociatedPersons(Model model, Occasion occasionToRemove) {
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> completePersonList = model.getFilteredPersonList();
+
+        ListIterator<Person> personListIterator = completePersonList.listIterator();
+
+        while (personListIterator.hasNext()) {
+            Person person = personListIterator.next();
+            person.getOccasionList()
+                    .asNormalList()
+                    .stream()
+                    .filter(occasion -> occasion.isSameOccasion(occasionToRemove))
+                    .findFirst()
+                    .ifPresent(removeOccasionFromPerson(model, person));
         }
     }
 
@@ -122,7 +148,9 @@ public class AttendanceListUtil {
     public static void editModuleFromAssociatedPersons(Model model, Module moduleToEdit, Module editedModule) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> completePersonList = model.getFilteredPersonList();
+
         ListIterator<Person> personListIterator = completePersonList.listIterator();
+
         while (personListIterator.hasNext()) {
             Person person = personListIterator.next();
             person.getModuleList()
@@ -131,27 +159,6 @@ public class AttendanceListUtil {
                     .filter(module -> module.isSameModule(moduleToEdit))
                     .findFirst()
                     .ifPresent(editModuleFromPerson(model, person, editedModule));
-        }
-    }
-
-
-    //@@author waytan
-    /**
-     * Removes an Occasion from the occasionList of all associated Persons.
-     */
-    public static void removeOccasionFromAssociatedPersons(Model model, Occasion occasionToDelete) {
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> completePersonList = model.getFilteredPersonList();
-        ListIterator<Person> personListIterator = completePersonList.listIterator();
-
-        while (personListIterator.hasNext()) {
-            Person person = personListIterator.next();
-            person.getOccasionList()
-                    .asNormalList()
-                    .stream()
-                    .filter(occasion -> occasion.isSameOccasion(occasionToDelete))
-                    .findFirst()
-                    .ifPresent(removeOccasionFromPerson(model, person));
         }
     }
 
@@ -164,7 +171,9 @@ public class AttendanceListUtil {
                                                            Occasion editedOccasion) {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> completePersonList = model.getFilteredPersonList();
+
         ListIterator<Person> personListIterator = completePersonList.listIterator();
+
         while (personListIterator.hasNext()) {
             Person person = personListIterator.next();
             person.getOccasionList()
@@ -187,7 +196,9 @@ public class AttendanceListUtil {
     public static void editPersonFromAssociateModules(Model model, Person personToEdit, Person editedPerson) {
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         List<Module> completeModuleList = model.getFilteredModuleList();
+
         ListIterator<Module> moduleListIterator = completeModuleList.listIterator();
+
         while (moduleListIterator.hasNext()) {
             Module module = moduleListIterator.next();
             module.getStudents()
@@ -210,7 +221,9 @@ public class AttendanceListUtil {
     public static void editPersonFromAssociateOccasions(Model model, Person personToEdit, Person editedPerson) {
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         List<Occasion> completeOccasionList = model.getFilteredOccasionList();
+
         ListIterator<Occasion> occasionListIterator = completeOccasionList.listIterator();
+
         while (occasionListIterator.hasNext()) {
             Occasion occasion = occasionListIterator.next();
             occasion.getAttendanceList()
@@ -252,12 +265,17 @@ public class AttendanceListUtil {
      */
     private static Consumer<Person> removePersonFromOccasion(Model model, Occasion occasion) {
         return person -> {
-            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
             List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
             updatedPersons.remove(person);
             UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+
+            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
             updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
             Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
+
+            // ensure person is properly removed without any remaining duplicates
+            assert !updatedOccasion.getAttendanceList().contains(person);
+
             model.updateOccasion(occasion, updatedOccasion);
         };
     }
@@ -268,12 +286,17 @@ public class AttendanceListUtil {
      */
     private static Consumer<Person> removePersonFromModule(Model model, Module module) {
         return person -> {
-            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
             List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
             updatedPersons.remove(person);
             UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+
+            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
             updatedModuleDescriptor.setStudents(updatedPersonList);
             Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+
+            // ensure person is properly removed without any remaining duplicates
+            assert !updatedModule.getStudents().contains(person);
+
             model.updateModule(module, updatedModule);
         };
     }
@@ -285,12 +308,17 @@ public class AttendanceListUtil {
 
     private static Consumer<Module> removeModuleFromPerson(Model model, Person person) {
         return module -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
             updatedModules.remove(module);
             UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
+
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
             Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+
+            // ensure module is properly removed without any remaining duplicates
+            assert !updatedPerson.getModuleList().contains(module);
+
             model.updatePerson(person, updatedPerson);
         };
     }
@@ -300,12 +328,17 @@ public class AttendanceListUtil {
      */
     private static Consumer<Occasion> removeOccasionFromPerson(Model model, Person person) {
         return occasion -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
             updatedOccasions.remove(occasion);
             UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
+
+            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
             Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+
+            // ensure occasion is properly removed without any remaining duplicates
+            assert !updatedPerson.getOccasionList().contains(occasion);
+
             model.updatePerson(person, updatedPerson);
         };
     }
@@ -317,15 +350,18 @@ public class AttendanceListUtil {
      */
     private static Consumer<Person> editPersonFromModule(Model model, Module module, Person editedPerson) {
         return person -> {
-            ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
             List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
             int indexOfPersonToEdit = updatedPersons.indexOf(person);
+
             if (indexOfPersonToEdit != -1) {
                 updatedPersons.remove(person);
                 updatedPersons.add(indexOfPersonToEdit, editedPerson);
                 UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+
+                ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
                 updatedModuleDescriptor.setStudents(updatedPersonList);
                 Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+
                 model.updateModule(module, updatedModule);
             }
         };
@@ -338,15 +374,18 @@ public class AttendanceListUtil {
      */
     private static Consumer<Person> editPersonFromOccasion(Model model, Occasion occasion, Person editedPerson) {
         return person -> {
-            OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
             List<Person> updatedPersons = occasion.getAttendanceList().makeShallowDuplicate().asNormalList();
             int indexOfPersonToEdit = updatedPersons.indexOf(person);
+
             if (indexOfPersonToEdit != -1) {
                 updatedPersons.remove(person);
                 updatedPersons.add(indexOfPersonToEdit, editedPerson);
                 UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+
+                OccasionDescriptor updatedOccasionDescriptor = new OccasionDescriptor();
                 updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
                 Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
+
                 model.updateOccasion(occasion, updatedOccasion);
             }
         };
@@ -359,14 +398,18 @@ public class AttendanceListUtil {
      */
     private static Consumer<Module> editModuleFromPerson(Model model, Person person, Module editModule) {
         return module -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             List<Module> updatedModules = person.getModuleList().makeShallowDuplicate().asNormalList();
             int indexOfModuleToEdit = updatedModules.indexOf(module);
+
             if (indexOfModuleToEdit != -1) {
                 updatedModules.remove(module);
                 updatedModules.add(indexOfModuleToEdit, editModule);
-                updatedPersonDescriptor.setUniqueModuleList(new UniqueModuleList(updatedModules));
+                UniqueModuleList uniqueModuleList = new UniqueModuleList(updatedModules);
+
+                PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
+                updatedPersonDescriptor.setUniqueModuleList(uniqueModuleList);
                 Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+
                 model.updatePerson(person, updatedPerson);
             }
         };
@@ -379,15 +422,18 @@ public class AttendanceListUtil {
      */
     private static Consumer<Occasion> editOccasionFromPerson(Model model, Person person, Occasion editOccasion) {
         return occasion -> {
-            PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
             List<Occasion> updatedOccasions = person.getOccasionList().makeShallowDuplicate().asNormalList();
             int indexOfOccasionToEdit = updatedOccasions.indexOf(occasion);
+
             if (indexOfOccasionToEdit != -1) {
                 updatedOccasions.remove(occasion);
                 updatedOccasions.add(indexOfOccasionToEdit, editOccasion);
                 UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
+
+                PersonDescriptor updatedPersonDescriptor = new PersonDescriptor();
                 updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
                 Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+
                 model.updatePerson(person, updatedPerson);
             }
         };
