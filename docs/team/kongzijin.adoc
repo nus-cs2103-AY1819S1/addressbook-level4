@@ -77,10 +77,7 @@ include::../UserGuide.adoc[tag=edit]
 
 include::../UserGuide.adoc[tag=export]
 
-include::../UserGuide.adoc[tag=import]
-
-
-
+include::../UserGuide.adoc[tag=impor
 == Contributions to the Developer Guide
 
 |===

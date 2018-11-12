@@ -106,9 +106,6 @@ public class Occasion {
         return location;
     }
 
-    public Property occasionNameProperty() {
-        return new SimpleStringProperty(occasionName.fullOccasionName);
-    }
 
     /**
      * Make an identical deep copy of this occasion.

@@ -99,15 +99,6 @@ public class Module {
         return students == null ? new UniquePersonList(new ArrayList<>()) : students;
     }
 
-    //@@author
-    public Property moduleCodeProperty() {
-        return new SimpleStringProperty(moduleCode.fullModuleCode);
-    }
-
-    public Property moduleTitleProperty() {
-        return new SimpleStringProperty(moduleTitle.fullModuleTitle);
-    }
-
     /**
      * Makes an identical deep copy of this module.
      */
