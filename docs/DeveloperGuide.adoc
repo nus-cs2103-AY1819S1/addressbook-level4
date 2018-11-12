@@ -1589,10 +1589,13 @@ E.g CS2103T Project: Write User guide, Review Pull Requests, Peer Evaluation)
 
 _{More to be added}_
 
+
 [appendix]
+// tag::usecase[]
 == Use Cases
 
 (For all use cases below, the *System* is the `Student Schedule Planner` and the *Actor* is the `user`, unless specified otherwise)
+// end::usecase[]
 
 [discrete]
 === Use case: Add Task
@@ -1734,6 +1737,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::usecasefilter[]
 [discrete]
 === Use case: Filter Tasks according to Tags (Inclusive)
 
@@ -1783,6 +1787,7 @@ Use case ends.
 * 3a. The strictly filtered task list is empty and thus displays an empty list.
 +
 Use case ends.
+// end::usecasefilter[]
 
 [discrete]
 === Use case: List tasks due today
@@ -1836,6 +1841,7 @@ Use case ends.
 
 [discrete]
 
+// tag::usecaselistmonth[]
 === Use case: List tasks due until the end of the month
 
 *MSS*
@@ -1859,6 +1865,7 @@ Use case ends.
 * 3a. The filtered task list is empty and thus displays an empty list.
 +
 Use case ends.
+// end::usecaselistmonth[]
 
 [discrete]
 === Use case: Generate academic calendar weeks
@@ -1926,6 +1933,7 @@ Refers to the academic calendar used by National University of Singapore. This p
 the calendar (Week 1 to Examination Week). +
 Referenced from: http://www.nus.edu.sg/registrar/info/calendar/AY2018-2019.pdf
 
+// tag::appendix[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -1933,6 +1941,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+// end::appendix[]
 
 === Launch and Shutdown
 
@@ -2008,6 +2017,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: All task(s) that match the date from the current system date until the closest Sunday will be
    reflected in the panel on the bottom right of `UI`.
 
+// tag::manualtestfilter[]
 === Filtering Tasks
 
 1. View tasks due this month
@@ -2030,6 +2040,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `filterstrict tutorial GEH1034`
    Expected: All tasks that contain BOTH `tutorial` and `GEH1034` tags will be reflected in the task list panel in
    the `UI`
+// end::manualtestfilter[]
 
 === Testing GUI
 
