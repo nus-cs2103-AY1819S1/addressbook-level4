@@ -202,7 +202,10 @@ __[l/LABEL]+ denotes one or more matches of l/LABEL, see https://docs.microsoft.
 -Example:
 `complete 1 l/urgent` (Behavior is not clear)
 
-* On completion of tasks that leads to a level-up, the levelling up would be reported.
+* Each task completion awards the user Xp points as determined by the game mode.
+** On completion, this command would report the net change in Xp.
+* On completion of tasks that leads to a level-up as detected by the achievement record, the
+levelling up would be reported.
 
 ===== Regarding Labels
 
@@ -248,6 +251,7 @@ Explanation: The completion of `Task Y` is valid as all its dependencies are com
 `complete l/setOne`
 Explanation: Order of tasks completed in a batch completion does not matter as long as there are no unfulfilled dependencies after all tasks are completed.
 
+[%hardbreaks]
 -Example:
 `complete 1`
 Explanation: `Task X` is dependent on `Task Y` which is not completed yet.
