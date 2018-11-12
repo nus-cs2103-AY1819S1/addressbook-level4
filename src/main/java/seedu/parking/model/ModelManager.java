@@ -94,7 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
         return filteredCarparks.get(index);
     }
 
-    //=========== Filtered Car Park List Accessors ============================================================
+    //=========== Filtered Car Park List Accessors ===========================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Carpark} backed by the internal list of
@@ -111,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCarparks.setPredicate(predicate);
     }
 
-    //=========== Last Predicate Used by FindCommand ============================================================
+    //=========== Last Predicate Used by FindCommand =========================================================
 
     @Override
     public void updateLastPredicateUsedByFindCommand(CarparkContainsKeywordsPredicate predicate) {

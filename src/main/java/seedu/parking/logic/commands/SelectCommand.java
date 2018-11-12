@@ -14,7 +14,7 @@ import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Carpark;
 
 /**
- * Selects a carpark identified using it's displayed index from the car park finder.
+ * Selects a car park identified using it's displayed index from the car park finder.
  */
 public class SelectCommand extends Command {
 

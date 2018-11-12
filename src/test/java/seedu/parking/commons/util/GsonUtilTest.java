@@ -1,19 +1,25 @@
 package seedu.parking.commons.util;
 
-//import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.parking.commons.util.GsonUtil.fetchAllCarparkInfo;
-//import static seedu.parking.commons.util.GsonUtil.getCarparkPostalData;
 
 import java.io.IOException;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class GsonUtilTest {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
-    public void fetchCarparkTest () throws Exception {
-        assertNotNull(fetchAllCarparkInfo());
+    public void fetchCarparkTest() {
+        try {
+            assertNotNull(GsonUtil.fetchAllCarparkInfo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
