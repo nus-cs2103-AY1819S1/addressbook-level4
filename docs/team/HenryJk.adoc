@@ -10,7 +10,7 @@
 == Overview
 
 === Purpose
-* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was responsible for creating 'Assignment' related commands and back end.
+* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was responsible for creating `Assignment` related commands and the data structures supporting it.
 
 === The Team
 * My team comprises of students from the National University of Singapore and we decided on creating this application after observing the hassle tutors have to deal with when marking attendance.
@@ -70,6 +70,8 @@ include::../UserGuide.adoc[tag=assignment]
 include::../DeveloperGuide.adoc[tag=classDiagram]
 
 include::../DeveloperGuide.adoc[tag=assignment]
+
+include::../DeveloperGuide.adoc[tag=editAssignmentCommand]
 
 === Proposed Enhancement for v2.0
 * Adding more UML diagrams as an aid to show readers exactly how the application is built

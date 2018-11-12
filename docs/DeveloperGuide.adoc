@@ -469,6 +469,25 @@ The Attendance session date is represented with the Deadline class from the Assi
 ** Cons: Attendance session data is distributed across all students which increases complexity of operations affecting all students.
 // end::attendance[]
 
+// tag::editAssignmentCommand[]
+=== Edit Assignment Feature
+
+This is a feature to let user edit an assignment name, weight, maximum mark, and deadline.
+
+The following sequence diagram shows how the `editAssignment` command works
+
+image::EditAssignmentCommandSequenceDiagram.png[width="800"]
+
+    1. The user executes the `editAssignment INDEX [n/ASSIGNMENTNAME] [w/WEIGTH] [d/DEADLINE] [m/MAXMARK]` command, with
+     parameters `INDEX` and optional parameters `ASSIGNMENTNAME`, `WEIGHT`, `DEADLINE`, `MAXMARK`.
+    2. The `AddressBookParser` class parses the command to create a new `EditAssignmentCommand` class.
+    3. The `getFilteredAssignmentList` command is executed and handled by the `ModelManager` class.
+    4. A new `Assignment` object is created by `createEditedAssignment` command, using information parsed from parser.
+    5. The new `Assignment` is attached to the `Model` at `INDEX`.
+    6. The new assignment information will now stored.
+
+// end::editAssignmentCommand[]
+
 // tag::studentDetails[]
 === UI-Model binding of student details
 
