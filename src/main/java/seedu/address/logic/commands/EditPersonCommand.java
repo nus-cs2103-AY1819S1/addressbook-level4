@@ -78,7 +78,7 @@ public class EditPersonCommand extends Command {
         AttendanceListUtil.editPersonFromAssociateModules(model, personToEdit, editedPerson);
         AttendanceListUtil.editPersonFromAssociateOccasions(model, personToEdit, editedPerson);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!personToEdit.isSamePerson(editedPerson) || model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
