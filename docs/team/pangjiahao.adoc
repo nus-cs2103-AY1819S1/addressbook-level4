@@ -9,39 +9,82 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop venue book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+U-Schedule is a desktop scheduler application, that is targeted towards
+university students who want a way to manage their schedules. It allows
+users to manage 2 types of events: Calendar Events, which are events
+which one normally enters into a calendar, and ToDoListEvents, which are
+tasks that the user wants to keep track of. The primary interface is
+the command line, and the GUI is created with JavaFX.
+U-Scheduler is written in Java, and has about 10kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added the GUI to display calendar events in a calendar.
+** What it does:
+Allows the user to view calendar events graphically,
+as well as navigate around their timetable.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Justification: This feature is a critical addition to a
+scheduler product. Without a visual representation of a calendar,
+the user would be relying on date and time strings,
+which would be extremely non-user-friendly even when
+in standard format.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Highlights:
+I designed a class to contain the third-party library for rendering
+events as a calendar. The class acts as a wrapper around the calendar
+and contains the logic for controlling the calendar. I implemented the
+controls needed for navigating around the calendar GUI. I also implemented
+quality of life features such as automatically navigating to show events
+that the user selected, as well as opening a pop-up dialog when the user
+double clicks on events in the calendar.
+
+** Credits: Used jxtras.Agenda for rendering events visually.
+
+
+* *Code contributed*:
+** link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pangjiahao&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[RepoSense]
+
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Helped with issue tracking.
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+
+*** Prototyped fuzzy search for finding events.
+(https://github.com/CS2103-AY1819S1-T10-1/main/pull/48[#48])
+**** Wrote an initial set of utility methods using the fuzzywuzzy library.
+**** Modified the original find command to use fuzzy search.
+
+*** Designed FsList (FilteredSortedList), a list that allows filtering
+by multiple predicates and sorting all in one. (https://github.com/CS2103-AY1819S1-T10-1/main/pull/116[#116])
+
+*** Improved TestApp to support the improved Find command and
+the todo list.
+(https://github.com/CS2103-AY1819S1-T10-1/main/pull/116[#116],
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/130[#130])
+
+** Documentation:
+*** Updated class diagrams in the Developer Guide:
+(https://github.com/CS2103-AY1819S1-T10-1/main/pull/117[#117])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+(https://github.com/CS2103-AY1819S1-T10-1/main/pull/20[#20],
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/39[#39],
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/69[#69],
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/131[#131])
+
+** Tools:
+*** Integrated a third party library (natty) to the project.
+(https://github.com/CS2103-AY1819S1-T10-1/main/pull/48[#48])
+*** Integrated a third party library (fuzzywuzzy) into the project.
+(https://github.com/CS2103-AY1819S1-T10-1/main/pull/48[#48])
+*** Integrated a third party library (jfxtras.Agenda) into the project.
+https://github.com/CS2103-AY1819S1-T10-1/main/pull/58[#58])
+
 
 == Contributions to the User Guide
 
@@ -49,11 +92,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Calendar Feature:
-
 include::../UserGuide.adoc[tag=calendar]
-
-=== FAQ:
 
 include::../UserGuide.adoc[tag=faq]
 
@@ -64,9 +103,3 @@ include::../UserGuide.adoc[tag=faq]
 |===
 
 include::../DeveloperGuide.adoc[tag=calendardisplay]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
