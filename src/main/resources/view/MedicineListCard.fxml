@@ -30,7 +30,7 @@
             <Label fx:id="effectiveDosage" styleClass="cell_small_label" text="\$effective dosage" />
             <Label fx:id="lethalDosage" styleClass="cell_small_label" text="\$lethal dosage" />
             <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
-            <Label fx:id="quantity" styleClass="cell_small_label" text="\$lethal dosage" />
+            <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity" />
         </VBox>
     </GridPane>
 </HBox>

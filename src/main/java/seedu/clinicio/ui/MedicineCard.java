@@ -40,11 +40,11 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         medicineName.setText(medicine.getMedicineName().medicineName);
-        medicineType.setText(medicine.getMedicineType().medicineType);
-        effectiveDosage.setText(medicine.getEffectiveDosage().medicineDosage);
-        lethalDosage.setText(medicine.getLethalDosage().medicineDosage);
-        price.setText(medicine.getPrice().medicinePrice);
-        quantity.setText(medicine.getQuantity().medicineQuantity);
+        medicineType.setText("Type: " + medicine.getMedicineType().medicineType);
+        effectiveDosage.setText("Effective Dosage: " + medicine.getEffectiveDosage().medicineDosage + " units");
+        lethalDosage.setText("Lethal Dosage: " + medicine.getLethalDosage().medicineDosage + " units");
+        price.setText("Price: $" + medicine.getPrice().medicinePrice + " per unit");
+        quantity.setText("Quantity: " + medicine.getQuantity().medicineQuantity + " units");
     }
 
     @Override
