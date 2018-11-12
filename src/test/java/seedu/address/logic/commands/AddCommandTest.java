@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
+import seedu.address.model.game.GameMode;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
@@ -154,6 +155,11 @@ public class AddCommandTest {
 
         @Override
         public void updateAchievementDisplayOption(int displayOption) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GameMode getGameMode() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.game.GameManager;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Task;
 
@@ -22,6 +23,11 @@ public interface ReadOnlyTaskManager {
      * Returns a copy of the task manager's {@code AchievementRecord}.
      */
     AchievementRecord getAchievementRecord();
+
+    /**
+     * Returns a copy of the task manager's (@code GameManager}.
+     */
+    GameManager getGameManager();
 
     /**
      * Returns list according to topological ordering of task
