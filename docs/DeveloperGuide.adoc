@@ -1786,8 +1786,6 @@ Preconditions: user is logged in
 
 *MSS*
 
-.  User login to the system
-.  OASIS shows home page
 .  User enters command to view leave applications
 .  OASIS lists all leave applications of the user
 +
@@ -1796,19 +1794,15 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The credentials are invalid
+* 1a. The format is invalid
++
+** 1a1. OASIS shows an error message
 +
 Use case ends.
 
-* 3a. The format is invalid
+* 2a. The user has permissions to be able to view all employee leaves.
 +
-** 3a1. OASIS shows an error message
-+
-Use case resumes at step 2.
-
-* 4a. The user has permissions to be able to view all employee leaves.
-+
-** 4a1. OASIS lists all leave applications of all users
+** 2a1. OASIS lists all leave applications of all users
 +
 Use case ends.
 
@@ -1842,7 +1836,6 @@ Use case ends.
 ** 2c1. OASIS shows an error message
 +
 Use case resumes at step 1.
-Use case ends.
 
 [appendix]
 == Non Functional Requirements
