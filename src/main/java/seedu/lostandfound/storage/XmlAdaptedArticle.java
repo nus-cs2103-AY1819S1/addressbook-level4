@@ -15,6 +15,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -31,6 +32,8 @@ public class XmlAdaptedArticle {
     private String email;
     @XmlElement(required = true)
     private String description;
+    @XmlElement()
+    private String image;
     @XmlElement(required = true)
     private String finder;
     @XmlElement(required = true)
@@ -50,12 +53,13 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String description, String finder, String owner,
-        boolean isResolved, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedArticle(String name, String phone, String email, String description, String image, String finder,
+                             String owner, boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.description = description;
+        this.image = image;
         this.finder = finder;
         this.owner = owner;
         this.isResolved = isResolved;
@@ -74,6 +78,7 @@ public class XmlAdaptedArticle {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         description = source.getDescription().value;
+        image = source.getImage().toString();
         finder = source.getFinder().fullName;
         owner = source.getOwner().fullName;
         isResolved = source.getIsResolved();
@@ -96,7 +101,7 @@ public class XmlAdaptedArticle {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
@@ -104,7 +109,7 @@ public class XmlAdaptedArticle {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+        if (!Phone.isValid(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
@@ -112,7 +117,7 @@ public class XmlAdaptedArticle {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
+        if (!Email.isValid(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final Email modelEmail = new Email(email);
@@ -121,15 +126,23 @@ public class XmlAdaptedArticle {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(description)) {
+        if (!Description.isValid(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
 
+        if (image == null) {
+            image = Image.getDefault().toString();
+        }
+        if (!Image.isValid(image)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Image modelImage = new Image(image);
+
         if (finder == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(finder)) {
+        if (!Name.isValid(finder)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelFinder = new Name(finder);
@@ -137,7 +150,7 @@ public class XmlAdaptedArticle {
         if (owner == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(owner)) {
+        if (!Name.isValid(owner)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelOwner = new Name(owner);
@@ -146,7 +159,7 @@ public class XmlAdaptedArticle {
 
         final Set<Tag> modelTags = new HashSet<>(articleTags);
 
-        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelFinder, modelOwner,
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelImage, modelFinder, modelOwner,
                 modelIsResolved, modelTags);
     }
 
@@ -165,6 +178,7 @@ public class XmlAdaptedArticle {
                 && Objects.equals(phone, otherArticle.phone)
                 && Objects.equals(email, otherArticle.email)
                 && Objects.equals(description, otherArticle.description)
+                && Objects.equals(image, otherArticle.image)
                 && tagged.equals(otherArticle.tagged);
     }
 }

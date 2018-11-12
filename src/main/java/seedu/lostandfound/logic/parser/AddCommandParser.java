@@ -4,6 +4,7 @@ import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,6 +19,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -35,7 +37,8 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_FINDER, PREFIX_TAG);
+                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DESCRIPTION,
+                        PREFIX_IMAGE, PREFIX_FINDER, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_FINDER)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -46,10 +49,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Image image = Image.getDefault();
+        if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
+            image = ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get());
+        }
         Name finder = ParserUtil.parseName(argMultimap.getValue(PREFIX_FINDER).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Article article = new Article(name, phone, email, description, finder,
+        Article article = new Article(name, phone, email, description, image, finder,
                 DEFAULT_OWNER, DEFAULT_ISRESOLVED, tagList);
 
         return new AddCommand(article);
