@@ -1212,7 +1212,7 @@ Use case ends.
 Use case ends.
 // end::calendarusecases[]
 
-// tag:: emailUseCase[]
+// tag::emailUseCase[]
 [discrete]
 === Use case: Email students
 
@@ -1242,7 +1242,7 @@ Use case ends.
 ** 2a1. ConTAct shows an error message.
 +
 Use case ends.
-// end:: emailUseCase[]
+// end::emailUseCase[]
 
 [appendix]
 == Non Functional Requirements
