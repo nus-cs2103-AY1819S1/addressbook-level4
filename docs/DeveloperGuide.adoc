@@ -693,7 +693,7 @@ image::LoginModelSequenceDiagram.png[width="1080"]
 **Commons**
 
 .Sequence Diagram for the `LoginCommand` for the commons component.
-image::LoginCommonSequenceDiagram.png[width="1080"]
+image::LoginCommonsSequenceDiagram.png[width="1080"]
 +
 The following activity diagram summarizes what happens when a user executes `LoginCommand`:
 
