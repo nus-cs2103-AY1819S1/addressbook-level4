@@ -376,7 +376,7 @@ image::ScheduleCommand4StateDiagram.png[width="300"]
 
 The following activity diagram summarises what happens when a user executes the `ScheduleCommand`:
 
-image::ScheduleCommand5StateDiagram.png[width="400"]
+image::ScheduleCommandActivityDiagram.png[width="400"]
 
 The following sequence diagram shows how the operation itself works.
 
