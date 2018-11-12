@@ -1366,6 +1366,16 @@ Use case ends.
 *Extensions*
 
 [none]
+* 1a. The user enters an invalid command format.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to add ingredient again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
+
+[none]
 * 2a. The ingredient name entered is already in the ingredient list.
 [none]
 ** 2a1. App returns a message telling user the ingredient name already exists.
@@ -1375,15 +1385,7 @@ Steps 2a1-2a2 are repeated until an ingredient name which does not exist is ente
 +
 Use case resumes at step 3.
 
-[none]
-* 2b. The user enters an invalid command format.
-[none]
-** 2b1. App returns a message telling user that the command format is invalid.
-** 2b2. User requests to add ingredient again.
-+
-Steps 2b1-2b2 are repeated until a valid command format is entered.
-+
-Use case resumes at step 3.
+
 
 [discrete]
 === Use case: UC202 - Delete ingredient
@@ -1448,13 +1450,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The given index is invalid.
-+
+* 1a. The given index or name is invalid.
 [none]
-** 1a1. App returns a message telling user that the index is invalid.
+** 1a1. App returns a message telling user the index or name entered is invalid.
 ** 1a2. User requests to edit ingredient again.
 +
-Steps 1a1-1a2 are repeated until a valid index is entered.
+Steps 1a1-1a2 are repeated until a valid index or name is entered.
 +
 Use case resumes at step 2.
 
@@ -1468,6 +1469,16 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until at least one optional field is entered.
 +
 Use case resumes at step 2.
+
+[none]
+* 2a. The ingredient name does not exist.
+[none]
+** 2a1. App returns a message telling user that the ingredient cannot be found.
+** 2a2. User requests to edit ingredient again.
++
+Steps 2a1-2a2 are repeated until an existing ingredient name is entered.
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: UC204 - Stock up ingredient
@@ -1483,50 +1494,25 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The ingredient name does not exist.
-+
+ * 1a. The user enters an invalid format.
 [none]
-** 1a1. App returns a message telling user that the ingredient does not exist.
-** 1a2. User requests to stock up ingredient again.
-+
-Steps 1a1-1a2 are repeated until a valid ingredient name is entered.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: UC205 - Consume ingredient
-
-*MSS*
-
-1.  User requests to consume a specific ingredient.
-2.  App updates the count of the specified ingredient.
-3.  App returns a success message confirming the specified ingredient has been consumed.
-+
-Use case ends.
-
-*Extensions*
+ ** 1a1. App returns a message telling user that the command format is invalid.
+ ** 1a2. User requests to stock up ingredient again.
+ +
+ Steps 1a1-1a2 are repeated until a valid command format is entered.
+ +
+ Use case resumes at step 2.
 
 [none]
-* 1a. The ingredient name does not exist.
-+
+ * 2b. The ingredient name does not exist.
+ +
 [none]
-** 1a1. App returns a message telling user that the ingredient does not exist.
-** 1a2. User requests to consume ingredient again.
-+
-Steps 1a1-1a2 are repeated until a valid ingredient name is entered.
-+
-Use case resumes at step 2.
-
-[none]
-* 1b. The intended consumption is more than the number of units available.
-+
-[none]
-** 1b1. App informs user that there is not enough of the ingredient.
-** 1b2. User requests to consume ingredient again.
-+
-Steps 1b1-1b2 are repeated until the number of units entered is less than the number of units available.
-+
-Use case resumes at step 2.
+ ** 2b1. App returns a message telling user that the ingredient does not exist.
+ ** 2b2. User requests to stock up ingredient again.
+ +
+ Steps 2b1-2b2 are repeated until a valid ingredient name is entered.
+ +
+ Use case resumes at step 3.
 
 // tag::ucmenu[]
 [discrete]
