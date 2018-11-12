@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddOccasionCommand;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.tag.Tag;
@@ -16,13 +15,6 @@ import seedu.address.model.tag.Tag;
  * A utility class for Occasion.
  */
 public class OccasionUtil {
-
-    /**
-     * Returns an add command string for adding the {@code occasion}.
-     */
-    public static String getAddCommand(Occasion occasion) {
-        return AddOccasionCommand.COMMAND_WORD + " " + getOccasionDetails(occasion);
-    }
 
     /**
      * Returns the part of command string for the given {@code occasion}'s details.

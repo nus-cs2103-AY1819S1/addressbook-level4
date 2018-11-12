@@ -460,23 +460,26 @@ The following sequence diagram shows how the `editperson` operation works:
 `editperson 6 p/91234567 e/johndoe@example.com`
 
 image::EditPersonSequenceDiagram.png[width="500"]
- `editmodule` and `editoccasion` works in a similar way as `editperson`
+
+`editmodule` and `editoccasion` works in a similar way as `editperson`
+
+The mechanism for modifying `edit` commands to fit `insert` commands is similiar to and explained in `delete` command
 
 ==== Design Considerations
 ===== Aspect: How editperson/editmodule/editoccasion executes
-* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are totally irrelevant to each other
-**Pros:
+* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are three separate classes
+** Pros:
 *** Implementation is easy to understand
-**Cons:
+*** Easy to manage the three entity lists
+** Cons:
 *** Lack of the essence of polymorphism, which is a key feature in OOP
 * **Alternative 2 :** Let `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand`
 inherits from `EditCommand`, then use `TypeUtil` to detect the kind of entity that is going to be edited
 ** Pros:
 *** A good utilisation of polymorphism
 ** Cons:
-*** `Person`, `Module`, `Occasion` are three relatively independent entity, it could be hard to handle when using
+*** `Person`, `Module`, `Occasion` are three relatively independent entities, it could be hard to handle when using
 polymorphism and put everything together
-
 // end::edit[]
 
 // tag::insertperson[]
@@ -690,11 +693,9 @@ TheTracker (v1.4) supports exporting user data to xml file and txt file.
 ==== Current Implementation
 `ExportXmlCommand` and `ExportTxtCommand` are both inherited from `ExportCommand`, which inherits from `Command` class
 
-In order to a direct access to the `Storage` component, the method `setStorage(Storage storage)` is added to `Command` +
+In order to gain a direct access to the `Storage` component, the method `setStorage(Storage storage)` is added to `Command` +
 In order to reduce redundant code in commands that are not directly dependent on `Storage`, `setStorage(Storage storage)` is
 designed to be a non-abstract method. Only `ExportCommand` overrides this method.
-
-Both `ExportXmlCommand` and `ExportTxtCommand` inherits from `ExportCommand`.
 
 ===== For ExportXmlCommand
 The following sequence diagram shows how the `ExportXmlCommand` works.
@@ -702,10 +703,10 @@ The following sequence diagram shows how the `ExportXmlCommand` works.
 image::ExportXmlCommandSequenceDiagram.png[width="500"]
 
 ===== For ExportTxtCommand
-`ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`. +
-This interaction of `ExportTxtCommand` and `Storage` component works in the same way of `ExportXmlCommand`. +
-The difference is: `ExportTxtCommand` first stored the exported xml file `temp.xml`;
-then, the method `parse()` of `XmlToTxtUtil` will parse the xml file to a txt file with defaulted style and layout
+`ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`.
+
+This interaction of `ExportTxtCommand` and `Storage` component works in the same way of `ExportXmlCommand`. The difference is: `ExportTxtCommand` first stored the exported xml file `temp.xml`;
+then, the method `XmlToTxtUtil.parse()` will parse the xml file to a txt file with defaulted style and layout
 and stored in the `exportedFilePath` specified by the user.
 
 ==== Design Considerations
@@ -716,14 +717,14 @@ and stored in the `exportedFilePath` specified by the user.
 *** Can utilise polymorphism
 *** Can avoid unnecessary repetition of code
 ** Cons:
-*** Not consistent with the format of other command (command + parameterPrefix + parameter)
+*** Not consistent with the format of other commands (command + parameterPrefix + parameter)
 
 * **As a part of command :**
 ** Format: `exportxml fp/[FILEPATH]` and `exporttxt fp/[FILEPATH]`
 ** Pros:
 *** Can keep consistent with the format of other command (command + parameterPrefix + parameter)
 ** Cons:
-*** `ExportXmlCommand` and `ExportTxtCommand` have to be two independent command, which does not utilise polymorphism
+*** `ExportXmlCommand` and `ExportTxtCommand` have to be two independent commands, which does not utilise polymorphism
 *** Have unnecessary repetition of code
 
 ===== Aspect: The Location of valid filepath check
