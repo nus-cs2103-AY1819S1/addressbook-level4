@@ -17,6 +17,7 @@
 
 <?import javafx.scene.control.Tooltip?>
 
+<?import javafx.scene.control.ScrollPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
@@ -123,12 +124,13 @@
                             </VBox>
                         </Tab>
                     </TabPane>
-
-                    <StackPane fx:id="displayPanelPlaceholder" prefWidth="340">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
-                        </padding>
-                    </StackPane>
+                    <ScrollPane>
+                        <StackPane fx:id="displayPanelPlaceholder" prefWidth="340">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10" />
+                            </padding>
+                        </StackPane>
+                    </ScrollPane>
                 </SplitPane>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" styleClass="status-bar-with-border"/>

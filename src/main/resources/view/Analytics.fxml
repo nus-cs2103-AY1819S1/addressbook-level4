@@ -4,8 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<ScrollPane stylesheets="@Analytics.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-<AnchorPane fx:id="analyticsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1000.0" styleClass="dashboard">
+
+<AnchorPane fx:id="analyticsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1000.0" styleClass="dashboard" stylesheets="@Analytics.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="summaryBar" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="10.0">
          <font>
@@ -94,4 +94,3 @@
       </Button>
    </children>
 </AnchorPane>
-</ScrollPane>
