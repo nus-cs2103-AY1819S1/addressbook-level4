@@ -50,7 +50,7 @@ to my code on the Project Code Dashboard.
 ** Project management:
 *** Set up the team repository on GitHub
 
-*** Ensured that project deliverables are done on time and in the right format
+*** Ensured that project deliverables were done on time and in the right format
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: link:{repoURL}/76/[#76], link:{repoURL}/129/[#129]
 *** Rewrote the quick start section of the User Guide: link:{repoURL}/154/[#154]
