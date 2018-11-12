@@ -9,7 +9,7 @@
 
 == Overview
 
-U-Schedule* is a desktop calendar application for university students written for the project for the module CS2103
+*U-Schedule* is a desktop calendar application for university students written for the project for the module CS2103
 Software Engineering. The user interacts with it using a CLI, and it has a GUI created with JavaFX for user feedback.
 It is written in Java, and has about 10 kLoC.
 
@@ -25,7 +25,7 @@ It is written in Java, and has about 10 kLoC.
 ** Add a showDescriptionCommand to show description of task with a popup window.
 ** Make priorities displyed in different colors.
 
-* *Code contributed*: * https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli
+* *Code contributed*: * https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli *
 
 * *Other contributions*:
 
