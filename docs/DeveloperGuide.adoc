@@ -2202,5 +2202,5 @@ Test cases should be performed one after the other.
 
 . Mass edit expenses that are not in the ExpenseTracker
 .. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
-.. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
+.. Test case: `massedit (any keywords that would not direct to existing expenses) \-> (any edited field)` +
    Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.
