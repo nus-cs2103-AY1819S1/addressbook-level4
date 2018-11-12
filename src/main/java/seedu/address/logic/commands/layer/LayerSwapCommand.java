@@ -16,6 +16,8 @@ import seedu.address.model.Model;
  * Handles the changing of layer order.
  * Commands are in the format - layer swap [index index].
  * Invalid indexes and invalid operations are handled.
+ * The index is also used for the z-index.
+ * The lower the z-index, the further behind it will be during image composition.
  */
 
 public class LayerSwapCommand extends LayerCommand {

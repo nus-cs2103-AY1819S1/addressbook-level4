@@ -16,6 +16,7 @@ import seedu.address.model.Model;
  * Handles the deleting of layers.
  * Commands are in the format - layer delete [index].
  * Invalid indexes, locked layers are handled.
+ * Layer operations cannot be undone!
  */
 
 public class LayerDeleteCommand extends LayerCommand {
