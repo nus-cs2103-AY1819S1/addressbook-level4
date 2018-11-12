@@ -16,15 +16,21 @@ The objective of this project was to enhance a given 'address book' application 
 
 My team decided to morph the address book application into a clinic management system.
 
-Aptly named 'CLInic', it focuses on optimising efficiency for its users through the use of a Command Line Interface (hence the 'CLI' in 'CLInic')
+Aptly named 'CLInic', it focuses on optimising efficiency for its users through the use of a Command Line Interface (hence the 'CLI' in 'CLInic').
+With a CLI, users will have to navigate the application and execute commands by typing them directly on the keyboard.
 Alongside the CLI is the Graphical User Interface (GUI), which mainly serves as visual aids for the user with icons and coloured text in a user-friendly manner.
 This application uses Java as the main programming language and uses JavaFX, HTML and CSS for the GUI.
+
+CLInic primarily serves as a complete, all-in-one solution for small clinics.
+It provides clinics with a interactive and efficient system that can handle patient data, medicine stock data, and even has an integrated queue management system for day-to-day clinic operations.
 
 My main responsibility for this project was to implement the UI and storage for the application, amidst some other smaller tasks,
 such as the development of the `MedicalRecord` attribute of the `Patient`.
 I played the key role of adding the various UI elements to the application window and connecting them with the application logic.
 
 == Summary of contributions
+
+This section serves to summarise my key contributions to this project.
 
 * *Major enhancement 1*: Added the *GUI for the Patient Queue Management System (PQMS)*
 ** What it does: This GUI window, which resides near the top of the application window, displays to the user the current state of the PQMS.

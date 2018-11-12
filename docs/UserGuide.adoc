@@ -227,7 +227,7 @@ image::delete-command-example.png[width="650]
 // tag::patientsecondhalf[]
 ==== Selecting a patient: `select`
 
-Selects a patient to view his profile. +
+Need a more detailed view of a patient? Use the `select` command to view a patient's profile! +
 Alias: `s` +
 Format: `select INDEX`
 
@@ -237,9 +237,6 @@ Selects the patient at the specified `INDEX`. The index refers to the index numb
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd patient in the whole database.
 * `find Bryan` +
 `s 1` +
 Selects the 1st patient in the resulting list of the `find` command.
@@ -252,7 +249,7 @@ image::select-command-example.png[width="650"]
 // tag::addmedicalrecordcommand[]
 ==== Adding medical records of a patient: `addmedicalrecord`
 
-Updates the medical records of a patient. +
+Updating a patient's `MedicalRecord` on the fly is easy! Just use the `addMedicalRecord` command! +
 Alias: `amr` +
 Format: `addmedicalrecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASES]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
