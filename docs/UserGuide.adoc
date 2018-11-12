@@ -251,6 +251,7 @@ The index must be a positive integer 1, 2, 3, …​
 * Existing values will be updated to the input values.
 ****
 
+// tag::leaveapplication[]
 === Apply for leave : `leaveapply`
 
 Apply for leave on specific dates.
@@ -326,6 +327,7 @@ To use this command, you must have "APPROVE_LEAVE" permissions.
 Examples:
 
 * `leavereject 1`
+// end::leaveapplication[]
 
 === Search employees by name : `find`
 
