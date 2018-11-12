@@ -449,9 +449,9 @@ Step 4. The event from step 3 is deleted from the system from the `Model` compon
 [[gettingAnEvent]]
 Events are retrieved based on their date and index in the displayed events list, as shown in the diagram below.
 
-image::get-event.png[Getting an event, width="450", height="400"]
+image::get-event.png[Getting an event, width="350", height="300"]
 
-For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`.
+For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`. +
 Step 1. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
 Step 2. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
 Step 3. `DeleteEventCommand` calls `getEvent` to retrieve the event based on its index in the list from step 2. +
