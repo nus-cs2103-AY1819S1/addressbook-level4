@@ -83,7 +83,7 @@ Format: `toggle`
 ====
 Undo/Redo commands will not undo/redo the toggle command.
 ====
-// end::undoredo[]
+// end::toggle[]
 
 === Adding a person: `add`, alias `a`
 
