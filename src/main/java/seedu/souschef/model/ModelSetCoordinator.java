@@ -12,6 +12,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
 import seedu.souschef.commons.events.model.MealPlannerClearedEvent;
 import seedu.souschef.commons.events.model.RecipeDeletedEvent;
+import seedu.souschef.commons.events.model.RecipeEditedEvent;
 import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
 import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.favourite.Favourites;
@@ -125,6 +126,7 @@ public class ModelSetCoordinator implements ModelSet {
                 h.getMealPlans().remove(toDelete);
             }
         }
+
         setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
         setFeatureStorage(event.context);
@@ -134,9 +136,9 @@ public class ModelSetCoordinator implements ModelSet {
     protected void handleRecipeDeletedEvent(RecipeDeletedEvent event) {
         Recipe toDelete = event.recipe;
         mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
-        List<Day> mealPlanlist = mealPlannerModel.getFilteredList();
+        List<Day> mealPlanList = mealPlannerModel.getFilteredList();
 
-        for (Day d : mealPlanlist) {
+        for (Day d : mealPlanList) {
             for (Meal m : d.getMeals()) {
                 if (!m.isEmpty() && m.getRecipe().isSame(toDelete)) {
                     m.setRecipe(null);
@@ -147,6 +149,7 @@ public class ModelSetCoordinator implements ModelSet {
                 }
             }
         }
+
         setFeatureStorage(Context.MEAL_PLAN);
         mealPlannerModel.indicateAppContentChanged();
         setFeatureStorage(Context.RECIPE);
@@ -156,11 +159,35 @@ public class ModelSetCoordinator implements ModelSet {
     protected void handleMealPlannerClearedEvent(MealPlannerClearedEvent event) {
         healthPlanModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<HealthPlan> hpList = healthPlanModel.getFilteredList();
+
         for (HealthPlan hp : hpList) {
             hp.getMealPlans().clear();
         }
+
         setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
         setFeatureStorage(Context.MEAL_PLAN);
+    }
+
+    @Subscribe
+    protected void handleRecipeEditedEvent(RecipeEditedEvent event) {
+        mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<Day> mealPlanList = mealPlannerModel.getFilteredList();
+        Recipe oldRecipe = event.oldRecipe;
+        Recipe newRecipe = event.newRecipe;
+
+        for (Day d : mealPlanList) {
+            for (Meal m : d.getMeals()) {
+                if (!m.isEmpty() && m.getRecipe().isSame(oldRecipe)) {
+                    m.setRecipe(newRecipe);
+                }
+            }
+        }
+
+        setFeatureStorage(Context.MEAL_PLAN);
+        mealPlannerModel.indicateAppContentChanged();
+        setFeatureStorage(Context.HEALTH_PLAN);
+        healthPlanModel.indicateAppContentChanged();
+        setFeatureStorage(Context.RECIPE);
     }
 }
