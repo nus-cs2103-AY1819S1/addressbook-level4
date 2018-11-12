@@ -3,8 +3,8 @@ package seedu.clinicio.ui;
 //@@author aaronseahyh
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.clinicio.model.medicine.Medicine;
@@ -23,8 +23,6 @@ public class MedicineCard extends UiPart<Region> {
     @FXML
     private Label medicineName;
     @FXML
-    private Label id;
-    @FXML
     private Label medicineType;
     @FXML
     private Label effectiveDosage;
@@ -34,6 +32,8 @@ public class MedicineCard extends UiPart<Region> {
     private Label price;
     @FXML
     private Label quantity;
+    @FXML
+    private Label id;
 
     public MedicineCard(Medicine medicine, int displayedIndex) {
         super(FXML);

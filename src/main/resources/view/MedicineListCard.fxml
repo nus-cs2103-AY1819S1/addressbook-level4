@@ -24,9 +24,9 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+                <Label fx:id="medicineName" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
+            <Label fx:id="medicineType" styleClass="cell_small_label" text="\$type" />
             <Label fx:id="effectiveDosage" styleClass="cell_small_label" text="\$effective dosage" />
             <Label fx:id="lethalDosage" styleClass="cell_small_label" text="\$lethal dosage" />
             <Label fx:id="price" styleClass="cell_small_label" text="\$price" />

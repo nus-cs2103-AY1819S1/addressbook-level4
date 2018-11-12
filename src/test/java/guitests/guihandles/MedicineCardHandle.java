@@ -13,10 +13,10 @@ import seedu.clinicio.model.medicine.Medicine;
 public class MedicineCardHandle extends NodeHandle<Node> {
 
     private static final String ID_FIELD_ID = "#id";
-    private static final String MEDICINE_NAME_FIELD_ID = "#medicine name";
-    private static final String MEDICINE_TYPE_FIELD_ID = "#type";
-    private static final String EFFECTIVE_DOSAGE_FIELD_ID = "#effective dosage";
-    private static final String LETHAL_DOSAGE_FIELD_ID = "#lethal dosage";
+    private static final String MEDICINE_NAME_FIELD_ID = "#medicineName";
+    private static final String MEDICINE_TYPE_FIELD_ID = "#medicineType";
+    private static final String EFFECTIVE_DOSAGE_FIELD_ID = "#effectiveDosage";
+    private static final String LETHAL_DOSAGE_FIELD_ID = "#lethalDosage";
     private static final String MEDICINE_PRICE_FIELD_ID = "#price";
     private static final String MEDICINE_QUANTITY_FIELD_ID = "#quantity";
 

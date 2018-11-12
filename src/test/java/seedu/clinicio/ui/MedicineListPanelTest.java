@@ -105,10 +105,10 @@ public class MedicineListPanelTest extends GuiUnitTest {
         builder.append("<clinicio>\n");
         for (int i = 0; i < medicineCount; i++) {
             builder.append("<medicines>\n");
-            builder.append("<medicine name>").append(i).append("a</medicine name>\n");
-            builder.append("<medicine type>Tablet</medicine type>\n");
-            builder.append("<effective dosage>2</effective dosage>\n");
-            builder.append("<lethal dosage>8</lethal dosage>\n");
+            builder.append("<medicineName>").append(i).append("a</medicineName>\n");
+            builder.append("<medicineType>Tablet</medicineType>\n");
+            builder.append("<effectiveDosage>2</effectiveDosage>\n");
+            builder.append("<lethalDosage>8</lethalDosage>\n");
             builder.append("<price>21.03</price>\n");
             builder.append("<quantity>2103</quantity>\n");
             builder.append("</medicines>\n");
