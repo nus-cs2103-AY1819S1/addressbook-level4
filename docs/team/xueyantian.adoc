@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: TheTracker
+== PROJECT: TheTracker (v1.4)
 
 ---
 
@@ -62,14 +62,15 @@ _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+
 include::../UserGuide.adoc[tag=add]
 
 include::../UserGuide.adoc[tag=find]
+
 
 == Contributions to the Developer Guide
 
@@ -77,9 +78,9 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=add]
+include::../DeveloperGuide.adoc[tag=delete]
 
-include::../DeveloperGuide.adoc[tag=find]
+include::../DeveloperGuide.adoc[tag=add]
 
 == PROJECT: PowerPointLabs
 

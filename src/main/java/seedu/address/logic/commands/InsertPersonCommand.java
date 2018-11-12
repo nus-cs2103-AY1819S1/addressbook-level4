@@ -24,6 +24,10 @@ public class InsertPersonCommand extends Command {
     public static final String COMMAND_WORD = "insertperson";
     public static final String MESSAGE_SUCCESS_INSERT_INTO_MODULE = "Successfully inserted person into module.";
     public static final String MESSAGE_SUCCESS_INSERT_INTO_OCCASION = "Successfully inserted person into occasion";
+    public static final String MESSAGE_FAILURE_PERSON_ALREADY_IN_MODULE =
+            "Person has already been added to module.";
+    public static final String MESSAGE_FAILURE_PERSON_ALREADY_IN_OCCASION =
+            "Person as already been added to occasion";
     public static final String MESSAGE_FAILURE = "Failed to insert person.";
     public static final String MESSAGE_INCORRECT_INDEX = "Please enter a valid index.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a person into a module/occasion "
@@ -65,13 +69,13 @@ public class InsertPersonCommand extends Command {
 
             if (moduleToReplace.getStudents().contains(personToReplace)
                     && personToReplace.getModuleList().contains(moduleToReplace)) {
-                throw new CommandException(MESSAGE_FAILURE);
+                throw new CommandException(MESSAGE_FAILURE_PERSON_ALREADY_IN_MODULE);
             }
 
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 moduleToReplace.makeDeepDuplicate(),
-                                personToReplace.makeDeepDuplicate(),
-                                moduleToReplace.makeDeepDuplicate(),
+                                personToReplace.makeShallowDuplicate(),
+                                moduleToReplace.makeShallowDuplicate(),
                                 personToReplace, moduleToReplace);
             model.commitAddressBook();
             AttendanceListUtil.postRefreshEvent(model);
@@ -91,13 +95,13 @@ public class InsertPersonCommand extends Command {
 
             if (occasionToReplace.getAttendanceList().contains(personToReplace)
                     && personToReplace.getOccasionList().contains(occasionToReplace)) {
-                throw new CommandException(MESSAGE_FAILURE);
+                throw new CommandException(MESSAGE_FAILURE_PERSON_ALREADY_IN_OCCASION);
             }
 
             model.insertPerson(personToReplace.makeDeepDuplicate(),
                                 occasionToReplace.makeDeepDuplicate(),
                                 personToReplace.makeShallowDuplicate(),
-                                occasionToReplace.makeDeepDuplicate(),
+                                occasionToReplace.makeShallowDuplicate(),
                                 personToReplace, occasionToReplace);
             model.commitAddressBook();
             AttendanceListUtil.postRefreshEvent(model);

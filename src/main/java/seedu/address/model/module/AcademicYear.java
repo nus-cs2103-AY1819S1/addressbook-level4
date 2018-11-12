@@ -43,8 +43,8 @@ public class AcademicYear {
     /**
      * Makes an identical deep copy of this academic year.
      */
-    public AcademicYear makeDeepDuplicate() {
-        AcademicYear newYear = new AcademicYear(new String(yearNumber.toString()));
+    public AcademicYear makeCopy() {
+        AcademicYear newYear = new AcademicYear(toString());
         return newYear;
     }
 
@@ -58,6 +58,8 @@ public class AcademicYear {
         Integer combinedYear = Integer.parseInt(number);
         Integer firstYear = combinedYear / 100;
         Integer secondYear = combinedYear % 100;
+
+        // ensure that years are consecutive
         return (firstYear + 1) % 100 == secondYear;
     }
 

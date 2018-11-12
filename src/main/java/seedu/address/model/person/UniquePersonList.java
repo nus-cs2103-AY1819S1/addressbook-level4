@@ -58,7 +58,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Makes an copy of this UniquePersonList with shallow copies of the persons inside.
+     * Makes a copy of this UniquePersonList with shallow copies of the persons inside.
      */
     public UniquePersonList makeShallowDuplicate() {
         List<Person> newList = this.internalList.stream()
@@ -155,6 +155,10 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public List<Person> asNormalList() {
         return internalList.stream().collect(Collectors.toList());
+    }
+
+    public int getSize() {
+        return internalList.size();
     }
 
     @Override

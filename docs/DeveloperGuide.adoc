@@ -279,6 +279,11 @@ TheTracker to be able to track the modules a person takes, as
 well as the occasions he participates in.
 // end::supportforocassionandmodule[]
 
+=== Add Person/Module/Occasion Feature
+The add feature is currently implemented the same way to add persons, modules and occasions.
+There are thus three similar commands which are related to this add command:
+`addperson`, `addmodule`, `addoccasion`.
+
 // tag::find[]
 === Find Person/Module/Occasion Feature
 The find feature currently is implemented the same way to find persons, modules, and occasions.
@@ -1240,7 +1245,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |NUS Student |create a profile of myself and be able to edit it to join the address book |I can share my schedule and profile with other people
+|`* * *` |NUS Student |create a profile of myself and be able to edit it to join theTracker |I can share my schedule and profile with other people
 
 |`* * *` |NUS Student |find other students in the same faculty/major |I can network with them
 

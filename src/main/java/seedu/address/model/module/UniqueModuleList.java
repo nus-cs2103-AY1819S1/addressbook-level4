@@ -64,8 +64,9 @@ public class UniqueModuleList implements Iterable<Module> {
         return new UniqueModuleList(newList);
     }
 
+    //@@author waytan
     /**
-     * Makes an copy of this UniqueModuleList with shallow copies of the modules inside.
+     * Makes a copy of this UniqueModuleList with shallow copies of the modules inside.
      */
     public UniqueModuleList makeShallowDuplicate() {
         List<Module> newList = this.internalList.stream()
@@ -93,6 +94,7 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.set(index, editedModule);
     }
 
+    //@@author
     /**
      * Removes the designated module from the internal list.
      */

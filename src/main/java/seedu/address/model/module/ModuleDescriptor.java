@@ -36,6 +36,7 @@ public class ModuleDescriptor {
         setAcademicYear(toCopy.academicYear);
         setSemester(toCopy.semester);
         setTags(toCopy.tags);
+        setStudents(toCopy.getStudents().orElse(null));
     }
 
     /**

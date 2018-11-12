@@ -36,7 +36,7 @@ public class Phone {
     /**
      * Makes an identical deep copy of this Phone.
      */
-    public Phone makeDeepDuplicate() {
+    public Phone makeCopy() {
         if (this.value.equals("")) {
             return new Phone();
         }

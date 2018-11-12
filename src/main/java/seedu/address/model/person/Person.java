@@ -138,17 +138,12 @@ public class Person {
      * Makes an identical deep copy of this person.
      */
     public Person makeDeepDuplicate() {
-        Name newName = this.name.makeDeepDuplicate();
-        Phone newPhone = this.phone.makeDeepDuplicate();
-        Email newEmail = this.email.makeDeepDuplicate();
-        Address newAddress = this.address.makeDeepDuplicate();
-        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
-        UniqueOccasionList newUniqueOccasionList;
-        if (this.occasionList != null) {
-            newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
-        } else {
-            newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
-        }
+        Name newName = this.name.makeCopy();
+        Phone newPhone = this.phone.makeCopy();
+        Email newEmail = this.email.makeCopy();
+        Address newAddress = this.address.makeCopy();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeCopy()).collect(Collectors.toSet());
+        UniqueOccasionList newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
         UniqueModuleList newUniqueModuleList = this.moduleList.makeDeepDuplicate();
         return new Person(newName, newPhone, newEmail, newAddress, newTag,
                             newUniqueOccasionList.asUnmodifiableObservableList(),
@@ -159,11 +154,11 @@ public class Person {
      * Makes an identical copy of this person with empty module and occasion lists.
      */
     public Person makeShallowDuplicate() {
-        Name newName = this.name.makeDeepDuplicate();
-        Phone newPhone = this.phone.makeDeepDuplicate();
-        Email newEmail = this.email.makeDeepDuplicate();
-        Address newAddress = this.address.makeDeepDuplicate();
-        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        Name newName = this.name.makeCopy();
+        Phone newPhone = this.phone.makeCopy();
+        Email newEmail = this.email.makeCopy();
+        Address newAddress = this.address.makeCopy();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeCopy()).collect(Collectors.toSet());
         UniqueOccasionList newUniqueOccasionList = new UniqueOccasionList();
         UniqueModuleList newUniqueModuleList = new UniqueModuleList();
         return new Person(newName, newPhone, newEmail, newAddress, newTag,
