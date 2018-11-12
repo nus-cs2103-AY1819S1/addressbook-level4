@@ -558,7 +558,20 @@ Similarly, when a user executes a `sort` command, an appropriate `Comparator<Per
 ==== Design considerations
 
 Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
-list.
+list. +
+
+image::findThenSortExample.png[width="800"]
+
+An example can be seen in the diagram above by executing the command `find p s/yu li` followed by `sort name`.
+After applying the `sort` command, the `find` filter remains applied. The next example will demonstrate a different order. +
+
+image::sortThenFindExample.png[width="800"]
+
+The diagram above shows another example of back-to-back execution.
+The diagram shows the execution of `sort name` followed by `find p s/yeoh li`.
+As can be seen in the diagram, the sorting order remains even after executing the `find` command.
+
+
 // end::sortfind[]
 
 // tag::undoredo[]

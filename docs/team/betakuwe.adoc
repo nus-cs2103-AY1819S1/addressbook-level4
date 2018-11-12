@@ -8,7 +8,7 @@ Welcome to my project portfolio. I am Benjamin and I am a computing science stud
 This project portfolio will detail the contributions I have made to various Software Engineering projects.
 
 
-== Project Overview: MeetingBook
+== PROJECT: MeetingBook
 
 MeetingBook is a desktop scheduler application targeted at university students involved in multiple
 Co-Curricular Activities and Project-Based modules. The application is a modified contact book with features to group
@@ -43,21 +43,19 @@ https://github.com/CS2103-AY1819S1-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+aut
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases v1.1 - v1.3 (3 releases) on GitHub
 
 *** Wrote tests to increase coverage from 93% to 94%
 (https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[Pull request])
 
+** Enhancements to existing features:
+*** Enhanced `find` command: https://github.com/CS2103-AY1819S1-W17-3/main/pull/86[#86],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[#134]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-
+*** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/161[#161],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/95[#95]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-3/main/pull/211[#211]
 
 == Contributions to the User Guide
 

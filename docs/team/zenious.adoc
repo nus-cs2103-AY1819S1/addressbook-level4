@@ -31,7 +31,7 @@ MeetingBook is a desktop scheduler application targeted at university students i
 *** Managed releases v1.1 - v1.3.1 (5 releases) on GitHub
 
 ** Enhancements to existing features:
-*** refactoring of Address Book to MeetingBoo: https://github.com/CS2103-AY1819S1-W17-3/main/pull/157[#157]
+*** refactoring of Address Book to MeetingBook: https://github.com/CS2103-AY1819S1-W17-3/main/pull/157[#157]
 ** Documentation:
 *** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/36[#36], https://github.com/CS2103-AY1819S1-W17-3/main/pull/56[#56], https://github.com/CS2103-AY1819S1-W17-3/main/pull/94[#94], https://github.com/CS2103-AY1819S1-W17-3/main/pull/141[#141], https://github.com/CS2103-AY1819S1-W17-3/main/pull/160[#160]
 ** Community:
