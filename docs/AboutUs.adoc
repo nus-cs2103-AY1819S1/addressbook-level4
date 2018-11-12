@@ -12,10 +12,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === David Choo
 image::hidingmode.png[width="130", align="left"]
-{empty}[http://github.com/hidingmode[Github]] [<<johndoe#, Portfolio>>]
+{empty}[http://github.com/hidingmode[Github]] [<<hidingmode#, Portfolio>>]
 
-Roles: Project lead, task master +
-Responsibilities: Model refactoring and player implementation
+Roles: Project lead, developer +
+Responsibilities: Player and command implementation, refactoring coordinator
 
 '''
 
@@ -39,7 +39,7 @@ Responsibilities: UI and command implementation
 
 === Hayden Phillips
 image::haydenphillips.png[width="150", align="left"]
-{empty}[http://github.com/HaydenPhillips[Github]] [<<johndoe#, Portfolio>>]
+{empty}[http://github.com/HaydenPhillips[Github]] [<<haydenphillips#, Portfolio>>]
 
 Roles: Keynote lead, developer +
 Responsibilities: Logic refactoring and command implementation
