@@ -352,7 +352,7 @@ Step 3. `ScheduleCommand` then executes.
 `ScheduleCommand` then conducts various checks sequentially to ensure that the appointment scheduled is valid.
 If it is invalid, an exception message will be thrown.
 The `Appointment` will not be scheduled.
-The order of checks conducted are displayed in the image below.
+The order of checks conducted is displayed in the image below.
 
 image::AppointmentCheckingFlow.png[width="800"]
 
@@ -364,7 +364,7 @@ This is shown in the diagram below.
 
 image::ScheduleCommandStep4.png[width="800"]
 
-The above procedure in step 4 is then repeated for the other person (e.g. other person is a doctor if specified person is a patient) affected in the scheduling process.
+The above procedure in step 4 is then repeated for the other person (e.g. the other person is a doctor if the specified person is a patient) involved in the scheduling process.
 
 Step 5. `XmlAdaptedPerson` updates storage of `appointmentList`.
 
