@@ -1968,6 +1968,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `add n/cs2100 d/999999 p/3 v/home` +
    Expected: No task is added. Error details shown for date field.
 
+=== Adding a recurring task
+
+. Adding a recurring task to the task list
+
+.. Test case: `repeat r/5 i/1 n/go to school d/030118 v/NUS p/3` +
+   Expected: Five tasks with the same name, priority, venue, but with differing dates of 3, 4, 5, 6, 7 Nov 2018 are added to the list.
+   The tasks are reflected in the task list panel. Status bar is updated.
+.. Test case: `repeat r/17 i/1 n/sleep d/010101 v/home p/1` +
+   Expected: No tasks are added. Error details shown in status message. Status bar remains the same.
+.. Test case: `repeat r/2 i/0 n/sleep d/010101 v/home p/1` +
+   Expected: No tasks are added. Error details shown in status message. Status bar remains the same.
+
+=== Viewing overdue tasks
+
+. Viewing tasks due on dates before the current date
+
+.. Test case: listoverdue +
+   Expected: All tasks with dates before the current date are displayed in the task list panel. Status bar remains the same.
+
 === Editing a task
 
 . Editing a task from the task list
