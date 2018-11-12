@@ -35,6 +35,7 @@ If you are new to development, you can try working step-by-step tutorial from Or
 If you are new to contributing to ClinicIO, head over to <<intro, Introduction>> to have
 an overview of our project.
 
+[[intro]]
 == Introduction
 
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
