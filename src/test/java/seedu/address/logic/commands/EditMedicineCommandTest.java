@@ -108,8 +108,40 @@ public class EditMedicineCommandTest {
 
     @Test
     public void execute_duplicateMedicineUnfilteredList_failure() {
-        Medicine firstPatient = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
-        MedicineDescriptor descriptor = new MedicineDescriptorBuilder(firstPatient).build();
+        Medicine firstMedicine = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
+        MedicineDescriptor descriptor = new MedicineDescriptorBuilder(firstMedicine).build();
+        EditMedicineCommand editCommand = new EditMedicineCommand(INDEX_SECOND_MEDICINE, descriptor);
+
+        assertCommandFailure(editCommand, model, commandHistory, EditMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
+    }
+
+    @Test
+    public void execute_duplicateMedicineNameUnfilteredList_failure() {
+        Medicine firstMedicine = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
+        MedicineDescriptor descriptor = new MedicineDescriptorBuilder(firstMedicine)
+                .withMedicineName("Acetaminophen").build();
+        EditMedicineCommand editCommand = new EditMedicineCommand(INDEX_SECOND_MEDICINE, descriptor);
+
+        assertCommandFailure(editCommand, model, commandHistory, EditMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
+    }
+
+    @Test
+    public void execute_duplicateSerialNumberUnfilteredList_failure() {
+        Medicine firstMedicine = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
+        MedicineDescriptor descriptor = new MedicineDescriptorBuilder(firstMedicine)
+                .withSerialNumber("1234522").build();
+        EditMedicineCommand editCommand = new EditMedicineCommand(INDEX_SECOND_MEDICINE, descriptor);
+
+        assertCommandFailure(editCommand, model, commandHistory, EditMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
+    }
+
+    @Test
+    public void execute_duplicateMedicineNameAndSerialNumberUnfilteredList_failure() {
+        Medicine firstMedicine = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
+        MedicineDescriptor descriptor = new MedicineDescriptorBuilder(firstMedicine)
+                .withMedicineName("Acetaminophen")
+                .withSerialNumber("1234522")
+                .build();
         EditMedicineCommand editCommand = new EditMedicineCommand(INDEX_SECOND_MEDICINE, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
@@ -142,7 +174,7 @@ public class EditMedicineCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidMedicineIndexFilteredList_failure() {
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
         Index outOfBoundIndex = INDEX_SECOND_MEDICINE;
         // ensures that outOfBoundIndex is still in bounds of address book list

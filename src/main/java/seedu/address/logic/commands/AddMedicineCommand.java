@@ -51,6 +51,21 @@ public class AddMedicineCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        checkMedicineToAddIsUnique(model);
+
+        model.addMedicine(toAdd);
+        model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new ShowMedicineListEvent());
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Checks if the properties of the medicine to add is already used by other medicine,
+     * so that there would not be a case where two medicines share the same name or serial number.
+     */
+    private void checkMedicineToAddIsUnique(Model model) throws CommandException {
         if (model.hasMedicine(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
@@ -62,13 +77,6 @@ public class AddMedicineCommand extends Command {
         if (model.hasSerialNumber(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SERIAL_NUMBER);
         }
-
-        model.addMedicine(toAdd);
-        model.commitAddressBook();
-
-        EventsCenter.getInstance().post(new ShowMedicineListEvent());
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
