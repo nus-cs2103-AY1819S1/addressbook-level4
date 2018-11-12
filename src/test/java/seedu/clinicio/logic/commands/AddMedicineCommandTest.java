@@ -1,35 +1,34 @@
 package seedu.clinicio.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+//@@author aaronseahyh
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST;
-import static seedu.clinicio.logic.commands.AddPatientCommand.MESSAGE_DUPLICATE_PATIENT;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALEX;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BRYAN;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
+import static seedu.clinicio.logic.commands.AddMedicineCommand.MESSAGE_DUPLICATE_MEDICINE;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINENAME_PARACETAMOL;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_ORACORT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_MEDICINETYPE_PARACETAMOL;
 import static seedu.clinicio.testutil.TypicalPersons.ALAN;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
-
 import seedu.clinicio.logic.commands.exceptions.CommandException;
+
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ReadOnlyClinicIo;
@@ -42,10 +41,10 @@ import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
-import seedu.clinicio.testutil.PatientBuilder;
+import seedu.clinicio.testutil.MedicineBuilder;
 import seedu.clinicio.ui.Ui;
 
-public class AddPatientCommandTest {
+public class AddMedicineCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -54,93 +53,84 @@ public class AddPatientCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
-    @Before
-    public void setUp() {
+    @Test
+    public void constructor_nullMedicine_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new AddMedicineCommand(null);
+    }
+
+    @Test
+    public void execute_medicineAcceptedByModel_addSuccessful() throws Exception {
         UserSession.destroy();
         UserSession.create(ALAN);
-    }
 
-    @Test
-    public void constructor_nullPatient_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new AddPatientCommand(null);
-    }
+        ModelStubAcceptingMedicineAdded modelStub = new ModelStubAcceptingMedicineAdded();
+        Medicine validMedicine = new MedicineBuilder().build();
 
-    @Test
-    public void execute_patientAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
-        Patient validPatient = new PatientBuilder().build();
+        CommandResult commandResult = new AddMedicineCommand(validMedicine).execute(modelStub, commandHistory);
 
-        CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddPatientCommand.MESSAGE_SUCCESS, validPatient), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPatient), modelStub.patientsAdded);
+        assertEquals(String.format(AddMedicineCommand.MESSAGE_SUCCESS, validMedicine), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validMedicine), modelStub.medicinesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePatient_throwsCommandException() throws Exception {
+    public void execute_duplicateMedicine_throwsCommandException() throws Exception {
+        UserSession.destroy();
+        UserSession.create(ALAN);
 
-        Patient validPatient = new PatientBuilder().build();
-        AddPatientCommand addCommand = new AddPatientCommand(validPatient);
-        ModelStub modelStub = new ModelStubWithPatient(validPatient);
+        Medicine validMedicine = new MedicineBuilder().build();
+        AddMedicineCommand addMedicineCommand = new AddMedicineCommand(validMedicine);
+        ModelStub modelStub = new ModelStubWithMedicine(validMedicine);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_DUPLICATE_PATIENT);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(MESSAGE_DUPLICATE_MEDICINE);
+        addMedicineCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_staffNotLogin_throwsCommandException() throws Exception {
         UserSession.destroy();
 
-        Patient validPatient = new PatientBuilder().build();
-        AddPatientCommand addCommand = new AddPatientCommand(validPatient);
-        ModelStub modelStub = new ModelStubWithPatient(validPatient);
+        Medicine validMedicine = new MedicineBuilder().build();
+        AddMedicineCommand addMedicineCommand = new AddMedicineCommand(validMedicine);
+        ModelStub modelStub = new ModelStubWithMedicine(validMedicine);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
-        addCommand.execute(modelStub, commandHistory);
+        addMedicineCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Patient alex = new PatientBuilder().withName(VALID_NAME_ALEX).withNric(VALID_NRIC_ALEX).build();
-        Patient bryan = new PatientBuilder().withName(VALID_NAME_BRYAN).withNric(VALID_NRIC_BRYAN).build();
-        AddPatientCommand addAlexCommand = new AddPatientCommand(alex);
-        AddPatientCommand addBryanCommand = new AddPatientCommand(bryan);
+        Medicine oracort = new MedicineBuilder().withMedicineName(VALID_MEDICINENAME_ORACORT)
+                .withMedicineType(VALID_MEDICINETYPE_ORACORT).build();
+        Medicine paracetamol = new MedicineBuilder().withMedicineName(VALID_MEDICINENAME_PARACETAMOL)
+                .withMedicineType(VALID_MEDICINETYPE_PARACETAMOL).build();
+        AddMedicineCommand addOracortCommand = new AddMedicineCommand(oracort);
+        AddMedicineCommand addParacetamolCommand = new AddMedicineCommand(paracetamol);
 
         // same object -> returns true
-        assertTrue(addAlexCommand.equals(addAlexCommand));
+        assertTrue(addOracortCommand.equals(addOracortCommand));
 
         // same values -> returns true
-        AddPatientCommand addAlexCommandCopy = new AddPatientCommand(alex);
-        assertTrue(addAlexCommand.equals(addAlexCommandCopy));
+        AddMedicineCommand addOracortCommandCopy = new AddMedicineCommand(oracort);
+        assertTrue(addOracortCommand.equals(addOracortCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAlexCommand.equals(1));
+        assertFalse(addOracortCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAlexCommand.equals(null));
+        assertFalse(addOracortCommand == null);
 
         // different person -> returns false
-        assertFalse(addAlexCommand.equals(addBryanCommand));
+        assertFalse(addOracortCommand.equals(addParacetamolCommand));
     }
 
     /**
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        //@@author iamjackslayer
-        @Override
-        public void updateQueue(Predicate<Patient> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Patient> getAllPatientsInQueue() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void addUi(Ui ui) {
@@ -224,6 +214,11 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public ObservableList<Patient> getAllPatientsInQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Staff> getFilteredStaffList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -287,6 +282,11 @@ public class AddPatientCommandTest {
 
         @Override
         public void enqueueIntoPreferenceQueue(Person patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateQueue(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -435,20 +435,20 @@ public class AddPatientCommandTest {
     }
 
     /**
-     * A Model stub that contains a single patient.
+     * A Model stub that contains a single medicine.
      */
-    private class ModelStubWithPatient extends AddPatientCommandTest.ModelStub {
-        private final Patient patient;
+    private class ModelStubWithMedicine extends AddMedicineCommandTest.ModelStub {
+        private final Medicine medicine;
 
-        ModelStubWithPatient(Patient patient) {
-            requireNonNull(patient);
-            this.patient = patient;
+        ModelStubWithMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            this.medicine = medicine;
         }
 
         @Override
-        public boolean hasPatient(Patient patient) {
-            requireNonNull(patient);
-            return this.patient.isSamePatient(patient);
+        public boolean hasMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            return this.medicine.isSameMedicine(medicine);
         }
 
         @Override
@@ -458,21 +458,21 @@ public class AddPatientCommandTest {
     }
 
     /**
-     * A Model stub that always accept the patient being added.
+     * A Model stub that always accept the medicine being added.
      */
-    private class ModelStubAcceptingPatientAdded extends AddPatientCommandTest.ModelStub {
-        final ArrayList<Patient> patientsAdded = new ArrayList<>();
+    private class ModelStubAcceptingMedicineAdded extends AddMedicineCommandTest.ModelStub {
+        private final ArrayList<Medicine> medicinesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPatient(Patient patient) {
-            requireNonNull(patient);
-            return patientsAdded.stream().anyMatch(patient::isSamePatient);
+        public boolean hasMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            return medicinesAdded.stream().anyMatch(medicine::isSameMedicine);
         }
 
         @Override
-        public void addPatient(Patient patient) {
-            requireNonNull(patient);
-            patientsAdded.add(patient);
+        public void addMedicine(Medicine medicine) {
+            requireNonNull(medicine);
+            medicinesAdded.add(medicine);
         }
 
         @Override
