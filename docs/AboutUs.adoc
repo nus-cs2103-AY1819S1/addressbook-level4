@@ -31,7 +31,7 @@ Responsibilities: Logic
 
 === Liu Zhaoyu
 image::lzyandy.png[width="150", align="left"]
-{empty}[http://github.com/LZYAndy[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/LZYAndy[github]] [<<lzyandy#, portfolio>>]
 
 Role: Documentation + Code quality
 
@@ -41,7 +41,7 @@ Responsibilities: Model
 
 === Ong Junjie
 image::junjiee.png[width="150", align="left"]
-{empty}[http://github.com/junjiee[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/junjiee[github]] [<<junjiee#, portfolio>>]
 
 Role: Code quality
 
