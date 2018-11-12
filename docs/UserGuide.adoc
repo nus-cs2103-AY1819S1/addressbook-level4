@@ -397,6 +397,9 @@ returns a list of students whose tuition fee is greater or equals to $24/hour.
 If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
+
+image::Fee.png[width="790"]
+
 // end::filter1[]
 
 // tag::filter2[]
@@ -423,6 +426,9 @@ If no students qualify the filter criteria, an empty list is returned along with
 
 The input of the education level must be "JC" "Secondary" or "Primary". Other input will be considered invalid input.
 ====
+
+image::Education.png[width="790"]
+
 // end::filter2[]
 
 // tag::filter3[]
@@ -446,6 +452,8 @@ If the input minimal grade is larger than maximal grade, then it will be regarde
 
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
+
+image::Grade.png[width="790"]
 // end::filter3[]
 
 // tag::filter4[]
@@ -469,6 +477,7 @@ The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "w
 
 If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
+image::Time.png[width="790"]
 // end::filter4[]
 
 // tag::suggestq[]
