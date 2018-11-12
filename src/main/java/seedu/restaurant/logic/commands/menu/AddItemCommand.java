@@ -24,7 +24,7 @@ public class AddItemCommand extends Command {
 
     public static final String COMMAND_ALIAS = "ai";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the menu. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the menu.\n"
             + "Parameters: "
             + PREFIX_NAME + "ITEM_NAME "
             + PREFIX_PRICE + "ITEM_PRICE "
