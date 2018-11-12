@@ -260,6 +260,38 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag:CalendarModel[]
+=== Calendar Model
+==== Implementation
+
+The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
+
+`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the calendar, such as the title, description, start and end date/time, venue and tags.
+
+`Title`, `Description` and `Venue` now inherit from a `TextField` parent class, to represent fields in the model that store string data.
+
+`DateTime` stores and validates the input start and end date/time of each event in the calendar.
+
+`DateTimeInfo` validates that the start date/time are not after the end date/time.
+
+`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
+New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
+
+Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
+
+Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
+
+Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
+
+Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
+
+Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
+
+Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
+
+Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the calendar GUI.
+// end::CalendarModel[]
+
 // tag::ToDoList[]
 === ToDoList feature
 ==== Current implementation
@@ -439,90 +471,50 @@ The Filter by Date/Time and Tags feature is achieved by allowing the aforementio
 
 The feature to show the most relevant search results first is achieved by sorting the `FilteredList`, by wrapping it with a `SortedList`, and changing the `Comparator` used based on the input command.
 
-Finally, the `FindEventCommandParser` and the `ArgumentTokenizer` were modified to accept commands that may or may not have keywords (i.e. preamble), and handle having varying numbers of prefixes in each command.
+The `FindEventCommandParser` and the `ArgumentTokenizer` were modified to accept commands that may or may not have keywords (i.e. preamble), and handle having varying numbers of prefixes in each command.
 
-====== Model
-Firstly, to allow for fuzzy matching, the `fuzzywuzzy` API was used
+Finally, the GUI `CalendarPanel` was modified to access the new `SortedList` instead of the `FilteredList` so as to display the most relevant results first.
 
-The existing `TitleContainsKeywordsPredicate` was modified such that the `test` method checks if the `keyword` matches the `Title` of the `CalendarEvent` using a fuzzy algorithm based on Levenshtein distance between strings, and assigns an integer score to the match.
-If this score is under the `threshold` of 70, the `Predicate` will filter out the `CalendarEvent` from the `ObservableList`.
+===== Model - Predicates, Comparators and SortedList
+To allow for fuzzy matching, the `fuzzywuzzy` API was used. This allows us to compare strings using using a fuzzy algorithm based on Levenshtein distance between the strings. It assigns an integer match score from 1-100 for each pair of strings. If this score was above the threshold of 70, the retooled `FuzzySearchFilterPredicate` would allow it to be seen. This score was also used to compare events in our `FuzzySearchComparator`.
 
-The Filter by Tags enhancement is achieved using a second `Predicate`, the `TagsPredicate`. This `Predicate` will `test`
-the `CalendarEvent` by checking if any of its `Tags` matches with any of the user input `tags`. The `Predicate` will
-filter out all events that do not contain any of the specified tags.
+To implement the extra filters in conjunction with the fuzzy search, the `UpdateFilteredCalendarEventList` method was modified to allow for variable number (at least 1) of input `Predicate<CalendarEvent>` arguments. The method would then combine the input `Predicates` into a single `Predicate` by taking their logical AND. The combined `Predicate` would then be used to filter the `FilteredList`.
 
-Finally, the `FilteredList` is wrapped in a `SortedList`, and sorted based on `FuzzySearchComparator`. This comparator
-uses the aforementioned fuzzy match score, and sorts the `CalendarEvents` in descending order of match score.
+To allow users to filter by date/time, a new predicate, `DateTimePredicate` was created with 2 `DateTime` objects to set the `dateFrom` and `dateTo` for the filter. The `DateTime` objects were allowed to be null - this allowed for only 1 `DateTime` (either from or to) to be specified, so as to reduce the restrictions on users. If both `DateTime` objects were null, it would always return true - allowing it to be AND-ed with the other `Predicates` by the `ModelManager` without interfering with the filters.
+
+To allow users to filter by tags, a new predicate, `TagsPredicate` was created. This stored a `Set` of input tag `Strings`, and if all of them had a full (but case-insensitive) match with at least one of the event's `Tags`, then the event would be shown. The `Set` is allowed to be empty - similar to the implementation of the `DatePredicate`, this case would always return true.
+
+The existing `ModelManager` attributes and methods were insufficient to show the most relevant search results first, as this would require sorting. As a result, we created a new `FuzzySearchComparator` to sort the `CalendarEvents` based on the aforementioned fuzzy match score, in descending order. In order to let users see this, we created a new `SortedList` to the `ModelManager`, to sort the existing `FilteredList` based on the `FuzzySearchComparator`.
+
+===== Logic - ArgumentTokenizer and Parser
+The new `FindEventCommand` required modifications to the parser to allow for commands with varying levels of inputs - it could have preamble and prefixes, only preamble with no prefixes or no preamble and only prefixes. In the latter case, we noticed that the `ArgumentTokenizer` would end up capturing the initial prefix as the "preamble". In order to correctly detect the absence of a preamble, the `ArgumentTokenizer` was modified, so as to correctly detect the absence of a preamble (i.e. when a prefix is at index 0 of the input), and accordingly not add the 'preamble' (actually the first prefix) to the `ArgumentMultimap`.
+
+After modifying the `ArgumentTokenizer`, the `FindEventCommandParser` also needed to be modified to generate the correct `FindEventCommand` from the inputs. As mentioned earlier, for each of the `Predicates` and `Comparators`, we implemented a 'default case', when the `Predicate` always returned true and the `Comparator` always returned zero - e.g. when both the `DateTime` for the `DatePredicate` are null, or when the `List` of keywords for the `FuzzySearchFilterPredicate` and `FuzzySearchComparator` are empty.
+
+This allowed us to deal with the cases where some of the inputs were missing. If the user did not enter any `tag/` prefix, then the `FindEventCommand` created by the `FindEventCommandParser` will have a `TagPredicate` containing an empty `Set` of tag strings.
+
+===== GUI
+In order for the new search features to be visible to the user, the `getFilteredAndSortedCalendarEventList` method was modified to allow the GUI `CalendarPanel` to access the `SortedList` rather than the `FilteredList` when initializing its `ListView`.
+
+====== Tabbed Interface
+Since the left panel would be shared between the `TaskListPanel` and the `CalendarPanel`, we realised that sometimes the panel would be showing the wrong list when a command is entered. Hence, after updating the `FilteredList` and `SortedList`, we made the `execute` method of the `FindEventCommand` post a `SwitchToSearchTabEvent` posted to the `EventsCenter`. The `MainWindow` handles the `SwitchToSearchTabEvent` and switches to the Calendar Events tab, so that the user can see the search results.
 
 
-==== GUI
+==== Design Considerations
 
-===== Tabbed Interface
-Since the existing `ObservableList` of `CalendarEvents` was not used in the GUI, we needed to figure out an alternative
-way to display the results for the `find event` command. We achieved this by incorporating a tabbed interface where the
-`TaskList` and the `CalendarEvent` list for the search results were shown in separate tabs.
 
-To aid our target user, who mainly uses CLI, we incorporated functionality to automatically switch to the most relevant
-tab based on the command input by the user. When the user inputs a todo list command, a `SwitchToTasksTabEvent` is
-posted to the `EventsCenter`; while when the user inputs a `find event` or `list event` command, a
-`SwitchToSearchTabEvent` is posted.
+==== Further Extensions
 
-The `MainWindow` handles the `SwitchToTasksTabEvent` and `SwitchToSearchTabEvent` - it switches to the appropriate tab
-when it receives either `Event`.
+===== Additional Filters
+The `FindEventCommand` could be enhanced by including more `Predicates` to further filter the events based on other properties. For instance, we could allow users to specifically filter based on whether `Venue` or `Description` matched an input keyword, e.g. `find event v/COM2` or `find event d/Wear formal clothes`.
 
-===== Updating FilteredList/SortedList
-In the original implementation, the main list of `CalendarEvent` that is shown on the GUI is implemented using a single,
-final `FilteredList` and changing the `Predicate` as needed. The `FilteredList` itself does not change unless the
-underlying `List` of `CalendarEvent` is changed (in which case the entire `Model` is reinitialised).
+===== Custom Filters using Boolean Logic
+The `FindEventCommand` could be modified to allow users to specify custom filters using boolean logic, e.g. a possible command could be `find event t/exam && v/MPSH5` or `find event t/lecture || d/lecture`. This would allow users to perform much more fine-grained searches. It is likely to appeal to our users, since they are more tech-savvy university students who are comfortable with CLI, and thus are probably somewhat familiar with boolean logic.
 
-However, in our current implementation, we only need to display the list of `CalendarEvent` when we show the results for
-the `find event` or `list event` commands. Furthermore, since we use multiple `Predicates` as well as a `Comparator`,
-the original implementation is not usable.
+In order to implement this feature, we could create a new class specifically to take in the list of input `Predicates` as well as the specific rules by which to apply the AND/OR, and then to generate the appropriate predicate based on those instructions. This could then be fed to the `ModelManager` to update the `FilteredList`.
 
-Hence, we modified the `ModelManager` by allowing the `FilteredList` to be changed as need be. Hence whenever an
-additional `Predicate` needs to be added, we would wrap the original `FilteredList` with a new `FilteredList` using the
-new `Predicate`. Similarly, when we needed to sort based on a `Comparator`, we would wrap the `FilteredList` with a new
-`SortedList` using the required `Comparator` using the current `FilteredList` as a base.
-
-Since this update would only occur during `find event` or `list event` commands, we modified the handling of the
-`SwitchToSearchTabEvent` by the `MainWindow` to also trigger the GUI to reload the `ObservableList`/`FilteredList`
-backing the search result panel.
 
 // end::FuzzySearch[]
-
-// tag:CalendarModel[]
-=== Calendar Model
-==== Implementation
-
-The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
-
-`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the
-calendar, such as the title, description, start and end date/time, venue and tags.
-
-`Title`, `Description` and `Venue` now inherit from a `TextField` parent class, to represent fields in the model that
-store string data.
-
-`DateTime` stores and validates the input start and end date/time of each event in the calendar.
-
-`DateTimeInfo` validates that the start date/time are not after the end date/time.
-
-`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
-New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
-
-Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
-
-Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
-
-Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
-
-Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
-
-Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
-
-Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
-
-Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the calendar GUI.
-// end::CalendarModel[]
 
 // tag::CalendarDisplay[]
 === Calendar Display
