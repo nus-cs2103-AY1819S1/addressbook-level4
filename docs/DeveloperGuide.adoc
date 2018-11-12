@@ -647,7 +647,7 @@ To do so, `EditAssignmentDescriptor` object will be produce. This object has the
 
 3. While if the user has the appropriate permission, the old `Assignment` object will be replaced with the new `Assignment` object.
 
-4. The list of the assignments will then be updated in the <<25-storage-component, Storage>>. 
+4. The list of the assignments will then be updated in the <<25-storage-component, Storage>>.
 
 ==== Design Consideration
 ===== Aspect: How the `Assignment` object is stored
