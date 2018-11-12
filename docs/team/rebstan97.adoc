@@ -48,7 +48,8 @@ underlying architecture and the components `logic`, `storage` and `model`. To ma
 *** Enhanced the existing tagging feature by adding different colours for different tags
 ** Documentation:
 *** Updated user stories and use cases in the Developer Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/118/files[#118])
-*** Added implementation of the command `delete-ingredient` (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
+*** Added implementation of the commands `delete-ingredient` and `stockup` (Pull request https://github
+.com/CS2103-AY1819S1-F10-4/main/pull/116[#116], https://github.com/CS2103-AY1819S1-F10-4/main/pull/290[#290])
 *** Added description of ingredient commands to the User Guide(Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
 *** Made general enhancements to the User Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/120[#120])
 *** Created initial UI mock-up (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/55[#55])
@@ -73,3 +74,4 @@ include::../UserGuide.adoc[tag=ingredientmanagement]
 |===
 
 include::../DeveloperGuide.adoc[tag=ingredient]
+include::../DeveloperGuide.adoc[tag=ucingredient]

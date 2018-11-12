@@ -715,13 +715,13 @@ The following sequence diagrams illustrate how the delete operation works.
 
 * Diagram 1: When user enters `delete-ingredient 1`
 
-image::DeleteIngredientByIndexSequenceDiagram.png[width="1000"]
+image::DeleteIngredientByIndexSequenceDiagram.png[width="800"]
 
 _Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 
 * Diagram 2: When user enters `delete-ingredient apple`
 +
-image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
+image::DeleteIngredientByNameSequenceDiagram.png[width="800"]
 _Figure 4.6.1.1: Component interactions for `delete-ingredient apple` command_
 
 ==== Design Considerations
@@ -1385,8 +1385,6 @@ Steps 2a1-2a2 are repeated until an ingredient name which does not exist is ente
 +
 Use case resumes at step 3.
 
-
-
 [discrete]
 === Use case: UC202 - Delete ingredient
 
@@ -1436,6 +1434,7 @@ Steps 3c1-3c2 are repeated until a valid command format is entered.
 +
 Use case resumes at step 4.
 
+// tag::ucingredient[]
 [discrete]
 === Use case: UC203 - Edit ingredient
 
@@ -1505,7 +1504,6 @@ Use case ends.
 
 [none]
  * 2b. The ingredient name does not exist.
- +
 [none]
  ** 2b1. App returns a message telling user that the ingredient does not exist.
  ** 2b2. User requests to stock up ingredient again.
@@ -1513,6 +1511,7 @@ Use case ends.
  Steps 2b1-2b2 are repeated until a valid ingredient name is entered.
  +
  Use case resumes at step 3.
+// end::ucingredient[]
 
 // tag::ucmenu[]
 [discrete]
