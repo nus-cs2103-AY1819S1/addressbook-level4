@@ -7,7 +7,7 @@
 ---
 == Overview
 
-OverWatch is a desktop task manager.
+WatchOver is a gamified desktop task manager.
 
 == Summary of contributions
 
@@ -89,7 +89,7 @@ include::../UserGuide.adoc[tag=add]
 |_Given below are sections I contributed to the Developer Guide._
 |===
 |===
-|_Sections excluded: topological order command manual testing, extra details about implementation of dependency_
+|_Sections excluded: topological order command manual testing, dependency related  manual testing, extra details about implementation of dependency_
 |===
 
 include::../DeveloperGuide.adoc[tag=effective_duedate]

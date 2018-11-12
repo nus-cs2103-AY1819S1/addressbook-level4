@@ -1419,6 +1419,27 @@ Number of dependencies field on the task card updated.
 dependency that will cause a cyclic dependency +
    Expected: Similar to previous.
 
+=== Deleting task where there exists dependencies to deleted task
+. Deleting a task where there exists dependencies to deleted task
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add dependency from B to A using `dependency 2 1`
+.. Test case: `delete 1` +
+   Expected: Only task B remaining. Task B has 0 dependencies instead of its previous value of 1.
+
+
+=== Editing task where there exists dependencies to edited task
+. Editing a task where there exists dependencies to the edited task
+.. Prerequisites:
+... Clear task manager with `clear`
+... Add Task A using `add n/A t/1-2-19 p/5 d/blank`
+... Add Task B using `add n/B t/1-1-19 p/5 d/blank`
+... Add dependency from B to A using `dependency 2 1`
+.. Test case: `edit 1 n/C` +
+   Expected: Name of 1st task changed to C. Number of dependencies of B remains the same.
+
 // tag::completemanualtest[]
 === Interactions of Complete Command with Dependencies
 [NOTE]
