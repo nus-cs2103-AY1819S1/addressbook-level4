@@ -412,7 +412,7 @@ Here is what the exported certificate will look like:
 
 .Sample exported volunteer certificate
 [.thumb]
-image::CurrentVolunteerCert.png[width="600"]
+image::CurrentVolunteerCert.png[width="500"]
 
 An empty line is provided at the end of the certificate for manual signing off. Feel free to add a signature or an organizational stamp to add credibility to the certificate!
 
