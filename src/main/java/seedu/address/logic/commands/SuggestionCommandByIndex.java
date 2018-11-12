@@ -14,7 +14,7 @@ public class SuggestionCommandByIndex extends Command {
 
     public static final String MESSAGE_SUCCESS = "Suggestion provided as following";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Student index";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Student index(base 1)";
     private int indexNum;
 
     /**
@@ -28,6 +28,9 @@ public class SuggestionCommandByIndex extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        if (model.getFilteredPersonList().size() < indexNum) {
+            return new CommandResult("The index is out of the boundary");
+        }
 
         Person targetPerson = model.getFilteredPersonList().get(indexNum - 1);
 
