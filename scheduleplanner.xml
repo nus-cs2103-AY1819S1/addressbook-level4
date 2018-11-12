@@ -17,6 +17,12 @@
         <tags>Exam</tags>
         <tags>Lecture</tags>
     </categories>
+    <categories>
+        <name>cat</name>
+    </categories>
+    <categories>
+        <name>Cat</name>
+    </categories>
     <tasks>
         <name>Do CS2030 lab</name>
         <date>311018</date>
