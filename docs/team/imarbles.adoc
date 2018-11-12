@@ -26,7 +26,7 @@ My main role as a developer for SocialCare was to implement *record management f
 * *Major enhancement*:
 Added commands to *manage volunteer records*
 ** What it does:
-The commands implemented allows the user to manage volunteering records.
+The commands implemented allows users to manage volunteering records.
 They will be able to assign volunteers to events and update the number of hours contributed by the volunteer.
 
 ** Justification:
@@ -34,7 +34,7 @@ These functions are part of the core requirements for the application because we
 
 ** Highlights:
 This enhancement is completely new and required an in-depth analysis of design alternatives.
-It was challenging as a complete understanding of all code components was needed so that it can be properly implemented.
+It was challenging as to properly implement this, a complete understanding of all code components was needed.
 
 * *Minor enhancement*:
 ** Added a command to allow users to *switch between panels*.
