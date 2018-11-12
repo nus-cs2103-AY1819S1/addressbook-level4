@@ -175,6 +175,7 @@ Examples::
 ==== Reminder times
 
 Examples::
+* `xxHxxMxxS`: xx must be non-negative integers.
 |===
 | *Input*        | *Output*
 | 30m or 30min   | 30 minutes before `START_DATETIME`
@@ -185,19 +186,6 @@ Examples::
 
 :sectnums:
 
-=== [Partial Implementation] Adding a tag : `addTag` [by v1.4]
-This is the command format for adding tags.
-
-*Note:* This feature has NOT been fully implemented yet. However, do feel free to play around with it and to report any bugs/problems as well :)
-
-_It will be FULLY implemented by v1.4._
-
-=== Listing all events : `list`
-
-Shows a list of all events in the scheduler. +
-Format: `list` +
-Aliases: `lis` OR `li` OR `l` +
-_Coming in V1.4: Command format can be typed case-insensitive_
 
 // tag::edit[]
 === Editing an event : `edit`
@@ -249,8 +237,50 @@ Edits the repeating event's name of the 2nd event to be `Play` and clears all ex
 * `edit 2 re/ -u` +
 Clear all the upcoming event's reminder times.
 
+
+[WARNING]
+=====
+If your repeating events have different fields, using `-a | -u` options will overwrite individuality. +
+i.e. different fields of other repeating events will be replaced by the fields of event identified by the index. +
+Below is a detailed example
+=====
+
+`add n/Event v/NUS ...`:
+|===
+|1. Name: Event |Venue: NUS |...
+|2. Name: Event |Venue: NUS |...
+|3. Name: Event |Venue: NUS |...
+|===
+You added a set of 3 recurring events
+
+`edit 1 n/CHANGE`:
+|===
+|1. Name: CHANGE |Venue: NUS |...
+|2. Name: Event  |Venue: NUS |...
+|3. Name: Event  |Venue: NUS |...
+|===
+You edited event 1 only. Now the set of recurring events have different fields.
+
+
+`edit 2 v/NTU -a`:
+|===
+|1. Name: Event| Venue: NTU |...
+|2. Name: Event| Venue: NTU |...
+|3. Name: Event| Venue: NTU |...
+|===
+Different fields of first event will be overwritten by fields of the second event as identified by the INDEX used in the command .
+
 :sectnums:
 // end::edit[]
+
+
+=== Listing all events : `list`
+
+Shows a list of all events in the scheduler. +
+Format: `list` +
+Aliases: `lis` OR `li` OR `l` +
+_Coming in V1.4: Command format can be typed case-insensitive_
+
 
 === Locating events by event name: `find`
 
@@ -318,27 +348,105 @@ Deletes the 3rd event and its repeating events from the scheduler.
 Deletes the 4th event and its upcoming events from the scheduler.
 // end::delete[]
 
-=== Selecting an event : `select`
 
-Selects the event identified by the index number used in the displayed event list. +
-Format: `select INDEX` +
-Aliases: `selec` OR `sele` OR `sel` OR `se` OR `s` in place of `select` +
-_Coming in V1.4: Command format can be typed case-insensitive_
+=== Reminder Operations: `addReminder` `deleteReminder` `postponeReminder`
+Customised commands to add, delete reminders incrementally, and postpone all reminders for the event. +
+
+If you have set reminder for an event, a window will pop up at the specified duration before event start time. +
+You can find event name, venue, start and end time information in the pop up window. +
+Eg: If you set 30min for an event that starts at 11:00, a window will pop up at 10:30 (+-1min) if the app is open. +
+
+General Format: +
+`addReminder/ deleteReminder INDEX [re/REMINDER_TIME]... [-a | -u]`. +
+`postponeReminder INDEX [re/REMINDER_TIME] [-a | -u]`. (multiple durations not allowed) +
+At most 1 option (either `-a` or `-u`) can exists at any one time. +
+For the correct format for time, please refer to <<Reminder time format>>. +
+
+You may choose to use `add` or `edit` command to set this field with prefix `re`. +
+Please refer to  <<Adding an event : `add`>> and <<Editing an event : `edit`>> command. +
 
 ****
-* Selects the event and loads the Google search page the event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed event list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* If you have not set any reminder for the event, the event card will display as "No Reminder".
+* When you open the app, it will NOT pop up past reminders since the last time you close the app. +
+Eg. If you open the app at 11am, the reminder at 10am will not pop up when you open the app.
+* When you add/edit reminder times, past reminders will be displayed on the event card but will not pop up. +
+Eg. you add a reminder that is supposed to pop up an hour ago, the duration will still be displayed on the event card but will never pop up since the reminder time has already passed.
+* When the reminder pops up, the reminder time displayed will not be deleted.
 ****
+
+[WARNING]
+=====
+The reminder commands follow the same logic as `edit`. +
+If your repeating events have different fields, using `-a | -u` options will overwrite individuality. +
+i.e. different fields of other repeating events will be replaced by the fields of event identified by the index. +
+For detailed explanations, refer to <<Editing an event : `edit`>>.
+=====
+
+==== Add reminders to event: `addReminder`
+Add new reminders to events incrementally +
+Format: `addReminder INDEX [re/REMINDER_TIME]... [-a | -u]`. At most 1 option (either `-a` or `-u`) can exists at any one time.
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd event in the scheduler.
-* `find Study` +
-`select 1` +
-Selects the 1st event in the results of the `find` command.
+* `addReminder 1 re/30M` +
+Add a reminder 30min before Event 1 start time
+* `addReminder 1 re/30M -a` +
+Add a reminder 30min before start time for all repeating events of Event 1.
+
+[NOTE]
+=====
+* If Event 1 already has reminders at 30m, 1h before the start time, and you want to add another 2h reminder, the following commands are equivalent: +
+`edit 1 re/30m re/1h re/2h` = `addReminder 1 re/2h`
+* If you add a duration that already exists in the event, it will have no effect.
+=====
+
+==== Delete reminders from event: `deleteReminder`
+Delete reminders of events if it exists +
+Format: `deleteReminder INDEX [re/REMINDER_TIME]... [-a | -u]`. At most 1 option (either `-a` or `-u`) can exists at any one time. +
+
+[TIP]
+====
+To avoid unexpected behavior, please enter the exact duration displayed in the event card.
+====
+
+Examples:
+
+* `deleteReminder 1 re/30M` +
+Delete a reminder 30min before Event 1 start time if the reminder exists.
+* `addReminder 1 re/30M re/1H -a` +
+Delete reminders 30min and 1h before start time for all repeating events of Event 1 if the reminders exist.
+
+[NOTE]
+=====
+* If Event 1 already has reminders at 30m, 1h, 2h before the start time, and you want to delete the 1h reminder, the following commands are equivalent: +
+  `edit 1 re/30m re/2h` = `deleteReminder 1 re/1h`
+* If you delete a duration that does not exist in the event, it will have no effect.
+=====
+
+==== Postpone all reminders for event: `postponeReminder`
+Postpone all reminders for events. If the postpone duration is larger than the original duration, reminder duration will become 0S.
+Format: `postponeReminder INDEX [re/REMINDER_TIME] [-a | -u]`. At most 1 option (either `-a` or `-u`) can exists at any one time. +
+
+[TIP]
+====
+Please enter only ONE duration to postpone here.
+====
+
+Examples:
+
+* Event 1 has reminders 30min, 1H before the start time. +
+`postponeReminder 1 re/5M` +
+Reminders displayed become: 25min, 55min.
+
+* Event 1 has reminders 30min, 1H before the start time. +
+`postponeReminder 1 re/2H` +
+Reminders displayed become: 0S. Reminders will pop up right at the start time.
+
+[NOTE]
+=====
+* If the identified event has no reminders, it will have no effect.
+=====
+
 
 === Listing entered commands : `history`
 
@@ -435,24 +543,6 @@ Format: `exit` +
 Aliases: `exi` OR `ex` OR `e` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
-=== Pop Up Feature
-A window will pop up if you have set reminder for an event. +
-Eg: If you set 30min for an event that starts at 11:00, a window will pop up at 11:30 (+-1min) if the app is open. +
-Format: it is currently integrated with <<Adding an event : `add`>> and <<Editing an event : `edit`>> command. For the correct format for time, please refer to <<Reminder time format>>
-
-[NOTE]
-====
-When you use a command that involves many changes of reminder time (add/edit/undo/redo), please give a few seconds for the system to sync before you close the app.
-====
-
-****
-* If you have not set any reminder for the event, it will display as "No Reminder".
-* When you open the app, it will NOT pop up past reminders since the last time you close the app.
-* When the reminder pops up, the reminder time displayed for the event will NOT change instantaneously. It will refresh the next time the app is opened.
-* When you add/edit pop up times, only the future ones will be added. +
-Eg. you add a reminder that is supposed to pop up an hour ago, it will reflect in the display but will not pop up as past reminders/in the future.
-****
-
 === Saving the data
 
 Scheduler data are saved in the hard disk automatically after any command that changes the data. +
@@ -504,6 +594,15 @@ As you may have already noticed, our GUI supports auto-completion which suggests
 
 _Note: It even works for command aliases!_
 
+
+=== [Partial Implementation] Adding a tag : `addTag` [by v1.4]
+This is the command format for adding tags.
+
+*Note:* This feature has NOT been fully implemented yet. However, do feel free to play around with it and to report any bugs/problems as well :)
+
+_It will be FULLY implemented by v1.4._
+
+
 === Case-Insensitive Invoking of Commands `[coming in v1.4]`
 Commands can be invoked in case-insensitive format. For example, typing `hElP` can invoke the `help` command. +
 Only applicable to these commands: `add`, `clear`, `delete`, `edit`, `exit`, `find`, `help`, `history`, `list`, `redo`, `select` and `undo`
@@ -546,6 +645,15 @@ e.g. `listtag`
 
 * *Delete event* : `delete INDEX [-a | -u]` +
 e.g. `delete 3 -a`
+
+* *Add reminders* : `addReminder INDEX [re/REMINDER_TIME]... [-a | -u]` +
+e.g. `addReminder 1 re/30m re/1h -a`
+
+* *Delete reminders* : `deleteReminder INDEX [re/REMINDER_TIME]... [-a | -u]` +
+e.g. `deleteReminder 2 re/30m re/1h`
+
+* *Postpone reminders* : `postponeReminder INDEX [re/REMINDER_TIME] [-a | -u]` +
+e.g. `postponeReminder 3 re/30m -u`
 
 * *Help* : `help`
 
