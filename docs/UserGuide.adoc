@@ -783,7 +783,23 @@ any other commands first.
 
 === Abbreviation: abbrev.
 
-_Talk about abbrev here_
+If you find the command words too long to type. Guess what? We have executable short form
+for each command in our command list.
+
+You can find abbreviations of each command in the table that we provide to each section from 3.1 to 3.19.
+
+[NOTE]
+However, there are ambiguous abbreviations that are not distinguishable between multiple commands.
+Thus, you *CANNOT* use them: `c`, `f`, `fi`, `h`.
+
+To see how useful it can be, please take a look at the examples below.
+
+==== Example: Calculate Command
+
+Step 1. Instead of entering `calculate` into the _Command Box_, you can enter `ca` instead.
+
+Step 2. complete the rest of the fields with `TJ39 SUN 7.00AM 9.00PM`, followed by pressing kbd:[Enter] to execute.
+
 
 === Autocomplete: kbd:[Tab]
 
@@ -793,7 +809,7 @@ _Command Box_ and pressing the kbd:[Tab] key, it will display the full format of
 [NOTE]
 ====
 Only available for the following commands: +
-[underline]#Features-Select, `select`>># | [underline]#<<Features-Find, `find`>># | [underline]#<<Features-Filter, `filter`>># |
+[underline]#<<Features-Select, `select`>># | [underline]#<<Features-Find, `find`>># | [underline]#<<Features-Filter, `filter`>># |
 [underline]#<<Features-Notify, `notify`>># | [underline]#<<Features-Calculate, `calculate`>>#
 ====
 
@@ -801,15 +817,20 @@ To see how useful it can be, please take a look at the examples below.
 
 ==== Example: Select Command
 
-Step 1. Enter `s` into the _Command Box_, followed by pressing the kbd:[Tab] key.
+Step 1. Enter `s` into the _Command Box_, followed by pressing kbd:[Tab].
+Your `select` command will be completed.
 
-Step 2. ???
+Step 2. Substitute the selected field `INDEX` with `1`, followed by pressing kbd:[Enter] to execute.
 
 ==== Example: Filter Command
 
-Step 1. ???
+Step 1. Enter `fil` into the _Command Box_, followed by pressing kbd:[Tab].
+Your `filter` command will be completed.
 
-Step 2. ???
+Step 2. Substitute the selected field `DAY` with `SUN`, followed by pressing kbd:[Tab] to move to the next field.
+
+Step 3. Repeat step 2 until you substitute all the fields with actual value. (You can remove those fields you
+choose not to use). Then press kbd:[Enter] to execute.
 
 [[Features-Exit]]
 === Exiting the application : `exit`
