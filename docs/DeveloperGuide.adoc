@@ -425,8 +425,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-
 //tag::command-switch[]
+
 [[Implementation-Switch]]
 === Switch command
 
