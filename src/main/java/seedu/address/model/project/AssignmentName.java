@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Project's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class ProjectName {
+public class AssignmentName {
 
     public static final String MESSAGE_PROJECT_NAME_CONSTRAINTS = "Assignment name should not be blank";
 
@@ -24,7 +24,7 @@ public class ProjectName {
      *
      * @param name A valid name.
      */
-    public ProjectName(String name) {
+    public AssignmentName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_PROJECT_NAME_CONSTRAINTS);
         fullProjectName = name;
@@ -45,8 +45,8 @@ public class ProjectName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ProjectName // instanceof handles nulls
-                && fullProjectName.equals(((ProjectName) other).fullProjectName)); // state check
+                || (other instanceof AssignmentName // instanceof handles nulls
+                && fullProjectName.equals(((AssignmentName) other).fullProjectName)); // state check
     }
 
     @Override

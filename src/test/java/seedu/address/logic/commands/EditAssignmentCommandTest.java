@@ -53,7 +53,7 @@ public class EditAssignmentCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
-        String originalAssignment = model.getFilteredAssignmentList().get(0).getProjectName().fullProjectName;
+        String originalAssignment = model.getFilteredAssignmentList().get(0).getAssignmentName().fullProjectName;
         String originalAuthor = model.getFilteredAssignmentList().get(0).getAuthor().fullName;
         String originalDescription = model.getFilteredAssignmentList().get(0).getDescription().value;
         editedAssignment = new AssignmentBuilder(editedAssignment).withAssignmentName(originalAssignment)
@@ -136,7 +136,7 @@ public class EditAssignmentCommandTest {
 
         Assignment secondAssignment = model.getFilteredAssignmentList().get(INDEX_SECOND_ASSIGNMENT.getZeroBased());
         Assignment editedAssignment = new AssignmentBuilder(firstAssignment).withAssignmentName(secondAssignment
-                .getProjectName().fullProjectName)
+                .getAssignmentName().fullProjectName)
                 .withAuthor(secondAssignment.getAuthor().fullName).build();
 
         String expectedMessage = String.format(EditAssignmentCommand.MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment);
@@ -162,7 +162,7 @@ public class EditAssignmentCommandTest {
 
         Assignment firstAssignment = model.getFilteredAssignmentList().get(INDEX_FIRST_ASSIGNMENT.getZeroBased());
         Assignment editedAssignment = new AssignmentBuilder(assignmentInList)
-                .withAssignmentName(firstAssignment.getProjectName().fullProjectName)
+                .withAssignmentName(firstAssignment.getAssignmentName().fullProjectName)
                 .withAuthor(firstAssignment.getAuthor().fullName).build();
 
         String expectedMessage = String.format(EditAssignmentCommand.MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment);
@@ -189,7 +189,7 @@ public class EditAssignmentCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Assignment assignmentToEdit = model.getFilteredAssignmentList().get(INDEX_FIRST_ASSIGNMENT.getZeroBased());
-        Assignment editedAssignment = new AssignmentBuilder().withAssignmentName(assignmentToEdit.getProjectName()
+        Assignment editedAssignment = new AssignmentBuilder().withAssignmentName(assignmentToEdit.getAssignmentName()
                 .fullProjectName).withAuthor(assignmentToEdit.getAuthor().fullName).build();
         EditAssignmentCommand.EditAssignmentDescriptor descriptor =
                 new EditAssignmentDescriptorBuilder(editedAssignment).build();
@@ -239,7 +239,7 @@ public class EditAssignmentCommandTest {
 
         Assignment assignmentToEdit = model.getFilteredAssignmentList().get(INDEX_FIRST_ASSIGNMENT.getZeroBased());
         Assignment editedAssignment =
-                new AssignmentBuilder().withAssignmentName(assignmentToEdit.getProjectName().fullProjectName)
+                new AssignmentBuilder().withAssignmentName(assignmentToEdit.getAssignmentName().fullProjectName)
                 .withAuthor(assignmentToEdit.getAuthor().fullName)
                 .withDescription(assignmentToEdit.getDescription().value)
                 .build();

@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 /**
  * JAXB-friendly version of the Person.
@@ -46,7 +46,7 @@ public class XmlAdaptedAssignment {
      * @param source future changes to this will not affect the created XmlAdaptedAssignment
      */
     public XmlAdaptedAssignment(Assignment source) {
-        assignmentName = source.getProjectName().fullProjectName;
+        assignmentName = source.getAssignmentName().fullProjectName;
         author = source.getAuthor().fullName;
         description = source.getDescription().value;
     }
@@ -59,12 +59,12 @@ public class XmlAdaptedAssignment {
     public Assignment toModelType() throws IllegalValueException {
         if (assignmentName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ProjectName.class.getSimpleName()));
+                    AssignmentName.class.getSimpleName()));
         }
-        if (!ProjectName.isValidName(assignmentName)) {
-            throw new IllegalValueException(ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
+        if (!AssignmentName.isValidName(assignmentName)) {
+            throw new IllegalValueException(AssignmentName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
         }
-        final ProjectName modelAssignmentName = new ProjectName(assignmentName);
+        final AssignmentName modelAssignmentName = new AssignmentName(assignmentName);
 
         if (author == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

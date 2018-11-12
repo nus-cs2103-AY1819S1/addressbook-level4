@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
-import seedu.address.model.project.ProjectName;
+import seedu.address.model.project.AssignmentName;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object
@@ -33,7 +33,7 @@ public class AddAssignmentParser implements Parser<AddAssignmentCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
         }
 
-        ProjectName name = ParserUtil.parseProjectName(argMultimap.getValue(PREFIX_ASSIGNMENT_NAME).get());
+        AssignmentName name = ParserUtil.parseProjectName(argMultimap.getValue(PREFIX_ASSIGNMENT_NAME).get());
         Name author = ParserUtil.parseName(argMultimap.getValue(PREFIX_AUTHOR).get());
         Description description =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ASSIGNMENT_DESCRIPTION).get());

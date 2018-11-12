@@ -370,7 +370,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredAssignmentListForPerson(Person person) {
         requireNonNull(person);
         updateFilteredAssignmentList(assignment ->
-                assignment.getProjectName().fullProjectName.equals(loggedInUser.getProjects()));
+                assignment.getAssignmentName().fullProjectName.equals(loggedInUser.getProjects()));
     }
 
     @Override
@@ -390,7 +390,7 @@ public class ModelManager extends ComponentManager implements Model {
         List<String> newAssignmentName = new ArrayList<>();
 
         for (Assignment a : currentAssignment) {
-            currAssignmentName.add(a.getProjectName().fullProjectName);
+            currAssignmentName.add(a.getAssignmentName().fullProjectName);
         }
 
         for (Project p : newAssignment) {
