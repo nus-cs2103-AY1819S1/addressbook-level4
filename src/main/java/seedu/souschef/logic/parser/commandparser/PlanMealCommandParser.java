@@ -41,6 +41,12 @@ public class PlanMealCommandParser {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
             }
 
+            try {
+                LocalDate.parse(arguments[1]);
+            } catch (Exception e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanMealCommand.MESSAGE_USAGE));
+            }
+
             List<Recipe> recipeList = recipeModel.getFilteredList();
             List<Day> mealPlannerList = mealPlannerModel.getFilteredList();
             int listIndex = Integer.parseInt(arguments[0]) - 1;
