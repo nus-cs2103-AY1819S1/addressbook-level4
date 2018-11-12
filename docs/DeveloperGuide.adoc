@@ -241,17 +241,20 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` interface defines a component which
 
-* can save `UserPref` objects in json format and read it back.
-* can save Transcript data in json format and read it back.
-* `ReadOnlyTranscript` uses custom `JsonTranscriptDeserializer` to enable `JsonUtil.readJsonFile` to deserialize a `json` file into a `ReadOnlyTranscript`.
+* can save `UserPref` objects in JSON format and read it back.
+* can save Transcript data in JSON format and read it back.
+
+The `StorageManager` implements the `Storage` interface, and updates the transcript JSON file when the `TranscriptChangedEvent` is fired (see Figure 4). It also logs the reading and saving of transcript data.
+
+//end::designstorage[]
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
-//end::designstorage[]
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -323,6 +326,17 @@ image::activityDiagramTargetGradeCalculationWhenChanged.png[width="800"]
 image::activityDiagramTargetGradeCalculationActualCalculation.png[width="800"]
 
 // end::captargetcalculation[]
+
+//tag::transcriptstorageimplementation[]
+=== Transcript Storage: Reading and Writing 
+Whenever the in-memory `Transcript` object is changed, the transcript data file is updated. When the app initializes, it will look for an existing data file from which to load the transcript.+ 
+If the file is not found, the app will initialize with an empty Transcript.+
+If the file is found but the data is an incorrect format or there is some problem reading from the file, the app will initialize with an empty Transcript as well.+
+
+When the app initializes, it looks for the file name provided by `data/preferences.json` under the `transcriptFilePath` key - by default this is `data/transcript_demo.json`. This file stores all transcript data including modules data and cap Goal information, such as its value, whether it is set, and whether it is impossible. The `transcriptFilePath` may be changed manually by the user.+
+
+By using the `Jackson` library to store the Transcript data as a JSON file instead of an XML file, we avoid having to write `XMLSerializableTranscript` and `XMLAdaptedModule` classes. Instead, we simply register a custom `JSONTranscriptDeserializer` on the `ReadOnlyTranscript` class so that when we read from the JSON file, Jackson's `ObjectMapper` is able to use the values to reconstruct the saved object.
+//end::transcriptstorageimplementation[]
 
 === Logging
 
@@ -715,6 +729,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+   
+. Saving transcript data
+
+.. Add some modules, set a CAP goal, and close the app.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The added modules and CAP goal are retained. 
+   
+. Changing the transcript data filepath
+.. Add some modules, set a CAP goal, and close the app.
+.. Change the value of `transcriptFilePath` in the file `data/preferences.json` (found in the same directory as the jar file) to some non-existent file such as `data/transcript_test.json`.+
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The app will initialize with an empty transcript (no modules or CAP goal). On further change, the app will save the transcript data to the new file `data/transcript_test..json`.+
+   
+. Importing transcript data
+.. Add some modules, set a CAP goal, and close the app.
+.. Save another copy of the jar file in another directory and open and close this second app.
+.. Replace the `data/transcript.json` of the second app with the `data/transcript.json` from the first app.
+.. Relaunch the new app. +
+   Expected: The app will initialize with the added modules and CAP goal from the first app.+
 
 //tag::manualtestcaptargetcalculation[]
 === CAP Calculation
