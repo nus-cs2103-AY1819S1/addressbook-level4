@@ -67,7 +67,7 @@ public class IngredientTest {
     @Test
     public void isSameTest() {
         assertTrue(onion.isSame(onion));
-        assertFalse(onion.isSame(otherOnion));
+        assertTrue(onion.isSame(otherOnion));
         assertFalse(onion.isSame(carrot));
     }
 
