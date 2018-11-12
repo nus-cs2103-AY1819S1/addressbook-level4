@@ -75,7 +75,8 @@ public class SchedulerParserTest {
         CalendarEvent calendarEvent = new CalendarEventBuilder().build();
         EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder(calendarEvent).build();
         EditEventCommand command = (EditEventCommand) parser.parseCommand(EditEventCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_ELEMENT.getOneBased() + " " + CalendarEventUtil.getEditCalendarEventDescriptorDetails(descriptor));
+            + INDEX_FIRST_ELEMENT.getOneBased()
+            + " " + CalendarEventUtil.getEditCalendarEventDescriptorDetails(descriptor));
         assertEquals(new EditEventCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
