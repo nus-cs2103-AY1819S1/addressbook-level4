@@ -1802,15 +1802,17 @@ The second user has name as "Bernice Yu" and interest as "play".
    Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
    "Alex Yeoh" is the event organiser.
    Event details are displayed in the event details panel, and "Alex Yeoh" is a participant of the event under "People attending".
+.. Test case `addEvent n/CS1234 Group Meeting t/URGENT`
+   Expected: Add event unsuccessful.
 
 === Add a poll
-.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
+.. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the event list, created by him.
 .. Test case `addPoll n/Meeting date`
    Expected: a new poll with name "Meeting date" is created and displayed in the event details panel.
 
 === Add a time poll
 .. Prerequisites: Event organiser "Alex Yeoh" is logged in and has selected the first event in the list, created by him.
-.. Test case `addTimePoll d/19-12-2018 d2/20-12-2018`
+.. Test case `addTimePoll d1/19-12-2018 d2/20-12-2018`
    Expected: a new poll with name "Time Poll" is created and displayed in
    the event details panel. It is populated by 30 minute slots based on the schedules of the participants.
 
@@ -1849,7 +1851,7 @@ The second user has name as "Bernice Yu" and interest as "play".
 .. Prerequisites: The event list is not empty.
 .. Test case `findEvent e/Linguistics Reading Group`
    Expected: all and only events with name "Linguistics Reading Group" are displayed in the event list.
-.. Test case findEvent t1/17:30 on/Charlotte Oliveiro`
+.. Test case `findEvent t1/17:30 on/Charlotte Oliveiro`
    Expected: all and only events starting at 17:30 and organised by "Charlotte Oliveiro" are displayed in the event list.
 
 === Find event by time
