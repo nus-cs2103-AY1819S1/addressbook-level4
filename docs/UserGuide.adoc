@@ -271,7 +271,7 @@ Adds the first and second track in the track list panel to the "Favourites" play
 
 === Deleting a track from a playlist : `track del`
 
-Removes a track from a playlist. Track can is chosen by using its index in the track list panel. +
+Removes a track from a playlist. Track can is chosen by using its appeared sequence in playlist card. +
 Format: `track del p/PLAYLIST i/INDEX`
 
 [TIP]
