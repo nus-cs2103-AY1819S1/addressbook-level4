@@ -187,7 +187,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicComponentClassDiagram.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -271,7 +271,7 @@ automatically tagged as `Patient`.
 .Register Patient Sequence Diagram
 image::RegisterPatientSequenceDiagram.png[width="600"]
 
-Patient model contains a PriorityQueue of upcoming appointment and ArrayList of past appointments. We implemented
+Patient model contains a List of upcoming appointment and ArrayList of past appointments. We implemented
 the patient model in this way to allow ease of addition of new upcoming appointment to the patient.
 
 Step 1. The user types in `register-patient` in the command box followed by the parameters `n/John Doe p/91234567
@@ -288,12 +288,17 @@ created as a patient as determined by their tag.
 
 ==== Design Considerations
 ===== Aspect: Data Structure of Upcoming and Past Appointments
-* Alternative 1 (Current Choice): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within an
+* Alternative 1 (Current Choice): Upcoming Appointments stored within a List and Past Appointments stored within a
+List. This allows the appointments to be compatible with the Observable List. Sorted list of appointments is no crucial
+to the implementation of the HealthBook. Hence, we chose to implement the data structure as a list instead.
+** Pros: Compatible and easily to implement with model and storage
+** Cons: List is not filtered
+
+* Alternative 2 (Alternative Choice): Upcoming Appointments stored within a PriorityQueue and Past Appointments stored within an
 ArrayList. This allows the appointments to be added in a non-chronological order. Past appointments can also be iterated
 through easily when required.
-
-* Alternative 2 (Previous Implementation): Upcoming Appointments stored within a Queue and Past Appointments stored within a
-Stack.
+** Pros: Appointments can be added in a non chronological order.
+** Cons: Need to do parsing before passing to model and storage. Hard to manage.
 // end::registerpatient[]
 
 // tag::registerdoctor[]
@@ -329,24 +334,30 @@ created as a doctor as determined by their tag.
 
 ==== Design Considerations
 ===== Aspect: Presenting Google Calendar Login to Doctors
-* Alternative 1 (Current Choice): Implement Google Calendar login with a popped up browser. This allow the data transfer
- for the Google login to be simplified. No additional parsing will be required. In addition, the pop up of the browser
+* Alternative 1 (Current Choice): Implement Google Calendar login with a popped up browser.
+** Pros: Data transfer for the Google login to be simplified. No additional parsing will be required. In addition, the pop up of the browser
  will capture the users attention, decreasing the chance of user missing this login procedure.
+** Cons: Temporarily exits the application.
 
 * Alternative 2 (Alternative Choice): Implement Google Calendar login with the browser panel instead.
 Instead of having an additional browser, we load the login page into the Browser Panel. This will facilitate a seamless
 login for the login but user might miss the login compared to having a popped up browser.
+** Pros: Stays within the application.
+** Cons: User may miss the login which is mandatory, causing the application to not respond.
 
 ===== Aspect: Saving Doctor with respect to Google Login
-* Alternative 1 (Current Choice): Allow doctor to still be created with or without the Google Login. Since the Google
-Calendar acts as an add-on, it should not interfere with the main function of the HealthBook. As such, we implemented
-register-doctor to have Google Login as optional. However, subsequent calls of Calendar related functions will still
-prompt the user to login.
-
-* Alternative 2 (Alternative Choice): Doctor object will not be created and application will not respond if login is
+* Alternative 1 (Current Choice): Doctor object will not be created and application will not respond if login is
 unsuccessful. From the integration used for Google OAuth, it is mandatory for user to login before any process can
 continue. This function as our features is complimentary for our application as HealthBook will  work at its best with
 the google calendar login.
+** Pros: No requirement to implement a new Google OAuth. Easy implementation.
+** Cons: Application may not respond if login is not done.
+
+* Alternative 2 (Alternative Choice): Allow doctor to still be created with or without the Google Login. Implement
+register-doctor to have Google Login as optional. However, subsequent calls of Calendar related functions will still
+prompt the user to login.
+** Pros: Flexible login feature.
+** Cons: Hard to implement. Need to recreate a Google OAuth system. Features of the HealthBook not utilized.
 // end::registerdoctor[]
 
 // tag::deleteperson[]
@@ -364,7 +375,7 @@ image::DeleteDoctorSequenceDiagram.png[width="600"]
 
 Step 1. The user types in `delete-patient` or `delete-doctor` in the command box followed by the parameters `n/John Doe p/12345678`
 
-Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system
+Step 2. Upon hitting enter, the `Patient` or `Doctor` will be removed from the system.
 
 ==== Design Considerations
 ===== Aspect: Algorithm to find `Patient` or `Doctor` to delete
