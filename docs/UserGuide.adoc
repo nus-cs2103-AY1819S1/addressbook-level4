@@ -786,7 +786,8 @@ e.g. `notification n/tip t/off`
 
 == Command Shorthands
 
-This is a list of mappings of commands to their command shorthands in Expense Tracker:
+Commands also come with command shorthands which can be used in place of the command word. I.e. using `h` has the same outcome as `help`
+This is a list of commands and their command shorthands in Expense Tracker:
 
 * `signup`: `su`
 * `login`: `li`
