@@ -380,7 +380,7 @@ To work with multiple layers, each `Layer` has a single `PreviewImage` which is 
 Additionally, it implements the following operations:
 
 * `PreviewImage#commit()` - Writes the newly transformed `BufferedImage` into the `cache` folder (purge redundant images if needed).
-* `PreviewImage#getImage()` - Returns the current `BufferedImage` state of the `previewImage` by reading from the `cache` folder.
+* `PreviewImage#getCurrentPath()` - Returns the current state's `Path` in the `cache` folder for ImageMagick to use.
 * `PreviewImage#undo()` - Shifts the `currentStatePointer` to the left, pointing to the previous state.
 * `PreviewImage#redo()` - Shifts the `currentStatePointer` to the right, pointing to a previously undone state.
 
@@ -468,8 +468,8 @@ image::historyPanel.png[width="200"]
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves each newly transformed image (including original).
-** Pros: Easy to implement.
-** Cons: Uses user's storage space for caching.
+** Pros: Fast execution of undo/redo as only reading the cached file is needed. Easy to implement.
+** Cons: Uses the user’s storage space temporarily for caching.
 
 * **Alternative 2:** Save only the command, and reverse/reapply transformation for each undo/redo.
 ** Pros: Will not need to use user's data storage.
