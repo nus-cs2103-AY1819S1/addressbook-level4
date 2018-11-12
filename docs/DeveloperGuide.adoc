@@ -655,7 +655,7 @@ When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, an
 directory. It implements the following command:
 
 * `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
-* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+* `BudgetBook#commitBudgetBook()` -- Saves a current version of the budget book in the `VersionedBudgetBook`.
 
 These operations are exposed in the `Model` interface as:
 
@@ -799,7 +799,7 @@ and the `CcaName` is null.
 
 *Step 6.* It then checks whether the CCA name is present in `BudgetWindow#fillInnerParts(CcaName ccaName)`. If CCA name
  is present, `BudgetBrowserPanel(ccaName)` is called and the specified CCA information will be displayed. Otherwise,
- `BudgetBrowserPanel()` is called, showing a blank page.
+ `BudgetBrowserPanel()` will be called and a blank page will be showed.
 
 The following activity diagram summarizes what happens when a user executes a budget command:
 
@@ -813,11 +813,12 @@ _Figure 4.4.1.4: Activity diagram for budget command_
 * **Alternative 1 (current choice):** Saves in `.xml` format.
 ** Pros: Easy to create, understand, move and translate into other environments. International data standard for
 storing information.
-** Cons: Parsing XML software is slow and cumbersome. Use large amounts of memory due to the verbosity and incur cost
+** Cons: Parsing XML software is slow and cumbersome. Uses large amounts of memory due to the verbosity and incurs cost
  of parsing large XML files.
 * **Alternative 2:** Save in `.json` format.
-** Pros: Faster in parsing information.
-** Cons: Limited in terms of what objects can be modeled.
+** Pros: Faster in parsing information as compared to `.xml`.
+** Cons: JSON has no error handling. Therefore when the code fails to insert information, the code will not throw any
+error.
 
 // end::budget[]
 
@@ -2088,124 +2089,89 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to add a CCA
-2. Hallper requests for details of CCA (Name of CCA, names of head and vice-head, budget)
-3. JCRC member enters the details
-4. Hallper displays the details of the CCA
+1. JCRC member requests to add a CCA.
+2. Hallper requests for details of CCA (Name of CCA and allocated budget).
+3. JCRC member enters the details.
+4. Hallper displays the details of the CCA.
 +
 Use Case ends.
 
 *Extensions*
 
 [none]
-* 3a. Name(s) of head and/or vice-head is/are not detected in the contact list
+* 3a. CCA name given is in the wrong format.
 +
 [none]
 ** 3a1. Hallper shows an error message
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-* 3b. Budget entered is invalid
+* 3b. Budget entered is is in the wrong format.
 +
 [none]
 ** 3b1. Hallper shows an error message
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
 [discrete]
-=== Use case: Modify CCA
+
+=== Use case: Update CCA
 
 *MSS*
 
-1. JCRC member requests to list CCAs
-2. Hallper shows list of CCAs
-3. JCRC member requests to modify a specific CCA in the list
-4. Hallper requests for new details of the CCA (Name of CCA, names of head and vice-head, budget)
-5. JCRC member enters the details
-6. Hallper displays the new details of the CCA
+1. JCRC member requests to modify a specific CCA in the list.
+2. Hallper requests for new details of the CCA (name of CCA, names of head and vice-head, budget, transaction entry
+number, date, amount transaction remarks).
+3. JCRC member enters the details.
+4. Hallper displays the new details of the CCA.
 +
 Use Case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty
-+
-Use case ends.
-
-* 3a. The given index is invalid
+* 3a. The given CCA does not exist in Hallper.
 +
 [none]
 ** 3a1. Hallper displays error message
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-* 5a. Name(s) of head and/or vice-head is/are not detected in the contact list
+* 3b. Name(s) of head and/or vice-head is/are not detected in the contact list.
 +
 [none]
-** 5a1. Hallper shows an error message
+** 3b1. Hallper shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-* 5b. Budget entered is invalid
+* 3c. Budget entered is invalid.
 +
 [none]
-** 5b1. Hallper shows an error message
+** 3c1. Hallper shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
+
+* 3d. Transaction number not valid for CCA or date. amount, or remarks not in the correct format.
++
+[none]
+** 3d1. Hallper shows an error message.
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: Delete CCA
 
 *MSS*
 
-1. JCRC member requests to list CCAs
-2. Hallper shows list of CCAs
-3. JCRC member requests to delete a specific CCA in the list
-4. Hallper requests for confirmation of deletion
-5. JCRC member confirms
-6. Hallper deletes the CCA
+1. JCRC member requests to delete a specific CCA in the list.
+2. Hallper requests for confirmation of deletion.
+3. JCRC member confirms.
+4. Hallper deletes the CCA.
 +
 Use Case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty
-+
-Use case ends.
-
-* 3a. The given index is invalid
-+
-[none]
-** 3a1. Hallper shows an error message
-+
-Use case resumes at step 2.
-
-* 5a. JCRC member cancels instead
-+
-Use case ends.
-
-[discrete]
-=== Use case: Select CCA
-
-*MSS*
-
-1. JCRC member requests to list CCAs
-2. Hallper shows list of CCAs
-3. JCRC member requests to select a specific CCA in the list
-4. Hallper shows details of selected CCA
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 3a. The given CCA does not exist in Hallper.
 +
 [none]
 ** 3a1. Hallper shows an error message.
@@ -2217,8 +2183,8 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. JCRC member requests for list of CCAs
-2. Hallper displays list of CCAs
+1. JCRC member requests for list of CCAs.
+2. Hallper displays list of CCAs.
 +
 Use Case ends.
 
@@ -2227,51 +2193,31 @@ Use Case ends.
 
 *MSS*
 
-1. JCRC member requests for list of CCAs
-2. Hallper displays list of CCAs
-3. JCRC member requests to add a transaction for a specific CCA in the list
-4. Hallper requests transaction details (Amount of money, name of person-in-charge, comments)
-5. JCRC member enters transaction details
-6. Hallper displays details of the CCA
+1. JCRC member requests to add a transaction for a specific CCA in the list.
+2. Hallper requests transaction details (date, amount, remarks).
+3. JCRC member enters transaction details
+4. Hallper displays details of the CCA
 +
 Use Case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty
+* 3a. The given CCA is not in Hallper.
 +
-Use case ends.
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 1.
 
-* 3a. The given index is invalid
+* 3b. Date, amount and remarks are not in the correct format.
 +
 [none]
-** 3a1. Hallper shows an error message
+** 3b1. Hallper shows an error message
 +
-Use case resumes at step 2.
-
-* 5a. Name of person-in-charge is not detected in the contact list
-+
-[none]
-** 5a1. Hallper shows an error message
-+
-Use case resumes at step 4.
-
-* 5b. Amount of money entered is invalid
-+
-[none]
-** 5b1. Hallper shows an error message
-+
-Use case resumes at step 4.
-
-* 5c. Comments left empty
-+
-[none]
-** 5c1. Hallper shows an error message
-+
-Use case resumes at step 4.
+Use case resumes at step 1.
 
 [discrete]
+
 === Use case: Sort contacts
 
 *MSS*
@@ -2517,3 +2463,89 @@ Events in Hallper are considered the same if they have the same start date, end 
    Expected: Image not copied. File path error message displayed.
 .. Test case: `image r/A123 f/FileDontExist.jpg` +
    Expected: Image not copied. Invalid image error message displayed.
+
+=== Creating CCA
+. Adds a CCA with a given budget
+
+.. Prerequisites: The name of the given CCA is alphanumeric. The budget given is numeric and the only symbol can be
+used is dash.
+.. Test case: `create n/Basketball budget/500` +
+   Expected: New CCA added: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `create n/Basketball` +
+   Expected: Invalid command format!
+             create: Create a new CCA to the address book.
+             Parameters: n/CCA NAME budget/BUDGET
+             Example: create n/Basketball budget/500
+.. Test case: `create` +
+    Expected: Invalid command format!
+              create: Create a new CCA to the address book.
+              Parameters: n/CCA NAME budget/BUDGET
+              Example: create n/Basketball budget/500
+.. Test case: `create n/Basketball-M budget/500` +
+    Expected: CCA names should only contain alphabet characters and spaces, and it should not be blank!
+.. Test case: `create n/Basketball budget/$500`
+    Expected: Budget should only contain numbers and it should not be blank.
+
+=== Deleting CCA
+. Deletes a CCA in Hallper.
+
+.. Prerequisites: The specified CCA must exist in Hallper.
+.. Test case: `delete_cca c/basketball` +
+   Expected: Deleted CCA: Basketball Head: - Vice-Head: - Budget: 500
+.. Test case: `delete_cca c/tennis` +
+    Expected: The CCA does not exist.
+.. Test case: `delete_cca` +
+    Expected: Invalid command format!
+              delete_cca: Deletes the CCA specified
+              Parameters: c/CCA
+              Example: delete_cca c/ basketball
+
+=== Updating CCA
+. Update the details of a CCA.
+
+.. Prerequisites: The specified CCA must exist in Hallper. The fields provided must be in the correct format.
+.. Test case: `update c/hockey h/Peter Park` +
+   Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
+.. Test case: `update c/tennis h/Peter Park` +
+    Expected: The CCA does not exist.
+.. Test case: `update c/hockey trans/1 amount/200` +
+    Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
+
+=== Adding a Transaction Entry
+. Adds a transaction entry for a specified CCA in Hallper
+
+.. Prerequisites: The specified CCA must exist in Hallper. The details of the transaction must all be provided and
+are in the correct format.
+.. Test case: `add_trans c/hockey date/20.12.2018 amount/-100 remarks/venue booking` +
+   Expected: Transaction added: Hockey Head: Alex Yeoh Vice-Head: Bernice Yu Budget: 500
+.. Test case: `add_trans c/tennis date/20.12.2018 amount/-100 remarks/venue booking` +
+   Expected: The CCA does not exist. Please create the CCA before. adding its transaction
+.. Test case: `add_trans c/tennis date/20.12.2018 amount/-100` +
+    Expected: All the fields must be provided.
+              add_trans: Add a new transaction to the specified Cca
+              Parameters: c/CCA date/DD.MM.YYYY amount/AMOUNTremarks/REMARKS
+              Example: add_trans c/basketball date/13.12.2018 amount/-100 remarks/Purchase of equipment
+
+=== Deleting a Transaction Entry
+. Deletes a transaction entry for a specified CCA in Hallper.
+
+.. Prerequisites: The specified CCA must exist in Hallper. The transaction entry must exist for that CCA.
+.. Test case: `delete_trans c/basketball trans/1` +
+   Expected: Deleted Cca Transaction Entry:  Entry Number: 1 Date: 13.11.2013 Amount: -300 Remarks: Purchase of Equipment
+.. Test case: `delete_cca c/basketball` +
+    Expected: delete_trans: Deletes the specified transaction entry of the specified CCA
+              Parameters: c/CCA INDEX (must be a positive integer)
+              Example: delete_trans c/ basketball 2
+.. Test case: `delete_trans c/tennis trans/1` +
+    Expected: The CCA does not exist.
+
+=== Showing CCAs' Budget
+. Displays the CCA information and its transaction history.
+
+.. Prerequisites: The specified CCA must exist in Hallper.
+.. Test case: `budget` +
+   Expected: Display budget.
+.. Test case: `budget c/basketball` +
+   Expected: Display budget.
+.. Test case: `budget c/tennis` +
+    Expected: The CCA does not exist.
