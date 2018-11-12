@@ -155,7 +155,6 @@ As a receptionist, you will be able to do the following:
 * Manage future patient appointment
 * View statistics and export data.
 
-
 ================
 *Command Format*
 
@@ -323,7 +322,7 @@ You can add a patient to the clinic record. +
 
 Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [med/MEDICATIONS]... [alrg/ALLERGIES]... [preDr/PREFERRED_DOC]`
 
-You just need to type in the command as below:
+You just need to type in the `addpatient` command as shown below:
 
 .Before adding patient
 image::user-guide-addpatient-before.png[width=500]
@@ -405,6 +404,16 @@ Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
+
+You just need to type in the `findpatient` command as shown below:
+
+.Before finding patient
+image::user-guide-findpatient-before.png[width=500]
+
+Then, any patient that matches the keywords will be displayed as below:
+
+.After adding patient
+image::user-guide-findpatient-after.png[width=500]
 
 Examples:
 
