@@ -225,8 +225,8 @@ Creates a new playlist with the name Favourites and adds the tracks named Some S
 // end::PlaylistNew_david[]
 
 =======
+
 // tag::playlistDel_hayden[]
->>>>>>> Stashed changes
 === Deleting a playlist : `playlist del`
 
 Removes an existing playlist from the library. +

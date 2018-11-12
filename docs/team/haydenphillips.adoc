@@ -17,7 +17,7 @@ It is written in Java, and has about 10 kLoC.
 == Summary of contributions:
 
 * *Major enhancement*:
-** Playlist Management
+Playlist Management
 *** What it does: Allows the ability to add to, delete from, and search for playlists within the music library.
 *** Justification: Allows the user to organise their music collection to suit their listening preferences. Users can sort their music by creating playlist based on genre, likeability, age etc.
 The user can easily search through large collections of music via the search command.
@@ -43,9 +43,11 @@ Project management:
 ** Implemented corresponding test cases to cover newly-implemented Playlist management feature.
 
 Enhancements to existing features:
+
 ** Refactored code throughout the Logic component
 
 Community:
+
 ** PRs reviewed (with non-trivial review comments)
 ** Reported bugs and suggestions for other teams in the class
 
