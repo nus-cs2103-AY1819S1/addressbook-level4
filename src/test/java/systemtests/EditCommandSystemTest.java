@@ -34,7 +34,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
+import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA2101_JANUARY_1_2018_YEARLY;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
@@ -73,7 +73,7 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
                 + "  " + VENUE_DESC_CS2103 + "  "
                 + REPEAT_TYPE_DESC_CS2103 + "  " + REPEAT_UNTIL_DATETIME_DESC_CS2103
                 + EVENT_NAME_DESC_CS2103 + " " + PREFIX_TAG;
-        Event repeatedEvent = new EventBuilder(CS2103_LECTURE)
+        Event repeatedEvent = new EventBuilder(FRIDAY_LECTURE)
                 .withEventUid(model.getFilteredEventList().get(index.getZeroBased()).getEventUid())
                 .withEventSetUid(model.getFilteredEventList().get(index.getZeroBased()).getEventSetUid())
                 .build();

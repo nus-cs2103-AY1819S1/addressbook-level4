@@ -14,6 +14,11 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_VENUE;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,14 +50,14 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_NAME_CS2103 = "CS2103";
     public static final String VALID_EVENT_NAME_MA2101 = "MA2101";
     public static final String VALID_EVENT_NAME_MA3220 = "MA3220";
-    public static final LocalDateTime VALID_START_DATETIME_CS2103 = LocalDateTime.of(2018, 8,
-            17, 16, 0);
+    public static final LocalDateTime VALID_START_DATETIME_CS2103 = LocalDateTime.of(2018, 11,
+            30, 16, 0);
     public static final LocalDateTime VALID_START_DATETIME_MA2101 = LocalDateTime.of(2018, 1,
             1, 1, 1);
     public static final LocalDateTime VALID_START_DATETIME_MA3220 = LocalDateTime.of(2019, 2,
             2, 2, 2);
-    public static final LocalDateTime VALID_END_DATETIME_CS2103 = LocalDateTime.of(2018, 8,
-            17, 18, 0);
+    public static final LocalDateTime VALID_END_DATETIME_CS2103 = LocalDateTime.of(2018, 11,
+            30, 18, 0);
     public static final LocalDateTime VALID_END_DATETIME_MA2101 = LocalDateTime.of(2018, 1,
             1, 1, 2);
     public static final LocalDateTime VALID_END_DATETIME_MA3220 = LocalDateTime.of(2019, 2,
@@ -67,7 +72,7 @@ public class CommandTestUtil {
     public static final RepeatType VALID_REPEAT_TYPE_MA2101 = RepeatType.YEARLY;
     public static final RepeatType VALID_REPEAT_TYPE_MA3220 = RepeatType.NONE;
     public static final LocalDateTime VALID_REPEAT_UNTIL_DATETIME_CS2103 = LocalDateTime.of(2018, 11,
-            16, 18, 1);
+            30, 18, 1);
     public static final LocalDateTime VALID_REPEAT_UNTIL_DATETIME_MA2101 = LocalDateTime.of(2019, 1,
             1, 1, 2);
     public static final LocalDateTime VALID_REPEAT_UNTIL_DATETIME_MA3220 = LocalDateTime.of(2019, 2,
@@ -166,6 +171,22 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - This is used for Google related tests <br>
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel,
+                                            CommandHistory actualCommandHistory,
+                                            String expectedMessage) {
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the scheduler book and the filtered event list in the {@code actualModel} remain unchanged <br>
@@ -215,6 +236,45 @@ public class CommandTestUtil {
     }
 
     /**
+
+     * Executes {@code command}
+     * Such as set up events on Google Calendar for those events ready for editing.
+     */
+    public static void helperCommand(Command command, Model actualModel, CommandHistory actualCommandHistory) {
+        try {
+            command.execute(actualModel, actualCommandHistory);
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Enables the Google Calendar Feature for the test environment
+     */
+    public static void enable() {
+        File file = new File("./tokens/mode.txt");
+        try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+            String contents = "Enabled";
+            writer.write(contents);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Disables the Google Calendar Feature for the test environment
+     */
+    public static void disable() {
+        File file = new File("./tokens/mode.txt");
+        try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+            String contents = "Disabled";
+            writer.write(contents);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Get a sample full set of recurring events {@code model}'s based on typical scheduler: Study with Jane
      */
     public static List<Event> getSampleRecurringEventAll(Model model) {
@@ -225,5 +285,4 @@ public class CommandTestUtil {
         eventList.add(model.getScheduler().getEventList().get(5));
         return eventList;
     }
-
 }

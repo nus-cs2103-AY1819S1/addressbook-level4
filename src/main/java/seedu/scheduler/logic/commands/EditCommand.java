@@ -123,7 +123,7 @@ public class EditCommand extends Command {
         //Calculate parameters for updating events in Google Calender
         logger.info("Calculating parameters for Google calender edit commands.");
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
-        boolean operationOnGoogleCalIsSuccessful;
+        boolean operationOnGoogleCalIsSuccessful = false;
 
         try {
             //Update by cases
