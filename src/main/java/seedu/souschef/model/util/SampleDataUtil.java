@@ -407,7 +407,7 @@ public class SampleDataUtil {
                     new Instruction("Place salmon skin-side down on foil. Spread a thin layer of mustard on "
                         + "the top of each fillet, and season with salt and pepper.",
                         getIngredientPortionSet(new IngredientPortion("salmon", "g", 450.0),
-                            new IngredientPortion("mustard", "tablespoon", 3.0),
+                            new IngredientPortion("Dijon mustard", "tablespoon", 3.0),
                             new IngredientPortion("salt", "pinch", 1.0),
                             new IngredientPortion("pepper", "pinch", 1.0))),
                     new Instruction("Top with bread crumbs, then drizzle with melted butter.",
