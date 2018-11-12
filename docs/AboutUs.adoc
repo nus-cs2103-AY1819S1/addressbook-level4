@@ -15,7 +15,7 @@ The source code can be found https://github.com/nus-cs2103-AY1819S1/addressbook-
 
 === Dominic Chong
 image::bannified.png[width="150", align="left"]
-{empty} [https://github.com/bannified[github]] [https://bannified.github.io/portfolio/[portfolio]]
+{empty} [https://github.com/bannified[github]] [<<bannified#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Scheduling and Tasking, In charge of Model
@@ -24,7 +24,7 @@ Responsibilities: Scheduling and Tasking, In charge of Model
 
 === Leong Sheng Min
 image::leongshengmin.png[width="150", align="left"]
-{empty}[http://github.com/leongshengmin[github]] [[portfolio]]
+{empty}[http://github.com/leongshengmin[github]] [<<leongshengmin#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality, In charge of Storage
@@ -33,7 +33,7 @@ Responsibilities: Code Quality, In charge of Storage
 
 === Ananda Kumar
 image::dioptrique.png[width="150", align="left"]
-{empty}[http://github.com/dioptrique[github]] [[portfolio]]
+{empty}[http://github.com/dioptrique[github]] [<<dioptrique#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing, Integration, IntelliJ Expert
@@ -42,7 +42,7 @@ Responsibilities: Testing, Integration, IntelliJ Expert
 
 === Lionel Tan
 image::lionelat.png[width="150", align="left"]
-{empty}[http://github.com/lionelat[github]] [<<lionel#, portfolio>>]
+{empty}[http://github.com/lionelat[github]] [<<lionelat#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation, In charge of Logic, Deliverables and Deadlines
@@ -51,7 +51,7 @@ Responsibilities: Documentation, In charge of Logic, Deliverables and Deadlines
 
 === Lim Jiho
 image::jiholim.png[width="150", align="left"]
-{empty}[https://mobbin.design/[homepage]] [http://github.com/jiholim[github]] [[portfolio]]
+{empty}[https://mobbin.design/[homepage]] [http://github.com/jiholim[github]] [<<jiholim#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI, In charge of UI component
