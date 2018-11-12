@@ -42,6 +42,9 @@ public class AddAllDayEventCommand extends Command {
     private final String title;
 
     public AddAllDayEventCommand(Month month, Year year, int date, String title) {
+        requireNonNull(month);
+        requireNonNull(year);
+        requireNonNull(title);
         this.month = month;
         this.year = year;
         this.date = date;

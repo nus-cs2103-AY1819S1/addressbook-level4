@@ -76,12 +76,31 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
+    //@@author kengwoon
     /**
      * Adds persons to the address book.
-     * Exisiting persons will be ignored.
+     * Existing persons will be ignored.
      */
     public void addMultiplePersons(List<Person> personList) {
         persons.addMultiplePersons(personList);
+    }
+
+    /**
+     * Removes persons from the address book.
+     */
+    public void removeMultiplePersons(List<Person> personList) {
+        persons.removeMultiplePersons(personList);
+    }
+
+    /**
+     * Replaces the given persons {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updateMultiplePersons(List<Person> editedPersons, List<Person> targets) {
+        requireNonNull(editedPersons);
+
+        persons.setMultiplePersons(editedPersons, targets);
     }
 
     /**

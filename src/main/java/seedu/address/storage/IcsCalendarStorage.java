@@ -30,6 +30,11 @@ public class IcsCalendarStorage implements CalendarStorage {
     }
 
     @Override
+    public void setCalendarPath(Path newDirPath) {
+        this.dirPath = newDirPath;
+    }
+
+    @Override
     public void createCalendar(Calendar calendar, String calendarName) throws IOException {
         String fileName = calendarName + ".ics";
         Path pathToSave = Paths.get(dirPath.toString(), fileName);

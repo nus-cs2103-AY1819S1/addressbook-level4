@@ -11,7 +11,6 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
-
 /**
  * View a Calendar with a specified month and year.
  */
@@ -26,13 +25,15 @@ public class ViewCalendarCommand extends Command {
         + PREFIX_MONTH + "OCT "
         + PREFIX_YEAR + "2018 ";
 
-    public static final String MESSAGE_SUCCESS = "Calendar loaded onto UI: %s";
+    public static final String MESSAGE_SUCCESS = "Loading calendar onto UI: %s";
     public static final String MESSAGE_NOT_EXISTING_CALENDAR = "This calendar doesn't exist in Hallper";
 
     private final Month month;
     private final Year year;
 
     public ViewCalendarCommand(Month month, Year year) {
+        requireNonNull(month);
+        requireNonNull(year);
         this.month = month;
         this.year = year;
     }

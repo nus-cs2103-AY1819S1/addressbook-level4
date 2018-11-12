@@ -74,11 +74,11 @@ public class BudgetBook implements ReadOnlyBudgetBook {
         Set<Tag> tagSet = person.getTags();
         for (Tag tag : tagSet) {
             String ccaName = tag.tagName;
-            if (ccas.contains(ccaName)) {
-                return true;
+            if (!ccas.contains(ccaName)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -112,6 +112,14 @@ public class BudgetBook implements ReadOnlyBudgetBook {
      */
     public void addCca(Cca cca) {
         ccas.add(cca);
+    }
+
+    /**
+     * Adds persons to the address book.
+     * Existing persons will be ignored.
+     */
+    public void addMultipleCcas(List<Cca> ccaList) {
+        ccas.addMultipleCcas(ccaList);
     }
 
     /**

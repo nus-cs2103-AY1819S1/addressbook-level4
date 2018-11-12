@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -38,10 +39,26 @@ public class CalendarPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing and dragging inside the loaded Calendar.
         getRoot().setOnKeyPressed(Event::consume);
-
+        loadDefaultCalendar();
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Method to load a default calendar into the border pane.
+     */
+    private void loadDefaultCalendar() {
+        ICalendarAgenda iCalendarAgenda = new ICalendarAgenda();
+        borderPane.setCenter(iCalendarAgenda);
+
+        // block events on calendar
+        EventHandler<MouseEvent> handler = MouseEvent::consume;
+        borderPane.getCenter().addEventFilter(MouseEvent.ANY, handler);
+        setUpBorderPane(iCalendarAgenda);
+    }
+
+    /**
+     * Sets up the border pane with button and styling.
+     */
     private void setUpBorderPane(ICalendarAgenda agenda) {
         // Set the border pane background to white
         String style = "-fx-background-color: rgba(255, 255, 255, 1);";
@@ -77,7 +94,12 @@ public class CalendarPanel extends UiPart<Region> {
      * Loads the calendar requested by the user onto the UI.
      */
     public void loadCalendar(Calendar calendar) {
-        VCalendar vCalendar = VCalendar.parse(calendar.toString());
+        String content = calendar.toString();
+        if (!isWindowsOs()) {
+            content = content.replace("\r\n", System.getProperty("line.separator"));
+        }
+
+        VCalendar vCalendar = VCalendar.parse(content);
         ICalendarAgenda iCalendarAgenda = new ICalendarAgenda(vCalendar);
         borderPane.setCenter(iCalendarAgenda);
 
@@ -86,6 +108,18 @@ public class CalendarPanel extends UiPart<Region> {
         borderPane.getCenter().addEventFilter(MouseEvent.ANY, handler);
         setUpBorderPane(iCalendarAgenda);
 
+    }
+
+    /**
+     * Checks if the operating system is windows.
+     */
+    private boolean isWindowsOs() {
+        String osName = System.getProperty("os.name");
+        if (osName == null) {
+            return false;
+        }
+        osName = osName.toLowerCase(Locale.ENGLISH);
+        return osName.contains("windows");
     }
 
     @Subscribe

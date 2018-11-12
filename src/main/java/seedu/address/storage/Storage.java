@@ -37,6 +37,11 @@ import seedu.address.model.person.Room;
 public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage,
     EmailStorage, ProfilePictureStorage {
 
+    /**
+     * Make a defensive copy of StorageManager.
+     */
+    public StorageManager makeCopyOf();
+
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
@@ -80,12 +85,11 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
 
+    //@@author ericyjw
     /**
      * Saves the current version of the Budget Book to the hard disk.
      * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     *
-     * @author ericyjw
      */
     void handleBudgetBookChangedEvent(BudgetBookChangedEvent bbce);
 
@@ -119,6 +123,9 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
     //@@author GilgameshTC
     @Override
     Path getCalendarPath();
+
+    @Override
+    void setCalendarPath(Path newDirPath);
 
     @Override
     void createCalendar(Calendar calendar, String calendarName) throws IOException;

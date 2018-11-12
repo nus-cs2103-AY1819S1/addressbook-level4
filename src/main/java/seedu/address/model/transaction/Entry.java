@@ -71,6 +71,18 @@ public class Entry {
         this.remarks = new Remarks(remarks);
     }
 
+    /**
+     * Constructor used for testing. Copy the data fields of the given entry and produce a new Entry.
+     *
+     * @param entryToCopy the entry to be copied
+     */
+    public Entry(Entry entryToCopy) {
+        this.entryNum = entryToCopy.getEntryNum();
+        this.date = entryToCopy.getDate();
+        this.amount = entryToCopy.getAmount();
+        this.remarks = entryToCopy.getRemarks();
+    }
+
     public int getEntryNum() {
         return entryNum;
     }

@@ -40,7 +40,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_DATE_CONSTRAINTS =
-        "Date must be a non-negative integer and not greater than 31.";
+        "Date must be a non-negative, non-zero integer and not greater than 31.";
     public static final String MESSAGE_HOUR_CONSTRAINTS =
         "Hour must be a non-negative integer and not greater than 23.";
     public static final String MESSAGE_MINUTE_CONSTRAINTS =
@@ -185,6 +185,7 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    //@@author EatOrBeEaten
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -211,6 +212,12 @@ public class ParserUtil {
         if (!trimmedFile.contains(".xml")) {
             throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
+        // to handle unix home directory
+        if (trimmedFile.startsWith("~")) {
+            String home = System.getProperty("user.home");
+            String directory = trimmedFile.substring(1);
+            return new File(home + directory);
+        }
         return new File(trimmedFile);
     }
 
@@ -228,10 +235,17 @@ public class ParserUtil {
         if (!trimmedFilename.contains(".xml")) {
             throw new ParseException(ExportCommand.MESSAGE_USAGE);
         }
+        // to handle unix home directory
+        if (trimmedPath.startsWith("~")) {
+            String home = System.getProperty("user.home");
+            String directory = trimmedPath.substring(1);
+            return new File(home + directory + "/" + trimmedFilename).toPath();
+        }
         return new File(trimmedPath + "/" + trimmedFilename).toPath();
     }
 
     //@@author javenseow
+
     /**
      * Parses a {@code String file} into a {@code File}.
      * Leading and trailing whitespaces will be trimmed.
@@ -447,7 +461,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         int dateInt = Integer.parseInt(trimmedDate);
-        if (dateInt < 0 || dateInt > 31) {
+        if (dateInt <= 0 || dateInt > 31) {
             throw new ParseException(MESSAGE_DATE_CONSTRAINTS);
         }
         return dateInt;

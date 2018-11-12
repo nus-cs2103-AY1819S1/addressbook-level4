@@ -24,7 +24,7 @@ public class ImageCommandParser implements Parser<ImageCommand> {
      */
     public ImageCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultiMap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_FILE);
+            ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_FILE);
 
         if (!arePrefixesPresent(argMultiMap, PREFIX_ROOM, PREFIX_FILE) || !argMultiMap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImageCommand.MESSAGE_USAGE));
@@ -44,3 +44,4 @@ public class ImageCommandParser implements Parser<ImageCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
+

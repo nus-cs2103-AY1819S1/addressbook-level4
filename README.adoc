@@ -20,13 +20,14 @@ Hallper is a professional desktop application that provides administrative conve
 == Key Features
 Hallper provides the following features to improve the experience of JCRC members in carrying out hall duties:
 
-* Convenient clearing and importing of multiple contacts
-* Tagging contacts by categories (CCA, block, etc)
+* Clearing and importing of multiple contacts conveniently
+* Tagging contacts by categories (CCA, room, etc)
 * Filtering through contacts quickly
-* Profile view of contacts
-* Budget allocation and management
-* Mass emailing to multiple contacts
-* Calendar to update monthly events
+* Viewing of contact profile
+* Updating of profile pictures of contacts
+* Allocating and managing the budget
+* Composing emails to multiple contacts
+* Updating monthly events to the calendar
 
 == Site Map
 
@@ -40,6 +41,6 @@ Hallper provides the following features to improve the experience of JCRC member
 * Original source of the code AddressBook-Level4 project was created by https://github.com/se-edu/[SE-EDU] initiative
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], http://www.simplejavamail.org/#/about[Simple Java Mail], https://github.com/ical4j/ical4j[iCal4j], https://commons.apache.org/proper/commons-io/[Apache Commons IO]
+* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], http://www.simplejavamail.org/#/about[Simple Java Mail], https://github.com/ical4j/ical4j[iCal4j], http://jfxtras.org/[JFxtras]
 
 == Licence : link:LICENSE[MIT]

@@ -6,6 +6,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.Room;
 
 //@@author javenseow
+
 /**
  * Indicates the Profile Picture file has been read.
  */

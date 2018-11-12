@@ -21,7 +21,7 @@ public class UserPrefs {
     private Path budgetBookFilePath = Paths.get("data", "ccabook.xml");
     private Path ccaXslFilePath = Paths.get("data", "ccabook.xsl");
     private Path emailPath = Paths.get("email");
-    private Path calendarPath = Paths.get("calendar");
+    private Path calendarPath = Paths.get("calendars");
     private Path profilePicturePath = Paths.get("src", "main", "resources", "profile_picture");
     private Path outputProfilePicturePath = Paths.get("out", "production", "resources", "profile_picture");
     private Map<Year, Set<Month>> existingCalendar;
@@ -115,9 +115,9 @@ public class UserPrefs {
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(emailPath, o.emailPath)
-                && Objects.equals(calendarPath, o.calendarPath)
-                && Objects.equals(profilePicturePath, o.profilePicturePath)
-                && Objects.equals(outputProfilePicturePath, o.outputProfilePicturePath);
+            && Objects.equals(calendarPath, o.calendarPath)
+            && Objects.equals(profilePicturePath, o.profilePicturePath)
+            && Objects.equals(outputProfilePicturePath, o.outputProfilePicturePath);
 
     }
 

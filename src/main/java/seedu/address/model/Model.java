@@ -10,6 +10,7 @@ import org.simplejavamail.email.Email;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
+import seedu.address.commons.events.storage.RemoveExistingCalendarInModelEvent;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
@@ -47,6 +48,11 @@ public interface Model {
     ReadOnlyBudgetBook getBudgetBook();
 
     /**
+     * Returns the CalendarModel
+     */
+    CalendarModel getCalendarModel();
+
+    /**
      * Returns a set of existing emails
      */
     Set<String> getExistingEmails();
@@ -57,10 +63,16 @@ public interface Model {
     boolean hasPerson(Person person);
 
     //@@author ericyjw
+
     /**
      * Returns true if a person with the same name as {@code person} exists in the address book.
      */
     boolean hasPerson(Name person);
+
+    /**
+     * Initialise the budget book.
+     */
+    void initialiseBudgetBook();
 
     /**
      * Returns true if a CCA with the same CCA name as {@code Cca} exists in the budget book.
@@ -78,6 +90,7 @@ public interface Model {
     boolean hasCca(Person toAdd);
 
     //@@author
+
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -109,6 +122,11 @@ public interface Model {
     void addCca(Cca cca);
 
     /**
+     * Adds the given Ccas in list.
+     */
+    void addMultipleCcas(List<Cca> ccaList);
+
+    /**
      * Adds the given persons in list.
      * {@code personList} must not contain persons already exist in the address book.
      */
@@ -122,12 +140,19 @@ public interface Model {
     void updatePerson(Person target, Person editedPerson);
 
     //@@author ericyjw
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updateCca(Cca target, Cca editedCca);
+
+    /**
+     * Replaces the given Ccas {@code target} with {@code editedCca}.
+     * The person identity of {@code editedPerson} must not be the same as another existing Cca in the budget book.
+     */
+    void updateMultipleCcas(List<Cca> target, List<Cca> editedCca);
 
     /**
      * Replaces the given persons {@code target} with {@code editedPerson}.
@@ -161,6 +186,7 @@ public interface Model {
     void updateFilteredCcaList(Predicate<Cca> predicate);
 
     //@@author
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -187,6 +213,7 @@ public interface Model {
     void commitAddressBook();
 
     //@@author ericyjw
+
     /**
      * Saves the current budget book state for undo/redo.
      */
@@ -198,15 +225,21 @@ public interface Model {
     ObservableList<Cca> getFilteredCcaList();
 
     //@@author
+
     /**
      * Saves the email to the EmailModel.
      */
     void saveEmail(Email email);
 
     /**
-     * Saves a newly composed email to the EmailModel.
+     * Saves a newly composed email to the EmailModel, and display it on BrowserPanel.
      */
     void saveComposedEmail(Email email);
+
+    /**
+     * Saves a newly composed email to the EmailModel.
+     */
+    void saveComposedEmailWithoutDisplay(Email email);
 
     /**
      * Deletes an existing email from EmailModel.
@@ -219,12 +252,17 @@ public interface Model {
     boolean hasEmail(String fileName);
 
     /**
-     * Passes the calendar loaded from memory into model
+     * Passes the calendar loaded from memory into model.
      */
     void handleCalendarLoadedEvent(CalendarLoadedEvent event);
 
     /**
-     * Returns true if the model already has a calendar with the same month and year
+     * Remove the calendar from the model.
+     */
+    void handleRemoveExistingCalendarInModelEvent(RemoveExistingCalendarInModelEvent event);
+
+    /**
+     * Returns true if the model already has a calendar with the same month and year.
      */
     boolean isExistingCalendar(Year year, Month month);
 
@@ -245,6 +283,11 @@ public interface Model {
 
     /**
      * Returns true if the start date is earlier than the end date.
+     */
+    boolean isValidTimeFrame(int startDate, int endDate);
+
+    /**
+     * Returns true if the start date and time is earlier than the end date and time.
      */
     boolean isValidTimeFrame(int startDate, int startHour, int startMinute, int endDate, int endHour, int endMinute);
 
@@ -292,9 +335,11 @@ public interface Model {
     void handleEmailLoadedEvent(EmailLoadedEvent e);
 
     //@@author ericyjw
+
     /**
      * Deletes an existing CCA in the CCA list.
      */
     void deleteCca(Cca ccaToDelete);
 
+    void readXslFile();
 }
