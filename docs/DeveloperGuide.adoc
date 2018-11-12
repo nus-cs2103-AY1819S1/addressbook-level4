@@ -421,16 +421,21 @@ image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
 
 // end::deleteProfilePhoto[]
 
+// tag::classDiagram[]
+=== Assignment and Attendance data structure
+image::ModelClassDiagram.png[width="800"]
+// end::classDiagram[]
+
 // tag::assignment[]
-=== Assignment data structure
+==== Assignment data structure
 
 Global information about assignment is stored in addressbook level and
 each assignment have a uniqueId that will not change when the assignment is edited.
 Also every student store a map with assignment uniqueId as key and mark obtained as value.
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: Data Structure to support assignment operations
+====== Aspect: Data Structure to support assignment operations
 * **Alternative 1 (current choice):** Use a hashmap of uniqueId to mark to store assignment score of each student.
 ** Pros: Flexibility to edit assignment without having to do any operation on each student.
 ** Cons: Any functionality that needs to iterate through all assignment score for a student must first iterate through
@@ -442,18 +447,18 @@ edit assignment information in every single student.
 // end::assignment[]
 
 // tag::attendance[]
-=== Attendance data structure
+==== Attendance data structure
 
 Provides a representation of an attendance session for a particular date.
 This enables a mapping between each student and multiple attendance sessions
 with a record of attendance/absence for that session.
 
 .Structure of the Model Component including the Attendance data structure
-image::ModelClassDiagram.png[width="800"]
 
-==== Design Considerations
 
-===== Aspect: Data Structure to support attendance operations
+===== Design Considerations
+
+====== Aspect: Data Structure to support attendance operations
 * **Alternative 1 (current choice):** Adaptation of Assignment model, using a HashMap for each student to record the attendance/absence
 with the uniqueId of the Attendance session. AttendanceMark is a subclass of the Mark class from the Assignment model, limited to a value of 1 or 0.
 The Attendance session date is represented with the Deadline class from the Assignment model.
