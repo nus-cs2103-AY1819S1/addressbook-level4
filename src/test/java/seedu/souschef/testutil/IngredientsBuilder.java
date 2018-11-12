@@ -13,14 +13,14 @@ public class IngredientsBuilder {
     private Set<IngredientPortion> ingredients;
 
     public IngredientsBuilder() {
-        ingredients = new HashSet<>();
+        this.ingredients = new HashSet<>();
     }
 
     /**
      * Initializes the IngredientBuilder with the data of {@code Set<IngredientPortion>}.
      */
     public IngredientsBuilder(Set<IngredientPortion> ingredients) {
-        ingredients = new HashSet<>(ingredients);
+        this.ingredients = new HashSet<>(ingredients);
     }
 
     /**

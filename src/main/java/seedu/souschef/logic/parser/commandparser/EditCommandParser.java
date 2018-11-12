@@ -154,7 +154,13 @@ public class EditCommandParser {
     public EditCommand<Ingredient> parseIngredient(Model model, String args) throws ParseException {
         requireNonNull(model);
         requireNonNull(args);
-        String[] tokens = args.trim().split("\\s+");
+        String[] tokens = args.toLowerCase().trim().split("\\s+");
+
+        if (tokens.length < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_EDIT_INGREDIENT_USAGE));
+        }
+
         List<Ingredient> lastShownList = model.getFilteredList();
         Ingredient toEdit = lastShownList.get(ParserUtil.parseIngredientIndex(lastShownList, tokens,
                 MESSAGE_EDIT_INGREDIENT_USAGE));

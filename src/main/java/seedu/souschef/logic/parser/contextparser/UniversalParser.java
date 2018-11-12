@@ -93,7 +93,7 @@ public class UniversalParser {
     }
 
     private void checkContext(Context present, Context next) throws ParseException {
-        if (present == next) {
+        if (present.equals(next)) {
             throw new ParseException(String.format(MESSAGE_ALREADY_IN_CONTEXT, next));
         }
     }
