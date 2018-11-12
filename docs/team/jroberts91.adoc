@@ -10,9 +10,11 @@ Hi, I am Joshua and welcome to my Project Portfolio. Office Assistance Specializ
 
 OASIS is an employee management application catered for small-to-medium sized enterprises. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. OASIS comes with many efficient problem-solving features that solve employee management problems of today, some of these features are: employee records management, authentication and permissions, assignment management, archiving of employees, and leave management.
 
-This document summarizes my contribution of work done in OASIS.
+My team consists of 4 other year 2 Computer Science students taking CS2103T and this document summarizes my contribution of work done in OASIS.
 
 == Summary of contributions
+This section shows in detail my contributions to the project, namely my major enhancement, my minor enhancement and other notable contributions to OASIS.
+
 * *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jroberts91[Reposense]
 
 * *Major enhancement*: Added *the ability to archive and restore employees*
