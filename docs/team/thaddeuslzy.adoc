@@ -93,45 +93,80 @@ listed instead of returning an error. This logic error was resolved.
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3.1` (1 release) on GitHub
-*** Morphed and transformed large sections of code in *Address Book (Level 4)* into current product *Student Schedule
-Planner* :
+** *Project management*:
+*** Managed releases `v1.3.1` (1 release) on GitHub: +
+https://github.com/CS2103-AY1819S1-T12-3/main/releases/tag/v1.3.1[1.3.1]
 
-** Documentation:
-*** Enhanced Introduction for DevGuide
+*** Morphed large sections of code in *Address Book (Level 4)* into current product *Student Schedule Planner* :
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/41[#41]
+
+*** Added preloaded test cases for jar file, so that users may test commands:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/140[#140]
+
+** *Documentation*:
+*** Enhanced Introduction for DevGuide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/77[#77]
+
 *** Added Use Cases for DevGuide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/115[#115]
+
 *** Added Instructions for Manual Testing in Developer Guide:
-*** Did cosmetic tweaks to existing contents of the User Guide:
-*** Did cosmetic tweaks to existing contents of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/251[#251]
 
-** Community:
+*** Improvements to flow of existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/64[#64] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/140[#140],
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/[#245] ,
+
+*** Improvements to flow of existing contents of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/64[#64] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/87[#87] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/221[#221] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/224[#224] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/245[#245]
+
+** *Community*:
 *** PRs reviewed (with non-trivial review comments):
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/76[#76]
 
-** Tools:
+*** Reported bugs and suggestions for other teams in the class:
+Examples: https://github.com/CS2103-AY1819S1-T10-1/main/issues/110[1] ,
+https://github.com/CS2103-AY1819S1-T10-1/main/issues/106[2]
+
 
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Provided below are the sections I have contributed to the User Guide. They showcase my ability to write concise,
+and coherent documentation targeting end-users who are seeing the SSP application for the first time_
 |===
 
 include::../UserGuide.adoc[tag=listmonth]
 
 include::../UserGuide.adoc[tag=filtertags]
 
+
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write intelligible
+technical documentation to aid developers who are looking at the SSP for the first time. It also showcases the
+technical depth of my contributions to the project, and the value of improvements made to the SSP application._
 |===
 
 include::../DeveloperGuide.adoc[tag=listmonth]
 
 include::../DeveloperGuide.adoc[tag=filtertags]
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=usecase]
+
+include::../DeveloperGuide.adoc[tag=usecasefilter]
+
+include::../DeveloperGuide.adoc[tag=usecaselistmonth]
+
+include::../DeveloperGuide.adoc[tag=appendix]
+
+include::../DeveloperGuide.adoc[tag=manualtestfilter]
 
 ---
