@@ -939,6 +939,7 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `edit-sales 7 q/37 p/6.50`
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
+// end::salesmanagement[]
 
 [[chart-sales]]
 ==== Display sales chart of date and revenue: `chart-sales` or `cs`
@@ -956,6 +957,8 @@ The following (Figure 5.6.5.1) is an example of what you will see if the sales c
 image::chart-sales-pic.png[width="550"]
 _Figure 5.6.5.1: Sales Chart of revenue against date_
 
+// tag::rankdates[]
+
 [[rank-date]]
 ==== Ranking dates according to total revenue: `rank-date` or `rad`
 
@@ -972,10 +975,13 @@ You can generate the sales report of a specific date to get a more detailed anal
 Section 5.6.2, “Display sales report">> for more information
 ====
 
+
 The following (Figure 5.6.6.1) is an example of what you will see if the ranking is generated and displayed correctly:
 
 image::rank-date-pic.png[width="325"]
 _Figure 5.6.6.1: Ranking of dates by revenue_
+
+// end::rankdates[]
 
 [[rank-item]]
 ==== Ranking items according to total revenue: `rank-item` or `rai`
@@ -1016,7 +1022,6 @@ Selects the 2nd record in the record list.
 
 `ss 6` +
 Selects the 6th record in the record list.
-// end::salesmanagement[]
 
 === Upcoming Features
 [[Register-Improvement]]

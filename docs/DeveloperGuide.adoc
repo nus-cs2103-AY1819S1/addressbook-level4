@@ -594,7 +594,7 @@ The following activity diagram (Figure 4.4.1.1) summarizes what happens when a u
 
 image::RecordSalesActivityDiagram.png[width="1000"]
 _Figure 4.4.1.1: Activity Diagram for `record-sales` command_
-
+// end::salesmanagement[]
 
 ==== Design Considerations
 **Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales record?**
@@ -643,7 +643,7 @@ and 3 oranges to make at the time of edit-sales (present). If the user edits the
  it only took (1*10 = 10) oranges. +
 **Verdict**: **This option is irrational**.
 
-
+// tag::salesmanagement1[]
 === Display sales report feature
 ==== Current Implementation
 
@@ -698,7 +698,7 @@ search to fill in the `List<SalesRecord>` every time a sales report is requested
 ** Pros: `SalesReport` can be generated with a O(logN) time complexity.
 ** Cons: Sorting after every input would require O(NlogN) time which is slow. Additionally, the sorted list also
 takes up an O(N) memory space.
-// end::salesmanagement[]
+// end::salesmanagement1[]
 
 // tag::deleteingredient[]
 ===  Delete Ingredient feature
@@ -1802,6 +1802,7 @@ message.
 +
 Use case resumes at step 3.
 +
+// end::ucsales[]
 
 
 [discrete]
@@ -1979,7 +1980,6 @@ Use case ends.
 ** 2a1. App returns a message telling user that the record list is empty.
 +
 Use case ends.
-// end::ucsales[]
 
 [appendix]
 == Non Functional Requirements
