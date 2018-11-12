@@ -67,7 +67,7 @@ public class ParserUtil {
         int index;
         try {
             index = Integer.parseInt(tokens[0]) - 1;
-            if (index >= lastShownList.size() || index < 1 || tokens.length % 2 == 0) {
+            if (index >= lastShownList.size() || index < 0 || tokens.length % 2 == 0) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
             }
         } catch (NumberFormatException e) {

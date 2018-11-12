@@ -49,7 +49,7 @@ public class IngredientPortion extends IngredientDefinition {
     public IngredientPortion subtractAmount(IngredientPortion other) {
         double total = this.getAmount().getValue() - other.getAmount().getValue();
         if (total <= 0) {
-            total = 0.0;
+            total = total + Math.abs(total);
         }
         return new IngredientPortion(getName(), getUnit(), new IngredientAmount(total));
     }
