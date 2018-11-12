@@ -15,12 +15,13 @@
 This portfolio is meant to document my work done for  my software engineering module in NUS School of Computing,
 more specifically the contributions to this project Thane Park. +
 
-Thane Park is a desktop application used for managing the rides and attractions in a theme park. The theme park manager
-and operators interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created
-with JavaFX. It is written in Java and has about 10 kLoc. +
+Thane Park is a desktop application used for managing the rides and attractions in a theme park. The application allows
+theme park managers and operators to easily manage their theme park, finding the relevant information they need and updating
+the application as they desire  using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created
+with JavaFX, to show them the relevant information about their attractions. It is written in Java and has about 10 kLoc. +
 
 My role in the project is to manage the tests and storage in the application. I have also added and enhanced a couple of
-features, namely `Filter` and `Find`.
+features, namely `filter` and `find`.
 
 
 == Summary of Contributions
@@ -29,33 +30,43 @@ features, namely `Filter` and `Find`.
 
 ** What it does: This feature allows users to filter entries based on the conditions that they can input.
 
-** Justification: This feature significantly improves the application because now, users don't need to know the exact number
-or name of the ride that they want. They can simple specify a range and then the application will provide a list of entries
-that is within the range specified.
+** Justification: This feature significantly improves the application as it offers users the ability to look for the rides
+ that they need and do not need to go through each ride in the list that fits their requirements. They can simple specify
+ a range and then the application will provide a list of entries that is within the range specified.
 
 ** Highlights: This enhancement introduces a new predicate class, `RideContainsConditionPredicate`, to allow
 users to input a range of values to compare values with the existing data.The attributes of the rides that contains numeric
-values are also abstracted out to create a new interface `Attribute` that the classes `Maintenance` and `WaitTime` implement.
+values are also abstracted out to create a new interface `NumericAttribute` that the classes `Maintenance` and `WaitTime` implement.
 This allows the implementation of the predicate class `AttributePredicate`, which enables it to store the user input and
 compare the values with the `Maintenance` and `WaitTime` of a ride class.
 
-** Credits: The filter is based on the way find feature works, with a `RideContainsConditionPredicate` instead of a
-`RideContainsKeywordsPredicate`.
+** Credits: The `filter` feature is based on the way the `find` feature works, with a `RideContainsConditionPredicate` instead of a
+`RideContainsKeywordsPredicate` to test the rides.
 
-* *Minor enhancement*: `Find` can parse "address" and "tags" in addition to "a/" and "t/".
+* *Minor enhancement*: The `find` feature can now parse "zone" and "tags" in addition to "z/" and "t/".
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=keenlok[Functional code]]
 
 * *Other contributions*:
 
-** Enhancements to existing features: Find can now search tags and addresses in addition to the names of the rides
+** Enhancements to the Project:
 
-** Project management: Reviewed Pull Requests(PR) on github.
+*** The `find` feature can now search tags and zones of the rides in addition to the names of the rides
+*** Refactored `Address Book` to `Thane Park` in the code.
 
-** Refactored `Address Book` to `Thane Park` in the code.
+** Project management: Reviewed Pull Requests(PR) on github:
+ [https://github.com/CS2103-AY1819S1-W14-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Akeenlok[Reviewed Pull Requests]]
+
+** Documentation:
+
+*** Updated the user guide for the `filter` and `find` features
+
+*** Updated the developer guide for the implementation of the `filter` feature with sequence and activity diagrams of how
+the `filter` command executes and works.
+
+*** Updated my personal portfolio page
 
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -73,10 +84,3 @@ include::../UserGuide.adoc[tag=filter]
 |===
 
 include::../DeveloperGuide.adoc[tag=filter]
-
-
-//== PROJECT: PowerPointLabs
-//
-//---
-//
-//_{Optionally, you may include other projects in your portfolio.}_
