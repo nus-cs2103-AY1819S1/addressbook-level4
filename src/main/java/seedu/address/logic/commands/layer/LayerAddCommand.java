@@ -23,7 +23,7 @@ import seedu.address.model.PreviewImage;
 /**
  * Handles the repositioning of Layers.
  * Commands are in the format - layer add [index].
- * Refer to the select command.
+ * Refer to the open command.
  */
 
 public class LayerAddCommand extends LayerCommand {
@@ -55,10 +55,8 @@ public class LayerAddCommand extends LayerCommand {
         try {
             i = Integer.parseInt(args);
             index = Index.fromOneBased(i);
-            if (index.getZeroBased() >= dirImageList.size()) {
+            if (index.getZeroBased() >= dirImageList.size() || index.getZeroBased() >= BATCH_SIZE) {
                 throw new NumberFormatException(Messages.MESSAGE_INDEX_END_OF_IMAGE_LIST);
-            } else if (index.getZeroBased() >= BATCH_SIZE) {
-                throw new NumberFormatException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
             }
             index = Index.fromOneBased(i);
         } catch (NumberFormatException e) {

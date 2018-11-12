@@ -8,9 +8,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Handles the repositioning of Layers.
- * Commands are in the form : layer add [index].
+ * Handles selection of the current working layer.
+ * Commands are in the form : layer select [index].
  * Invalid indexes and missing canvas objects are handled.
+ * The current working layer is also protected from deletion.
  */
 
 public class LayerSelectCommand extends LayerCommand {

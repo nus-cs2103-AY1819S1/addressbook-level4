@@ -12,8 +12,9 @@ import seedu.address.model.Model;
 
 /**
  * Handles the repositioning of Layers.
- * Commands are in the form - layer position [x_position x y_position]
+ * Commands are in the form - layer position [x_positionxy_position]
  * Invalid arguments are handled.
+ * The top left of the canvas is considered to be (0, 0).
  */
 
 public class LayerPositionCommand extends LayerCommand {
