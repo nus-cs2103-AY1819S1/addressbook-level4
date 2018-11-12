@@ -283,19 +283,19 @@ For simplicity consideration, we divide the class diagrams in three seperate one
 
 Class Diagram for Person:
 
-image::PersonClassDiagram.png[width="800"]
+image::PersonClassDiagram.png[width="500"]
 // end::personcd[]
 
 // tag::modulecd[]
 Class Diagram for Module:
 
-image::ModuleClassDiagram.png[width="800"]
+image::ModuleClassDiagram.png[width="500"]
 // end::modulecd[]
 
 // tag::occasioncd[]
 Class Diagram for Occasion:
 
-image::OccasionClassDiagram.png[width="800"]
+image::OccasionClassDiagram.png[width="500"]
 // end::occasioncd[]
 
 === Add Person/Module/Occasion Feature
