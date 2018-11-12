@@ -479,7 +479,7 @@ We considered using a list or a hash map. See below for the analysis of each cho
 ===== Aspect: Execution of the command
 
 * **Current choice:** Stores the medicines in a list.
-** Pros: Many easy and useful methods to manipulate medicines in the list, such as `add`, `get` and `remove`.
+** Pros: Many easy and useful methods to manipulate medicines in the list such as `add`, `get` and `remove`.
 ** Cons: Relatively slow when searching through the list to find a medicine.
 * **Alternative:** Stores the medicines in a hash map.
 ** Pros: Quick reference for object given the medicine name or serial number.
