@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.core.Messages;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -25,7 +26,6 @@ import seedu.souschef.model.healthplan.CurrentHeight;
 import seedu.souschef.model.healthplan.CurrentWeight;
 import seedu.souschef.model.healthplan.Duration;
 import seedu.souschef.model.healthplan.HealthPlanName;
-import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.ingredient.IngredientAmount;
 import seedu.souschef.model.ingredient.IngredientName;
@@ -35,7 +35,7 @@ import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -55,6 +55,25 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses index for delete and edit command of ingredient
+     * @throws ParseException if the specified index is invalid (not within the index range of last shown ingredient
+     * list).
+     */
+    public static int parseIngredientIndex(List lastShownList, String[] tokens, String messageUsage)
+            throws ParseException {
+        int index;
+        try {
+            index = Integer.parseInt(tokens[0]) - 1;
+            if (index >= lastShownList.size() || index < 0 || tokens.length % 2 == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
+        }
+        return index;
     }
 
     /**
@@ -230,6 +249,11 @@ public class ParserUtil {
         if (!TargetWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new TargetWeight(trimmedWeight);
     }
 
@@ -243,9 +267,13 @@ public class ParserUtil {
         if (!CurrentWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new CurrentWeight(trimmedWeight);
     }
-
 
     /**
      * parse current height for commands
@@ -288,18 +316,49 @@ public class ParserUtil {
     }
 
     /**
-     * parse scheme
+     *  parser for plan index of day commands in healthplan
+     * @param index
+     * @return
+     * @throws ParseException
      */
-    public static Scheme parseScheme(String scheme) throws ParseException {
-        requireNonNull(scheme);
-        String trimmedScheme = scheme.trim();
-        logger.info(trimmedScheme);
+    public static String parsePlanIndex(String index) throws ParseException {
+        String regex = "^[0-9]+$";
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
 
-        if (!"LOSS".equals(trimmedScheme) && !"GAIN".equals(trimmedScheme) && !"MAINTAIN".equals(trimmedScheme)) {
-            throw new ParseException("invalid scheme");
+
+
+        if (trimmedIndex.length() == 0) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PLAN_INDEX);
+        }
+
+        if (!trimmedIndex.matches(regex)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PLAN_INDEX);
+        }
+        return trimmedIndex;
+    }
+
+    /**
+     *  parse the day index for the day commands of healthplan
+     * @param index
+     * @return
+     * @throws ParseException
+     */
+    public static String parseDayIndex(String index) throws ParseException {
+        String regex = "^[0-9]+$";
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+
+
+        if (trimmedIndex.length() == 0) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DAY_INDEX);
 
         }
-        return Scheme.valueOf(trimmedScheme);
+
+        if (!trimmedIndex.matches(regex)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DAY_INDEX);
+        }
+        return trimmedIndex;
     }
 
 }

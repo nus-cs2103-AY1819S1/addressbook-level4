@@ -15,7 +15,7 @@ public enum Context {
     INGREDIENT(IngredientParser.COMMAND_WORD),
     CROSS(CrossParser.COMMAND_WORD),
     HEALTH_PLAN(HealthPlanParser.COMMAND_WORD),
-    MEAL_PLANNER(MealPlannerParser.COMMAND_WORD),
+    MEAL_PLAN(MealPlannerParser.COMMAND_WORD),
     FAVOURITES(FavouritesParser.COMMAND_WORD);
 
     public final String command;

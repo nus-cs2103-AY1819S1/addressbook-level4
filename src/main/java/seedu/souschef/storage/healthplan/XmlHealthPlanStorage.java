@@ -13,6 +13,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.commons.util.FileUtil;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.XmlFeatureStorage;
 import seedu.souschef.storage.XmlFileStorage;
@@ -51,7 +52,7 @@ public class XmlHealthPlanStorage extends XmlFeatureStorage {
 
         XmlSerializableGeneric xmlhealthplanBook;
         xmlhealthplanBook = new XmlSerializableHealthPlan((XmlSerializableHealthPlan)
-                XmlFileStorage.loadDataFromSaveFile(filePath, "healthplan"));
+                XmlFileStorage.loadDataFromSaveFile(filePath, Context.HEALTH_PLAN));
         try {
             return Optional.of(xmlhealthplanBook.toModelType());
         } catch (IllegalValueException ive) {

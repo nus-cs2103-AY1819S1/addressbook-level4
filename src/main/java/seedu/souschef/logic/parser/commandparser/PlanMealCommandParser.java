@@ -24,7 +24,7 @@ public class PlanMealCommandParser {
      * and returns an PlanMealCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public PlanMealCommand parsePlan(Model mealPlannerModel, Model recipeModel, String args) throws ParseException {
+    public PlanMealCommand parseMealPlan(Model mealPlannerModel, Model recipeModel, String args) throws ParseException {
         try {
             String[] arguments = args.split("\\s+");
 

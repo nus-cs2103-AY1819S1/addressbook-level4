@@ -15,7 +15,7 @@ import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * JAXB-friendly version of the Recipe.
@@ -85,7 +85,7 @@ public class XmlAdaptedRecipe {
         for (XmlAdaptedInstruction instruction : instructions) {
             modelInstructions.add(instruction.toModelType());
         }
-        // TODO: To implement reject if instruction is empty.
+
         if (modelInstructions.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Instruction.class.getSimpleName()));
@@ -95,7 +95,6 @@ public class XmlAdaptedRecipe {
         for (XmlAdaptedTag tag : tagged) {
             recipeTags.add(tag.toModelType());
         }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }

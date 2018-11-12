@@ -1,7 +1,6 @@
 package seedu.souschef.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 import java.util.Random;
@@ -12,8 +11,6 @@ import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
 import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
-import seedu.souschef.logic.parser.ParserUtil;
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -39,35 +36,26 @@ public class SurpriseCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(History history) throws CommandException {
+    public CommandResult execute (History history) throws CommandException {
         requireNonNull(model);
 
         List<Recipe> filteredRecipeList = model.getFilteredList();
 
-        try {
-            setRandomIndex();
-        } catch (ParseException pe) {
-            System.out.println("temp");
-        }
+        setRandomIndex();
 
-        if (randomIndex.getZeroBased() >= filteredRecipeList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        if (filteredRecipeList.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_RECIPE_LIST);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent((randomIndex)));
         return new CommandResult(String.format(MESSAGE_SURPRISE_SUCCESS, randomIndex.getOneBased()));
     }
 
-    public void setRandomIndex() throws ParseException {
+    public void setRandomIndex() {
         List<Recipe> filteredRecipeList = model.getFilteredList();
-        int random = rand.nextInt(filteredRecipeList.size());
+        int random = rand.nextInt(filteredRecipeList.size() + 1);
+        this.randomIndex = Index.fromZeroBased(random);
 
-        try {
-            this.randomIndex = ParserUtil.parseIndex(String.valueOf(random));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SurpriseCommand.MESSAGE_USAGE), pe);
-        }
     }
 
     @Override

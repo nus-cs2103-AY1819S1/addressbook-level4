@@ -8,14 +8,6 @@ public enum Scheme {
 
     GAIN, LOSS, MAINTAIN;
 
-
-    Scheme(){
-
-
-    }
-
-
-
 }
 
 

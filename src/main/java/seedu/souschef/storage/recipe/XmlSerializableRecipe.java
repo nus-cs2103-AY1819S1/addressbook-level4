@@ -27,7 +27,7 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
     private AppContent appContent;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableRecipe.
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableRecipe() {
@@ -46,11 +46,8 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
         this();
         if (appContent != null) {
             this.appContent = appContent;
-        } else {
-            appContent = new AppContent();
-
         }
-        recipes.addAll(appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
+        recipes.addAll(this.appContent.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new)
                 .collect(Collectors.toList()));
     }
 
@@ -64,12 +61,7 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
         } else {
             appContent = new AppContent();
         }
-
         recipes.addAll(src.getObservableRecipeList().stream().map(XmlAdaptedRecipe::new).collect(Collectors.toList()));
-    }
-
-    public AppContent getAppContent() {
-        return appContent;
     }
 
     /**
@@ -80,9 +72,6 @@ public class XmlSerializableRecipe implements XmlSerializableGeneric {
      */
     @Override
     public AppContent toModelType() throws IllegalValueException {
-        //problem area:
-        //this.appContent is returning null at this point
-
         for (XmlAdaptedRecipe p : recipes) {
             Recipe recipe = p.toModelType();
             if (this.appContent.getRecipes().contains(recipe)) {

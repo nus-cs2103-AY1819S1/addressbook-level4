@@ -31,19 +31,12 @@ public interface Storage extends FeatureStorage, UserPrefsStorage {
 
     Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException;
 
-    /**
-     * currently unused, to set the main feature storage
-     * of the the centralized storage manager to be this
-     */
-    void setMainFeatureStorage(FeatureStorage featureStorage);
-
-
     Map<Context, FeatureStorage> getListOfFeatureStorage();
 
     @Override
     void saveFeature(ReadOnlyAppContent appContent) throws IOException;
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the SousChef to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */

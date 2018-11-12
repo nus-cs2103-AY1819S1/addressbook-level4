@@ -15,12 +15,18 @@ public class ShowHealthPlanDetailsCommand<T extends UniqueType> extends Command 
 
     public static final String MESSAGE_SUCCESS = "Showing details of plan %1$s.";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows the details of specified index\n"
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
+
+
     private final String index;
 
 
     public ShowHealthPlanDetailsCommand(String index) {
-
-        this.index = (index.trim());
+        this.index = index.trim();
     }
 
 
@@ -30,7 +36,5 @@ public class ShowHealthPlanDetailsCommand<T extends UniqueType> extends Command 
                 Integer.parseInt(this.index)));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.index));
-
     }
-
 }

@@ -6,7 +6,7 @@ import java.util.Objects;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Represents an ingredient in the address book.
+ * Represents an ingredient in SousChef.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Ingredient extends IngredientPortion {
@@ -22,27 +22,8 @@ public class Ingredient extends IngredientPortion {
         this.date = new IngredientDate(date);
     }
 
-    @Override
-    public Ingredient addAmount(Object other) {
-        Ingredient otherIngredient = (Ingredient) other;
-        double total = this.getAmount().getValue() + otherIngredient.getAmount().getValue();
-        return new Ingredient(getName(), new IngredientAmount(total), getUnit(), getDate());
-    }
-
-    @Override
-    public Ingredient subtractAmount(Object other) {
-        Ingredient otherIngredient = (Ingredient) other;
-        double total = this.getAmount().getValue() - otherIngredient.getAmount().getValue();
-        if (total <= 0) {
-            total = 0.0;
-        }
-        return new Ingredient(getName(), new IngredientAmount(total), getUnit(), getDate());
-    }
-
-    @Override
-    public Ingredient multiplyAmount(double numberOfServings) {
-        double amount = getAmount().getValue() * numberOfServings;
-        return new Ingredient(getName(), new IngredientAmount(amount), getUnit(), getDate());
+    public IngredientDate getDate() {
+        return date;
     }
 
     @Override
@@ -55,10 +36,6 @@ public class Ingredient extends IngredientPortion {
         IngredientDate ingredientDate = date;
 
         return new Ingredient(ingredientName, ingredientAmount, ingredientUnit, ingredientDate);
-    }
-
-    public IngredientDate getDate() {
-        return date;
     }
 
     /**

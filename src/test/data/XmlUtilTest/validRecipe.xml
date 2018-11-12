@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <recipe>
-    <name>Hans Muster</name>
+    <name>Chicken Pizza</name>
     <difficulty>5</difficulty>
-    <cooktime>PT23M</cooktime>
-    <tagged>friends</tagged>
+    <cooktime>23M</cooktime>
+    <tagged>asian</tagged>
     <instructions>
         <instruction>Preheat oven.</instruction>
     </instructions>

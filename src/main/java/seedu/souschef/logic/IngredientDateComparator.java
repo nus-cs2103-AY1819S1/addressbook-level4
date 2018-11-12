@@ -5,7 +5,7 @@ import java.util.Comparator;
 import seedu.souschef.model.ingredient.Ingredient;
 
 /**
- * Comparator class for Day which compares Day objects by LocalDate date.
+ * Comparator class for Day which compares Ingredient objects by date.
  */
 public class IngredientDateComparator implements Comparator<Ingredient> {
     @Override

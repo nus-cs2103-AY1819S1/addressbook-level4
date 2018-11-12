@@ -2,7 +2,7 @@ package seedu.souschef.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.souschef.storage.recipe.XmlAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.souschef.testutil.TypicalRecipes.BENSON;
+import static seedu.souschef.testutil.TypicalRecipes.BANDITO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.souschef.commons.exceptions.IllegalValueException;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.storage.recipe.XmlAdaptedInstruction;
 import seedu.souschef.storage.recipe.XmlAdaptedRecipe;
@@ -20,25 +21,25 @@ import seedu.souschef.storage.recipe.XmlAdaptedTag;
 import seedu.souschef.testutil.Assert;
 
 public class XmlAdaptedRecipeTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "Chick@n";
     private static final String INVALID_DIFFICULTY = "+651234";
-    private static final String INVALID_COOKTIME = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_COOKTIME = "20TT";
+    private static final String INVALID_TAG = "#asian";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_DIFFICULTY = BENSON.getDifficulty().toString();
-    private static final String VALID_COOKTIME = BENSON.getCookTime().toString();
-    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = BANDITO.getName().toString();
+    private static final String VALID_DIFFICULTY = BANDITO.getDifficulty().toString();
+    private static final String VALID_COOKTIME = BANDITO.getCookTime().toString();
+    private static final List<XmlAdaptedTag> VALID_TAGS = BANDITO.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
-    private static final List<XmlAdaptedInstruction> VALID_INSTRUCTION = BENSON.getInstructions().stream()
+    private static final List<XmlAdaptedInstruction> VALID_INSTRUCTION = BANDITO.getInstructions().stream()
             .map(XmlAdaptedInstruction::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validRecipeDetails_returnsRecipe() throws Exception {
-        XmlAdaptedRecipe recipe = new XmlAdaptedRecipe(BENSON);
-        assertEquals(BENSON, recipe.toModelType());
+        XmlAdaptedRecipe recipe = new XmlAdaptedRecipe(BANDITO);
+        assertEquals(BANDITO, recipe.toModelType());
     }
 
     @Test
@@ -87,6 +88,22 @@ public class XmlAdaptedRecipeTest {
         XmlAdaptedRecipe recipe = new XmlAdaptedRecipe(VALID_NAME, VALID_DIFFICULTY,
                 null, VALID_INSTRUCTION, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, CookTime.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullInstruction_throwsIllegalValueException() {
+        XmlAdaptedRecipe recipe = new XmlAdaptedRecipe(VALID_NAME, VALID_DIFFICULTY,
+                VALID_COOKTIME, null, VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Instruction.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
+    }
+
+    @Test
+    public void toModelType_emptyInstruction_throwsIllegalValueException() {
+        XmlAdaptedRecipe recipe = new XmlAdaptedRecipe(VALID_NAME, VALID_DIFFICULTY,
+                VALID_COOKTIME, new ArrayList<>(), VALID_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Instruction.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 

@@ -6,6 +6,7 @@ import static seedu.souschef.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Helper functions for handling strings.
@@ -64,5 +65,22 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Convert string to camelcase.
+     */
+    public static String toCamelCase(String name) {
+        return Arrays.stream(name.split(" ")).map(word -> {
+            if (word.length() == 0) {
+                return word;
+            }
+
+            Character first = word.charAt(0);
+            if (!first.toString().matches("\\p{Alpha}")) {
+                return word;
+            }
+            return word.replaceFirst(first.toString(), first.toString().toUpperCase());
+        }).collect(Collectors.joining(" "));
     }
 }

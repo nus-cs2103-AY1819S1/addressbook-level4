@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.souschef.testutil.TypicalRecipes.AMY;
-import static seedu.souschef.testutil.TypicalRecipes.BOB;
-import static seedu.souschef.testutil.TypicalRecipes.CARL;
+import static seedu.souschef.testutil.TypicalRecipes.AMERICA;
+import static seedu.souschef.testutil.TypicalRecipes.BEE;
+import static seedu.souschef.testutil.TypicalRecipes.CHINESE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.souschef.testutil.AppContentBuilder;
 
 public class VersionedAppContentTest {
 
-    private final ReadOnlyAppContent appContentWithAmy = new AppContentBuilder().withRecipe(AMY).build();
-    private final ReadOnlyAppContent appContentWithBob = new AppContentBuilder().withRecipe(BOB).build();
-    private final ReadOnlyAppContent appContentWithCarl = new AppContentBuilder().withRecipe(CARL).build();
+    private final ReadOnlyAppContent appContentWithAmy = new AppContentBuilder().withRecipe(AMERICA).build();
+    private final ReadOnlyAppContent appContentWithBob = new AppContentBuilder().withRecipe(BEE).build();
+    private final ReadOnlyAppContent appContentWithCarl = new AppContentBuilder().withRecipe(CHINESE).build();
     private final ReadOnlyAppContent emptyAppContent = new AppContentBuilder().build();
 
     @Test

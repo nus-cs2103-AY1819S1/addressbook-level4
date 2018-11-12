@@ -7,7 +7,7 @@ import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
 /**
- * Adds a recipe to the address book.
+ * Adds a uniqueType to the SousChef.
  */
 public class AddCommand<T extends UniqueType> extends Command {
 
@@ -16,13 +16,13 @@ public class AddCommand<T extends UniqueType> extends Command {
 
     public static final String MESSAGE_ADD_SUCCESS = "New %1$s added: %2$s";
 
-    private final Model model;
+    private final Model<T> model;
     private final T toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Recipe}
      */
-    public AddCommand(Model model, T toAdd) {
+    public AddCommand(Model<T> model, T toAdd) {
         requireNonNull(toAdd);
         this.model = model;
         this.toAdd = toAdd;
@@ -33,7 +33,7 @@ public class AddCommand<T extends UniqueType> extends Command {
         model.add(toAdd);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_ADD_SUCCESS,
-                history.getKeyword(), toAdd));
+                history.getContextString(), toAdd));
     }
 
     @Override

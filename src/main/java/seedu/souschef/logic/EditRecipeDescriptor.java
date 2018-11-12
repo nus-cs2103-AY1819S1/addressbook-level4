@@ -12,7 +12,7 @@ import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * Stores the details to edit the recipe with. Each non-empty field value will replace the
@@ -36,13 +36,6 @@ public class EditRecipeDescriptor {
         setDifficulty(toCopy.difficulty);
         setCooktime(toCopy.cookTime);
         setTags(toCopy.tags);
-    }
-
-    /**
-     * Returns true if at least one field is edited.
-     */
-    public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, difficulty, cookTime, tags, instruction);
     }
 
     /**
@@ -99,7 +92,7 @@ public class EditRecipeDescriptor {
     }
 
     public void setInstruction(Index index, Instruction instruction) {
-        this.instruction = (instruction != null && index.getOneBased() > 0) ? new Pair<>(index, instruction) : null;
+        this.instruction = (instruction != null) ? new Pair<>(index, instruction) : null;
     }
 
     public Optional<Pair<Index, Instruction>> getInstruction() {

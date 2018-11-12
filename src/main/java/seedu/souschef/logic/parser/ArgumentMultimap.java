@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -56,5 +57,22 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Check for any undefined prefix within values of the known prefix.
+     * @return true, if undefined prefix is found. If not, false.
+     */
+    public boolean hasNestedPrefix() {
+        return argMultimap.values().stream().anyMatch(
+            list -> list.stream().anyMatch(value -> value.matches(".*\\s(\\p{Alpha})/.*"))
+        );
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional}.
+     */
+    public boolean arePrefixesPresent(Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> this.getValue(prefix).isPresent());
     }
 }

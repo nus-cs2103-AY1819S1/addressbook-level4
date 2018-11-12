@@ -10,7 +10,6 @@ import seedu.souschef.commons.core.Messages;
 import seedu.souschef.logic.CrossFilterPredicate;
 import seedu.souschef.logic.CrossSortComparator;
 import seedu.souschef.logic.History;
-import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
@@ -25,33 +24,33 @@ import seedu.souschef.model.recipe.Recipe;
 public class CrossFindCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = "view NUMBER_OF_SERVINGS include [inventory] KEYWORD... "
-            + "prioritize [inventory] KEYWORD...\n"
-            + "Example: " + COMMAND_WORD + " 4 include beef egg prioritize inventory cheese";
+    public static final String MESSAGE_USAGE = "view NUMBER_OF_SERVINGS [include [inventory] KEYWORD...] "
+            + "[prioritize [inventory] KEYWORD...]\n"
+            + "Example: " + COMMAND_WORD + " 4 include beef egg prioritize inventory cheese\n"
+            + "Example: " + COMMAND_WORD + " 2\n"
+            + "Example: " + COMMAND_WORD + " 1 prioritize inventory\n"
+            + "Example: " + COMMAND_WORD + " 2 include kimchi";
 
     private final Model<CrossRecipe> crossRecipeModel;
     private final Model<Ingredient> ingredientModel;
     private final CrossSortComparator comparator;
     private final CrossFilterPredicate predicate;
-    private final Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap;
     private final double numberOfServings;
 
-    public CrossFindCommand(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
+    public CrossFindCommand(Model<CrossRecipe> crossRecipeModel,
+                            Model<Ingredient> ingredientModel,
                             CrossSortComparator comparator,
-                            CrossFilterPredicate predicate,
-                            Map<Recipe, List<IngredientDefinition>> matchedCrossRecipeMap, double numberOfServings) {
+                            CrossFilterPredicate predicate, double numberOfServings) {
         requireNonNull(crossRecipeModel);
         this.crossRecipeModel = crossRecipeModel;
         this.ingredientModel = ingredientModel;
-        this.predicate = predicate;
         this.comparator = comparator;
-        this.matchedCrossRecipeMap = matchedCrossRecipeMap;
+        this.predicate = predicate;
         this.numberOfServings = numberOfServings;
     }
 
     @Override
-    public CommandResult execute(History history) throws CommandException {
-
+    public CommandResult execute(History history) {
         crossRecipeModel.sort(comparator);
         crossRecipeModel.updateFilteredList(predicate);
 
@@ -77,6 +76,6 @@ public class CrossFindCommand extends Command {
         }
 
         return new CommandResult(String.format(Messages.MESSAGE_LISTED_OVERVIEW,
-                resultList.size(), history.getKeyword()));
+                resultList.size(), history.getContextString()));
     }
 }

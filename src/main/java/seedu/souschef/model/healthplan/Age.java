@@ -9,7 +9,7 @@ public class Age {
 
     public static final String MESSAGE_AGE_CONSTRAINTS =
             "Age should only contain numbers and minimum of 2 digits";
-    public static final String AGE_VALIDATION_REGEX = "\\d{2,}";
+    public static final String AGE_VALIDATION_REGEX = "^[1-9]\\d{1,}$";
     public final String value;
 
 

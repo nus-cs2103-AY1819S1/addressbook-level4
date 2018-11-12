@@ -78,51 +78,6 @@ public class UiManager extends ComponentManager implements Ui {
         //mainWindow.releaseResources();
     }
 
-    @Override
-    public void switchToRecipeListPanel() {
-        this.mainWindow.switchToRecipeListPanel();
-    }
-
-    @Override
-    public void switchToIngredientListPanel() {
-        this.mainWindow.switchToIngredientListPanel();
-    }
-
-    @Override
-    public void switchToCrossRecipeListPanel() {
-        this.mainWindow.switchToCrossRecipeListPanel();
-    }
-
-    @Override
-    public void switchToHealthPlanListPanel () {
-        this.mainWindow.switchToHealthPlanListPanel();
-    }
-
-    @Override
-    public void switchToMealPlanListPanel() {
-        this.mainWindow.switchToMealPlanListPanel();
-    }
-
-    @Override
-    public void switchToFavouritesListPanel() {
-        this.mainWindow.switchToFavouritesListPanel();
-    }
-
-    @Override
-    public void showMealPlanListPanel() {
-        this.mainWindow.showMealPlanListPanel();
-    }
-
-    @Override
-    public void hideBrowserSidePanel() {
-        this.mainWindow.hideBrowserSidePanel();
-    }
-
-    @Override
-    public void showHealthPlanDetails(int index) {
-        this.mainWindow.showHealthPlanDetails(index);
-    }
-
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
         showAlertDialogAndWait(AlertType.ERROR, FILE_OPS_ERROR_DIALOG_STAGE_TITLE, description, content);

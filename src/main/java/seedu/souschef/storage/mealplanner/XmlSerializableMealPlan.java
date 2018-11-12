@@ -87,11 +87,6 @@ public class XmlSerializableMealPlan implements XmlSerializableGeneric {
     }
 
     @Override
-    public AppContent getAppContent() {
-        return appContent;
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

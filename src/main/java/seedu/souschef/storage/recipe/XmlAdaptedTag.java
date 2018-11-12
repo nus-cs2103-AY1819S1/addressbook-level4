@@ -3,7 +3,7 @@ package seedu.souschef.storage.recipe;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.souschef.commons.exceptions.IllegalValueException;
-import seedu.souschef.model.tag.Tag;
+import seedu.souschef.model.recipe.Tag;
 
 /**
  * JAXB-friendly adapted version of the Tag.

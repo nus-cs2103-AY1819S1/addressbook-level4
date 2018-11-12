@@ -8,8 +8,8 @@ import static seedu.souschef.commons.util.AppUtil.checkArgument;
 public class CurrentHeight {
 
     public static final String MESSAGE_HEIGHT_CONSTRAINTS =
-            "Heights should only contain numbers";
-    public static final String HEIGHT_VALIDATION_REGEX = "\\d{2,}";
+            "Heights should only contain numbers and be at least 3 digits";
+    public static final String HEIGHT_VALIDATION_REGEX = "^[1-9]\\d{2,}$";
     public final String value;
 
 

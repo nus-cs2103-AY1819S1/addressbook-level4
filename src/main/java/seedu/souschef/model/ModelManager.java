@@ -43,18 +43,12 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     }
 
     @Override
-    public void resetData(ReadOnlyAppContent newData) {
-        versionedAppContent.resetData(newData);
-        indicateAppContentChanged();
-    }
-
-    @Override
     public ReadOnlyAppContent getAppContent() {
         return versionedAppContent;
     }
 
-    /** Raises an event to indicate the recipeModel has changed */
-    private void indicateAppContentChanged() {
+    /** Raises an event to indicate the model has changed */
+    public void indicateAppContentChanged() {
         raise(new AppContentChangedEvent(versionedAppContent));
     }
 
@@ -101,8 +95,6 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
         return FXCollections.unmodifiableObservableList(filteredList);
     }
 
-
-
     @Override
     public void updateFilteredList(Predicate predicate) {
         requireNonNull(predicate);
@@ -113,13 +105,6 @@ public class ModelManager<T extends UniqueType> extends ComponentManager impleme
     public void sort(Comparator<T> comparator) {
         uniqueList.sortList(comparator);
     }
-
-
-
-
-
-
-
 
     //=========== Undo/Redo =================================================================================
 

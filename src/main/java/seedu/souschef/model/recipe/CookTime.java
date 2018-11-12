@@ -12,9 +12,11 @@ public class CookTime {
 
 
     public static final String MESSAGE_COOKTIME_CONSTRAINTS =
-            "Cook time should only contain unit H/M/S or H & M or M & S, and a value before each unit";
+            "Cook time should only contain unit H/M/S or H & M or M & S, and a value before each unit. e.g. 10M20S";
     public static final String COOKTIME_VALIDATION_REGEX =
-            "PT(((\\d+H)(\\d+M))|((\\d+M)(\\d+S))|(\\d+H)|(\\d+M)|(\\d+S))";
+            "(((\\d+H)(\\d+M))|((\\d+M)(\\d+S))|(\\d+H)|(\\d+M)|(\\d+S))";
+    public static final String ZERO_COOKTIME = "0M";
+    public static final String TIME_PREFIX = "PT";
     public final Duration value;
 
     /**
@@ -23,11 +25,13 @@ public class CookTime {
      * @param duration A valid cook time.
      */
     public CookTime(String duration) {
-        if (duration == null) {
-            duration = "PT0M";
+        String stringTime = duration;
+        if (stringTime == null) {
+            stringTime = ZERO_COOKTIME;
         }
-        checkArgument(isValidCookTime(duration), MESSAGE_COOKTIME_CONSTRAINTS);
-        value = Duration.parse(duration);
+        checkArgument(isValidCookTime(stringTime), MESSAGE_COOKTIME_CONSTRAINTS);
+        stringTime = TIME_PREFIX + stringTime;
+        value = Duration.parse(stringTime);
     }
 
     /**
@@ -37,13 +41,13 @@ public class CookTime {
         return time.matches(COOKTIME_VALIDATION_REGEX);
     }
 
-    public String getDisplayableCookTime() {
-        return String.valueOf(value);
+    public boolean isZero() {
+        return (value.toSeconds() == 0);
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        return String.valueOf(value).replaceFirst(TIME_PREFIX, "");
     }
 
     @Override
