@@ -21,7 +21,7 @@ LostBUTFound has a graphical user interface built with JavaFX but most of the us
 ** What it does: It allows the user to search for articles depending on different fields and parameters.
 ** Justification: This features helps users find relevant articles quickly and easily.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=swiftkage&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[RepoSense Report]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=swiftkage[RepoSense Report]]
 
 * *Other contributions*:
 
