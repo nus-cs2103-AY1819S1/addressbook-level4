@@ -580,7 +580,7 @@ The following sequence diagram shows how the `deleteTime` operation works:
 image::DeleteTimeSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: Lesser restriction to the inputs of the command
+===== Aspect: Lesser restrictions to the inputs of the command
 
 * There are lesser exceptions handled in `deleteTime` command compared to `addTime` command.
 
