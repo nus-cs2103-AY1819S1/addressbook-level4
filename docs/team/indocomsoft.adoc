@@ -98,6 +98,10 @@ include::../DeveloperGuide.adoc[tag=uiclassdiagram]
 
 include::../DeveloperGuide.adoc[tag=editdeletetasks]
 
-include::../DeveloperGuide.adoc[tag=editselectdeleteusecases]
+include::../DeveloperGuide.adoc[tag=editusecases]
+
+include::../DeveloperGuide.adoc[tag=deleteusecases]
 
 include::../DeveloperGuide.adoc[tag=batchdeletetasks]
+
+include::../DeveloperGuide.adoc[tag=manualtestingindocomsoft]
