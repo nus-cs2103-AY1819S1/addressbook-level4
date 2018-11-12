@@ -1,10 +1,15 @@
 package seedu.meeting.model.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.meeting.model.MeetingBook;
+import seedu.meeting.MainApp;
 import seedu.meeting.model.ReadOnlyMeetingBook;
 import seedu.meeting.model.person.Email;
 import seedu.meeting.model.person.Name;
@@ -12,11 +17,18 @@ import seedu.meeting.model.person.Person;
 import seedu.meeting.model.person.Phone;
 import seedu.meeting.model.shared.Address;
 import seedu.meeting.model.tag.Tag;
+import seedu.meeting.storage.XmlMeetingBookStorage;
 
 /**
  * Contains utility methods for populating {@code MeetingBook} with sample data.
  */
 public class SampleDataUtil {
+
+    public static int BUFFER_SIZE = 1024;
+    public static String DEFAULT_DATA_PATH = "/data/Default.xml";
+    public static String TEMP_FILE_NAME = "temp";
+    public static String TEMP_FILE_SUFFIX = ".tmp";
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -40,13 +52,40 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyMeetingBook getSampleMeetingBook() {
-        MeetingBook sampleAb = new MeetingBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    // @@author NyxF4ll
+    /**
+     * Returns path to the default MeetingBook data.
+     */
+    private static Path getPathToDefaultMeetingBook() throws IOException{
+        InputStream defaultDataStream = MainApp.class.getResourceAsStream(DEFAULT_DATA_PATH);
+
+        if (defaultDataStream == null) {
+            throw new IOException();
         }
-        return sampleAb;
+
+        File tempFile = File.createTempFile(TEMP_FILE_NAME, TEMP_FILE_SUFFIX);
+        tempFile.deleteOnExit();
+
+        FileOutputStream outputStream = new FileOutputStream(tempFile);
+        byte buffer[] = defaultDataStream.readAllBytes();
+        outputStream.write(buffer);
+
+        return tempFile.toPath();
     }
+
+    /**
+     * Returns the default MeetingBook.
+     */
+    public static ReadOnlyMeetingBook getSampleMeetingBook() {
+        try {
+            Path defaultMeetingBookPath = getPathToDefaultMeetingBook();
+            XmlMeetingBookStorage defaultMeetingBook = new XmlMeetingBookStorage(defaultMeetingBookPath);
+            return defaultMeetingBook.readMeetingBook().get();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+    // @@author
 
     /**
      * Returns a tag set containing the list of strings given.
