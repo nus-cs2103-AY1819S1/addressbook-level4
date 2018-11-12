@@ -1,5 +1,6 @@
 package seedu.souschef.storage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
 import seedu.souschef.model.util.SampleDataUtil;
+import seedu.souschef.storage.favourite.XmlFavouriteStorage;
 import seedu.souschef.storage.healthplan.XmlHealthPlanStorage;
 import seedu.souschef.storage.ingredient.XmlIngredientStorage;
 import seedu.souschef.storage.mealplanner.XmlMealPlanStorage;
@@ -47,11 +49,13 @@ public class StorageManager extends ComponentManager implements Storage {
         FeatureStorage ingredientStorage = new XmlIngredientStorage(userPrefs.getIngredientFilePath());
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
         FeatureStorage mealPlanStorage = new XmlMealPlanStorage(userPrefs.getMealPlanPath());
+        FeatureStorage favouriteStorage = new XmlFavouriteStorage(userPrefs.getFavouritePath());
 
         listOfFeatureStorage.put(Context.RECIPE, recipeStorage);
         listOfFeatureStorage.put(Context.INGREDIENT, ingredientStorage);
         listOfFeatureStorage.put(Context.HEALTH_PLAN, healthPlanStorage);
         listOfFeatureStorage.put(Context.MEAL_PLAN, mealPlanStorage);
+        listOfFeatureStorage.put(Context.FAVOURITES, favouriteStorage);
         this.featureStorage = recipeStorage;
     }
 
@@ -135,6 +139,7 @@ public class StorageManager extends ComponentManager implements Storage {
         readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
         readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
         readFeature(Context.MEAL_PLAN, SampleDataUtil::getSampleDays);
+        readFeature(Context.FAVOURITES, SampleDataUtil::getFavourites);
         featureStorage = listOfFeatureStorage.get(Context.RECIPE);
 
         return Optional.of(this.appContent);
@@ -159,6 +164,9 @@ public class StorageManager extends ComponentManager implements Storage {
             temp.saveFeature(appContent, filePath);
         } else if (this.featureStorage instanceof XmlMealPlanStorage) {
             XmlMealPlanStorage temp = new XmlMealPlanStorage(filePath);
+            temp.saveFeature(appContent, filePath);
+        } else if (this.featureStorage instanceof XmlFavouriteStorage) {
+            XmlFavouriteStorage temp = new XmlFavouriteStorage(filePath);
             temp.saveFeature(appContent, filePath);
         }
     }
