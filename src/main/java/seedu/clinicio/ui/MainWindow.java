@@ -26,6 +26,7 @@ import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
 import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
+import seedu.clinicio.commons.events.ui.MedicinePanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
@@ -53,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private QueuePanel queuePanel;
+    private MedicineListPanel medicineListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -77,6 +79,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane queuePanelPlaceholder;
 
     @FXML
+    private StackPane medicineListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -93,6 +98,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab appointmentTab;
+
+    @FXML
+    private Tab medicineTab;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -190,7 +198,10 @@ public class MainWindow extends UiPart<Stage> {
         queueTab.setContent(queuePanelPlaceholder);
         queueTab.setClosable(false);
 
-        tabLists = new TabPane(patientTab, appointmentTab, queueTab);
+        medicineTab.setContent(medicineListPanelPlaceholder);
+        medicineTab.setClosable(false);
+
+        tabLists = new TabPane(patientTab, appointmentTab, queueTab, medicineTab);
     }
 
     /**
@@ -205,6 +216,9 @@ public class MainWindow extends UiPart<Stage> {
 
         queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
         queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+
+        medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList());
+        medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
     }
 
     //@@author iamjackslayer
@@ -299,6 +313,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     private void handlePatientPanelSelectionChangedEvent(PatientPanelSelectionChangedEvent event) {
+        analyticsDisplay.setVisible(false);
+        browserPanel.setVisible(true);
+    }
+
+    @Subscribe
+    private void handleMedicinePanelSelectionChangedEvent(MedicinePanelSelectionChangedEvent event) {
         analyticsDisplay.setVisible(false);
         browserPanel.setVisible(true);
     }
