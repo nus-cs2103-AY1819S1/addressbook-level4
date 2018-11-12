@@ -1,6 +1,5 @@
 package ssp.scheduleplanner.logic.commands;
 
-import static java.lang.Float.NaN;
 import static org.junit.Assert.assertEquals;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
