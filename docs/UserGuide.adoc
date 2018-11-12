@@ -194,15 +194,15 @@ Format: `redo` or `r`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete-item-index 1` +
+`undo` (reverses the `delete-item-index 1` command) +
+`redo` (reapplies the `delete-item-index 1` command) +
 
-* `delete 1` +
+* `delete-item-index 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete-item-index 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
@@ -516,8 +516,7 @@ Format: `delete-item-name ITEM_NAME`
 
 Examples:
 
-* `list-items` +
-`delete-item-name Apple Juice` +
+* `delete-item-name Apple Juice` +
 Deletes the `Apple Juice` item from the menu.
 * `din Cheese Fries` +
 Deletes the `Cheese Fries` item from the menu.
@@ -1064,12 +1063,12 @@ Format: `export-sales DATE` or `es DATE`
 Exports the sales chart into a pdf file. +
 Format: `export-chart` or `ec`
 
-==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
+==== Removing out-of-stock dishes from daily menu `[coming in v2.0]`
 
 Removes out-of-stock dishes that require ingredients with low stock count from the daily menu. +
 Format: `remove-oos-dish` or `rod`
 
-==== Showing history of past stock ups and consumption `[coming in v1.4]`
+==== Showing history of past stock ups and consumption `[coming in v2.0]`
 
 Shows the history of past ingredient stock ups or consumption. +
 Format: `view-history [STOCKUP] [CONSUMPTION]`  or `vh [STOCKUP] [CONSUMPTION]`
@@ -1088,7 +1087,7 @@ Format: `export-menu fp/FILEPATH fn/FILENAME`
 
 Examples:
 
-* `export-menu f/test/ n/menu.txt` +
+* `export-menu fp/test/ fn/menu.txt` +
 Export the menu to test folder with the file name `menu.txt`
 
 ==== Importing menu `[coming in v2.0]`
@@ -1098,7 +1097,7 @@ Format: `import-menu fp/FILEPATH fn/FILENAME`
 
 Examples:
 
-* `import-menu f/test/ n/menu.txt` +
+* `import-menu fp/test/ fn/menu.txt` +
 Import the menu.txt from test folder to replace current menu.
 
 ==== Support for multiple menus `[coming in v2.0]`
@@ -1139,18 +1138,19 @@ contains the data of your previous *MeNUS* folder.
 |*Delete ingredient* |`delete-ingredient INDEX` or `delete-ingredient NAME` |`delete-ingredient 1` or `delete-ingredient cod fish`
 |*Stock up* |`stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...` |`stockup n/cod fish u/5`
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
-|*Edit menu* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
+|*Edit item* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
 |*Delete item by index* |`delete-item-index INDEX` |`delete-item-index 3`
 |*Delete item by name* |`delete-item-name ITEM_NAME` |`delete-item-name burger`
 |*Select item* |`select-item INDEX` |`select-item 3`
 |*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
+|*Clear menu* |`clear-menu` |`clear-menu`
 |*Filter menu* |`filter-menu t/TAG` |`filter-menu t/cheese`
 |*Sort menu* |`sort-menu` |`sort-menu NAME`
 |*Discount item* |`discount-item INDEX d/PERCENTAGE` |`discount-item 2 d/20`
 |*Today's special* |`today-special` |`today-special`
-|*Export menu* |`export-menu fp/FILE_PATH fn/FILE_NAME` |`export-menu fp/backup/ fn/menu.txt`
-|*Import menu* |`import-menu fp/FILE_PATH fn/FILE_NAME` |`import-menu fp/backup/ fn/menu.txt`
+|*Add recipe* |`recipe-item r/RECIPE` |`recipe-item r/some recipe`
+|*Add required ingredients* |`add-required-ingredients n/INGREDIENT_NAME nu/NUMBER_OF_INGREDIENTS` |`add-required-ingredients n/Apple nu/3`
 |*Add reservation* |`add-reservation n/NAME px/PAX d/DATE ti/TIME` |`add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
 |*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`

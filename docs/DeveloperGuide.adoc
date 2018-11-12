@@ -743,6 +743,7 @@ The menu management feature implements the following operations:
 * `delete-item-index` or `delete-item-name` command -- Removes the equivalent item(s) from the menu.
 The item(s) must exist in the menu.
 * `list-items` command -- Lists all the items in the menu.
+* `clear-menu` command -- Removes all items from the menu.
 * `select-item` command -- Selects an item in the menu and loads the page of the selected item.
 * `sort-menu` -- Sorts the menu by name or price. The user must specify the sorting method.
 * `find-item` command -- Finds items whose names contain any of the given keywords.
@@ -2002,8 +2003,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Menu Management
 
-==== Adding a new item
-
 . Adding a new item with valid name, price and tag
 
 .. Prerequisites: You must not have the item, specified in the test case below, in the menu.
@@ -2011,16 +2010,12 @@ These instructions only provide a starting point for testers to work on; testers
    *Expected*: Item is added to the menu. Details of the item shown in status message.
 .. Incorrect commands to try: `add-item n/test p/string`, `add-item n/@*@^&@* p/3`
 
-==== Editing an item
-
 . Editing an item with valid name, price and tag
 
 .. Prerequisites: You must have at least 1 item in the menu.
 .. Test case: `edit-item 1 n/Duck Rice p/3 t/rice t/duck` +
    *Expected*: Item specified by the index is updated with new details. New details of the item shown in status message.
 .. Incorrect commands to try: `edit-item 1 n/test p/string`, `edit-item n/@*@^&@* p/3`
-
-==== Deleting an item
 
 . Deleting an item by index
 
@@ -2036,21 +2031,15 @@ These instructions only provide a starting point for testers to work on; testers
    *Expected*: Item specified by name is deleted from the menu. Details of the deleted item shown in status message.
 .. Incorrect commands to try: `delete-item-name @*@^&@*`
 
-==== Listing all items
-
 . Listing all items
 
 .. Test case: `list-items` +
    *Expected*: List all items in the menu.
 
-==== Clearing menu
-
 . Clearing menu
 
 .. Test case: `clear-menu` +
    *Expected*: Deletes all items in the menu.
-
-==== Selecting an item
 
 . Selecting an item
 
@@ -2058,8 +2047,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `select-item 1` +
    *Expected*: Selects the item specified by the index in the menu. Index of the selected item shown in status message.
 .. Incorrect commands to try: `select-item -2`, `select-item string`
-
-==== Locating items
 
 . Locating items by name
 
@@ -2073,8 +2060,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `filter-menu duck` +
    *Expected*: Finds the item with tag matching the keyword in the menu. Number of matched items shown in status message.
 
-==== Sorting the menu
-
 . Sorting the menu by name
 
 .. Prerequisites: You must have at least 2 item in the menu.
@@ -2087,17 +2072,12 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `sort-menu price` +
    *Expected*: Sorts the menu by price. Sorting method shown in status message.
 
-==== Giving a discount to an item
-
-. Giving a discount to an item
+. Giving a discount to all item
 
 .. Prerequisites: You must have at least 1 item in the menu.
-.. Test case: `discount-item 1 dp/20` +
-   *Expected*: Gives the item specified by the index a discount in the menu. Number of item given a discount shown in
-    status message.
+.. Test case: `discount-item ALL dp/20` +
+   *Expected*: Gives all items in the menu a discount. Number of item given a discount shown in status message.
 .. Incorrect commands to try: `discount-item -2 dp/20`, `discount-item string dp/20`
-
-==== Adding recipe to an item
 
 . Adding recipe to an item
 
@@ -2106,12 +2086,11 @@ These instructions only provide a starting point for testers to work on; testers
    *Expected*: Adds the recipe to the item specified by the index in the menu. Details of specified item shown in
    status message.
 
-==== Adding required ingredients to an item
-
 . Adding required ingredients to an item
 
 .. Prerequisites: You must have at least 1 item in the menu.
-.. Test case: `add-required-ingredients 1 n/chicken nu/3` +
+.. Test case: `add-required-ingredients 1 n/chicken nu/3 n/rice nu/3` +
    *Expected*: Adds the required ingredients to the item specified by the index in the menu. Details of specified item shown in status message.
-.. Incorrect commands to try: `add-required-ingredients -2 n/str nu/3`, `add-required-ingredients 1 n/str nu/-3`
+.. Incorrect commands to try: `add-required-ingredients -2 n/str nu/3`, `add-required-ingredients 1 n/str nu/-3`,
+`add-required-ingredients 1 n/str n/other nu/3 nu/3`
 
