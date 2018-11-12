@@ -25,6 +25,7 @@ My key contributions in this project were mainly improvements to the UI. The dis
 ** What it does: The app displays progress bars, categories, and tags.
 ** Justification: This feature improves user experience because the user will be able to tell how much work he/she has completed and what categories and tags he/she has used.
 ** Highlights: The implementation was challenging as it required learning how to code for JavaFX.
+** Credits: https://stackoverflow.com/questions/18539642/progressbar-animated-javafx[CSS styling for progress bars]
 
 * *Minor enhancements*:
 ** Added `listarchived` command that displays all of the archived tasks
@@ -35,8 +36,8 @@ My key contributions in this project were mainly improvements to the UI. The dis
 
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull request https://github.com/CS2103-AY1819S1-T12-3/main/pull/89[#89])
-*** Added Date class and method that checks if the entered date is valid (Pull request https://github.com/CS2103-AY1819S1-T12-3/main/pull/47[#47])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Morphed Phone class to Date class and method that checks if the entered date is valid (Pull request https://github.com/CS2103-AY1819S1-T12-3/main/pull/47[#47])
+
 ** Documentation:
 *** Updated User Guide and Developer Guide
 ** Community:
