@@ -74,16 +74,15 @@ public class HistoryCommand extends Command {
             }
         }
 
+        assert(isSummarized);
+
         //request for command history in the result window
         List<String> previousCommands = history.getHistory();
-        if (isSummarized && previousCommands.isEmpty()) {
+        if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
-        } else if (isSummarized) {
+        } else {
             Collections.reverse(previousCommands);
             return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
-        //error
-        } else {
-            return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
     }
