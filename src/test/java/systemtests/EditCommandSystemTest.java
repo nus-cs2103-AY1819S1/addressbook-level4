@@ -11,8 +11,13 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_G1;
+import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_G1_1;
+import static seedu.address.logic.commands.CommandTestUtil.GRADES_DESC_G2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC1;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -23,10 +28,15 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_G1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_G1_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADES_G2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -45,6 +55,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -218,6 +229,42 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + EDUCATION_DESC_BOB + GRADES_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* ------------------------------- Performing test for grade attribute -------------------------------------- */
+
+        /* Case: invalid grade -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_GRADE_DESC1,
+                Grades.MESSAGE_GRADE_INPUT_CONSTRAINTS);
+
+        /* Case: invalid grade -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_GRADE_DESC2,
+                Grades.MESSAGE_GRADE_INPUT_CONSTRAINTS);
+
+        /* Case: add a new grade record for a person -> added */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + GRADES_DESC_G1;
+        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withGrades(VALID_GRADES_G1).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: edit a new grade record for a person -> edited */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + GRADES_DESC_G1_1;
+        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withGrades(VALID_GRADES_G1_1).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: add more then one new grade record for a person -> added and edited */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " "
+                + GRADES_DESC_BOB + " " + GRADES_DESC_G1;
+        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit)
+                .withGrades(VALID_GRADES_BOB).withGrades(VALID_GRADES_G1)
+                .build();
+        assertCommandSuccess(command, index, editedPerson);
     }
 
     /**

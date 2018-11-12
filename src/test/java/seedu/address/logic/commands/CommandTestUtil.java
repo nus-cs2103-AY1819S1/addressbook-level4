@@ -46,6 +46,7 @@ public class CommandTestUtil {
     public static final String VALID_GRADES_AMY = "Y1819S1_Mid 99";
     public static final String VALID_GRADES_BOB = "Y1819S1_Mid 98";
     public static final String VALID_GRADES_G1 = "test1 98";
+    public static final String VALID_GRADES_G1_1 = "test1 100";
     public static final String VALID_GRADES_G2 = "test2 99";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
@@ -68,6 +69,7 @@ public class CommandTestUtil {
     public static final String GRADES_DESC_AMY = " " + PREFIX_GRADES + VALID_GRADES_AMY;
     public static final String GRADES_DESC_BOB = " " + PREFIX_GRADES + VALID_GRADES_BOB;
     public static final String GRADES_DESC_G1 = " " + PREFIX_GRADES + VALID_GRADES_G1;
+    public static final String GRADES_DESC_G1_1 = " " + PREFIX_GRADES + VALID_GRADES_G1_1;
     public static final String GRADES_DESC_G2 = " " + PREFIX_GRADES + VALID_GRADES_G2;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
