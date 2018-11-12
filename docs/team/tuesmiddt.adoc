@@ -54,3 +54,7 @@ include::../DeveloperGuide.adoc[tag=calendarShow]
 === *Use cases of the calendar show feature*
 
 include::../DeveloperGuide.adoc[tag=calendarUseCases]
+
+=== *Manual testing instructions for the calendar show feature*
+
+include::../DeveloperGuide.adoc[tag=calendarManualTestInstructions]

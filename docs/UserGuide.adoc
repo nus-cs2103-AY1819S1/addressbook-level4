@@ -475,8 +475,7 @@ from the `tasks find` command
 
 ****
 * Format for entering year is `YYYY`.
-Format for entering month is `MM`.
-Format for entering dates is `YYYYMMDD`.
+* Format for entering month is `MM`.
 * Each cell in the calendar is populated with tasks that end on that day.
 * Task filters applied via the `tasks find` command would also apply to the tasks displayed in the calendar.
 * If there are more than 5 tasks ending on that day, the cell will be scrollable, but a scroll bar is not displayed due to space constraints.
