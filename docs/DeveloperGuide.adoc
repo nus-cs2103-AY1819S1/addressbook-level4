@@ -496,7 +496,7 @@ Step 3a. Illegal characters will cause the command to throw an exception and awa
 
 Step 3b. Word with letters being parsed will be checked against LearnVocabulary to ensure no duplicate words.
 
-Step 4. The word will have a "toLearn" tag attached and be added to LearnVocabulary after ensuring that there are no duplicates.
+Step 4. Word will have a default tag attached, be added to LearnVocabulary after ensuring no duplicates.
 
 ===== Edit command improvements
 When editing an existing word in LearnVocabulary, there cannot be empty tags for any words provided.
@@ -521,7 +521,7 @@ Step 1. The user types in `show fire magic life`, it will display the 3 words in
 [NOTE]
 Multiple words are allowed to be queried. Allows for more flexibility compared to the Ui option.
 
-Step 2. On the left, we have the filtered list of words. On the right we have the automatically selected first word from the list.
+Step 2. From the filtered list of words, the program automatically selects and displays first word from list.
 
 Step 3. The 3 words will appear in the Command Box as well.
 
