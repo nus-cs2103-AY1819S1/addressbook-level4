@@ -12,7 +12,7 @@ public class Project {
     public static final String MESSAGE_PROJECT_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String PROJECT_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    //private final ProjectName projectName;
+    //private final AssignmentName projectName;
     //private final Name author;
     //private final Set<Tag> description = new HashSet<>();
     private final String projectName;
