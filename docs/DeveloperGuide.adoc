@@ -322,6 +322,75 @@ For example, a `Person` has 2 separate lists of Modules and Occasions respective
 but a `Module` or `Occasion` only contains a Person list.
 // end::polymorphismdecision[]
 
+// tag::updatinglists[]
+
+[[Updating-Lists]]
+=== Updating of Lists
+When executing commands for a particular type of entry, __another__ type of entry can modified.
+
+Naturally, `insertperson` and `removeperson` will affect a person and a module/occasion. +
+However, both `edit` and `delete` also can affect multiple types of entries.
+
+* If an entry is edited, all linked entries should reflect the changes accordingly.
+* If an entry is deleted, all linked entries should remove this entry from their list.
+
+==== Current Implementation
+To facilitate the execution of `undo` and `redo`, a new replacement person, module or occasion is created
+to replace the original entry. By avoiding modification of these entries, previous versions of
+the `ReadOnlyAddressBook` will not be incorrectly modified.
+
+Currently, a list only stores a *copy* of the desired entries, instead of the actual entries.
+
+Suppose that a person needs to be edited/deleted. Then correctly implementing any of these commands requires 3 stages:
+
+1.  Locate all linked modules and occasions
+2.  Replace each module and occasion with an updated version
+3.  Edit/Delete the person
+
+Methods for the implementation of 1 and 2 are contained in the `AttendanceListUtil` class. +
+The code snippets below are extracted with slight modifications,
+and are used to perform 1 and 2 by updating the person lists in modules after deleting a `Person`.
+
+[source,java]
+----
+while (moduleListIterator.hasNext()) {
+    Module module = moduleListIterator.next();
+    module.getStudents()
+            .asNormalList()
+            .stream()
+            .filter(person -> person.isSamePerson(personToRemove))
+            .findFirst()
+            .ifPresent(removePersonFromModule(model, module));
+}
+----
+
+* The above loop iterates through all modules.
+* For each module, it filters through its studentList to determine whether it should be edited.
+* If so, the person is removed from the module.
+
+[source,java]
+----
+private static Consumer<Person> removePersonFromModule(Model model, Module module) {
+    return person -> {
+        List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
+        updatedPersons.remove(person);
+        UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+        ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
+        updatedModuleDescriptor.setStudents(updatedPersonList);
+        Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+        model.updateModule(module, updatedModule);
+    };
+}
+----
+
+* In turn, removing a person from a module is done by creating a new list of persons, excluding the one pending deletion.
+* A new module is then created based on the original module and this new list.
+* Finally, the new module replaces the original module in the model.
+
+
+Similar implementations are used for both `delete` and `edit` in the various combinations of entries and lists.
+// end::updatinglistsgeneral[]
+
 // tag::add[]
 === Add Person/Module/Occasion Feature
 The add feature is currently implemented the same way to add persons, modules and occasions.
@@ -993,38 +1062,6 @@ It has a new `UniquePersonList` which is empty.
 *** Very tedious to remove all mentions of an entry *after* it has been deleted
 *** User may be misled that an entry still exists
 // end::delete[]
-
-// tag::updatinglistsgeneral[]
-
-[[Updating-Lists]]
-=== Updating of Lists (General)
-When executing commands for a particular type of entry, __another__ type of entry can modified.
-
-Naturally, `insertperson` and `removeperson` will affect a person and a module/occasion. +
-However, both `edit` and `delete` also can affect multiple types of entries.
-
-* If an entry is edited, all linked entries should reflect the changes accordingly.
-* If an entry is deleted, all linked entries should remove this entry from their list.
-
-==== Current Implementation
-To facilitate the execution of `undo` and `redo`, a new replacement person, module or occasion is created
-to replace the original entry. By avoiding modification of these entries, previous versions of
-the `ReadOnlyAddressBook` will not be incorrectly modified.
-
-Currently, a list only stores a *copy* of the desired entries, instead of the actual entries.
-
-Suppose that a person needs to be edited/deleted. Then correctly implementing any of these commands requires 3 stages:
-
-1.  Locate all linked modules and occasions
-2.  Replace each module and occasion with an updated version
-3.  Edit/Delete the person
-
-Methods for the implementation of 1 and 2 are contained in the `AttendanceListUtil` class.
-
-==== Design Considerations
-
-
-// end::updatinglistsgeneral[]
 
 == Documentation
 
