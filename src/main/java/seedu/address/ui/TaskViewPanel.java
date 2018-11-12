@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.TaskCard.truncateLabelName;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -79,7 +81,7 @@ public class TaskViewPanel extends UiPart<Region> {
             tags.getChildren().setAll(task
                     .getLabels()
                     .stream()
-                    .map(t -> new Label(t.labelName))
+                    .map(t -> new Label(truncateLabelName(t.labelName)))
                     .collect(Collectors.toList()));
         }
     }
@@ -87,7 +89,7 @@ public class TaskViewPanel extends UiPart<Region> {
     private String getDependencies(Task task) {
         ObservableList<Task> tasks = logic.getFilteredTaskList();
         List<String> names = task
-                .getDependency()
+                .getDependencies()
                 .getHashes()
                 .stream()
                 .map(hash -> tasks.stream().filter(t -> String.valueOf(t.hashCode()).equals(hash)).findFirst().get())
@@ -135,6 +137,9 @@ public class TaskViewPanel extends UiPart<Region> {
     }
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
+        //Try catch clause used here as both complete and dependency has intermediate states in an operation
+        //that are invalid. This try catch clause is to preemptively catch these exceptions thrown from these
+        //states
         try {
             earliestTimeOfChildren.setText(tmce.data.getEarliestDependentTimeForNode(this.displayedTask.get()).value);
         } catch (Exception e) {

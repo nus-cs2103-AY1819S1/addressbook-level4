@@ -16,7 +16,6 @@ import java.util.Set;
  */
 public class Dependencies {
 
-    //Prevents reassignment
     private final Set<String> hashes;
 
     /**
@@ -37,6 +36,7 @@ public class Dependencies {
 
     /**
      * Adds a task that this task is dependent on.
+     *
      * @param task
      * @return new dependencies object with the additional dependee task's hashcode
      */
@@ -48,10 +48,12 @@ public class Dependencies {
 
     /**
      * Removes a dependency to a task
+     *
      * @param task task to remove dependency to
-     * @return new dependencies object without hashcode of given task
+     * @return dependencies with dependency to task
      */
     public Dependencies spliceDependency(Task task) {
+        requireNonNull(task);
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(Integer.toString(task.hashCode()));
         return new Dependencies(newValue);
@@ -59,15 +61,19 @@ public class Dependencies {
 
     /**
      * Checks if this task is dependent on given task
+     *
      * @param task given task to check
-     * @return result whether task is contained within current set of dependencies
+     * @return <code>true</code> if task is contained within current set of dependencies; <code>false</code>
+     * otherwise
      */
     public boolean containsDependency(Task task) {
+        requireNonNull(task);
         return hashes.contains(Integer.toString(task.hashCode()));
     }
 
     /**
      * Returns the hashes of all the tasks conatined within the dependencies object
+     *
      * @return set of all hashes
      */
     public Set<String> getHashes() {
@@ -76,6 +82,7 @@ public class Dependencies {
 
     /**
      * Returns a new dependencies object with the old hash updated to new hash
+     *
      * @return set of all hashes
      */
     public Dependencies updateHash(String oldHash, String newHash) {
@@ -87,10 +94,19 @@ public class Dependencies {
         return new Dependencies(newValue);
     }
 
+    /**
+     * Returns the number of dependencies stored
+     *
+     * @return the number of dependencies in this Dependencies object
+     */
+    public Integer getDependencyCount() {
+        return hashes.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (String hash: hashes) {
+        for (String hash : hashes) {
             builder.append(hash);
             builder.append(" ");
         }
@@ -103,6 +119,7 @@ public class Dependencies {
                 || (other instanceof Dependencies // instanceof handles nulls
                 && hashes.equals(((Dependencies) other).hashes)); // state check
     }
+
     @Override
     public int hashCode() {
         return hashes.hashCode();

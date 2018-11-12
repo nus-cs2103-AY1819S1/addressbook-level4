@@ -192,6 +192,7 @@ public class XmlAdaptedAchievementRecord {
      * Converts the jaxb-friendly {@code source} string into integer type to be used as values of model's fields.
      *
      * @throws IllegalValueException if the string cannot be convert to valid integer.
+     * A valid integer value is above 0 and below the {@code MAX_INT_VALUE} that is stored by {@code AchievementRecord}.
      */
     private int stringToIntModelField(String source, String fieldName) throws IllegalValueException {
         if (source == null) {
@@ -203,7 +204,7 @@ public class XmlAdaptedAchievementRecord {
         } catch (NumberFormatException nfex) {
             throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, fieldName));
         }
-        if (result < 0) {
+        if (result < 0 || result > AchievementRecord.MAX_INT_VALUE) {
             throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, fieldName));
         }
         return result;

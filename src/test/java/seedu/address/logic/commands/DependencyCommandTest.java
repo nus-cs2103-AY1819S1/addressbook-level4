@@ -23,7 +23,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 
 
-
 public class DependencyCommandTest {
     private Model model = new ModelManager(getTypicalTaskManager(), new UserPrefs());
 
@@ -39,7 +38,6 @@ public class DependencyCommandTest {
         assertThrows(NullPointerException.class, () -> new DependencyCommand(null, INDEX_SECOND_TASK));
         assertThrows(NullPointerException.class, () -> new DependencyCommand(INDEX_FIRST_TASK, null));
     }
-
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -173,6 +171,7 @@ public class DependencyCommandTest {
 
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
+
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameTaskDependency() throws Exception {
 
@@ -193,8 +192,8 @@ public class DependencyCommandTest {
         // undo -> reverts task manager back to previous state and filtered task list to show all tasks
         expectedModel.undoTaskManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-        assertEquals(dependantTask.getDependency(), model.getFilteredTaskList().get(
-                INDEX_FIRST_TASK.getZeroBased()).getDependency());
+        assertEquals(dependantTask.getDependencies(), model.getFilteredTaskList().get(
+                INDEX_FIRST_TASK.getZeroBased()).getDependencies());
         // redo -> deletes same second task in unfiltered task list
         expectedModel.redoTaskManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

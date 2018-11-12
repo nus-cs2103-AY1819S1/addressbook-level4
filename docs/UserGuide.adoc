@@ -56,9 +56,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `+Example` indicates positive example while `-Example` indicates negative example.
 ====
 
-=== Note on command execution
-[TODO] Add if check status is still done at this stage.
+// tag::task-fields[]
+=== Note on Task fields
+A task has various fields. Some of these fields can be edited directly, while the rest are _derived_ from the fields
+that can be edited.
 
+==== Editable fields
+* Name: the name of a task
+* Due Date: the date and time when a task is due
+* Priority: the priority value that a task has
+* Description: additional description regarding the task
+* Labels: a list of labels that can be used to classify/identify the task
+
+==== Derived fields
+* Remaining time: the time remaining, from the current time, until the Due Date of the task.
+* Status: the current status of the task, depending on whether it has been completed or not.
+It is denoted by either "IN PROGRESS", "COMPLETED" or "OVERDUE".
+* Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task
+
+// end::task-fields[]
 === System Commands
 ==== Viewing help: `help`
 
@@ -131,15 +147,17 @@ Edits a task in the task manager
 Format:
 `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 +Example:
-`edit 1 t/18-12-19 d/a updated detailed description of what needs to be done`
+`edit 1 t/18-12-19 d/an updated detailed description of what needs to be done`
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
 // tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
-Adds/removes a dependency of a task dependant to the task dependee. The dependency is added if it already exists,
-or removed if it does not.
+Adds/removes a dependency of a task dependant to the task dependee.
+For a given scenario where task A is dependent on task B, task A is defined as the dependent task while task B is defined as the dependee task.
+The dependency is added if it already exists amd removed if it does not.
+
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
@@ -155,15 +173,15 @@ Format:
 ====
 There are several cases when a dependency cannot be created:
 
-1) If the dependency introduces a cyclic dependency
+1) The dependency introduces a cyclic dependency
 
-A cyclic dependency is defined as a path from a task back to the task itself.
+A cyclic dependency is defined as a dependency path from a task back to the task itself.
 
-image::CyclicDependency.png[width="300"]
+image::CyclicDependency.png[width="100"]
 
 In the diagram above, an additional dependency from `Task` A to `Task` C will introduce a cycle and hence will be rejected by the Task Manager.
 
-2) If a dependency is added from a COMPLETED task to an IN-PROGRESS or OVERDUE task
+2) The dependency is added from a COMPLETED task to an IN-PROGRESS or OVERDUE task
 
 The dependency will violate the notion of a completed task as tasks can only be completed if all the tasks that it depends
 on are completed.
@@ -278,7 +296,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 `Attack food`, `Induce happiness`
 ****
 
-+Example: `find happiness`
++Example: `find happiness` +
 -Example: `find OVERDUE`
 
 ==== Selecting a person : `select`
@@ -324,7 +342,7 @@ B comes before A in the ordering.
 
 [NOTE]
 ====
-image::TopologicalOrdering.png[width="300"]
+image::TopologicalOrdering.png[width="100"]
 _Diagram of a possible dependency graph_
 
 A topological order of this graph is: [A, B, C]

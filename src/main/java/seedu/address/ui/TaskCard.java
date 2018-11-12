@@ -36,6 +36,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
+    private Label dependencyCount;
+    @FXML
     private FlowPane tags;
 
     public TaskCard(Task task, int displayedIndex) {
@@ -45,8 +47,21 @@ public class TaskCard extends UiPart<Region> {
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
         status.setText(task.getStatus().toString());
-        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        dependencyCount.setText(task.getDependencies().getDependencyCount().toString());
+        task.getLabels().forEach(tag -> tags.getChildren().add(new Label(truncateLabelName(tag.labelName))));
         registerAsAnEventHandler(this);
+    }
+
+    /**
+     * Truncates a label name to a maximum length.
+     *
+     * @param labelName the label to truncate
+     * @return labelName, or a truncated one if it exceeds the max length
+     */
+    public static String truncateLabelName(String labelName) {
+        return labelName.length() > 50
+                ? labelName.substring(0, 50) + "..."
+                : labelName;
     }
 
     @Override

@@ -1,4 +1,5 @@
 package seedu.address.logic.parser;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
@@ -9,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new DependencyCommand object
  */
 public class DependencyCommandParser implements Parser<DependencyCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the DependencyCommand
      * and returns an CompleteCommand object for execution.
