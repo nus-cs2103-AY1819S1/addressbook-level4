@@ -21,14 +21,15 @@ public class AddmhCommand extends Command {
 
     public static final String COMMAND_WORD = "addmh";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patients's medical history. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a diagnosis to a patient's existing medical history. "
             + "Parameters: "
             + PREFIX_NRIC + "NRIC "
-            + PREFIX_MED_HISTORY + "DIAGNOSIS/REMARK"
+            + PREFIX_MED_HISTORY + "DIAGNOSIS/REMARK "
             + PREFIX_DOCTOR + "DOCTOR\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NRIC + "S9271847A"
-            + PREFIX_MED_HISTORY + "Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately."
+            + PREFIX_NRIC + "S1234567A" + " "
+            + PREFIX_MED_HISTORY + "Patient has acute terminal stage brain cancer, refer to Dr.Zhang immediately. "
             + PREFIX_DOCTOR + "Dr.Ross";
 
     public static final String MESSAGE_SUCCESS = "New medical history/record successfully added: %1$s";
@@ -56,6 +57,24 @@ public class AddmhCommand extends Command {
         model.updatePerson(patientToUpdate, updatedPatient);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, patientNric));
+    }
+
+    /**
+     * Getter method to get the patient.
+     *
+     * @param model the model used that stores the data of HMK2K18
+     * @return the {@code Person} with the matching NRIC
+     * @throws CommandException if there is no person in the `model` that matches the person's NRIC.
+     */
+    private Person getPatient(Model model) throws CommandException {
+        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
+                .filtered(p -> patientNric.equals(p.getNric()));
+
+        if (filteredByNric.size() < 1) {
+            throw new CommandException(MESSAGE_UNREGISTERED);
+        }
+
+        return filteredByNric.get(0);
     }
 
     @Override
