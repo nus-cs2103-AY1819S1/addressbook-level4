@@ -8,32 +8,54 @@
 
 ---
 
-== Overview
+=== Overview
 
-One Life is a desktop hospital management application used for efficient storing and retrieving of data related to
-the doctors and patients (e.g. personal particulars, medical records, appointments, etc). It makes use of a Command
-Line Interface (CLI), and it uses a Graphical User Interface (GUI) created via JavaFX. The program is written in Java,
-and has about 10 kLoC.
+This project portfolio details my key contributions to Project One Life.
 
-== Summary of contributions
+One Life is a desktop medical management application designed as part a project for a software engineering module
+that I took in National University of Singapore (NUS). Originally an addressbook application with simple functions
+such as adding, editing, deleting and searching for contacts, my team and I have expanded and almost doubled its
+functionality, morphing it into an application that can support and improves the efficiency of performing administrative
+task in the medical sector (i.e. hospitals or medical centres).
 
-* *Major enhancement*: added *the ability to display each doctor's profile and their current availability status.*
-** What it does: This allows the user to view the details of each doctor (e.g. phone number, medical specialization,
-etc), as well as the current availability status of each doctor.
+Some of the features that we have added includes, but are not limited to:
+
+* Able to schedule appointments between patients and doctors
+* Able to update medical records of patients
+* Able to be retrieve the availability status of all doctors at any point in time, base on their schedule
+* Able to enter commands using the Intuitive Command Prompt feature that is more user-friendly as compared to the
+default Command Line Interface (CLI)
+* Able to effectively search for a group of/specific person in view of the many different attributes a patient or a
+doctor has (e.g. medical department, medical records, appointments, nric, etc)
+
+=== Summary of Contributions
+
+* *Major enhancement*: added *the ability to be retrieve all doctor's availability status.*
+** What it does: This allows the user to view the the availability status of each doctor at the moment.
+Alternatively, the user can choose to retrieve a list of doctors who are free/available at a given date and time,
+base on their schedule.
 ** Justification: This feature improves the product significantly because a user can easily retrieve the data of each
 doctor, and more importantly the current availability status of each doctor. Since this is a hospital management
 application that will be used by nurses or medical administrative staff, in cases of a medical emergency or when a
 doctor is required, the user can easily know which doctors are available at the moment to help/address the medical
-situation.
+situation. Alternatively, this feature also allows the user to know which doctors are available to be activated for
+stand-by or other medical needs, at a specific date and time.
 ** Highlights: This enhancement improves this application's ability to serve as a hospital management application as
 it provides real time update of the availability status of each doctor. The implementation too was challenging as
- it required addition of new event handlers to facilitate propagation of information stored in the backend, to the
- frontend i.e. GUI where the information is processed and displayed to the user.
+it required addition of new event handlers to facilitate propagation of information stored in the backend, to the
+frontend i.e. Graphical User Interface(GUI) where the information is processed and displayed to the user.
 
-* *Minor enhancement*: changed the existing `add` and `list` commands such that it facilitates adding and viewing of
-doctors and patients separately (refer to _4.Contributions to the User Guide_ for more information).
+* *Minor enhancement*: +
+1. Changed the existing `add` command such that it facilitates adding of doctors and patients
+separately.
+2. Added a `switch` command to facilitate switching between the doctor's and patient's database.
+3. Added a profile page to the GUI that displays all the information belonging to the selected
+patient/doctor.
+4. Updated the existing `clear` command and added a new `clearall` command in view of having different database for
+different people (i.e. patients and doctors).
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-W16-3/main/commits?author=guestuser0123[Functional code]]
+ [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=guestuser0123&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Reposense]]
 
 * *Other contributions*:
 
@@ -42,35 +64,36 @@ doctors and patients separately (refer to _4.Contributions to the User Guide_ fo
 ** Enhancements to existing features:
 *** Updated the GUI layout (Pull requests https://github.com/CS2103-AY1819S1-W16-3/main/pull/54[#54],
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/116[#116],
-https://github.com/CS2103-AY1819S1-W16-3/main/pull/124[#124])
+https://github.com/CS2103-AY1819S1-W16-3/main/pull/124[#124],
+https://github.com/CS2103-AY1819S1-W16-3/main/pull/204[#204])
 *** Wrote additional tests for existing features to increase coverage (Pull requests
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/116[#116],
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/129[#129])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+https://github.com/CS2103-AY1819S1-W16-3/main/pull/221[#221]
 ** Community:
 *** Reviewed Pull Requests (PRs) of other team members (with non-trivial review comments):
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/53[#53], https://github.com/CS2103-AY1819S1-W16-3/main/pull/71[#71],
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/119[#119]
 *** Reported bugs and suggestions for other members in the team (Pull Requests:
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/119[#119])
-*** Updated team member's code to remove errors/bugs detected when running tests against the program (Pull requests
+*** Updated team member's code to remove errors/bugs detected when running test codes against the program (Pull requests
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/34[#34],
 https://github.com/CS2103-AY1819S1-W16-3/main/pull/76[#76])
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=add]
+include::../UserGuide.adoc[tag=avail]
 
-include::../UserGuide.adoc[tag=list]
+include::../UserGuide.adoc[tag=switch]
 
-
-== Contributions to the Developer Guide
+=== Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
@@ -78,9 +101,3 @@ include::../UserGuide.adoc[tag=list]
 
 include::../DeveloperGuide.adoc[tag=displaydoctoravailability]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

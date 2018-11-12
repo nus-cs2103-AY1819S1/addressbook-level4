@@ -67,8 +67,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void changeDatabase(Predicate<Person> filer, String role) {
-        this.predicateShowRelevantPeople = filer;
+    public void changeDatabase(Predicate<Person> filter, String role) {
+        this.predicateShowRelevantPeople = filter;
         this.activeRole = role;
         this.indicateDatabaseChanged();
         this.indicatePersonChanged();

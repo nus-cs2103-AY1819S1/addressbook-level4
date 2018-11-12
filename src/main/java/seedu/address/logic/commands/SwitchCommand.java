@@ -22,7 +22,7 @@ public class SwitchCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the database.\n"
             + "Example : \n" + COMMAND_WORD + " "
             + PREFIX_ROLE + " patient\n"
-            + PREFIX_ROLE + " doctor\n"
+            + COMMAND_WORD + " " + PREFIX_ROLE + " doctor\n"
             + COMMAND_WORD + " " + PREFIX_ROLE + "all\n";
 
     private Predicate<Person> filter;
