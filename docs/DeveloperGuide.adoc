@@ -716,7 +716,7 @@ The key operation implemented is `FindCommand#execute`.
 
 Given below is an example usage scenario and how the find command mechanism behaves at each step.
 
-Step 1. The user wants to find all `Person` who have a `friends` `Tag`, with `Name` either `Alex` or `Bernice` by
+Step 1. The user wants to find all `Person` whom have a `friends` `Tag`, with `Name` either `Alex` or `Bernice` by
 executing `find n/Alex n/Bernice t/friends`.
 
 Step 2. `FindCommandParser` will parse the input and verify that is it valid before creating a
