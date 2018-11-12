@@ -24,8 +24,8 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new CrossFindCommand object
  */
 public class CrossFindCommandParser {
-    private static final String DUPLICATE_INVENTORY = "inventory keyword must used only once, either following "
-            + "include or prioritize!\n%1$s";
+    private static final String DUPLICATE_INGREDIENT = "Ingredient should not be duplicated between include and " +
+            "prioritize.";
     private static final String INCLUDE = "include";
     private static final String PRIORITIZE = "prioritize";
     private static final String INVENTORY = "inventory";
@@ -62,7 +62,9 @@ public class CrossFindCommandParser {
         int index = 1;
         boolean hasInventory = false;
         if (index < tokens.length && tokens[index].equals(INCLUDE)) {
-            index++;
+            if (++index >= tokens.length) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
+            }
             if (tokens[index].equals(INVENTORY)) {
                 hasInventory = true;
                 for (Ingredient ingredient : ingredientList) {
@@ -83,10 +85,12 @@ public class CrossFindCommandParser {
         }
 
         if (index < tokens.length && tokens[index].equals(PRIORITIZE)) {
-            index++;
+            if (++index >= tokens.length) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
+            }
             if (tokens[index].equals(INVENTORY)) {
                 if (hasInventory) {
-                    throw new ParseException(String.format(DUPLICATE_INVENTORY, CrossFindCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(DUPLICATE_INGREDIENT, CrossFindCommand.MESSAGE_USAGE));
                 }
                 for (Ingredient ingredient : ingredientList) {
                     prioritize.add(new IngredientDefinition(ingredient.getName()));
@@ -105,6 +109,10 @@ public class CrossFindCommandParser {
                 prioritize.add(key);
                 index++;
             }
+        }
+
+        if (!tokens[index].equals(INCLUDE) && !tokens[index].equals(PRIORITIZE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
         }
 
         crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
