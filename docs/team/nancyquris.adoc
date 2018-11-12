@@ -9,7 +9,7 @@
 
 == Overview
 
-JxMusic Player is a desktop music player application developed as a school project for the learning of Software
+JxMusic is a desktop music player application developed as a school project for the learning of Software
 Engineering principles. The project is built upon https://se-edu.github.io/addressbook-level4/[AddressBook(Level 4)].
 The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 It is written in Java, and has about 10 kLoC.
