@@ -1377,21 +1377,46 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and venue is retained.
 
-_{ more test cases ... }_
+=== Adding a calendar event
 
-=== Deleting a calendarEvent
+. Adding a new calendar event to the scheduler
 
-. Deleting a calendarEvent while all calendarEvents are listed
-
-.. Prerequisites: List all calendarEvents using the `list` command. Multiple calendarEvents in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No calendarEvent is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: Nil
+.. Test case: `add event t/CS2103 Lecture d/Practical Exam v/i3 Auditorium s/16 Nov 4pm e/16 Nov 6pm tag/Graded` +
+   Expected: New calendar event is added. Details of the new calendar event shown in the status message.
+.. Test case: `add event t/CS2103 Lecture d/Sleep v/Home s/16 Nov 4pm e/16 Nov 6pm` +
+   Expected: New calendar event is not added as it is a duplicate of the earlier one. Error details shown in the status message.
+.. Other incorrect add event commands to try: `add event`, `add event {without all the required prefixes}`
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Deleting a calendar event
+
+. Deleting a calendar event while all calendar events are listed
+
+.. Prerequisites: List all calendar events using the `list event` command. Multiple calendar events in the list.
+.. Test case: `delete event 1` +
+   Expected: First calendar event is deleted from the list. Details of the deleted calendar event shown in the status message.
+.. Test case: `delete event 0` +
+   Expected: No calendar event is deleted. Error details shown in the status message.
+.. Other incorrect delete event commands to try: `delete event`, `delete event x` (where x is larger than the list size)
+   Expected: Similar to previous.
+
+=== Finding calendar events
+
+. Search for calendar events in the scheduler
+
+.. Prerequisites: List all calendar events using the `list event` command. Multiple calendar events in the list.
+.. Test case: `find event CS2103` +
+   Expected: At least 1 calendar event is found (assuming you added the calendar event listed earlier). Number of filtered search results shown in the status message.
+.. Test case: `find event CS2103 to/16 Nov 3pm` +
+   Expected: The event added earlier would not be shown. Number of filtered search results shown in the status message.
+.. Test case: `find event tag/Graded` +
+   Expected: The event added earlier would be shown. Number of filtered search results shown in the status message.
+.. Test case: `find event` +
+   Expected: No change in the list of calendar events. Error details shown in the status message.
+.. Other incorrect find event commands to try: `find event to/` `find event from/16 Nov 5pm to/15 Nov 8pm`
+   Expected: Similar to previous.
+
 
 === Saving data
 
