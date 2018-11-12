@@ -497,7 +497,7 @@ A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by
 ===== Aspect: Storage of voters in Poll
 
 * **Alternative 1** (Current implementation): Store the voters as Persons.
-** Pros: All information about the voters are stored. This also allows the event organiser to distinguish between two users of the same name.
+** Pros: All information about the voters are stored. This also allows the application to distinguish between two users of the same name.
 Future extensions to the application might also require additional details about the voters.
 ** Cons: Need for complete reference to the actual person via the XmlPersonIndex class in storage, rather than duplicating the person details.
 The voter list must also be manually updated every time the person details are updated.
