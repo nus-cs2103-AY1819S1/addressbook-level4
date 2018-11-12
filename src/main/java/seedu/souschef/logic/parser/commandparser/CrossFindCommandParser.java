@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.souschef.logic.CrossFilterPredicate;
+import seedu.souschef.logic.CrossSortComparator;
 import seedu.souschef.logic.commands.CrossFindCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
@@ -23,6 +24,12 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new CrossFindCommand object
  */
 public class CrossFindCommandParser {
+    private static final String DUPLICATE_INVENTORY = "inventory keyword must used only once, either following "
+            + "include or prioritize!\n%1$s";
+    private static final String INCLUDE = "include";
+    private static final String PRIORITIZE = "prioritize";
+    private static final String INVENTORY = "inventory";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CrossFindCommand
      * and returns an CrossFindCommand object for execution.
@@ -54,9 +61,9 @@ public class CrossFindCommandParser {
 
         int index = 1;
         boolean hasInventory = false;
-        if (index < tokens.length && tokens[index].equals("include")) {
+        if (index < tokens.length && tokens[index].equals(INCLUDE)) {
             index++;
-            if (tokens[index].equals("inventory")) {
+            if (tokens[index].equals(INVENTORY)) {
                 hasInventory = true;
                 for (Ingredient ingredient : ingredientList) {
                     include.add(new IngredientDefinition(ingredient.getName()));
@@ -64,7 +71,7 @@ public class CrossFindCommandParser {
                 index++;
             }
             while (index < tokens.length) {
-                if (tokens[index].equals("prioritize")) {
+                if (tokens[index].equals(PRIORITIZE)) {
                     break;
                 }
                 if (!IngredientName.isValid(tokens[index])) {
@@ -75,9 +82,12 @@ public class CrossFindCommandParser {
             }
         }
 
-        if (index < tokens.length && tokens[index].equals("prioritize")) {
+        if (index < tokens.length && tokens[index].equals(PRIORITIZE)) {
             index++;
-            if (hasInventory == false && tokens[index].equals("inventory")) {
+            if (tokens[index].equals(INVENTORY)) {
+                if (hasInventory) {
+                    throw new ParseException(String.format(DUPLICATE_INVENTORY, CrossFindCommand.MESSAGE_USAGE));
+                }
                 for (Ingredient ingredient : ingredientList) {
                     prioritize.add(new IngredientDefinition(ingredient.getName()));
                 }
@@ -115,7 +125,7 @@ public class CrossFindCommandParser {
             matchedCrossRecipeMap.put(recipe, matchedIngredients);
         }
 
-        return new CrossFindCommand(crossRecipeModel, ingredientModel, new CrossFilterPredicate(include),
-                matchedCrossRecipeMap, numberOfServings);
+        return new CrossFindCommand(crossRecipeModel, ingredientModel, new CrossSortComparator(matchedCrossRecipeMap),
+                new CrossFilterPredicate(include), numberOfServings);
     }
 }
