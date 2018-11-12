@@ -126,13 +126,14 @@ public class SampleDataUtil {
 
     public static ReadOnlyTranscript getSampleTranscript() {
         return getTranscriptWithModules(
-            DISCRETE_MATH,
-            PROGRAMMING_METHODOLOGY_TWO,
-            DATA_STRUCTURES,
-            ASKING_QUESTIONS,
-            SOFTWARE_ENGINEERING,
-            DATABASE_SYSTEMS,
-            DATABASE_SYSTEMS_2MC);
+        //            DISCRETE_MATH,
+        //            PROGRAMMING_METHODOLOGY_TWO,
+        //            DATA_STRUCTURES,
+        //            ASKING_QUESTIONS,
+        //            SOFTWARE_ENGINEERING,
+        //            DATABASE_SYSTEMS,
+        //            DATABASE_SYSTEMS_2MC
+        );
     }
 
     /**
