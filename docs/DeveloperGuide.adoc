@@ -355,7 +355,7 @@ The following sequence diagram shows how the prev command works:
 .Sequence Diagram for PrevCommand
 image::PrevSequenceDiagram.png[width=800]
 
-// tag::nextprev1[]
+// tag::nextprev[]
 ==== Design Considerations
 This section contains the considerations and alternatives we had when implementing the next/prev command.
 
