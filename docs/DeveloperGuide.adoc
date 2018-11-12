@@ -750,6 +750,7 @@ atomic. This means that if the operation fails for one ingredient, none of the i
 The following activity diagram shows what happens when the user executes the `stockup` command:
 
 image::StockUpActivityDiagram.png[width="1000"]
+_Figure 4.7.1: Flow of events after a user executes the stock up command_
 
 ==== Design Considerations
 
@@ -766,7 +767,7 @@ ingredient to be stocked up, a new ingredient with the updated number of units i
 argument to `updateIngredient()`.
 ** Pros: Simple to implement, by using the existing `updateIngredient()` method.
 ** Cons: Difficult to integrate different features while maintaining abstraction. The
-<<auto-update-ingredient feature, auto-ingredient-update>> feature would require the sales component to create each
+<<auto-ingredient-update, auto-update-ingredient>> feature would require the sales component to create each
 updated ingredient, before calling the `updateIngredient()` method. This means poor abstraction and possibly a
 violation of the Law of Demeter.
 
