@@ -34,9 +34,11 @@ image::lexzt.png[width="150", align="left"]
 Role: Team Leader +
 Responsibilities:
 
+* Find
+* Postal code data
+* Google Maps UI & Javascript
 * Code quality
 * Integration
-* Data and UI (Google Maps)
 * Scheduling and tracking
 
 '''
@@ -48,7 +50,8 @@ image::zhuanyu.png[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
-* Data and API
+* Query data
+* Notify
 * Threading
 * UI
 * Deliverables and deadlines
@@ -62,6 +65,7 @@ image::yuroutang.png[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
+* Filter
 * Commands
 * Documentation
 
@@ -74,5 +78,7 @@ image::dlworldpeace.png[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
-* UX Enhancement
+* Abbreviations
+* Autocomplete
 * Testing
+* UX Enhancement

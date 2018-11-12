@@ -491,7 +491,7 @@ Some notable methods that `GsonUtil` implement are:
 Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
 
 [TIP]
-A <<localcopy, local copy>> of the data is saved at the end. Users only need to execute this command if they want to get the most recent information from the database.
+A [underline]#{sourceDir}/DeveloperGuide.html#localcopy[local copy]# of the data is saved at the end. Users only need to execute this command if they want to get the most recent information from the database.
 
 ==== Example
 
@@ -1339,7 +1339,7 @@ b. Require developers to download those libraries manually (this creates extra w
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: helping busy car owners to plan their trip by getting details
+*Value proposition*: helping busy car owners plan their trip by getting details
 of nearby car parks from their destination in a fast and efficient manner
 
 [appendix]
