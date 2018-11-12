@@ -277,20 +277,26 @@ well as the occasions he participates in.
 // end::supportforocassionandmodule[]
 
 === Dependency of three types
+// tag::personcd[]
 Below are the class diagrams or Person, Module and Occasion.
 For simplicity consideration, we divide the class diagrams in three seperate ones.
 
 Class Diagram for Person:
 
 image::PersonClassDiagram.png[width="800"]
+// end::personcd[]
 
+// tag::modulecd[]
 Class Diagram for Module:
 
 image::ModuleClassDiagram.png[width="800"]
+// end::modulecd[]
 
+// tag::occasioncd[]
 Class Diagram for Occasion:
 
 image::OccasionClassDiagram.png[width="800"]
+// end::occasioncd[]
 
 === Add Person/Module/Occasion Feature
 The add feature is currently implemented the same way to add persons, modules and occasions.
@@ -369,12 +375,12 @@ It's mechanism is facilitated by `VersionAddressBook`. In addition, it implement
 Returns an unmodifiable view of the list of Person backed by the internal list of VersionedAddressBook
 
 These operations are exposed in the Model interface as
-Model#commitAddressBook(), Model#updatePerson(target, editedPerson) and Model#updateFilteredPersonList(Predicate<Person> predicate) respectively.
+`Model#commitAddressBook()`, `Model#updatePerson(target, editedPerson)` and `Model#updateFilteredPersonList(Predicate<Person> predicate)` respectively.
 
 The following sequence diagram shows how the `editperson` operation works:
 `editperson 6 p/91234567 e/johndoe@example.com`
 
-image::EditPersonSequenceDiagram.png[width="800"]
+image::EditPersonSequenceDiagram.png[width="500"]
  `editmodule` and `editoccasion` works in a similar way as `editperson`
 
 ==== Design Considerations
@@ -550,7 +556,7 @@ Both `ExportXmlCommand` and `ExportTxtCommand` inherits from `ExportCommand`.
 ===== For ExportXmlCommand
 The following sequence diagram shows how the `ExportXmlCommand` works.
 
-image::ExportXmlCommandSequenceDiagram.png[width="800"]
+image::ExportXmlCommandSequenceDiagram.png[width="500"]
 
 ===== For ExportTxtCommand
 `ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`. +
