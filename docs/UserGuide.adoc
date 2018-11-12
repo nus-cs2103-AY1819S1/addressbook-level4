@@ -199,6 +199,7 @@ Format: `help`
 
 // tag::add[]
 
+
 === Adding an entry: `add` + `person`
 
 [TIP]
@@ -265,7 +266,8 @@ Example: +
 // end::add[]
 
 // tag::list[]
-=== Listing: `list` + `person`
+
+=== Listing all entries : `list` + `person`
 
 The different list commands will show the specified list in TheTracker. +
 
@@ -325,7 +327,7 @@ It can be used to add optional field that is not specified in the add command.
 A command to allow the user to edit an existing person in TheTracker. +
 
 Format: +
-`editperson INDEX [PREFIX]/VALUE ...`
+`editperson INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Example: +
 `editperson 6 p/91234567 e/johndoe@example.com` +
@@ -334,8 +336,7 @@ Edits the person at INDEX 6 in TheTracker: edits his phone number to 91234567 an
 ====
 *Notice*
 
-* The `[PREFIX]/` should be replaced by `n/` (for Name), `p/` (Person), `e/` (Email), `a/` (Address), `t/` (Tag) to specify the field you want to edit.
-* You can edit multiple fields
+* You should edit at least one field
 * The INDEX must be valid:
 ** Be a positive number
 ** Not larger than the size of the person list
@@ -346,7 +347,7 @@ Edits the person at INDEX 6 in TheTracker: edits his phone number to 91234567 an
 A command to allow the user to edit an existing module in TheTracker. +
 
 Format: +
-`editmodule INDEX [PREFIX]/VALUE ...`
+`editmodule INDEX [mc/MODULE CODE] [mt/MODULE TITLE] [ay/ACADEMIC YEAR] [sem/SEMESTER] [t/TAG]...`
 
 Example: +
 `editmodule 1 mc/CS1101S` +
@@ -355,9 +356,7 @@ Edits the module of INDEX 1 in TheTracker: edits the module code to CS1101S.
 ====
 *Notice*
 
-* The `[PREFIX]/` should be replaced by `mc/` (for Module Code), `mt/` (for Module Title), `ay/` (for Academic Year), `sem/` (for Semester), `t/` (for Tag) to
-specify the field you want to edit
-* You can edit multiple fields
+* You should edit at least one field
 * The INDEX must be valid:
 ** Be a positive number
 ** Not larger than the size of the module list
@@ -366,7 +365,7 @@ specify the field you want to edit
 
 A command to allow the user to edit an existing occasion in TheTracker. +
 Format: +
-`editoccasion x/VALUE ...`
+`editoccasion INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...`
 
 Example: +
 `editoccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
@@ -375,9 +374,7 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 ====
 *Notice*
 
-* The `[PREFIX]/` should be replaced by `on/` (for Occasion Name), `od/` (for Occasion Date), `loc/` (for Occasion Location), `t/` (for Tag) to
-specify the field you want to edit
-* You can edit multiple fields
+* You should edit at least one field
 * The INDEX must be valid:
 ** Be a positive number
 ** Not larger than the size of the occasion list
@@ -389,7 +386,7 @@ specify the field you want to edit
 === Inserting a Person: `insertperson`
 
 ==== Inserting a person into a module: `insertperson`
-Builds an association between a module and a person within `TheTracker` by inserting
+A command to allow the user to build an association between a module and a person within `TheTracker` by inserting
 a `person` bi-directionally into a `module`.
 
 Format: +
@@ -411,7 +408,6 @@ Example:
 
 * `insertperson pi/1 oi/1` Builds an association between the first `person` and `occasion` by inserting `person` 1 bi-directionally
 into `occasion` 1.
-
 // end::insertperson[]
 
 // tag::removeperson[]
@@ -513,7 +509,7 @@ Format: +
 [NOTE]
 ====
 
-Undoable commands: those commands that modify the address book's content (`add[]`, `delete`, `edit[]`, `clear` and `insertperson`).
+Undoable commands: those commands that modify the address book's content (`add` + `person`, `delete`, `edit` + `person`, `clear` and `insertperson`).
 
 ====
 
@@ -537,7 +533,7 @@ Format:
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add` + `person`, `delete`, `edit` + `person`, `clear` and `insertperson`).
 ====
 
 Examples:
@@ -684,10 +680,10 @@ There is no need to save manually.
 e.g. `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 
 * *Add Module* `addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER[t/TAG]...` +
-e.g. ` addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1718 sem/1 t/gg `
+e.g. `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1718 sem/1 t/gg`
 
 * *Add Occasion* `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...` +
-e.g. ` addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg `
+e.g. `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 
 * *Delete* : `delete INDEX` +
 e.g. `delete 2`
@@ -696,9 +692,9 @@ e.g. `delete 2`
 e.g. `editperson 1 p/91234567 e/johndoe@example.com`
 
 * *Edit Module* : `editmodule INDEX [mc/MODULE CODE] [mt/MODULE TITLE] [ay/ACADEMIC YEAR] [sem/SEMESTER] [t/TAG]...` +
-e.g. `editmodule 1 mc/CS1101S `
+e.g. `editmodule 1 mc/CS1101S`
 
-* *Edit Occasion* :  `INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...` +
+* *Edit Occasion* : `editoccasion INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...` +
 e.g. `editoccasion 1 on/Barbecue od/2019-6-17 loc/NUS`
 
 * *Remove from Event*: `removeperson pi/PERSON_INDEX mi/MODULE_INDEX`,
@@ -720,17 +716,15 @@ e.g. `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion l
 * *List Module* : `listmodule`
 * *List Occasion* : `listoccasion`
 * *Undo* : `undo` +
-e.g. `undo`
 * *Redo* : `redo` +
-e.g. `redo`
 * *Clear* : `clear`
 * *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Export data to xml file* : `export --xml [FILEPATH]` +
-e.g. (MacOS, Linux) `export --xml /Users/Anna/Desktop/exported.xml`
+e.g. (MacOS, Linux) `export --xml /Users/Anna/Desktop/exported.xml` +
 e.g. (Windows) `export --xml C:\Users\Anna\desktop\exported.xml`
 * *Export data to txt file* : `export --txt [FILEPATH]` +
-e.g. (MacOS, Linux) `export --txt /Users/Anna/Desktop/exported.txt`
+e.g. (MacOS, Linux) `export --txt /Users/Anna/Desktop/exported.txt` +
 e.g. (Windows) `export --txt C:\Users\Anna\desktop\exported.txt`
