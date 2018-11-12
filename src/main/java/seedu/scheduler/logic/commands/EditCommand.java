@@ -1,6 +1,7 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
@@ -81,6 +82,10 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_SINGLE_EVENT_FAIL = "Single events cannot be edited with "
+            + "any options such as -a or -u";
+    public static final String MESSAGE_REPEAT_EVENT_FAIL = "Repeat type and Repeat until date time fields "
+            + "can only be edited for repeated events with options (-a or -u).";
     public static final String MESSAGE_INTERNET_ERROR = "Only local changes,"
             + "no effects on your Google Calender.";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
@@ -119,6 +124,10 @@ public class EditCommand extends Command {
         //Set up event to be edited and edited event according to user input
         logger.info("Creating event to be edited.");
         Event eventToEdit = lastShownList.get(index.getZeroBased());
+
+        if (isSingleEvent(eventToEdit) && flags.length != 0) {
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_SINGLE_EVENT_FAIL));
+        }
 
         //Calculate parameters for updating events in Google Calender
         logger.info("Calculating parameters for Google calender edit commands.");
@@ -184,6 +193,7 @@ public class EditCommand extends Command {
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor)
             throws ParseException {
         assert eventToEdit != null;
+
         UUID eventUid = editEventDescriptor.getEventUid().orElse(eventToEdit.getEventUid());
         UUID eventUuid = editEventDescriptor.getEventSetUid().orElse(eventToEdit.getEventSetUid());
         EventName updatedEventName = editEventDescriptor.getEventName().orElse(eventToEdit.getEventName());
@@ -195,15 +205,15 @@ public class EditCommand extends Command {
         DateTime updatedRepeatUntilDateTime = editEventDescriptor.getRepeatUntilDateTime()
                 .orElse(eventToEdit.getRepeatUntilDateTime());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
-        ReminderDurationList updatedReminderDurationList =
-                editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
+        ReminderDurationList updatedReminderDurationList = editEventDescriptor.getReminderDurationList()
+                .orElse(eventToEdit.getReminderDurationList());
+
+        if (updatedEndDateTime.compareTo(updatedRepeatUntilDateTime) > 0) {
+            updatedRepeatUntilDateTime = updatedEndDateTime;
+        }
 
         if (!Event.isValidEventDateTime(updatedStartDateTime, updatedEndDateTime)) {
             throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
-        }
-
-        if (!Event.isValidEventDateTime(updatedEndDateTime, updatedRepeatUntilDateTime)) {
-            throw new ParseException(Event.MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS);
         }
 
         return new Event(eventUid, eventUuid, updatedEventName, updatedStartDateTime, updatedEndDateTime,
@@ -280,6 +290,10 @@ public class EditCommand extends Command {
         default:
             return event -> event.getEventSetUid().equals(eventToEdit.getEventSetUid());
         }
+    }
+
+    private boolean isSingleEvent(Event eventToEdit) {
+        return eventToEdit.getRepeatType().equals(RepeatType.NONE);
     }
 
     @Override

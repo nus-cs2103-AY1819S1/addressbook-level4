@@ -3,12 +3,15 @@ package seedu.scheduler.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.scheduler.logic.commands.CommandTestUtil.showEventAtIndex;
+import static seedu.scheduler.logic.commands.EditCommand.MESSAGE_SINGLE_EVENT_FAIL;
+import static seedu.scheduler.logic.parser.CliSyntax.FLAG_ALL;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
@@ -102,6 +105,13 @@ public class EditCommandTest {
         expectedModel.commitScheduler();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_singleEventWithFlag_failure() {
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_EVENT, new EditEventDescriptor(), FLAG_ALL);
+        assertCommandFailure(editCommand, model, commandHistory,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_SINGLE_EVENT_FAIL));
     }
 
     @Test

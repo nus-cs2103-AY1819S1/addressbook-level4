@@ -20,7 +20,6 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
 import static seedu.scheduler.testutil.TypicalEvents.FRIDAY_LECTURE;
-
 import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
 import static seedu.scheduler.testutil.TypicalEvents.ONE_TIME_JOB;
