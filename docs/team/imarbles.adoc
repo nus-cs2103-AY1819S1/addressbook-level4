@@ -10,9 +10,9 @@
 == Overview
 
 This portfolio page documents my involvement in SocialCare, a project done as part of the CS21303T Software Engineering module taught in NUS.
-My team decided to develop SocialCare based on our goal of wanting to _'harness the potential of software to create sustainable social change'_.
+For this project, my team had the goal of wanting to _'harness the potential of software to create sustainable social change'_.
 
-SocialCare is a desktop application made for social welfare organizations.
+With our goal in mind, we developed SocialCare, a desktop application made for social welfare organizations.
 The application is designed to help manage volunteers and events effectively.
 Users interact with the application using a Command Line Interface (CLI).
 In addition, SocialCare has a Graphical User Interface (GUI) to display information in a user-friendly manner.
@@ -36,7 +36,7 @@ These functions are part of the core requirements for the application because we
 
 ** Highlights:
 This enhancement is completely new and required an in-depth analysis of design alternatives.
-This enhancement was challenging as it required complete understanding of all code components so that it can be properly implemented.
+It was challenging as it required complete understanding of all code components so that it can be properly implemented.
 
 * *Minor enhancement*:
 added a command to allow users to *switch between panels*. The panels are used to display either volunteers or events for users to manage.
