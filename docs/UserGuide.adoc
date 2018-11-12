@@ -517,6 +517,9 @@ Example(s):
 
 The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
+.Panel before deleting an event, EVENT_INDEX is indicated in the circles
+image::command_event_delete_before.png[add command, 300]
+
 * `delete 3` +
 Deletes the event specified at index 3.
 The expected result is shown in the figure below.
