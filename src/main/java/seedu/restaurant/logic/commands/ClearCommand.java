@@ -19,7 +19,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(SampleDataUtil.getSampleRestaurantBook());
+        model.resetData(SampleDataUtil.getDefaultRestaurantBook());
         model.commitRestaurantBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }

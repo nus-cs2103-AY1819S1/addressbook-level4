@@ -18,7 +18,7 @@ import seedu.restaurant.model.account.Account;
 //@@author AZhiKai
 
 /**
- * Selects an account identified using its displayed index from the ingredient list.
+ * Selects an account identified using its displayed index from the account list.
  */
 public class SelectAccountCommand extends Command {
 

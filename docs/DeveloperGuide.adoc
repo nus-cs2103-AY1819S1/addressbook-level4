@@ -736,8 +736,8 @@ image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
 // end::deleteingredient[]
 
 // tag::menu[]
-=== Menu Management feature
-Menu management feature extends `MeNuS` with a menu and provides the users with the ability to add items to the
+=== Menu management feature
+Menu management feature extends `MeNUS` with a menu and provides the users with the ability to add items to the
 menu, edit items and remove items from the menu.
 
 ==== Current Implementation
@@ -747,61 +747,68 @@ The menu management feature implements the following operations:
 * `add-item` command -- Adds an item to the menu. The item must not already exist in the menu.
 * `edit-item` command -- Replaces the target item with the editedItem. Target item
  must be in the menu and editedItem must not be the same as another existing item in the menu.
-* `delete-item` command -- Removes the equivalent item from the menu. The item must exist in the menu.
+* `delete-item-index` or `delete-item-name` command -- Removes the equivalent item(s) from the menu.
+The item(s) must exist in the menu.
 * `list-items` command -- Lists all the items in the menu.
+* `clear-menu` command -- Removes all items from the menu.
 * `select-item` command -- Selects an item in the menu and loads the page of the selected item.
 * `sort-menu` -- Sorts the menu by name or price. The user must specify the sorting method.
 * `find-item` command -- Finds items whose names contain any of the given keywords.
 * `filter-menu` command -- Finds items whose tags contain any of the given keywords.
 * `today-special` command -- Finds items whose tags contain the `DAY_OF_THE_WEEK`.
+* `discount-item` command -- Gives discount to the equivalent item(s) in the menu. The item(s) must exist in the menu.
+* `recipe-item` command -- Adds a recipe to the equivalent item in the menu. The item must exist in the menu.
+* `add-required-ingredients` command --  Adds the required ingredients to the equivalent item in the menu. The item
+must exist in the menu.
 
-Each `Item` object consists of `Name` and `Price`.
-
-==== `add-item` Command
-The `add-item` command is facilitated by `AddItemCommand` and `AddItemCommandParser`. The command takes in
-user input for `Name`, `Price` and `Tag`(optional).
-
-The `AddItemCommandParser` will parse the user input and checks if the input is valid.
-It will then construct an `Item` object.
-[NOTE]
-If the input is not valid, it will throw a `ParseException`.
-
-The `AddItemCommand` will indirectly call the `UniqueItemList#add(Item toAdd)` and the adds the item.
-After adding the item, it will save the current state for undo/redo.
+Each `Item` object consists of `Name`, `Price`, `Recipe`, `Set<Tag>` and `Map<IngredientName, Integer>`
 
 ==== `sort-menu` Command
 The `sort-menu` command is facilitated by `SortMenuCommand` and `SortMenuCommandParser`. The command takes in
 user input for the sorting method.
 [NOTE]
-Currently only sort by name or price.
+Currently only sort by name or price
 
-The `SortMenuCommandParser` will parse the user input and checks if the input is valid.
+The `SortMenuCommandParser` will parse the user input and checks if the input is valid. If the input is valid, it
+constructs an `SortMenuCommand` object.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`.
+If the input is not valid, it will throw a `ParseException`
 
-The `SortMenuCommand` will indirectly call the `UniqueItemList#sortItemsByName()` or
+The `SortMenuCommand` object will indirectly call the `UniqueItemList#sortItemsByName()` or
 `UniqueItemList#sortItemsByPrice()` and the sorts the menu.
 After sorting the menu, it will save the current state for undo/redo.
 
 The following activity diagram summarizes what happens when a user executes `sort-menu` command:
 
 image::SortMenuActivityDiagram.png[width="650"]
+_Figure 4.7.2.1: SortMenu Activity diagram_
 
 The following sequence diagram shows how the `sort-menu` command works:
 
 image::SortMenuSequenceDiagram.png[width="1000"]
+_Figure 4.7.2.2: SortMenu Sequence diagram_
 
-==== `filter-menu` Command
-The `filter-menu` command is facilitated by `FilterMenuCommand` and `FilterMenuCommandParser`. The command takes in
-user input for the keywords.
+==== `discount-item` Command
+The `discount-item` command is facilitated by `DiscountItemCommand` and `DiscountItemCommandParser`. The command
+takes in user input for discount percentage and index or the keyword `all`.
 
-The `FilterMenuCommandParser` will parse the user input and checks if the input is valid and constructs an
-`TagContainsKeywordsPredicate` object.
+The `DiscountItemCommandParser` will parse the user input and checks if the input is valid. It will check if the
+keyword `all` is entered. If keyword `all` is entered, `DiscountItemCommandParser` will construct an
+`DiscountItemCommand` object with `isAll` set to true. If index or a range of index is entered, it will construct an
+`DiscountItemCommand` object with `isAll` set to false.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`.
+If the inputs are not valid, it will throw a `ParseException`
 
-The `FilterMenuCommand` will directly call the `ModelManager#updateFilteredItemList(Predicate<Item> predicate)` and
-set the predicate for `ModelManger#filteredItems`.
+The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount to all
+items in the `UniqueItemList`. Otherwise, it will give the discount to the item(s) specified by the index or the
+range of index. The `DiscountItemCommand` object create an `Item with discounted price` and indirectly call
+`UniqueItemList#setItem(Item target, Item editedItem)` to update the `Item` with `Item with discounted price`. It will
+then save the current state for undo/redo.
+
+The following activity diagram summarizes what happens when a user executes `discount-item` command:
+
+image::DiscountItemActivityDiagram.png[width="650"]
+_Figure 4.7.3.1: DiscountItem Activity diagram_
 
 ==== Design Considerations
 
@@ -1178,8 +1185,6 @@ application
 
 |`* * *` |restaurant owner |clear menu |revamp my menu when there is a need
 
-|`* * *` |restaurant owner |export menu |print hard copies of the menu
-
 |`* * *` |restaurant owner |add a reservation |keep track of who booked a table in my restaurant
 
 |`* * *` |restaurant owner |edit a reservation |make changes when a customer requests to do so
@@ -1534,7 +1539,7 @@ Steps 1b1-1b2 are repeated until item name that does not exist in the menu is en
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC302 - Delete item from menu
+=== Use case: UC302 - Delete item by index from menu
 
 *MSS*
 
@@ -1562,6 +1567,7 @@ Use case ends.
 Steps 3a1-3a2 are repeated until a valid index is entered.
 +
 Use case resumes at step 4.
+// end::ucmenu[]
 
 [discrete]
 === Use case: UC303 - Edit item from menu
@@ -1642,31 +1648,6 @@ Use case resumes at step 4.
 Steps 3b1-3b2 are repeated until a valid percentage is entered.
 +
 Use case resumes at step 4.
-
-[discrete]
-=== Use case: UC305 - Export menu
-
-*MSS*
-
-1.  User requests to export menu.
-2.  App export the menu.
-3.  App returns a success message confirming the menu has been exported.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Invalid file path given for the command.
-+
-[none]
-** 1a1. App shows an error message that file path is invalid.
-** 1a2. User requests to export menu again.
-+
-Steps 1a1-1a2 are repeated until invalid file path is entered.
-+
-Use case resumes at step 2.
-// end::ucmenu[]
 
 // tag::ucreservations[]
 [discrete]
@@ -2132,6 +2113,85 @@ be able to register a new account as the user role feature will only be implemen
 .. Prerequisite: User must be logged in.
 .. Test case: `list-accounts` +
    *Expected*: The list of accounts will be shown at the panel on the left of the GUI.
+
+// tag::testMenu[]
+=== Menu Management
+
+. Adding a new item with valid name, price and tag
+.. Prerequisites: You must not have the item, specified in the test case below, in the menu.
+.. Test case: `add-item n/Chicken Rice p/3 t/rice t/chicken` +
+   *Expected*: Item is added to the menu. Details of the item shown in status message.
+.. Incorrect commands to try: `add-item n/test p/string`, `add-item n/@*@^&@* p/3`
+
+. Editing an item with valid name, price and tag
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `edit-item 1 n/Duck Rice p/3 t/rice t/duck` +
+   *Expected*: Item specified by the index is updated with new details. New details of the item shown in status message.
+.. Incorrect commands to try: `edit-item 1 n/test p/string`, `edit-item n/name p/3`
+
+. Deleting an item by index
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `delete-item-index 1` +
+   *Expected*: Item specified by the index is deleted from the menu. Number of items deleted shown in status message.
+.. Incorrect commands to try: `delete-item-index -2`, `delete-item-index string`
+
+. Deleting an item by name
+.. Prerequisites: You must have the item, specified in the test case below, in the menu.
+.. Test case: `delete-item-name chicken rice` +
+   *Expected*: Item specified by name is deleted from the menu. Details of the deleted item shown in status message.
+.. Incorrect commands to try: `delete-item-name @*@^&@*`
+// end::testMenu[]
+
+. Listing all items
+.. Test case: `list-items` +
+   *Expected*: List all items in the menu.
+
+. Clearing menu
+.. Test case: `clear-menu` +
+   *Expected*: Deletes all items in the menu.
+
+. Selecting an item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `select-item 1` +
+   *Expected*: Selects the item specified by the index in the menu. Index of the selected item shown in status message.
+.. Incorrect commands to try: `select-item -2`, `select-item string`
+
+. Locating items by name
+.. Prerequisites: You must have at least 1 item with name matching the keyword specified in the test case below.
+.. Test case: `find-item rice` +
+   *Expected*: Finds the item with name matching the keyword in the menu. Number of matched items shown in status message.
+
+. Locating items by tag
+.. Prerequisites: You must have at least item with tag matching the keyword specified in the test case below.
+.. Test case: `filter-menu duck` +
+   *Expected*: Finds the item with tag matching the keyword in the menu. Number of matched items shown in status message.
+
+. Sorting the menu by name
+.. Test case: `sort-menu name` +
+   *Expected*: Sorts the menu by name. Sorting method shown in status message.
+
+. Sorting the menu by price
+.. Test case: `sort-menu price` +
+   *Expected*: Sorts the menu by price. Sorting method shown in status message.
+
+. Giving discount to all item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `discount-item ALL dp/20` +
+   *Expected*: Gives all items in the menu a discount. Number of items given a discount shown in status message.
+.. Incorrect commands to try: `discount-item -2 dp/20`, `discount-item string dp/20`
+
+. Adding a recipe to an item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `recipe-item 1 r/some recipe` +
+   *Expected*: Adds the recipe to the item specified by the index in the menu. Details of specified item shown in
+   status message.
+
+. Adding required ingredients to an item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `add-required-ingredients 1 n/chicken nu/3 n/rice nu/3` +
+   *Expected*: Adds the required ingredients to the item specified by the index in the menu. Details of specified item shown in status message.
+.. Incorrect commands to try: `add-required-ingredients -2 n/str nu/3`, `add-required-ingredients 1 n/str nu/-3`,
+`add-required-ingredients 1 n/str n/other nu/3 nu/3`
 
 // tag::testreservations[]
 === Reservations Management
