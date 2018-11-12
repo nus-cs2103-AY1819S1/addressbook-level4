@@ -178,11 +178,7 @@ Archived employees will remain in archive list until they are restored which wil
 
 Format: `archive`
 
-****
-* Replaces current view on the left panel to the archive list.
-****
-
-Type in `archive` command in the command box at the top of the application and hit enter, you will be shown the following screen shown below:
+Type `archive` command in box at the top and hit enter and you will be shown the following screen:
 
 image:archiveUserGuide.png[width=800]
 
