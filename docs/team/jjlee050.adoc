@@ -42,11 +42,13 @@ It requires an in-depth understanding of ClinicIO's architecture.
 ** Added *User Authentication* feature
 *** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
 *** Justification: This feature provide more security to ensure that user has the appropriate rights to access the commands.
-*** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-*** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging as all commands is relying on this feature to run the system with more secure and efficient.
+*** Credits: https://github.com/patrickfav/bcrypt[BCrypt - A library to hash password]
 
 * *Minor enhancement*:
-** Alter the UI to provide a more beautiful UI. {Pull Request: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
+** Alter the UI to provide a more beautiful UI. [Pull Requests: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
+** Create a `PasswordPrefixFormatter` to mask password.
+
 
 * *Other contributions*:
 
@@ -60,12 +62,10 @@ It requires an in-depth understanding of ClinicIO's architecture.
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
+*** Did cosmetic tweaks to existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-W14-1/main/pull/263[#263], https://github.com/CS2103-AY1819S1-W14-1/main/pull/278[#278] 
 *** Did cosmetic tweaks to existing contents of the Developer Guide: -
-*** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
+*** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-W14-1/main/pull/278[#278]
 ** Tools:
 *** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
 
