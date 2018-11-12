@@ -465,29 +465,47 @@ allow users to configure TutorPal the promote feature to be automatic or manual.
 
 ==== Current Implementation
 
-* A time attribute has been added into the person's model.
+A `Time` class has been created. It represents the tuition time of the student, consisting of the day, start and end time of the tuition.
 
-* It represents the the tuition timings of the students in the addressbook. It consists of the day, start and end time of the tuition.
+* When creating a new `Time`, input for day should only include the first 3 letters of the day, and it must be in small letters. 
 
-* It is implemented as an array list in the person's attribute hence, user can add multiple tuition timings for a student.
+**For example: mon, tue, wed, thu, fri, sat, sun.
 
-* Every time a new student is added into the addressbook, an empty time array list will be created for the student.
+* The input for start and end time should be in 24hour format.
+
+A `timing` attribute has been added into the list of attributes of Person class.
+
+* It is an array list of `Time` class, hence this allows user to add multiple tuition timings for a student.
+
+* Every time a new student is added into Tutor Pal, an empty `Time` array list will be created for the student.
 
 ==== Design Considerations
 
-===== Aspect: Data structure to support the time attribute
+===== Aspect: Input for `Time` class
+* **Alternative 1 (current choice):** Standardise the inputs for `Time` class.
+** Pros:
+.Easier to implement as we only need to account for one particular style of input.
+.Furthermore, it also ensures consistency in Tutor Pal, which makes information more readily interpretable. Hence, even though users may not be used to the particular style of input, in the long run, it will be more convenient for users as there will not be any confusion in the information due to different styles of input.
+** Cons:
+.It may take some time for new users to get used to the style of input.
+* **Alternative 2:** Allows other styles of inputs, for example a 12hour clock format instead of a 24hour clock format, for `Time` class.
+** Pros:
+.Easier for new users to use.
+** Cons:
+.If user did not fix to one style of inputs, there may be confusion of information due to conflicting input styles.
+.Implementation will be much harder as we need to account for countless different situations to try to minimise or totally prevent such confusions.
 
+===== Aspect: Data structure to support the timing attribute
 * **Alternative 1 (current choice):** Use an array list to store the tuition timings of a student.
-
-** Pros: Easy to implement and the API already have functions we can use to manage the array list.
-
-** Cons: The order of tuition timings in the array list depends on the order it is added in, not the tuition timings itself. However, it is preferable to display tuition timings according to the order of the timings for better visual representation. Hence, sorting has to be done first before displaying the tuition timings.
-
+** Pros:
+.Easy to implement and the API already have functions we can use to manage the array list.
+** Cons:
+.The order of `Time` in the array list depends on the order it is added in, not the `Time` itself. However, it is preferable to display `Time` according to the order of the timings for better visual representation. Hence, sorting has to be done first.
 * **Alternative 2:** Use a priority queue to store the tuition timings of a student.
-
-** Pros: The priority queue API allows us to ensure that the tuition timings are in a particular order, either descending or ascending, depending on how we code it.
-
-** Cons: We can only fix it to one particular order. Hence, if we want to display the tuition timings in another order, sorting still has to be done.
+** Pros:
+.The priority queue API allows us to ensure that the `Time` are in a particular order, either descending or ascending, depending on how we implement it.
+** Cons: 
+.We can only fix it to one particular order. Hence, if we want to display the `Time` in another order, sorting still has to be done.
 
 // end::timefeature[]
 
@@ -496,43 +514,47 @@ allow users to configure TutorPal the promote feature to be automatic or manual.
 
 ==== Current Implementation
 
-* Since the time attribute is an array list, we created a new command to add tuition timings of a student.
+Since the `timing` attribute of a person is an array list, we created a new command to add `Time` for a student, called `AddTimeCommand`.
 
-* It takes in 2 parameters, name of the student and the tuition timing to be added.
+* The add time command takes in 2 parameters, `Index` and the `Time` to be added.
 
-* Name of the student will be in string, while tuition timing will be in time.
+* `Index` refers to the index number shown in the displayed person list in Tutor Pal, while `Time` represents the tuition timing to be added for the student.
 
-* Tuition timing should consists of the day, start and end time of the tuition.
+* The start time of `Time` must be earlier than the end time of the tuition.
 
-* The start time of the tuition must be earlier than the end time of the tuition.
+* The `Time` to be added must not clash with any other timings already in Tutor Pal.
 
-* When the command is called, a time object of the tuition timings will be created. It will then search through the address book to see if the input name of the student exists. If the student is found, the tuition timing will be added into his time array list, otherwise, an error message, depending on the type of error, will be shown.
+* The added `Time` will be displayed on the PersonCard GUI.
 
-* Furthermore, after the time object is created, it will also check if the there are any clashes in the tuition timings already in the address book.
+* After inputing the command, the inputs will be taken into `AddressBookParser` class and an `AddTimeCommand` object will be returned. The command will then be executed and `Time` will be added for the students at `Index`.
 
-The following sequence diagram shows how the addtime operation works:
+* During the execution of the command, a `Time` object will be created. It will then search through Tutor Pal to see if the `timing` of student at `Index` contains the `Time`. If it does, it will then check if there are any clashes with the timings already in Tutor Pal. If there are no errors, `Time` will be added into his `timing`, otherwise, an error message, depending on the type of error, will be shown.
+
+The following sequence diagram shows how the `addTime` operation works:
 
 image::AddTimeSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
-* Currently, the input name has the to the target student's exact spelling. In cases where a student name is very long, this command may cause some inconvenience for the user if he does not remember the exact spellings of the target student's name.
+* Currently, if there are clashes in the timings, then `Time` will not be added. User will then have to search through Tutor Pal to check for available timings.
 
-* In the future, the input name do not need to be the target student's full name
-(e.g `John` instead of `John Doe`). If multiple students' names containing that input name are found, system will display all these students and user can choose which is the target student.
+* In the future, instead of just displaying the error messages, it will also display the available timings for that particular day, or trigger another command to display all the timings available.
+
+* Furthermore, there may be tutors who are teaching a group of students at once. Hence these students have the same addresses. In such cases, we should allow such students to have same tuition timings since it means both of them will be tutored at the same time.
 
 ==== Design Considerations
-===== Alternative 1(current choice):** ArrayList's add command is used for the addition of the time into the time array list.
+===== Aspect: Parameter used to find the student for the addition of `Time`.
+* **Alternative 1 (current choice):** Using index.
+** Pros:
+.Since there may be students with the same name, using index will prevent such confusion and allow the command to function correctly.
+** Cons:
+.If a user has a lot of students, he may need to search through the long displayed list to find the student's index, causing some inconvenience to the user.
 
-** Pros: Easy to implement.
-
-** Cons: The array list will not be sorted according to tuition timings if they are not added in order. Hence, sorting has to be done first before we can display the tuition timings in order.
-
-===== Alternative 2:** Create a new function to add tuition timings into the array list.
-
-** Pros: We create a new function to find the index of the tuition timing to be added before adding it into the array.
-
-** Cons: We will still need to do sorting if we want to display the tuition timings in another order.
+* **Alternative 2:** Using Name.
+** Pros:
+.It will be more convenient for user as user do not need to spend time searching for the index of the student.
+** Cons:
+.If there are students with the same name, there may be situations where `Time` are not added to the correct student. Hence, in order to handle such situations, implementation will be much harder.
 
 // end::timeaddcommand[]
 
