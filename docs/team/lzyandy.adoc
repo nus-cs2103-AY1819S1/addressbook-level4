@@ -65,10 +65,3 @@ include::../UserGuide.adoc[tag=find/p]
 |===
 
 include::../DeveloperGuide.adoc[tag=findfeature]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
