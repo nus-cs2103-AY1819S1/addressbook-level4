@@ -41,11 +41,11 @@ Responsibilities: UI
 
 === Henry Jayakusuma
 
-image::<insert>.png[width="150", align="left"]
-{empty}[http://github.com/<insert>[github]]
+image::HenryJk.png[width="150", align="left"]
+{empty}[http://github.com/HenryJk[github]]
 
-Role: <insert> +
-Responsibilities: <insert>
+Role: Developer +
+Responsibilities: Backend
 
 
 
