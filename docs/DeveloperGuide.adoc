@@ -1270,3 +1270,12 @@ contacts
 * Pen and paper
 * Email
 * Orgmode
+
+[appendix]
+== Instructions for Manual Testing
+
+=== Something
+
+=== Something else
+
+=== One last thing
