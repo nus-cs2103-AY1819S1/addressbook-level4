@@ -493,6 +493,7 @@ The filepath to the XML file can be specified in the `preferences.json` file. +
 If the file cannot be found, ResuMaker will start with sample resume data. +
 If the file cannot be read or has errors in its XML, ResuMaker will start with no resume data.
 
+// tag::dataConfig[]
 == Configuring Awareness data
 
 Awareness data can be provided via XML. +
@@ -516,6 +517,7 @@ These are the rules to follow when writing the `context-entry` elements.
 * For best results, do not have unnecessary spaces in your `eventName`.
 * The `eventName` cannot be purely whitespace.
 * For the resume entry's XML, follow the same format as used by the resume entries' XML file.
+// end::dataConfig[]
 
 The following can be used as a template for your awareness data.
 

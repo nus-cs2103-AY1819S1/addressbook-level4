@@ -601,9 +601,10 @@ Contextual Awareness enables ResuMaker to: +
 
 The flowchart below shows the overall flow taken by an user when working with the Contextual Awareness feature. +
 
+.Workflow for a user using the Awareness features
 image::awarenessFlow.png[width=250, height=250]
 
-The diagrams shows that there are 2 functions provided as part of the Contextual Awareness feature.
+The diagram shows that there are 2 functions provided as part of the Contextual Awareness feature.
 One is a real-time function that updates the User Interface **as the user types (without pressing `Enter`) ** +
 The other functions adds a ResumeEntry to the internal EntryBook, and is triggered only when the user presses `Enter`.
 
@@ -627,14 +628,16 @@ The `getContextualEntry` method corresponds to Step 2 mentioned in <<Overview, o
 
 The information above is illustrated in the following sequence diagram. +
 
+.Sequence diagram showing how Awareness finds a Matching ResumeEntry
 image::awarenessHighLevelSeq.png[width=400, height=350]
 
-As seen, `ContextCommand` is responsible for (indirectly) called Awareness. Note that `ContextCommand` leverage on the existing `AddEntryCommand` to add the Matching ResumeEntry to the EntryBook. +
+As seen, `ContextCommand` is responsible for (indirectly) calling Awareness. Note that `ContextCommand` leverages on the existing `AddEntryCommand` to add the Matching ResumeEntry to the EntryBook. +
 
 ==== Guessing an Event name, and Matching it with a ResumeEntry (Internal implementation)
 The previous section considered Awareness as a black box. This section describes how the `Guess` and `Match` steps are implemented internally in Awareness. +
 The following diagram shows the internal structure of Awareness.
 
+.Class structure for Awareness
 image::awarenessStructure.png[width=350, height=200]
 
 As seen, an Awareness object will hold a reference to a Dictionary and a TreeMap. +

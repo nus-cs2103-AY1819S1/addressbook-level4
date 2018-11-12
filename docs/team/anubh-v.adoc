@@ -1,4 +1,4 @@
-== Anubhav - Project Portfolio
+= Anubhav - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,7 +9,7 @@
 
 == Overview
 
-ResuMaker is a fast and flexible resume generator, optimised for students in the School of Computing. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This document details my contribution to ResuMaker - a fast and flexible resume generator. ResuMaker was built by five students, including myself. It is optimised for students in the School of Computing.
 
 == Summary of contributions
 
@@ -19,23 +19,17 @@ ResuMaker is a fast and flexible resume generator, optimised for students in the
 ** Highlights: This enhancement is built to be configurable - the user can add on to the set of slang that is understood by the application.
 ** Credits: ResuMaker was a team effort. The project would not be possible without the great effort displayed by the <<../AboutUs#, group>>.
 
-* *Minor enhancement*:
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
 * *Other contributions*:
 
 ** Project management:
-*** Coordinated with members to complete project milestones on time.
-*** Added some third-party tools to our project repository.
+*** Managed releases v1.1 - v1.3 (3 releases)
+*** Added third party tools to GitHub repository (Travis, AppVeyor, Coveralls)
 ** Documentation:
 *** Wrote the introductory blurb for User Guide and Developer Guide
 *** Reviewed documentation related PRs
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-** Tools:
-*** Integrated some Github plugins into the team repo
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-1/main/pull/97[1], https://github.com/CS2103-AY1819S1-W17-1/main/pull/49[2], https://github.com/CS2103-AY1819S1-W17-1/main/pull/54[3])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/75[1], https://github.com/nus-cs2103-AY1819S1/forum/issues/84[2], https://github.com/nus-cs2103-AY1819S1/forum/issues/85[3])
 
 
 == Contributions to the User Guide
@@ -46,8 +40,10 @@ ResuMaker is a fast and flexible resume generator, optimised for students in the
 |===
 
 include::../UserGuide.adoc[tag=intro]
+
 include::../UserGuide.adoc[tag=anubhavUG]
 
+include::../UserGuide.adoc[tag=dataConfig]
 
 == Contributions to the Developer Guide
 
