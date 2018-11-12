@@ -318,9 +318,9 @@ Extended usage of `history`: +
 If you wish to get a report of all commands executed across sessions, use `history more` and a report will be generated.
 
 [WARNING]
-If you experience any loss of command history, it may be caused by problems in the command history storage file,
-`commandHistory.xml`. Logging will stop if storage file size exceeds 5MB.
-ThanePark might discard its current history if the storage file is unintentionally modified.
+The `xml` file produce by ThanePark was not designed for you to read. +
+You may experience loss of command history information when `commandHistory.xml` exceeds 5MB
+or is unintentionally modified.
 
 [.white]
 |===

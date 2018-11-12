@@ -340,7 +340,7 @@ The Command Management feature is responsible for making ThanePark application e
 It can be decomposed into the following segments: +
 
 * <<accessibility_help, *Help*>>
-* <<accessibility_autocomplete, *Autocomplete/Suggest*>>
+* <<accessibility_autocomplete, *Autocomplete*>>
 * <<accessibility_history, *Command History retrieval*>>
 
 [#accessibility_help]
@@ -348,14 +348,15 @@ It can be decomposed into the following segments: +
 The *help* mechanism is facilitated by the `ShowHelpRequestEvent`.
 When the user executes a `HelpCommand`, the required level of help is encoded in `ShowHelpRequest`.
 This event type is subscribed to by `MainWindow`, which will load the respective help page in the required window
-(`BrowserPanel` or `HelpWindow`). These interactions are illustrated in the class diagram below:
+(`BrowserPanel` or `HelpWindow`). Most of these classes belong to the User Interface (UI) component.
+These interactions are illustrated in the class diagram below:
 
 .Class Diagram of help mechanism
 image::HelpClassDiagram.png[width="800"]
 
 [#accessibility_autocomplete]
 ===== Autocomplete
-The *autocomplete/suggest* mechanism is facilitated by `SuggestCommand`.
+The *autocomplete* mechanism is facilitated by `SuggestCommand`.
 It extends `Command` and serves as a special kind of `Command` that cannot be directly invoked by the `LogicManager`.
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
 or when kbd:[TAB] is pressed inside the *Command Box*. See the 2 figures below:
@@ -377,19 +378,17 @@ You can easily add other pattern matching heuristics such as `nearest word dista
 [source,java]
 ----
 public interface PatternMatcher {
-
     /**
      * Matches a list of items as Strings against a given pattern.
      */
     public String[] matchPattern(String[] items, String pattern);
 }
 ----
-An example of doing a prefix matchers is shown below:
+A possible implementation of a prefix matcher is shown below:
 [source,java]
 ----
 public class PrefixMatcher implements PatternMatcher {
     private static final String PATTERN_PREFIX = "^%1$s.*";
-
     /**
      * Default constructor
      */
@@ -432,18 +431,38 @@ image::HistorySequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: Handling kbd:[Tab] autocomplete
+===== Aspect: Handling UI interactions in help
 
-* **Alternative 1 (current choice):** Handle autocomplete through events and `SuggestCommand`.
-** Pros: Flexible. Easy to modify event behaviors for `SuggestCommandEvent` and `NewResultAvailableEvent`. Modular design that
-can be easily reused to create other autocomplete features.
+* **Alternative 1 (current choice):** Subscribe `MainWindow` to `ShowHelpRequestEvent`.
+** Pros: Cohesive. Every `UI` component affected by `ShowHelpRequestEvent` are handled through `MainWindow`.
+** Cons: Difficult to implement. Interactions between `MainWindow` and its child `UI` components must be carefully handled.
+Easy to cause bugs if not handled appropriately.
+* **Alternative 2:** Subscribe `BrowserPanel`, `HelpWindow` and `RideListPanel` to `ShowHelpRequestEvent`.
+** Pros: Easy to implement. These `UI` components can directly perform whatever is required.
+** Cons: High dependency. When a modification to `ShowHelpRequestEvent` is required, all of these classes may need to be modified.
+
+===== Aspect: Handling autocomplete text replacement
+
+* **Alternative 1 (current choice):** Handle autocomplete text replacement through `SuggestCommandEvent`.
+** Pros: Flexible. Easy to modify text replacement behavior through `SuggestCommandEvent`. Can be used by
+both kbd:[Tab] and kbd:[Enter]. Open for extension to other keystrokes or actions that lead to autocompletion.
 ** Cons: Difficult to implement as it requires some understanding of the `EventsCenter` and handling of the various
 Event types in the application.
-* **Alternative 2:** Handle everything in `CommandBox`.
-** Pros: Easy to implement.
+* **Alternative 2:** Handle autocomplete through the existing `NewResultAvailableEvent`.
+** Pros: Easy to implement. Can modify `NewResultAvailableEvent` to easily satisfy most requirements.
+** Cons: Difficult to extend. When modifying behavior of text autocompletion, modification of
+both `CommandBox` and `ResultDisplay` may be required.
 
-** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
-for result listing of results in `ResultDisplay`.
+===== Aspect: Storing command history
+
+* **Alternative 1 (current choice):** Store every command entry in a separate xml file.
+** Pros: Flexible. Able to format the file with little constraint to meet storage requirements.
+** Cons: Low code reuse. Does not utilise the existing `LogsCenter` for ThanePark.
+* **Alternative 2:** Store command entries using the existing `LogsCenter` for ThanePark.
+** Pros: High code reuse. Developers know that all logging within the ThanePark is done by `LogsCenter`.
+** Cons: High dependency and difficult to implement. When a modification to `LogsCenter` is required,
+the modification of command history storage may be required.
+
 // end::commandManagement[]
 
 // tag::viewstatus[]
