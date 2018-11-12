@@ -248,9 +248,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Returns the earliest DueDate among tasks that are dependent on a given task
-     * Tasks dependent on given task includes tasks that beyond direct dependencies.
-     * i.e. for a graph A <- B <- C,
+     * Returns the earliest DueDate among tasks that are directly or indirectly dependent on a given task, including
+     * the task itself
      *
      * @param node node to check timing for
      * @return earliest DueDate

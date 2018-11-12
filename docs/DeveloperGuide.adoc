@@ -669,6 +669,25 @@ depend on each other.
 
 
 // end::dependency[]
+// tag::effective_duedate[]
+=== Effective Due Date
+==== Current Implementation
+
+Effective Due Date is a derived field in the UI. It is the earliest due date among all tasks directly or indirectly
+dependent on the task, including the task itself.
+
+image::EffectiveDueDateImplementation.png[width="800"]
+
+_Diagram for effective due date implementation_
+
+Steps to find effective due date of task A:
+
+1. Prune completed tasks and dependencies to completed tasks from the `DependencyGraph`
+2. Invert the dependencies in the `DependencyGraph` +
+2. Perform a depth first search from Task A
+
+
+// end:: effective_duedate[]
 
 
 

@@ -72,7 +72,7 @@ https://github.com/nus-cs2103-AY1819S1/cs2103-website/issues/2[#2])
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide.
 |===
 
 include::../UserGuide.adoc[tag=dependency]
@@ -86,7 +86,7 @@ include::../UserGuide.adoc[tag=add]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide.
 |===
 |===
 |_Sections excluded: topological order command manual testing, extra details about implementation of dependency_
