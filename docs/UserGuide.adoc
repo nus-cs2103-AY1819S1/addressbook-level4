@@ -529,7 +529,7 @@ Examples:
 
 Format: `logout` -> Disconnects you from Google Photos
 
-// tag::google[]
+// end::google[]
 
 === Exits the application: `exit`
 
