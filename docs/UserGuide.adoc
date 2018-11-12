@@ -230,7 +230,7 @@ Example(s):
 Updates the panel displaying the list of volunteers to display the list of events. +
 The following figure shows the expected panel before and after entering the `switch` command.
 
-.Panel display changing from volunteers to events
+.Panel display changing from list of volunteers to list of events
 image::command_switch.png[switch, 500]
 //end::command-switch[]
 
