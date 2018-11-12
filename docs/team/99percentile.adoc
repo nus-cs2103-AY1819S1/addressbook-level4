@@ -5,7 +5,7 @@
 
 == PROJECT: CLInic
 
-== Introduction
+== 1. Introduction
 Hello, I am Yu Cong. I am currently studying Computer Science as my major in School of Computing, National University of Singapore.
 I formed a team with 4 other students to create CLInic for the CS2103T module (Introduction to Software Engineering)
 as part of my university education.
@@ -28,7 +28,7 @@ This is what CLInic has to offer:
 
 Want to make your clinic more organised? Download https://github.com/CS2103-AY1819S1-W16-4/main/releases[CLInic] and try it now for *FREE*!
 
-== Summary of Contributions
+== 2. Summary of Contributions
 //preface to this section to inform reader purpose of this section
 In this section, you can find the major and minor enhancement that I made for CLInic,
 as well as my contributions to the project.
@@ -50,9 +50,9 @@ With this, you do not have to manually note down the change in level of medicine
 ** Advised my team to apply knowledge learned in lecture where necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
 ** Configured <<config.json, config.json>> to allow Reposense to detect each member's works.
-** Edited the Structure of the Model Component in the Developer Guide.
+** Edited the _Structure of the Model Component_ in the Developer Guide.
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 |===
 |_Given below are the sections that I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -62,7 +62,7 @@ include::../UserGuide.adoc[tag=addmedicine]
 include::../UserGuide.adoc[tag=findmedicine]
 include::../UserGuide.adoc[tag=checkstock]
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are the sections that I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._

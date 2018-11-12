@@ -466,7 +466,7 @@ image::checkstockfilter.png[width="450"]
 ==== Design Considerations
 // preface
 The medicines in the clinic need to be stored in a Java Collection.
-Listed below are the ones we considered and the analysis of each choice:
+We have considered using a list or a hash map. See below for the analysis of each choice:
 
 ===== Aspect: Execution of the command
 
