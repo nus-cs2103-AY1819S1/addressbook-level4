@@ -33,7 +33,7 @@ To get started with SaveIt, please follow the  instructions below:
 .  Double-click the file to start the app. The GUI should appear in a few seconds, as shown below.
 +
 .Application Interface
-image::UI.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
