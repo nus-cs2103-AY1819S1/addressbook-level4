@@ -32,8 +32,6 @@ instance that allows the appending of more recipe details when the user contribu
 the retention and accessing of this incomplete recipe in order to appending the details and ultimately create an
 actual recipe instance to be stored in the model.
 
-*** Other Associated Functionality implemented: Edit Recipe
-
 ** All-field Recipe Search
 *** What it does: Retrieve recipes with name, difficulty, cooktime or ingredients that matches the keywords by the user.
 
@@ -42,27 +40,28 @@ actual recipe instance to be stored in the model.
 
 *** Highlights: Ingredients are being stored in each instructions of a recipe, as such to support the search of
 ingredients, the design of a recipe data to provide ease of access to all ingredients is required.
+** Other Associated Functionality implemented: Edit Recipe
 
-** Project management:
-*** Setting up of GitHub, Travis, AppVeyor, coveralls, codacy
-*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-*** Maintaining of Github issue tracker (allocate assignee, labels) and milestones
-** General/Team Enhancements:
+* *Project management*:
+** Setting up of GitHub, Travis, AppVeyor, coveralls, codacy
+** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Maintaining of Github issue tracker (allocate assignee, labels) and milestones
+* *General/Team Enhancements*:
 *** Morphing the AB4 into a SousChef (Pull requests
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/28[#28], https://github.com/CS2103-AY1819S1-W10-4/main/pull/29[#29],
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/31[#31])
 *** Revamp model component to allow extension (Pull requests
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/46[#46],
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/55[#55])
-** Documentation:
-*** Updating README, AboutUs and user docs that are not specific to a feature:
+* *Documentation*:
+** Updating README, AboutUs and user docs that are not specific to a feature:
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/6[#6], https://github.com/CS2103-AY1819S1-W10-4/main/pull/26[#26]
-** Community:
-*** PRs reviewed (with non-trivial review comments and suggestions):
+* *Community*:
+** PRs reviewed (with non-trivial review comments and suggestions):
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/52[#52],
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/64[#64],
 https://github.com/CS2103-AY1819S1-W10-4/main/pull/139[#139]
-*** Reported bugs and suggestions for other teams in the class (examples:
+** Reported bugs and suggestions for other teams in the class (examples:
 https://github.com/CS2103-AY1819S1-T16-3/main/issues/133[1], https://github.com/CS2103-AY1819S1-T16-3/main/issues/134[2],
 https://github.com/CS2103-AY1819S1-T16-3/main/issues/135[3])
 
