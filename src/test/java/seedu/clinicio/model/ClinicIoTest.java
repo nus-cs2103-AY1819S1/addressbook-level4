@@ -43,6 +43,7 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.clinicio.model.patient.Patient;
@@ -414,6 +415,7 @@ public class ClinicIoTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
         private final ObservableList<Medicine> medicines = FXCollections.observableArrayList();
+        private final ObservableList<Consultation> consultations = FXCollections.observableArrayList();
 
         ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons,
                 Collection<Patient> patients, Collection<Staff> staffs, Collection<Medicine> medicines) {
@@ -422,6 +424,7 @@ public class ClinicIoTest {
             this.patients.setAll(patients);
             this.staffs.setAll(staffs);
             this.medicines.setAll(medicines);
+            this.consultations.setAll(consultations);
         }
 
         @Override
@@ -452,6 +455,11 @@ public class ClinicIoTest {
         @Override
         public ObservableList<Medicine> getMedicineList() {
             return medicines;
+        }
+
+        @Override
+        public ObservableList<Consultation> getConsultationList() {
+            return consultations;
         }
 
     }
