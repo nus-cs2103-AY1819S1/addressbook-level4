@@ -559,7 +559,7 @@ dependent on the task, including the task itself.
 
 Steps to find effective due date of task A:
 
-. Prune completed tasks and dependencies to completed tasks from the `DependencyGraph`
+. Prune completed tasks and dependencies to COMPLETED tasks from the `DependencyGraph`
 
 . Invert the dependencies in the `DependencyGraph` (to allow graph traversal in the opposite direction)
 

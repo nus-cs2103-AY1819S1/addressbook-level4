@@ -27,7 +27,7 @@ also the earliest due date among all tasks that directly or indirectly dependent
 *** There were significant design choices that needed to be made to specify dependencies given that tasks are immutable. (i.e.
 Assume that there are two tasks, task A and task B, where task A is dependent on task B. If I was to edit task B, task A
 has to be recreated as the dependencies on task A has to reflect the dependency to the new task B object)
-*** Dependency feature is strongly connected to
+*** Dependency feature is strongly linked to edit, delete, complete commands
 
 * *Code contributed*:
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pengnam[[Project Code Dashboard]]

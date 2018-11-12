@@ -124,10 +124,6 @@ Format:
 Date Format: `dd-MM-yy` or `dd-MM-yy HHmm` or `dd-MM-yyyy` or `dd-MM-yyyy HHmm`. A missing `HHmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.
 
-On task creation, the task's `INDEX` is shown as such:
-```
-Task <INDEX>, <TASK_NAME> was created.
-```
 [%hardbreaks]
 +Example:
 `add n/complete milestone t/14-09-19 p/99 d/a detailed description l/CS2103` +
@@ -165,8 +161,7 @@ Format:
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
 Adds/removes a dependency of a task dependent to the task dependee.
-For a given scenario where task A is dependent on task B, task A is defined as the dependant task while task B is defined
-as the dependee task.
+For a given scenario where task A is dependent on task B, task A is defined as the dependant task while task B is defined as the dependee task.
 The dependency is added if it already exists and removed if it does not exist.
 
 Format:
