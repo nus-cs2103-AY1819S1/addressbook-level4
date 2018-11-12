@@ -114,12 +114,6 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Navigate between the list pickers : `active / archive / assignment`
-
-Pick desired list within the system.
-
-Format: `active / archive / assignment`
-
 === Adding an employee: `add`
 
 Adds an employee into the system.
@@ -139,10 +133,10 @@ Examples:
 * `add -n Joshua -s 15000 -e josh@gmail.com -p 81234567 -a 81 Joshua's Road  Singapore 123456`
 * `add -n Raynard -e rnardha@gmail.com -p 91235678 -s 1000 -a somewhere on earth -u Nard`
 
-=== Listing all persons : `list`
+=== Listing all active persons : `active`
 
 Shows a list of all employees in the system. +
-Format: `list`
+Format: `active`
 
 //tag::viewpermission[]
 === View all the permissions that an employee has : `viewpermission`
@@ -159,6 +153,7 @@ Examples:
 
 * viewpermission 2
 //end::viewpermission[]
+
 === Removing an employee from my department: `delete`
 
 Removes an employee from the current displayed list.
@@ -177,7 +172,7 @@ Examples:
 
 === View deleted employee archive : `archive`
 
-Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
+Displays the list of active employees removed from the system. To delete an employee from the OASIS completely simply remove it from archive list again.
 
 Format: `archive`
 
