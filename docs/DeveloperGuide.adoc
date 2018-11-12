@@ -1586,8 +1586,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a patient
 
 . Deleting a patient while all patients are listed
@@ -1600,7 +1598,14 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a medical record to patient
+. Adding a medical record to a patient referenced from filtered list
+
+.. Prerequisites: List all patients using the `list` command. Multiple patients in the list. Patient at index `1` has not had any medical record added yet.
+.. Test case: `addmedicalrecord 1 b/A+ da/Panadol d/High Fever` +
+   Expected: A medical record is added to the first person in the list with specified details. Details of added medical record shown in status message.
+.. Test case: `addmedicalrecord 0 b/A+` +
+   Expected: No medical record added to any patient. Error details shown in status message.
 
 === Showing all medicines
 
@@ -1619,6 +1624,50 @@ _{ more test cases ... }_
    Expected: Medicine is added to the records. Name of the added medicine shown in the status message. Timestamp in the status bar is updated.
 .. Other incorrect delete commands to try: `addmedicine`, `addmedicine/e` (where e is a unrecognised parameter) +
    Expected: No medicine is added. Error details shown in the status message. Status bar remains the same.
+
+=== Patient Queue Management System
+
+. Registering a patient
+.. Prequisites: List all patients using `list` command.
+.. Test case: `register 1` +
+   Expected: Patient with index 1 is added to the Patient Queue.
+
+. Inserting a patient
+.. Prerequisites: List all patients using `list` command. `Register` at least one other patient (`register 1`) first. Patient at index 2 is not registered into the queue.
+.. Test case: `insert 2 p/1` +
+   Expected: Patient with index 2 will now be the first in queue.
+.. Test case: `insert 3 p/10` +
+   Expected: Even though size of the queue might be less than 10, the patient will be added to the back of the queue.
+
+. Removing a patient
+.. Prerequisites: There is someone in the patient queue.
+.. Test case: `remove 1` +
+   Expected: Patient that is first in the queue will be removed.
+
+. Serving a patient
+.. Prerequisites: There is someone in the patient queue.
+.. Test case: `serve` +
+.. Expected: The patient that is first in the queue will become the Current Patient.
+
+. Adding document content to Current Patient
+.. Prerequisites: There is a Current Patient.
+.. Test case: `adddocument n/Fever for past 3 days` +
+.. Expected: "Fever for past 3 days" will be added to the Current Patient's note content.
+
+. Dispensing medicine to Current Patient
+.. Prerequisites: There is a Current Patient. Medicine stock is listed, use `liststock` if it is not.
+.. Test case: `dispensemedicine 1 amt/5` +
+.. Expected: 5 units of medicine at first index will be dispensed to patient.
+
+. Finishing service to Current Patient
+.. Prerequisites: There is a Current Patient with existing note content added.
+.. Test case: `finish` +
+.. Expected: Current Patient is transferred to Served Patient List.
+
+. Completing payment for Served Patient
+.. Prerequiisites: There is someone in the Served Patient List.
+.. Test case: `payment 1` +
+.. Expected: Served Patient of position 1 is removed from the Served Patient List.
 
 === Editing a medicine
 
@@ -1677,4 +1726,14 @@ A window will pop up to show the contents of the generated referral letter.
 .. Test case: Delete the patient data file manually before starting the application +
 .. Expected: The application will start with the sample contact list.
 
-_{ more test cases ... }_
+=== Generating documents
+
+. Generating medical certificate for a patient
+.. Prerequisites: The patient is in the Served Patient list.
+.. Test case: `mc 1` +
+.. Expected: Medical certificate is generated for the first patient in the Served Patient list.
+
+. Generating referral letter for a patient
+.. Prerequisites: The patient is in the Served Patient list.
+.. Test case: `refer 1` +
+.. Expected: Referral letter is generated for the first patient in the Served Patient list.
