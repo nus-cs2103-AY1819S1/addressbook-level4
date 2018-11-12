@@ -157,14 +157,22 @@ Format: `list`
 
 // tag::filterpatient[]
 === Filtering patients from list : `filter-patient`
-Shows a list of all patients in the Healthbook. +
+Shows a list of all patients in the HealthBook. +
 Format: `filter-patient`
+
+[WARNING]
+`list` command has to be called after `filter-patient` is called before proceeding
+with other command operations
 // end::filterpatient[]
 
 // tag::filterdoctor[]
 === Filtering doctors from list : `filter-doctor`
-Shows a list of all doctors in the Healthbook. +
+Shows a list of all doctors in the HealthBook. +
 Format: `filter-doctor`
+
+[WARNING]
+`list` command has to be called after `filter-doctor` is called before proceeding
+with other command operations
 // end::filterdoctor[]
 
 // tag::addappointment[]
