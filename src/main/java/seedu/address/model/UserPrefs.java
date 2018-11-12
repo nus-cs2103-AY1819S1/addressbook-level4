@@ -12,10 +12,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path addressBookFilePath = Paths.get("data" , "socialcare.xml");
 
     public UserPrefs() {
-        setGuiSettings(500, 500, 0, 0);
+        setGuiSettings(1000, 600, 0, 0);
     }
 
     public GuiSettings getGuiSettings() {

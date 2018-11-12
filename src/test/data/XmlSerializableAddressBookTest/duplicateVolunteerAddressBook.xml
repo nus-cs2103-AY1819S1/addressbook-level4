@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+
+    <volunteers>
+        <name>Alice Pauline</name>
+        <volunteerId>S9383064D</volunteerId>
+        <gender>f</gender>
+        <birthday>01-02-1993</birthday>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>student</tagged>
+    </volunteers>
+
+    <!-- Volunteer with same identity as Alice Pauline -->
+    <volunteers>
+        <name>Alice Pauline</name>
+        <volunteerId>S9383064D</volunteerId>
+        <gender>f</gender>
+        <birthday>01-02-1993</birthday>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>student</tagged>
+    </volunteers>
+
+</addressbook>

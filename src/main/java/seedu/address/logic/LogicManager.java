@@ -11,7 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.event.Event;
+import seedu.address.model.record.Record;
+import seedu.address.model.volunteer.Volunteer;
 
 /**
  * The main LogicManager of the app.
@@ -33,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = addressBookParser.parseCommand(commandText, model.getContextId());
             return command.execute(model, history);
         } finally {
             history.add(commandText);
@@ -41,12 +43,27 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Volunteer> getFilteredVolunteerList() {
+        return model.getFilteredVolunteerList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        return model.getFilteredRecordList();
     }
 
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    @Override
+    public String getContextId() {
+        return model.getContextId();
     }
 }

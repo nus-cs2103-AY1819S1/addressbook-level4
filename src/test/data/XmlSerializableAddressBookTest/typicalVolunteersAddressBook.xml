@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains the same Volunteer values as in TypicalVolunteers#getTypicalAddressBook() -->
+<addressbook>
+    <volunteers>
+        <name>Alice Pauline</name>
+        <volunteerId>S9383064D</volunteerId>
+        <gender>f</gender>
+        <birthday>01-02-1993</birthday>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>student</tagged>
+    </volunteers>
+    <volunteers>
+        <name>Benson Meier</name>
+        <volunteerId>F8859919P</volunteerId>
+        <gender>m</gender>
+        <birthday>29-09-1988</birthday>
+        <phone>98765432</phone>
+        <email>johnd@example.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
+        <tagged>driver</tagged>
+        <tagged>student</tagged>
+    </volunteers>
+    <volunteers>
+        <name>Carl Kurz</name>
+        <volunteerId>S9061638B</volunteerId>
+        <gender>m</gender>
+        <birthday>27-05-1990</birthday>
+        <phone>95352563</phone>
+        <email>heinz@example.com</email>
+        <address>wall street</address>
+    </volunteers>
+    <volunteers>
+        <name>Daniel Meier</name>
+        <volunteerId>T0124775H</volunteerId>
+        <gender>m</gender>
+        <birthday>31-10-2001</birthday>
+        <phone>87652533</phone>
+        <email>cornelia@example.com</email>
+        <address>10th street</address>
+        <tagged>student</tagged>
+    </volunteers>
+    <volunteers>
+        <name>Elle Meyer</name>
+        <volunteerId>G0090865M</volunteerId>
+        <gender>f</gender>
+        <birthday>13-11-2000</birthday>
+        <phone>9482224</phone>
+        <email>werner@example.com</email>
+        <address>michegan ave</address>
+    </volunteers>
+    <volunteers>
+        <name>Fiona Kunz</name>
+        <volunteerId>S9544754F</volunteerId>
+        <gender>f</gender>
+        <birthday>12-01-1995</birthday>
+        <phone>9482427</phone>
+        <email>lydia@example.com</email>
+        <address>little tokyo</address>
+    </volunteers>
+    <volunteers>
+        <name>George Best</name>
+        <volunteerId>S9501647B</volunteerId>
+        <gender>m</gender>
+        <birthday>14-01-1995</birthday>
+        <phone>9482442</phone>
+        <email>anna@example.com</email>
+        <address>4th street</address>
+    </volunteers>
+</addressbook>

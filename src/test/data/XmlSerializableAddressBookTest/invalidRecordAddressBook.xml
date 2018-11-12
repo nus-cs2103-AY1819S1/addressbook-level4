@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Record with invalid hour field -->
+    <records>
+        <eventId>1</eventId>
+        <volunteerId>1</volunteerId>
+        <hour>abc</hour>
+        <remark>Emcee</remark>
+    </records>
+</addressbook>

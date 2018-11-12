@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.model.Context.EVENT_CONTEXT_ID;
+import static seedu.address.model.Context.RECORD_CONTEXT_ID;
+import static seedu.address.model.Context.VOLUNTEER_CONTEXT_ID;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -15,9 +19,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.OverviewPanelChangedEvent;
+import seedu.address.commons.events.ui.ReplaceWithContextPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.Context;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -34,8 +42,14 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+
+    private ContextIndicator contextIndicator;
+    private OverviewPanel overviewPanel;
+    private VolunteerListPanel volunteerListPanel;
+    private VolunteerPanel volunteerPanel;
+    private EventListPanel eventListPanel;
+    private EventPanel eventPanel;
+    private RecordEventPanel recordEventPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -50,7 +64,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane contextIndicatorPlaceholder;
+
+    @FXML
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -87,6 +104,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -119,16 +137,25 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        overviewPanel = new OverviewPanel(logic.getFilteredVolunteerList(), logic.getFilteredEventList(),
+                                                                                logic.getFilteredRecordList());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
+        eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
+        volunteerPanel = new VolunteerPanel();
+        browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
+        eventPanel = new EventPanel(logic.getFilteredRecordList());
+        recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
+
+        contextIndicator = new ContextIndicator(Context.VOLUNTEER_CONTEXT_ID);
+        contextIndicatorPlaceholder.getChildren().add(contextIndicator.getRoot());
+        listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
+                logic.getFilteredVolunteerList().size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
@@ -180,6 +207,57 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Replaces the ListPanel with the appropriate context.
+     */
+    @FXML
+    private void handleContextChange(ContextChangeEvent contextChangeEvent) {
+        String contextId = contextChangeEvent.getNewContext();
+        listPanelPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().clear();
+
+        if (contextId.equals(EVENT_CONTEXT_ID)) {
+            eventListPanel.clearSelection();
+            eventPanel.clearDetails();
+            listPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+            browserPlaceholder.getChildren().add(eventPanel.getRoot());
+        } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
+            volunteerListPanel.clearSelection();
+            volunteerPanel.clearDetails();
+            listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
+            browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
+        } else if (contextId.equals(RECORD_CONTEXT_ID)) {
+            // TO_UPDATE: Shows all available volunteers for event
+            listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
+            browserPlaceholder.getChildren().add(recordEventPanel.getRoot());
+        }
+    }
+
+    /**
+     * Replaces the browser panel children with overview panel.
+     */
+    private void handleOverview() {
+        eventListPanel.clearSelection();
+        volunteerListPanel.clearSelection();
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(overviewPanel.getRoot());
+    }
+
+    /**
+     * Replaces the overview panel with current context panel.
+     */
+    private void handleReplaceWithContextPanel() {
+        String contextId = logic.getContextId();
+
+        if (contextId.equals(EVENT_CONTEXT_ID)) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(eventPanel.getRoot());
+        } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -187,12 +265,30 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public VolunteerListPanel getVolunteerListPanel() {
+        return volunteerListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
+    public EventListPanel getEventListPanel() {
+        return eventListPanel;
+    }
+
+    @Subscribe
+    private void handleContextChangeEvent(ContextChangeEvent event) {
+        logger.info(event.getNewContext());
+        handleContextChange(event);
+    }
+
+    @Subscribe
+    private void handleOverviewEvent(OverviewPanelChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleOverview();
+    }
+
+    @Subscribe
+    private void handleReplaceWithContextPanelEvent(ReplaceWithContextPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleReplaceWithContextPanel();
     }
 
     @Subscribe

@@ -1,57 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <persons>
+    <volunteers>
         <name>Hans Muster</name>
+        <volunteerId isPrivate="false">S8712345A</volunteerId>
+        <gender isPrivate="false">m</gender>
+        <birthday isPrivate="false">22-05-1987</birthday>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Ruth Mueller</name>
+        <volunteerId isPrivate="false">S8706988E</volunteerId>
+        <gender isPrivate="false">f</gender>
+        <birthday isPrivate="false">10-05-1987</birthday>
         <phone isPrivate="false">87249245</phone>
         <email isPrivate="false">ruth@example.com</email>
         <address isPrivate="false">81th street</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Heinz Kurz</name>
+        <volunteerId isPrivate="false">F8896420U</volunteerId>
+        <gender isPrivate="false">m</gender>
+        <birthday isPrivate="false">02-09-1988</birthday>
         <phone isPrivate="false">95352563</phone>
         <email isPrivate="false">heinz@example.com</email>
         <address isPrivate="false">wall street</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Cornelia Meier</name>
+        <volunteerId isPrivate="false">S8912091H</volunteerId>
+        <gender isPrivate="false">f</gender>
+        <birthday isPrivate="false">01-04-1989</birthday>
         <phone isPrivate="false">87652533</phone>
         <email isPrivate="false">cornelia@example.com</email>
         <address isPrivate="false">10th street</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Werner Meyer</name>
+        <volunteerId isPrivate="false">S8988020C</volunteerId>
+        <gender isPrivate="false">m</gender>
+        <birthday isPrivate="false">06-09-1989</birthday>
         <phone isPrivate="false">9482224</phone>
         <email isPrivate="false">werner@example.com</email>
         <address isPrivate="false">michegan ave</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Lydia Kunz</name>
+        <volunteerId isPrivate="false">S9078273H</volunteerId>
+        <gender isPrivate="false">f</gender>
+        <birthday isPrivate="false">19-11-1990</birthday>
         <phone isPrivate="false">9482427</phone>
         <email isPrivate="false">lydia@example.com</email>
         <address isPrivate="false">little tokyo</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Anna Best</name>
+        <volunteerId isPrivate="false">S9395133F</volunteerId>
+        <gender isPrivate="false">f</gender>
+        <birthday isPrivate="false">20-04-1993</birthday>
         <phone isPrivate="false">9482442</phone>
         <email isPrivate="false">anna@example.com</email>
         <address isPrivate="false">4th street</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Stefan Meier</name>
+        <volunteerId isPrivate="false">S9329483A</volunteerId>
+        <gender isPrivate="false">m</gender>
+        <birthday isPrivate="false">28-07-1993</birthday>
         <phone isPrivate="false">8482424</phone>
         <email isPrivate="false">stefan@example.com</email>
         <address isPrivate="false">little india</address>
-    </persons>
-    <persons>
+    </volunteers>
+    <volunteers>
         <name>Martin Mueller</name>
+        <volunteerId isPrivate="false">S9880359I</volunteerId>
+        <gender isPrivate="false">m</gender>
+        <birthday isPrivate="false">30-06-1998</birthday>
         <phone isPrivate="false">8482131</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">chicago ave</address>
-    </persons>
+    </volunteers>
 </addressbook>
