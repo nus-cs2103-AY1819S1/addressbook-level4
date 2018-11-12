@@ -17,7 +17,7 @@ manage patients’ data and appointments’ details easily. It can also be used 
 diseases, symptoms and drugs.
 
 The `T12-2` development team of `PatientBook` consists of five year-two computer science undergraduates from School of Computing,
-`National University of Singapore`.
+`National University of Singapore`. [https://github.com/CS2103-AY1819S1-T12-2/main/blob/master/docs/AboutUs.adoc[Team Info]]
 
 `PatientBook` supports various important operations such as finding information about a patient,
 adding an appointment for a patient and predicting a disease from a set of symptoms.
@@ -30,7 +30,7 @@ This section provides an overview of `Zhou Zegang`’s contributions to project 
 * *Code contributed*: Code From Dashboard [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zzg229&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[Code]]
 
 * *Major enhancement*: added *diagnosis model which supports add disease, find disease, list disease and predict
-disease command*
+disease commands*
 ** What it does: This feature allows medical professionals to `add` a disease and its related symptoms,
 `find` symptoms of an existing disease,
 `list` all stored diseases and `predict` a disease from a given set of symptoms in PatientBook.
@@ -173,7 +173,6 @@ Returns an error message:
 
 .Error Message for Empty Symptom Parameter
 image::PredictEmptySymptom.png[width="600"]
-
 
 == 4. Contributions to the Developer Guide
 
