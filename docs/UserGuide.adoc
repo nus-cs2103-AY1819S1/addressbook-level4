@@ -230,7 +230,7 @@ Example(s):
 Updates the panel displaying the list of volunteers to display the list of events. +
 The following figure shows the expected panel before and after entering the `switch` command.
 
-.Panel display changing from volunteers to events
+.Panel display changing from list of volunteers to list of events
 image::command_switch.png[switch, 500]
 //end::command-switch[]
 
@@ -548,8 +548,8 @@ Format: `manage EVENT_INDEX`
 Example(s):
 
 * `switch -e` (panel updates to show list of events) +
-`manage 1` (view the list of volunteers assigned to event at index 1) +
-See the figures below for a step by step guide.
+`manage 1` (view the list of volunteers assigned to the event at index 1) +
+See the figures below for a step-by-step guide.
 
 .Execute `switch -e`
 image::command_switch.png[switch execution, 500]
@@ -560,11 +560,11 @@ image::command_record_manage_eventIndex.png[switch execution, 200]
 .Labelled screenshot of what to expect after executing `manage 1`
 image::command_manage_view.png[manage, 600]
 
-The following changes are observed:
+Refer to the labelled sections in the figure above for the following changes:
 
-. Panel displays the list of volunteers that you can assign to an event.
-. Name of event being managed and total number of volunteers assigned to it.
-. List of volunteers currently assigned to the event. It will be empty if there are no volunteers assigned.
+. The panel displays the list of volunteers that you can assign to an event.
+. Name of the event being managed and total number of volunteers assigned to it.
+. The list of volunteers currently assigned to the event. It will be empty if there are no volunteers assigned.
 
 //end::command-record[]
 [[command-record-add]]
