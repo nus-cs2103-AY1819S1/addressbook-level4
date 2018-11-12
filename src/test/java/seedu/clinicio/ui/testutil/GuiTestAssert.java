@@ -89,7 +89,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code medicineListPanelHandle} displays the details of {@code medicines} correctly and
      * in the correct order.
      */
-    public static void assertMedicineListMatching(MedicineListPanelHandle medicineListPanelHandle, Medicine... medicines) {
+    public static void assertMedicineListMatching(MedicineListPanelHandle medicineListPanelHandle,
+                                                  Medicine... medicines) {
         for (int i = 0; i < medicines.length; i++) {
             medicineListPanelHandle.navigateToCard(i);
             assertCardDisplaysMedicine(medicines[i], medicineListPanelHandle.getMedicineCardHandle(i));
