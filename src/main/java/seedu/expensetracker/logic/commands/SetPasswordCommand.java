@@ -13,7 +13,7 @@ import seedu.expensetracker.model.user.Password;
  * Sets the password of the current user.
  */
 public class SetPasswordCommand extends Command {
-    public static final String COMMAND_WORD = "setpassword";
+    public static final String COMMAND_WORD = "setPassword";
     public static final String COMMAND_ALIAS = "sp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
