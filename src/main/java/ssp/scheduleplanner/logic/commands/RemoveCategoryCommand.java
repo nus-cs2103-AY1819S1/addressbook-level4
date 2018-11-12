@@ -28,7 +28,7 @@ public class RemoveCategoryCommand extends Command {
             "This category does not exist your schedule planner T_T";
     public static final String MESSAGE_DEFAULT_CATEGORY =
             "Default categories (Modules and Others) cannot be removed. \n"
-                    + "(But you can clear the tags using clear command)";
+                    + "(But you can clear their tags using clear command)";
 
     private final String categoryName;
 

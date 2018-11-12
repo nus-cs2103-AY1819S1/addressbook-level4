@@ -1,4 +1,4 @@
-= [LIN XU] - Project Portfolio
+= LIN XU - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,7 +9,7 @@
 
 == Overview
 This document showcases my contributions in building desktop application Student Schedule Planner
- for software engineering module CS2103T as a member of team T12-3. +
+ for software engineering module CS2103T as a member of team T12-3 together with other 4 members. +
 
 Student Schedule Planner is a desktop task management application built specially for university students.
 Our application offers university students more convenience than other todo-list application through a series of features,
@@ -19,14 +19,18 @@ Currently our Student Schedule Planner has approximately 10kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: Major enhancement: Task management, which mainly involves two components, one is archive and another
+* *Major enhancement*: Major enhancement: Task management, which mainly involves two components: one is archive and another
 is category.
-** What it does: Archive command allows users to archive completed tasks. Archived tasks are stored in separate list, which can be viewed with command “listarchived”.
-The tags used on tasks are managed by customizable categories.
+** What it does: Archive command allows users to archive completed tasks. Archived tasks are stored in separate list, which can be viewed with command `listarchived`.
+The tags used on tasks can be managed by customizable categories by adding tags to relevant category.
+
 ** Justification: Archive is a necessary command for a task managing application, because users have the need to hide completed tasks, and review them in a separate list. +
-As for category, our application allows user to attach multiple tags to a task when adding the task. Category is in charge of managing
-the tags. Hence our user can create their own categories and add relevant tags into a category.
-** Highlights:
+As for category, our application allows user to attach multiple tags to a task when adding the task. Category gives user further freedom and power to manage
+the tags according to their needs. Our user can create their own categories and add relevant tags into a category.
+** Highlights: Both functions, especially category, required good planning of detailed implementation as well as deep
+understanding and prediction of user-experience. It required deep analysis of users' demand as well as sophisticated and sustainable
+design to decide how to let user organize the tags and what to use, and the implementation involved building a whole new set of structure
+and commands. This enhancement affects the future direction and feature design of schedule planner.
 
 * *Code contributed*:
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=woodnsuns&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[RepoSense]
@@ -50,7 +54,7 @@ whenever application launches.
 https://github.com/CS2103-AY1819S1-T12-3/main/pull/69[#69], https://github.com/CS2103-AY1819S1-T12-3/main/pull/73[#73]
 
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W14-4/main/issues/187[1],
+*** Reported bugs and suggestions for other teams in the class: https://github.com/CS2103-AY1819S1-W14-4/main/issues/187[1],
 https://github.com/CS2103-AY1819S1-W14-4/main/issues/179[2], https://github.com/CS2103-AY1819S1-W14-4/main/issues/174[3],
 https://github.com/CS2103-AY1819S1-W14-4/main/issues/168[4], https://github.com/CS2103-AY1819S1-W14-4/main/issues/166[5],
 https://github.com/CS2103-AY1819S1-W14-4/main/issues/164[6], https://github.com/CS2103-AY1819S1-W14-4/main/issues/161[7],
@@ -73,11 +77,9 @@ include::../UserGuide.adoc[tag=archivetask]
 
 include::../UserGuide.adoc[tag=addingcat]
 
-include::../UserGuide.adoc[tag=archivetag]
-
 include::../UserGuide.adoc[tag=clearcat]
 
-include::../UserGuide.adoc[tag=removetag]
+include::../UserGuide.adoc[tag=removecat]
 
 include::../UserGuide.adoc[tag=editcat]
 
@@ -96,9 +98,7 @@ include::../DeveloperGuide.adoc[tag=tags]
 
 include::../DeveloperGuide.adoc[tag=autoDelete]
 
+include::../DeveloperGuide.adoc[tag=sorting]
 
-== PROJECT: PowerPointLabs
 
----
 
-_{Optionally, you may include other projects in your portfolio.}_
