@@ -499,7 +499,7 @@ For instance, when an `Event` is added (or deleted), the event triggers are hand
 
 image::add-event_event-trigger.png[Handling of triggered events]
 
-===== UI Events Display
+==== UI Events Display
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
 Each cell represents the `EventListCard` for a particular date, which contains all the events, each displayed in a `EventCard`. For this implementation,
 we require `ModelManager` to be able to return such an `ObservableList<List<Event>>` object to the UI class `MainWindow`, and this is achieved via the method
@@ -667,7 +667,7 @@ Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag
 [[filteringEvents]]
 //tag::filterEvents[]
 === Filtering of Events
-[[findEvent]]
+[[FindEvent]]
 ==== Find Event (by tag) feature
 ===== Current Implementation
 To find events by their tags, we make use of a `Predicate`. The `EventTagMatchesKeywordsPredicate` is used in filtering
@@ -696,7 +696,7 @@ To list all events, we make use of a `Predicate` which is always true (the `PRED
 
 image::list-event_logic-model.png[Interactions between Logic and Model, width="650"]
 
-The `UI` components are updated using a similar flow (by event triggers) to the <<findEvent, find event>> feature. +
+The `UI` components are updated using a similar flow (by event triggers) to the <<FindEvent, find event>> feature. +
 *Note:* The inclusion of the `EventDisplayPanelChangedEvent` is required in `Model#updateFilteredEventList`
 so that `TabPanel` can switch to the event tab automatically whenever any of these commands are executed,
 even if there is no change to data in the filtered list
