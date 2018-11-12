@@ -13,11 +13,11 @@ This portfolio summarises my contributions made throughout the project.
 
 ClinicIO is a project from CS2103T intended for students to learn Software Engineering at an entry-level.
 
-ClinicIO is a clinic management desktop application that allows receptionists can manage a clinic with ease and efficiency.
+ClinicIO is a clinic management desktop application that allows receptionists to manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
 As the team lead, I am responsible for the overall team coordination. This
-involved providing a clear set of goals and direction for the team, oversee the whole project and
+involves providing a clear set of goals and directions for the team, oversee the whole project and
 listen to teammates feedback for improvements. Furthermore, I am also in charge of Scheduling and Tracking, Deliverables and Deadlines. This involves
 defining, assigning, and tracking project tasks, ensuring that project deliverables is produced on time and in the right format.
 
