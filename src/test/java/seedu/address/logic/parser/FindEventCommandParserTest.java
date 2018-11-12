@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.FuzzySearchComparator;
 import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.model.calendarevent.TagsPredicate;
+import seedu.address.model.tag.Tag;
 
 public class FindEventCommandParserTest {
 
@@ -49,16 +51,16 @@ public class FindEventCommandParserTest {
     @Test
     public void parse_invalidTags_throwsParseException() {
         assertParseFailure(parser, "tag/",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
 
         assertParseFailure(parser, "from/20 nov 8pm to/21 nov 8pm tag/",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
 
         assertParseFailure(parser, "some keywords tag/",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
 
         assertParseFailure(parser, "some keywords tag/CS2103 tag/",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEventCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_TAG_CONSTRAINTS));
     }
 
     @Test
@@ -67,7 +69,7 @@ public class FindEventCommandParserTest {
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(new DateTime("2018-11-11 20:00"), null),
-                        new TagsPredicate(Collections.emptyList()));
+                        new TagsPredicate(Collections.emptySet()));
 
         assertParseSuccess(parser, "from/11 nov 2018 20:00", expectedCommand1);
 
@@ -75,7 +77,7 @@ public class FindEventCommandParserTest {
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(null, new DateTime("2018-11-11 20:00")),
-                        new TagsPredicate(Collections.emptyList()));
+                        new TagsPredicate(Collections.emptySet()));
 
         assertParseSuccess(parser, "to/11 nov 20:00", expectedCommand2);
 
@@ -83,7 +85,7 @@ public class FindEventCommandParserTest {
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
-                        new TagsPredicate(Collections.emptyList()));
+                        new TagsPredicate(Collections.emptySet()));
 
         assertParseSuccess(parser, "from/10 nov 8pm to/11/11/18 20:00", expectedCommand3);
         assertParseSuccess(parser, "   \n\t from/10 nov 8pm    \t to/11/11/18 20:00   \n", expectedCommand3);
@@ -95,7 +97,7 @@ public class FindEventCommandParserTest {
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(null, null),
-                        new TagsPredicate(Collections.singletonList("cs2103")));
+                        new TagsPredicate(new HashSet<>(Collections.singletonList("cs2103"))));
 
         assertParseSuccess(parser, "tag/cs2103", expectedCommand1);
 
@@ -103,7 +105,7 @@ public class FindEventCommandParserTest {
                 new FindEventCommand(new FuzzySearchFilterPredicate(Collections.emptyList()),
                         new FuzzySearchComparator(Collections.emptyList()),
                         new DatePredicate(null, null),
-                        new TagsPredicate(Arrays.asList("cs2103", "Lecture")));
+                        new TagsPredicate(new HashSet<>(Arrays.asList("cs2103", "Lecture"))));
 
         assertParseSuccess(parser, "tag/cs2103 tag/Lecture", expectedCommand2);
 
@@ -118,7 +120,7 @@ public class FindEventCommandParserTest {
             new FindEventCommand(new FuzzySearchFilterPredicate(Arrays.asList("some", "keywords")),
                 new FuzzySearchComparator(Arrays.asList("some", "keywords")),
                 new DatePredicate(null, null),
-                new TagsPredicate(Collections.emptyList()));
+                new TagsPredicate(Collections.emptySet()));
         assertParseSuccess(parser, "some keywords", expectedFindEventCommand1);
 
         // multiple whitespaces between keywords
@@ -129,7 +131,7 @@ public class FindEventCommandParserTest {
                 new FindEventCommand(new FuzzySearchFilterPredicate(Arrays.asList("some", "keywords")),
                         new FuzzySearchComparator(Arrays.asList("some", "keywords")),
                         new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-11 20:00")),
-                        new TagsPredicate(Arrays.asList("CS2103", "Lecture")));
+                        new TagsPredicate(new HashSet<>(Arrays.asList("CS2103", "Lecture"))));
         assertParseSuccess(parser, "some keywords from/10 nov 8pm to/11 nov 8pm tag/CS2103 tag/Lecture",
                                 expectedFindEventCommand2);
 

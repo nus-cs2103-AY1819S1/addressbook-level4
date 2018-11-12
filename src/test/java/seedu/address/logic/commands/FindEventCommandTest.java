@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -53,8 +54,8 @@ public class FindEventCommandTest {
             new DatePredicate(new DateTime("2018-11-10 20:00"), new DateTime("2018-11-10 22:00"));
         DatePredicate secondDatePredicate =
             new DatePredicate(new DateTime("2018-11-11 20:00"), new DateTime("2018-11-11 22:00"));
-        TagsPredicate firstTagsPredicate = new TagsPredicate(Arrays.asList("tag1", "tag2"));
-        TagsPredicate secondTagsPredicate = new TagsPredicate(Arrays.asList("tag3", "tag4"));
+        TagsPredicate firstTagsPredicate = new TagsPredicate(new HashSet<>(Arrays.asList("tag1", "tag2")));
+        TagsPredicate secondTagsPredicate = new TagsPredicate(new HashSet<>(Arrays.asList("tag3", "tag4")));
 
         FindEventCommand findFirstCommand =
                 new FindEventCommand(firstPredicate, firstComparator, firstDatePredicate, firstTagsPredicate);
@@ -213,9 +214,9 @@ public class FindEventCommandTest {
     private TagsPredicate prepareTagsPredicate(String userInput) {
         userInput = userInput.trim();
         if (userInput.isEmpty()) {
-            return new TagsPredicate(Collections.emptyList());
+            return new TagsPredicate(Collections.emptySet());
         } else {
-            return new TagsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new TagsPredicate(new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
         }
     }
 }
