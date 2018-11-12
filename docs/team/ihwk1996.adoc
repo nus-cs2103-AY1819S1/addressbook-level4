@@ -5,7 +5,7 @@
 
 == Introduction
 
-image::ihwk1996.png[width="150", align="left"]
+image::ihwk1996.png[width="200", align="left"]
 {empty}[http://github.com/ihwk1996[github]] [https://linkedin.com/in/ivanhowengkwong[linkedin]]
 
 Hello there! I am Ivan, a Year 2 Computer Sceince student in NUS. This portfolio documents the contributions I have made to several projects. These projects have exposed me to new technologies and helped me to develop relevant skills en route to being a Software Engineer.
