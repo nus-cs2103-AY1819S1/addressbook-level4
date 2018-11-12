@@ -777,25 +777,6 @@ information through predictive search.
 ** Cons: It is incredibly difficult to implement such an search function without the use of machine-learning algorithms
 or an internet connection.
 
-===== Aspect: How to implement the search (And versus Or)
-
-* **Alternative 1 (current choice):** Implement *And Search* between different attributes but *Or Search* for keywords
-within the same attribute.
-** Pros: It allows users the option of either making their search more general by including different options for the
-same attribute (i.e. allow multiple names to be searched at once) and also more precise by adding more attributes to be
-searched (i.e. allow users to search for `friends` named `Alex` versus only people named `Alex`).
-** Cons: It may be confusing for newer users as the search function is not consistently And or Or. Users are also unable
-to carry out a search that will show all persons with two differing attributes (i.e. a search that shows only persons
-named `Alex` whom are tagged as `friends`, as well as persons named `Bernice` whom are tagged as `family` is impossible
-with the current search structure. `Alex` tagged as `family` and `Bernice` tagged as `friends` will also appear).
-* **Alternative 2:** Implement the current search but allow multiple search entries to be evaluated at the same time
-so that it is possible to show results of different searches compiled on the same list.
-** Pros: It provides all the benefits of the current search function while extending its capabilities to allow unrelated
-people to be searched together in one go.
-** Cons: It may become even more confusing to newer users to use the search function. It is also difficult to implement
-such a search function without having multiple lines for input entry. As of now, the application only supports a single
-line of user input at a time.
-
 // end::findcommand[]
 
 === Logging
