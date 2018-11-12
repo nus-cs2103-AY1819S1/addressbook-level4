@@ -29,7 +29,7 @@ For more information on documentation, testing and dev ops for this application,
 
 == Setting up
 
- This section contains instructions on how to do a one-time set up of the developmental environment on IntelliJ.
+This section contains instructions on how to do a one-time set up of the developmental environment on IntelliJ.
 
 === Prerequisites
 
@@ -118,6 +118,9 @@ When you are ready to start coding,
 == Design
 
  This section contains information about the main architecture and design of various components in CLInic.
+
+[IMPORTANT]
+Note that since CLInic was built on top of the `addressbook-level4` application, `addressbook` and its associated acronyms are used interchangeably with `CLInic` for the rest of the guide.
 
 [[Design-Architecture]]
 === Architecture
@@ -224,11 +227,12 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` and an `ObservableList<Medicine>` that can be 'observed' +
+e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -391,24 +395,29 @@ This section lists out some of the different implementations that were considere
 === Medicine Records System
 The medicine records system is used to manage the medicine inventory in the clinic.
 It allows the clinic to automate the monitoring and management of their medicine supply easily.
-The potential to evolve this system is endless, from including artificial intelligence
-to manage the clinic supply without human intervention to delivering the first-hand information
-from medical breakthroughs to treat patients more effectively!
+There is great potential for this system to evolve, for example:
+
+* Using artificial intelligence to manage the clinic supply without human intervention.
+* Delivering first-hand information
+from medical breakthroughs to treat patients more effectively.
 
 ==== Current Implementation
-The _Medicine_ class and the properties of the medicine are stored in the Model package.
+The _Medicine_ class and the properties of the medicine are located in <<Model component, *Model*>>.
 They are modeled after the properties of a real medicine in a clinic context.
 The list of medicines currently tracked in the clinic is located in the AddressBook class.
 
-See the User Guide for the list of commands related to the medicine class.
+Refer to the diagram below for the commands that involves the _Medicine Class_:
+
+.Class Diagram for Medicine Commands
+image::ClassDiagramForMedicineCommands.png[width="650"]
 
 Given below are examples of how the medicine commands are used:
 
-Scenario 1. The clinic orders a new medicine that they do not currently have in their store.
- The user uses the `addMedicine` command to add the new medicine into the records.
+Scenario 1: The clinic orders a new medicine that they do not currently possess.
+ The clinic receptionist uses the `addMedicine` command to add the new medicine into the records.
 
-Scenario 2. There is a wrong entry of one of the serial number of the medicine. The user types
-`editmedicine` to correct the serial number. The code on how it works is shown below:
+Scenario 2: There is a wrong entry for one of the serial number of the medicine. The user uses the
+`editmedicine` command to correct the serial number. The code on how it works is shown below:
 
 [source,java]
 ----
@@ -428,6 +437,12 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
+        /* The following three methods checks if the new medicine name or
+        new serial number that is entered used by other medicines in CLInic.
+        If so, they throw an error specifying which of the two is duplicated.
+        This is done as the medicine name and serial number are unique to a medicine.
+        */
+
         checkBothNewMedicineNameAndSerialNumberAlreadyExisting(model, editedMedicine);
         checkNewSerialNumberAlreadyExisting(model, editedMedicine);
         checkNewMedicineNameAlreadyExisting(model, editedMedicine);
@@ -443,33 +458,34 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 }
 ----
 
-Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
-During payment a `receipt` command is executed by the user to fetch the prices
-for the medicine that is allocated, in addition, the stock level of the medicine is updated.
+Scenario 3: The doctor prescribes the patient he is serving a medicine. The `dispensemedicine` command is entered.
+The stock level of the medicine is then updated. The *sequence diagram* below shows how the code works:
 
 .Sequence Diagram for `dispensemedicine`
 image::DispenseMedicineSequenceDiagram.png[width="800"]
 
-Scenario 4. The user needs to check for the stock level of every medicine.
-The user executes the `checkStock` command
-which lists the medicine that are below their Minimum Stock Quantity.
+Scenario 4: The clinic receptionist needs to check for the stock level of every medicine.
+He executes the `checkStock` command
+which lists *all* medicines that are below their _Minimum Stock Quantity_. See the figure below for an example
+of how the filter works:
 
 .Filter medicines that are low in supply
-image::checkstockfilter.png[width="800"]
+image::checkstockfilter.png[width="450"]
 
 ==== Design Considerations
 // preface
-The medicines in the clinic were needed to be stored in a Java Collections.
-Below were the possible ones we chose and the analysis of each one.
+The medicines in the clinic need to be stored in a Java Collection.
+We considered using a list or a hash map. See below for the analysis of each choice:
 
 ===== Aspect: Execution of the command
 
-* **Alternative 1 (current choice):** Stores the medicine in a list.
-** Pros: Many useful methods to manipulate data.
-** Cons: Need to search through the list to find a medicine.
-* **Alternative 2:** Stores the medicine in a hash map.
-** Pros: Quick reference for object given index.
-** Cons: Many commands need to change to list to use the method and change back, more complex.
+* **Current choice:** Stores the medicines in a list.
+** Pros: Many easy and useful methods to manipulate medicines in the list such as `add`, `get` and `remove`.
+** Cons: Relatively slow when searching through the list to find a medicine.
+* **Alternative:** Stores the medicines in a hash map.
+** Pros: Quick reference for object given the medicine name or serial number.
+** Cons: Cumbersome and error-prone when there is a need to change the hash map into a list to manipulate the medicines.
+
 //end::medicine[]
 
 // tag::pqms[]
@@ -489,7 +505,7 @@ image::PQMSClassDiagram.png[width="850"]
 The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispensemedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
 
 These commands inherit from `QueueCommand` because it will require more arguments in its execute command. The PQMS is not inside `Model` as it is only required during runtime;
-it does not need to be loaded into storage. A new `QueueCommand` abstract class is created that inherits from `Command`, however, it defines another method signature of `execute`.
+it does not need to be saved into the database. A new `QueueCommand` abstract class is created that inherits from `Command` and it defines a new method signature of `execute`.
 
 The following code snippet shows how the `QueueCommand` is implemented:
 
@@ -506,7 +522,7 @@ public abstract class QueueCommand extends Command {
 }
 ```
 
-One of the `QueueCommands` is the `RegisterCommand`, the follow code snippet shows how the `RegisterCommand` makes use of both the `Model` and `PatientQueue`
+The follow code snippet shows how the `RegisterCommand` makes use of both the `Model` and `PatientQueue`
 of the PQMS.
 
 ```Java
@@ -542,18 +558,18 @@ The other PQMS commands roughly follow the same sequence as `Register` command b
 
 Given below is an example usage scenario of the PQMS.
 
-Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
+Step 1. Three patients visits the clinic, the user executes the `register` command for each patient. If these patients are not registered in CLInic's database they need to be added first.
 
 .Registering 3 patients
 image::PQMSPatientQueue.png[750, 225]
 
-Step 2. It is a patient's turn for consultation. The user executes the `serve` command to serve the first patient in the queue.
+Step 2. The doctor is ready for the next patient. The user executes the `serve` command to serve the first patient in the queue.
 The patient is now the `CurrentPatient`.
 
 .Serve patient
 image::PQMSCurrentPatient.png[750, 225]
 
-Step 3. The user executes the `DocumentAdd` command to add information to the `CurrentPatient`. These information will be used for document
+Step 3. The user executes the `adddocument` command to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
 
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
@@ -588,7 +604,7 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 ==== Implementation of `Document`
 The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
  `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
- to henceforth as _document related commands_, all inherit from. It can be thought of as a *formatter* that
+ to henceforth as _document related commands_, all inherit from it. It can be thought of as a *formatter* that
  specifies and organises the common information that all these documents must have with the help of the `DocumentTemplate.html`
  template file. +
  Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
@@ -629,7 +645,8 @@ It is used as a means of separating fields of information in file names.
 ====
 Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder
 values prefixed by a `$` that will be replaced with the actual information pertaining to the `ServedPatient's`
-consultation. Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
+consultation. +
+Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
 ``` Java
 private String convertHtmlIntoString() {
     StringBuilder contentBuilder = new StringBuilder();
@@ -682,21 +699,21 @@ is used to write the updated `string` into the `HTML` file, concluding the gener
 ===== Aspect: Implementation of the Document
 * **Alternative 1 (current choice)**: Use an `abstract class` to implement `Document`. +
 ** Pros:
-*** Allows `inheriting` classes to use a standardised method to format common information while granting them the
+*** Allows inheriting classes to use a standardised method to format common information while granting them the
 flexibility of structuring the contents unique to its document type by means of `abstract methods`.
 ** Cons:
-*** Prevents `inheriting` classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
-*** More computationally expensive than an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
+*** Prevents inheriting classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
+*** More computationally expensive than an `interface` due to the overhead incurred looking up inherited methods and various class members.
 * **Alternative 2**: Use an `interface` to implement `Document`.
 ** Pros:
-*** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
+*** Can convert inheriting classes to `enums`, ensuring that the inputs fed to these classes are valid.
 ****
 `Enums` can restrict the period of medical leave to be counted in only days/weeks. This prevents absurd scenarios like issuing a `Medical Certificate` that excuses a person from work/school for 10 **years**!
 ****
 ** Cons:
-*** Unable to standardise the way `inheriting` classes implement the `generateHeader` method.
+*** Unable to standardise the way inheriting classes implement the `generateHeader` method.
 ****
-* Potentially allow the `inheriting` classes to omit certain header fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+* Potentially allow the inheriting classes to omit certain header fields that are relevant to the printing of a document, such as the `date` and `time` of the consultation.
 * Information might be formatted differently.
 ****
 //end::documentpreamble[]
@@ -707,7 +724,7 @@ The `Receipt` class structure is as follows:
 
 * Contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `ServedPatient` from which the `Receipt` was constructed from.
 * Contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
-* Has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
+* Contains a `totalPrice` attribute which stores the total price of all the `Services` and `Medicines` received by the patient during the consultation.
 
 Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the
  `ServedPatient` 's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
@@ -715,8 +732,8 @@ Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `R
 .Sequence diagram for ReceiptCommand.
 image::ReceiptSequenceDiagram.png[width="900"]
 
-When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extract the relevant information
-from the `ServedPatient` specified by the `index`.
+When the `ReceiptCommand` is executed, it constructs a new `Receipt` object and extracts the relevant information
+from the `ServedPatient` specified by the `index`. +
 Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is unpacked to sieve out the individual
  table entries for the cost of different medicines.
 ``` Java
@@ -793,7 +810,7 @@ The `ReferralLetter` class structure is as follows:
 
 * Has attributes of the `ServedPatient` it is generated from, which includes the `ServedPatient` 's `name` and `IcNumber`.
 ** These attributes are marked as `final` as they should not be changed.
-* Contains additional information like the doctor's referral notes and patient's referred location.
+* Contains additional information like the doctor's notes and patient's referred location.
 
 Users can generate a `ReferralLetter` for a specific `ServedPatient` by invoking the `ReferralLetterCommand`
  accompanied by the `ServedPatient` 's index in the `ServedPatientList`.
@@ -829,10 +846,10 @@ Executing `refer` with an invalid index will **not** result in the generation of
 
 ===== Aspect: Implementation of `adddocument`, `MedicalCertificate` and `ReferralLetter` Commands
 
-* **Alternative 1 (current choice):** Issuing doctor's name is hard-coded into the `MedicalCertificate` and `ReferralLetter` HTML template.
-** Pros: No need for an extra parameter to key in issuing doctor's name, which is helpful when there is only one doctor working in a clinic.
+* **Alternative 1 (current choice):** The issuing doctor's name is hard-coded into the `MedicalCertificate` and `ReferralLetter` HTML template.
+** Pros: No need for an extra parameter to key in the issuing doctor's name, which is helpful when there is only one doctor working in a clinic.
 ** Cons: There may be more than one doctor working in a clinic.
-* **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the 'adddocument' command for the issuing doctor to key in his/her name.
+* **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the `adddocument` command for the issuing doctor to key in his/her name.
 ** Pros: Different doctors can sign off the medical certificates and referral letters.
 ** Cons: Slightly more typing is necessary before doctors can execute the `adddocument` command.
 // end::referralletter[]
@@ -849,9 +866,6 @@ In particular, the real-time status of the Patient Queue Management System (PQMS
 image::PQMS-gui.png[width="850"]
 
 After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
-
-.GUI for the PQMS after several commands
-image::PQMS-GUI-2.png[width="650]
 
 This UI element is implemented using JavaFX's `WebView` and a local HTML file. The sequence of events for how the `WebView` is updated is as follows:
 
@@ -1572,8 +1586,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a patient
 
 . Deleting a patient while all patients are listed
@@ -1586,7 +1598,6 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-
 === Adding a medical record to patient
 . Adding a medical record to a patient referenced from filtered list
 
@@ -1596,17 +1607,93 @@ _{ more test cases ... }_
 .. Test case: `addmedicalrecord 0 b/A+` +
    Expected: No medical record added to any patient. Error details shown in status message.
 
+=== Showing all medicines
+
+. Listing all medicines in the records
+
+.. List all medicine using the `liststock` command.
+.. Test case: `liststock`, `ls` +
+   Expected: All medicines are listed on the medicine panel. Timestamp in the status bar is updated.
+
 === Adding a medicine
 
 . Adding a medicine to the records
 
-.. Prerequisites: List all medicine using the `listStock` command. Check that the medicine to be added is not in the list.
-.. Test case: `add sn/12839400 n/panadol s/122 p/2 min/20` +
-   Expected: Medicine is added to the records. Details of the added medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect delete commands to try: `add`, `add/e` (where e is a unrecognised parameter) +
+.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be added is not in the list.
+.. Test case: `addmedicine sn/12839400 mn/panadol s/122 ppu/2 msq/20` +
+   Expected: Medicine is added to the records. Name of the added medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `addmedicine`, `addmedicine/e` (where e is a unrecognised parameter) +
    Expected: No medicine is added. Error details shown in the status message. Status bar remains the same.
 
-_{ more test cases ... }_
+=== Patient Queue Management System
+
+. Registering a patient
+.. Prequisites: List all patients using `list` command.
+.. Test case: `register 1` +
+   Expected: Patient with index 1 is added to the Patient Queue.
+
+. Inserting a patient
+.. Prerequisites: List all patients using `list` command. `Register` at least one other patient (`register 1`) first. Patient at index 2 is not registered into the queue.
+.. Test case: `insert 2 p/1` +
+   Expected: Patient with index 2 will now be the first in queue.
+.. Test case: `insert 3 p/10` +
+   Expected: Even though size of the queue might be less than 10, the patient will be added to the back of the queue.
+
+. Removing a patient
+.. Prerequisites: There is someone in the patient queue.
+.. Test case: `remove 1` +
+   Expected: Patient that is first in the queue will be removed.
+
+. Serving a patient
+.. Prerequisites: There is someone in the patient queue.
+.. Test case: `serve` +
+.. Expected: The patient that is first in the queue will become the Current Patient.
+
+. Adding document content to Current Patient
+.. Prerequisites: There is a Current Patient.
+.. Test case: `adddocument n/Fever for past 3 days` +
+.. Expected: "Fever for past 3 days" will be added to the Current Patient's note content.
+
+. Dispensing medicine to Current Patient
+.. Prerequisites: There is a Current Patient. Medicine stock is listed, use `liststock` if it is not.
+.. Test case: `dispensemedicine 1 amt/5` +
+.. Expected: 5 units of medicine at first index will be dispensed to patient.
+
+. Finishing service to Current Patient
+.. Prerequisites: There is a Current Patient with existing note content added.
+.. Test case: `finish` +
+.. Expected: Current Patient is transferred to Served Patient List.
+
+. Completing payment for Served Patient
+.. Prerequiisites: There is someone in the Served Patient List.
+.. Test case: `payment 1` +
+.. Expected: Served Patient of position 1 is removed from the Served Patient List.
+
+=== Editing a medicine
+
+. Editing a medicine in the records
+.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be edited is in the list.
+.. Test case: `editmedicine 1 msq/50` +
+   Expected: Medicine at index 1 will have its minimum stock quantity changed to 50. Name of the edited medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
+   Expected: No medicine is edited. Error details shown in the status message. Status bar remains the same.
+
+=== Restocking a medicine
+
+. Restocking a medicine in the records
+.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be restocked is in the list.
+.. Test case: `restock 1 amt/50` +
+   Expected: Medicine at index 1 will have its stock increased by 50. Name and restocked quantity of the restocked medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
+   Expected: No medicine is restocked. Error details shown in the status message. Status bar remains the same.
+
+=== Check the stocks of all medicines
+
+. Listing all medicines that are low in supply in the records
+
+.. Prerequisites: List all medicine using the `liststock` command.
+.. Test case: `checkstock`, `cs` +
+   Expected: All medicines that have stock level equal to or lower than the minimum stock quantity are listed on the medicine panel. Timestamp in the status bar is updated.
 
 === Saving data
 
@@ -1615,4 +1702,14 @@ _{ more test cases ... }_
 .. Test case: Delete the patient data file manually before starting the application +
 .. Expected: The application will start with the sample contact list.
 
-_{ more test cases ... }_
+=== Generating documents
+
+. Generating medical certificate for a patient
+.. Prerequisites: The patient is in the Served Patient list.
+.. Test case: `mc 1` +
+.. Expected: Medical certificate is generated for the first patient in the Served Patient list.
+
+. Generating referral letter for a patient
+.. Prerequisites: The patient is in the Served Patient list.
+.. Test case: `refer 1` +
+.. Expected: Referral letter is generated for the first patient in the Served Patient list.

@@ -22,7 +22,7 @@ import seedu.address.model.Model;
  */
 public class ClearCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "NoTinUSeNoTinUSeNoTinUSeNoTinUSeNoTinUSeNoTinUSeNoTinUSe";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_FAIL_WRONG_PASSWORD = "Wrong admin password, address book not cleared!";
     public static final String MESSAGE_FAIL_CANCEL = "Cancelled clear command";

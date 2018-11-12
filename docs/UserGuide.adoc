@@ -52,7 +52,7 @@ Follow the steps below to get started with CLInic.
 
 .CLInic's UI
 //tag::UI[]
-image::UiActual.png[width="790"]
+image::UIActual.png[width="790"]
 //end::UI[]
 +
 
@@ -113,14 +113,14 @@ Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 .Important:
 Omission of *any* mandatory parameters will result in the failure of adding the patient to the database.
 
-Upon successful execution, you should see the patient with his details added to the patient list on the right.
+Upon successful execution, you should see the patient with his details added to the patient list on the left.
 
 Examples:
 
 * `add n/Clinton Law ic/S9638902L p/97947435 e/clinton@cs2103t.com a/Tembusu College` +
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clinton@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
-.After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the right, indicated by the black cursor.
+.After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the left, indicated by the black cursor.
 image::AddEx1.png[width="900"]
 
 ==== Editing a patient: `edit`
@@ -135,19 +135,19 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * The `INDEX` refers to the index number shown in the displayed patient list. It must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 * At least one of the optional parameters must be provided.
 * Existing values will be *overwritten* by the newly input values of the corresponding field.
-* You cannot edit the record of a patient that is currently in queue.
+* You cannot edit the record of a patient that is currently in the queue.
 ====
 
 [TIP]
 .Pro tip(s):
 You can remove *all* of a patient's tags by typing the `t/` prefix without specifying any tags.
 
-Upon successful execution, you should see the patient's details updated in the patient list on the right.
+Upon successful execution, you should see the patient's details updated in the patient list on the left.
 
 Examples:
 
 * `edit 5 p/98534228 e/clawyq@cs2101.com` +
-Updates the phone number and e-mail address of the 5th patient in the list to `98534228` and `clawyq@cs2101.com` respectively, as shown below.
+Updates the phone number and e-mail address of the 5^th^ patient in the list to `98534228` and `clawyq@cs2101.com` respectively, as shown below.
 
 .Before and after executing the `edit` command specified above.
 image::EditEx1.png[width="900"]
@@ -279,19 +279,19 @@ image::addmedicalrecord-example-2.png[width="650"]
 
 [[medicine]]
 // tag::addmedicine[]
-=== Medicine Inventory Management
+=== Medicine Records System
 
 ==== Adding a medicine: `addmedicine`
 
 Bought the latest medicine that effectively cures eczema? +
-Use `addmedicine` to add that medicine to the CLInic now! +
+Use `addmedicine` to add that medicine into CLInic now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
 ====
 * The serial number of a medicine *must* have at least 5 digits!
-* This command is used for adding medicine that does not exist in CLInic. For restocking a
+* This command is used for adding medicine that does not exist in CLInic. To restock a
 medicine, use the `restock` command.
 ====
 
@@ -303,7 +303,7 @@ Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, 
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
 
-See below for a pictorial guide on how to add aspirin to the records:
+See below for a pictorial guide on how to add _aspirin_ to the records:
 
 .Guide to the `addmedicine` command
 image::AddMedicine.png[width="650"]
@@ -361,15 +361,15 @@ Format: `liststock`
 
 ==== Finding details of a medicine: `findmedicine`
 
-Forgot the serial number of a medicine? +
+Need the price of a medicine urgently? +
 Use `findmedicine` to search for
-the details of a medicine from its medicine name! +
+the details of a medicine from its _medicine name_! +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
 
 [TIP]
 You can enter more than one name to get the results of all medicines with the names entered. +
-See the third example below.
+Refer to the third example below.
 
 Example:
 
@@ -377,12 +377,12 @@ Example:
 Finds the details of the medicines with the name _panadol_.
 * `fm chlorpheniramine` +
 Finds the details of the medicines with the name _chlorpheniramine_.
-* `fm telfast panadol`
+* `fm telfast panadol` +
 Finds the details of all medicines with the name _telfast_ or _panadol_.
 
-See below for a pictorial guide on how to find chlorpheniramine in the records:
+See below for a pictorial guide on how to find _telfast_ or _panadol_ in CLInic:
 
-.Guide to the `checkstock` command
+.Guide to the `findmedicine` command
 image::FindMedicine.png[width="650"]
 
 // end::findmedicine[]
@@ -396,12 +396,13 @@ Alias: `cs` +
 Format: `checkstock`
 
 [NOTE]
-Medicines that are low in supply are those whose stock level is equal to or lower than their minimum stock quantity.
+Medicines that are low in supply are defined as
+those whose stock levels are lower than or equal to their minimum stock quantities.
 
-See below for a pictorial guide on how to use checkstock:
+See below for a pictorial guide on how to use `checkstock`:
 
 .Guide to the `checkstock` command
-image::CheckStock.png["width=650"]
+image::CheckStock.png[width="650"]
 
 // end::checkstock[]
 
@@ -415,8 +416,7 @@ the patient is in queue, the patient will be removed from queue.
 
 ==== Registering a patient to Waiting Queue: `register`
 
-A patients needs to see the doctor? Better get him into the queue using the
-register command! +
+A patient needs to see the doctor? Better get him into the queue using this command! +
 Alias: `reg` +
 Format: `register INDEX`
 
@@ -471,7 +471,7 @@ Removes the 2nd patient in the queue.
 
 ==== Inserting a patient to Waiting Queue: `insert`
 
-A patient needs to be inserted into a certain position? Insert him into any position! +
+Insert a patient into any position using this command! +
 Alias: `ins` +
 Format: `insert INDEX p/POSITION`
 
@@ -502,7 +502,7 @@ Inserts the 3rd patient into the 5th position in the patient queue.
 [[serve]]
 ==== Serving the first patient in Waiting queue: `serve`
 
-Doctor is finally ready to the serve the next patient? Use the serve command!
+Doctor is finally ready to serve the next patient? Use the serve command!
 Alias: `ser` +
 Format: `serve`
 
@@ -551,14 +551,14 @@ Adds referral to the Current Patient.
 // end::pqms2[]
 ==== Displaying document contents for Current Patient: `displaydocuments`
 
-Displays document contents for the Current Patient. +
+What documents have you added to the patient? Use this command to find out! +
 Alias: `dd`
 Format: `displaydocuments`
 
 // tag::pqms3[]
 ==== Dispensing medicine to Current Patient: `dispensemedicine`
 
-An apple a day certainly is not enough! Time to get give the patient some medicine!  +
+An apple a day certainly is not enough! Time to give the patient some medicine!  +
 Alias: `dm` +
 Format `dispensemedicine MEDICINE_INDEX amt/AMOUNT`
 
@@ -625,7 +625,7 @@ Removes the 1st patient from the Served Patient Queue.
 // tag::mc[]
 ==== Generating medical certificate: `mc`
 
-Clinic staff can use this command to generate a medical certificate for the Served Patient. +
+Does the patient need to be excused from school or work to rest? Let's give him a medical certificate! +
 Format: `mc INDEX`
 
 [WARNING]
@@ -643,7 +643,7 @@ image::mc_fig.png[width="600"]
 // tag::receipt[]
 ==== Generating receipt: `receipt`
 
-Clinic staff can use this command to generate a receipt for the Served Patient. +
+How much does today's visit to the clinic cost? Let's create a receipt for the patient! +
 Alias: `rec` +
 Format: `receipt INDEX`
 
@@ -662,7 +662,7 @@ image::receipt_fig.png[width="600"]
 // tag::refer[]
 ==== Generating referral letter: `refer`
 
-Clinic staff can use this command to generate a referral letter for the Served Patient. +
+Does the patient need to consult a specialist? Let's give him a referral letter! +
 Alias: `ref` +
 
 Format: `refer INDEX`

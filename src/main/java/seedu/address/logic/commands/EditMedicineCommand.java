@@ -86,6 +86,11 @@ public class EditMedicineCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
+        /* The following three methods checks if the new medicine name or
+        new serial number that is entered used by other medicines in CLInic.
+        If so, they throw an error specifying which of the two is duplicated.
+        This is done as the medicine name and serial number are unique to a medicine.
+        */
         checkBothNewMedicineNameAndSerialNumberAlreadyExisting(model, editedMedicine);
         checkNewSerialNumberAlreadyExisting(model, editedMedicine);
         checkNewMedicineNameAlreadyExisting(model, editedMedicine);

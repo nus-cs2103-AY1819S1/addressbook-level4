@@ -52,4 +52,11 @@ public class RemoveCommand extends QueueCommand {
 
         return new CommandResult(MESSAGE_SUCCESS + patient.toNameAndIc() + " from Queue.");
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveCommand // instanceof handles nulls
+                && targetIndex.equals(((RemoveCommand) other).targetIndex));
+    }
 }
