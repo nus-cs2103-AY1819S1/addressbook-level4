@@ -40,9 +40,11 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 
 *** Highlights:
 
+* *Minor enhancements*:
+** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
+
+
 * *Other contributions*:
-** Minor enhancements:
-*** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
 
 ** Project management:
 *** Managed releases v1.1 - v1.2 on GitHub
