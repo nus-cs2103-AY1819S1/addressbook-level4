@@ -377,6 +377,8 @@ Format: `word`
 This function does only display the word and its meaning. If you want to learn the word. Please use the `LearnCommand` feature:
 Format: learn [word]
 
+// end::wod[]
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
