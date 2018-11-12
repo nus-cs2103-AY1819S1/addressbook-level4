@@ -1646,6 +1646,30 @@ _{ more test cases ... }_
 .. Test case: `checkstock`, `cs` +
    Expected: All medicines that have stock level equal to or lower than the minimum stock quantity are listed on the medicine panel. Timestamp in the status bar is updated.
 
+=== Generating a `Receipt`
+
+.Generating a receipt for the `ServedPatient`
+.. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of ServedPatients in the `ServedPatientList`.
+.. Test Case: `receipt 1`
+.. Expected: A receipt is generated from the `ServedPatient` of position 1 in the `ServedPatientList`.
+A window will pop up to show the contents of the generated receipt.
+
+=== Generating a `MedicalCertificate`
+
+.Generating a medical certificate for the ServedPatient
+.. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of ServedPatients in the `ServedPatientList` and that `mcContent` has been added to the `ServedPatient` via the `adddocument` command.
+.. Test Case: `mc 1`
+.. Expected: A medical certificate is generated from the `ServedPatient` of position 1 in the `ServedPatientList`.
+A window will pop up to show the contents of the generated medical certificate.
+
+=== Generating a `ReferralLetter`
+
+.Generating a referral letter for the `ServedPatient`
+.. Prerequisites: There is at least one ServedPatient in the ServedPatientList. Ensure that the index to be provided does not exceed the number of ServedPatients in the `ServedPatientList` and that `referralContent` has been added to the `ServedPatient` via the `adddocument` command.
+.. Test Case: `refer 1`
+.. Expected: A referral letter is generated from the `ServedPatient` of position 1 in the `ServedPatientList`.
+A window will pop up to show the contents of the generated referral letter.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
