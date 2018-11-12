@@ -19,7 +19,6 @@ This section documents the major and minor contributions that I have made to thi
 ** What it does: this feature allows an employee to apply for leave on specified dates. Also, it allows the user to view his/her own leave applications with their current approval status. Finally, it allows a user, with the required permissions, to view all employee leave applications and the ability to approve or reject them.
 ** Justification: This leave management system provides an extremely quick and easy way for employees to apply for leave and view the status of their current applications. It also consolidates all employee leave applications into one place, and is thus very useful for managers who have many employees under them. Furthermore, it also provides a clean and fast way for managers to approve or reject employee leave applications.
 ** Highlights: This enhancement required careful deliberation of how it was to be designed. It was necessary to have an in-depth understanding of the existing code-base and how the many components worked together, so that I could consider the pros and cons of each design alternative that I conceptualized.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: 
 
@@ -34,16 +33,12 @@ This section documents the major and minor contributions that I have made to thi
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote tests for the features I implemented (!!!! Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Added : https://github.com[#14]
+*** Updated the link:{repoURL}/main/tree/master/docs/DeveloperGuide.adoc#Design-Model[Model class diagram]  to better represent all the features that we built.
+*** Added documentation in the link:{repoURL}/main/tree/master/docs/DeveloperGuide.adoc#Design-Model[Leave Application section], for the leave management feature I implemented.
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W10-2/main/issues/265[1], https://github.com/CS2103-AY1819S1-W10-2/main/issues/270[2], https://github.com/CS2103-AY1819S1-W10-2/main/issues/269[3], https://github.com/CS2103-AY1819S1-W10-2/main/issues/268[4], https://github.com/CS2103-AY1819S1-W10-2/main/issues/267[5], https://github.com/CS2103-AY1819S1-W10-2/main/issues/266[6])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
