@@ -446,9 +446,6 @@ The list of results should be like this if no changes were made to the applicati
 
 image::./ui_screenshots/find-example-1.png[width="600"]
 
-[NOTE]
-The input argument is case-insensitive i.e. "accelerator" and "Accelerator" should give the same result.
-
 * `find z/ sci-fi` +
 Finds and displays the list of attractions with zones that contain the word "sci-fi".
 The list of results should look like this:
