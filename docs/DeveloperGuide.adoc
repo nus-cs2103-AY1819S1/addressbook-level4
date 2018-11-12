@@ -434,7 +434,7 @@ These operations can be accessed by retreiving the list of groups using `Model#g
 
 **Given below is an example usage scenario and how the model behaves at each step.**
 
-Step 1. The user launches the application. For simplicity, we assume that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the meeting book. None of these groups have a meeting scheduled.
+Step 1. The user launches the application. For simplicity, we assume that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the MeetingBook. None of these groups have a meeting scheduled.
 
 image::meetCommandStep1Diagram.png[width="600"]
 
@@ -886,7 +886,7 @@ image::xmlAdaptedUnmarshalDiagram.png[]
 The default behavior of handling conflicting entries is to ignore any conflicting entries. However, user can choose to change this behavior to overwrite any conflicting entries using `--force` option when entering the command.
 An example of the command set to the overwriting behaviour is `import --force f/backup.xml`.
 
-The code snippet below showcase how MeetingBook toggle between the behaviour.
+The code snippet below showcase how MeetingBook toggle between the behaviours.
 [source, java]
 ----
 public void merge(ReadOnlyMeetingBook imported, boolean overwrite) {
@@ -924,7 +924,7 @@ However, "Alex Lim" of the imported MeetingBook belongs to a `Group`.
 .Object Diagram of "Alex Lim" `Person` of imported MeetingBook belonging to a `Group` before merging to current MeetingBook
 image::BeforeImportAlexLimGroup.png[]
 
-Therefore, when importing the `Group` that "Alex Lim" of the imported MeetingBook is in, the `Group` will be imported without "Alex Lim" of the imported MeetingBook. The `Group` will not contains "Alex Lim" of the current MeetingBook as these two "Alex Lim" are not of the same `Person`. Even if "Alex Lim" of the imported MeetingBook is the sole member of the `Group`, the `Group` will still be created but with no members instead.
+Therefore, when importing the `Group` that "Alex Lim" of the imported MeetingBook is in, the `Group` will be imported without "Alex Lim" of the imported MeetingBook. The `Group` will not contains "Alex Lim" of the current MeetingBook as these two "Alex Lim" are not of the same `Person`. If "Alex Lim" of the imported MeetingBook is the sole member of the `Group`, the `Group` will still be created but with no members instead.
 
 .Object Diagram of "Alex Lim" `Person` of imported MeetingBook belonging to a `Group` after merging to current MeetingBook
 image::AfterImportAlexLimGroup.png[]
@@ -1532,24 +1532,24 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Add group category
+=== Use case: Add group
 
 *MSS*
 
 1.  Student start up MeetingBook.
 2.  MeetingBook starts up.
-3.  Student enters command to create a new category with a [module code] parameter.
-4.  MeetingBook creates the category.
-5.  MeetingBook feedbacks that the category had been successfully created.
+3.  Student enters command to create a new group.
+4.  MeetingBook creates the group.
+5.  MeetingBook feedbacks that the group had been successfully created.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Student enters category that already exists.
+* 1a. Student enters group that already exists.
 [none]
-** 1a1.  MeetingBook informs the student that the category already exists.
+** 1a1.  MeetingBook informs the student that the group already exists.
 +
 Use case ends.
 
