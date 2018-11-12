@@ -90,9 +90,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Timetable download guide
 
 To be referenced by any commands that use `tt/` prefix.
-Format `Command tt/ http://modsn.com/XXXX...`
+Format `Command tt/ http://modsn.us/XXXX...`
 
-Example:
+Example: +
 * http://modsn.us/eDmp1 +
 * http://modsn.us/H4v8s
 
@@ -100,7 +100,7 @@ Example:
 * Two possible error messages may be returned by the download, namely A - "Cannot retrieve NUSMODS module information" and B - "Invalid NUSMODS URL".
 * Note that the timetable download may take a while regardless if the link is valid or not.
 * Only the current semester timetable will be downloaded. Other semesters timetable will not be downloaded.
-* In the case of slow internet speeds, the download will return with A. Please try again with a better internet connection as we are not able to control such factors.
+* In the case of slow internet speeds or no internet, the download will return with either A or B. Please try again with a better internet connection as we are not able to control such factors.
 * If the link given is not a http link such as fakelink, hscp:// or any other random string, the download will return A.
 * If the link given is a modsn.com link but it does not link to a valid timetable, the download will return B.
 * If the link given is a modsn.com link with a valid timetable but it is an empty timetable, the download will return properly with the empty timetable.
