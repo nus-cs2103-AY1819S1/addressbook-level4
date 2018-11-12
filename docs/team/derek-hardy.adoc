@@ -39,7 +39,7 @@ between the two in the future can be complex.
 *** Justification: This feature allows user to modify how existing persons are categorised.
 *** Highlights: This feature makes use of `UniqueGroupList` in person, and `UniquePersonList` in group to keep track of membership relation among them.
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-W17-3/main/pulls?q=is%3Apr+author%3ADerek-Hardy+is%3Aclosed[Pull requests]][https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=derek-hardy&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Reposense]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-W17-3/main/pulls?q=is%3Apr+author%3Aderek-hardy[Pull requests]][https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=derek-hardy&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Reposense]]
 
 * *Other contributions*:
 
@@ -222,27 +222,6 @@ image::PersonClassDiagram.png[width="300"]
 * `Person` now supports group identification. Every person will keep a list of groups that he/she has enrolled in.
 * Every `Person` in MeetingBook can be added or removed from an existing group. Use the methods `addGroup()` and `removeGroup`.
 * `Person` can check whether he/she is in a particular group by `hasGroup(Group group)` method.
-
-=== MeetingBook feature
-
-==== Current Implementation
-
-.The object diagram of MeetingBook
-image::meetingbookObject.png[width="350"]
-
-*API* : https://github.com/CS2103-AY1819S1-W17-3/main/blob/master/src/main/java/seedu/meeting/model/MeetingBook.java[`MeetingBook.java`]
-
-*Enhancements:*
-
-* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
-* `Group` can be created or removed from the MeetingBook.
-* `Meeting` can be scheduled or cancelled from the MeetingBook.
-* When a `Group` is removed from the MeetingBook, all members will be removed from this group.
-* When a `Person` is removed from the MeetingBook, all groups containing this person as member will remove this person from the group.
-
-[NOTE]
-The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
-
 
 === AddGroup and DeleteGroup feature
 The AddGroup and DeleteGroup commands modify the `UniqueGroupList` in the `versionedMeetingBook`.

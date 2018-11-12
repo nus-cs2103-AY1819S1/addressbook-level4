@@ -6,6 +6,7 @@ import java.util.function.Function;
 import seedu.meeting.model.meeting.Meeting;
 import seedu.meeting.model.util.EntityContainsKeywordsPredicate;
 
+// @@author betakuwe
 /**
  * Tests that a {@code Meeting}'s {@code Title} matches the keywords given.
  */

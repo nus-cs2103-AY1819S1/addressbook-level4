@@ -7,6 +7,7 @@ import seedu.meeting.logic.CommandHistory;
 import seedu.meeting.model.Model;
 import seedu.meeting.model.person.util.PersonPropertyComparator;
 
+// @@author betakuwe
 /**
  * Sorts the displayed person list based on the property given by their natural ordering.
  */

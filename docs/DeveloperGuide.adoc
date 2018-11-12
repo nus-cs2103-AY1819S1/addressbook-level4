@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main/tree/master
 
 By: `Team CS2103T-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -140,7 +140,7 @@ image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== Events-Driven nature of the design
-
+x
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
@@ -356,7 +356,7 @@ that exist in this MeetingBook. The commands thus modify and update this list of
 // tag::join/leave[]
 === Join and Leave feature
 The Join and Leave commands modify the relationship between groups existed in the `UniqueGroupList` and
-people in the `UniquePersonList` maintained by `versionedMeetingBook. This section provides description of the usage
+people in the `UniquePersonList` maintained by `versionedMeetingBook`. This section provides description of the usage
 and implementation of these commands.
 
 ==== `join` command usage
@@ -433,6 +433,7 @@ These operations can be accessed through the model using the following operation
 
 **Given below is an example usage scenario and how the model behaves at each step.**
 
+
 Step 1. The application is launched.
 
 [NOTE]
@@ -507,26 +508,6 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 ** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.
 // end::meeting[]
 
-// tag::meetingbook[]
-=== MeetingBook feature
-
-==== Current Implementation
-
-.The object diagram of MeetingBook
-image::addressbookObject.png[width="350"]
-
-*Enhancements:*
-
-* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
-* `Group` can be created or removed from the MeetingBook.
-* `Meeting` can be scheduled or cancelled from the MeetingBook.
-* When a `Group` is removed from the MeetingBook, all members will be removed from this group.
-* When a `Person` is removed from the MeetingBook, all groups containing this person as member will remove this person from the group.
-
-[NOTE]
-The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
-// end::meetingbook[]
-
 // tag::sortfind[]
 === Sort and Find feature
 
@@ -541,16 +522,98 @@ include::UserGuide.adoc[tag=sort]
 
 include::UserGuide.adoc[tag=find]
 
-==== Implementation of `sort` and `find` commands
+==== Implementation of `find` command
+
+===== Structure of `find` command
+
+image::FindCommandClassDiagram.png[width="400"]
+
+When the user executes a `find` command, the `FindCommandParser` returns either a `FindPersonCommand`, a `FindMeetingCommand`, or a `FindGroupCommand`,
+ depending on the user's input. `FindPersonCommand`, `FindMeetingCommand`, and `FindGroupCommand` extends the
+ `FindCommand<Person>`, `FindCommand<Meeting>`, and `FindCommand<Group>` abstract classes respectively.
+The `FindCommand<E>` abstract class extends the `Command` abstract class. +
+
+[source, java]
+----
+public abstract class FindCommand<E> extends Command {
+
+    public static final String COMMAND_WORD = "find";
+
+    public static final String MESSAGE_USAGE = ...
+
+    protected final Predicate<E> predicate;
+
+    FindCommand(Predicate<E> predicate) {...}
+
+    @Override
+    public boolean equals(Object other) {...}
+}
+----
+
+`ModelManager` maintains 3 lists of type `FilteredList`. The lists are `filteredPersons`, `filteredMeetings`, and `filteredGroups`.
+When the `find` command is executed, a predicate is passed into the respective `FilteredList`. The elements in the list that passes the predicate
+ test will be displayed in the UI. +
+
+Referring to the code snippet above, `FindCommand<E>` implements the `equals()` method and contains a predicate of type `Predicate<E>`.
+ This predicate will be applied to the `filteredPersons` list if `FindPersonCommand` is executed, `filteredGroups` list if `FindGroupCommand` is executed,
+ and `filteredMeetings` list if `FindMeetingCommand` is executed. Each of `FindPersonCommand`, `FindGroupCommand`, and `FindMeetingCommand`
+ implements the `execute()` method required by the `Command` abstract class. +
+
+
+
+===== Structure of Predicates
+
+image::PredicateClassDiagram.png[width="400"]
+
+The predicates are created using the abstract class `EntityContainsKeywordsPredicate<E>`.
+`PersonNameContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Person>`,
+`GroupTitleContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Group>`, and
+`MeetingTitleContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Meeting>`.
+
+[source, java]
+----
+public abstract class EntityContainsKeywordsPredicate<E> implements Predicate<E> {
+    private final List<String> allKeywords;
+    private final List<String> someKeywords;
+    private final List<String> noneKeywords;
+
+    private final Function<E, Predicate<String>> testKeywordPredicateGetter;
+
+    public EntityContainsKeywordsPredicate(List<String> allKeywords, List<String> someKeywords, List<String> noneKeywords, Function<E, String> entityKeywordGetter) {...}
+
+    @Override
+    public boolean test(E element) {...}
+
+    @Override
+    public boolean equals(Object other) {...}
+}
+----
+
+As seen in the code snippet above, `EntityContainsKeywordsPredicate` maintains 3 lists of `String`, the `allKeywords` list,
+the `someKeywords` list, and the `noneKeywords` list. The lists of strings are generated by the `FindCommandParser` that
+parses the `find` command entered. `testKeywordPredicateGetter` is used to generate the predicate that will be used to test
+whether each keyword matches the element being tested. +
+
+Each of `PersonNameContainsKeywordsPredicate`, `GroupTitleContainsKeywordsPredicate`, and `MeetingTitleContainsKeywordsPredicate`
+ contains a predefined function used to retrieve the `Person` name, `Group` title, or `Meeting` title.
+ This predefined function will be used passed into the constructor of `EntityContainsKeywordsPredicate` to generate
+ `testKeywordPredicateGetter`. +
+
+When the predicate is passed into the `FilteredList` in `ModelManager`, the `test()` method in this predicate will be used
+to test the elements in the list.
+
+==== How the `sort` command works with the `find` command
+
+In the current implementation, the `sort` command only applies on the list of persons.
 
 `ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
 `FilteredList<Person>`. +
 
-Illustrated in the figure below, `sortedPersons` list wraps the `filteredPersons` list and
+image::sortedList-filteredList-persons.png[width="200"]
+
+Illustrated in the figure above, `sortedPersons` list wraps the `filteredPersons` list and
 `filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
 `persons` list in `versionedMeetingBook` contains all the persons stored in the MeetingBook.
-
-image::sortedList-filteredList-persons.png[width="400"]
 
 The list displayed in the UI is bound to the `sortedPersons` list. Hence, the `persons` list has two layers of
 modification before being displayed in the GUI as `sortedPersons`. +
@@ -568,7 +631,20 @@ Similarly, when a user executes a `sort` command, an appropriate `Comparator<Per
 ==== Design considerations
 
 Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
-list.
+list. +
+
+image::findThenSortExample.png[width="600"]
+
+An example can be seen in the diagram above by executing the command `find p s/yu li` followed by `sort name`.
+After applying the `sort` command, the `find` filter remains applied. The next example will demonstrate a different order. +
+
+image::sortThenFindExample.png[width="600"]
+
+The diagram above shows another example of back-to-back execution.
+The diagram shows the execution of `sort name` followed by `find p s/yeoh li`.
+As can be seen in the diagram, the sorting order remains even after executing the `find` command.
+
+
 // end::sortfind[]
 
 // tag::undoredo[]
@@ -725,23 +801,43 @@ Step 1. The user launches the application. `ModelManager` will be initialized wi
 without filter.
 
 Step 2. The user executes `list` command with additional parameter to specify the list to show all items. Available
-parameters are `person`, `meeting` and `group`, or their shorthand equivalent `p`, `m` and `g`. `ListCommandParser`
-parses the command to determine the list type, and the command executes the following steps:
+parameters are `person`, `meeting`, `group` and `all`, or their shorthand equivalent `p`, `m`, `g` and `a`.
+`ListCommandParser` parses the command to determine the list type, and the command executes the following steps:
 
 * Step 2.1. If the parameter is `group` / `g`, `Model#updateFilteredGroupList` is called with
 `PREDICATE_SHOW_ALL_GROUPS` to remove any filters applied to `UniqueGroupList`.
 
-* Step 2.1. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
+* Step 2.2. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
 `PREDICATE_SHOW_ALL_MEETINGS` to remove any filters applied to `UniqueMeetingList`.
 
-* Step 2.1. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
+* Step 2.3. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
 `PREDICATE_SHOW_ALL_PERSONS` to remove any filters applied to `UniquePersonList`.
+
+* Step 2.4. If the parameter is `all` / `a` / empty, steps 2.1., 2.2. and 2.3. will be executed.
 
 [NOTE]
 List will remain unchanged if it does not have any filters applied before executing `list` command.
 
 .List group sequence diagram
 image::ListCommandSequenceDiagram.png[width="800"]
+
+Below is the pseudo code of `list` command execution.
+[source, java]
+----
+public CommandResult execute(Model model, CommandHistory history) {
+    requireNonNull(model);
+    switch (listCommandType) {
+        case PERSON:
+            // Show all persons, return success
+        case GROUP:
+            // Show all groups, return success
+        case MEETING:
+            // Show all meetings, return success
+        default:
+            // Show all persons, groups and meetings, return success
+    }
+}
+----
 
 ==== Design considerations
 ===== Aspect: Data structure to support the list command
@@ -773,19 +869,19 @@ The program will raise a `MeetingBookExportEvent` to `EventCenter`. `StorageMana
 This method will then attempt to export the data as a XML file using `Model#exportMeetingBook`.
 
 ===== Export to a XML file
-Translation from MeetingBook to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
+The translation from MeetingBook to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
 As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into Java Architecture for XML Binding (JAXB)-friendly version before it can be successfully saved.
 ``Object``s are modelled using their respective `XMLAdapted` classes which contain directions for it to parse into JAXB-friendly version. `Marshal` Object will then marshal all the JAXB-friendly version of `Person`, `Meeting`, `Group` and assemble it into a XML file.
 
 .Class diagram of XmlAdapted classes and their associations
-image::xmlAdaptedClassDiagram.png[]
+image::xmlAdaptedMarshalDiagram.png[]
 
 ==== Design Consideration
 
 ===== Aspect: Make export undoable
 * **Alternative 1 (current choice):** Does not allow it to be undo.
 ** Pros: Easy to implement and verify if the command is executed successfully.
-** Cons: User have to manually navigate through the directory to delete the XML file to achieve the same result as undoing the command.
+** Cons: Hard for the user as the user have to manually navigate through the directory to delete the XML file to achieve the same result as undoing the command.
 
 * **Alternative 2: ** Allow it to be undoable.
 ** Pros: Allow user to undo the command.
@@ -800,33 +896,81 @@ These scenarios create unnecessary complications when we want to attempt undoing
 
 // tag::import[]
 === Import feature
-==== Current Implementation
+==== Current implementation
 ===== Overview
 The import command allow the user to import a XML file containing of MeetingBook data into his MeetingBook.
 This is facilitated by is facilitated by `ImportCommand`. `ImportCommandParser` is responsible for parsing the input arguments.
 The end result of this command is entries of `Person`, `Group`, `Meeting` added into the current MeetingBook.
 
 ===== Import from XML file
-Translation from XML formatted file to `MeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
+The translation from XML formatted file to `MeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
 As MeetingBook consists `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted back into Java Architecture for XML Binding (JAXB)-friendly version before it can then modelled into its respective classes (i.e. `xmlAdaptedPerson` modelled back into `Person` object).
 Each ``Object``s has their respective `XMLAdapted` class which contain directions to model back from JAXB-friendly version . `Unmarshal` Object is solely responsible for disassemble the XML file into  JAXB-friendly versions of `Person`, `Meeting`, `Group`, which will then be feed as parameters to create another instance of `MeetingBook`.
 The imported `MeetingBook` will then merge with the current `MeetingBook` using `MeetingBook#merge`.
 
 .Class diagram of XmlAdapted classes and their associations
-image::xmlAdaptedClassDiagram.png[]
+image::xmlAdaptedUnmarshalDiagram.png[]
+
+==== Handling of conflicting entries
+The default behavior of handling conflicting entries is to ignore any conflicting entries. However, user can choose to change this behavior to overwrite any conflicting entries using `--force` option when entering the command.
+An example of the command set to the overwriting behaviour is `import --force f/backup.xml`.
+
+The code snippet below showcase how MeetingBook toggle between the behaviours.
+[source, java]
+----
+public void merge(ReadOnlyMeetingBook imported, boolean overwrite) {
+        // If Both book contains same entries
+        if (equals(imported)) {
+            return;
+        }
+
+        if (!(imported instanceof MeetingBook)) {
+            return;
+        }
+        MeetingBook importedBook = (MeetingBook) imported;
+        importedBook.persons.iterator()
+                .forEachRemaining((person) -> mergePerson(person, overwrite));
+
+        importedBook.groups.iterator()
+                .forEachRemaining((group) -> mergeGroup(group, overwrite));
+    }
+----
+
+
+==== Handling of irrelevant imported data
+
+The default conflicting resolving behavior (ignoring any conflict files) may cause `Person` to lose their association with `Group`.
+
+Take this case for example. Current MeetingBook and the imported MeetingBook both have a Person named "Alex Lim" with the following attributes.
+
+.Object Diagram of "Alex Lim" `Person` Object in current MeetingBook and imported MeetingBook
+image::AlexLimObjectDiagram.png[]
+
+When the default conflicting resolving behaviour is used, "Alex Lim" of the imported MeetingBook will not be imported into current MeetingBook.
+
+However, "Alex Lim" of the imported MeetingBook belongs to a `Group`.
+
+.Object Diagram of "Alex Lim" `Person` of imported MeetingBook belonging to a `Group` before merging to current MeetingBook
+image::BeforeImportAlexLimGroup.png[]
+
+Therefore, when importing the `Group` that "Alex Lim" of the imported MeetingBook is in, the `Group` will be imported without "Alex Lim" of the imported MeetingBook. The `Group` will not contains "Alex Lim" of the current MeetingBook as these two "Alex Lim" are not of the same `Person`. If "Alex Lim" of the imported MeetingBook is the sole member of the `Group`, the `Group` will still be created but with no members instead.
+
+.Object Diagram of "Alex Lim" `Person` of imported MeetingBook belonging to a `Group` after merging to current MeetingBook
+image::AfterImportAlexLimGroup.png[]
 
 ==== Design Consideration
-===== Aspect: Handling of conflict files
-* **Alternative 1 (current choice):** Either ignore or overwrite conflicting files.
+===== Aspect: Handling of conflict entries
+* **Alternative 1 (current choice):** Either ignore or overwrite conflicting entries.
 *** Pros: Easy to handle conflicting cases.
 *** Cons: Loss of data as information is destroyed or lost when importing.
 When we choose to ignore, we lose data from the XML file as they are not imported in.
-If we were to overwrite conflicting files, we lose information in our current MeetingBook as they are overwritten by the imported data.
+If we were to overwrite conflicting entries, we lose information in our current MeetingBook as they are overwritten by the imported data.
 * **Alternative 2:**  Append an arbitrary number to the name of `Person`/`Group`.
 *** Pros: No loss of data when importing.
 *** Cons: End up with lots of data with arbitrary number appended to it.
 This may cause confusion to the user as there is many similar entries of the `Person`/`Group` object only to  be differ by an arbitrary number.
 This will also cause `find` command to not work as expected. `find` command currently matches exact search term and the arbitrary number appended cause it to no longer match the name of the `Object`.
+
 // end::import[]
 
 // tag::dataencryption[]
@@ -1018,7 +1162,7 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
 
 === Coverage Reporting
 
@@ -1417,24 +1561,24 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Add group category
+=== Use case: Add group
 
 *MSS*
 
 1.  Student start up MeetingBook.
 2.  MeetingBook starts up.
-3.  Student enters command to create a new category with a [module code] parameter.
-4.  MeetingBook creates the category.
-5.  MeetingBook feedbacks that the category had been successfully created.
+3.  Student enters command to create a new group.
+4.  MeetingBook creates the group.
+5.  MeetingBook feedbacks that the group had been successfully created.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Student enters category that already exists.
+* 1a. Student enters group that already exists.
 [none]
-** 1a1.  MeetingBook informs the student that the category already exists.
+** 1a1.  MeetingBook informs the student that the group already exists.
 +
 Use case ends.
 

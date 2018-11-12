@@ -8,7 +8,7 @@ Welcome to my project portfolio. I am Benjamin and I am a computing science stud
 This project portfolio will detail the contributions I have made to various Software Engineering projects.
 
 
-== Project Overview: MeetingBook
+== PROJECT: MeetingBook
 
 MeetingBook is a desktop scheduler application targeted at university students involved in multiple
 Co-Curricular Activities and Project-Based modules. The application is a modified contact book with features to group
@@ -38,26 +38,34 @@ the user will have an easier time searching for what they need.
 name, phone number, email address, or home address by lexicographical order.
 
 * *Code contributed*:
-https://github.com/CS2103-AY1819S1-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Abetakuwe[Pull requests]
+[https://github.com/CS2103-AY1819S1-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Abetakuwe[Pull requests]]
+[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=betakuwe&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Reposense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases v1.1 - v1.3 (3 releases) on GitHub
 
 *** Wrote tests to increase coverage from 93% to 94%
 (https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[Pull request])
 
+** Enhancements to existing features:
+*** Enhanced `find` command: https://github.com/CS2103-AY1819S1-W17-3/main/pull/86[#86],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[#134]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-
+*** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/161[#161],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/95[#95]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed: https://github.com/CS2103-AY1819S1-W17-3/main/pull/211[#211],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/212[#212],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/118[#118],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/116[#116],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/92[#92],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/71[#71],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/56[#56],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/47[#47],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/43[#43],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/42[#42].
 
 == Contributions to the User Guide
 
@@ -76,5 +84,131 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=sortfind]
+=== Sort and Find feature
+
+The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to. This section will
+detail how the sort and find commands are implemented.
+
+==== Implementation of `find` command
+
+===== Structure of `find` command
+
+image::FindCommandClassDiagram.png[width="800"]
+
+When the user executes a `find` command, the `FindCommandParser` returns either a `FindPersonCommand`, a `FindMeetingCommand`, or a `FindGroupCommand`,
+ depending on the user's input. `FindPersonCommand`, `FindMeetingCommand`, and `FindGroupCommand` extends the
+ `FindCommand<Person>`, `FindCommand<Meeting>`, and `FindCommand<Group>` abstract classes respectively.
+The `FindCommand<E>` abstract class extends the `Command` abstract class. +
+
+[source, java]
+----
+public abstract class FindCommand<E> extends Command {
+
+    public static final String COMMAND_WORD = "find";
+
+    public static final String MESSAGE_USAGE = ...
+
+    protected final Predicate<E> predicate;
+
+    FindCommand(Predicate<E> predicate) {...}
+
+    @Override
+    public boolean equals(Object other) {...}
+}
+----
+
+`ModelManager` maintains 3 lists of type `FilteredList`. The lists are `filteredPersons`, `filteredMeetings`, and `filteredGroups`.
+When the `find` command is executed, a predicate is passed into the respective `FilteredList`. The elements in the list that passes the predicate
+ test will be displayed in the UI. +
+
+Referring to the code snippet above, `FindCommand<E>` implements the `equals()` method and contains a predicate of type `Predicate<E>`.
+ This predicate will be applied to the `filteredPersons` list if `FindPersonCommand` is executed, `filteredGroups` list if `FindGroupCommand` is executed,
+ and `filteredMeetings` list if `FindMeetingCommand` is executed. Each of `FindPersonCommand`, `FindGroupCommand`, and `FindMeetingCommand`
+ implements the `execute()` method required by the `Command` abstract class. +
+
+
+
+===== Structure of Predicates
+
+image::PredicateClassDiagram.png[width="800"]
+
+The predicates are created using the abstract class `EntityContainsKeywordsPredicate<E>`.
+`PersonNameContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Person>`,
+`GroupTitleContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Group>`, and
+`MeetingTitleContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Meeting>`.
+
+[source, java]
+----
+public abstract class EntityContainsKeywordsPredicate<E> implements Predicate<E> {
+    private final List<String> allKeywords;
+    private final List<String> someKeywords;
+    private final List<String> noneKeywords;
+
+    private final Function<E, Predicate<String>> testKeywordPredicateGetter;
+
+    public EntityContainsKeywordsPredicate(List<String> allKeywords, List<String> someKeywords, List<String> noneKeywords, Function<E, String> entityKeywordGetter) {...}
+
+    @Override
+    public boolean test(E element) {...}
+
+    @Override
+    public boolean equals(Object other) {...}
+}
+----
+
+As seen in the code snippet above, `EntityContainsKeywordsPredicate` maintains 3 lists of `String`, the `allKeywords` list,
+the `someKeywords` list, and the `noneKeywords` list. The lists of strings are generated by the `FindCommandParser` that
+parses the `find` command entered. `testKeywordPredicateGetter` is used to generate the predicate that will be used to test
+whether each keyword matches the element being tested. +
+
+Each of `PersonNameContainsKeywordsPredicate`, `GroupTitleContainsKeywordsPredicate`, and `MeetingTitleContainsKeywordsPredicate`
+ contains a predefined function used to retrieve the `Person` name, `Group` title, or `Meeting` title.
+ This predefined function will be used passed into the constructor of `EntityContainsKeywordsPredicate` to generate
+ `testKeywordPredicateGetter`. +
+
+When the predicate is passed into the `FilteredList` in `ModelManager`, the `test()` method in this predicate will be used
+to test the elements in the list.
+
+==== How the `sort` command works with the `find` command
+
+In the current implementation, the `sort` command only applies on the list of persons.
+
+`ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
+`FilteredList<Person>`. +
+
+image::sortedList-filteredList-persons.png[width="400"]
+
+Illustrated in the figure above, `sortedPersons` list wraps the `filteredPersons` list and
+`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
+`persons` list in `versionedMeetingBook` contains all the persons stored in the MeetingBook.
+
+The list displayed in the UI is bound to the `sortedPersons` list. Hence, the `persons` list has two layers of
+modification before being displayed in the GUI as `sortedPersons`. +
+
+Before the user executes any `find` or `sort` commands, no `Comparator<Person>` and no `Predicate<Person>` is applied to
+the `persons` list. The UI will display the all the persons in the MeetingBook as expected. +
+
+When the user executes a `find` command, an appropriate `Predicate<Person>` will be created based on the user's input,
+and the `Predicate<Person>` will be applied to the `persons` list. This modification will be reflected in the
+`sortedPersons` list and in the displayed list in the GUI. +
+
+Similarly, when a user executes a `sort` command, an appropriate `Comparator<Person>` will be applied to the
+`filteredPersons` list. This modification will be reflected in the displayed list in the UI.
+
+==== Design considerations
+
+Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
+list. +
+
+image::findThenSortExample.png[width="600"]
+
+An example can be seen in the diagram above by executing the command `find p s/yu li` followed by `sort name`.
+After applying the `sort` command, the `find` filter remains applied. The next example will demonstrate a different order. +
+
+image::sortThenFindExample.png[width="600"]
+
+The diagram above shows another example of back-to-back execution.
+The diagram shows the execution of `sort name` followed by `find p s/yeoh li`.
+As can be seen in the diagram, the sorting order remains even after executing the `find` command.
+
 
