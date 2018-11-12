@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F10-1/main
 
@@ -27,6 +28,8 @@ image::introToOASIS.png[width="900"]
 === Symbols used in this guide
 [NOTE]
 Denotes something that you may want to take note of.
+[TIP]
+Denotes something that may be helpful if you are having any difficulties.
 [WARNING]
 Denotes a warning for something critical.
 
