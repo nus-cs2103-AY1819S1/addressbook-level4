@@ -1827,6 +1827,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Logging into the system.
+
+. Logging in as an admin.
+
+.. After opening OASIS, enter in "Admin" and "Pa55w0rd" as the password.
+.. Click submit or press enter. +
+   Expected: You should now be logged in as an admin.
+
+. Logging in as a User.
+.. Delete the data folder to have OASIS start with the sample data set
+.. Open OASIS.
+.. Enter in "David Li" for the username and "Pa55w0rd" as the password. (David Li is only of the sample people loaded when no data file is found)
+.. Click submit or press enter. +
+   Expected: You should now be logged in as David Li.
+
+=== Logging out of the system
+
+. Firstly, perform the steps stated in "Logging into the system".
+. Type in "Logout" into the command box, then press enter. +
+  Expected: You should now be logged out. OASIS should now show the login screen.
+
 === Deleting a person
 
 . Deleting a person while active persons are listed
@@ -1852,4 +1873,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. The data files are located under data folder. For example, data/addressbook.xml contains data of everyone stored in the system.
+[NOTE]
+Data is only witten to disk if there is any change in the system. If OASIS was simply opened and closed with no changes made, no data file would be written.
+.. To modify the data files to simulate missing or corrupted data files, the element's tag may be modified. Note that information between the tag may also be modified, but it could still remain valid and would not be detected as an error. +
+   Expected: If a missing or corrupted data file is used, OASIS will then begin with an empty system instead.
