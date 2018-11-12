@@ -579,7 +579,7 @@ image::ScheduleDiagram.png[width="800"]
 
 As manipulating bit strings may be complicated, getter, setter and merger methods are provided for any external access to the schedule. This allows easy use of the specific slots in the schedule without heavy calculation and memorisation of bits.
 
-* Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects 
+* Schedule has a copy constructor to create duplicates for the schedule objects. Useful for any commands that manipulate schedule objects
 * Note that schedule only takes in Slots as an argument for its methods. Slot consists of a Time object and a Day object. This is to ensure Separation of Concerns in the schedule manipulation as schedule does not need to be ensure that the argument input is valid; The Time and Day objects will ensure the validity of values.
 * All commands that feed input into schedule should also validate the data input. In the event such data is not sanitised, defensive programming has been employed in Day and Time to deny the data.
 
@@ -670,7 +670,7 @@ Step 6. The new schedule object is returned to the application.
 === Add/Delete Friend feature
 
 ==== Current implementation
-This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
+This section explains the implementation of the addition/deletion of friends feature associated with each user in EventOrganizer. The relevant commands which are callable by the user to be discussed are:
 
 * `AddFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes to be friends with each other
 * `DeleteFriendCommand` - takes in a pair of indexes and makes a pair of persons associated with the indexes no longer friends with each other
@@ -704,11 +704,11 @@ Similarly, if two persons are not yet friends, or were friends but the friendshi
 
 ===== Aspect: Deletion/Modification of attributes of a person who is currently on the friend list of another person
 
-The friend lists of each user have to be constantly updated when a person is deleted from the Event Organizer or his attributes are modified (such as name change).
+The friend lists of each user have to be constantly updated when a person is deleted from EventOrganizer or his attributes are modified (such as name change).
 
 The following scenario describes what happens if person A is already on the friend list of person B (person A and B are friends with each other).
 
-Person A gets deleted from the Event Organizer:
+Person A gets deleted from EventOrganizer:
 This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), person A will be removed from his/her friend list.
 
 Person A's attributes gets modified (eg change name/phone):
@@ -1224,7 +1224,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 * Benefits customers seek to achieve: Students want to do all the scheduling, inviting and finalizing of a meetup in a fast and effective way.
 
-* How value proposition is delivered: The event organiser app provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.
+* How value proposition is delivered: EventOrganiser provides a large database of all the contacts and information of NUS students, which allows the organizers to search by name, availability, interests etc.
 
 [Discrete]
 === Feature
@@ -1233,7 +1233,7 @@ Division of work
 
 ==== Keng Ji : Add event feature with polls and time, location features
 
-- [x] V1.1: Event organiser able to create a basic event with date, time, organiser, participant and poll features.
+- [x] V1.1: EventOrganiser able to create a basic event with date, time, organiser, participant and poll features.
 - [x] V1.2: Users able to search for events by attributes (date, time, location, interest) and time range.
 - [x] V1.3: Application able to generate poll options based on participants' schedules.
 
@@ -1711,9 +1711,9 @@ The result of the test cases under each command is assumed to not persist to the
 === Login a user
 .. Note: The states of each test case is continued in the next test case.
 .. Prerequisites:
-Event Organiser already has a user with name as "Alex Yeoh" and password as "password".
+EventOrganiser already has a user with name as "Alex Yeoh" and password as "password".
 No user is currently logged in.
-The Event Organiser does not have a user with name as "Michael Lim" and password as "password".
+EventOrganiser does not have a user with name as "Michael Lim" and password as "password".
 .. Test case: `login`
    Expected: Login unsuccessful.
 .. Test case: `login n/Michael Lim pass/password`
@@ -1734,7 +1734,7 @@ The Event Organiser does not have a user with name as "Michael Lim" and password
    Expected: Logout unsuccessful.
 
 === Find users
-.. Prerequisites: Event Organiser currently has two user accounts.
+.. Prerequisites: EventOrganiser currently has two user accounts.
 The first user has name as "Alex Yeoh" and interests as "study".
 The second user has name as "Bernice Yu" and interest as "play".
 .. Test case `findUser n/Alex Yeoh`
@@ -1745,17 +1745,17 @@ The second user has name as "Bernice Yu" and interest as "play".
    Expected: No user is listed.
 
 === Edit a user
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `editUser n/Alex Tan`
    Expected: Name of user successfully changed to "Alex Tan".
 
 === Delete a user
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `deleteUser`
    Expected: user "Alex Yeoh" successfully deleted.
 
 === Populate a user schedule via Timetable
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `editUser tt/http://modsn.us/H4v8s`
    Expected: Schedule of user successfully overwritten to 100000000000000011110000000011110000000000
 000000000000000000000000000000111111110000000000000000000000000000000000001100000011110000000000
@@ -1766,31 +1766,31 @@ The second user has name as "Bernice Yu" and interest as "play".
     Expected: Invalid NUSmods Link
 
 === Edit a user schedule
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh", no existing schedule and user "Alex Yeoh" is currently logged in.
 .. Test case `editUser su/monday 0000`
    Expected: Schedule of user "Alex Yeoh" successfully changed. First bit of the schedule is now 1.
 .. Test case `editUser su/monday 0030`
    Expected: Schedule of user "Alex Yeoh" successfully changed. Second bit of the schedule is now 1.
 
 === Find free time between two users
-.. Prerequisites: Event Organiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
+.. Prerequisites: EventOrganiser has 2 users A and B on index 1 and 2. Both A and B has no existing schedule.
 .. Test case `maxSchedule sl/0000-0000`
    Expected: Free time of 0000 from Monday to Sunday is displayed.
 .. Test case `maxSchedule sl/0800-0900`
    Expected: Free time of 0800, 0830, 0900 and 0930 from Monday to Sunday are displayed.
 
 === Add a friend
-.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has users with name "Alex Yeoh" and "Bernice Yu", and they are not currently friends, and user "Alex Yeoh" is currently logged in.
 .. Test case `addFriend 1,2`
    Expected: users "Alex Yeoh" and "Bernice Yu" become friends with each other.
 
 === Delete a friend
-.. Prerequisites: Event Organiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has users with name "Alex Yeoh" and "Bernice Yu", and they are currently friends, and user "Alex Yeoh" is currently logged in.
 .. Test case `deleteFriend 1,2`
    Expected: users "Alex Yeoh" and "Bernice Yu" are no longer friends with each other.
 
 === Add an event
-.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Prerequisites: EventOrganiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
 .. Test case `addEvent n/CS1234 Group Meeting a/SoC Canteen t/URGENT`
    Expected: new event with details `CS1234 Group Meeting Location: SoC Canteen Tags: [URGENT]` is added and selected.
    "Alex Yeoh" is the event organiser.

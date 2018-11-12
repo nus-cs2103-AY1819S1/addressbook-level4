@@ -80,7 +80,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === User Uniqueness
 
 * We define the uniqueness of a user by its tuple of NAME and PASSWORD. No two users can have the same NAME and PASSWORD pair. If two users have the same name, then they will have to use different passwords.
-* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others. 
+* As user/password pair may allow for a brute-force password attack, we urge all users to choose a secure password that is not easily guessed or commonly used by others.
 
 === Timetable
 Timetable download guide
