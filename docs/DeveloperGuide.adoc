@@ -314,12 +314,12 @@ Alex enters his name and password as required by the login command.
 .UI before Alex Yeoh has successfully logs in.
 image::LoginFeatureBeforeLogin.png[width="300"]
 
-Once Alex Yeoh successfully logs in, the UI will automatically be updated as shown below.
+Once Alex Yeoh successfully logs in, the UI will automatically be updated as shown below
 
 image::LoginFeatureAfterLogin.png[width="300"]
 
 The images below shows the Class Diagram for the Model component of the Login command.
-Note that some details where ommited for the sake of simplicity.
+Note that some minute details where ommited for the sake of simplicity.
 
 image::LoginFeature_ClassDiagram_Model_1.png[width="800", margin-bottom="0"]
 
@@ -330,7 +330,8 @@ image::LoginFeature_ClassDiagram_Model_3.png[width="800"]
 .Class Diagram for the Model component of the Login Command
 image::LoginFeature_ClassDiagram_Model_4.png[width="800"]
 
-Again, note that some details for th Logic component where ommited for the sake of simplicity.
+
+Again, note that some minute details for the Logic component where omitted for the sake of simplicity.
 
 .Class Diagram for the Logic component of the Login Command
 image::LoginFeature_ClassDiagram_Logic_1.png[width="800"]
