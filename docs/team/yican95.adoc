@@ -85,3 +85,5 @@ ability to write technical documentation and the technical depth of my contribut
 include::../DeveloperGuide.adoc[tag=menu]
 
 include::../DeveloperGuide.adoc[tag=ucmenu]
+
+include::../DeveloperGuide.adoc[tag=testMenu]

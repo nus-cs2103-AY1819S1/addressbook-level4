@@ -729,7 +729,7 @@ image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
 // end::deleteingredient[]
 
 // tag::menu[]
-=== Menu Management feature
+=== Menu management feature
 Menu management feature extends `MeNUS` with a menu and provides the users with the ability to add items to the
 menu, edit items and remove items from the menu.
 
