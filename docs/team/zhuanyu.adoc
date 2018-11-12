@@ -120,5 +120,3 @@ a clear and concise manner._
 include::../DeveloperGuide.adoc[tag=query]
 
 include::../DeveloperGuide.adoc[tag=notify]
-
-include::../DeveloperGuide.adoc[tag=weather]

@@ -1,6 +1,7 @@
 package seedu.parking.ui;
 
-import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -26,7 +27,7 @@ public class CarparkListPanel extends UiPart<Region> {
     private static final String FXML = "CarparkListPanel.fxml";
     private static int selectIndex = -1;
     private static Carpark selectedCarpark = null;
-    private static Timer timer = new Timer("Timer");
+    private static ScheduledExecutorService timer = Executors.newSingleThreadScheduledExecutor();
     private static int timeInterval = 0;
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
@@ -79,7 +80,8 @@ public class CarparkListPanel extends UiPart<Region> {
     @Subscribe
     private void handleNotifyCarparkRequestEvent(NotifyCarparkRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setConnections(carparkListView.getItems());
+        carparkListView.setItems(carparkListView.getItems());
+        carparkListView.setCellFactory(listView -> new CarparkListViewCell());
     }
 
     @Subscribe
@@ -87,7 +89,7 @@ public class CarparkListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         selectIndex = -1;
         selectedCarpark = null;
-        timer.cancel();
+        timer.shutdownNow();
     }
 
     @Subscribe
@@ -111,13 +113,13 @@ public class CarparkListPanel extends UiPart<Region> {
         return timeInterval;
     };
 
-    public static Timer getTimer() {
+    public static ScheduledExecutorService getTimer() {
         return timer;
     }
 
     public static void setTimer() {
-        timer.cancel();
-        timer = new Timer("Timer");
+        timer.shutdownNow();
+        timer = Executors.newSingleThreadScheduledExecutor();
     }
 
     /**
