@@ -45,7 +45,7 @@ public class QueryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%1$d car parks updated";
     public static final String MESSAGE_LOADING = "Loading... please wait...";
-    private static final String MESSAGE_ERROR_CARPARK = "Unable to retrieve car park information from data.gov.sg\n"
+    public static final String MESSAGE_ERROR_CARPARK = "Unable to retrieve car park information from data.gov.sg\n"
             + "Please check your internet connection and try again";
 
     private ExecutorService threadExecutor;
