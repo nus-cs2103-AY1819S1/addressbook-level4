@@ -42,7 +42,7 @@ directions or generating convenient meeting locations (based on faculty location
 
 
 ** Project management:
-*** Managed release `v1.3.1` on GitHub
+*** Managed releases `v1.3.1` and `v1.4` on GitHub
 *** Managed issue tracker and helped close issues upon completion: (examples: https://github.com/CS2103-AY1819S1-W13-2/main/issues/146[146],
  https://github.com/CS2103-AY1819S1-W13-2/main/issues/152[152],
  https://github.com/CS2103-AY1819S1-W13-2/main/issues/160[160],
