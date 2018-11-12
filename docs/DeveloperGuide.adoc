@@ -1291,9 +1291,6 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
-
-_{More to be added}_
-
 // tag::nfr[]
 [appendix]
 == Non Functional Requirements

@@ -58,7 +58,6 @@ public class ScheduleCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
         if (model.hasMeeting(meeting)) {
             throw new CommandException(Messages.MESSAGE_CLASHING_MEETINGS);
         }
@@ -68,13 +67,10 @@ public class ScheduleCommand extends Command {
         if (!personToSchedule.getMeeting().value.equals(Meeting.NO_MEETING)) {
             model.deleteMeeting(personToSchedule.getMeeting());
         }
-
         if (!meeting.value.equals(Meeting.NO_MEETING)) {
             model.addMeeting(meeting);
         }
-
         Person scheduledPerson = createScheduledPerson(personToSchedule, meeting);
-
         model.updatePerson(personToSchedule, scheduledPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
@@ -87,7 +83,6 @@ public class ScheduleCommand extends Command {
      */
     private static Person createScheduledPerson(Person personToSchedule, Meeting meeting) {
         assert personToSchedule != null;
-
         Name name = personToSchedule.getName();
         Optional<Phone> phone = personToSchedule.getPhone();
         Optional<Email> email = personToSchedule.getEmail();
@@ -96,6 +91,4 @@ public class ScheduleCommand extends Command {
         Picture picture = personToSchedule.getPicture();
         return new Person(name, phone, email, address, tags, meeting, picture);
     }
-
-
 }
