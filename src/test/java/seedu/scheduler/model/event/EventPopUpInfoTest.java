@@ -22,34 +22,30 @@ import seedu.scheduler.testutil.Assert;
 public class EventPopUpInfoTest {
 
 
-    private EventPopUpInfo MA2101_eventPopUpInfo = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
+    private static final EventPopUpInfo MA2101_EVENTPOPUPINFO = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
             VALID_EVENT_UUID_MA2101, new EventName(VALID_EVENT_NAME_MA2101),
             new DateTime(VALID_START_DATETIME_MA2101),
             new DateTime(VALID_END_DATETIME_MA2101),
             new Description(VALID_DESCRIPTION_MA2101),
-            new Venue(VALID_VENUE_MA2101)
-            , Duration.parse("PT15M"));
-    private EventPopUpInfo MA2101_differentDuration = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
+            new Venue(VALID_VENUE_MA2101), Duration.parse("PT15M"));
+    private static final EventPopUpInfo MA2101_DIFFERENTDURATION = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
             VALID_EVENT_UUID_MA2101, new EventName(VALID_EVENT_NAME_MA2101),
             new DateTime(VALID_START_DATETIME_MA2101),
             new DateTime(VALID_END_DATETIME_MA2101),
             new Description(VALID_DESCRIPTION_MA2101),
-            new Venue(VALID_VENUE_MA2101)
-            , Duration.parse("PT30M"));
-    private EventPopUpInfo MA2101_differentStartTime = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
+            new Venue(VALID_VENUE_MA2101), Duration.parse("PT30M"));
+    private static final EventPopUpInfo MA2101_DIFFERENTSTARTTIME = new EventPopUpInfo(VALID_EVENT_UID_MA2101,
             VALID_EVENT_UUID_MA2101, new EventName(VALID_EVENT_NAME_MA2101),
             new DateTime(VALID_START_DATETIME_MA3220),
             new DateTime(VALID_END_DATETIME_MA2101),
             new Description(VALID_DESCRIPTION_MA2101),
-            new Venue(VALID_VENUE_MA2101)
-            , Duration.parse("PT15M"));
-    private EventPopUpInfo MA2101_differentId = new EventPopUpInfo(VALID_EVENT_UID_MA3220,
+            new Venue(VALID_VENUE_MA2101), Duration.parse("PT15M"));
+    private static final EventPopUpInfo MA2101_DIFFERENTID = new EventPopUpInfo(VALID_EVENT_UID_MA3220,
             VALID_EVENT_UUID_MA2101, new EventName(VALID_EVENT_NAME_MA2101),
             new DateTime(VALID_START_DATETIME_MA2101),
             new DateTime(VALID_END_DATETIME_MA2101),
             new Description(VALID_DESCRIPTION_MA2101),
-            new Venue(VALID_VENUE_MA2101)
-            , Duration.parse("PT15M"));
+            new Venue(VALID_VENUE_MA2101), Duration.parse("PT15M"));
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -58,8 +54,7 @@ public class EventPopUpInfoTest {
                 new DateTime(VALID_START_DATETIME_MA2101),
                 new DateTime(VALID_END_DATETIME_MA2101),
                 new Description(VALID_DESCRIPTION_MA2101),
-                new Venue(VALID_VENUE_MA2101)
-                , null));
+                new Venue(VALID_VENUE_MA2101), null));
     }
 
 
@@ -68,34 +63,34 @@ public class EventPopUpInfoTest {
         // same values -> returns true
 
         // same object -> returns true
-        assertEquals(MA2101_eventPopUpInfo, MA2101_eventPopUpInfo);
+        assertEquals(MA2101_EVENTPOPUPINFO, MA2101_EVENTPOPUPINFO);
 
         // null -> returns false
-        assertNotEquals(null, MA2101_eventPopUpInfo);
+        assertNotEquals(null, MA2101_EVENTPOPUPINFO);
 
         // different type -> returns false
-        assertNotEquals(5, MA2101_eventPopUpInfo);
+        assertNotEquals(5, MA2101_EVENTPOPUPINFO);
 
         // different object -> returns false
-        assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentDuration);
-        assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentStartTime);
-        assertNotEquals(MA2101_eventPopUpInfo, MA2101_differentId);
+        assertNotEquals(MA2101_EVENTPOPUPINFO, MA2101_DIFFERENTDURATION);
+        assertNotEquals(MA2101_EVENTPOPUPINFO, MA2101_DIFFERENTSTARTTIME);
+        assertNotEquals(MA2101_EVENTPOPUPINFO, MA2101_DIFFERENTID);
 
     }
 
     @Test
     public void compareTo() {
-        assertEquals(MA2101_eventPopUpInfo.compareTo(MA2101_eventPopUpInfo), 0);
-        assertEquals(MA2101_eventPopUpInfo.compareTo(MA2101_differentDuration), 1);
-        assertEquals(MA2101_differentDuration.compareTo(MA2101_eventPopUpInfo), -1);
+        assertEquals(MA2101_EVENTPOPUPINFO.compareTo(MA2101_EVENTPOPUPINFO), 0);
+        assertEquals(MA2101_EVENTPOPUPINFO.compareTo(MA2101_DIFFERENTDURATION), 1);
+        assertEquals(MA2101_DIFFERENTDURATION.compareTo(MA2101_EVENTPOPUPINFO), -1);
     }
 
     @Test
     public void getPopUpDisplay() {
-        String expectedString = "Venue: " + MA2101_JANUARY_1_2018_YEARLY.getVenue().toString() + "\n" +
-                MA2101_JANUARY_1_2018_YEARLY.getStartDateTime().getPrettyString()
+        String expectedString = "Venue: " + MA2101_JANUARY_1_2018_YEARLY.getVenue().toString() + "\n"
+                + MA2101_JANUARY_1_2018_YEARLY.getStartDateTime().getPrettyString()
                 + " - " + MA2101_JANUARY_1_2018_YEARLY.getEndDateTime().getPrettyString();
-        assertEquals(MA2101_eventPopUpInfo.getPopUpDisplay(), expectedString);
+        assertEquals(MA2101_EVENTPOPUPINFO.getPopUpDisplay(), expectedString);
 
     }
 }
