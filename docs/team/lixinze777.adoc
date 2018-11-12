@@ -301,12 +301,13 @@ already in this mode.
 
 . Selecting an appointment（Assume that *only* appointment e0 is present in the appointment panel）
 
-.. Test case: `select appointment e0`
+.. Test case: `select appointment e0` +
    Expected: Appointment e0 is selected. Its card lights up with a blue color. The note of appointment e0 are shown in
    the appointment note panel. Success message is shown in the display panel. Timestamp in the status bar is not updated.
-.. Test case: `select e0`
+.. Test case: `select e0` +
    Expected: Expected: No appointment is being selected. Error details are shown in the display panel.
    Timestamp in the status bar is not updated.
-.. Other incorrect select patient commands to try: `select appointment 0`, `select appointment e1`, `select appointment p0`
+.. Other incorrect select patient commands to try: `select appointment 0`, `select appointment e1`, `select appointment p0` +
    Expected: Similar to previous
+   
 ---
