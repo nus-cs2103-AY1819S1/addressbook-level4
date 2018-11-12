@@ -31,6 +31,7 @@ It is *optimized for receptionist who prefer to work with a Command Line Interfa
 * *Other contributions*:
 
 ** Project management:
+*** Managed release `v1.3` on GitHub
 *** Setting up AppVeyor, Travis, Coveralls and Netlify for the project
 ** Implementation of new features:
 *** Added `add-appointment` and `delete-appointment`  commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/29[#29])

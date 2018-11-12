@@ -13,7 +13,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.HealthBookChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
@@ -25,7 +25,7 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedHealthBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointment;
     private int appointmentCounter;
@@ -33,29 +33,29 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyHealthBook addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = new VersionedHealthBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredAppointment = new FilteredList<>(versionedAddressBook.getAppointmentList());
         appointmentCounter = versionedAddressBook.getAppointmentCounter();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new HealthBook(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyHealthBook newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyHealthBook getAddressBook() {
         return versionedAddressBook;
     }
 
@@ -63,7 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Raises an event to indicate the model has changed
      */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+        raise(new HealthBookChangedEvent(versionedAddressBook));
     }
 
     @Override

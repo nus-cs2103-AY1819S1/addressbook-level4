@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.HealthBook;
+import seedu.address.model.ReadOnlyHealthBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
@@ -17,10 +17,10 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable HealthBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+public class XmlSerializableHealthBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
@@ -32,10 +32,10 @@ public class XmlSerializableAddressBook {
     private int appointmentCounter;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableHealthBook.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableHealthBook() {
         persons = new ArrayList<>();
         appointments = new ArrayList<>();
         appointmentCounter = 10000;
@@ -44,7 +44,7 @@ public class XmlSerializableAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableHealthBook(ReadOnlyHealthBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         appointments.addAll(src.getAppointmentList().stream().map(XmlAdaptedAppointment::new)
@@ -53,32 +53,32 @@ public class XmlSerializableAddressBook {
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this addressbook into the model's {@code HealthBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public HealthBook toModelType() throws IllegalValueException {
+        HealthBook healthBook = new HealthBook();
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (healthBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             if (!person.getTags().isEmpty() && person.getTags().toArray()[0].equals(new Tag("Doctor"))) {
-                addressBook.addDoctor((Doctor) person);
+                healthBook.addDoctor((Doctor) person);
             } else if (!person.getTags().isEmpty() && person.getTags().toArray()[0].equals(new Tag("Patient"))) {
-                addressBook.addPatient((Patient) person);
+                healthBook.addPatient((Patient) person);
             } else {
-                addressBook.addPerson(person);
+                healthBook.addPerson(person);
             }
         }
         for (XmlAdaptedAppointment a : appointments) {
             Appointment appointment = a.toModelType();
-            addressBook.addAppointment(appointment);
+            healthBook.addAppointment(appointment);
         }
-        addressBook.setAppointmentCounter(appointmentCounter);
-        return addressBook;
+        healthBook.setAppointmentCounter(appointmentCounter);
+        return healthBook;
     }
 
     @Override
@@ -87,9 +87,9 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableHealthBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        return persons.equals(((XmlSerializableHealthBook) other).persons);
     }
 }

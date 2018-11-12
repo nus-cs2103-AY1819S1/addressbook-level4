@@ -6,7 +6,7 @@ import seedu.address.calendar.GoogleCalendar;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 
 /**
@@ -21,7 +21,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar) {
         requireNonNull(model);
-        model.resetData(new AddressBook());
+        model.resetData(new HealthBook());
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent());

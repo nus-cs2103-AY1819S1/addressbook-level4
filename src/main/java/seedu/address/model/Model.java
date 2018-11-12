@@ -23,12 +23,12 @@ public interface Model {
     /**
      * Clears existing backing model and replaces with the provided new data.
      */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyHealthBook newData);
 
     /**
-     * Returns the AddressBook
+     * Returns the HealthBook
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyHealthBook getAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

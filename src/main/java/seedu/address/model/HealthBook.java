@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class HealthBook implements ReadOnlyHealthBook {
 
     private final UniquePersonList persons;
     private final UniqueAppointmentList appointments;
@@ -37,13 +37,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointmentCounter = 10000;
     }
 
-    public AddressBook() {
+    public HealthBook() {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an HealthBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public HealthBook(ReadOnlyHealthBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -74,9 +74,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code HealthBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyHealthBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -142,7 +142,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code HealthBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -242,12 +242,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons))
-                && (other instanceof AddressBook
-                && appointments.equals(((AddressBook) other).appointments))
-                && (other instanceof AddressBook // instanceof handles nulls
-                && appointmentCounter == (((AddressBook) other).appointmentCounter));
+                || (other instanceof HealthBook // instanceof handles nulls
+                && persons.equals(((HealthBook) other).persons))
+                && (other instanceof HealthBook
+                && appointments.equals(((HealthBook) other).appointments))
+                && (other instanceof HealthBook // instanceof handles nulls
+                && appointmentCounter == (((HealthBook) other).appointmentCounter));
     }
 
     @Override

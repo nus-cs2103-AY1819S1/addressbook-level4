@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
@@ -129,10 +129,10 @@ public class TypicalPatientsAndDoctorsWithAppt {
     private TypicalPatientsAndDoctorsWithAppt() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code HealthBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBookWithPatientAndDoctorWithAppt() {
-        AddressBook ab = new AddressBook();
+    public static HealthBook getTypicalAddressBookWithPatientAndDoctorWithAppt() {
+        HealthBook ab = new HealthBook();
         for (Person person : getTypicalPatientsAndDoctorsWithAppt()) {
             if (person instanceof Patient) {
                 ab.addPatient((Patient) person);
@@ -149,8 +149,8 @@ public class TypicalPatientsAndDoctorsWithAppt {
         return ab;
     }
 
-    public static AddressBook getSmallerAddressBookWithPatientAndDoctorWithAppt() {
-        AddressBook ab = new AddressBook();
+    public static HealthBook getSmallerAddressBookWithPatientAndDoctorWithAppt() {
+        HealthBook ab = new HealthBook();
         ab.addPatient(IONA_PATIENT_APPT);
         ab.addDoctor(HELENA_DOCTOR_APPT);
         ab.addAppointment(SIXTH);

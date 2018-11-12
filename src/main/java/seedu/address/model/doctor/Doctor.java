@@ -20,7 +20,6 @@ import seedu.address.model.tag.Tag;
 public class Doctor extends Person {
     // Variables
     private List<Appointment> upcomingAppointments;
-    private List<Appointment> pastAppointments;
 
     // Constructor
     public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,

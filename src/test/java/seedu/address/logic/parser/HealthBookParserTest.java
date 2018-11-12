@@ -83,11 +83,11 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.PrescriptionBuilder;
 
-public class AddressBookParserTest {
+public class HealthBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final HealthBookParser parser = new HealthBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

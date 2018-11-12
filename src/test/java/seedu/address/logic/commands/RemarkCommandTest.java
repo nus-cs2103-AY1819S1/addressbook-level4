@@ -16,7 +16,7 @@ import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddress
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
+import seedu.address.model.HealthBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -46,7 +46,7 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson.getName());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedPerson);
         expectedModel.commitAddressBook();
 
@@ -62,7 +62,7 @@ public class RemarkCommandTest {
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson.getName());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedPerson);
         expectedModel.commitAddressBook();
 
@@ -93,7 +93,7 @@ public class RemarkCommandTest {
         Person editedPerson = new PersonBuilder(personToEdit).withRemark(VALID_REMARK_BOB).build();
         RemarkCommand remarkCommand = new RemarkCommand(personToEdit.getName(), null,
                 new Remark(VALID_REMARK_BOB));
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new HealthBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
 

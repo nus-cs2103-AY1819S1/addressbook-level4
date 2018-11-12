@@ -1,0 +1,122 @@
+= Giam Ju Xian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthBook
+
+---
+
+== Overview
+
+HealthBook is for clinic receptionist who *prefer to use a desktop app for managing doctors and patients information and
+appointments*. It is *optimized for receptionist who prefer to work with a Command Line Interface* (CLI) while still
+having the benefits of a Graphical User Interface (GUI).
+
+== Summary of contributions
+
+* *Major enhancement*: Added the command to register both doctors and patients
+** What it does: This allows the user to register new doctors and patients into the HealthBook.
+** Justification: This feature enables the user to add new doctors and patients into the HealthBook so that further
+commands can be called on them.
+** Highlights: This enhancement is required for all other commands of the HealthBook to work. It required an in-depth considerations
+of the data structure to store the information of patients and doctors. The implementation required a good understanding of
+what was already implemented in the previous versions and what is required for further implementations of subsequent commands
+and usage.
+
+* *Major enhancement*: Added the command to complete appointments
+** What it does: This allows the user to complete upcoming appointments of patients.
+** Justification: This feature enables the user to keep track of the upcoming and past appointments in the HealthBook,
+and updates the doctors' calendars at the same time.
+** Highlights: This enhancement is the primary purpose of the HealthBook. It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required integration with Google calendar commands.
+
+* *Major enhancement*: Integrated Google Calendar into HealthBook
+** What it does: This allows information of appointments to be presented to doctors in their Google calendar when appointments
+are added, completed or deleted. They will be able to review the patient they are seeing as well as time of the appointment easily.
+** Justification: This feature allows doctors to receive information about their upcoming appointments in a decentralized
+ manner. Receptionists can use this integration to pass information to doctors that may not be in the clinic at that point in time.
+** Highlights: This enhancement required a good understanding of both integration of Google's API and other commands of
+the HealthBook. It required an extensive understanding of integration in Java and the Google's API that is available.
+In addition, this implementation required a good analysis of how the Google Calendar can compliment the features in the HealthBook.
+** Credits: Google's API https://developers.google.com/resources/api-libraries/documentation/calendar/v3/java/latest/
+
+* *Minor enhancement*:
+** Implemented patient and doctor models into HealthBook
+** Modified storage of patient and doctor so that their information can be extracted and saved accordingly.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=giamjuxian [Functional code]
+
+* *Other contributions*:
+** Project management:
+*** Setting up of Jar files for Release.
+*** Assigning issues and datelines after v1.3.
+
+** Implementation of new features:
+*** Added `register-patient` and `register-doctor` commands
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/29[#29])
+*** Added `complete-appointment` command
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/62[#62])
+*** Integrated Google Calendar to `add-appointment`, `delete-appointment` and `complete-appointment` commands
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/54[#54],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/27[#27])
+*** Modified storage to accommodate patients, doctors, appointments and prescriptions.
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/32[#32])
+*** Wrote test cases for new commands
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/56[#56])
+*** Wrote test cases for changes in models
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/76[#76])
+*** Wrote test cases for changes in storage
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/59[#59])
+
+** Enhancements to existing features:
+*** Refactored code to change all necessary information of AddressBook to HealthBook
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/152[#152])
+*** Updated default storage and release information
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/81[#81])
+
+** Documentation:
+*** Updated User Guide
+(Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/131[#131],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/80[#80])
+*** Updated Developer Guide
+(Pull requests  https://github.com/CS2103-AY1819S1-T10-2/main/pull/131[#131],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/155[#155],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/20[#20],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/35[#35],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/36[#36],)
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/CS2103-AY1819S1-T10-2/main/issues/135[1],
+https://github.com/CS2103-AY1819S1-T10-2/main/issues/133[2],
+https://github.com/CS2103-AY1819S1-T10-2/main/issues/74[3])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=registerpatient]
+
+include::../UserGuide.adoc[tag=registerdoctor]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=logicomponent]
+
+include::../DeveloperGuide.adoc[tag=calendarcomponent]
+
+include::../DeveloperGuide.adoc[tag=modelcomponent]
+
+include::../DeveloperGuide.adoc[tag=storagecomponent]
+
+include::../DeveloperGuide.adoc[tag=registerpatient]
+
+include::../DeveloperGuide.adoc[tag=registerdoctor]
