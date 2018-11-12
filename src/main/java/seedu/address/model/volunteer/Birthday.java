@@ -5,6 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Represents an Volunteer's birthday in the application.
  * Guarantees: immutable; is valid as declared in {@link #isValidBirthday(String)}
@@ -19,6 +23,7 @@ public class Birthday {
      * Regex not enough to check for valid dates. Need to use a SimpleDateFormat parser as well.
      */
     public static final String BIRTHDAY_VALIDATION_REGEX = "[0-3]\\d-[01]\\d-\\d{4}";
+    public static final int BIRTHDAY_MONTH_CORRECTION = 1;
 
     public final String value;
 
@@ -30,6 +35,7 @@ public class Birthday {
     public Birthday(String birthday) {
         requireNonNull(birthday);
         checkArgument(isValidBirthday(birthday), MESSAGE_BIRTHDAY_CONSTRAINTS);
+        checkArgument(isLessThanOrEqualToValidBirthday(birthday), MESSAGE_BIRTHDAY_CONSTRAINTS);
         value = birthday;
     }
 
@@ -51,6 +57,37 @@ public class Birthday {
             return false;
         }
     }
+
+    /**
+     * Returns true if current date falls on an earlier date or on the same date as the valid date.
+     */
+    public static boolean isLessThanOrEqualToValidBirthday(String test) {
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+
+        String[] birthdayParts = test.split("-");
+        //parseInt ignores leading zeros like 01 or 09 when converting from String to int
+        int year = Integer.parseInt(birthdayParts[2]);
+        int month = Integer.parseInt(birthdayParts[1]);
+        int day = Integer.parseInt(birthdayParts[0]);
+        int otherYear = calendar.get(Calendar.YEAR);
+        int otherMonth = calendar.get(Calendar.MONTH) + BIRTHDAY_MONTH_CORRECTION;
+        int otherDay = calendar.get(Calendar.DAY_OF_MONTH);
+        if (year > otherYear) {
+            //start year is more than end year
+            return false;
+        } else if (year == otherYear && month > otherMonth) {
+            //same year but start month is more than end month
+            return false;
+        } else if (year == otherYear && month == otherMonth && day > otherDay) {
+            //same year, same month but start day is more than end day
+            return false;
+        }
+
+        return true;
+    }
+
 
     @Override
     public String toString() {
