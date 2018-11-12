@@ -654,10 +654,6 @@ whether they intend to gain/lose/maintain weight from their
 set age, current weight and also their current height. this will then tell them what is the required calories to
 eat per day to hit their target.
 
-==== Class Diagram
-
-image::healthPlanClassDiagram.png[width="800"]
-
 ==== Current implementation
 
 * Users are able to add to the list based on their personal settings: name, age, height, weight, target weight,
