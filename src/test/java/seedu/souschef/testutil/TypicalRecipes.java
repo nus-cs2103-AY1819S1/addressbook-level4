@@ -1,13 +1,13 @@
 package seedu.souschef.testutil;
 
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_COOKTIME_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_COOKTIME_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_DIFFICULTY_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_COOKTIME_HR;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_COOKTIME_MIN;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_DIFFICULTY_1;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_DIFFICULTY_5;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_AMERICA;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_NAME_BEE;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_SPICY;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_STAPLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,13 +49,11 @@ public class TypicalRecipes {
             .withDifficulty("5").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}
-    public static final Recipe AMY = new RecipeBuilder().withName(VALID_NAME_AMY).withDifficulty(VALID_DIFFICULTY_AMY)
-            .withCooktime(VALID_COOKTIME_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Recipe BOB = new RecipeBuilder().withName(VALID_NAME_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
-            .withCooktime(VALID_COOKTIME_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final Recipe AMERICA = new RecipeBuilder().withName(VALID_NAME_AMERICA)
+            .withDifficulty(VALID_DIFFICULTY_5).withCooktime(VALID_COOKTIME_MIN).withTags(VALID_TAG_SPICY).build();
+    public static final Recipe BEE = new RecipeBuilder().withName(VALID_NAME_BEE).withDifficulty(VALID_DIFFICULTY_1)
+            .withCooktime(VALID_COOKTIME_HR).withTags(VALID_TAG_STAPLE, VALID_TAG_SPICY)
             .build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalRecipes() {} // prevents instantiation
 

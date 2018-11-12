@@ -21,8 +21,8 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.recipe.XmlRecipeStorage;
 
-public class XmlAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
+public class XmlRecipeStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlRecipeStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -55,7 +55,7 @@ public class XmlAddressBookStorageTest {
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readAddressBook("NotXmlFormatRecipe.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -63,15 +63,15 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidRecipeAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidRecipe_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidRecipeAddressBook.xml");
+        readAddressBook("invalidRecipe.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidRecipeAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidAndValidRecipe_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidRecipeAddressBook.xml");
+        readAddressBook("invalidAndValidRecipe.xml");
     }
 
     @Test

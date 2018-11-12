@@ -2,12 +2,25 @@ package seedu.souschef.model;
 
 import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
+<<<<<<< HEAD
+=======
+import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
+import seedu.souschef.commons.events.model.RecipeDeletedEvent;
+import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
+import seedu.souschef.logic.parser.Context;
+import seedu.souschef.model.favourite.Favourites;
+>>>>>>> a0774f84ee9a4d04513be5834cde4b26f1276a17
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 /**
@@ -36,6 +49,7 @@ public class ModelSetCoordinator implements ModelSet {
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
         mealPlannerModel = new ModelManager<>(versionedAppContent, versionedAppContent.getMealPlanner());
         favouriteModel = new ModelManager<>(versionedAppContent, versionedAppContent.getFavourites());
+        registerAsAnEventHandler(this);
     }
 
     public ModelSetCoordinator() {
@@ -98,4 +112,41 @@ public class ModelSetCoordinator implements ModelSet {
         return favouriteModel;
     }
 
+    @Subscribe
+    protected void handleMealPlanDeletedEvent(MealPlanDeletedEvent event) {
+        Day toDelete = event.day;
+        healthPlanModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<HealthPlan> healthPlanList = healthPlanModel.getFilteredList();
+
+        for (HealthPlan h : healthPlanList) {
+            if (h.getMealPlans().contains(toDelete)) {
+                h.getMealPlans().remove(toDelete);
+            }
+        }
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.HEALTH_PLAN));
+        healthPlanModel.indicateAppContentChanged();
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(event.context));
+    }
+
+    @Subscribe
+    protected void handleRecipeDeletedEvent(RecipeDeletedEvent event) {
+        Recipe toDelete = event.recipe;
+        mealPlannerModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<Day> mealPlanlist = mealPlannerModel.getFilteredList();
+
+        for (Day d : mealPlanlist) {
+            for (Meal m : d.getMeals()) {
+                if (!m.isEmpty() && m.getRecipe().isSame(toDelete)) {
+                    m.setRecipe(null);
+                    if (d.isEmpty()) {
+                        mealPlannerModel.delete(d);
+                        EventsCenter.getInstance().post(new MealPlanDeletedEvent(d, Context.RECIPE));
+                    }
+                }
+            }
+        }
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
+        mealPlannerModel.indicateAppContentChanged();
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.RECIPE));
+    }
 }

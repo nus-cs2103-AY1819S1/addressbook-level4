@@ -26,7 +26,6 @@ import seedu.souschef.model.healthplan.CurrentHeight;
 import seedu.souschef.model.healthplan.CurrentWeight;
 import seedu.souschef.model.healthplan.Duration;
 import seedu.souschef.model.healthplan.HealthPlanName;
-import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
 import seedu.souschef.model.ingredient.IngredientAmount;
 import seedu.souschef.model.ingredient.IngredientName;
@@ -314,21 +313,6 @@ public class ParserUtil {
             throw new ParseException(Duration.MESSAGE_DURATION_CONSTRAINTS);
         }
         return new Duration(trimmedDuration);
-    }
-
-    /**
-     * parse scheme
-     */
-    public static Scheme parseScheme(String scheme) throws ParseException {
-        requireNonNull(scheme);
-        String trimmedScheme = scheme.trim();
-        logger.info(trimmedScheme);
-
-        if (!"LOSS".equals(trimmedScheme) && !"GAIN".equals(trimmedScheme) && !"MAINTAIN".equals(trimmedScheme)) {
-            throw new ParseException("invalid scheme");
-
-        }
-        return Scheme.valueOf(trimmedScheme);
     }
 
     /**

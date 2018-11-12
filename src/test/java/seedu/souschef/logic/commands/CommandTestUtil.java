@@ -27,23 +27,23 @@ import seedu.souschef.testutil.EditRecipeDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_DIFFICULTY_AMY = "5";
-    public static final String VALID_DIFFICULTY_BOB = "1";
-    public static final String VALID_COOKTIME_AMY = "20M";
-    public static final String VALID_COOKTIME_BOB = "24M";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_AMERICA = "America Breakfast";
+    public static final String VALID_NAME_BEE = "Bee Hoon";
+    public static final String VALID_DIFFICULTY_5 = "5";
+    public static final String VALID_DIFFICULTY_1 = "1";
+    public static final String VALID_COOKTIME_MIN = "20M";
+    public static final String VALID_COOKTIME_HR = "1H45M";
+    public static final String VALID_TAG_STAPLE = "staple";
+    public static final String VALID_TAG_SPICY = "spicy";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_AMY;
-    public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_BOB;
-    public static final String COOKTIME_DESC_AMY = " " + PREFIX_COOKTIME + VALID_COOKTIME_AMY;
-    public static final String COOKTIME_DESC_BOB = " " + PREFIX_COOKTIME + VALID_COOKTIME_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMERICA;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BEE;
+    public static final String DIFFICULTY_DESC_AMY = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_5;
+    public static final String DIFFICULTY_DESC_BOB = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_1;
+    public static final String COOKTIME_DESC_AMY = " " + PREFIX_COOKTIME + VALID_COOKTIME_MIN;
+    public static final String COOKTIME_DESC_BOB = " " + PREFIX_COOKTIME + VALID_COOKTIME_HR;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_SPICY;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_STAPLE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a"; // 'a' not allowed in phones
@@ -57,12 +57,12 @@ public class CommandTestUtil {
     public static final EditRecipeDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withDifficulty(VALID_DIFFICULTY_AMY).withCooktime(VALID_COOKTIME_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withCooktime(VALID_COOKTIME_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_AMY = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMERICA)
+                .withDifficulty(VALID_DIFFICULTY_5).withCooktime(VALID_COOKTIME_MIN)
+                .withTags(VALID_TAG_SPICY).build();
+        DESC_BOB = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE)
+                .withDifficulty(VALID_DIFFICULTY_1).withCooktime(VALID_COOKTIME_HR)
+                .withTags(VALID_TAG_STAPLE, VALID_TAG_SPICY).build();
     }
 
     /**

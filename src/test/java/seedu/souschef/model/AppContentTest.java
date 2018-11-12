@@ -1,7 +1,7 @@
 package seedu.souschef.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.souschef.logic.commands.CommandTestUtil.VALID_TAG_STAPLE;
 import static seedu.souschef.testutil.TypicalRecipes.APPLE;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 
@@ -16,90 +16,62 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.souschef.model.exceptions.DuplicateException;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.recipe.Tag;
 import seedu.souschef.testutil.RecipeBuilder;
 
-public class AddressBookTest {
+public class AppContentTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AppContent addressBook = new AppContent();
+    private final AppContent appContent = new AppContent();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getObservableRecipeList());
+        assertEquals(Collections.emptyList(), appContent.getObservableRecipeList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        appContent.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         AppContent newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        appContent.resetData(newData);
+        assertEquals(newData, appContent);
     }
 
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(APPLE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(APPLE).withTags(VALID_TAG_STAPLE)
                 .build();
         List<Recipe> newRecipes = Arrays.asList(APPLE, editedAlice);
         AppContentStub newData = new AppContentStub(newRecipes);
 
         thrown.expect(DuplicateException.class);
-        addressBook.resetData(newData);
+        appContent.resetData(newData);
     }
-
-    //    @Test
-    //    public void hasRecipe_nullRecipe_throwsNullPointerException() {
-    //        thrown.expect(NullPointerException.class);
-    //        addressBook.hasRecipe(null);
-    //    }
-
-    //    @Test
-    //    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-    //        assertFalse(addressBook.hasRecipe(APPLE));
-    //    }
-
-    //    @Test
-    //    public void hasrecipe_recipeInAddressBook_returnsTrue() {
-    //        addressBook.addRecipe(APPLE);
-    //        assertTrue(addressBook.hasRecipe(APPLE));
-    //    }
-
-    //    @Test
-    //    public void hasRecipe_recipeWithSameIdentityFieldsInAddressBook_returnsTrue() {
-    //        addressBook.addRecipe(APPLE);
-    //        Recipe editedAlice = new RecipeBuilder(APPLE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-    //                .build();
-    //        assertTrue(addressBook.hasRecipe(editedAlice));
-    //    }
 
     @Test
     public void getRecipeList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getObservableRecipeList().remove(0);
+        appContent.getObservableRecipeList().remove(0);
     }
 
     /**
-     * A stub ReadOnlyAppContent whose recipes list can violate interface constraints.
+     * A stub ReadOnlyAppContent whose lists can violate interface constraints.
      */
     private static class AppContentStub implements ReadOnlyAppContent {
         private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
-        private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
         private final ObservableList<CrossRecipe> crossRecipes = FXCollections.observableArrayList();
         private final ObservableList<HealthPlan> plans = FXCollections.observableArrayList();
@@ -113,11 +85,6 @@ public class AddressBookTest {
         @Override
         public ObservableList<Recipe> getObservableRecipeList() {
             return recipes;
-        }
-
-        @Override
-        public ObservableList<Tag> getObservableTagList() {
-            return tags;
         }
 
         @Override

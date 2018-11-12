@@ -81,7 +81,7 @@ public class FavouritesPanel extends GenericListPanel<Recipe> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FavouritesCard(favourites,getIndex() + 1).getRoot());
+                setGraphic(new FavouritesCard(favourites, getIndex() + 1).getRoot());
             }
         }
     }
