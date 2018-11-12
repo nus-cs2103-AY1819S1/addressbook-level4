@@ -2290,3 +2290,40 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Clearing Persons
+. Clearing persons while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `clear CCA` +
+   Expected: Person(s) associated with `CCA` is/are cleared from the list.
+.. Test case: `clear ROOM` +
+   Expected: Person(s) associated with `ROOM` is/are cleared from the list.
+.. Test case: `clear CCA ROOM` +
+   Expected: Person(s) associated with `CCA` or `ROOM` is/are cleared from the list.
+.. Test case: `clear CCA` (where `CCA` does not exist in list) +
+   Expected: No person(s) are deleted. No persons cleared message displayed.
+
+=== Erasing CCAs
+. Erasing CCAs while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `erase CCA` +
+   Expected: `CCA` is removed from associated person(s) in list.
+.. Test case: `clear CCA...` +
+   Expected: `CCA`s are removed from associated person(s) in list.
+.. Test case: `clear CCA` (where `CCA` does not exist in list) +
+   Expected: No CCA is erased. No CCAs erased message displayed.
+
+=== Exporting
+. Erasing CCAs while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `erase CCA` +
+   Expected: `CCA` is removed from associated person(s) in list.
+.. Test case: `clear CCA...` +
+   Expected: `CCA`s are removed from associated person(s) in list.
+.. Test case: `clear CCA` (where `CCA` does not exist in list) +
+   Expected: No CCA is erased. No CCAs erased message displayed.
+
+
