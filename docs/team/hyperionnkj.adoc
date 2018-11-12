@@ -112,11 +112,11 @@ https://github.com/CS2103-AY1819S1-W17-1/main/issues/243[#243]
 
 |===
 |The following sections are my contributions to the User Guide. They reflect my ability to write clear and concise
-documentation targeting non-technical readers. Please refer to https://cs2103-ay1819s1-f10-4-menus.netlify
-.com/userguide[User Guide] for more of my contributions.
+documentation targeting non-technical readers. Please refer to https://cs2103-ay1819s1-f10-4-menus.netlify.com/userguide[User Guide] for more of my contributions.
 |===
 
 include::../UserGuide.adoc[tag=salesmanagement]
+
 include::../UserGuide.adoc[tag=rankdates]
 
 
@@ -125,10 +125,12 @@ include::../UserGuide.adoc[tag=rankdates]
 |===
 |The following sections are my contributions to the Developer Guide. They reflect my ability to convey technical
 information in a comprehensible manner. It also showcases the technical depth of my contributions.
-Please refer to https://cs2103-ay1819s1-f10-4-menus.netlify.com/developerguidefor more of my contributions
+Please refer to https://cs2103-ay1819s1-f10-4-menus.netlify.com/developerguide[Developer Guide] for more of my
+contributions
 |===
 
 include::../DeveloperGuide.adoc[tag=salesmanagement]
+
 include::../DeveloperGuide.adoc[tag=salesmanagement1]
 
 
