@@ -45,6 +45,11 @@ public class GameModeTest {
         public String getDescription() {
             return "";
         }
+
+        @Override
+        public String getName() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     @Before

@@ -47,6 +47,11 @@ public class GameManagerTest {
             return "";
         }
 
+        @Override
+        public String getName() {
+            throw new AssertionError("This method should not be called.");
+
+        }
     }
 
     @Before
