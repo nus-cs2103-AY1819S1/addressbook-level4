@@ -18,27 +18,24 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 Allows a user with `Delete_employee` permission to delete an active employee and send it to the archive list.
 
 *** Justification:
-This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management.
-
-*** Highlights:
+This feature improves OASIS significantly as it mimics the scenario when an employee leaves the company but data of the employee must be kept for future references, which is an important aspect of employee management.
 
 ** Added *the ability to restore employees*
 *** Behaviour:
 Allows a user with `Restore_employee` permission to restore an archived employee and send it to the active list.
 
 *** Justification:
-This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management.
-
-*** Highlights:
+This feature improves OASIS significantly as it allows rehired ex-employees to be added back to the active employee list with all their past information.
 
 ** Added *the ability to permanently delete archived employees*
 *** Behaviour:
 Allows a user with `Delete_employee` permission to permanently remove archived employee from the application.
 
 *** Justification:
-This feature improves OASIS significantly as it mimics firing of employees and keeping their information which is an important aspect of employee management.
+This feature improves OASIS significantly as it removes unwanted employee information when they leave the company or when their data is no longer needed.
 
-*** Highlights:
+** Highlights
+*** This feature required enhancements to the 4 major components of the application, namely: Logic, Model, Storage and UI. Implementing the feature was challenging as an in depth knowledge of the entire project design must be needed to achieve success.
 
 * *Minor enhancements*:
 ** Added list picker in UI which allows the user to change data shown in person list panel by just clicking on the list picker.
@@ -47,23 +44,21 @@ This feature improves OASIS significantly as it mimics firing of employees and k
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases v1.1 - v1.2 on GitHub
+*** Managed releases v1.1 - v1.4 on GitHub
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme for every `Person` card (Pull requests https://github.com[#1])
 *** Updated the GUI to show a `ListPicker` to toggle between active and archive list. (Pull requests)
+*** Updated `DeleteCommand` to delete from either active or archive list depending on which list the user is on.
+*** Updated `ClearCommand` to clear all employees in OASIS, both active and archive.
+*** Wrote tests for features. ((Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/183[#183]))
 
 ** Documentation:
-*** Input initial contents of User Guide: https://github.com[#1]
 *** Updated class diagrams for `UI` and `Model` component in the Developer Guide.
 
 ** Community:
 *** `Listpicker` menu feature that I added was adopted by several other class mates ()
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/125[1], https://github.com/CS2103-AY1819S1-W12-3/main/issues/124[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/139[3],
 https://github.com/CS2103-AY1819S1-W12-3/main/issues/135[4])
-
-** Tools:
-*** Integrated Travis CI, AppVeyor and Coveralls to the team repo
 
 == Contributions to the User Guide
 
