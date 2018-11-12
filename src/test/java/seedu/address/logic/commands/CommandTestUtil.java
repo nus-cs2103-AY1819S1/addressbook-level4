@@ -30,31 +30,47 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_GRADE = "Grade";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_GRADE = "33333333";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
+    public static final String VALID_EMAIL_GRADE = "grade@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_ADDRESS_GRADE = "Block 231, Amy Street 5";
     public static final String VALID_EDUCATION_AMY = "Secondary 4";
     public static final String VALID_EDUCATION_BOB = "Secondary 3";
+    public static final String VALID_EDUCATION_GRADE = "Secondary 2";
     public static final String VALID_GRADES_AMY = "Y1819S1_Mid 99";
     public static final String VALID_GRADES_BOB = "Y1819S1_Mid 98";
+    public static final String VALID_GRADES_G1 = "test1 98";
+    public static final String VALID_GRADES_G1_1 = "test1 100";
+    public static final String VALID_GRADES_G2 = "test2 99";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_GRADE = " " + PREFIX_NAME + VALID_NAME_GRADE;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String PHONE_DESC_GRADE = " " + PREFIX_PHONE + VALID_PHONE_GRADE;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String EMAIL_DESC_GRADE = " " + PREFIX_EMAIL + VALID_EMAIL_GRADE;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String ADDRESS_DESC_GRADE = " " + PREFIX_ADDRESS + VALID_ADDRESS_GRADE;
     public static final String EDUCATION_DESC_AMY = " " + PREFIX_EDUCATION + VALID_EDUCATION_AMY;
     public static final String EDUCATION_DESC_BOB = " " + PREFIX_EDUCATION + VALID_EDUCATION_BOB;
+    public static final String EDUCATION_DESC_GRADE = " " + PREFIX_EDUCATION + VALID_EDUCATION_GRADE;
     public static final String GRADES_DESC_AMY = " " + PREFIX_GRADES + VALID_GRADES_AMY;
     public static final String GRADES_DESC_BOB = " " + PREFIX_GRADES + VALID_GRADES_BOB;
+    public static final String GRADES_DESC_G1 = " " + PREFIX_GRADES + VALID_GRADES_G1;
+    public static final String GRADES_DESC_G1_1 = " " + PREFIX_GRADES + VALID_GRADES_G1_1;
+    public static final String GRADES_DESC_G2 = " " + PREFIX_GRADES + VALID_GRADES_G2;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -63,6 +79,8 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_GRADE_DESC1 = " " + PREFIX_GRADES + "test1 -1"; // '*' not allowed in tags
+    public static final String INVALID_GRADE_DESC2 = " " + PREFIX_GRADES + "test1 101"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
