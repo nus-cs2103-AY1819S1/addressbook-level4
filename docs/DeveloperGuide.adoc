@@ -714,10 +714,12 @@ their own behaviour for these methods.
 The following sequence diagrams illustrate how the delete operation works.
 
 * Diagram 1: When user enters `delete-ingredient 1`
-+
+
 image::DeleteIngredientByIndexSequenceDiagram.png[width="1000"]
+
 _Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 
+[%hardbreaks]
 * Diagram 2: When user enters `delete-ingredient apple`
 +
 image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
@@ -733,7 +735,7 @@ Two different implementations were considered.
 ** Cons: Tight coupling between `DeleteIngredientCommand` and the inheriting classes
 * **Alternative 2:** Single class to handle deleting by both index and name.
 ** Pros: Less coupling since the methods related to the delete ingredient command are confined to a single class.
-** Cons: Two attributes are required, but only one has a value while the other has to be set to null. This makes the
+** Cons: Two attributes are required, but only one has a value while the other has to be set to `null`. This makes the
 `equals()` method difficult to implement.
 
 ===  Stock Up Ingredient feature
@@ -741,11 +743,12 @@ This feature allows the user to stock up one or more ingredients in the ingredie
 
 ==== Current Implementation
 The Stock Up mechanism involves mainly the `StockUpCommandParser`, `StockUpCommand` and the `Model`
-interface. The `StockUpCommandParser` parses the command input from the user, creating a HashMap mapping
-`IngredientName` keys to `NumUnits` values. This HashMap represents the ingredients to be stocked up, and their
-respective stock up amounts. With this HashMap, it creates a `StockUpCommand` object. The `StockUpCommand` executes
-the stock up operation, which is exposed in the `Model` interface as `Model#stockUpIngredients()`. The operation is
-atomic. This means that if the operation fails for one ingredient, none of the ingredients will be stocked up.
+interface. The `StockUpCommandParser` parses the command input from the user, creating a `HashMap` mapping
+`IngredientName` keys to `NumUnits` values. This `HashMap` represents the ingredients to be stocked up, and their
+respective stock up amounts. With this `HashMap`, the `StockUpCommandParser` creates a `StockUpCommand` object. The
+`StockUpCommand` executes the stock up operation, which is exposed in the `Model` interface as
+`Model#stockUpIngredients()`. The operation is atomic, thus if it fails for one ingredient,
+none of the ingredients will be stocked up and an exception is thrown.
 
 The following activity diagram shows what happens when the user executes the `stockup` command:
 
@@ -758,7 +761,7 @@ _Figure 4.7.1: Flow of events after a user executes the stock up command_
 Two different implementations were considered.
 
 * **Alternative 1 (current choice):** Create a stock up operation exposed in the `Model`. A list of ingredients is
-passed as a HashMap argument to the model interface to perform the stock up on all ingredients.
+passed as a `HashMap` argument to the model interface to perform the stock up on all ingredients.
 ** Pros: Maintains good abstraction. The sales feature can call upon the stock up operation of the interface without
 needing to know its implementation or creating any Ingredient objects.
 ** Cons: Additional code has to be written and maintained, as opposed to using existing methods.
