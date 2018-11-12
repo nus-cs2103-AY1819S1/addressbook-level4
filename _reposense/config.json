@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "CrimsonAng",
+      "displayName": "ANG C... SHIN",
+      "authorNames": ["CrimsonAng"]
+    },
+    {
+      "githubId": "Woodnsuns",
+      "displayName": "LIN... XU",
+      "authorNames": ["Woodnsuns"]
+    },
+    {
+      "githubId": "park-sang-jun",
+      "displayName": "PARK ...G JUN",
+      "authorNames": ["park-sang-jun"]
+    },
+    {
+      "githubId": "thaddeuslzy",
+      "displayName": "THADD...HI YU",
+      "authorNames": ["thaddeuslzy"]
+    },
+    {
+      "githubId": "hotarumin",
+      "displayName": "XIAO ...YILIN",
+      "authorNames": ["hotarumin"]
+    }
+  ]
+}

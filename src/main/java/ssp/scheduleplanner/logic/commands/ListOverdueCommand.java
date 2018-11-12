@@ -27,6 +27,7 @@ public class ListOverdueCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        // Filter the task list using the OverduePredicate with the current date as the parameter.
         model.updateFilteredTaskList(new OverduePredicate(SYSTEM_DATE));
         EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         return new CommandResult(MESSAGE_SUCCESS);

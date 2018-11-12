@@ -2,6 +2,8 @@ package ssp.scheduleplanner.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import static ssp.scheduleplanner.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static ssp.scheduleplanner.logic.parser.CliSyntax.PREFIX_DATE;
 import static ssp.scheduleplanner.logic.parser.CliSyntax.PREFIX_NAME;
 import static ssp.scheduleplanner.logic.parser.CliSyntax.PREFIX_PRIORITY;
@@ -36,6 +38,11 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_CATEGORY_MODULES = "Modules";
+    public static final String VALID_CATEGORY_OTHERS = "Others";
+    public static final String VALID_CATEGORY_SCHOOL = "School";
+    public static final String VALID_TAG_CS = "CS0000";
+    public static final String VALID_TAG_ST = "ST2334";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -48,6 +55,12 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_VENUE + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String TAG_DESC_CS = " " + PREFIX_TAG + VALID_TAG_CS;
+    public static final String TAG_DESC_ST = " " + PREFIX_TAG + VALID_TAG_ST;
+    public static final String CATEGORY_DESC_MODULES = " " + PREFIX_CATEGORY + VALID_CATEGORY_MODULES;
+    public static final String CATEGORY_DESC_OTHERS = " " + PREFIX_CATEGORY + VALID_CATEGORY_OTHERS;
+    public static final String CATEGORY_DESC_SCHOOL = " " + PREFIX_CATEGORY + VALID_CATEGORY_SCHOOL;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "911a"; // 'a' not allowed in dates
@@ -112,6 +125,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedSchedulePlanner, actualModel.getSchedulePlanner());
             assertEquals(expectedFilteredList, actualModel.getFilteredTaskList());
+
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
