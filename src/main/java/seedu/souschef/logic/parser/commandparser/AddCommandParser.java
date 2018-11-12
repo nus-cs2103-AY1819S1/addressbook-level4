@@ -164,7 +164,7 @@ public class AddCommandParser {
 
         //detect if the recipe already exists in the list
         if (fav.getAppContent().getObservableFavouritesList().contains(recipe)) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE, "recipe"));
+            throw new ParseException(String.format(MESSAGE_DUPLICATE, "favourite"));
         }
 
         return new AddCommand<>(fav, recipe);
