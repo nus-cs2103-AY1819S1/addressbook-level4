@@ -527,9 +527,6 @@ To ensure that the app's password is properly encrypted, we had to consider betw
 .. Requires the internet, which might not be available to bicycle shop owners as parks are not fibre-optic ready.
 .. Difficult to implement.
 .. Data can be intercepted and manipulated during POST request, as opposed to a local storage of password.
-
-[NOTE]
-We used a less secure alternative due to the nature of the target audience. It is highly improbable for hackers to be targeting a bicycle shop.
 // end::adminauthentication[]
 
 === Return a Loan feature
