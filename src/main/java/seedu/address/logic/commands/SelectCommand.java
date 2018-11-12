@@ -47,23 +47,29 @@ public class SelectCommand extends Command {
         requireNonNull(model);
         if (model.getActiveType().equals(PERSON)) {
             List<Person> filteredPersonList = model.getFilteredPersonList();
+
             if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
+
             EventsCenter.getInstance().post(new JumpToPersonListRequestEvent(targetIndex));
             return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
         } else if (model.getActiveType().equals(MODULE)) {
             List<Module> filteredModuleList = model.getFilteredModuleList();
+
             if (targetIndex.getZeroBased() >= filteredModuleList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
             }
+
             EventsCenter.getInstance().post(new JumpToModuleListRequestEvent(targetIndex));
             return new CommandResult(String.format(MESSAGE_SELECT_MODULE_SUCCESS, targetIndex.getOneBased()));
         } else {
             List<Occasion> filteredOccasionList = model.getFilteredOccasionList();
+
             if (targetIndex.getZeroBased() >= filteredOccasionList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
             }
+
             EventsCenter.getInstance().post(new JumpToOccasionListRequestEvent(targetIndex));
             return new CommandResult(String.format(MESSAGE_SELECT_OCCASION_SUCCESS, targetIndex.getOneBased()));
         }
