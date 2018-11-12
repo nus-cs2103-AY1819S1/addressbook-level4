@@ -19,16 +19,14 @@ public class AddModuleCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     /**
-=======
-      /**
->>>>>>> 4244ffa13e14b7776e5c856ae11b0ce18b734e39
      * Usage of <b>add</b>.
      * <p>
      * Provides the description and syntax of <b>add</b>.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the transcript.\n"
-            + "Parameters: CODE YEAR SEMESTER CREDIT [GRADE]\n"
-            + "Example: " + COMMAND_WORD + " CS2103 2 1 4 A+\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a module to the transcript.\n"
+            + "Parameters: -m CODE -y YEAR -s SEMESTER -c CREDIT -g [GRADE]\n"
+            + "Example: " + COMMAND_WORD + " -m CS2103 -y 2 -s 1 -c 4 -g A+\n"
             + "If you haven't taken the module before, you can omit the grade:";
 
     /**

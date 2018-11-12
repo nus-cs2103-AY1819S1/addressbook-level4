@@ -37,10 +37,11 @@ image::Ui.png[width="790"]
 e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some commands you can try:
 
-* **`add`**`-m CS2103 -y 2 -s 1 -c 4 -g A+` : Adds a module `CS2103` worth
+* `add -m CS2103 -y 2 -s 1 -c 4 -g A+` : Adds a module `CS2103` worth
 `4` MCs taken in Semester `1` as a Year `2` student.
 * **`goal 4.5`** : Sets a CAP goal of 4.5. 
 * **`delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
+* `delete -t CS2103 -e 2 -z 1` : Deletes `CS2103` taken in year `2` semester
 `1` from CAPTracker.
 * *`exit`* : Exits the app
 
@@ -64,12 +65,12 @@ Happy tracking!
 
 * Words in `UPPER_CASE` are the parameters to be replaced and supplied by the
 user. +
-e.g. `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
-`add CS2103 2 1 4 A+`.
+e.g. `add -m MODULE_CODE -y YEAR -s SEMESTER -c CREDIT [-g GRADE]`: +
+`add -m CS2103 -y 2 -s 1 -c 4 -g A+`.
 * Items in square brackets are optional. +
-e.g. `add MODULE_CODE YEAR SEMESTER CREDIT [GRADE]`: +
-`add CS2103 2 1 4 A+` or +
-`add CS2103 2 1 4`
+e.g. `add -m MODULE_CODE -y YEAR -s SEMESTER -c CREDIT [-g GRADE]`: +
+`add -m CS2103 -y 2 -s 1 -c 4 -g A+` or +
+`add -m CS2103 -y 2 -s 1 -c 4`
 ====
 
 === Viewing help : `help`
@@ -101,7 +102,7 @@ _Format:_ +
 
 *Examples*:
 
-Command: `add -m MA1521 -y 1 -s 2 -c 4 -grade A` +
+Command: `add -m MA1521 -y 1 -s 2 -c 4 -g A` +
 Adds a module with:
 
 * Module code `MA1521`
@@ -109,7 +110,7 @@ Adds a module with:
 * Worth `4` module credits
 * Graded `A`
 
-Command: `add -m CFG1010 -y 1 -s 1 -c 2 -grade CS` +
+Command: `add -m CFG1010 -y 1 -s 1 -c 2 -g CS` +
 Adds a module with:
 
 * Module code `CFG1010`
@@ -174,6 +175,7 @@ Change grade of `MA1521` to `A+`.
 
 *Command*: `edit -t CFG1010 -m ST2334 -c 4` +
 Change module credit to `4` and module code to `ST2334`.
+//end::edit[]
 
 *Command*: `edit -t CFG1020 -e 2 -z 1 -g CS` +
 Change the grade of `CFG1020` taken in year `2` and semester `1` to 1. +
@@ -191,7 +193,6 @@ specified +
 entries with the same module `TARGET_CODE` +
 - The edit cannot lead to two module entries sharing the same module code,
 year, and semester
-//end::edit[]
 
 //tag::delete[]
 === Deleting a module : `delete`
@@ -225,6 +226,7 @@ Deletes the only `CS2103` module.
 Deletes `CS2103` taken in year `3` semester `2`. +
 In this specific case, `CS2103` was retaken and there exist multiple entries
 of it.
+//end::delete[]
 
 IMPORTANT: - Arguments must be in name-value pair format (E.g. `-name value`) +
 - Illegal name or value is not allowed +
@@ -234,7 +236,6 @@ specified +
 - The targeted module entry should exist in the CAPTracker +
 - `TARGET_YEAR` and `TARGET_SEMESTER` of the targeted entry must be specified
 if there exist multiple entries with the same module `TARGET_CODE`.
-//end::delete[]
 
 //tag::commandgoal[]
 === Setting Cap Goal : `goal`
@@ -256,7 +257,7 @@ Update your CAP goal to 4.5
 === Adjusting target goals: `adjust`
 
 [NOTE]
-Removal of adjustment will be made available in the following release. For now, delete and add the module without a grade again.
+Removal of adjustment will be made available in v1.5.
 
 Adjust the grade of an incomplete module +
 Format:
@@ -273,16 +274,6 @@ Adjusts the grade with module code CS2103 to have grade A
 Adjusts the grade with module code CS2103 taken in year 1 sem 1 to have grade A
 
 //end::commandadjust[]
-
-=== Undoing commands : `undo`
-
-Reverts changes made by the last command given. +
-Format: `undo`
-
-=== Redoing commands : `redo`
-
-Reverts changes made by the undo command. +
-Format: `redo`
 
 === Exiting the program : `exit`
 
@@ -319,7 +310,46 @@ users overall CAP score.
 *Q*: I entered the wrong grade into my module. How do I change it? +
 *A*: Use the `edit` command to input the correct information for the module +
 `edit -t MODULE_CODE -g ACTUAL_GRADE`
+//tag::ambersFAQ[]
+*Q*: I entered the year I took my module, 2018, and it doesn't work. Why not?
 
+*A*: The year of the module in CAPTracker doesn't refer to the calander year, but
+instead the year that you are studying at. For example, a module taken in your
+second year of study would have a year value of 2.
+
+
+*Q*: I entered a new module but can't see it in the app. Where is it?
+
+*A*: New modules you have added will appear at the bottom of the list in either
+the 'Completed Modules' list or the 'Incomplete Modules' list depending on your
+specification. Scroll down to the bottom of these lists to find your new module;
+it may not appear without you scrolling if there are already a number of mdoules
+entered!
+
+
+*Q*: Why does my CAP goal say 'Impossible'?
+
+*A*: Whether or not the users CAP goal is achievable is based on the grades of
+completed modules and the number of incomplete modules the user has entered. If
+the completed modules do not have sufficient grades to meet the CAP goal, try to
+add some modules you are planning to take; it may be that you need an A+ is four
+other modules before your CAP goal can be achieved. It is also based on the
+adjustments made by the user. For example, if the user originally enters
+
+
+*Q*: I made the wrong adjustment to a module...how do I remove the adjustment
+I made?
+
+*A*: To remove an incorrect adjustment, you need to delete that module (see
+delete command chapter 3.4) and add it back in with the desired/correct
+adjustments. A direct solution will be implemented in v2.0
+
+//end::ambersFAQ[]
+ <>
+v1.0, 2018-04-11
+:toc:
+:imagesdir: assets/images
+:homepage: http://asciidoctor.org
 == Command Summary
 
 * *Add* +
@@ -332,10 +362,10 @@ e.g. `add -m CS2103 -y 2 -s 1 -c 4 -g A+`
 [-s SEMESTER]
 [-c CREDIT]
 [-g GRADE]` +
-e.g. `edit -t CS2103 -grade A+`
+e.g. `edit -t CS2103 -g A+`
 * *Delete* : +
 `delete -t MODULE_CODE [-e TARGET_YEAR -z TARGET_SEMESTER]` +
-e.g. `delete CS2103`
+e.g. `delete -t CS2103`
 * *Goal* : `goal CAP_GOAL` +
 e.g. `goal 4.5`
 * *Adjust* : `adjust MODULE_CODE GRADE` +
@@ -343,7 +373,5 @@ e.g. `adjust CS2103 A` +
 or +
 `adjust MODULE_CODE YEAR SEM GRADE` +
 e.g. `adjust CS2103 1 1 A`
-* *Undo* : `undo`
-* *Redo* : `redo`
 * *Help* : `help`
 * *Exit* : `exit`

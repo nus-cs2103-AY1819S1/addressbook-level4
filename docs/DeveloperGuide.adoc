@@ -99,7 +99,7 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
-
+tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -136,29 +136,30 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[width="600"]
+image::[width="800"]
 
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete -t CS2103 -e 4 -z 2`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `delete -t CS2103 -e 4 -z 2` command (part 1)
+image::SDforDeleteModule.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `TranscriptChangedEvent` when the Transcript data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the panels of the UI being updated to reflect the latest modules in the system.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+.Component interactions for `delete -t CS2103 -e 4 -z 2` command (part 2)
+image::SDforDeleteModuleEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-
+end::architecture[]
 [[Design-Ui]]
 === UI component
 
@@ -194,6 +195,7 @@ and will know to use the `enter` button on their keyboard when ready to submit a
 for the box, a scroll down option becomes available for the user to continue reading the message.
 .  The fourth row displays the summary of the users current CAP goal and their target CAP.
 
+//tag::designlogic[]
 [[Design-Logic]]
 === Logic component
 
@@ -204,15 +206,17 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TranscriptParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a module) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the +
+ `execute("delete -t CS1231")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `delete -t CS1231` Command
+image::DeleteModuleForLogic.png[width="800"]
+//end::designlogic[]
 
 [[Design-Model]]
 //tag::designmodel[]
@@ -302,7 +306,7 @@ Below is the pseudo-code for Target Grade Calculation:
 ```
 CG <- CAP goal of user.
 TC <- total credit of completed and incomplete modules.
-PO <- total points achieved from completed modules.
+PO <- total points achieved from completed and adjusted modules.
 P <- CG * TC - PO // total points needed to achieve from incomplete modules.
 
 mc_remaining <- sum of module credit of all incomplete modules
@@ -314,15 +318,19 @@ for every incomplete Module m:
     accumulated_points <- accumulated_points + (credits(m) * target(m))
 
 ```
+
+This sequence diagram shows the interaction of the different classes involved
+in the process of creating a new Module with updated target grade
+
 .Sequence Diagram of Target Grade calculation
 image::SDTranscriptTargetCalculation.png[width="800"]
 
 And below the activity diagram to further illustrate several exceptional cases.
 
-.Activity Diagram of Target Grade Calculation
+.Activity Diagram of High level view of Target Grade Calculation
 image::activityDiagramTargetGradeCalculationWhenChanged.png[width="800"]
 
-.Activity Diagram of the actual Target Grade Calculation
+.Activity Diagram of Calculate New Target Grade
 image::activityDiagramTargetGradeCalculationActualCalculation.png[width="800"]
 
 // end::captargetcalculation[]
@@ -546,6 +554,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 
+//tag::targetUser[]
 [appendix]
 == Target User Profile
 - An NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
@@ -553,11 +562,15 @@ b. Require developers to download those libraries manually (this creates extra w
 - Can type fast.
 - Prefers typing over mouse input.
 - Is reasonably comfortable using CLI apps.
+//end::targetUser[]
 
+//tag::value[]
 [appendix]
 == Value Proposition
 Helps students manage their CAP and predict what grades they need to reach their CAP goal.
+//end::value[]
 
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -602,6 +615,7 @@ can enter my entries incrementally.
 1. As a user, I can view the module descriptions so that I know what modules I should take
 2. As a user I can enter the MCs for exchange I can keep track of modules that may not be mapped to our database of modules codes or isn’t the default number of MCs.
 3. As a user, I can export my timetable so that I can share it with my friend.
+//end::userStories[]
 
 [appendix]
 == Use Cases
@@ -629,26 +643,38 @@ Use case ends.
 +
 Use case ends
 
-=== Use case: [UC2] View grades needed to achieve CAP goal (based on previous grades)
+=== Use case: [UC2] View grades needed to achieve CAP goal
 
 *MSS*
 
-1. User enter CAP goal
-2. System displays target grades for ungraded modules
+1. User enters completed Modules
+2. User enters incomplete Modules
++
+Step 1-2 are repeated until user is satisfied.
+3. User enter CAP goal
+4. System calculated target grades
+5. System displays target grades for ungraded modules
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. CAP goal is invalid
-** 1a1. System shows an `Invalid CAP Goal` error message
+* 3a. CAP goal is invalid
+** 3a1. System shows an `Invalid CAP Goal` error message
 +
 Use case ends.
 
-* 2a. CAP goal is not achievable
-** 2a1. System shows an `Not achievable` error message
+* 4a. There are no incomplete Modules and current CAP is lesser than CAP Goal
+** 4a1. Go to step `5a`
 +
 Use case ends.
+
+* 5a. CAP goal is not achievable
+** 5a1. System inform that it is not achievable
++
+Use case ends.
+
+
 
 === Use case: [UC3] Updating target grades
 
@@ -665,7 +691,7 @@ Use case ends.
 *Extensions*
 
 * 2a. CAP goal is not achievable with new set of modules
-** 2a1. System shows an `Not achievable` error message
+** 2a1. System inform that it is not achievable
 +
 Use case ends.
 
@@ -689,6 +715,26 @@ Use case ends.
 3. System displays saved modules
 +
 Use case ends
+
+=== Use case: [UC6] Adjusting target grades
+
+*Pre-conditions:*
+
+* `[UC2]` completed
+* There are targets given to incomplete modules
+
+*MSS*
+
+1. User adjust target
+2. System recalculates target grades for remaining ungraded modules
+3. System displays new target grades for remaining ungraded modules
+
+*Extensions*
+
+* 2a. CAP goal is not achievable with new set of modules
+** 2a1. System inform that it is not achievable
++
+Use case ends.
 
 //end::usecase[]
 [appendix]
@@ -886,7 +932,7 @@ with link:https://gradecalc.info/sg/nus/cumulative_gpa_calc.pl[This URL]
 .. Observe the Target Grades of CS4234 and CS4226
 +
 |===
-*Expected*: both modules should have grade NIL
+|*Expected*: both modules should have grade NIL
 |===
 
 . Target Grade should update upon modifying the list of modules

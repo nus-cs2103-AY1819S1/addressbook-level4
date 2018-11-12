@@ -16,7 +16,6 @@ import java.util.stream.IntStream;
 import com.google.common.collect.ImmutableSet;
 
 import seedu.address.logic.commands.AddModuleCommand;
-import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.parser.arguments.AddArgument;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
@@ -38,7 +37,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
     public static final String MESSAGE_INVALID_FORMAT =
             ParserUtil.MESSAGE_INVALID_FORMAT
                     + "\n"
-                    + DeleteModuleCommand.MESSAGE_USAGE;
+                    + AddModuleCommand.MESSAGE_USAGE;
 
     /**
      * Immutable map that maps string argument to edit argument enum.
