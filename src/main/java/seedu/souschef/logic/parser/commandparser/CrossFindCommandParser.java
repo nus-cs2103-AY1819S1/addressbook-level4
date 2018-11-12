@@ -103,7 +103,7 @@ public class CrossFindCommandParser {
                 }
                 IngredientDefinition key = new IngredientDefinition(tokens[index]);
                 if (include.contains(key)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    throw new ParseException(String.format(DUPLICATE_INGREDIENT,
                             CrossFindCommand.MESSAGE_USAGE));
                 }
                 prioritize.add(key);
