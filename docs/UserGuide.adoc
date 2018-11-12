@@ -247,7 +247,7 @@ Examples:
 
 * `track search aliez` +
 Searches for tracks that has aliez in their names.
-// end::tracklist_gj[]
+// end::tracksearch_gj[]
 
 === Adding a track into a playlist : `track add`
 
