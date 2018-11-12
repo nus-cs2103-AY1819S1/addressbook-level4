@@ -303,9 +303,11 @@ Format: +
 * Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
 teaspoon and cup.
 * Amounts are converted with common serving unit(e.g. gram).
-* Format for date should be MM-dd-yyyy.
+* Format for date should be MONTH-DAY-YEAR.
 * Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
 expiry date.
+* It is not allowed to add ingredients with same name and same date. To add in more amount, edit function should be
+used instead.
 ****
 ==== Sort and list all ingredients: `list`
 
@@ -319,7 +321,7 @@ Format: +
 
 Edit an existing ingredient in ingredient manager. +
 Format: +
-`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]...`
+`edit INDEX FIELD_NAME NEW_VALUE [MORE FIELD_NAME NEW_VALUE]...`
 ****
 * Field name is either name, amount, or date.
 * Restrictions for respective field's input are same as in add command(3.3.1.).
@@ -377,12 +379,11 @@ example, "view 1 prioritize onion") If both are not provided(For
                                                              example, "view 4"), recipe list remains the same and
                                                              only the number of
 servings are considered for calculation of needed amounts ingredients.
-* "inventory" keyword provides all the ingreident in Ingredient
+* "inventory" keyword provides all the ingredients in Ingredient
 Manager
 as parameter to the keyword it follows. +
-* "inventory" keyword is optional, but cannot appear more than once. It
-directly
-follows either "include" keyword or "prioritize" keyword.
+* It is not allowed to provide same ingredient as a parameter for both "include" and "prioritize" part. This is also
+applicable for "inventory" parameter becasues it is also a set of ingredients.
 ****
 
 ==== View needed amounts of ingredients for a Recipe `select`

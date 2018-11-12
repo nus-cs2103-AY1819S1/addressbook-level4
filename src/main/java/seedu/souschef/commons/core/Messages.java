@@ -73,7 +73,7 @@ public class Messages {
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
             + "Parameters: "
-            + "NAME AMOUNT SERVING_UNIT DATE(MM-dd-yyyy)\n"
+            + "NAME AMOUNT SERVING_UNIT DATE(MONTH-DAY-YEAR)\n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + "onion 100 gram 11-02-2018";
 
