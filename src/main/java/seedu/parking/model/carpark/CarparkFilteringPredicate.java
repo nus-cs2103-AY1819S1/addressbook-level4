@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.core.Messages;
+import seedu.parking.commons.events.ui.NewResultAvailableEvent;
 import seedu.parking.commons.util.StringUtil;
 import seedu.parking.logic.parser.CarparkTypeParameter;
 import seedu.parking.logic.parser.FreeParkingParameter;
@@ -77,7 +80,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                 inputEndBeforeStart = inputEnd.before(start);
             }
         } catch (ParseException e) {
-            System.out.println("parse exception @CarparkFilteringPredicate.java");
+            EventsCenter.getInstance().post(new NewResultAvailableEvent(Messages.MESSAGE_ERROR_PARSING_CARPARK_INFO));
         }
 
         return hasFreeParkingTiming && hasDay

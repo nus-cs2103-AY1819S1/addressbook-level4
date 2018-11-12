@@ -30,6 +30,8 @@ public class Messages {
             + ", MULTISTOREY, MECHANISED, COVERED\n     Example: filter ct/ surface";
     public static final String MESSAGE_PARKINGSYSTEM_TYPE_IS_INVALID = "Please input a valid parking system type: "
             + "COUPON, ELECTRONIC\n     Example: filter ps/ coupon";
+    public static final String MESSAGE_ERROR_PARSING_CARPARK_INFO = "Parse exception encountered while reading car park"
+            + " information";
 
     // calculate command
     public static final String MESSAGE_INVALID_CARPARK_NAME = "The car park number input is invalid.";
