@@ -74,6 +74,7 @@ auto-completed is the nearest word containing the current input as a prefix.
 
 Format: `help`
 
+// tag::toggle[]
 === Toggling UI tabs : `toggle`, alias `t`
 
 Format: `toggle`
@@ -82,6 +83,7 @@ Format: `toggle`
 ====
 Undo/Redo commands will not undo/redo the toggle command.
 ====
+// end::undoredo[]
 
 === Adding a person: `add`, alias `a`
 
@@ -590,6 +592,7 @@ Examples:
   Imports all contacts from root/Downloads/google.csv into application address book
 // end::importContacts[]
 
+// tag::notification[]
 === Notifications: `notification`, alias `n`
 
 Allow users to enable/disable notifications which appears upon application statrup. Notification is enabled by default.
@@ -599,7 +602,9 @@ Format: `notification enable/disable`
 Examples:
 
 * `notification disable`
+// end::notification[]
 
+// tag::favourite[]
 === Favourite: `favourite`, alias `fv`
 
 Allow users to favourite a upcoming events based on most recently displayed events list. Favourite is null by default.
@@ -609,6 +614,7 @@ Format: `favourite d/DATE i/EVENT_INDEX`
 Examples:
 
 * `favourite d/2018-04-01 i/1`
+// end::favourite[]
 
 === Clearing all entries : `clear`, alias `cls`
 
