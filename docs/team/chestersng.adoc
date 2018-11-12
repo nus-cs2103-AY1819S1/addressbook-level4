@@ -7,7 +7,7 @@
 
 ---
 
-== Overview
+== 1. Overview
 
 This project portfolio serves to document my contributions to CLInic, a CS2103T (Introduction to Software Engineering) project, as part of my Computer Science curriculum in NUS.
 
@@ -17,7 +17,7 @@ The project scope for CLInic is to morph the given `addressbook-level4` into a c
 
 My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works after every enhancement or change.
 
-== Summary of Contributions
+== 2. Summary of Contributions
 
 * *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
 ** What it does: This system allows the clinic to keep track of the queue in the clinic.
@@ -34,16 +34,17 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 
 ** Project management:
 *** Took on the role of *Team Lead*
-*** Designed the mock-up of the https://cs2103-ay1819s1-w16-4.github.io/main/images/Ui.png[UI]
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to test coverage:
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
+** Design:
+*** Designed the mock-up of the https://cs2103-ay1819s1-w16-4.github.io/main/images/Ui.png[UI]
 ** Community:
 *** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
 *** Fixed bugs for my teammates: https://github.com/CS2103-AY1819S1-W16-4/main/pull/180[#180]
 *** Reported bugs and provided suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F11-3/main/issues/193[1], https://github.com/CS2103-AY1819S1-F11-3/main/issues/176[2], https://github.com/CS2103-AY1819S1-F11-3/main/issues/180[3])
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 
 |===
@@ -53,7 +54,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 include::../UserGuide.adoc[tag=pqms]
 include::../UserGuide.adoc[tag=pqms2]
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
