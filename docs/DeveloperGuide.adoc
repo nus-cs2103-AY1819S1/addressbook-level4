@@ -1757,26 +1757,74 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-_{ more test cases ... }_
+=== Sign up for an account
 
-=== Deleting a expense
+. Sign up for an account
 
-. Deleting a expense while all expenses are listed
+.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user `tom` has been created successfully.
+.. Test case: `signup tom doe` +
+   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
 
-.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Sign up for an account with an existing Username
 
-_{ more test cases ... }_
+.. Prerequisites: There exists a user account with `Username` `tom`
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user already exists.
 
-=== Saving data
+=== Log in to an account
 
-. Dealing with missing/corrupted data files
+. Log in to an account with no password
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
+.. Test case: `login u/tom`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
 
-_{ more test cases ... }_
+. Log in to an account with a password
+.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
+.. Test case: `login u/tom`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password2`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+== Set password for current user
+
+. Set password for a user with no previously set password #1
+
+.. Prerequisites: Already logged into user with no previously set password.
+.. Test case: `setPassword n/pass word`
+   Expected: A message with valid password constraints is shown.
+.. Test case: `setPassword n/pass`
+   Expected: A message with valid password constraints is shown.
+.. Test case: `setPassword n/password`
+   Expected: A message indicating that the password has been changed is shown.
+
+. Set password for a user with no previously set password #2
+.. Prerequisites: Already logged into user with no previously set password.
+.. Test case: `setPassword o/passsss n/password1`
+   Expected: A message indicating that the password has been changed is shown.
+
+. Set password for a user with a previously set password
+.. Prerequisites: Already logged into user with `Password` set as `password1`.
+.. Test case: `setPassword n/password11`
+   Expected: A message indicating that the old password is incorrect is shown.
+.. Test case: `setPassword n/password11 o/password2`
+   Expected: A message indicating that the old password is incorrect is shown.
+.. Test case: `setPassword n/password11 o/password1`
+   Expected: A message indicating that the password has been changed is shown.
+
+== Encrypt and Decrypt `Strings`
+
+. Encrypt and decrypt `String`s
+.. Prerequisites: Already logged into a user account
+.. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
+   Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
