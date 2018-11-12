@@ -176,10 +176,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The event must not already exist in the address book, and must not clash any of the existing events in the
      * address book. All event tags must be existing in the address book.
      */
-    //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
-    // ask the
-    // user (by raising an event which brings up a message and prompts user for further input - enter to add anyway
-    // or esc to delete) for confirmation before adding.
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
@@ -192,6 +188,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    public void updateEvent(Event target, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(target, editedEvent);
+    }
+
+    /**
      * Reads contacts info in the given file reader.
      */
     public void importContacts(FileReader fileReader) {
@@ -199,7 +206,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         for (String s : contacts) {
             String[] parts = s.split(",");
             String nameString = parts[fileReader.getNameIndex()];
-            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("\\s", "");
+            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("[^\\d]", "");
             String addressString = parts[fileReader.getAddressIndex()];
             String emailString = parts[fileReader.getEmailIndex()];
             String facultyString = parts[fileReader.getFacultyIndex()];
@@ -218,11 +225,10 @@ public class AddressBook implements ReadOnlyAddressBook {
                 Person person = new Person(name, phone, email, address, tagList, faculty);
                 if (!persons.contains(person)) {
                     persons.add(person);
-                } else {
-                    fileReader.incrementFailCounter();
+                    fileReader.incrementAddCounter();
                 }
             } catch (ParseException e) {
-                fileReader.incrementFailCounter();
+                // invalid values in contact entry, skip entry
             }
         }
     }

@@ -21,6 +21,7 @@ import seedu.address.model.event.EventDate;
 public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteEvent";
+    public static final String COMMAND_WORD_ALIAS = "de";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the date and index number used in the displayed event list.\n"
@@ -45,12 +46,12 @@ public class DeleteEventCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<List<Event>> lastShownList = model.getFilteredEventListByDate();
-        List<Event> listToRemoveFrom = getTargetDateList(lastShownList);
-        Event eventToDelete = getEventToDelete(listToRemoveFrom);
+        List<Event> targetDateList = getTargetDateList(lastShownList);
+        Event eventToDelete = getEventFromDateList(targetDateList);
 
         // reset favourite to null if deleted event is the favourite
         if (model.isFavourite(eventToDelete)) {
-            model.updateFavourite( (String) null);
+            model.updateFavourite((String) null);
         }
 
         model.deleteEvent(eventToDelete);
@@ -59,17 +60,17 @@ public class DeleteEventCommand extends Command {
     }
 
     /**
-     * Returns the {@code Event} object from {@code listToRemoveFrom} to be deleted, based on
+     * Returns the {@code Event} object from {@code eventList}, based on
      * {@code targetIndex}, if it exists
      * @throws CommandException if such an event based on {@code targetIndex} does not exist in
-     * {@code listToRemoveFrom}
+     * {@code eventList}
      */
-    private Event getEventToDelete(List<Event> listToRemoveFrom) throws CommandException {
-        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
+    private Event getEventFromDateList(List<Event> eventList) throws CommandException {
+        if (targetIndex.getZeroBased() >= eventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        return listToRemoveFrom.get(targetIndex.getZeroBased());
+        return eventList.get(targetIndex.getZeroBased());
     }
 
     /**

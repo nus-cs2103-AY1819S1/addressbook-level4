@@ -39,7 +39,8 @@ public class ImportContactsCommandTest {
 
         CommandResult commandResult = new ImportContactsCommand(fileReader).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(ImportContactsCommand.MESSAGE_SUCCESS, fileReader), commandResult.feedbackToUser);
+        assertEquals(String.format(ImportContactsCommand.MESSAGE_SUCCESS, fileReader.getAddContactStatus()),
+                commandResult.feedbackToUser);
         assertEquals(fileReader, modelStub.fileReader);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -110,6 +111,11 @@ public class ImportContactsCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateEvent(Event target, Event editedEvent) {
             throw new AssertionError("This method should not be called.");
         }
 

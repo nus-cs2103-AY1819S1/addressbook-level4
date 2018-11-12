@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ArgumentMultimap.arePrefixesPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
@@ -12,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddEventCommand;
@@ -45,7 +45,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         // check for mandatory fields, and that no other data is entered between the command and first argument prefix
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_START_TIME,
-                PREFIX_END_TIME, PREFIX_ADDRESS)
+                PREFIX_END_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
@@ -56,7 +56,8 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         EventDate eventDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_DATE).get());
         EventTime eventStartTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_START_TIME).get());
         EventTime eventEndTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME).get());
-        EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        EventAddress eventAddress = ParserUtil.parseEventAddress(argMultimap.getValue(PREFIX_ADDRESS)
+                .orElse("TBD"));
         Set<Index> contactIndexList = ParserUtil.parseIndices(argMultimap.getAllValues(PREFIX_INDEX));
         Set<Tag> eventTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
@@ -69,13 +70,4 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
                 eventAddress, eventTagList);
         return new AddEventCommand(newEvent, contactIndexList);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

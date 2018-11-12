@@ -14,6 +14,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditEventAddressCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -26,6 +27,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SeeEventContactsCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ShowLocationCommand;
 import seedu.address.logic.commands.ToggleCommand;
@@ -88,6 +90,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case FindEventCommand.COMMAND_WORD:
+        case FindEventCommand.COMMAND_WORD_ALIAS:
             return new FindEventCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -95,12 +98,23 @@ public class AddressBookParser {
             return new ListCommand();
 
         case AddEventCommand.COMMAND_WORD:
+        case AddEventCommand.COMMAND_WORD_ALIAS:
             return new AddEventCommandParser().parse(arguments);
 
+        case SeeEventContactsCommand.COMMAND_WORD:
+        case SeeEventContactsCommand.COMMAND_WORD_ALIAS:
+            return new SeeEventContactsCommandParser().parse(arguments);
+
+        case EditEventAddressCommand.COMMAND_WORD:
+        case EditEventAddressCommand.COMMAND_WORD_ALIAS:
+            return new EditEventAddressCommandParser().parse(arguments);
+
         case DeleteEventCommand.COMMAND_WORD:
+        case DeleteEventCommand.COMMAND_WORD_ALIAS:
             return new DeleteEventCommandParser().parse(arguments);
 
         case AddEventTagCommand.COMMAND_WORD:
+        case AddEventTagCommand.COMMAND_WORD_ALIAS:
             return new AddEventTagCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
@@ -124,6 +138,7 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case ImportContactsCommand.COMMAND_WORD:
+        case ImportContactsCommand.COMMAND_WORD_ALIAS:
             return new ImportContactsCommandParser().parse(arguments);
 
         case NotificationCommand.COMMAND_WORD:
@@ -135,6 +150,7 @@ public class AddressBookParser {
             return new FavouriteCommandParser().parse(arguments);
 
         case ListEventCommand.COMMAND_WORD:
+        case ListEventCommand.COMMAND_WORD_ALIAS:
             return new ListEventCommand();
 
         case GenerateLocationCommand.COMMAND_WORD:
