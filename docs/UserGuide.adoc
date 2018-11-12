@@ -474,7 +474,7 @@ Examples:
 * `importContacts file/~/Downloads/google.csv` +
   Imports all contacts from root/Downloads/google.csv into application address book
 
-=== Notifications: `notification`
+=== Notifications: `notification`, alias `n`
 
 Allow users to enable/disable notifications which appears upon application statrup. Notification is enabled by default.
 
@@ -484,7 +484,7 @@ Examples:
 
 * `notification disable`
 
-=== Favourite: `favourite`
+=== Favourite: `favourite`, alias `fv`
 
 Allow users to favourite a upcoming events based on most recently displayed events list. Favourite is null by default.
 
