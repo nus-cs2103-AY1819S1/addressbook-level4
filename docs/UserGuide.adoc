@@ -602,10 +602,6 @@ Adds a transaction entry to `Basketball`. The date, amount and remarks of the tr
 Deletes the specified CCA from Hallper. +
 Format: `delete c/NAME_OF_CCA`
 
-****
-Deletes the CCA with the specified name.
-****
-
 [NOTE]
 ====
 * The CCA specifed must exist in the Hallper.
@@ -623,8 +619,7 @@ Deletes the specified transaction entry from the specified CCA from Hallper. +
 Format: `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER`
 
 ****
-* Deletes the specific transaction entry from the CCA with the specified name.
-* The transaction entry number must be a *positive interger* (e.g. 1,2,3,4...).
+The transaction entry number must be a *positive interger* (e.g. 1,2,3,4...).
 ****
 
 [NOTE]
@@ -642,7 +637,7 @@ Examples:
 ==== Updating a cca : `update`
 
 Updates an existing CCA in Hallper. +
-Format: `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VIC_HEAD] [budget/BUDGET]
+Format: `update c/CCA_NAME [n/NEW_CCA_NAME] [h/NAME_OF_HEAD] [vh/NAME_OF_VICE_HEAD] [budget/BUDGET]
 [trans/ENTRY_NUMBER] [date/DATE] [amount/AMOUNT] [remarks/REMARKS]`
 
 ****
@@ -668,7 +663,7 @@ Updates the date, amount and remarks of the 2nd transaction entry of `Netball` w
 `Purchase of Equipment` respectively.
 * `update c/track n/Track F h/Alice vh/June Ong budget/500 trans/1 date/28.02.2018 amount/100 remarks/Fund Raising` +
 Updates `track` to `Track F`, its budget to `500` and its head and vice-head to `Alice` and `June Ong` respectively,
-and updates the date, amount and remarks of the 1st transaction entry with `28.02.2018`, `100` and `Fund Raising`
+and updates the date, amount and remarks of the 1st transaction entry to `28.02.2018`, `100` and `Fund Raising`
 respectively.
 
 // tag::budget[]
