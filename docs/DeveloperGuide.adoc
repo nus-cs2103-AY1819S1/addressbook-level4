@@ -2125,12 +2125,89 @@ testers to work on; testers are expected to do more *exploratory* testing.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Car park features
+
+. Finding car park
+
+.. Type into the command box a `find` command +
+   Expected: A list of car parks to be updated, GUI to scale accordingly to number of car parks.
+
+. Selecting car park
+
+.. Type into the command box a `select` command +
+   Expected: One car park to be selected on the left side, GUI to only show the one car park.
+
+. Listing all car parks
+
+.. Type into the command box a `list` command +
+   Expected: All car parks are shown on the left hand menu, GUI to show overview of singapore
+
+. Clearing all car parks
+
+.. Type into the command box a `clear` command +
+   Expected: All car parks on the left hand menu is now deleted. GUI to show nothing. No data to saved when re launched.
+
+. Undoing a command
+
+.. Type into the command box a `find` command
+.. Type into the command box a `undo` command +
+   Expected: The `find` command is now deleted. You should see what you previously saw before the `find` command.
+
+. Redoing a command
+
+.. Type into the command box a `find` command
+.. Type into the command box a `undo` command
+.. Type into the command box a `redo` command +
+   Expected: The `find` command is now shown, as the `undo` has been reversed.
+
+. Filter car parks
+
+.. Type into the command box a `find` command
+.. Type into the command box a `filter` command +
+   Expected: The `filter` command reduces the number of car parks down even further.
+
+. Calculating the cost of a car park
+
+.. Type into the command box a `select` command
+.. Type into the command box a `calculate` command +
+   Expected: The `calculate` command returns you a number which is the cost of the parking time at the car park
+
+. Notifying you on updates of a car park
+
+.. Type into the command box a `select` command
+.. Type into the command box a `notify` command +
+   Expected: The `notify ` command will flash to show that it is updating
+
+. Querying for all the car parks
+
+.. Type into the command box a `query` command +
+   Expected: All the car parks on the left hand side has been updated. The GUI is also refreshed to show all car parks.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Delete all the files expect the jar file
+.. Re launch the app
+   Expected: No data will be shown, have to run `query` again.
 
-_{ more test cases ... }_
+. Auto saving
+
+.. Run the application
+.. Type into the command box a `query` command +
+.. Close the application
+.. Re launch the application +
+   Expected: All the data have been saved locally and you do not need to run the `query` command again.
+
+=== General features
+
+. Looking for instructions
+
+.. Type into the command box a `help` command +
+   Expected: You are greeted by a page which showcase our user guide
+
+. Looking for history
+
+.. Type several commands into the command box
+.. Type into the command box a `history` command +
+   Expected: The command box now shows a list of the past commands that you previously entered.
