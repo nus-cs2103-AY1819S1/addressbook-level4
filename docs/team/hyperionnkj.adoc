@@ -116,7 +116,9 @@ documentation targeting non-technical readers.
 |===
 
 include::../UserGuide.adoc[tag=salesmanagement]
+
 include::../UserGuide.adoc[tag=salesv20]
+
 include::../UserGuide.adoc[tag=salesglossary]
 
 == Contributions to the Developer Guide
@@ -127,6 +129,7 @@ information in a comprehensible manner.  It also showcases the technical depth o
 |===
 
 include::../UserGuide.adoc[tag=salesmanagement]
+
 include::../UserGuide.adoc[tag=ucsales]
 
 
