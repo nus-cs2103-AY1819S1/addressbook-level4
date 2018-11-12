@@ -78,10 +78,6 @@ public class AttendanceListUtil {
                     .filter(person -> person.isSamePerson(personToDelete))
                     .findFirst()
                     .ifPresent(removePersonFromOccasion(model, occasion));
-            assert occasion.getAttendanceList()
-                    .asNormalList()
-                    .stream()
-                    .noneMatch(person -> person.isSamePerson(personToDelete));
         }
     }
 
@@ -101,10 +97,6 @@ public class AttendanceListUtil {
                     .filter(person -> person.isSamePerson(personToDelete))
                     .findFirst()
                     .ifPresent(removePersonFromModule(model, module));
-            assert module.getStudents()
-                    .asNormalList()
-                    .stream()
-                    .noneMatch(person -> person.isSamePerson(personToDelete));
         }
     }
 
@@ -124,10 +116,6 @@ public class AttendanceListUtil {
                     .filter(module -> module.isSameModule(moduleToDelete))
                     .findFirst()
                     .ifPresent(removeModuleFromPerson(model, person));
-            assert person.getModuleList()
-                    .asNormalList()
-                    .stream()
-                    .noneMatch(module -> module.isSameModule(moduleToDelete));
         }
     }
 
@@ -169,10 +157,6 @@ public class AttendanceListUtil {
                     .filter(occasion -> occasion.isSameOccasion(occasionToDelete))
                     .findFirst()
                     .ifPresent(removeOccasionFromPerson(model, person));
-            assert person.getOccasionList()
-                    .asNormalList()
-                    .stream()
-                    .noneMatch(occasion -> occasion.isSameOccasion(occasionToDelete));
         }
     }
 
@@ -279,6 +263,7 @@ public class AttendanceListUtil {
             UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
             updatedOccasionDescriptor.setAttendanceList(updatedPersonList);
             Occasion updatedOccasion = Occasion.createEditedOccasion(occasion, updatedOccasionDescriptor);
+            assert !updatedOccasion.getAttendanceList().contains(person); //person is removed, and no duplicates exist
             model.updateOccasion(occasion, updatedOccasion);
         };
     }
@@ -295,6 +280,7 @@ public class AttendanceListUtil {
             UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
             updatedModuleDescriptor.setStudents(updatedPersonList);
             Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+            assert !updatedModule.getStudents().contains(person); // person is removed, and no duplicates exist
             model.updateModule(module, updatedModule);
         };
     }
@@ -312,6 +298,7 @@ public class AttendanceListUtil {
             UniqueModuleList updatedModuleList = new UniqueModuleList(updatedModules);
             updatedPersonDescriptor.setUniqueModuleList(updatedModuleList);
             Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+            assert !updatedPerson.getModuleList().contains(module); // module is removed, and no duplicates exist
             model.updatePerson(person, updatedPerson);
         };
     }
@@ -327,6 +314,7 @@ public class AttendanceListUtil {
             UniqueOccasionList updatedOccasionList = new UniqueOccasionList(updatedOccasions);
             updatedPersonDescriptor.setUniqueOccasionList(updatedOccasionList);
             Person updatedPerson = Person.createEditedPerson(person, updatedPersonDescriptor);
+            assert !updatedPerson.getOccasionList().contains(occasion); //occasion is removed, and no duplicates exist
             model.updatePerson(person, updatedPerson);
         };
     }
