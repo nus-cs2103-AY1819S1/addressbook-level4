@@ -989,6 +989,7 @@ Use case ends.
 . User requests to view command history.
 . Application displays command history.
  Use case ends.
+
 ==== Extensions
 * 1a. Command history is empty.
 ** 1a1. Application informs user that there is no command history.
