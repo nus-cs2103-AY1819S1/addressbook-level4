@@ -767,9 +767,9 @@ on the map. For each faculty, these place IDs are stored in a newly created clas
 application. Together with the Google Maps API key, the place ID allows for the generation of the exact spot of the person's
 faculty to be displayed in the Location Display Tab.
 
-When the (correct) showLocation command is input together with the index of the individual whose faculty location is to be displayed,
+When the (correct) `showLocation` command is input together with the index of the individual whose faculty location is to be displayed,
 the index is first checked to determine if it is correct (more than 0 and not larger than the size of the list of contacts
-in EventsPlus+'s addressbook). Following this, the appropriate person is obtained from the `FilteredPersonList` (note: this is so as to allow
+in EventsPlus+'s addressbook). Following this, the appropriate person is obtained from the `FilteredPersonList` (this is so as to allow
 the displaying of the contact's faculty location even if the list is filtered).
 
 A event, `FacultyLocationDisplayChangedEvent`, also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
@@ -797,7 +797,7 @@ In order to generate a random location for an event, the user needs to input (in
 event date and event index. This is to detect the unique event (because some events may have the same name) and to ensure
 that this event is currently in EventsPlus+.
 
-Command parsing is handled in a similar manner as other commands but there exists a specific GenerateLocationCommandParser to specifically parse
+Command parsing is handled in a similar manner as other commands but there exists a specific `GenerateLocationCommandParser` to specifically parse
 these kind of commands. The GenerateLocationCommand object created will then consist of two fields:
 
 * Event date
@@ -805,18 +805,18 @@ these kind of commands. The GenerateLocationCommand object created will then con
 
 The values for these fields are based on the input given by the user. These values are checked for validity as per other event-related
 commands before the object is created. Following this, EventsPlus+ is checked to determine whether this event does
-exist. If it does exist, the event name is retrieved and stored in the GenerateCommandLocation object.
+exist. If it does exist, the event name is retrieved and stored in the `GenerateCommandLocation` object.
 The status message indicates that a meeting location (it will show the meeting name too) has been generated, if not it indicates to the user
 that such as event does not exist.
 
 A random meeting location is generated based on 7 locations (more will be added in future iterations) that have their Google Maps Place IDs stored in the `EmbedGoogleMaps` class.
 A call to the method that generates this location (more specifically, returns the Place ID of the location) is made in the execute
-method of the GenerateLocationCommand.
+method of GenerateLocationCommand.
 
 Following this, a event, `RandomMeetingLocationGeneratedEvent`, newly created for this generateLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
 Display Tab) and subsequently by `LocationDisplayPanel`.
 
-For simplicity, only the logic and event handling sections of the sequence diagram are shown below for generateLocation command:
+For simplicity, only the logic and event handling sections of the sequence diagram are shown below for the `generateLocation` command:
 
 image::generateLocation_EventsCenter_EmbedGoogleMaps_seqDiagram.png[width="800"]
 
