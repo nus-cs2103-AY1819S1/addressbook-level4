@@ -23,7 +23,7 @@ import seedu.meeting.model.person.exceptions.PersonNotFoundException;
 import seedu.meeting.model.shared.Title;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the meeting-book level
  * Duplicates are not allowed (by .isSamePerson, .isSameGroup comparison)
  */
 public class MeetingBook implements ReadOnlyMeetingBook {
