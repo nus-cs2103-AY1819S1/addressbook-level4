@@ -45,7 +45,6 @@ public class PatientStatistics extends Statistics {
     @Override
     public void computeSummaryData() {
         List<Date> consultationDates = getConsultationDates();
-
         List<Integer> consultationSummaryValues = computeSummaryTotals(consultationDates);
         statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, consultationSummaryValues);
     }
@@ -83,7 +82,7 @@ public class PatientStatistics extends Statistics {
     public void plotPatientsOverDayOfWeek() {
         List<Date> consultationDates = getConsultationDates();
         List<Tuple<String, Integer>> dataPoints = DateUtil.eachDayCount(consultationDates);
-;
+
         statData.addVisualization("patientsDayOfWeek", ChartType.VERTICAL_BAR, false,
             "Number of patients for each day of the week", "Day of Week", "Number of Patients",
             Arrays.asList(dataPoints), Arrays.asList(""));

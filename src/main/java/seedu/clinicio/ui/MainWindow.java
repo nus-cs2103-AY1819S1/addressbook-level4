@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -37,8 +36,6 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
-import seedu.clinicio.model.patient.Patient;
-import seedu.clinicio.ui.analytics.AnalyticsDisplayPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -54,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private BrowserDisplayPanel browserDisplayPanel;
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private QueuePanel queuePanel;
@@ -177,36 +174,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         setUpTab();
-
-        analyticsDisplay = new AnalyticsDisplayPanel();
-        analyticsDisplay.setVisible(false);
-        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
-        patientDetailsDisplayPanel.getRoot().setVisible(false);
-        medicineDetailsDisplayPanel = new MedicineDetailsDisplayPanel();
-        medicineDetailsDisplayPanel.getRoot().setVisible(false);
-        browserPanel = new BrowserPanel();
-        browserPanel.setVisible(false);
-
-        titleScreen = new TitleScreen();
-        titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
-
-        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
-        displayPanelPlaceholder.getChildren().add(browserPanel.getRoot());
-        displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
-        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
-        displayPanelPlaceholder.getChildren().add(medicineDetailsDisplayPanel.getRoot());
-
+        setUpDisplayPanel();
         hideInnerParts();
         setUpListPanel();
-
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter();
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        setUpOtherParts();
     }
 
     /**
@@ -216,15 +187,33 @@ public class MainWindow extends UiPart<Stage> {
         patientTab.setContent(patientListPanelPlaceholder);
         appointmentTab.setContent(appointmentListPanelPlaceholder);
         queueTab.setContent(queuePanelPlaceholder);
-
         medicineTab.setContent(medicineListPanelPlaceholder);
-        medicineTab.setClosable(false);
 
         tabLists = new TabPane(patientTab, appointmentTab, queueTab, medicineTab);
     }
 
     /**
-     * Set up all the list panel in {@code MainWindow}.
+     * Set up all display panels in {@code MainWindow}.
+     */
+    private void setUpDisplayPanel() {
+        analyticsDisplay = new AnalyticsDisplayPanel();
+        analyticsDisplay.setVisible(false);
+        patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
+        patientDetailsDisplayPanel.getRoot().setVisible(false);
+        medicineDetailsDisplayPanel = new MedicineDetailsDisplayPanel();
+        medicineDetailsDisplayPanel.getRoot().setVisible(false);
+        browserDisplayPanel = new BrowserDisplayPanel();
+        browserDisplayPanel.setVisible(false);
+
+        displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
+        displayPanelPlaceholder.getChildren().add(browserDisplayPanel.getRoot());
+        displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
+        displayPanelPlaceholder.getChildren().add(medicineDetailsDisplayPanel.getRoot());
+    }
+
+    /**
+     * Set up all list panels in {@code MainWindow}.
      */
     private void setUpListPanel() {
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList());
@@ -238,6 +227,24 @@ public class MainWindow extends UiPart<Stage> {
 
         medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList());
         medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
+    }
+
+    /**
+     * Set up other parts in {@code MainWindow}.
+     * (E.g. {@code TitleScreen}, {@code StatusBarFooter} and etc.
+     */
+    private void setUpOtherParts() {
+        titleScreen = new TitleScreen();
+        titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(logic);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -281,10 +288,6 @@ public class MainWindow extends UiPart<Stage> {
 
     void hide() {
         primaryStage.hide();
-    }
-
-    public void setPatientListPanel(ObservableList<Patient> list) {
-        patientListPanel = new PatientListPanel(list);
     }
 
     private void setTitle(String appTitle) {
@@ -344,9 +347,6 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PatientListPanel getPatientListPanel() {
-        return patientListPanel;
-    }
 
     /**
      * Show the display panel according to event request.
@@ -358,7 +358,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails,
                                   boolean isShowMedicineDetails) {
         analyticsDisplay.setVisible(isShowAnalytics);
-        browserPanel.setVisible(isShowBrowser);
+        browserDisplayPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
         medicineDetailsDisplayPanel.getRoot().setVisible(isShowMedicineDetails);
     }

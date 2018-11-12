@@ -1,4 +1,4 @@
-:site-section: DeveloperGuide
+﻿:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -448,50 +448,102 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::apptfeature[]
 === Appointment feature
-The Appointment feature provides users the ability to schedule future appointments, view daily appointment schedules and to cancel them.
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment
+schedules and to cancel them.
 
 ==== Current Implementation
-The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList` stored within `ModelManager`.
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList`.
 The implemented operations include: +
 
 * `addappt` Command - Adds appointments to the appointment schedule.
 * `cancelappt` Command - Cancels appointments found within the appointment schedule.
 * `listappt` Command - Lists the appointment schedule of the date specified.
 
-Each `Appointment` object consists of a `Date`, `Time`, `Type` and `Patient`.
+The class diagram below illustrates the interactions between the Appointment class and associated classes.
+
+.Appointment class diagram.
+image::ApptClassDiagram.png[width=""]
+
+Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`.`Patient` contains an
+`Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. The
+`UniqueAppointmentList` contains 0 or more `Appointment` s.
+
+The current implementation of `Appointment` has the `Patient` object as a separate entity from the `Patient` s in
+`UniquePatientList`. This means that the `Patient` object only exists within the context of the `Appointment` object,
+or according to the diagram, would be destroyed if the `Appointment` object is destroyed (composition). Likewise, the
+`Optional<Staff>` would be destroyed if the `Appointment` object is destroyed too.
+
+In future implementations, i.e. v2.0, the `Patient` object will be checked if it exists within the `Model#UniquePatientList`
+before constructing the `Appointment` object. This ensures that the `Patient` is registered before making an
+appointment.
 
 ==== `addappt` Command
 
-The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified upon the addition of `Patient IC` in v2.0. +
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
+parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
+upon the complete implementation of the `Patient` class  in v2.0. The image below shows how the `Appointment` object is
+constructed.+
 
-The image below illustrates this process.
+[NOTE]
+The image does not include the method calls to construct a `Patient` object.
 
-.Appointment construction process.
-image::ApptConstructorSequenceDiagram.png[width="0"]
+.Appointment Construction Process in addappt Command.
+image::AddApptSequenceDiagram.png[width=""]
 
-Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the Appointment object into the `UniqueAppointmentList`.
-
-Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried out via `UniqueAppointmentList#hasClash(Appointment appt)` and `UniqueAppointmentList#hasOverlap(Appointment appt)`.
-
-Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
-
-`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to it's latest state, i.e. The addition of a new `Appointment` object.
+After the construction of the appointment, the appointment is added into the `UniqueAppointmentList` found in the
+`ClinicIo` class. The changes done to the list are then 'saved' via the `commitClinicIo` method.
 
 This means that this command can be undone or redone.
 
 ==== `listappt` Command
 
-The `listappt` command searches for appointments in the `UniqueAppointmentList` by creating a `FilteredAppointmentList` containing appointments that land on the date that was entered by the user.
+The `listappt` command searches for that land on the date that was entered by the user.
+The filtered appointments are found in the found in `ModelManager`. The list instantiated by filtering the `UniqueAppointmentList`
+using `AppointmentContainsDatePredicate` which is created from the `Date` argument supplied by the user.
 
-A `Date` object is instantiated from the user-entered date. This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate` object. The list of filtered appointments by date are generated once the method `ModelManager#updateFilteredAppointmentList`. The new `FilteredAppointmentList` is finally displayed on screen with appointments chronologically ordered with their respective indices.
+==== `listallappt` Command
 
-For example, `listappt 03 03 2018` is entered by the user. A `Date` object with data fields `Date#day`, `Date#Time`, `Date#Year` filled out as 3, 3 and 2018 respectively, is constructed. [too much create!!!]
+The `listallappt` behaves similarly to `listappt` with the exception that it does not take in any arguments.
+Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW_ALL_FILTERED_APPOINTMENTS`.
+`updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
 
 ==== `cancelappt` Command
 
-Individual patients also contain their own specific `AppointmentHistoryList` consisting of both cancelled and finished Appointments. `cancelAppt` is the only command that directly modifies the `Patient#AppointmentHistoryList`.
+`cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
+
+.Sequence diagram of cancelappt.
+image::CancelApptSequenceDiagram.png[width=""]
+
+The index is parsed using the `parseIndex()` and is used in `execute()`. A filtered
+appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
+
+The `cancelAppointment()` method, under `Model`, is then called on the `targetAppointment`. The process of cancellation
+has two parts, `cancelAppointment` and `removeAppointment`. `cancelAppointment` simply changes the status of the appointment and
+adds it to the `Patient` s `AppointmentHistory` (not shown). `removeAppointment` actually removes the appointment from the
+`UniqueAppointmentList`.
+
+[NOTE]
+Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
+of changing appointment status and addition into the appointment history seems redundant. In v2.0, the usage of
+pre-existing patients to make appointments will make these additional tasks more useful.
 
 ==== Design Considerations
+===== Aspect: How to store Date and Time fields
+* **Alternative 1 (current choice):** Store as integers
+** Pros: Makes it easier to calculate timings and clashes between multiple dates and times.
+** Cons: Requires additional code to store and interact with other common methods that rely on Strings.
+* **Alternative 2:** Store as Strings
+** Pros: Makes it easier to implement.
+** Cons: Requires additional code to convert into integers when carrying out calculating methods.
+
+==== Aspect: How to cancel appointments
+* **Alternative 1 (current choice):** Differentiate between cancellation and deletion
+** Pros: Allows more leeway for receptionist if a booking mistake was made rather than cancelling and adding
+the mistake to the patient's appointment history.
+** Cons: Violates Don't Repeat Yourself principle.
+* **Alternative 2:** Lump deletion into cancellation
+** Pros: Makes it easier to implement and prevents redundancy in code.
+** Cons: Violates Separation of Concerns Principle.
 
 //end::apptfeature[]
 

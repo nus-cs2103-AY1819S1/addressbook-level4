@@ -64,6 +64,14 @@
     -fx-background-color: transparent;
 }
 
+#patientsDayOfWeek .chart-bar {
+    -fx-background-color: #FCD12A;
+}
+
+#patientsTimeOfDay .chart-bar {
+    -fx-background-color: #580c3b;
+}
+
 #apptSupplyDemand .series0.chart-bar {
     -fx-bar-fill: #CA3433;
 
@@ -75,4 +83,8 @@
 
 #doctorPreferences .chart-bar {
     -fx-background-color: #406E8E;
+}
+
+#doctorConsultations .chart-bar {
+    -fx-background-color: #e5d4ca;
 }

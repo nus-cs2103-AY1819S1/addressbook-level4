@@ -1,4 +1,4 @@
-package seedu.clinicio.ui.analytics;
+package seedu.clinicio.ui;
 
 import static java.util.Objects.requireNonNull;
 
@@ -82,6 +82,12 @@ public class Plot {
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yTitle);
+        yAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(yAxis) {
+            @Override
+            public String toString(Number number) {
+                return String.format("%d", number.intValue());
+            }
+        });
 
         return new Tuple<>(xAxis, yAxis);
     }
