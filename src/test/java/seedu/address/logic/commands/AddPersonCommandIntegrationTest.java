@@ -40,6 +40,42 @@ public class AddPersonCommandIntegrationTest {
     }
 
     @Test
+    public void execute_newPersonWithoutPhone_success() {
+        Person validPerson = new PersonBuilder().withoutPhone().build();
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(new AddPersonCommand(validPerson), model, commandHistory,
+                String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+    }
+
+    @Test
+    public void execute_newPersonWithoutEmail_success() {
+        Person validPerson = new PersonBuilder().withoutEmail().build();
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(new AddPersonCommand(validPerson), model, commandHistory,
+                String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+    }
+
+    @Test
+    public void execute_newPersonWithoutAddress_success() {
+        Person validPerson = new PersonBuilder().withoutAddress().build();
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(new AddPersonCommand(validPerson), model, commandHistory,
+                String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddPersonCommand(personInList), model, commandHistory,
