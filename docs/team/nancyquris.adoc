@@ -32,8 +32,7 @@ enhances the using of playlist management feature.
 *** Highlights: `seek` command takes in special consideration of edge case handling.
 
 * *Other contributions*:
-** Minor Enhancement:
-*** Implemented corresponding test cases to cover newly-implemented codes.
+** Minor Enhancement: implemented corresponding test cases to cover newly-implemented codes
 
 ** Project management:
 *** Tools: configured RepoSense and Codacy.
@@ -45,8 +44,7 @@ https://github.com/CS2103-AY1819S1-T13-3/main/issues/28[#28],
 https://github.com/CS2103-AY1819S1-T13-3/main/issues/29[#29]
 *** Configured and published https://cs2103-ay1819s1-t13-3.github.io/main/[project website]
 
-** Evidence of helping others:
-*** Testing of W10-4's product: https://github.com/CS2103-AY1819S1-W10-4/main/issues/185[#185]
+** Evidence of helping others: testing of W10-4's product: https://github.com/CS2103-AY1819S1-W10-4/main/issues/185[#185]
 
 == Contributions to the User Guide
 
