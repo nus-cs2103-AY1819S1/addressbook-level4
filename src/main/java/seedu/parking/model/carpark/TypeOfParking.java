@@ -18,7 +18,7 @@ public class TypeOfParking {
      */
     public static final String TYPE_PARK_VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs an {@code TypeOfParking}.

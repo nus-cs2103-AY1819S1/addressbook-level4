@@ -105,6 +105,10 @@ public class CarparkListPanel extends UiPart<Region> {
         return selectIndex;
     }
 
+    public static void setSelectedCarpark(Carpark newCarpark) {
+        selectedCarpark = newCarpark;
+    }
+
     public static Carpark getSelectedCarpark() {
         return selectedCarpark;
     }
