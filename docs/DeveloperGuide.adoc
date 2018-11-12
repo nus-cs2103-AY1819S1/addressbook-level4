@@ -343,8 +343,8 @@ This diagram shows the sequence that how add solution command is executed. It co
 ** Pros: Consistent coding style and less change on logic structure
 ** Cons: Quite complex implementation compared to other command
 * **Alternative 2:** Overload Issue constructor so that different issues will be passed to `AddCommand` accordingly.
-* Pros: Relatively easier to implement
-* Cons: Lots of changes on structure.
+** Pros: Relatively easier to implement
+** Cons: Lots of changes on structure.
 // end::add[]
 
 // tag::sort[]
