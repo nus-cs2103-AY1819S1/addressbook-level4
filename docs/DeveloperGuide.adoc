@@ -515,7 +515,7 @@ include::UserGuide.adoc[tag=find]
 
 ===== Structure of `find` command
 
-image::FindCommandClassDiagram.png[width="400"]
+image::FindCommandClassDiagram.png[width="200"]
 
 When the user executes a `find` command, the `FindCommandParser` returns either a `FindPersonCommand`, a `FindMeetingCommand`, or a `FindGroupCommand`,
  depending on the user's input. `FindPersonCommand`, `FindMeetingCommand`, and `FindGroupCommand` extends the
@@ -552,7 +552,7 @@ Referring to the code snippet above, `FindCommand<E>` implements the `equals()` 
 
 ===== Structure of Predicates
 
-image::PredicateClassDiagram.png[width="400"]
+image::PredicateClassDiagram.png[width="200"]
 
 The predicates are created using the abstract class `EntityContainsKeywordsPredicate<E>`.
 `PersonNameContainsKeywordsPredicate` extends `EntityContainsKeywordsPredicate<Person>`,
@@ -598,7 +598,7 @@ In the current implementation, the `sort` command only applies on the list of pe
 `ModelManager` maintains a `sortedPersons` list of type `SortedList<Person>` and a `filteredPersons` list of type
 `FilteredList<Person>`. +
 
-image::sortedList-filteredList-persons.png[width="200"]
+image::sortedList-filteredList-persons.png[width="100"]
 
 Illustrated in the figure above, `sortedPersons` list wraps the `filteredPersons` list and
 `filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
