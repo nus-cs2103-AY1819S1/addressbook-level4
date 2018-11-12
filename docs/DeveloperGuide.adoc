@@ -1787,37 +1787,102 @@ A contact detail that is not meant to be shared with others
 
 Given below are instructions to test the app manually.
 
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+=== Setting a budget
 
-=== Launch and Shutdown
+. Setting a budget no matter what is listed.
 
-. Initial launch
+** Test case: `setBudget 2.00` +
+    Expected: Budget is set to $2.00. Current spendings update to the total costs of all expenses recorded. UI updates
+    accordingly.
+** Test case: `setBudget 0.00` +
+    Expected: Error message of no negative values being allowed is shown. Budget is not set. UI does not update.
+** Test case: `setBudget -1.00`+
+    Expected: Similar to previous
+** Test case: `setBudget 1` +
+    Expected: Budget is not set. Error details stating that the a valid budget consists of {int}.{digit}{digit} is
+    shown in the status message. UI is not updated.
+** Testcase: `setBudget x` where x is not a number` +
+    Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
+    not updated.
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+** Other incorrect delete commands to try: `setBudget`, `setBudget x` where x is not a number with 2 decimal places.
+    Expected: Similar to previous
 
-_{ more test cases ... }_
+. Adding an expense after budget has been set
 
-=== Deleting a expense
+** Test case: Add a valid expense that does not cause the budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated.
 
-. Deleting a expense while all expenses are listed
+** Test case: Add a valid expense that causes the budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
+    informing the user that adding this expense results in the budget exceeding is shown.
 
-.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Setting a recurrence frequency
 
-=== Saving data
+. Setting the recurrence frequency.
 
-. Dealing with missing/corrupted data files
+** Test case: `setRecurrenceFrequency sec/1` +
+    Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 1 seconds is
+    shown.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+** Test case: `setRecurrenceFrequency hrs/1` +
+    Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 3600 seconds is shown.
 
-_{ more test cases ... }_
+** Test case: `setRecurrenceFrequency 1` +
+    Expected: Recurrence frequency is not set. Error details are shown in
+    the status message.
+
+** Other incorrect recurrence frequency commands to try: `setRecurrenceFrequency`, `setRecurrenceFrequency x` where x
+ is a number without tags. +
+ Expected: Similar to previous.
+
+. Budget is restarted after the set recurrence frequency.
+
+** Prerequisite: Tester is in the application.
+
+** Test case: Close the application. Open the application and login to the same account. +
+    Expected: Budget not updated, expenses not deleted, nothing changes.
+
+** Test case: Apply the command `setRecurrenceFrequency sec/1`. Close the application. Login to the same account. +
+    Expected: Budget is now reset ($0/{initial budget}). Expenses not deleted. UI updates accordingly.
+
+** Test case: Apply the command `setRecurrenceFrequency hr/1`. Close the application. Login to the same account. +
+    Expected: Budget not updated, expenses not deleted, nothing changes.
+
+=== Setting a category budget
+
+. Setting the Category Budget
+
+** Test case: `setCategoryBudget c/NEW_CATEGORY b/2.00` where `NEW_CATEGORY` is a category not used by any expense. +
+    Expected: Category Budget is set. Message showing that the Category budget is set is shown. Icon showing the
+    category and its budget appears.
+
+** Test case: `setCategoryBudget c/OLD_CATEGORY b/2.00` where `OLD_CATEGORY` is a Category already used by at least
+one expense. +
+    Expected: Similar to previous
+
+** Test case: `setCategoryBudget c/INVALID_CATEGORY b/2.00`, where `INVALID_CATEGORY` is an invalid Category. +
+    Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+    expense with an invalid Category.
+
+** Test case: `setCategoryBudget c/test b/INVALID_BUDGET`, where `INVALID_CATEGORY` is an invalid Category. +
+    Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+    expense with an invalid Budget.
+
+** Test case: `setCategoryBudget` +
+    Expected: Category Budget not set. Error details are shown in
+    the status message.
+
+** Other incorrect commands to try: `setCategoryBudget x` where x an alphanumeric without valid tags,
+`setCatgoryBudget c/VALID_CATEGORY`, `setCategoryBudget b/VALID_BUDGET`. +
+    Expected: Similar to above.
+
+. Adding an expense after Category budget has been set
+
+** Test case: Add a valid expense that does not cause the Category budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated.
+
+** Test case: Add a valid expense that causes the Category budget to exceed, but not the total budget. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
+    informing the user that adding this expense results in the budget exceeding is shown.
