@@ -152,6 +152,8 @@ public class ModelSetCoordinator implements ModelSet {
 
         setFeatureStorage(Context.MEAL_PLAN);
         mealPlannerModel.indicateAppContentChanged();
+        setFeatureStorage(Context.HEALTH_PLAN);
+        healthPlanModel.indicateAppContentChanged();
         setFeatureStorage(Context.RECIPE);
     }
 
