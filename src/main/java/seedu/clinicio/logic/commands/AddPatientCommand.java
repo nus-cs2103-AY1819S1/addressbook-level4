@@ -14,7 +14,9 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.UserSession;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -74,7 +76,7 @@ public class AddPatientCommand extends Command {
         }
 
         model.addPatient(toAdd);
-        model.switchTab(0);
+        EventsCenter.getInstance().post(new SwitchTabEvent(0));
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

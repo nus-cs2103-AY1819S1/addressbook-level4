@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.UserSession;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -29,7 +31,7 @@ public class ListPatientCommand extends Command {
         }
 
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
-        model.switchTab(0);
+        EventsCenter.getInstance().post(new SwitchTabEvent(0));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
