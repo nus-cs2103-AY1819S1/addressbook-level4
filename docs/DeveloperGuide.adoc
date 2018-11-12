@@ -786,7 +786,7 @@ same attribute (i.e. allow multiple names to be searched at once) and also more 
 searched (i.e. allow users to search for `friends` named `Alex` versus only people named `Alex`).
 ** Cons: It may be confusing for newer users as the search function is not consistently And or Or. Users are also unable
 to carry out a search that will show all persons with two differing attributes (i.e. a search that shows only persons
-named `Alex` who are tagged as `friends`, as well as persons named `Bernice` who are tagged as `family` is impossible
+named `Alex` whom are tagged as `friends`, as well as persons named `Bernice` whom are tagged as `family` is impossible
 with the current search structure. `Alex` tagged as `family` and `Bernice` tagged as `friends` will also appear).
 * **Alternative 2:** Implement the current search but allow multiple search entries to be evaluated at the same time
 so that it is possible to show results of different searches compiled on the same list.
