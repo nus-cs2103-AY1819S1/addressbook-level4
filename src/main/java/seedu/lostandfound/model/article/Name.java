@@ -5,7 +5,7 @@ import static seedu.lostandfound.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Article's name in the article list.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Name {
 
@@ -27,14 +27,14 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

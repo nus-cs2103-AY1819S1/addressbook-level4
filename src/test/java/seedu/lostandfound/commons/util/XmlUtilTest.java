@@ -41,6 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_DESCRIPTION = "4th street";
+    private static final String VALID_IMAGE = "data/images/0.png";
     private static final List<XmlAdaptedTag> VALID_TAGS =
             Collections.singletonList(new XmlAdaptedTag("friends"));
 
@@ -85,7 +86,7 @@ public class XmlUtilTest {
         XmlAdaptedArticle actualArticle = XmlUtil.getDataFromFile(
                 MISSING_ARTICLE_FIELD_FILE, XmlAdaptedArticleWithRootElement.class);
         XmlAdaptedArticle expectedArticle = new XmlAdaptedArticle(
-                null, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_FINDER, DEFAULT_OWNER,
+                null, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_IMAGE, VALID_FINDER, DEFAULT_OWNER,
                 FALSE_ISRESOLVED, VALID_TAGS);
         assertEquals(expectedArticle, actualArticle);
     }
@@ -95,7 +96,7 @@ public class XmlUtilTest {
         XmlAdaptedArticle actualArticle = XmlUtil.getDataFromFile(
                 INVALID_ARTICLE_FIELD_FILE, XmlAdaptedArticleWithRootElement.class);
         XmlAdaptedArticle expectedArticle = new XmlAdaptedArticle(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_FINDER, DEFAULT_OWNER,
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_IMAGE, VALID_FINDER, DEFAULT_OWNER,
                 FALSE_ISRESOLVED, VALID_TAGS);
         assertEquals(expectedArticle, actualArticle);
     }
@@ -105,7 +106,7 @@ public class XmlUtilTest {
         XmlAdaptedArticle actualArticle = XmlUtil.getDataFromFile(
                 VALID_ARTICLE_FILE, XmlAdaptedArticleWithRootElement.class);
         XmlAdaptedArticle expectedArticle = new XmlAdaptedArticle(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_FINDER, DEFAULT_OWNER,
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, VALID_IMAGE, VALID_FINDER, DEFAULT_OWNER,
                 FALSE_ISRESOLVED, VALID_TAGS);
         assertEquals(expectedArticle, actualArticle);
     }

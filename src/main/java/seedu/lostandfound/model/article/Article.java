@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -25,6 +26,7 @@ public class Article {
 
     // Data fields
     private final Description description;
+    private final Image image;
     private final Set<Tag> tags = new HashSet<>();
 
     // Others
@@ -34,12 +36,13 @@ public class Article {
      * Every field must be present and not null.
      */
     public Article(Name name, Phone phone, Email email, Description description,
-                   Name finder, Name owner, boolean isResolved, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, description, finder, owner, isResolved, tags);
+                   Image image, Name finder, Name owner, boolean isResolved, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, description, image, finder, owner, isResolved, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.description = description;
+        this.image = image;
         this.finder = finder;
         this.owner = owner;
         this.isResolved = isResolved;
@@ -60,6 +63,10 @@ public class Article {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Image getImage() {
+        return image != null ? image : Image.getDefault();
     }
 
     public boolean getIsResolved() {
@@ -121,6 +128,7 @@ public class Article {
                 && otherArticle.getDescription().equals(getDescription())
                 && otherArticle.getFinder().equals(getFinder())
                 && otherArticle.getOwner().equals(getOwner())
+                && otherArticle.getImage().equals(getImage())
                 && otherArticle.getIsResolved() == getIsResolved()
                 && otherArticle.getTags().equals(getTags());
     }
@@ -128,7 +136,7 @@ public class Article {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, description, isResolved, tags);
+        return Objects.hash(name, phone, email, description, image, isResolved, tags);
     }
 
     @Override
@@ -137,12 +145,14 @@ public class Article {
         builder.append(getName())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Finder: ")
+                .append(" Image: ")
                 .append(getFinder())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Finder: ")
+                .append(getImage())
                 .append(" Owner: ")
                 .append(getOwner())
                 .append(" isResolved: ")
