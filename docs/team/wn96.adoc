@@ -4,16 +4,19 @@
 :stylesDir: ../stylesheets
 
 == Overview
-This portfolio page collates and document my contributions towards the development of the project. It serves to showcase the technical knowledge I have learned throughout the course in CS2103T. My resume and full portfolio can be found [https://weineng.io[here]].
 
-== LoanBook -- The all-in-one app to manage your bicycle rental business!
+I am a year 2 Computer Science major, specialising in Software Engineering. This portfolio page collates and document my contributions towards the development of the project, LoanBook. It serves to showcase the technical knowledge I have learned throughout the course in CS2103T. My resume and full portfolio can be found https://weineng.io[here].
+
+== LoanBook
 
 Physical management of bicycle loans using pen and paper is hard to organise, unfriendly to the environment and extremely slow.
 Coupled with the rising competition from bicycle sharing companies such as ofo and MoBike, it is more important than ever for bicycle rental companies
 to streamline their process and be more efficient to stay competitive. Introducing LoanBook,
-a free inventory management software with all the features required for a bicycle rental businesses to be more efficient. By parsing commands typed by users, a mouse is no longer required to use the app. Compared to a Graphical User Interface (GUI) or the traditional pen and paper, fast typists will find that LoanBook allows user to manage bicycle loans much faster.
+the all-in-one free inventory management software that promises to improve the efficiency of your bicycle rental business!
+It comes out of the box with every feature that your business will require.
+By parsing commands typed by users, a mouse is no longer required to use the app. Compared to a Graphical User Interface (GUI) or the traditional pen and paper, fast typists will find that LoanBook allows user to manage bicycle loans much faster.
 
-*Noteworthy features includes*:
+*Noteworthy features includes*
 
 * Managing bicycles statuses
 * Summary report for loan in a given period
