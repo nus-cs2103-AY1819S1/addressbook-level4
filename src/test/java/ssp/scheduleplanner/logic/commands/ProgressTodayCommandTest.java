@@ -27,7 +27,7 @@ public class ProgressTodayCommandTest {
 
     @Test
     public void execute_progressToday_success() {
-        float percentage = NaN;
+        float percentage = 0.0f;
         CommandResult result = new ProgressTodayCommand().execute(model, commandHistory);
         assertEquals(result.feedbackToUser, String.format(ProgressTodayCommand.MESSAGE_SUCCESS, percentage));
     }
