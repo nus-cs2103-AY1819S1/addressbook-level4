@@ -28,6 +28,10 @@ public class CrossFindCommandParser {
      * and returns an CrossFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    private final String INCLUDE = "include";
+    private final String PRIORITIZE = "prioritize";
+    private final String INVENTORY = "inventory";
+    
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
                                   String argument) throws ParseException {
         String[] tokens = argument.trim().toLowerCase().split("\\s+");
@@ -54,9 +58,9 @@ public class CrossFindCommandParser {
 
         int index = 1;
         boolean hasInventory = false;
-        if (index < tokens.length && tokens[index].equals("include")) {
+        if (index < tokens.length && tokens[index].equals(INCLUDE)) {
             index++;
-            if (tokens[index].equals("inventory")) {
+            if (tokens[index].equals(INVENTORY)) {
                 hasInventory = true;
                 for (Ingredient ingredient : ingredientList) {
                     include.add(new IngredientDefinition(ingredient.getName()));
@@ -64,7 +68,7 @@ public class CrossFindCommandParser {
                 index++;
             }
             while (index < tokens.length) {
-                if (tokens[index].equals("prioritize")) {
+                if (tokens[index].equals(PRIORITIZE)) {
                     break;
                 }
                 if (!IngredientName.isValid(tokens[index])) {
@@ -75,9 +79,9 @@ public class CrossFindCommandParser {
             }
         }
 
-        if (index < tokens.length && tokens[index].equals("prioritize")) {
+        if (index < tokens.length && tokens[index].equals(PRIORITIZE)) {
             index++;
-            if (hasInventory == false && tokens[index].equals("inventory")) {
+            if (hasInventory == false && tokens[index].equals(INVENTORY)) {
                 for (Ingredient ingredient : ingredientList) {
                     prioritize.add(new IngredientDefinition(ingredient.getName()));
                 }
