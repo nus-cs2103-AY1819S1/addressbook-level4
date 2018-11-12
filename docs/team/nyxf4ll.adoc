@@ -33,7 +33,7 @@ MeetingBook is forked from https://github.com/nus-cs2103-AY1819S1/addressbook-le
 *** Added more sample data to the application: https://github.com/CS2103-AY1819S1-W17-3/main/pull/213[#213]
 ** Documentation:
 *** Modified Readme.adoc: https://github.com/CS2103-AY1819S1-W17-3/main/pull/34[#34]
-*** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/137[#137], https://github.com/CS2103-AY1819S1-W17-3/main/pull/217[#217],
+*** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/137[#137], https://github.com/CS2103-AY1819S1-W17-3/main/pull/217[#217]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-3/main/pull/116[#116], https://github.com/CS2103-AY1819S1-W17-3/main/pull/120[#120], https://github.com/CS2103-AY1819S1-W17-3/main/pull/126[#126], https://github.com/CS2103-AY1819S1-W17-3/main/pull/128[#128],
 https://github.com/CS2103-AY1819S1-W17-3/main/pull/202[#202], https://github.com/CS2103-AY1819S1-W17-3/main/pull/209[#209],
