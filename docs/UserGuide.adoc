@@ -272,10 +272,12 @@ If you have already logged in, you cannot login again. +
 
 Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet (Shown as below):
 
+.User login before
 image::user-guide-login-before.png[width="500"]
 
 Once you have login successfully, the ClinicIO user status will be updated as below:
 
+.User login after
 image::user-guide-login-after.png[width="500"]
 
 Examples:
@@ -293,6 +295,13 @@ You must login in order to use this feature. +
 
 You can log out of ClinicIO. +
 Format: `logout`
+
+Once you entered the logout command, you will be redirected back to the startup page.
+
+.User logout success
+image::Ui.png[width="500"]
+
+
 // end::authenticationcommands[]
 
 // tag::patientcommands[]
