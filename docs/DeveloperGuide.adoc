@@ -1408,8 +1408,6 @@ Expected: Displays "indexes does not exist" error message.
 . Delete tracks by track index in playlist
 .. [green]#Test case:# `track del p/Favourites i/1` +
 Expected: First track of "Favourites" playlist is removed from playlist.
-.. [green]#Test case:# `track del p/Favourites i/1 i/2` +
-Expected: First and second tracks of "Favourites" playlist are removed from playlist.
 .. [red]#Test case:# `track del p/non existing i/1` +
 Expected: Displays "playlist does not exist" error message.
 .. [red]#Test case:# `track del p/Favourites i/999` +
