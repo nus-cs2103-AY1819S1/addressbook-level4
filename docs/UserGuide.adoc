@@ -336,7 +336,10 @@ Format: `leavereject [INDEX]`
 To use this command, you must have "APPROVE_LEAVE" permissions.
 ====
 
-Examples: `leavereject 1`
+Example: `leavereject 7`
+****
+* The status of the 7th leave application displayed when <<View a list of leave applications : `leavelist`, `leavelist`>> is used is changed to `REJECTED`, as shown below: image:LeaveRejectResult.PNG[width=800]
+****
 // end::leaveapplication[]
 
 === Search employees by name : `find`
