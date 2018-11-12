@@ -39,7 +39,7 @@ import seedu.souschef.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 1, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -98,11 +98,11 @@ public class MainApp extends Application {
             initialData = readOnlyAppContentOptional.orElseGet(SampleDataUtil::getSampleRecipes);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AppContent");
-            initialData = new AppContent();
+            logger.warning("Data file not in the correct format. Will be starting with an sample AppContent");
+            initialData = SampleDataUtil.getSampleRecipes();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AppContent");
-            initialData = new AppContent();
+            logger.warning("Problem while reading from the file. Will be starting with an sample AppContent");
+            initialData = SampleDataUtil.getSampleRecipes();
         }
 
         return new ModelSetCoordinator(initialData, userPrefs);

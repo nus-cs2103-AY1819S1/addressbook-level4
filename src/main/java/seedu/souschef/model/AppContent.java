@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
@@ -14,7 +13,6 @@ import seedu.souschef.model.planner.DayComparator;
 import seedu.souschef.model.planner.Meal;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
-import seedu.souschef.model.recipe.Tag;
 
 
 /**
@@ -25,7 +23,6 @@ import seedu.souschef.model.recipe.Tag;
 public class AppContent implements ReadOnlyAppContent {
 
     private final UniqueList<Recipe> recipes;
-    private final UniqueList<Tag> tags;
     private final UniqueList<Ingredient> ingredients;
     private final UniqueList<CrossRecipe> crossRecipes;
     private final UniqueList<HealthPlan> healthPlans;
@@ -41,7 +38,6 @@ public class AppContent implements ReadOnlyAppContent {
      */
     {
         recipes = new UniqueList<>();
-        tags = new UniqueList<>();
         ingredients = new UniqueList<>();
         crossRecipes = new UniqueList<>();
         healthPlans = new UniqueList<>();
@@ -67,7 +63,6 @@ public class AppContent implements ReadOnlyAppContent {
     public void resetData(ReadOnlyAppContent newData) {
         requireNonNull(newData);
         this.recipes.set(newData.getObservableRecipeList());
-        this.tags.set(newData.getObservableTagList());
         this.ingredients.set(newData.getObservableIngredientList());
         this.crossRecipes.set(newData.getObservableCrossRecipeList());
         this.healthPlans.set(newData.getObservableHealthPlanList());
@@ -120,11 +115,6 @@ public class AppContent implements ReadOnlyAppContent {
         return recipes;
     }
 
-    //// tag-level operations
-    public UniqueList<Tag> getTags() {
-        return tags;
-    }
-
     //// ingredient-level operations
     public UniqueList<Ingredient> getIngredients() {
         return ingredients;
@@ -165,11 +155,6 @@ public class AppContent implements ReadOnlyAppContent {
     @Override
     public ObservableList<Recipe> getObservableRecipeList() {
         return recipes.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Tag> getObservableTagList() {
-        return tags.asUnmodifiableObservableList();
     }
 
     @Override

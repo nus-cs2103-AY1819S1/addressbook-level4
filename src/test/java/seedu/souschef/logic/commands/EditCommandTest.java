@@ -38,11 +38,11 @@ public class EditCommandTest {
         Recipe lastRecipe = model.getFilteredList().get(indexLastPerson.getZeroBased());
 
         RecipeBuilder personInList = new RecipeBuilder(lastRecipe);
-        Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withDifficulty(VALID_DIFFICULTY_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Recipe editedRecipe = personInList.withName(VALID_NAME_BEE).withDifficulty(VALID_DIFFICULTY_1)
+                .withTags(VALID_TAG_STAPLE).build();
 
-        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withDifficulty(VALID_DIFFICULTY_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE)
+                .withDifficulty(VALID_DIFFICULTY_1).withTags(VALID_TAG_STAPLE).build();
         EditCommand<Recipe> editCommand = new EditCommand<Recipe>(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
@@ -74,9 +74,9 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_RECIPE);
 
         Recipe recipeInFilteredList = model.getFilteredList().get(INDEX_FIRST_RECIPE.getZeroBased());
-        Recipe editedRecipe = new RecipeBuilder(recipeInFilteredList).withName(VALID_NAME_BOB).build();
+        Recipe editedRecipe = new RecipeBuilder(recipeInFilteredList).withName(VALID_NAME_BEE).build();
         EditCommand<Recipe> editCommand = new EditCommand<Recipe>(INDEX_FIRST_RECIPE,
-                new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
@@ -112,7 +112,7 @@ public class EditCommandTest {
     /*@Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE).build();
         EditCommand<Recipe> editCommand = new EditCommand<Recipe>(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -130,7 +130,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAppContent().getObservableRecipeList().size());
 
         EditCommand<Recipe> editCommand = new EditCommand<Recipe>(outOfBoundIndex,
-                new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }*/
@@ -161,7 +161,7 @@ public class EditCommandTest {
     /*@Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BEE).build();
         EditCommand<Recipe> editCommand = new EditCommand<Recipe>(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into recipeModel

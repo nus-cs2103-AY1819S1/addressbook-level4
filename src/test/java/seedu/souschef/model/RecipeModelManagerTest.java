@@ -17,7 +17,7 @@ import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.testutil.AppContentBuilder;
 
-public class ModelManagerTest {
+public class RecipeModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -30,12 +30,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
+    public void hasRecipe_recipeNotInRecipeModel_returnsFalse() {
         assertFalse(modelManager.has(APPLE));
     }
 
     @Test
-    public void hasRecipe_recipeInAddressBook_returnsTrue() {
+    public void hasRecipe_recipeInRecipeModel_returnsTrue() {
         modelManager.add(APPLE);
         assertTrue(modelManager.has(APPLE));
     }
@@ -48,13 +48,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AppContent addressBook = new AppContentBuilder().withRecipe(APPLE).withRecipe(BANDITO).build();
-        AppContent differentAddressBook = new AppContent();
+        AppContent appContent = new AppContentBuilder().withRecipe(APPLE).withRecipe(BANDITO).build();
+        AppContent differentAppContent = new AppContent();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = (ModelManager<Recipe>) new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel();
-        ModelManager modelManagerCopy = (ModelManager<Recipe>) new ModelSetCoordinator(addressBook,
+        modelManager = (ModelManager<Recipe>) new ModelSetCoordinator(appContent, userPrefs).getRecipeModel();
+        ModelManager modelManagerCopy = (ModelManager<Recipe>) new ModelSetCoordinator(appContent,
                 userPrefs).getRecipeModel();
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -67,13 +67,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelSetCoordinator(differentAddressBook, userPrefs).getRecipeModel()));
+        // different appContent -> returns false
+        assertFalse(modelManager.equals(new ModelSetCoordinator(differentAppContent, userPrefs).getRecipeModel()));
 
         // different filteredList -> returns false
         String[] keywords = APPLE.getName().fullName.split("\\s+");
         modelManager.updateFilteredList(new RecipeContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel()));
+        assertFalse(modelManager.equals(new ModelSetCoordinator(appContent, userPrefs).getRecipeModel()));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredList(PREDICATE_SHOW_ALL);
@@ -81,6 +81,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setRecipeFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel()));
+        assertTrue(modelManager.equals(new ModelSetCoordinator(appContent, userPrefs).getRecipeModel()));
     }
 }
