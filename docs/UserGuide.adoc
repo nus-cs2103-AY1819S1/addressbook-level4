@@ -271,7 +271,7 @@ Format: `add n/NAME g/GENDER b/BIRTHDAY p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]
 Example(s):
 
 .Before adding a volunteer
-image::command_volunteer_list.png[add command, 300]
+image::command_volunteer_list.png[add command, 200]
 
 The figure above shows how the panel looks like before executing the commands below.
 
@@ -291,7 +291,7 @@ Adds a volunteer with the following properties:
 |Address    |Yishun Block 62
 |===
 .Output of `add`
-image::command_volunteer_add_after1.png[add command, 600]
+image::command_volunteer_add_after1.png[add command, 500]
 
 
 * `add n/Betty Sue ic/S9567432B g/f b/31-12-1995 p/81749272 e/Betty@gmail.com  a/Ang Mo Kio Block 62 t/Longtime t/Helpful`
@@ -311,7 +311,7 @@ Adds a volunteer with the following properties:
 |Tags       |Longtime, Helpful
 |===
 .Output of `add`
-image::command_volunteer_add_after2.png[add command, 600]
+image::command_volunteer_add_after2.png[add command, 500]
 
 [[command-volunteer-list]]
 ==== Listing all volunteers : `list`
@@ -322,7 +322,7 @@ Format: `list`
 The figure below shows the expected panel after executing the `list` command.
 
 .Output of `list`
-image::command_volunteer_list.png[list command, 300]
+image::command_volunteer_list.png[list command, 200]
 
 
 [[command-volunteer-edit]]
@@ -349,7 +349,7 @@ The figures below show the before and after results of an edit command.
 
 --
 .The targeted volunteer is updated to reflect the new values after entering the edit command
-image::command_volunteer_edit.png[After edit, 600]
+image::command_volunteer_edit.png[After edit, 500]
 --
 
 
@@ -368,7 +368,7 @@ The figures below show the before and after results of a delete command.
 
 --
 .The targeted volunteer at index 1 is deleted after entering the delete command
-image::command_volunteer_delete.png[After delete, 600]
+image::command_volunteer_delete.png[After delete, 500]
 --
 
 // end::volunteermanagement[]
