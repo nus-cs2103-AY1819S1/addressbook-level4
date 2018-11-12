@@ -22,7 +22,7 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 * *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
 ** What it does: This system allows the clinic to keep track of the queue in the clinic.
 ** Justification: This system improves the product significantly because it has created another use case for this application apart from just storing patient and medicine information.
-** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands are made to be as intuitive as possible.
+** Highlights: This system builds upon patient information and medicine information. It models the real life queue system in the clinic and the 10 commands are made to be as intuitive as possible.
 
 * *Minor enhancement*:
 ** Integration of `Patient` and `Document` class with PQMS through `DocumentAddCommand` and `DocumentDisplayCommand`
