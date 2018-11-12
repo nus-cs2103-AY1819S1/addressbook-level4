@@ -98,7 +98,7 @@ This section contains all commands related to managing attractions.
 // tag::manage[]
 ==== Adding attractions: `add`
 
-Add an attraction by name with the information. +
+Adds an attraction by name with the information. +
 Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
 
 A ride can have any number of tags (including 0). +
@@ -396,13 +396,15 @@ and viewing different lists of rides.
 
 ==== Viewing detailed information of a specific ride: `view`
 
-Display all available information about a single ride on the list of displayed rides.
+Displays all available information about a single ride on the list of displayed rides.
 The `index` field specifies the index of the ride that you want to view.
 
 Format: `view <index>`
 
 [NOTE]
 `index` should be a positive integer that is not larger than the size of the displayed list.
+
+<<<
 
 |===
 a|
@@ -418,25 +420,29 @@ image::./ui_screenshots/view-example-2.png[width="600"]
 
 When `view 4` is executed, the display shows the name, status, days since last maintenance and waiting time for  the selected ride.
 
+<<<
+
 Example 2: `view 17`
 
 Note how the information within the red box at the top changes when `view 17` is executed.
 
 .Before executing `view 17`
-image::./ui_screenshots/view-example-3.png[width="600"]
+image::./ui_screenshots/view-example-3.png[width="550"]
 
 The red box at the bottom of the diagram above shows the last ride, with an index of *16*.
 If you want to view a ride with an index larger than the list, an error message will be shown.
 
 .After executing `view 17`
-image::./ui_screenshots/view-example-4.png[width="600"]
+image::./ui_screenshots/view-example-4.png[width="550"]
 
 The red box in the diagram above shows the error message when you try to enter an index that is not in the list,
 |===
 
+<<<
+
 ==== Viewing rides by their status: `viewstatus`
 
-Display all rides according to the status of the rides.
+Displays all rides according to the status of the rides.
 
 Format: `viewstatus <status>`
 
@@ -450,12 +456,12 @@ Example 1: `viewstatus open`
 Note how the information within the red boxes changes when the `viewstatus open` command is executed.
 
 .Before executing `viewstatus open`
-image::./ui_screenshots/viewstatus-example-1.png[width="600"]
+image::./ui_screenshots/viewstatus-example-1.png[width="550"]
 
 In the diagram above, note that the list of rides in the red box at the left contains rides with different statuses.
 
 .After executing `viewstatus open`
-image::./ui_screenshots/viewstatus-example-2.png[width="600"]
+image::./ui_screenshots/viewstatus-example-2.png[width="550"]
 
 As seen in the diagram above, once `viewstatus open` is executed, the list of rides in the box at the left only contains rides that are open.
 In addition, the response box at the top of the diagram displays the total number of rides that are open.
@@ -465,10 +471,10 @@ Example 2: `viewstatus MainTenaNce`
 `viewstatus MainTenaNce` command accepts inputs with mixed cases in the status field.
 
 .Before executing `viewstatus MainTenaNce` command
-image::./ui_screenshots/viewstatus-example-3.png[width="600"]
+image::./ui_screenshots/viewstatus-example-3.png[width="550"]
 
 .After executing `viewstatus MainTenaNce` command
-image::./ui_screenshots/viewstatus-example-4.png[width="600"]
+image::./ui_screenshots/viewstatus-example-4.png[width="550"]
 
 As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce` and display rides with the status `MAINTENANCE`.
 |===
@@ -476,7 +482,7 @@ As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce`
 
 ==== Viewing all available rides: `viewall`
 
-Display all available rides in a list.
+Displays all available rides in a list.
 
 Format: `viewall`
 
@@ -487,10 +493,10 @@ Example: `viewall`
 Note how the information within the red boxes changes when the `viewall` command is executed.
 
 .Before executing `viewall`
-image::./ui_screenshots/viewall-example-1.png[width="600"]
+image::./ui_screenshots/viewall-example-1.png[width="540"]
 
 .After executing `viewall`
-image::./ui_screenshots/viewall-example-2.png[width="600"]
+image::./ui_screenshots/viewall-example-2.png[width="540"]
 
 As seen in the diagram above, the response box at the top of the diagram will display the total number of rides,
 with a break down of the total number of rides of different statuses.
@@ -504,7 +510,7 @@ This section contains all commands related to finding rides that is relevant to 
 
 ==== Finding rides that fits the given condition: `filter`
 
-Display all rides that fits the condition in a table. It can only filter conditions that have numeric values i.e.
+Displays all rides that fits the condition in a table. It can only filter conditions that have numeric values i.e.
 `Maintenance` and `WaitTime`. +
 
 Format: `filter <tag> <condition> [[tag] [condition]...]` +
@@ -529,7 +535,7 @@ image::./ui_screenshots/filter-example-2.png[width="600"]
 
 ==== Finding a particular attraction: `find`
 
-Find the rides that the user needs to check on. Case insensitive. +
+Finds the rides that the user needs to check on. Case insensitive. +
 Can only find the name, the zone, and the tags of the attractions. +
 
 Format: `find <[name] [[tag][keyword]...]>` +

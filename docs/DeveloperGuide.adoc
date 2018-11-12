@@ -478,13 +478,20 @@ for result listing of results in `ResultDisplay`.
 
 // tag::viewstatus[]
 === View Status Feature
+
+This section documents how `viewstatus` is being implemented.
+
 ==== Current Implementation
 
-The view status function is implemented with the help of `ViewStatusCommand` and `RideStatusPredicate` class.
-When the `ThaneParkParser` parses the user input and finds the view status command word *viewstatus*, it calls a new `ViewStatusCommandParser` to parse the arguments from the user input.
+The view status feature is implemented with the help of `ViewStatusCommand` and `RideStatusPredicate` classes.
+As seen in the sequence diagram below, when the `ThaneParkParser` class parses the user input of `viewstatus`,
+it calls a new `ViewStatusCommandParser` to parse the arguments from the user input.
+
+.Sequence Diagram of the View Status feature
+image::ViewStatusSequenceDiagram.png[width="550"]
 
 .Activity Diagram of `ViewStatusCommandParser`
-image::ViewStatusActivityDiagram.png[width="800"]
+image::ViewStatusActivityDiagram.png[width="550"]
 
 As seen in the diagram above, the `ViewStatusCommandParser` class checks the arguments for keywords relating to the status of the rides.
 If there are more than one strings found or the argument string is not one of the three statuses,
