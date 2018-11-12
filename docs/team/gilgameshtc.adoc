@@ -7,7 +7,7 @@
 
 ---
 
-== Introduction
+== 1. Introduction
 
 This portfolio documents my role and contributions to the project, Hallper. This project was undertaken as part of a
 requirement for the module CS2103T - Software Engineering, offered in the National University of Singapore (NUS). The main goal of the project is to enhance and add value to the application, AddressBook Level 4.
@@ -21,7 +21,7 @@ have been enhanced.
 *My role and contributions:* My contribution to the project is the implementation the calendar feature and all its relevant commands. The commands that facilitate the calendar feature includes creating calendars, adding events, deleting events and viewing calendars.
 My role in this project is to make sure that the milestones we set collectively as a team are met on time. This includes reviewing the codes of my team members and doing acceptance testing (making sure the feature solves the problem it claims to solve).
 
-== Summary of contributions
+== 2. Summary of contributions
 This section lists the major and minor enhancements I have contributed to the project, Hallper as well as miscellaneous contributions in other aspects of the project.
 
 I implemented the calendar feature with external libraries,  https://github.com/ical4j/ical4j[iCal4j] and http://jfxtras.org/[JFxtras].
@@ -36,7 +36,7 @@ I implemented the calendar feature with external libraries,  https://github.com/
 ** Justification: This feature improves the user experience as the user can observe changes made on the calendar dynamically. Besides that, the calendar is displayed alongside the command line interface (CLI), eliminating the need to switch between windows. In other words, the user can create, modify and view calendars in Hallper just by typing the keyboard.
 ** Highlights: The implementation of this feature requires an in-depth understanding of Java FXML API, JavaFX, XML, http://jfxtras.org/[JFxtras] and how they work together. It was challenging as it required changes to existing commands and interaction with the main window had to be correctly handled.
 
-* *Minor enhancement*: added a add event and delete event command that allows the user to modify calendar content.
+* *Minor enhancement*: added add event and delete event command that allows the user to modify calendar content.
 
 * *Code contributed*:
 [ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/main/java/seedu/address[Functional code] ]
@@ -50,40 +50,46 @@ I implemented the calendar feature with external libraries,  https://github.com/
 
 ** Documentation:
 *** Updated the README:
-(Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/22[#22])
+(Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/22[#22],
+               https://github.com/CS2103-AY1819S1-W16-1/main/pull/178[#178])
 *** Updated the Developer Guide:
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/73[#73],
- https://github.com/CS2103-AY1819S1-W16-1/main/pull/97[#97],
- https://github.com/CS2103-AY1819S1-W16-1/main/pull/174[#174])
+               https://github.com/CS2103-AY1819S1-W16-1/main/pull/97[#97],
+               https://github.com/CS2103-AY1819S1-W16-1/main/pull/174[#174])
 *** Updated the User Guide:
 (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/120[#120],
- https://github.com/CS2103-AY1819S1-W16-1/main/pull/136[#136])
+               https://github.com/CS2103-AY1819S1-W16-1/main/pull/136[#136],
+               https://github.com/CS2103-AY1819S1-W16-1/main/pull/178[#178])
 
 ** Community:
 *** Pull request reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-1/main/pull/13[#13]
 *** Reported bugs and suggestions for other teams in the class
-(Issues: https://github.com/CS2103-AY1819S1-T16-4/main/issues/172[#172], https://github.com/CS2103-AY1819S1-T16-4/main/issues/173[#173], https://github.com/CS2103-AY1819S1-T16-4/main/issues/176[#176], https://github.com/CS2103-AY1819S1-T16-4/main/issues/179[#179])
+(Issues: https://github.com/CS2103-AY1819S1-T16-4/main/issues/172[#172],
+         https://github.com/CS2103-AY1819S1-T16-4/main/issues/173[#173],
+         https://github.com/CS2103-AY1819S1-T16-4/main/issues/176[#176],
+         https://github.com/CS2103-AY1819S1-T16-4/main/issues/179[#179])
 
 ** Tools:
 *** Integrated Travis CI and auto publishing of documents to the project (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/3[#3])
 *** Integrated a third party library (iCal4j) to the project (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/17[#17])
 *** Integrated a third party library (JFxtras) to the project (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/107[#107])
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=calendar]
+include::../UserGuide.adoc[tag=calendarIntro]
+include::../UserGuide.adoc[tag=calendarDesign]
 
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=calendar]
-
+include::../DeveloperGuide.adoc[tag=calendarDesign]

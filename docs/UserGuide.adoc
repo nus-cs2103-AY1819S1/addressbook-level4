@@ -480,9 +480,10 @@ _Figure 4.3.5.1: Result after executing `view_email Meeting on Friday`._
 
 // end::email[]
 
-// tag::calendar[]
+// tag::calendarIntro[]
 === Calendar
 This section lists features related to managing the calendar in Hallper.
+// end::calendarIntro[]
 
 ==== Adding all day event into calendar : `add_all_day_event`
 
@@ -501,13 +502,13 @@ Example:
 
 Before executing command:
 
-image::add_all_day_event_diagram_before.png[width="790"]
+image::add_all_day_event_diagram_before.png[width="700"]
 _Figure 4.4.1.1: Screen before running `add_all_day_event` on Hallper._
 
 * `add_all_day_event month/Oct year/2018 date/08 title/Hall open day` +
 Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
 
-image::add_all_day_event_diagram_after.png[width="790"]
+image::add_all_day_event_diagram_after.png[width="700"]
 _Figure 4.4.1.2: Screen after running `add_all_day_event` on Hallper._
 
 ==== Adding event into calendar : `add_event`
@@ -529,16 +530,17 @@ Example:
 
 Before executing command:
 
-image::add_event_diagram_before.png[width="790"]
+image::add_event_diagram_before.png[width="700"]
 _Figure 4.4.2.1: Screen before running `add_event` on Hallper._
 
 * `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
 Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
 the `10th` at `1800`.
 
-image::add_event_diagram_after.png[width="790"]
+image::add_event_diagram_after.png[width="700"]
 _Figure 4.4.2.2: Screen after running `add_event` on Hallper._
 
+// tag::calendarDesign[]
 ==== Creating calendar : `create_calendar`
 
 Creates a calendar file in Hallper for updating of events. +
@@ -574,21 +576,23 @@ Example:
 
 Before executing command: +
 
-image::delete_event_diagram_before.png[width="790"]
+image::delete_event_diagram_before.png[width="700"]
 _Figure 4.4.4.1: Screen before running `delete_event` on Hallper._
 
 * Deleting a non-existing event (Title is case sensitive) +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
 
-image::delete_event_diagram_after_invalid.png[width="790"]
+image::delete_event_diagram_after_invalid.png[width="700"]
 _Figure 4.4.4.2: Screen after running `delete_event` with a non-existing event in Hallper._
 
 * Deleting an existing event +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
 Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
 
-image::delete_event_diagram_after_valid.png[width="790"]
+image::delete_event_diagram_after_valid.png[width="700"]
 _Figure 4.4.4.3: Screen after running `delete_event` with an existing event in Hallper._
+
+// end::calendarDesign[]
 
 ==== Viewing calendar : `view_calendar`
 
@@ -606,8 +610,7 @@ Example:
 * `view_calendar month/Oct year/2018` +
 Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
 
-image::calendar_view_diagram.png[width="790"]
-// end::calendar[]
+image::calendar_view_diagram.png[width="700"]
 
 // tag::budget[]
 === Budget and CCA
