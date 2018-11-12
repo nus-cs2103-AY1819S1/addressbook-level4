@@ -1351,6 +1351,49 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 // end::spencerTestInstructions[]
 
+// tag::henryInstructions[]
+=== Testing Assignment Manipulation
+Optional Prerequisite: There is at least 1 person recorded in the application to view assignments in the gui.
+
+. Adding an assignment to the application
+
+.. Prerequisites: Application currently do not have an assignment with the same name.
+.. Test case: `addAssignment n/Assignment1 w/15 d/31/12/2019 m/100` +
+   Expected: New assignment called "Assignment1" is added to the application, if you select a student,
+   Assignment1 will appear on the MoreDetailsPanel on the right of student list.
+.. Test case: `addAssignment n/Assignment2 w/a d/31/12/2019 m/100` +
+   Expected: Error message appear: weight must be a real number.
+
+. Deleting an assignment
+
+.. Prerequisites: There is at least 1 assignment stored in the application.
+.. Test case: `deleteAssignment 1` +
+   Expected: The first assignment on the assignment list will be deleted.
+.. Test case: `deleteAssignment asdf` +
+   Expected: `Invalid command format` error.
+
+. Editing an assignment
+
+.. Prerequisites: There is at least 1 assignment stored in the application. There is no assignment with the name
+   "Assignment2"
+.. Test case: `editAssignment 1 n/Assignment2 w/30` +
+   Expected: the first assignment's name in the assignment list changed to "Assignment2" and its weight changed to 30.
+
+. Marking a person
+
+.. Prerequisites: There is at least 2 person and 1 assignment stored.
+
+.. Test case: `markAssignment 2 id/1 m/30` +
+   Expected: second person in the list have his/her mark stored for first assignment. He/She got 30 marks for it.
+
+. Sorting assignments
+
+.. Prerequisites: There is at least 2 assignment and not ordered from oldest to latest by deadline.
+
+.. Test case: `sortAssignment` +
+   Expected: the assignments are all sorted by deadline and if they have same deadline, then by name.
+// tag::henryInstructions[]
+
 // tag::robertInstructions[]
 === Testing Assignment Statistics
 
