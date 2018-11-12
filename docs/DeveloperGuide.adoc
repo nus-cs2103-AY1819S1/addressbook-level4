@@ -694,7 +694,7 @@ takes up an O(N) memory space.
 // end::displaySales[]
 
 // tag::ingredient[]
-===  Delete Ingredient feature
+===  Delete ingredient feature
 This feature allows the user to delete an ingredient from the ingredient list, specified by its name or index.
 
 ==== Current Implementation
@@ -737,7 +737,7 @@ Two different implementations were considered.
 ** Cons: Two attributes are required, but only one has a value while the other has to be set to `null`. This makes the
 `equals()` method difficult to implement.
 
-===  Stock Up Ingredient feature
+===  Stock up ingredient feature
 This feature allows the user to stock up one or more ingredients in the ingredient list.
 
 ==== Current Implementation
