@@ -37,6 +37,7 @@ public class AddFavouriteCommand <T extends UniqueType> extends Command {
         logger.info(recipe.getName().fullName);
         model.add(recipe);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
+        model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 history.getContextString()));
     }

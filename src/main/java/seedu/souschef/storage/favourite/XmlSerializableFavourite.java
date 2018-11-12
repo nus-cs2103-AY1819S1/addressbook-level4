@@ -1,6 +1,8 @@
 package seedu.souschef.storage.favourite;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,7 +12,7 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.storage.XmlSerializableGeneric;
-import seedu.souschef.storage.recipe.XmlAdaptedLiteRecipe;
+import seedu.souschef.storage.recipe.XmlAdaptedRecipe;
 
 /**
  * An Immutable AppContent that is serializable to XML format
@@ -18,10 +20,11 @@ import seedu.souschef.storage.recipe.XmlAdaptedLiteRecipe;
 @XmlRootElement(name = "souschef")
 public class XmlSerializableFavourite implements XmlSerializableGeneric {
 
-    public static final String MESSAGE_DUPLICATE_FAVOURITE_RECIPE = "Recipes list contains duplicate favourite recipe(s).";
+    public static final String MESSAGE_DUPLICATE_FAVOURITE_RECIPE =
+            "Recipes list contains duplicate favourite recipe(s).";
 
     @XmlElement
-    private XmlAdaptedFavourite favourites;
+    private List<XmlAdaptedRecipe> recipes;
 
     private AppContent appContent;
 
@@ -30,27 +33,15 @@ public class XmlSerializableFavourite implements XmlSerializableGeneric {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableFavourite() {
-        favourites = new XmlAdaptedFavourite();
+        recipes = new ArrayList<>();
         appContent = new AppContent();
     }
 
     public XmlSerializableFavourite(seedu.souschef.storage.favourite.XmlSerializableFavourite ab) {
-        favourites = ab.favourites;
+        recipes = ab.recipes;
         this.appContent = ab.appContent;
-        //favourites.addAll(ab.appContent.getObservableFavouritesList().stream().map(XmlAdaptedFavourite::new)
-          //      .collect(Collectors.toList()));
-    }
-
-    public XmlSerializableFavourite(AppContent appContent) {
-        this();
-        if (appContent != null) {
-            this.appContent = appContent;
-        } else {
-            appContent = new AppContent();
-
-        }
-       // favourites.addAll(appContent.getObservableFavouritesList().stream().map(XmlAdaptedFavourite::new)
-         //       .collect(Collectors.toList()));
+        recipes.addAll(ab.appContent.getObservableFavouritesList().stream().map(XmlAdaptedRecipe::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -63,27 +54,24 @@ public class XmlSerializableFavourite implements XmlSerializableGeneric {
         } else {
             appContent = new AppContent();
         }
-        favourites = new XmlAdaptedFavourite(src.getObservableFavouritesList()
-                .subList(0, src.getObservableFavouritesList().size() - 1));
+        recipes.addAll(appContent.getObservableFavouritesList().stream().map(XmlAdaptedRecipe::new)
+                .collect(Collectors.toList()));
     }
 
     /**
      * Converts this souschef into the favouriteModel's {@code AppContent} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedFavourite}.
+     * {@code XmlAdaptedRecipe}.
      */
     @Override
     public AppContent toModelType() throws IllegalValueException {
-    /*    for (XmlAdaptedFavourite p : favourites) {
-            List<Recipe> recipe = p.toModelType();
+        for (XmlAdaptedRecipe p : recipes) {
+            Recipe recipe = p.toModelType();
             if (this.appContent.getFavourites().contains(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_FAVOURITE_RECIPE);
             }
             appContent.getFavourites().add(recipe);
-        }*/
-        for (Recipe r : favourites.toModelType()) {
-            appContent.getFavourites().add(r);
         }
         return appContent;
     }
@@ -97,6 +85,6 @@ public class XmlSerializableFavourite implements XmlSerializableGeneric {
         if (!(other instanceof XmlSerializableFavourite)) {
             return false;
         }
-        return favourites.equals(((XmlSerializableFavourite) other).favourites);
+        return recipes.equals(((XmlSerializableFavourite) other).recipes);
     }
 }

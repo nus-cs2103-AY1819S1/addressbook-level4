@@ -123,4 +123,29 @@ public class DeleteCommandParser {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_MEALPLANNER_USAGE), pe);
         }
     }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * and returns an DeleteCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteCommand<Recipe> parseFavourite(Model<Recipe> model, String args) throws ParseException {
+        try {
+            Index targetIndex = ParserUtil.parseIndex(args);
+            requireNonNull(model);
+            List<Recipe> lastShownList = model.getFilteredList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+            }
+            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
+            EventsCenter.getInstance().post(new RecipeDeletedEvent(toDelete));
+
+            return new DeleteCommand<>(model, toDelete);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_RECIPE_USAGE), pe);
+        }
+    }
 }

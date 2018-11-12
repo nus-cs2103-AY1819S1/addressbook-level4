@@ -18,7 +18,6 @@ import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.storage.XmlFeatureStorage;
 import seedu.souschef.storage.XmlFileStorage;
 import seedu.souschef.storage.XmlSerializableGeneric;
-import seedu.souschef.storage.recipe.XmlSerializableRecipe;
 
 /**
  * A class to access AppContent data stored as an xml file on the hard disk.

@@ -29,7 +29,8 @@ public class RecipeListPanelTest extends GuiUnitTest {
     private static final ObservableList<Recipe> TYPICAL_RECIPES =
             FXCollections.observableList(getTypicalRecipes());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_RECIPE);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_RECIPE);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
