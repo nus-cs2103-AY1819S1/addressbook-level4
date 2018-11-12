@@ -9,7 +9,6 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 
 import seedu.scheduler.commons.core.index.Index;
-import seedu.scheduler.logic.commands.AddReminderCommand;
 import seedu.scheduler.logic.commands.DeleteReminderCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.event.ReminderDurationList;
@@ -35,13 +34,13 @@ public class DeleteReminderCommandParser implements Parser<DeleteReminderCommand
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddReminderCommand.MESSAGE_USAGE), pe);
+                    DeleteReminderCommand.MESSAGE_USAGE), pe);
         }
 
         Set<Flag> flags = ParserUtil.parseFlags(argMultimap.getFlags());
         if (flags.size() > 1) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteReminderCommand.MESSAGE_USAGE));
         }
 
 

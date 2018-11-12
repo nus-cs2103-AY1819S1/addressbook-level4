@@ -31,13 +31,9 @@ public class PopUpManager {
     private static final Logger logger = LogsCenter.getLogger(PopUpManager.class);
     private static PopUpManager instance;
     private PriorityQueue<EventPopUpInfo> popUpQueue;
-    private Boolean flag;
-    // private static ArrayList<EventPopUpInfo> pastPopUps;
 
     private PopUpManager() {
         popUpQueue = new PriorityQueue<>();
-        flag = false;
-        //pastPopUps = new ArrayList<>();
     }
 
     public static PopUpManager getInstance() {
@@ -48,11 +44,10 @@ public class PopUpManager {
     }
 
     /**
-     * Get an ArrayList of the popUpQueue
-     * @return ArrayList
+     * @return number of EventPopUpInfo in the queue
      */
-    public ArrayList<EventPopUpInfo> getArray() {
-        return new ArrayList(popUpQueue);
+    public int size () {
+        return popUpQueue.size();
     }
 
     /**
@@ -71,7 +66,7 @@ public class PopUpManager {
      * @param readOnlyScheduler
      */
     public void reInitialise(ReadOnlyScheduler readOnlyScheduler) {
-        popUpQueue.clear();
+        clear();
         syncPopUpInfo(readOnlyScheduler);
     }
 
@@ -94,36 +89,10 @@ public class PopUpManager {
     }
 
     /**
-     * Edit Single Event's EventPopUpInfo
-     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
-     * @param target
-     * @param editedEvent
+     * Clear all popupqueue
      */
-    public void edit(Event target, Event editedEvent) {
-        delete(target);
-        add(editedEvent);
-    }
-
-    /**
-     * Edit All Recurring Event's EventPopUpInfo
-     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
-     * @param target
-     * @param editedEvents
-     */
-    public void editAll(Event target, List<Event> editedEvents) {
-        deleteAll(target);
-        add(editedEvents);
-    }
-
-    /**
-     * Edit Upcoming Recurring Event's EventPopUpInfo
-     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
-     * @param target
-     * @param editedEvents
-     */
-    public void editUpcoming(Event target, List<Event> editedEvents) {
-        deleteUpcoming(target);
-        add(editedEvents);
+    public void clear() {
+        popUpQueue.clear();
     }
 
     /**
@@ -172,6 +141,39 @@ public class PopUpManager {
     }
 
     /**
+     * Edit Single Event's EventPopUpInfo
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
+     * @param target
+     * @param editedEvent
+     */
+    public void edit(Event target, Event editedEvent) {
+        delete(target);
+        add(editedEvent);
+    }
+
+    /**
+     * Edit All Recurring Event's EventPopUpInfo
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
+     * @param target
+     * @param editedEvents
+     */
+    public void editAll(Event target, List<Event> editedEvents) {
+        deleteAll(target);
+        add(editedEvents);
+    }
+
+    /**
+     * Edit Upcoming Recurring Event's EventPopUpInfo
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
+     * @param target
+     * @param editedEvents
+     */
+    public void editUpcoming(Event target, List<Event> editedEvents) {
+        deleteUpcoming(target);
+        add(editedEvents);
+    }
+
+    /**
      * Check if eventPopUpInfo belongs to an upcoming event compared to target
      * @param event
      * @param target
@@ -179,7 +181,7 @@ public class PopUpManager {
      */
     private Boolean isUpcomingEvent(EventPopUpInfo event, Event target) {
         return (event.getEventSetUid().equals(target.getEventSetUid())
-                        && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
+                        && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
     }
 
     /**
@@ -285,14 +287,12 @@ public class PopUpManager {
                     logger.info("Current event pop up queue has " + popUpQueue.size() + " reminders");
 
                     if (!popUpQueue.isEmpty()) {
-                        //logger.info("Checking for incoming events");
                         DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                        //logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isClose(currentDateTime)
                                 || frontEventDateTime.isPast(currentDateTime)) {
                             EventPopUpInfo currentPopUp = popUpQueue.peek();
                             displayPopUp(currentPopUp.getEventName().toString(), currentPopUp.getPopUpDisplay());
-                            // pastPopUps.add(currentPopUp);
+                            logger.info("Pop up 1 reminders");
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {
                                 frontEventDateTime = popUpQueue.peek().getPopUpDateTime();

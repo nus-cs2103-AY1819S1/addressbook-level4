@@ -155,7 +155,7 @@ public class SampleSchedulerDataUtil {
     }
 
     /**
-     * Returns a reminderDurationList given index between 0 to 3
+     * Returns a reminderDurationList given index between 0 to 3, the rest is for testing postpone function
      */
     public static ReminderDurationList getReminderDurationList(Integer... index) {
         ReminderDurationList list = new ReminderDurationList();
@@ -163,7 +163,9 @@ public class SampleSchedulerDataUtil {
                 Duration.parse("PT15M"),
                 Duration.parse("PT30M"),
                 Duration.parse("PT1H30M"),
-                Duration.parse("PT1H")));
+                Duration.parse("PT1H"),
+                Duration.parse("PT0S"),
+                Duration.parse("PT45M")));
         for (Integer i: index) {
             list.add(durations.get(i));
         }
