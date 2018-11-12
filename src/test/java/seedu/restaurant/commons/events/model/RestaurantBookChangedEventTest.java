@@ -26,7 +26,7 @@ public class RestaurantBookChangedEventTest {
     @Test
     public void createEvent_withSampleRestaurantBook_success() {
         BaseEvent event = new RestaurantBookChangedEvent(SampleDataUtil.getSampleRestaurantBook());
-        assertEquals("number of accounts 1, number of items 2, number of reservations 2, "
-                + "number of sales record 6, number of ingredients 5", event.toString());
+        assertEquals("number of accounts 1, number of items 5, number of reservations 5, "
+                + "number of sales record 9, number of ingredients 10", event.toString());
     }
 }

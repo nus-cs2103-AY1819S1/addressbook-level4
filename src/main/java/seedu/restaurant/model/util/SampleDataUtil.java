@@ -50,11 +50,21 @@ public class SampleDataUtil {
             new Ingredient(new IngredientName("Beef"), new IngredientUnit("pounds"),
                 new IngredientPrice("46.00"), new MinimumUnit(50), new NumUnits(20)),
             new Ingredient(new IngredientName("Bread"), new IngredientUnit("loaf"),
-                new IngredientPrice("2.00"), new MinimumUnit(45), new NumUnits(10)),
+                 new IngredientPrice("2.00"), new MinimumUnit(45), new NumUnits(10)),
             new Ingredient(new IngredientName("Sugar"), new IngredientUnit("packet"),
                 new IngredientPrice("3.20"), new MinimumUnit(20), new NumUnits(22)),
             new Ingredient(new IngredientName("Chicken"), new IngredientUnit("kg"),
-                new IngredientPrice("16.00"), new MinimumUnit(90), new NumUnits(123))
+                new IngredientPrice("16.00"), new MinimumUnit(90), new NumUnits(123)),
+            new Ingredient(new IngredientName("Bacon"), new IngredientUnit("kg"),
+                new IngredientPrice("14.00"), new MinimumUnit(50), new NumUnits(34)),
+            new Ingredient(new IngredientName("Cheese"), new IngredientUnit("kg"),
+                new IngredientPrice("20.00"), new MinimumUnit(70), new NumUnits(0)),
+            new Ingredient(new IngredientName("Flour"), new IngredientUnit("packet"),
+                new IngredientPrice("4.20"), new MinimumUnit(10), new NumUnits(0)),
+            new Ingredient(new IngredientName("Salt"), new IngredientUnit("packet"),
+                new IngredientPrice("2.00"), new MinimumUnit(5), new NumUnits(10)),
+            new Ingredient(new IngredientName("Pasta"), new IngredientUnit("packet"),
+                new IngredientPrice("2.20"), new MinimumUnit(80), new NumUnits(33))
         };
     }
 
@@ -67,18 +77,26 @@ public class SampleDataUtil {
             new SalesRecord(new seedu.restaurant.model.sales.Date("14-11-2018"), new ItemName("Beef Burger"),
                 new QuantitySold("23"), new seedu.restaurant.model.sales.Price("3"))
                     .setIngredientsUsed(getRequiredIngredients(Map.of("Beef", "23", "Bread", "46"))),
+            new SalesRecord(new seedu.restaurant.model.sales.Date("14-11-2018"), new ItemName("Cheese Cake"),
+                new QuantitySold("33"), new seedu.restaurant.model.sales.Price("2.50"))
+                    .setIngredientsUsed(getRequiredIngredients(Map.of("Cheese", "99"))),
             new SalesRecord(new seedu.restaurant.model.sales.Date("15-11-2018"), new ItemName("Apple Juice"),
                 new QuantitySold("16"), new seedu.restaurant.model.sales.Price("2"))
                     .setIngredientsUsed(getRequiredIngredients(Map.of("Apple", "48"))),
             new SalesRecord(new seedu.restaurant.model.sales.Date("15-11-2018"), new ItemName("Beef Burger"),
                 new QuantitySold("20"), new seedu.restaurant.model.sales.Price("3"))
                     .setIngredientsUsed(getRequiredIngredients(Map.of("Beef", "20", "Bread", "40"))),
+            new SalesRecord(new seedu.restaurant.model.sales.Date("15-11-2018"), new ItemName("Fruit Cake"),
+                new QuantitySold("12"), new seedu.restaurant.model.sales.Price("2.50")),
             new SalesRecord(new seedu.restaurant.model.sales.Date("16-11-2018"), new ItemName("Apple Juice"),
                 new QuantitySold("45"), new seedu.restaurant.model.sales.Price("2"))
                     .setIngredientsUsed(getRequiredIngredients(Map.of("Apple", "135"))),
             new SalesRecord(new seedu.restaurant.model.sales.Date("16-11-2018"), new ItemName("Beef Burger"),
                 new QuantitySold("33"), new seedu.restaurant.model.sales.Price("3"))
-                    .setIngredientsUsed(getRequiredIngredients(Map.of("Beef", "33", "Bread", "66")))
+                    .setIngredientsUsed(getRequiredIngredients(Map.of("Beef", "33", "Bread", "66"))),
+            new SalesRecord(new seedu.restaurant.model.sales.Date("16-11-2018"), new ItemName("Cheese Cake"),
+                new QuantitySold("39"), new seedu.restaurant.model.sales.Price("2.50"))
+                    .setIngredientsUsed(getRequiredIngredients(Map.of("Cheese", "117")))
         };
     }
 
@@ -87,9 +105,15 @@ public class SampleDataUtil {
         return new Item[]{
             new Item(new seedu.restaurant.model.menu.Name("Apple Juice"), new Price("2"),
                 new Recipe("some recipe for apple juice"),
-                        getTagSet("drinks", "friday"), getRequiredIngredients(Map.of("Apple", "3"))),
+                    getTagSet("drinks", "friday"), getRequiredIngredients(Map.of("Apple", "3"))),
             new Item(new seedu.restaurant.model.menu.Name("Beef Burger"), new Price("3"), new Recipe(""),
-                getTagSet("burger", "monday"), getRequiredIngredients(Map.of("Beef", "1", "Bread", "2"))),
+                    getTagSet("burger", "monday"), getRequiredIngredients(Map.of("Beef", "1", "Bread", "2"))),
+            new Item(new seedu.restaurant.model.menu.Name("Cheese Cake"), new Price("2.50"), new Recipe(""),
+                    getTagSet("cake", "tuesday"), getRequiredIngredients(Map.of("Cheese", "3"))),
+            new Item(new seedu.restaurant.model.menu.Name("Fruit Cake"), new Price("2.50"), new Recipe(""),
+                    getTagSet("cake", "thursday"), new HashMap<>()),
+            new Item(new seedu.restaurant.model.menu.Name("Bacon Carbonara"), new Price("12"), new Recipe(""),
+                    getTagSet("bacon", "friday"), new HashMap<>())
         };
     }
 
@@ -109,10 +133,19 @@ public class SampleDataUtil {
         return new Reservation[]{
             new Reservation(new seedu.restaurant.model.reservation.Name("Ong Ming Xian"), new Pax("4"),
                 new seedu.restaurant.model.reservation.Date("30-12-2019"), new Time("18:00"),
-                        new Remark("Require baby stool"), getTagSet("Dinner")),
+                new Remark("Require baby stool"), getTagSet("Dinner")),
             new Reservation(new seedu.restaurant.model.reservation.Name("Lee Yi Can"), new Pax("2"),
                 new seedu.restaurant.model.reservation.Date("31-12-2019"), new Time("12:00"),
-                        new Remark("Request for sofa seats"), getTagSet("Lunch")),
+                new Remark("Request for sofa seats"), getTagSet("Lunch")),
+            new Reservation(new seedu.restaurant.model.reservation.Name("Ang Zhi Kai"), new Pax("16"),
+                new seedu.restaurant.model.reservation.Date("02-01-2020"), new Time("13:00"),
+                new Remark("More chili sauce"), getTagSet("Lunch")),
+            new Reservation(new seedu.restaurant.model.reservation.Name("Rebecca Tan"), new Pax("2"),
+                new seedu.restaurant.model.reservation.Date("04-01-2020"), new Time("19:00"),
+                new Remark("Extra napkins"), getTagSet("Dinner")),
+            new Reservation(new seedu.restaurant.model.reservation.Name("Neo Kai Jun"), new Pax("3"),
+                new seedu.restaurant.model.reservation.Date("05-01-2020"), new Time("10:00"),
+                new Remark("Takeaway only"), getTagSet("Breakfast"))
         };
     }
 
