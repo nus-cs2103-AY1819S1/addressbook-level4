@@ -1,5 +1,7 @@
 package seedu.souschef.logic.commands;
 
+import seedu.souschef.commons.core.EventsCenter;
+import seedu.souschef.commons.events.model.MealPlannerClearedEvent;
 import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.planner.Day;
@@ -24,6 +26,7 @@ public class ClearMealPlannerCommand extends Command {
     public CommandResult execute(History history) {
         this.mealPlanner.resetList();
         mealPlanner.commitAppContent();
+        EventsCenter.getInstance().post(new MealPlannerClearedEvent());
         return new CommandResult(String.format(MESSAGE_CLEAR_PLANNER_SUCCESS));
     }
 }
