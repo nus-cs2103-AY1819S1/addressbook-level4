@@ -427,19 +427,21 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Add/Delete Events feature
 
 ==== Current Implementation
-//end::addEventsHeader[]
 ===== Structure of an Event
 In the `Model` component, an `Event` consists of various `Event` attributes.
 Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` are used to represent respective information in an `Event`,
 as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values, and each event also contains a `Set` of `Person` and `Tag` objects,
 which are used to represent the event contacts (from the address book) and event tags (from <<EventTags, event tags>> currently existing in the address book). +
+//end::addEventsHeader[]
 
 By doing so, we achieve more abstraction and cohesion, and this abides by the Separation of Concerns (SoC) principle at the class level.
 On top of facilitating checking of bugs within the individual attributes,
 doing so will also allow the developer to alter the definition of the different attribute classes, as well as to add more attributes into the
 `Event` class easily.
 
+//tag::eventDiagram[]
 image::Event.png[Event class]
+//tag::eventDiagram[]
 
 //tag::addEvents[]
 ===== Adding/Deleting of an Event
