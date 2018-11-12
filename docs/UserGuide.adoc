@@ -339,8 +339,6 @@ The status of the 8th leave application displayed with <<View a list of leave ap
 
 image:LeaveApproveResult.PNG[width=800]
 
-// end::leaveapplication[]
-
 === Reject a leave application : `leavereject`
 
 Sets the status of a leave application to the "Rejected" status.
@@ -360,6 +358,8 @@ Example: `leavereject 7`
 The status of the 7th leave application displayed with <<View a list of leave applications : `leavelist`, `leavelist`>> is changed to `REJECTED`, as shown:
 
 image:LeaveRejectResult.PNG[width=800]
+
+// end::leaveapplication[]
 
 === Search employees by name : `find`
 
