@@ -378,6 +378,10 @@ The following activity diagram summarises what happens when a user executes the 
 
 image::ScheduleCommand5StateDiagram.png[width="400"]
 
+The following sequence diagram shows how the operation itself works.
+
+image::ScheduleSequenceDiagram.png[width="700"]
+
 ==== Design Considerations
 
 ===== Aspect: Where meetings are stored
