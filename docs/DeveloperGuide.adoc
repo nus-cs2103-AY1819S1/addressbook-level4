@@ -505,7 +505,7 @@ image::PQMSClassDiagram.png[width="850"]
 The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispensemedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
 
 These commands inherit from `QueueCommand` because it will require more arguments in its execute command. The PQMS is not inside `Model` as it is only required during runtime;
-it does not need to be saved into the database. A new `QueueCommand` abstract class is created that inherits from `Command` and it defines a new method signature of `execute`.
+it does not need to be saved into the database. A new `QueueCommand` abstract class that inherits from `Command` is created and it defines a new method signature of `execute`.
 
 The following code snippet shows how the `QueueCommand` is implemented:
 
@@ -1647,27 +1647,27 @@ These instructions only provide a starting point for testers to work on; testers
 . Serving a `Patient`
 .. Prerequisites: There is a `Patient` in the `PatientQueue`.
 .. Test case: `serve` +
-.. Expected: The `Patient` of position 1 in the `PatientQueue` will become the `CurrentPatient`.
+   Expected: The `Patient` of position 1 in the `PatientQueue` will become the `CurrentPatient`.
 
 . Adding `DocumentContent` to `CurrentPatient`
 .. Prerequisites: There is a `CurrentPatient`.
 .. Test case: `adddocument n/Fever for past 3 days` +
-.. Expected: "Fever for past 3 days" will be added to the `CurrentPatient's` `noteContent`.
+   Expected: "Fever for past 3 days" will be added to the `CurrentPatient's` `noteContent`.
 
 . Dispensing `Medicine` to `CurrentPatient`
 .. Prerequisites: There is a `CurrentPatient`. Use `liststock` to list the valid `Medicines` that can be added.
 .. Test case: `dispensemedicine 1 amt/5` +
-.. Expected: 5 units of `Medicine` of position 1 in the list of `Medicines` will be dispensed to the `Patient`.
+   Expected: 5 units of `Medicine` of position 1 in the list of `Medicines` will be dispensed to the `Patient`.
 
 . Finishing a `CurrentPatient's` consultation
 .. Prerequisites: There is a `CurrentPatient` with valid `noteContent` added.
 .. Test case: `finish` +
-.. Expected: `CurrentPatient` is transferred to the `ServedPatientList`.
+   Expected: `CurrentPatient` is transferred to the `ServedPatientList`.
 
 . Completing payment for `ServedPatient`
 .. Prerequiisites: There is a `ServedPatient` in the `ServedPatientList`.
 .. Test case: `payment 1` +
-.. Expected: `ServedPatient` of position 1 is removed from the `ServedPatientList`.
+   Expected: `ServedPatient` of position 1 is removed from the `ServedPatientList`.
 
 === Editing a `Medicine`
 
@@ -1700,20 +1700,17 @@ These instructions only provide a starting point for testers to work on; testers
 .Generating a `Receipt` for the `ServedPatient`
 .. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of `ServedPatients` in the `ServedPatientList`.
 .. Test Case: `receipt 1`
-.. Expected: A `Receipt` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`.
-A window will pop up to show the contents of the generated `Receipt`.
+   Expected: A `Receipt` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`. A window will pop up to show the contents of the generated `Receipt`.
 
 .Generating a `MedicalCertificate` for the `ServedPatient`
 .. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of `ServedPatients` in the `ServedPatientList` and that `mcContent` has been added to the `ServedPatient` via the `adddocument` command.
 .. Test Case: `mc 1`
-.. Expected: A `MedicalCertificate` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`.
-A window will pop up to show the contents of the generated `MedicalCertificate`.
+   Expected: A `MedicalCertificate` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`. A window will pop up to show the contents of the generated `MedicalCertificate`.
 
 .Generating a `ReferralLetter` for the `ServedPatient`
 .. Prerequisites: There is at least one `ServedPatient` in the `ServedPatientList`. Ensure that the index to be provided does not exceed the number of `ServedPatients` in the `ServedPatientList` and that `referralContent` has been added to the `ServedPatient` via the `adddocument` command.
 .. Test Case: `refer 1`
-.. Expected: A `ReferralLetter` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`.
-A window will pop up to show the contents of the generated `ReferralLetter`.
+   Expected: A `ReferralLetter` is generated for the `ServedPatient` of position 1 in the `ServedPatientList`. A window will pop up to show the contents of the generated `ReferralLetter`.
 
 === Saving data
 
