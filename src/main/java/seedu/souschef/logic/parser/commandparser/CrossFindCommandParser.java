@@ -25,7 +25,7 @@ import seedu.souschef.model.recipe.Recipe;
  */
 public class CrossFindCommandParser {
     private static final String DUPLICATE_INGREDIENT = "Ingredients should not be duplicated between include and "
-            + "prioritize";
+            + "prioritize.";
     private static final String INCLUDE = "include";
     private static final String PRIORITIZE = "prioritize";
     private static final String INVENTORY = "inventory";
