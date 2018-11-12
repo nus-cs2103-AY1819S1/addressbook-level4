@@ -10,7 +10,7 @@ toc::[]
 
 ---
 
-image::delong.jpg[width="150", align="left"]
+image::dlworldpeace.png[width="150", align="left"]
 {empty}[https://github.com/dlworldpeace[github]]
 
 == Introduction

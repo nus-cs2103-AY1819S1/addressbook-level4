@@ -1,9 +1,11 @@
 = Yeo Zhuan Yu - Project Portfolio
 :site-section: AboutUs
 :toc: macro
-:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
+:imagesDir: ../images
 :stylesDir: ../stylesheets
 :stylesheet: zhuanyu.css
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main/
+:xrefstyle: short
 
 toc::[]
 
@@ -12,10 +14,10 @@ toc::[]
 image::zhuanyu.png[width="200", align="left"]
 {empty}[https://github.com/ZhuanYu[GitHub]]
 
-Hello! My name is Zhuan Yu and I am a second year Computer Science undergraduate. As an aspiring programmer, I want to
-show people about the joy of coding through samples of my work.
+The purpose of this portfolio is to document my contributions to _Car Park Finder_, a software engineering team project to be completed as
+part of the CS2103T Software Engineering module in National University of Singapore (NUS).
 
-I am currently a developer for _Car Park Finder_, a team project to be completed as part of the module CS2103T Software Engineering in NUS.
+My fellow team members are: [underline]#{sourceDir}/team/lexzt.html[Keith]# | [underline]#{sourceDir}/team/yuroutang.html[Yurou]# | [underline]#{sourceDir}/team/dlworldpeace.html[Delong]#
 
 :sectnums:
 == Project: Car Park Finder
@@ -23,66 +25,97 @@ I am currently a developer for _Car Park Finder_, a team project to be completed
 === Overview
 
 _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
-HDB (Housing Development Board) car parks in Singapore. +
+Housing & Development Board (HDB) car parks in Singapore. +
 
-Our application allows you to view vital information such as lots availability for each car park, so that you can
+Our application allows you to view vital information such as parking lots availability for each car park, so that you can
 plan ahead of your trip.
 
 If you use the computer frequently and commute by driving, why not try out
 https://github.com/CS2103-AY1819S1-T09-4/main/releases[_Car Park Finder_]. No installation is required and getting
 started is as simple as typing out a text message.
 
+Main Features of _Car Park Finder_:
+
+* Find by location helps to narrows down the car parks near your destination
+* Filter through the list of car parks with the use of flags to get the preferred choice of car park
+* Receive notifications on how many parking lots are still available for a car park
+* Use of autocomplete to simplify overcomplicated commands by prompting correct format
+
 === Summary of contributions
 
-My task for _Car Park Finder_ is to implement real-time updates and notification of car parks, which allows users to:
+_This section is to provide a summary of my contributions to the project._
 
-* Find car parks based on their postal code, address or number
-* Filter car parks using information like night parking as flags
-* View and click on car parks in the Google Map found inside _Car Park Finder_
+My main task for _Car Park Finder_ was to *query data* from the database and *update the information*
+of all the HDB car parks.
+
+This allows users of the application to:
+
+* Find car parks based on their postal code, address or car park number
+* Filter car parks using information like night parking as flags etc
+* View and click on car parks in the Google Maps found inside _Car Park Finder_
 
 '''
 
-==== *Major enhancement*:
-added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: https://github.com/google/gson[Gson] library for converting JSON data from data.gov.sg database to Java Objects for use in the project. +
+* *Major enhancement*: Query data to provide real-time updates
+** What it does: This enhancement is broken down into two commands, namely `query` and `notify`. Basically both commands
+retrieve data from the database and either add or update the car parks in _Car Park Finder_. Users will then be able to find and filter the
+car parks base on their preferences and pick one that is most suitable for them.
+** Justification: This feature is part of the core requirements for the application to work properly. Without it, users
+would not be able to view all the HDB car parks in Singapore easily or receive notifications about them.
+** Highlights: This enhancement requires an in-depth analysis of design alternatives as it is written from scratch.
+It serves as a basis for other features and without it, there would not be any car park(s) data. This affects features
+to be added in future, since a change in car park information could require changing the whole system. The implementation
+too was challenging as it required threading to ensure a fast and efficient load time while querying the database.
+** Credit: https://github.com/google/gson[Gson] library for converting JSON data from _data.gov.sg_ database to Java
+Objects for use in the project. +
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancements*:
+** Added marker clustering for the Google Maps to limit the number of markers on the map. It also
+zooms in onto the location when clicked on.
+*** Credit: This enhancement uses Javascript and was based off the https://developers.google.com/maps/documentation/javascript/marker-clustering[tutorial here]
+provided by Google.
+** Updated the status bar to show the total number of car park(s) in _Car Park Finder_. I also added a check for List and
+Clear commands to either show all the car park(s) or display a "no car parks(s) available" message instead of displaying zero.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zhuanyu[Click here] to view my code on the CS2103T Project Code Dashboard.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed https://github.com/CS2103-AY1819S1-T09-4/main/releases[releases] `v1.1` - `v1.3` (4 releases) on GitHub
+*** Managed https://github.com/CS2103-AY1819S1-T09-4/main/releases[releases] `v1.1` - `v1.4` (7 releases) on GitHub
+*** Handled deliverables and deadlines for the entire team
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI layout and aesthetics (Pull requests https://github.com/CS2103-AY1819S1-T09-4/main/pull/113[#113], https://github.com/CS2103-AY1819S1-T09-4/main/pull/122[#122])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide and Developer Guide. (PR https://github.com/CS2103-AY1819S1-T09-4/main/pull/134[#134])
+*** Updated README to include introduction, value proposition, main features and standardise acknowledgements.
+(PR https://github.com/CS2103-AY1819S1-T09-4/main/pull/134[#134])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T09-4/main/pull/27[#27],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/35[#35], https://github.com/CS2103-AY1819S1-T09-4/main/pull/61[#61],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/68[#68], https://github.com/CS2103-AY1819S1-T09-4/main/pull/78[#78]
 ** Tools:
-*** Integrated a third party library (Gson) to the project (https://github.com[#42])
-*** Integrated two new Github plugin (AppVeyor & Coveralls) to the team repo
+*** Integrated a third party library (Gson) to the project (PR https://github.com/CS2103-AY1819S1-T09-4/main/pull/3[#3])
+*** Integrated two new Github plugin (AppVeyor & Coveralls) to the team repository
+(https://github.com/CS2103-AY1819S1-T09-4/main/commit/067524a[Commit])
+*** Integrated Reposense to track individual code contribution (PR https://github.com/CS2103-AY1819S1-T09-4/main/pull/28[#28])
 
-== Contributions to the User Guide
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation
-targeting end-users._
-|===
+== User Guide Contributions
+_For my main contributions to the User Guide, they consist of the sections documenting Query and Notify commands.
+They showcase my ability to write documentation targeting end-users in a clear and concise manner._
+
+'''
 
 include::../UserGuide.adoc[tag=query]
 
 include::../UserGuide.adoc[tag=notify]
 
-== Contributions to the Developer Guide
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
-documentation and the technical depth of my contributions to the project._
-|===
+== Developer Guide Contributions
+_For my main contributions to the Developer Guide, they consist of the sections documenting Query, Notify and Weather commands.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project in
+a clear and concise manner._
+
+'''
 
 include::../DeveloperGuide.adoc[tag=query]
 

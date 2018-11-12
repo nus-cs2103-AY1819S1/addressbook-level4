@@ -1,7 +1,9 @@
 package seedu.parking.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.parking.model.carpark.Address;
 
@@ -17,7 +19,6 @@ import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
 import seedu.parking.model.tag.Tag;
-import seedu.parking.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Car park objects.
@@ -158,7 +159,9 @@ public class CarparkBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Carpark} that we are building.
      */
     public CarparkBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = Arrays.stream(tags)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
         return this;
     }
 

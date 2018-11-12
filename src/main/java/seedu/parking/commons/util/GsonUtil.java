@@ -1,25 +1,20 @@
 package seedu.parking.commons.util;
 
-import static seedu.parking.ui.UiPart.DATA_FILE_FOLDER;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
@@ -51,9 +46,14 @@ public class GsonUtil {
     public static List<List<String>> fetchAllCarparkInfo() throws Exception {
         final boolean[] hasError = {false, false, false};
 
-        loadCarparkPostalCode();
+        try {
+            loadCarparkPostalCode();
+        } catch (IOException e) {
+            hasError[0] = true;
+            logger.warning("Unable to load postal code data.");
+        }
 
-        Thread second = new Thread(() -> {
+        Thread first = new Thread(() -> {
             try {
                 getCarparkData();
             } catch (IOException e) {
@@ -61,9 +61,9 @@ public class GsonUtil {
                 logger.warning("Unable to load car park data.");
             }
         });
-        second.start();
+        first.start();
 
-        Thread third = new Thread(() -> {
+        Thread second = new Thread(() -> {
             try {
                 getCarparkAvailability();
             } catch (IOException e) {
@@ -71,10 +71,10 @@ public class GsonUtil {
                 logger.warning("Unable to load parking lots data.");
             }
         });
-        third.start();
+        second.start();
 
+        first.join();
         second.join();
-        third.join();
 
         if (hasError[0] || hasError[1] || hasError[2]) {
             throw new IOException();
@@ -83,6 +83,34 @@ public class GsonUtil {
         return saveAsList();
     }
 
+    /**
+     * Adds in the parking lots details and convert to a list.
+     * @return A List containing all the car parks information.
+     */
+    private static List<List<String>> saveAsList() {
+        List<List<String>> str = new ArrayList<>();
+
+        for (CarparkJson list : carparkList) {
+            for (String[] data : parkingData) {
+                if (list.getNumber().equals(data[0])) {
+                    list.addOn(data[1], data[2]);
+                    break;
+                } else if (list.getJsonData() == null) {
+                    list.addOn("0", "0");
+                }
+            }
+            String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
+            list.getJsonData().add(Objects.requireNonNullElse(value, "000000"));
+            str.add(list.getJsonData());
+        }
+
+        return str;
+    }
+
+    /**
+     * Gets the selected car park lots and returns it in a List.
+     * @throws IOException if unable to connect to URL.
+     */
     public static List<String> getSelectedCarparkInfo(String carparkNum) throws IOException {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
@@ -131,34 +159,6 @@ public class GsonUtil {
 
         in.close();
         return lotData;
-    }
-
-    /**
-     * Adds in the parking lots details and convert to a list.
-     * @return A List containing all the car parks information.
-     */
-    private static List<List<String>> saveAsList() {
-        List<List<String>> str = new ArrayList<>();
-
-        for (CarparkJson list : carparkList) {
-            for (String[] data : parkingData) {
-                if (list.getNumber().equals(data[0])) {
-                    list.addOn(data[1], data[2]);
-                    break;
-                } else if (list.getJsonData() == null) {
-                    list.addOn("0", "0");
-                }
-            }
-            String value = postalCodeMap.get(fnvHash(new String[] {list.x_coord, list.y_coord}));
-            if (value == null) {
-                list.getJsonData().add("000000");
-            } else {
-                list.getJsonData().add(value);
-            }
-            str.add(list.getJsonData());
-        }
-
-        return str;
     }
 
     /**
@@ -264,22 +264,17 @@ public class GsonUtil {
      */
     private static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
-        URL url = MainApp.class.getResource(DATA_FILE_FOLDER + POSTAL_CODE_TXT);
-        File file = null;
-        try {
-            file = Paths.get(url.toURI()).toFile();
+        InputStream in = MainApp.class.getResourceAsStream("/docs/script/postalcodeData.txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String st;
 
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String st;
-            while ((st = br.readLine()) != null) {
-                String[] splitData = st.split(",");
-                if (!splitData[1].equals("null")) {
-                    postalCodeMap.put(Long.parseLong(splitData[0]), splitData[1]);
-                }
+        while ((st = br.readLine()) != null) {
+            String[] splitData = st.split(",");
+            if (!splitData[1].equals("null")) {
+                postalCodeMap.put(Long.parseLong(splitData[0]), splitData[1]);
             }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
+        br.close();
     }
 
     /**
@@ -288,7 +283,7 @@ public class GsonUtil {
      * @return A string of our postal code.
      * @throws IOException if unable to connect to URL.
      */
-    static String getCarparkPostalData(String xcoord, String ycoord) throws IOException {
+    private static String getCarparkPostalData(String xcoord, String ycoord) throws IOException {
         String url = "https://developers.onemap.sg/privateapi/commonsvc/revgeocodexy?location="
                 + xcoord + "," + ycoord
                 + "&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIxNDIsInVzZXJfaWQiOjIxNDIsImVtYWlsIj"
