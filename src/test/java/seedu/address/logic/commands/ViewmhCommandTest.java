@@ -19,7 +19,8 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.PersonBuilder;
 
 
-//@@ omegafishy
+// @@author omegafishy
+// Old code removed from HealthBase, no longer relevant.
 public class ViewmhCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -45,7 +46,7 @@ public class ViewmhCommandTest {
         ViewmhCommand viewmhCommand = new ViewmhCommand(diffValidPerson.getNric());
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(ViewmhCommand.MESSAGE_UNREGISTERED);
+        thrown.expectMessage(CommandUtil.MESSAGE_NO_SUCH_PATIENT);
         viewmhCommand.execute(modelStub, commandHistory);
     }
 
@@ -121,6 +122,15 @@ public class ViewmhCommandTest {
 
             FilteredList<Person> filteredPatients = new FilteredList<>(patients);
             return FXCollections.unmodifiableObservableList(filteredPatients);
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredCheckedOutPersonList() {
+            // is called by {@code ViewmhCommand#execute()}
+            ObservableList<Person> checkedOutPatients = FXCollections.observableArrayList();
+
+            FilteredList<Person> filteredCheckedOutPatients = new FilteredList<>(checkedOutPatients);
+            return FXCollections.unmodifiableObservableList(filteredCheckedOutPatients);
         }
     }
 }

@@ -6,20 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CULTURAL_REQUIREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHYSICAL_DIFFICULTY;
 
-import java.util.Set;
-
-import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diet.DietCollection;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 
 //@author yuntongzhang
@@ -46,9 +38,6 @@ public class AddDietCommand extends Command {
                                                + PREFIX_PHYSICAL_DIFFICULTY + "Hands cannot move. ";
 
     public static final String MESSAGE_SUCCESS = "Dietary requirements added for patient: %1$s";
-    static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
-    static final String MESSAGE_MULTIPLE_PATIENTS = "Multiple such patients exist. "
-                                                           + "Please contact the system administrator.";
 
     private final DietCollection dietsToAdd;
     private final Nric patientNric;
@@ -67,18 +56,7 @@ public class AddDietCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
-                .filtered(p-> patientNric.equals(p.getNric()));
-
-        if (filteredByNric.size() < 1) {
-            throw new CommandException(MESSAGE_NO_SUCH_PATIENT);
-        }
-
-        if (filteredByNric.size() > 1) {
-            throw new CommandException(MESSAGE_MULTIPLE_PATIENTS);
-        }
-
-        Person patientToUpdate = filteredByNric.get(0);
+        Person patientToUpdate = CommandUtil.getPatient(patientNric, model);
         Person updatedPatient = addDietsForPatient(patientToUpdate, dietsToAdd);
 
         model.updatePerson(patientToUpdate, updatedPatient);
@@ -95,16 +73,9 @@ public class AddDietCommand extends Command {
     private static Person addDietsForPatient(Person patientToUpdate, DietCollection dietsToAdd) {
         assert patientToUpdate != null;
 
-        DietCollection updatedDiet = patientToUpdate.getDietCollection().addMoreDiets(dietsToAdd);
+        DietCollection updatedDiet = new DietCollection(patientToUpdate.getDietCollection()).addMoreDiets(dietsToAdd);
 
-        Nric nric = patientToUpdate.getNric();
-        Name name = patientToUpdate.getName();
-        Phone phone = patientToUpdate.getPhone();
-        Email email = patientToUpdate.getEmail();
-        Address address = patientToUpdate.getAddress();
-        Set<Tag> tags = patientToUpdate.getTags();
-
-        return new Person(nric, name, phone, email, address, tags, updatedDiet);
+        return patientToUpdate.withDietCollection(updatedDiet);
     }
 
     @Override

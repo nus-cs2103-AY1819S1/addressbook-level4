@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
@@ -18,14 +17,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.appointment.Type;
 import seedu.address.model.medicalhistory.Diagnosis;
-import seedu.address.model.medicine.PrescriptionList;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Adds an appointment for a patient
@@ -48,7 +41,7 @@ public class AddApptCommand extends Command {
             + PREFIX_DOCTOR + "Dr. Pepper";
 
     public static final String MESSAGE_SUCCESS = "Appointment added for patient: %1$s";
-    public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
+
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -78,12 +71,7 @@ public class AddApptCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
-                .filtered(p -> patientNric.equals(p.getNric()));
-
-        if (filteredByNric.size() < 1) {
-            throw new CommandException(MESSAGE_NO_SUCH_PATIENT);
-        }
+        Person patientToUpdate = CommandUtil.getPatient(patientNric, model);
 
         if (!isValidType(appt.getType())) {
             throw new CommandException(MESSAGE_INVALID_TYPE);
@@ -97,6 +85,9 @@ public class AddApptCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DATE_TIME_BEFORE_CURRENT);
         }
 
+        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
+            .filtered(p -> patientNric.equals(p.getNric()));
+
         if (!isNotDuplicateDateTime(appt.getDate_time(), filteredByNric)) {
             throw new CommandException(MESSAGE_DUPLICATE_DATE_TIME);
         }
@@ -105,7 +96,6 @@ public class AddApptCommand extends Command {
             throw new CommandException(Diagnosis.MESSAGE_NAME_CONSTRAINTS_DOCTOR);
         }
 
-        Person patientToUpdate = filteredByNric.get(0);
         Person updatedPatient = addApptForPerson(patientToUpdate, appt);
 
         model.updatePerson(patientToUpdate, updatedPatient);
@@ -134,15 +124,7 @@ public class AddApptCommand extends Command {
         AppointmentsList updatedAppointmentsList = new AppointmentsList(personToEdit.getAppointmentsList());
         updatedAppointmentsList.add(appt);
 
-        Nric nric = personToEdit.getNric();
-        Name name = personToEdit.getName();
-        Phone phone = personToEdit.getPhone();
-        Email email = personToEdit.getEmail();
-        Address address = personToEdit.getAddress();
-        Set<Tag> tags = personToEdit.getTags();
-        PrescriptionList prescriptionList = personToEdit.getPrescriptionList();
-
-        return new Person(nric, name, phone, email, address, tags, prescriptionList, updatedAppointmentsList);
+        return personToEdit.withAppointmentsList(updatedAppointmentsList);
     }
 
     /**
@@ -187,8 +169,8 @@ public class AddApptCommand extends Command {
     public static boolean isNotDuplicateDateTime(String test, ObservableList<Person> filteredByNric) {
         Person patient = filteredByNric.get(0);
         AppointmentsList apptList = patient.getAppointmentsList();
-        ObservableList<Appointment> ObservableApptList = apptList.getObservableCopyOfAppointmentsList();
-        for (Appointment appt : ObservableApptList) {
+        ObservableList<Appointment> observableApptList = apptList.getObservableCopyOfAppointmentsList();
+        for (Appointment appt : observableApptList) {
             if (appt.getDate_time().equals(test)) {
                 return false;
             }

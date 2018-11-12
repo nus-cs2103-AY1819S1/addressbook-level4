@@ -1,24 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITOR;
 
-import java.util.Set;
-
-import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.model.visitor.VisitorList;
 
@@ -42,7 +33,6 @@ public class VisitorinCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New visitor checked in: %1$s";
     public static final String MESSAGE_DUPLICATE_VISITORS = "This person is already in the list";
-    public static final String MESSAGE_UNREGISTERED = "Patient %1$s is not registered within the system.";
     public static final String MESSAGE_FULL = "Patient can not has more than 5 visitor in the list";
 
     private final Nric patientNric;
@@ -62,14 +52,7 @@ public class VisitorinCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        ObservableList<Person> filteredByNric = model.getFilteredPersonList()
-                .filtered(p -> patientNric.equals(p.getNric()));
-
-        if (filteredByNric.size() < 1) {
-            throw new CommandException(MESSAGE_UNREGISTERED);
-        }
-
-        Person patientToUpdate = filteredByNric.get(0);
+        Person patientToUpdate = CommandUtil.getPatient(patientNric, model);
 
         if (patientToUpdate.getVisitorList().getSize() >= 5) {
             throw new CommandException(MESSAGE_FULL);
@@ -107,13 +90,6 @@ public class VisitorinCommand extends Command {
         VisitorList updatedVisitorList = patientToEdit.getVisitorList();
         updatedVisitorList.add(newVisitor);
 
-        Nric nric = patientToEdit.getNric();
-        Name name = patientToEdit.getName();
-        Phone phone = patientToEdit.getPhone();
-        Email email = patientToEdit.getEmail();
-        Address address = patientToEdit.getAddress();
-        Set<Tag> tags = patientToEdit.getTags();
-
-        return new Person(nric, name, phone, email, address, tags, updatedVisitorList);
+        return patientToEdit.withVisitorList(updatedVisitorList);
     }
 }

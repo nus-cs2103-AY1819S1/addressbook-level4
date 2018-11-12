@@ -45,7 +45,6 @@ public class AddApptCommandTest {
     private String dateTime;
     private String dateTimeBeforeCurrent;
     private String duplicateDateTime;
-    private String invalidDateTime;
     private String doctor;
     private String invalidDoctor;
     private Appointment appt;
@@ -64,7 +63,6 @@ public class AddApptCommandTest {
         dateTime = "12-12-2022 10:30";
         dateTimeBeforeCurrent = "12-12-1018 23:20";
         duplicateDateTime = "12-12-2022 10:30";
-        invalidDateTime = "12-13-2025 23:30";
         doctor = "Dr. Pepper";
         invalidDoctor = "12 Pepper";
         appt = new Appointment(type, procedure, dateTime, doctor);
@@ -89,7 +87,7 @@ public class AddApptCommandTest {
         AddApptCommand addApptCommand = new AddApptCommand(patientNotInModel.getNric(), appt);
         CommandTestUtil.ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddApptCommand.MESSAGE_NO_SUCH_PATIENT);
+        thrown.expectMessage(CommandUtil.MESSAGE_NO_SUCH_PATIENT);
         addApptCommand.execute(modelStub, commandHistory);
     }
 
@@ -202,14 +200,17 @@ public class AddApptCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getFilteredCheckedOutPersonList() {
+            ObservableList<Person> checkedOutPatients = FXCollections.observableArrayList();
+
+            FilteredList<Person> filteredCheckedOutPatients = new FilteredList<>(checkedOutPatients);
+            return FXCollections.unmodifiableObservableList(filteredCheckedOutPatients);
+        }
+
+        @Override
         public void updatePerson(Person personToUpdate, Person updatedPerson) {
             requireAllNonNull(personToUpdate, updatedPerson);
-            if (!personToUpdate.isSamePerson(updatedPerson)) {
-                // TODO: what should be an appropriate response?
-                assertTrue(false);
-                return;
-            }
-
+            assertTrue(personToUpdate.isSamePerson(updatedPerson));
             patient = updatedPerson;
         }
     }
