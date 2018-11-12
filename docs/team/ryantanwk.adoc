@@ -65,9 +65,25 @@ the welcome notification will display a default welcome message instead of the e
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 include::../UserGuide.adoc[tag=notification]
-include::../UserGuide.adoc[tag=favourite]
-include::../UserGuide.adoc[tag=toggle]
 
+=== Favourite: `favourite`, alias `fv`
+
+Allow users to favourite a upcoming events based on most recently displayed events list. Favourite is null by default.
+
+Format: `favourite d/DATE i/EVENT_INDEX`
+
+Examples:
+
+* `favourite d/2018-04-01 i/1`
+
+=== Toggling UI tabs : `toggle`, alias `t`
+
+Format: `toggle`
+
+[NOTE]
+====
+Undo/Redo commands will not undo/redo the toggle command.
+====
 
 == Contributions to the Developer Guide
 
