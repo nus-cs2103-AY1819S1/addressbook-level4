@@ -287,14 +287,14 @@ image::addmedicalrecord-example-2.png[width="650"]
 ==== Adding a medicine: `addmedicine`
 
 Bought the latest medicine that effectively cures eczema? +
-Use `addmedicine` to add that medicine to the CLInic now! +
+Use `addmedicine` to add that medicine into CLInic now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
 ====
 * The serial number of a medicine *must* have at least 5 digits!
-* This command is used for adding medicine that does not exist in CLInic. For restocking a
+* This command is used for adding medicine that does not exist in CLInic. To restock a
 medicine, use the `restock` command.
 ====
 
@@ -366,7 +366,7 @@ Format: `liststock`
 
 Need the price of a medicine urgently? +
 Use `findmedicine` to search for
-the details of a medicine from its medicine name! +
+the details of a medicine from its _medicine name_! +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
 
@@ -383,7 +383,7 @@ Finds the details of the medicines with the name _chlorpheniramine_.
 * `fm telfast panadol` +
 Finds the details of all medicines with the name _telfast_ or _panadol_.
 
-See below for a pictorial guide on how to find _panadol_ and _dermasone_ in CLInic:
+See below for a pictorial guide on how to find _telfast_ or _panadol_ in CLInic:
 
 .Guide to the `findmedicine` command
 image::FindMedicine.png[width="650"]
@@ -400,7 +400,7 @@ Format: `checkstock`
 
 [NOTE]
 Medicines that are low in supply are defined as
-those whose stock levels are equal to or lower than their minimum stock quantities.
+those whose stock levels are lower than or equal to their minimum stock quantities.
 
 See below for a pictorial guide on how to use `checkstock`:
 
