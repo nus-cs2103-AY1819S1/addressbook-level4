@@ -643,7 +643,7 @@ The following sequence diagram shows how the Word Of The Day command works:
 
 image::WordOfTheDaySequentialDiagram.jpg[width="820"]
 
-
+// end::wod[]
 
 === Logging
 

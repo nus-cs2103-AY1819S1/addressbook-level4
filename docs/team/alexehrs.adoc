@@ -24,7 +24,7 @@ Fields were used extensively throughout the application and required careful but
 
 * *Minor enhancement*: Added different coloring of tags. However, feature was later removed due to a fresh restart of the project. After that I considered the feature to be only "nice to have" and did not reimplement it. PR: https://github.com/CS2103-AY1819S1-T10-3/main/pull/10[#10]
 
-* *Code contributed*: [RepoSense collated code] (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alexehrs)
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alexehrs[RepoSense collated code]
 
 * *Other contributions*:
 
