@@ -534,7 +534,7 @@ exception while local tests pass)
 
 // end::playbackFeature_yingnan[]
 
-// tag::playlistNew-hayden[]
+// tag::playlistNew_hayden[]
 === Playlist Management feature
 ==== Current Implementation
 

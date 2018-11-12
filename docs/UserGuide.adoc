@@ -105,6 +105,7 @@ Plays the first playlist in the library folder if there is any.
 Plays the playlist named "Favourites" if it exists in the library folder.
 // end::PlayTPlayP_david[]
 
+// tag::pause_hayden[]
 === Pausing a playing track : `pause`
 
 Pauses a playing track. +
@@ -115,6 +116,7 @@ Examples:
 * `play t/Some Song` +
 `pause` +
 The track is paused.
+// end::pause_hayden[]
 
 // tag::Play_david[]
 === Continuing a paused track : `play`
@@ -187,6 +189,7 @@ If `TIME` is longer than the song duration, the seek command fails.
 Shows the list of all playlists in the library. +
 Format: `playlist list`
 
+// tag::playlistSearch_hayden[]
 === Searching for a playlist : `playlist search`
 
 Searches for playlists by names. +
@@ -200,6 +203,7 @@ Examples:
 
 * `playlist search Fav` +
 Searches for playlists that has Fav in their names.
+// end::playlistSearch_hayden[]
 
 // tag::PlaylistNew_david[]
 === Creating a playlist : `playlist new`
@@ -217,8 +221,12 @@ Examples:
 * `playlist new p/Favourites t/Some Song t/Some Song 2` +
 Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
 
+<<<<<<< Updated upstream
 // end::PlaylistNew_david[]
 
+=======
+// tag::playlistDel_hayden[]
+>>>>>>> Stashed changes
 === Deleting a playlist : `playlist del`
 
 Removes an existing playlist from the library. +
@@ -232,6 +240,7 @@ Examples:
 
 * `playlist del 1` +
 Deletes the first playlist in the panel if it exists.
+// end::playlistDel_hayden[]
 
 // tag::tracklist_gj[]
 === Listing all tracks : `track list`

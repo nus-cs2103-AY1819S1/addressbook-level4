@@ -33,18 +33,19 @@ Can create a new playlist while simultaneously adding tracks to the playlist
 *https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=haydenphillips&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=true[*Code contributed*]
 
 == Other contributions:
-** Implemented corresponding test cases to cover newly-implemented Playlist management feature.
 
-* Project management:
+Project management:
+
 ** Issue Tracker management:
 **** Logic Component: https://github.com/CS2103-AY1819S1-T13-3/main/issues/34[#34], https://github.com/CS2103-AY1819S1-T13-3/main/issues/38[#38]
 **** Commands implemented: https://github.com/CS2103-AY1819S1-T13-3/main/issues/22[#22], https://github.com/CS2103-AY1819S1-T13-3/main/issues/26[#26]
 ** Ensure there are no coding standard violations
+** Implemented corresponding test cases to cover newly-implemented Playlist management feature.
 
-* Enhancements to existing features:
+Enhancements to existing features:
 ** Refactored code throughout the Logic component
 
-* Community:
+Community:
 ** PRs reviewed (with non-trivial review comments)
 ** Reported bugs and suggestions for other teams in the class
 
@@ -54,6 +55,9 @@ Can create a new playlist while simultaneously adding tracks to the playlist
 |===
 
 include::../UserGuide.adoc[tag=intro_hayden]
+include::../UserGuide.adoc[tag=playlistSearch_hayden]
+include::../UserGuide.adoc[tag=playlistDel_hayden]
+include::../UserGuide.adoc[tag=pause_hayden]
 
 == Contributions to the Developer Guide
 |===
