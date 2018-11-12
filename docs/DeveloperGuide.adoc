@@ -655,7 +655,7 @@ When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, an
 directory. It implements the following command:
 
 * `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
-* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+* `BudgetBook#commitBudgetBook()` -- Saves a current version of the budget book in the `VersionedBudgetBook`.
 
 These operations are exposed in the `Model` interface as:
 
@@ -799,7 +799,7 @@ and the `CcaName` is null.
 
 *Step 6.* It then checks whether the CCA name is present in `BudgetWindow#fillInnerParts(CcaName ccaName)`. If CCA name
  is present, `BudgetBrowserPanel(ccaName)` is called and the specified CCA information will be displayed. Otherwise,
- `BudgetBrowserPanel()` is called, showing a blank page.
+ `BudgetBrowserPanel()` will be called and a blank page will be showed.
 
 The following activity diagram summarizes what happens when a user executes a budget command:
 
@@ -813,11 +813,12 @@ _Figure 4.4.1.4: Activity diagram for budget command_
 * **Alternative 1 (current choice):** Saves in `.xml` format.
 ** Pros: Easy to create, understand, move and translate into other environments. International data standard for
 storing information.
-** Cons: Parsing XML software is slow and cumbersome. Use large amounts of memory due to the verbosity and incur cost
+** Cons: Parsing XML software is slow and cumbersome. Uses large amounts of memory due to the verbosity and incurs cost
  of parsing large XML files.
 * **Alternative 2:** Save in `.json` format.
-** Pros: Faster in parsing information.
-** Cons: Limited in terms of what objects can be modeled.
+** Pros: Faster in parsing information as compared to `.xml`.
+** Cons: JSON has no error handling. Therefore when the code fails to insert information, the code will not throw any
+error.
 
 // end::budget[]
 
