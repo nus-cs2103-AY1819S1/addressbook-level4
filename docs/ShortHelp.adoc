@@ -16,7 +16,7 @@ Command syntax summary, enter `help more` for full manual.
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*Manage Commands*
-|help [option]
+|help [more], help [commandWord]
 |Using Autocomplete: kbd:[TAB]
 |history [option]
 |undo

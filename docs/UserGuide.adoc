@@ -307,7 +307,7 @@ kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command
 
 Display previous user inputs during this session. Does not include the executed `history` itself. +
  +
-Format: `history`
+Format: `history [more]`
 
 [NOTE]
 Extended usage of `history`: +
@@ -516,21 +516,28 @@ Format: `logout`
 2+|*Manage Attractions*
 
 |*Add* |`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
-  e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
 |*Delete* |`delete <index>` +
-  e.g. delete 3
+e.g. delete 3
 |*Update* |`update <index> <tag> <value>`
 |*Shutdown* |`shutdown <index>`
 |*Open* |`open <index>`
 |*Clear* |`clear`
 
 2+|*Get help and accessibility*
-|*Help* |`help [option]`
-|*Using Autocomplete* |kbd:[TAB]
-|*History* |`history [option]`
-|*Undo* |`undo`
-|*Redo* |`redo`
-|*Exit* |`exit`
+|*Help* |`help [more]`, `help [commandWord]` +
+e.g. help add
+|*Using Autocomplete* |kbd:[TAB] +
+e.g. dele +
+kbd:[TAB] completes the delete command word.
+|*History* |`history [more]` +
+e.g. history more
+|*Undo* |`undo` +
+e.g. undo
+|*Redo* |`redo` +
+e.g. redo
+|*Exit* |`exit` +
+e.g. exit
 
 2+|*View information on the list of rides*
 |*View all* |`viewall`
