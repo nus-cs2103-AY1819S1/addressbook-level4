@@ -398,10 +398,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 [[AddDeleteEvents]]
-// tag::events[]
+//tag::addEventsHeader[]
 === Add/Delete Events feature
 
 ==== Current Implementation
+//end::addEventsHeader[]
 ===== Structure of an Event
 In the `Model` component, an `Event` consists of various `Event` attributes.
 Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` are used to represent respective information in an `Event`,
@@ -415,6 +416,7 @@ doing so will also allow the developer to alter the definition of the different 
 
 image::Event.png[Event class]
 
+//tag::addEvents[]
 ===== Adding/Deleting of an Event
 Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding and deleting of events.
 In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
@@ -428,16 +430,18 @@ image::add-event-component.png[Interactions between components]
 
 More specific interactions between `Logic` and `Model` are as shown in the diagram below.
 
-image::add-event_logic-model.png[Interactions between Logic and Model, width="700", height="700"]
+image::add-event_logic-model.png[Interactions between Logic and Model, width="750", height="700"]
 
 Step 1. User enters command to add an event +
-Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>`. The latter specifies the contact indices to add into the event. +
-Step 3. `AddEventCommand` calls `Model#hasEvent`, `Model#hasClashingEvent`, `Model#hasEventTag` to check if the event information is valid +
-Step 4. `AddEventCommand` calls `Event#setEventContacts` to set the `Set<Person>` of event contacts (Each `Person` has to be in the existing address book records) +
+Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>`. The latter specifies the contacts (indices) to add into the event. +
+Step 3. `AddEventCommand` calls `Model#hasEvent`, `Model#hasClashingEvent`, `Model#hasEventTag` to check if event details are valid. +
+Step 4. `AddEventCommand` calls `Event#setEventContacts` to set the `Set<Person>` of event contacts (Each `Person` has to be in the existing address book records). +
 Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the system from the `Model` component. +
 
 For deletion of event(s), the flow is similar.
-The sequence diagram for the deletion of event is shown below.
+//end::addEvents[]
+
+The sequence diagram for the deletion of event is shown below. +
 
 image::delete-event-condensed_logic-model.png[Deleting an event, width="750"]
 
@@ -449,13 +453,14 @@ Step 4. The event from step 3 is deleted from the system from the `Model` compon
 [[gettingAnEvent]]
 Events are retrieved based on their date and index in the displayed events list, as shown in the diagram below.
 
-image::get-event.png[Getting an event, width="450", height="400"]
+image::get-event.png[Getting an event, width="350", height="300"]
 
-For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`.
+For the case of `DeleteEventCommand`, we let `XYZCommand` be `DeleteEventCommand`. +
 Step 1. `DeleteEventCommand` calls `Model#getFilteredEventListByDate` to retrieve the last shown event list. +
 Step 2. `DeleteEventCommand` calls `getTargetDateList` to retrieve the list from which the event belongs to.  +
 Step 3. `DeleteEventCommand` calls `getEvent` to retrieve the event based on its index in the list from step 2. +
 
+//tag::addEvents2[]
 Upon adding/deletion of events in `Model`, `AddressBookChangedEvent`, `AddressBookEventChangedEvent` and `EventPanelDisplayChangedEvent`
 are triggered from the `Model` component.
 The raised events are handled by:
@@ -494,6 +499,7 @@ image::ui-display-ad.png[Refresh of Tab Panel on Event Change]
 
 ** *Cons:* There is a regeneration of the `TabPanel` object in `MainWindow` each time such an event occurs.
 However, this overhead is still acceptable given the current scale of the `AddressBook`.
+//end::addEvents2[]
 
 * **Alternative 2:** Store a list of type `ObservableList<ObservableList<Event>>` in `UI` and `Model`,
 where each `ObservableList<Event>` is the list of events for a given date.
@@ -534,25 +540,28 @@ before adding an event with that tag.
 ** *Pros:* Less work by the user, and tag gets automatically added into the system.
 ** *Cons:* The `addEvent` command will be performing two different actions - adding an event
 and adding an event tag. This may violate the Single Responsibility Principle (SRP) for the `AddEventCommand` class.
-// end::events[]
 
 [[seeEventContacts]]
 //tag::seeEventContacts[]
+
 === See Event Contacts feature
 ==== Current Implementation
 To obtain an event's contacts, comparisons are done using `Person#isSamePerson` to check if for each event contact, there exists a person in the system
-who is the same person as the contact. By the use of a `Predicate` with this logic, we then apply the filter on `filteredPersons` in `Model`.
+who is the same person as the contact. By the use of a `Predicate` with this logic, we then apply the filter on `filteredPersons` in `Model`. +
+//end::seeEventContacts[]
 
 The sequence diagram below shows a typical usage of the feature.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
 image::see-event-contacts-condensed_logic-model.png[Interactions between Logic and Model, width="700"]
 
+//tag::seeEventContacts2[]
 Step 1. User enters command to see an event's contacts. +
 Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +
 Step 3. `SeeEventContactsCommand` <<gettingAnEvent, gets the event>>. +
 Step 4. A `ExistingPersonInEventPredicate` is created based on the event's contacts from the event retrieved in Step 3. +
 Step 5. `SeeEventContactsCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` object generated in step 4. +
+//end::seeEventContacts2[]
 
 ==== Considerations
 The displayed person list shown using this feature is aligned with the contact information displayed in the UI when hovering over the event contact. +
@@ -573,22 +582,24 @@ even when the person's contact details no longer exist in the address book.
 `seeEventContacts` would not display the original nor edited person. When hovering over the contact, if there is no such person in the
 system who is the same person as the person originally added into EventsPlus+,
 the user would see a message indicating that the person has been deleted from the system.
-//end::seeEventContacts[]
 
 [[EditEventAddress]]
 //tag::editEventAddress[]
+
 === Edit Event Address feature
 ==== Current Implementation
 To edit an event's existing address, the system first retrieves the event from the address book. This process is similar to that for
 deleting an event. A new `Event` object is created with the same details as the old `Event` object, but with the updated `EventAddress`.
 This new `Event` replaces the old one in the address book in the `Model#updateEvent` method, i.e. the old `Event` object is removed
-from the internal list, and the new one set in its position.
+from the internal list, and the new one set in its position. +
+//end::editEventAddress[]
 
 The overall flow between the `Logic` and `Model` component when editing an event address's tag is as follows.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
 image::edit-event-address-condensed_logic-model.png[Interactions between Logic and Model, width="750"]
 
+//tag::editEventAddress2[]
 Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
 and the updated `EventAddress`. +
@@ -602,26 +613,29 @@ When editing an event, there are several possible values that can be updated, in
 However, this functionality is mainly catered to complement the `suggestLocation` functionality, whereby the user
 can first add an event without specifying any location (and address will be displayed as TBD), and
 edit the suggested location in afterwards.
-//end::editEventAddress[]
+//end::editEventAddress2[]
 
 [[EventTags]]
 // tag::eventTags[]
+
 === Add Event Tags feature
 ==== Current Implementation
 The list of event tags in the system is stored in a `UniqueTagList` in `Model`.
 This implementation requires all event `Tag` objects to be unique (using case-insensitive comparison) +
 All event tags are always shown, hence it is sufficient to
-to keep an `ObservableList<Tag>` in `ModelManager`, rather than a `FilteredList` which is used to store list of `Person` and `Event` objects.
+to keep an `ObservableList<Tag>` in `ModelManager`, rather than a `FilteredList` which is used to store list of `Person` and `Event` objects. +
+// end::eventTags[]
 
 An event tag specified by the user is added in the system as depicted in the sequence diagram below.
 
 image::add-event-tag_logic-model.png[Interactions between Logic and Model, width="700"]
 
+// tag::eventTags2[]
 Step 1. User enters command to add an event tag. +
 Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an `AddEventTagCommand` with a `Set` of `Tag` object. +
 Step 3. `AddEventTagCommand` calls `Model#hasEventTag` to check for duplicate tags already in the system. +
 Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag` into `Model`.
-// end::eventTags[]
+// end::eventTags2[]
 
 [[filteringEvents]]
 //tag::filterEvents[]
@@ -630,16 +644,21 @@ Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag
 ==== Find Event (by tag) feature
 ===== Current Implementation
 To find events by their tags, we make use of a `Predicate`. The `EventTagMatchesKeywordsPredicate` is used in filtering
-all events which have at least one tag matching at least one of the keywords provided by the user.
+all events which have at least one tag matching at least one of the keywords provided by the user. +
+//end::filterEvents[]
 
 image::find-event_logic-model.png[Interactions between Logic and Model, width="750"]
 
+//tag::filterEvents2[]
 Step 1. User enters command to find events with certain tags. +
 Step 2. `AddressBookParser` calls `FindEventCommandParser`, which generates an `FindEventCommand` with an `EventTagMatchesKeywordsPredicate`. +
 Step 3. `FindEventCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` generated in step 2. +
 
 Similar to the other event-related commands, the list-filtering is done in `Model`, and
-the change is propagated to the `UI` component by triggering an event. The details of the event triggers are as follows.
+the change is propagated to the `UI` component by triggering an event.
+//end::filterEvents2[]
+The details of the event triggers are as follows.
+
 
 image::find-event_event-triggers.png[Handling of triggered events]
 
@@ -655,10 +674,10 @@ The `UI` components are updated using a similar flow (by event triggers) to the 
 so that `TabPanel` can switch to the event tab automatically whenever any of these commands are executed,
 even if there is no change to data in the filtered list
 (for example, when `listEvent` is executed even though all events are already currently listed).
-//end::filterEvents[]
 
 [[Autocomplete]]
 // tag::autoComplete[]
+
 === Command Auto-completion feature
 ==== Current Implementation
 Command auto-completion uses a fixed list of all command words in EventsPlus+. Each time the user
@@ -675,6 +694,7 @@ command word.
 
 ** *Pros:* The implementation is neater as most of the checking is done by `String#startsWithPrefix`.
 ** *Cons:* The current input has to be checked against potentially every valid command word.
+// end::autoComplete[]
 
 * **Alternative 2:** Store a `HashMap` with maps every possible prefix of every command word to the corresponding command word.
 Do a lookup in the `HashMap` using current user input as the key and return the value (command word) if any.
@@ -687,7 +707,6 @@ if no such prefix is contained in the mapping, takes linear time with respect to
 leaf nodes are the valid command words.
 ** *Pros:* Provides a balance between time and space complexity.
 ** *Cons:* Potentially more complex implementation.
-// end::autoComplete[]
 
 // tag::tab[]
 === Tab feature
@@ -1743,6 +1762,11 @@ Timestamp in the status bar is updated when `edit` command was executed.
 `seeEventContacts d/2018-04-01 i/1` +
 Expected: No persons shown.
 Timestamp in the status bar is updated when `delete` command was executed.
+
+=== Command auto-completion
+.Command auto-completion
+.. Test case: Type `addE` in the command box. Press the `Tab` key. +
+Expected: Command is auto-completed to `addEvent`.
 
 === Saving data
 
