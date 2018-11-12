@@ -382,7 +382,8 @@ Exports a PDF document to the user's current working directory detailing a volun
 * Date of export
 * Volunteer name
 * Volunteer NRIC
-* List of events involved in - Event name, hours contributed, event start date and event end date
+* List of events involved in - Event name, event ID, hours contributed, event start date and event end date
+* Total hours contributed across all events
 
 Format: `exportcert VOLUNTEER_INDEX`
 
