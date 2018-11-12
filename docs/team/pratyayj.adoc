@@ -22,19 +22,23 @@ It is written in Java, and has about 10 kLoC.
 for events or meetings and display this location on a map.
 ** Justification: Events cannot take place without a location set in place. Adding location-related functionality with respect to a contact's faculty and events
 improves the user experience significantly by providing the user one-stop location functionality without having to exit the application at all.
-** Highlights: A Faculty field is added to the Person class which is crucial given that this application is primarily targeted toward university students.
-The selection of which particular Google Maps API that was to be integrated into the application required careful consideration (the Embed API was chosen for its flexibility with the JavaFX web browser).
+** Highlights: A Faculty field is added to the Person class which is crucial given that this application is primarily targeted toward university students and thus such a field is necessary.
+Selecting which particular Google Maps API to be integrated into the application required careful consideration (the Embed API was eventually chosen for its flexibility with the JavaFX web browser).
 In the long run, the implementation of this foundational functionality allows for further development of other location-related features such as generating
 directions or generating convenient meeting locations (based on faculty locations) which is one of the features to be done in V2.0.
 ** Credits: Google Maps Embed API was used for the map display.
 
 
 * *Other contributions*:
-** Minor enhancements to existing features:
+** Minor enhancements:
 *** Added a separate Location Display tab to display location-related information instead of using pre-existing Webpage tab:
 (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
 *** Application opens maximized at launch:
 (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/176[#176])
+*** Added simple default landing pages (when application is first launched) for Location Display tab and Webpage tab:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[134])
+*** Wrote and modified tests to increase coverage by 4.4%:
+(Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/191[191])
 
 
 ** Project management:
@@ -60,7 +64,7 @@ directions or generating convenient meeting locations (based on faculty location
 
 
 ** Tools:
-*** Integrated Google Maps API into to the project: (Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
+*** Integrated Google Maps API into the project: (Pull request: https://github.com/CS2103-AY1819S1-W13-2/main/pull/134[#134])
 
 == Contributions to the User Guide
 
