@@ -2368,3 +2368,52 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
    Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Clearing Persons
+. Clearing persons while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `clear soccer` (where `soccer` exists in list) +
+   Expected: Person(s) associated with `soccer` is/are cleared from the list.
+.. Test case: `clear A123` (where `A123` exists in list) +
+   Expected: Person(s) associated with `A123` is/are cleared from the list.
+.. Test case: `clear soccer A123` (where `soccer` and/or `A123` exist in list) +
+   Expected: Person(s) associated with `soccer` or `A123` is/are cleared from the list.
+.. Test case: `clear invalidCCA` (where `invalidCCA` does not exist in list) +
+   Expected: No person(s) are deleted. No persons cleared message displayed.
+
+=== Erasing CCAs
+. Erasing CCAs while all persons are listed
+
+.. Prerequitsites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `erase basketball` (where `basketball` exists in list) +
+   Expected: `basketball` is removed from associated person(s) in list.
+.. Test case: `clear basketball soccer` (where `basketball` and `soccer` exist in list) +
+   Expected: `basketball` and `soccer` are removed from associated person(s) in list.
+.. Test case: `clear invalidCCA` (where `invalidCCA` does not exist in list) +
+   Expected: No CCA is erased. No CCAs erased message displayed.
+
+=== Exporting data
+. Exporting Hallper persons to the computer.
+
+.. Prerequisites: `C://Users/Me/Documents` and `~/Desktop` are valid, accessible paths.
+.. Test case: `export dst/C://Users/Me/Documents fn/export.xml` +
+   Expected: Hallper data exported to `export.xml` in `C://Users/Me/Documents`.
+.. Test case: `export dst/~/Desktop fn/export.xml` +
+   Expected: Hallper data exported to `export.xml` in `~/Desktop`.
+.. Test case: `export dst/~/Desktop fn/export.txt` +
+   Expected: Data not exported. Invalid file type message displayed.
+
+
+=== Importing data
+. Importing data files from computer to update Hallper.
+
+.. Prerequisites: Data files created in accessible path on computer with valid format and named `import.xml`.
+   Refer to User Guide Section 4.1.9 for valid data formats. `C://Users/Me/Documents` and `~/Desktop` are valid,
+   accessible paths.
+.. Test case: `import dst/C://Users/Me/Documents/import.xml` +
+   Expected: Data imported from `import.xml` in `C://Users/Me/Documents`.
+.. Test case: `import f/~/Desktop/import.xml` +
+   Expected: Data imported from `import.xml` in `~/Desktop`.
+.. Test case: `import f/C://Users/Me/Documents/import.txt` +
+   Expected: Data not imported. Invalid file type message displayed.
