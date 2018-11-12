@@ -18,9 +18,7 @@ This section documents the major and minor contributions that I have made to thi
 * *Major enhancement*: implemented a *leave management* feature
 ** What it does: this feature allows an employee to apply for leave on specified dates. Also, it allows the user to view his/her own leave applications with their current approval status. Finally, it allows a user, with the required permissions, to view all employee leave applications and the ability to approve or reject them.
 ** Justification: This leave management system provides an extremely quick and easy way for employees to apply for leave and view the status of their current applications. It also consolidates all employee leave applications into one place, and is thus very useful for managers who have many employees under them. Furthermore, it also provides a clean and fast way for managers to approve or reject employee leave applications.
-** Highlights: This enhancement required careful deliberation of how it was to be designed. It was necessary to have an in-depth understanding of the existing code-base and how the many components worked together, so that I could consider the pros and cons of each design alternative that I conceptualized.
-
-* *Minor enhancement*:
+** Highlights: Being the first time I was working in a medium-scale collaboration software engineering project, I picked up many technical skills that include writing tests, writing clear documentation, continuous integration, and the Git workflow. I also learnt about how the Event-driven architecture is implemented.
 
 * *Code contributed*: see on link:https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elliottan[Reposense]
 
