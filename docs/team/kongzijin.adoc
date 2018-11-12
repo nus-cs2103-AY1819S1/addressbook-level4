@@ -33,7 +33,7 @@ similar way of how he edits a contact.
 *** Highlights: This feature enhance user's experience to TheTracker. He can now raise a data communication (with import feature in coming v2.0) with the external world.
 *** Credits: This enhancement requires the command to access storage access directly, and has restrictions on the file path user typed in.
 
-**Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
+** Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
 
 * *Code Contributions* : https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kongzijin&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[Code]
 
