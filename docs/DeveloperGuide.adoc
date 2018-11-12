@@ -1057,6 +1057,7 @@ Use case ends.
 +
 Use case ends.
 
+//tag::wod[]
 [discrete]
 === Use case: Show Word Of The Day - Todays random, special word from Dictionary.com
 
@@ -1068,6 +1069,7 @@ Use case ends.
 4.  User can choose to learn the word by using the `learn` command
 +
 Use case ends.
+//end::wod[]
 
 *Extensions*
 
