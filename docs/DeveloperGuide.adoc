@@ -392,8 +392,7 @@ Ingredient
 Although it looks similar, models used for recipe context and cross context are different. `crossRecipe` class extends
 Recipe class with one more additional field, a Map named neededIngredients. This has `IngredientDefinition` object as a
 key,
- and `IngredientPortion` object as a value. It is to store the information of needed amount of an ingredient obtained
-  from the calculation in amount field of IngredientPortion object.
+ and `IngredientPortion` object as a value. It is to store information of needed amount of an ingredient to amount field of IngredientPortion object after calculation is done.
 
 ===== Current implementation of ingredient models
 image::IngredientModelDiagram.png[width="1000"]
@@ -402,7 +401,7 @@ There are three ingredient related models, namely `IngredientDefinition`, `Ingre
 `Ingredient`.
 IngredientDefinition is a wrapper class for ingredient name. IngredientPortion inherits IngredientDefinition and
 additionally includes amount
-field. Ingredient again inherits IngredientPortion, which is the most complete version of ingredient with date
+field. Ingredient again inherits IngredientPortion, and it is the most complete version of ingredient with date
 information, used by Ingredient Manager.
 Reason for hierarchical implementation is that there exists different needs for ingredient related fields
 across features or functions. For example, ingredient in recipe uses IngredientPortion, and ingredient in Ingredient
