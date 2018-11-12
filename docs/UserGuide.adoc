@@ -8,7 +8,6 @@
 // Italics : _(word)_
 // Bold : *(word)*
 
-
 = Student Schedule Planner - User Guide
 :site-section: UserGuide
 :toc:
