@@ -11,6 +11,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.ProcessCommand;
 import seedu.address.commons.events.ui.FailedLoginEvent;
+import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
 import seedu.address.commons.events.ui.LoginEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.SuccessfulLoginEvent;
@@ -161,5 +162,37 @@ public class LogicManager extends ComponentManager implements Logic {
     public void processLogout(LogoutEvent logoutEvent) {
         model.setLoggedInUser(null);
         model.restartAddressBook();
+    }
+
+    @Subscribe
+    private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getNewSelection() == 2) {
+            try {
+                execute("archive");
+            } catch (CommandException e) {
+                System.out.println(e.getMessage());
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (event.getNewSelection() == 1) {
+            try {
+                execute("list");
+            } catch (CommandException e) {
+                System.out.println(e.getMessage());
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (event.getNewSelection() == 3) {
+            try {
+                execute("listassignments");
+            } catch (CommandException e) {
+                System.out.println(e.getMessage());
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

@@ -19,7 +19,6 @@ import seedu.address.commons.events.ui.ArchiveListEvent;
 import seedu.address.commons.events.ui.AssignmentListEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LeaveListEvent;
-import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.PersonListEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -382,22 +381,5 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
-    }
-
-    @Subscribe
-    private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.getNewSelection() == 2) {
-            personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        }
-        if (event.getNewSelection() == 1) {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        }
-        if (event.getNewSelection() == 3) {
-            assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
-            personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
-        }
     }
 }
