@@ -290,7 +290,6 @@ Format: `showLocation INDEX`
 Examples:
 
 * `showLocation 5`
-////
 // end::showFacultyLocation[]
 
 // tag::suggestedMeetingLocation[]
