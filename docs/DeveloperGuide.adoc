@@ -2499,19 +2499,44 @@ used is dash.
               Parameters: c/CCA
               Example: delete_cca c/ basketball
 
+=== Updating CCA
+. Update the details of a CCA.
+
+.. Prerequisites: The specified CCA must exist in Hallper. The fields provided must be in the correct format.
+.. Test case: `update c/hockey h/Peter Park` +
+   Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
+.. Test case: `update c/tennis h/Peter Park` +
+    Expected: The CCA does not exist.
+.. Test case: `update c/hockey trans/1 amount/200` +
+    Expected: CCA updated: Hockey Head: Peter Park Vice-Head: Bernice Yu Budget: 500
+
+=== Adding a Transaction Entry
+. Adds a transaction entry for a specified CCA in Hallper
+
+.. Prerequisites: The specified CCA must exist in Hallper. The details of the transaction must all be provided and
+are in the correct format.
+.. Test case: `add_trans c/hockey date/20.12.2018 amount/-100 remarks/venue booking` +
+   Expected: Transaction added: Hockey Head: Alex Yeoh Vice-Head: Bernice Yu Budget: 500
+.. Test case: `add_trans c/tennis date/20.12.2018 amount/-100 remarks/venue booking` +
+   Expected: The CCA does not exist. Please create the CCA before. adding its transaction
+.. Test case: `add_trans c/tennis date/20.12.2018 amount/-100` +
+    Expected: All the fields must be provided.
+              add_trans: Add a new transaction to the specified Cca
+              Parameters: c/CCA date/DD.MM.YYYY amount/AMOUNTremarks/REMARKS
+              Example: add_trans c/basketball date/13.12.2018 amount/-100 remarks/Purchase of equipment
+
 === Deleting a Transaction Entry
 . Deletes a transaction entry for a specified CCA in Hallper.
 
 .. Prerequisites: The specified CCA must exist in Hallper. The transaction entry must exist for that CCA.
 .. Test case: `delete_trans c/basketball trans/1` +
-   Expected: Deleted CCA: Basketball Head: - Vice-Head: - Budget: 500
-.. Test case: `delete_cca c/tennis` +
+   Expected: Deleted Cca Transaction Entry:  Entry Number: 1 Date: 13.11.2013 Amount: -300 Remarks: Purchase of Equipment
+.. Test case: `delete_cca c/basketball` +
+    Expected: delete_trans: Deletes the specified transaction entry of the specified CCA
+              Parameters: c/CCA INDEX (must be a positive integer)
+              Example: delete_trans c/ basketball 2
+.. Test case: `delete_trans c/tennis trans/1` +
     Expected: The CCA does not exist.
-.. Test case: `delete_cca` +
-    Expected: Invalid command format!
-              delete_cca: Deletes the CCA specified
-              Parameters: c/CCA
-              Example: delete_cca c/ basketball
 
 === Showing CCAs' Budget
 . Displays the CCA information and its transaction history.

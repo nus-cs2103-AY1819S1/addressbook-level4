@@ -44,8 +44,8 @@ public class AddTransactionCommand extends Command {
 
     public static final String MESSAGE_UPDATE_SUCCESS = "Transaction added: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "All the fields must be provided.";
-    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before. "
-        + "adding its transaction";
+    public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before adding "
+        + "its transaction";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";
     private static final String MESSAGE_OUTSTANDING_ERROR = "This transaction will exceed the given budget!";
