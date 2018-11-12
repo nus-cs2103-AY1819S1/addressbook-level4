@@ -2,17 +2,23 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +31,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -66,6 +73,51 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> grades} into a {@code HashMap<String, Grades>}.
+     */
+    public static HashMap<String, Grades> parseGrades(Collection<String> grades) throws ParseException {
+        requireNonNull(grades);
+        final HashMap<String, Grades> gradesMap = new HashMap<>();
+        for (String grade : grades) {
+            Pair<String, Grades> gradePair = parseGrade(grade);
+            gradesMap.put(gradePair.getKey(), gradePair.getValue());
+        }
+        return gradesMap;
+    }
+
+    /**
+     * Parses a {@code String grade} into a {@code Pair<String, Grades> parseGrade}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grade} is invalid.
+     */
+    public static Pair<String, Grades> parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim();
+        if (!Grades.isValidGradeInput(trimmedGrade)) {
+            throw new ParseException(Grades.MESSAGE_GRADE_INPUT_CONSTRAINTS);
+        }
+        String[] splitGrade = trimmedGrade.split("\\s+");
+        return new Pair<>(splitGrade[0], new Grades(splitGrade[1]));
+    }
+
+
+    /**
+     * Parses a {@code String education} into a {@code Education}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code education} is invalid.
+     */
+    public static Education parseEducation(String education) throws ParseException {
+        requireNonNull(education);
+        String trimmedEducation = education.trim();
+        if (!Education.isValidEducation(trimmedEducation)) {
+            throw new ParseException(Education.MESSAGE_EDUCATION_CONSTRAINTS);
+        }
+        return new Education(trimmedEducation);
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -93,6 +145,34 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses {@code Collection<String> timeSlots} into a {@code ArrayList<Time>}.
+     */
+    public static ArrayList<Time> parseTimings(Collection<String> timeSlots) throws ParseException {
+        requireNonNull(timeSlots);
+        final ArrayList<Time> timeList = new ArrayList<>();
+        for (String time : timeSlots) {
+            Time tuitionTime = parseTime(time);
+            timeList.add(tuitionTime);
+        }
+        return timeList;
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
     }
 
     /**

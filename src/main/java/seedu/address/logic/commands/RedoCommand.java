@@ -20,6 +20,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+
+
+
+
+
         if (!model.canRedoAddressBook()) {
             throw new CommandException(MESSAGE_FAILURE);
         }

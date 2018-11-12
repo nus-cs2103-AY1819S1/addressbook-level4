@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "CJuanvip",
+      "displayName": "CHE...UAN",
+      "authorNames": ["CJuanvip", "cj"]
+    },
+    {
+      "githubId": "chenlu-chua",
+      "displayName": "CHUA ...EN LU",
+      "authorNames": ["chenlu-chua", "chenlu"]
+    },
+    {
+      "githubId": "LZYAndy",
+      "displayName": "LIU Z...HAOYU",
+      "authorNames": ["LZYAndy", "刘照宇"]
+    },
+    {
+      "githubId": "junjiee",
+      "displayName": "ONG J...N JIE",
+      "authorNames": ["junjiee", "Ong Jun Jie"]
+    },
+    {
+      "githubId": "hrxiong",
+      "displayName": "XIONG...AORAN",
+      "authorNames": ["hrxiong"]
+    }
+  ]
+}

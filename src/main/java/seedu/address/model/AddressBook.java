@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -75,6 +76,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds the tuition time {@code time} to the given person {@code target} time array list.
+     * {@code target} must exist in the address book.
+     * {@code time} must not clash with any other time slots in the time array list.
+     */
+    public void addTime(Person target, Time time) {
+        persons.addTimeSlot(target, time);
+    }
+
+    /**
+     * Deletes the tuition time {@code time} from the given person's {@code target} time array list.
+     * {@code target} must exist in the address book.
+     * {@code time} must exist in the given person's {@code target} time array list.
+     */
+    public void deleteTime(Person target, Time time) {
+        persons.deleteTimeSlot(target, time);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -92,7 +111,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
-
     //// util methods
 
     @Override

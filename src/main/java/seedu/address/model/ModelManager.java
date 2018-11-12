@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -76,11 +78,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addTime(Person target, Time time) {
+        versionedAddressBook.addTime(target, time);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteTime(Person target, Time time) {
+        versionedAddressBook.deleteTime(target, time);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    public List<Person> getInternalList() {
+        return versionedAddressBook.getPersonList();
     }
 
     //=========== Filtered Person List Accessors =============================================================

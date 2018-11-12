@@ -35,7 +35,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label education;
+    @FXML
     private Label email;
+    @FXML
+    private FlowPane grades;
+    @FXML
+    private Label fees;
+    @FXML
+    private FlowPane times;
     @FXML
     private FlowPane tags;
 
@@ -46,8 +54,23 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
+        education.setText(person.getEducation().toString());
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getGrades().forEach((key, value) ->
+                grades.getChildren().add(new Label(key + " " + value.toString())));
+        person.getTags().forEach(tag -> {
+            Label label = new Label(tag.tagName);
+
+            if (tag.tagName.equals("Graduated")) {
+                label.getStyleClass().add("graduate");
+            } else {
+                label.getStyleClass().add("original");
+            }
+
+            tags.getChildren().add(label);
+        });
+        fees.setText("$" + person.getFees().value + "/hour");
+        person.getTime().forEach(time -> times.getChildren().add(new Label("[" + time.toString() + "] ")));
     }
 
     @Override

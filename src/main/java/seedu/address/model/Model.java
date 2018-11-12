@@ -1,21 +1,42 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * {@code Comparator}
+     */
+    /*
+    Comparator<Person> COMPARATOR_FOR_SORT = new Comparator<Person>() {
+        @Override
+        public int compare(Person o1, Person o2) {
+            int n1 = Integer.valueOf(o1.getGrades().value);
+            int n2 = Integer.valueOf(o2.getGrades().value);
+            return n2 - n1;
+        }
+    };*/
+
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -34,6 +55,11 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Returns the internalList of the current versionedAddressBook.
+     */
+    List<Person> getInternalList();
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -75,4 +101,14 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Adds tuition time {@code time} into person's {@code target} time array list.
+     */
+    void addTime(Person target, Time time);
+
+    /**
+     * Deletes tuition time {@code time} from the person's {@code target} time array list.
+     */
+    void deleteTime(Person target, Time time);
 }

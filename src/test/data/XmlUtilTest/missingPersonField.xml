@@ -4,5 +4,8 @@
     <phone>9482424</phone>
     <email>hans@example</email>
     <address>4th street</address>
+    <education>Secondary 4</education>
+    <grades>Y1819S1_Mid 100</grades>
+    <timings>sat 0800 1000</timings>
     <tagged>friends</tagged>
 </person>

@@ -19,6 +19,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
+    private static final String EDUCATION_FIELD_ID = "#education";
+    private static final String GRADES_FIELD_ID = "#grades";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -26,6 +28,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label addressLabel;
     private final Label phoneLabel;
     private final Label emailLabel;
+    private final Label educationLabel;
+    private final List<Label> gradesLabels;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -36,6 +40,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
+        educationLabel = getChildNode(EDUCATION_FIELD_ID);
+
+        Region gradesContainer = getChildNode(GRADES_FIELD_ID);
+        gradesLabels = gradesContainer
+                .getChildrenUnmodifiable()
+                .stream()
+                .map(Label.class::cast)
+                .collect(Collectors.toList());
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -65,6 +77,16 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
+    public String getEducation() {
+        return educationLabel.getText();
+    }
+
+    public List<String> getGrades() {
+        return gradesLabels.stream()
+                .map(Label::getText)
+                .collect(Collectors.toList());
+    }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -80,8 +102,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
+                && getEducation().equals(person.getEducation().toString())
+                && ImmutableMultiset.copyOf(getGrades()).equals(ImmutableMultiset.copyOf(
+                person.getGrades().entrySet().stream().map(
+                    entry -> (entry.getKey() + " " + entry.getValue().toString())
+                ).collect(Collectors.toList())))
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                .map(tag -> tag.tagName).collect(Collectors.toList())));
     }
 }

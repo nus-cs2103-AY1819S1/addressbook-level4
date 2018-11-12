@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -9,12 +10,16 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.util.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +37,14 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String education;
+
+    @XmlElement
+    private List<XmlAdaptedGrades> grades = new ArrayList<>();
+
+    @XmlElement
+    private List<XmlAdaptedTime> timings = new ArrayList<>();
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -40,16 +53,25 @@ public class XmlAdaptedPerson {
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String education,
+                            List<XmlAdaptedGrades> grades, List<XmlAdaptedTime> timings, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.education = education;
+        if (grades != null) {
+            this.grades = new ArrayList<>(grades);
+        }
+        if (timings != null) {
+            this.timings = new ArrayList<>(timings);
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -65,6 +87,14 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        education = source.getEducation().toString();
+
+        grades = source.getGrades().entrySet().stream()
+                .map(XmlAdaptedGrades::new)
+                .collect(Collectors.toList());
+        timings = source.getTime().stream()
+                .map(XmlAdaptedTime::new)
+                .collect(Collectors.toList());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -76,6 +106,18 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
+        //get grades hashmap
+        HashMap<String, Grades> modelGrades = new HashMap<>();
+        for (XmlAdaptedGrades grade : grades) {
+            Pair<String, Grades> gradePair = grade.toModelType();
+            modelGrades.put(gradePair.getKey(), gradePair.getValue());
+        }
+
+        ArrayList<Time> modelTime = new ArrayList<>();
+        for (XmlAdaptedTime time : timings) {
+            modelTime.add(time.toModelType());
+        }
+
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -106,15 +148,28 @@ public class XmlAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
 
+        if (education == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Education.class.getSimpleName()));
+        }
+        if (!Education.isValidEducation(education)) {
+            throw new IllegalValueException(Education.MESSAGE_EDUCATION_CONSTRAINTS);
+        }
+        final Education modelEducation = new Education(education);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress,
+                modelEducation, modelGrades, modelTime, modelTags);
+
+        return modelPerson;
     }
 
     @Override
@@ -132,6 +187,9 @@ public class XmlAdaptedPerson {
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
+                && Objects.equals(education, otherPerson.education)
+                && grades.equals(otherPerson.grades)
+                && timings.equals(otherPerson.timings)
                 && tagged.equals(otherPerson.tagged);
     }
 }

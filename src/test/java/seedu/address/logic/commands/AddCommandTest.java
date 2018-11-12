@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -20,6 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -115,6 +117,21 @@ public class AddCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTime(Person target, Time timeslot) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTime(Person target, Time timeslot) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Person> getInternalList() {
             throw new AssertionError("This method should not be called.");
         }
 

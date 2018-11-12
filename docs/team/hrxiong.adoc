@@ -1,0 +1,86 @@
+= XIONG HAORAN - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TutorPal
+
+---
+
+== Overview
+
+TutorPal is a desktop application used by private home tutors for managing student information. The useage is primarily through CLI. It is written in Java.
+
+== Summary of contributions
+* *Code Contributed*:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=hrxiong[RepoSense]
+
+* *Major enhancement*: implemented the *add and edit grades feature*
+** What it does: Allows tutors to add one or more than one grade records for a student during using editing command or adding a student with the help of add command.
+** Justification: As an indicator of the quality of teaching,grades are a very important part of tutoring.
+If the exam results can be recorded, the tutor can more easily analyze the student's learning status and reflect his or her own teaching ability as well.
+
+
+* *Minor enhancement*: implemented the *delete grades feature*
+** What is does: Allow tutors to delete a grade record of a students stored in TutorPal.
+** Justification: Tutor can also use the undo command to delete the wrong records inputted. And this way is more efficient way if the tutor
+is good at typing. But if the tutor inputs a wrong name of the exam and then closes the TutorPal unfortunately, the undo command will out of action.
+So a deleteGrade command is added to fix this logic bug.
+
+* *Other contributions*:
+
+** Project management:
+*** Configuring Travis, Coverage and auto-publishing of documentation.
+*** Setting up and assigning of the issue tracker.
+*** Editing project Milestone.
+
+** Enhancements to existing features:
+*** Added test for grade part. (pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/183[#183])
+*** Fixed the bug when the project totally broke down.(pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/40[#40],
+https://github.com/CS2103-AY1819S1-T13-1/main/pull/61[#61], https://github.com/CS2103-AY1819S1-T13-1/main/pull/95[#95])
+*** Updated the GUI of "grades" to become more tidy. (pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/91[#91])
+*** Fixed the logic conflict caused by the education enum. (pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/55[#55])
+*** Guaranteed the grades feature working normally without affecting other function
+such as storage, undo and redo command. (pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/170[#170])
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the AboutUs and README. (pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/5[#5],
+https://github.com/CS2103-AY1819S1-T13-1/main/pull/6[#6], https://github.com/CS2103-AY1819S1-T13-1/main/pull/26[#26],
+https://github.com/CS2103-AY1819S1-T13-1/main/pull/30[#30], https://github.com/CS2103-AY1819S1-T13-1/main/pull/32[#32])
+*** Removed some information about AB4 and updated relevant documents with TutorPal project. (pull request:
+https://github.com/CS2103-AY1819S1-T13-1/main/pull/1[#1], https://github.com/CS2103-AY1819S1-T13-1/main/pull/2[#2],
+https://github.com/CS2103-AY1819S1-T13-1/main/pull/4[#4])
+
+** Community:
+*** PRs reviewed (pull request: https://github.com/CS2103-AY1819S1-T13-1/main/pull/60[#60],
+https://github.com/CS2103-AY1819S1-T13-1/main/pull/62[#62])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=grade]
+
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=edit]
+
+include::../UserGuide.adoc[tag=deleteGrade]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=grades1]
+
+include::../DeveloperGuide.adoc[tag=grades2]
+
+include::../DeveloperGuide.adoc[tag=grades3]
+
+include::../DeveloperGuide.adoc[tag=gradesfeature]

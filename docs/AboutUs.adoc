@@ -4,53 +4,57 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+TutorPal was developed by the CS2103-AY1819S1-T13-1 team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Chua Chenlu
+image::chenlu-chua.png[width="150", align="left"]
+{empty}[https://github.com/chenlu-chua[github]] [<<chenlu-chua#, portfolio>>]
 
-Role: Project Advisor
+Role: Team lead + Testing
 
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Chen Juan
+image::cjuanvip.png[width="150", align="left"]
+{empty}[http://github.com/CJuanvip[github]] [<<cjuanvip#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Deliverables and deadline + Scheduling and tracking
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Logic
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Liu Zhaoyu
+image::lzyandy.png[width="150", align="left"]
+{empty}[http://github.com/LZYAndy[github]] [<<lzyandy#, portfolio>>]
 
-Role: Developer +
+Role: Documentation + Code quality
+
+Responsibilities: Model
+
+'''
+
+=== Ong Junjie
+image::junjiee.png[width="150", align="left"]
+{empty}[http://github.com/junjiee[github]] [<<junjiee#, portfolio>>]
+
+Role: Code quality
+
+Responsibilities: Storage
+
+'''
+
+=== Xiong Haoran
+image::hrxiong.png[width="150", align="left"]
+{empty}[http://github.com/hrxiong[github]] [<<hrxiong#, portfolio>>]
+
+Role: Testing + Integration
+
 Responsibilities: UI
 
 '''

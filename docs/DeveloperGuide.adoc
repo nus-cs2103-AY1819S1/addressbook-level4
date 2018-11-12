@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Tutor Pal - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T13-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -164,6 +164,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -172,7 +173,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `StudentPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -183,6 +184,8 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
+// end::ui[]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -323,6 +326,411 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::findfeature[]
+=== Find Related Feature
+
+The find related features include four commands, which are `FindCommand`, `FindAddressCommand`, `FindEmailCommand`, and `FindPhoneCommand`. They support finding by name, address, email, and phone numbers.
+
+==== Current Implementation
+
+===== Find command (`find KEYWORD [MORE_KEYWORDS]...`)
+
+The `find` command has been implemented to find students by their names.
+
+* The `find` command accepts one or more arguments, each argument represent a keyword.
+
+* The `find` command finds persons whose names contain any of the given keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose names match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. The condition for using fuzzy matching in this command is the length of the keyword is greater than 3 and if the condition is satisfied, we set the Levenshtein Distance to be less than 3, which means at most two differences.
+
+image::FindCommandLogicDiagram.png[width="800"]
+
+===== Find by address command (`find/a KEYWORD [MORE_KEYWORDS]...`)
+
+The `find/a` command has been implemented to find students by their address.
+
+* The `find/a` command accepts one or more arguments, each argument represent a keyword.
+
+* The `find/a` command finds persons whose addresses contain all the given keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .allMatch(...) on the keywords stream to find all the students whose addresses match all the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. The condition for using fuzzy matching in this command is the length of the keyword is greater than 3 and if the condition is satisfied and the length of keyword is 4 to 7, we set the Levenshtein Distance to be less than 3; if the length of keyword is more than 8, we set the Levenshtein Distance to be less than 4.
+
+image::FindAddressCommandLogicDiagram.png[width="800"]
+
+===== Find by email command (`find/e EMAIL [MORE_EMAILS]...`)
+
+The `find/e` command has been implemented to find students by their email.
+
+* The `find/e` command accepts one or more arguments, each argument represent an email address keyword.
+
+* The `find/e` command finds persons whose emails are the same as any of the keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose emails match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. We set the Levenshtein Distance to be less than 4, which means at most three differences.
+
+image::FindEmailCommandLogicDiagram.png[width="800"]
+
+===== Find by phone number command (`find/p PHONE_NUMBER [MORE_PHONE_NUMBERS]...`)
+
+The `find/p` command has been implemented to find students by their phone number.
+
+* The `find/p` command accepts one or more arguments, each argument represent a phone number keyword.
+
+* The `find/p` command finds persons whose phone numbers are the same as any of the keywords.
+
+* The number of students found will be displayed on the PersonCard GUI.
+
+* All the keywords are put into a List<String> and converted to a stream. Perform .anyMatch(...) on the keywords stream to find all the students whose phone numbers match any of the keywords.
+
+* The matching process is case insensitive and support fuzzy matching. Fuzzy matching is achieved by applying Levenshtein Distance method. We set the Levenshtein Distance to be less than 3, which means at most two differences.
+
+image::FindPhoneCommandLogicDiagram-1.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Fuzzy matching
+
+* **Alternative 1 (current choice):** Allow fuzzy matching in searching.
+** Pros:
+. Small typos will not affect the searching output.
+. Make the application much more practical and easier to use.
+** Cons:
+. Some minor mistakes in spelling might lead to totally different meanings. We have tried to prevent this from happening by limiting the minimum length of keywords for fuzzy matching, however, there might still be a few cases that exist problems.
+// end::findfeature[]
+
+// tag::gradesfeature[]
+
+=== Grades Feature
+
+==== Current Implementation
+
+The grades feature has been implemented to store the grade records of the student. A `Grades` class has been created to record a score of a student.
+A HashMap<examName,Grades> has been added to the list of attributes of Person class.
+
+Each student's grade records are also displayed on the PersonCard GUI.
+
+Add a new attribute into the person class, we have to change the structure of the model part as follow:
+
+image::ModelForGrade.png[width="800"]
+
+Because the adding of the grades attribute, the storage part have to add XmlAdaptedGrade to adapt grade attribute during the interaction with the storage.
+
+The following UML diagram shows the new structure of the storage:
+
+image::StorageForGrade.png[width="800"]
+
+===== Add Grade Using Add Command
+* The add command now can add grade records, Using the format of "g/examName examScore".
+The exam name can be any string without space, and the exam score can be integer between 0 to 100 including 0 and 100.
+
+The graph to illustrate the behavior of add grade attribute is quite similar to the edit attribute. So we do not overtalk about it here.
+
+===== Add or Edit Grade Using Edit Command
+* The edit command now can edit or add grade records, Using the format of "g/examName examScore".
+The exam name can be any string without space, and the exam score can be integer between 0 to 100 including 0 and 100.
+
+* The grade attribute has a different behavior from tag attribute. +
+When editing a tag, the previous tags will be discarded by the APP. But grades attribute is more like a recording function.
+So the previous grade records will not be deleted.
+If user edit a non-existing exam, the app will create a new record.
+If user edit a existing exam, the app will update the score of the grade record.
+
+To Keep the undo and redo feature, edit will create a new person(not the copy of the reference) and then edit it.
+
+The following sequence diagram shows how the edit function works with the grades attribute:
+
+image::EditDiagram.png[width="800"]
+
+===== Delete Grade Using `deleteGrade` Command
+* The deleteGrade command accepts an INDEX of the student and one exam name to delete.
+
+To Keep the undo and redo feature, deleteGrade will create a new person(not the copy of the reference) as well and then edit it.
+
+The following sequence diagram shows how the deleteGrade function works:
+
+image::DeleteGradeDiagram.png[width="800"]
+
+==== Future Implementation
+
+* Add more action for grade record such as sorting students by grades, analysing the grades fluctuation of a students.
+
+* Use Gui feature to layout the grades, so that the analysing the grades of a student will be more straightforward and easier.
+
+* Add more Convenient way to add grades, such as add grades for a exam to every student at once and so on.
+
+==== Design considerations
+
+===== Aspect: Command for adding and editing grades attribute
+
+* **Alternative 1 (current choice):** enhance the add Command and edit Command.
+** Pros:
+. Follow the tradition of the command.
+. Use the origin code fully.
+** Cons:
+. Break the test existing a lot.
+* **Alternative 2:** add now command for adding and editing grade.
+** Pros:
+. Easier to implement.
+. Will not change or break the previous code structure.
+** Cons:
+. Too many commands for user to remember.
+
+===== Aspect: Delete of a grade record
+
+* **Alternative 1 (current choice):** Add a new command to delete the grade command.
+** Pros:
+. Easy to understand and use the function.
+** Cons:
+. Too many commands for user to remember.
+* **Alternative 2:** Use the undo feature to delete.
+** Pros:
+. Existing feature already.
+** Cons:
+. To complicated for user to use this feature.
+
+// end::gradesfeature[]
+
+// tag::earningfeature[]
+=== Earnings Feature
+
+==== Current Implementation
+
+The earnings feature has been implemented to retrieve the sum of tuition fees earned from all students
+between a period of time. A `Fee` class has been added to the list of attributes of Person class.
+
+* The earnings command accepts two arguments, the first being the beginning date followed by
+ the ending date. The total tuition fees earned between the range of dates will be displayed.
+
+* Each student's educational level and tuition fee per hour are also displayed on the PersonCard GUI. The tuition
+fee of an individual student is determined by his or her educational level and grade.
++
+image::PersonCardExample.png[width="170"]
+
+* The earnings command word and two arguments which contains a start and end date are taken as an
+input into the `AddressBookParser` class. An `EarningsCommand` object is returned,
+which executes and displays the calculated sum of tuition fees earned between a range of dates.
+
+The earnings command uses the information in UniquePersonList from `VersionedAddressBook` to obtain the fees information
+of every student contained in the AddressBook. Using the list of students, `EarningsCommand` then uses the
+Java 8 Stream API to calculate and return the total amount of tuition fees earned within the period provided by
+the user.
+
+The following sequence diagram shows how the earnings function works:
+
+image::EarningsCommandSequenceDiagram.png[width="800"]
+
+==== Future Implementation
+
+* Implement an option to allow tutors to assign tuition fees to students rather than fixing it based on the
+market rate of student's educational level and grade.
+* To be able to calculate past earnings, taking into account that certain students may have
+changed their tuition time slots.
+* Calculate tuition earnings based on attendance, including extra lessons.
+
+==== Design considerations
+
+===== Aspect: The type of arguments acceptable
+
+* **Alternative 1 (current choice):** Accepts a range of date in ddmm format.
+** Pros:
+. Gives users a less restrictive option to calculate tuition fees earned.
+** Cons:
+. Harder to implement.
+* **Alternative 2:** Accept a single argument of any month.
+** Pros:
+. Easier to implement.
+. Allow accurate retrieval of past earnings in the event that a student's time slot changed as monthly earnings can be calculated
+and stored.
+** Cons:
+. Users are restricted to obtaining fees earned only in period of months.
+// end::earningfeature[]
+
+// tag::promotefeature[]
+=== Promote Feature
+
+==== Current Implementation
+
+The promote feature has been implemented to allow users to manually promote his/her students to the next
+educational grade. The promote command can either promote all students stored in TutorPal, or selectively through the index of students.
+
+* `PromoteCommandParser` parses the arguments to determine which command to be returned.
+
+* The former is facilitated by the `PromoteAllCommand`.
+
+* The latter is facilitated by the `PromoteIndividualCommand`
+
+* Both command classes are subclasses of `PromoteCommand`.
+
+* Both subclasses inherit the `PromoteCommand#createPromotedPerson()` and `PromoteCommand#getNumberOfGraduatedStudents()`
+methods and implements their own overridden `execute()` function.
+
+* As the promote feature do not promote students across educational levels (e.g. Primary to Secondary), a "Graduated" tag
+is assigned to a student if the promote function is called on a student who is in his/her final year.
++
+image::GraduateExample.png[width="170"]
+
+==== Future Implementation
+
+Implement a function to allow automated promotion of all students in TutorPal at the beginning of the year and
+allow users to configure TutorPal the promote feature to be automatic or manual.
+
+==== Design considerations
+
+===== Aspect: Promote feature to be automated by time or by manual user input
+
+* **Alternative 1 (current choice):** Manual user input
+** Pros:
+. Easier to implement.
+. Prevent undesired situations like promoting all students if system time is set to a new year unintentionally.
+. Provides tutors with higher autonomy in editing student information (e.g. if students retain).
+** Cons:
+. Some users may prefer automatic promotion.
+* **Alternative 2:** Automatic promotion
+** Pros:
+. Convenient for users (subjective).
+** Cons:
+. Undesirable side effects like unintended promotion of student if system time is changed.
+// end::promotefeature[]
+
+// tag::timefeature[]
+=== Time Feature
+
+==== Current Implementation
+
+A `Time` class has been created. It represents the tuition time of the student, consisting of the day, start and end time of the tuition.
+
+* When creating a new `Time`, input for day should only include the first 3 letters of the day, and it must be in small letters.
+
+** For example: mon, tue, wed, thu, fri, sat, sun.
+
+* The input for start and end time should be in 24hour format.
+
+A `timings` attribute has been added into the list of attributes of Person class.
+
+* It is an array list of `Time` class, hence this allows user to add multiple tuition timings for a student.
+
+* Every time a new student is added into Tutor Pal, an empty `Time` array list will be created for the student.
+
+==== Design Considerations
+
+===== Aspect: Input for `Time` class
+* **Alternative 1 (current choice):** Standardise the inputs for `Time` class.
+** Pros:
+. Easier to implement as we only need to account for one particular style of input.
+. Furthermore, it also ensures consistency in Tutor Pal, which makes information more readily interpretable. Hence, even though users may not be used to the particular style of input, in the long run, it will be more convenient for users as there will not be any confusion in the information due to different styles of input.
+** Cons:
+. It may take some time for new users to get used to the style of input.
+* **Alternative 2:** Allows other styles of inputs, for example a 12hour clock format instead of a 24hour clock format, for `Time` class.
+** Pros:
+. Easier for new users to use.
+** Cons:
+. If user did not fix to one style of inputs, there may be confusion of information due to conflicting input styles.
+. Implementation will be much harder as we need to account for countless different situations to try to minimise or totally prevent such confusions.
+
+===== Aspect: Data structure to support the `timings` attribute
+* **Alternative 1 (current choice):** Use an array list to store the tuition timings of a student.
+** Pros:
+. Easy to implement and the API already have functions we can use to manage the array list.
+** Cons:
+. The order of `Time` in the array list depends on the order it is added in, not the `Time` itself. However, it is preferable to display `Time` according to the order of the timings for better visual representation. Hence, sorting has to be done first.
+* **Alternative 2:** Use a priority queue to store the tuition timings of a student.
+** Pros:
+. The priority queue API allows us to ensure that the `Time` are in a particular order, either descending or ascending, depending on how we implement it.
+** Cons:
+. We can only fix it to one particular order. Hence, if we want to display the `Time` in another order, sorting still has to be done.
+
+// end::timefeature[]
+
+// tag::addtimecommand[]
+=== Addition of Tuition Time feature
+
+==== Current Implementation
+
+Since the `timings` attribute of a person is an array list, we created a new command to add `Time` for a student, called `AddTimeCommand`.
+
+* The add time command takes in 2 parameters, `Index` and the `Time` to be added.
+
+* `Index` refers to the index number shown in the displayed person list in Tutor Pal, while `Time` represents the tuition timing to be added for the student.
+
+* The start time of `Time` must be earlier than the end time of the tuition.
+
+* The `Time` to be added must not clash with any other timings already in Tutor Pal.
+
+* The added `Time` will be displayed on the PersonCard GUI.
+
+* After inputing the command, the inputs will be taken into `AddressBookParser` class and an `AddTimeCommand` object will be returned. The command will then be executed and `Time` will be added for the student at `Index`.
+
+* During the execution of the command, a `Time` object will be created. It will then search through Tutor Pal to see if the `timings` of student at `Index` contains the `Time`. If it does, it will then check if there are any clashes with the timings already in Tutor Pal. If there are no errors, `Time` will be added into his `timings`, otherwise, an error message, depending on the type of error, will be shown.
+
+The following sequence diagram shows how the `addTime` operation works:
+
+image::AddTimeSequenceDiagram.png[width="800"]
+
+==== Future Implementation
+
+* Currently, if there are clashes in the timings, then `Time` will not be added. User will then have to search through Tutor Pal to check for available timings.
+
+* In the future, instead of just displaying the error messages, it will also display the available timings for that particular day, or trigger another command to display all the timings available.
+
+* Furthermore, there may be tutors who are teaching a group of students at once. Hence these students have the same addresses. In such cases, we should allow such students to have same tuition timings since it means both of them will be tutored at the same time.
+
+==== Design Considerations
+===== Aspect: Parameter used to find the student for the addition of `Time`.
+* **Alternative 1 (current choice):** Using index.
+** Pros:
+. Since there may be students with the same name, using index will prevent such confusion and allow the command to function correctly.
+** Cons:
+. If a user has a lot of students, he may need to search through the long displayed list to find the student's index, causing some inconvenience to the user.
+
+* **Alternative 2:** Using Name.
+** Pros:
+. It will be more convenient for user as user do not need to spend time searching for the index of the student.
+** Cons:
+. If there are students with the same name, there may be situations where `Time` are not added to the correct student. Hence, in order to handle such situations, implementation will be much harder.
+
+// end::addtimecommand[]
+
+// tag::deletetimecommand[]
+=== Deletion of Tuition Time feature
+
+==== Current Implementation
+
+Since `timings` is an array list, we created a new command to delete the `Time` of a student, called `DeleteTimeCommand`.
+
+* The add time command takes in 2 parameters, `Index` and the `Time` to be added.
+
+* `Index` refers to the index number shown in the displayed person list in Tutor Pal, while `Time` represents the tuition timing to be added for the student.
+
+* The deleted `Time` will be removed from the PersonCard GUI.
+
+* After inputing the command, the inputs will be taken into `AddressBookParser` class and an `DeleteTimeCommand` object will be returned. The command will then be executed and `Time` will be deleted for the student at `Index`.
+
+* During the execution of the command, a `Time` object will be created. It will then search through Tutor Pal to see if the `timings` of student at `Index` contains the `Time` to be deleted. If it does, `Time` will be deleted from his `timings`, otherwise, an error message, depending on the type of error, will be shown.
+
+The following sequence diagram shows how the `deleteTime` operation works:
+
+image::DeleteTimeSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Lesser restrictions to the inputs of the command
+
+* There are lesser exceptions handled in `deleteTime` command compared to `addTime` command.
+
+** For example, in `addTime` it ensures that the start time of `Time` must be bigger than the end time of `Time`. However, in `deleteTime` it does not. The rationale is that there is no need for it since such timings will never exist in Tutor Pal, hence there will never be a situation where you need to delete it.
+
+// end::deletetimecommand[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -820,13 +1228,12 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Full-time private tutor
+* manages a huge number of student contacts
+* has to constantly review and update students' academic progress
+* comfortable with CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage an address book containing list of students faster than a typical mouse driven application
 
 [appendix]
 == User Stories
@@ -838,23 +1245,49 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |tutor |add a new student |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |tutor |delete a student |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |tutor |find a student by name |locate details of students without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |tutor |record the current grades of a student |
+
+|`* * *` |tutor |sort the students by their grades |track the performance of each student relative to their peers
+
+|`* * *` |tutor |retrieve the list of grades and the number of students with each grade |identify students who need more help
+
+|`* * *` |tutor |undo the most recent modification |recover unintentional changes
+
+|`* * *` |tutor |access and modify the info of students |updates any changes to student information
+
+|`* * *` |tutor |have fuzzy matching when i do the searching |search for something i can't remember the name clearly
+
+|`* *` |tutor |plan my tutoring schedules |manage my time more efficiently
+
+|`* *` |tutor |calculate my total earnings from tuition fees within a certain range of date |
+
+|`* *` |tutor |record the attendance of a student |
+
+|`* *` |tutor |create and allocate students into different groups |categorise the students according to their ability to learn
+
+|`* *` |tutor |write and check teaching log and plan for a student or a group |trace teaching progress for every student or every group and can store the plan for them in the system easily as well
+
+|`*` |tutor |have a short description of my students' distinct features |it will help me remember their names better
+
+|`*` |tutor |see the graphical representation of a student’s performance over the year |track the performance of a student
+
+|`*` |tutor |the system to require username and  password to log in and verify the user by requiring password again if user want to change something very important such as deleting a student directly |decide which one can access the system and change the content
+
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Tutor Pal` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -882,16 +1315,384 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+=== Use case: Adding the tuition time of a student
+
+*MSS*
+
+1. User enters index and the tuition time to be added
+2. System displays successful message
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. An invalid tuition time is entered
++
+[none]
+** 1a1. System displays invalid tuition time message.
+
+* 1a*. There is a clash in the tuition time to be added with the ones already in the address book.
++
+[none]
+** 1a*1. System displays tuition timing clash message.
+
+
+=== Use case: Deleting the tuition time of a student
+
+*MSS*
+
+1. User enters index and the tuition time to be deleted
+2. System displays successful message
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The student does not have the tuition time allocated to him.
++
+[none]
+** 1a1. System displays tuition time not found message.
+
+=== Use case: Editing a student
+
+*MSS*
+
+1. User enters the name of student and the details to be edited
+2. System displays the new details of the students for confirmation
+3. System displays successful message
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Multiple students with the same name are shown.
++
+[none]
+** 1a1. System displays a list of students with the same name.
++
+** 1a2. System request for the index of the student to be edited.
+
+* 1a*. No student with such name is found.
++
+[none]
+** 1a*1. System displays no such student found message.
+
+* 2a. User chooses to cancel the modification.
++
+[none]
+** 2a1. System displays command cancelled message.
+
+
+
+
+
+// tag::filter1[]
+=== Use case: Filter by grade
+
+*MSS*
+
+1. User requests to get the list of students whose grade in certain given range
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid range of grade.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::filter1[]
+
+// tag::filter2[]
+=== Use case: Filter by fee
+
+*MSS*
+
+1. User requests to get the list of students whose fee is over the given number.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::filter2[]
+
+// tag::exchange[]
+=== Use case: Exchange time slot between students
+
+*MSS*
+
+1. User requests to exchange time slot between students whose Education is the same.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::exchange[]
+
+// tag::suggest1[]
+=== Use case: Provide suggestions to certain student
+
+*MSS*
+
+1. User requests to get the suggestion for certain student by his or her name.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::suggest1[]
+
+// tag::suggest2[]
+=== Use case: Provide suggestions to certain student with index
+
+*MSS*
+
+1. User requests to get the suggestion for certain student by his or her index number.
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid double.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::suggest2[]
+
+// tag::filter3[]
+=== Use case: Find students list of the given Education
+
+*MSS*
+
+1. User requests to get the list of students whose is in the given education level
+2. System filter the personList and displays the qualified list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid education level.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::filter3[]
+
+// tag::filter4[]
+=== Use case: Filter by Timeslot
+
+*MSS*
+
+1. User requests to get the name of the student who takes class at given timeslot
+2. System find out the student and show his or her name
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid time slot.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::filter4[]
+
+
+=== Use case: Calculate total earnings
+
+*MSS*
+
+1. User requests to calculate and display earning in a certain month
+2. System calculates and displays total earnings in that month
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid date.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+=== Use case: Find information of students
+
+*MSS*
+
+1. User requests to find and indicates the retrieve information, method & required information
+2. System retrieve information and display them
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs invalid commands
++
+[none]
+** 1a1. System displays error messages.
++
+** 1a2. System displays the correct format of find command.
++
+Use case ends.
+
+* 1b. System is unable to find the record satisfying the requirement
++
+[none]
+** 1b1. System print a “unable to find” warning
++
+Use case ends.
+
+
+// tag::grades1[]
+=== Use case: add grade records for the student when creating a new student
+
+*MSS*
+
+1. User indicate the names of the exams and the scores when adding a student.
+2. System add the student with some grade records.
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid score.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::grades1[]
+
+// tag::grades2[]
+=== Use case: add or edit grade record for a student using edit
+
+*MSS*
+
+1. User indicate the index of the student and the grade record when editing a student.
+2. System edit the student with some grade records.
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs an invalid score.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+[none]
+* 1b. User input a non-existing exam name.
++
+[none]
+** 1b1. System add a new grade record for the student.
++
+Use case ends
+// end::grades2[]
+
+// tag::grades3[]
+=== Use case: delete a grade record
+
+*MSS*
+
+1. User indicate the index of the student and the exam name.
+2. System delete the grade record from the student.
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User inputs a non-existing exam name.
++
+[none]
+** 1a1. System displays an error message.
++
+** 1a2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+
+[none]
+* 1b. User input command in error format.
++
+[none]
+** 1b1. System displays an error message.
++
+** 1b2. System prompts user for a corrected input.
++
+Use case resumes from step 2.
+// end::grades3[]
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 10000 students without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Does not require an Internet connection
 
 [appendix]
 == Glossary
@@ -902,22 +1703,8 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[fuzzyFind]] fuzzyFind::
+Find something whose edit distance with keyword is less than or equal to 2.
 
 [appendix]
 == Instructions for Manual Testing
@@ -941,26 +1728,82 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a new student
 
-=== Deleting a person
+. Adding a student to TutorPal
 
-. Deleting a person while all persons are listed
+.. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney` +
+   Expected: A new student with the above details is added to TutorPal. +
+   Details of the new student will be shown in the status message.
+.. Test case: `add n/Desmond Hume p/91234567 e/Hume.D@example.com` +
+   Expected: No student is added. Error details shown in the status message. Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Deleting a student
+
+. Deleting a student while all students are listed
+
+.. Prerequisites: List all students using the `list` command. Multiple students in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Promoting student(s)
 
-=== Saving data
+. Promote all students in TutorPal
 
-. Dealing with missing/corrupted data files
+.. Test case: `promote all` +
+   Expected: Promotes all student in TutorPal to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Promote a certain number of students in TutorPal
 
-_{ more test cases ... }_
+.. Prerequisites: The use of `List` command in conjunction with the following test case is *optional*.
+.. Test case: `promote 1 2 5` +
+   Expected: Promotes the first, second and fifth student in the displayed list to the next educational grade.
+   The number of students promoted and new graduates are shown in the status message.
+   A red colour "Graduated" tag is assigned to newly graduated students who were in their final year +
+   before the execution this command.
+
+=== Adding a tuition time of a student
+
+. Adding a tuition time for a student while all persons are listed
+
+.. Prerequisites: List all persons using the list command. Multiple persons in the list.
+.. Test case: `addTime 1 ts/mon 1800 2000` +
+   Expected: Student at index 1 has a tuition time "Monday 1800 2000" added. Status message display command success message and timestamp in the status bar is updated.
+.. Test case: `addTime 2 ts/mon 1800 2000` +
+   Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
+.. Test case: `addTime 1 ts/mon 1700 2100` +
+   Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
+.. Test case: `addTime 1 ts/tues 1800 2000` +
+   Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
+.. Test case: `addTime 1 ts/tue 6 8` +
+   Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
+.. Test case: `addTime 1 ts/tue 1800 2000` +
+   Expected: Student at index 1 has a tuition time "Tuesday 1800 2000" added. Status message display command success message and timestamp in the status bar is updated.
+
+=== Deleting a tuition time of a student
+
+. Deleting a tuition time for a student while all persons listed
+
+.. Prerequisites: List all persons using the list command. Multiple persons in the list. Performed `addTime 1 ts/mon 1800 2000`.
+.. Test case: `deleteTime 2 ts/mon 1800 2000` +
+   Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
+.. Test case: `deleteTime 1 ts/mon 1700 2000` +
+   Expected: Nothing happened. Error details shown in the status message. Status bar remains the same.
+.. Test case: `deleteTime 1 ts/mon 1800 2000` +
+   Expected: Student at index 1 has a tuition time "Monday 1800 2000" removed. Status message display command success message and timestamp in the status bar is updated.
+
+=== Retrieving earnings
+
+. Retrieve earnings between two dates.
+
+.. Test case: `earnings 0712 2412` +
+   Expected: The amount in dollar of tuition fees earned between the two dates (current year) are shown in the status message.
+.. Test case: `earnings 0912 0912` +
+   Expected: The amount in dollar of tuition fees earned on 9 December 2018.

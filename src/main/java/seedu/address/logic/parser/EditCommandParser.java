@@ -1,15 +1,21 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,6 +23,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Grades;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,8 +39,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
+                                        PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_EDUCATION, PREFIX_GRADES, PREFIX_TAG);
 
         Index index;
 
@@ -55,6 +63,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+        if (argMultimap.getValue(PREFIX_EDUCATION).isPresent()) {
+            editPersonDescriptor.setEducation(ParserUtil.parseEducation(argMultimap.getValue(PREFIX_EDUCATION).get()));
+        }
+
+        parseGradesForEdit(argMultimap.getAllValues(PREFIX_GRADES)).ifPresent(editPersonDescriptor::setGrades);
+
+        parseTimeForEdit(argMultimap.getAllValues(PREFIX_TIME)).ifPresent(editPersonDescriptor::setTime);
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
@@ -79,4 +95,33 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
+    /**
+     * Parses {@code Collection<String> grades} into a {@code HashMap<String, Grades>} if {@code grades} is non-empty.
+     * If {@code grades} contain only one element which is an empty string, it will be parsed into a
+     * {@code HashMap<String, Grades>} containing zero grades.
+     */
+    private Optional<HashMap<String, Grades>> parseGradesForEdit(Collection<String> grades) throws ParseException {
+        assert grades != null;
+
+        if (grades.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> gradeSet = grades.size() == 1 && grades.contains("") ? Collections.emptySet() : grades;
+        return Optional.of(ParserUtil.parseGrades(gradeSet));
+    }
+
+    /**
+     * Parses {@code Collection<String> timings} into a {@code ArrayList<Time>} if {@code timings} is non-empty.
+     * If {@code timings} contain only one element which is an empty string, it will be parsed into a
+     * {@code ArrayList<Time>} containing zero tags.
+     */
+    private Optional<ArrayList<Time>> parseTimeForEdit(Collection<String> timings) throws ParseException {
+        assert timings != null;
+
+        if (timings.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> timeList = timings.size() == 1 && timings.contains("") ? Collections.emptySet() : timings;
+        return Optional.of(ParserUtil.parseTimings(timeList));
+    }
 }
