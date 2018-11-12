@@ -54,7 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private BrowserDisplayPanel browserDisplayPanel;
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private QueuePanel queuePanel;
@@ -181,14 +181,14 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay.setVisible(false);
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         patientDetailsDisplayPanel.getRoot().setVisible(false);
-        browserPanel = new BrowserPanel();
-        browserPanel.setVisible(false);
+        browserDisplayPanel = new BrowserDisplayPanel();
+        browserDisplayPanel.setVisible(false);
 
         titleScreen = new TitleScreen();
         titleScreenPlaceHolder.getChildren().add(titleScreen.getRoot());
 
         displayPanelPlaceholder.setAlignment(Pos.TOP_CENTER);
-        displayPanelPlaceholder.getChildren().add(browserPanel.getRoot());
+        displayPanelPlaceholder.getChildren().add(browserDisplayPanel.getRoot());
         displayPanelPlaceholder.getChildren().add(analyticsDisplay.getRoot());
         displayPanelPlaceholder.getChildren().add(patientDetailsDisplayPanel.getRoot());
 
@@ -350,7 +350,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showDisplayPanel(boolean isShowAnalytics, boolean isShowBrowser, boolean isShowPatientDetails) {
         analyticsDisplay.setVisible(isShowAnalytics);
-        browserPanel.setVisible(isShowBrowser);
+        browserDisplayPanel.setVisible(isShowBrowser);
         patientDetailsDisplayPanel.getRoot().setVisible(isShowPatientDetails);
     }
 
