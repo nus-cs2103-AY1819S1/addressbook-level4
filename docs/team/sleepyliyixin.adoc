@@ -22,9 +22,9 @@ It is written in Java, and has about 10 kLoC.
 
 * *Minor enhancement*:
 ** Add a showDescriptionCommand to show description of task with a popup window.
-** Make priorities displyed in different colors.
+** Make priorities displayed in different colors.
 
-* *Code contributed*: * https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli *
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sleepysanjinli
 
 * *Other contributions*:
 
