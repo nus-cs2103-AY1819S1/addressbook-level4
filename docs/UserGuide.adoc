@@ -800,8 +800,8 @@ e.g.`selectpatient 2`
 
 === Queue Commands
 
-* *Show patients in the queue* : `queue` +
-e.g. `queue`
+* *Show patients in the queue* : `showqueue` +
+e.g. `showqueue`
 * *Enqueue a patient* : `enqueuepatient INDEX` +
 e.g. `enqueuepatient 3`
 * *Remove a patient from the queue* : `dequeuepatient INDEX` +
