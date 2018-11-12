@@ -459,14 +459,15 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 ----
 
 Scenario 3: The doctor prescribes the patient he is serving a medicine. The `dispensemedicine` command is entered.
-The stock level of the medicine is then updated.
+The stock level of the medicine is then updated. The *sequence diagram* below shows how the code works:
 
 .Sequence Diagram for `dispensemedicine`
 image::DispenseMedicineSequenceDiagram.png[width="800"]
 
 Scenario 4: The clinic receptionist needs to check for the stock level of every medicine.
 He executes the `checkStock` command
-which lists *all* medicines that are below their _Minimum Stock Quantity_.
+which lists *all* medicines that are below their _Minimum Stock Quantity_. See the figure below for an example
+of how the filter works:
 
 .Filter medicines that are low in supply
 image::checkstockfilter.png[width="450"]
@@ -809,7 +810,7 @@ The `ReferralLetter` class structure is as follows:
 
 * Has attributes of the `ServedPatient` it is generated from, which includes the `ServedPatient` 's `name` and `IcNumber`.
 ** These attributes are marked as `final` as they should not be changed.
-* Contains additional information like the doctor's referral notes and patient's referred location.
+* Contains additional information like the doctor's notes and patient's referred location.
 
 Users can generate a `ReferralLetter` for a specific `ServedPatient` by invoking the `ReferralLetterCommand`
  accompanied by the `ServedPatient` 's index in the `ServedPatientList`.
@@ -845,10 +846,10 @@ Executing `refer` with an invalid index will **not** result in the generation of
 
 ===== Aspect: Implementation of `adddocument`, `MedicalCertificate` and `ReferralLetter` Commands
 
-* **Alternative 1 (current choice):** Issuing doctor's name is hard-coded into the `MedicalCertificate` and `ReferralLetter` HTML template.
-** Pros: No need for an extra parameter to key in issuing doctor's name, which is helpful when there is only one doctor working in a clinic.
+* **Alternative 1 (current choice):** The issuing doctor's name is hard-coded into the `MedicalCertificate` and `ReferralLetter` HTML template.
+** Pros: No need for an extra parameter to key in the issuing doctor's name, which is helpful when there is only one doctor working in a clinic.
 ** Cons: There may be more than one doctor working in a clinic.
-* **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the 'adddocument' command for the issuing doctor to key in his/her name.
+* **Alternative 2:** Include a mandatory parameter `id/ISSUING_DOCTOR` to the `adddocument` command for the issuing doctor to key in his/her name.
 ** Pros: Different doctors can sign off the medical certificates and referral letters.
 ** Cons: Slightly more typing is necessary before doctors can execute the `adddocument` command.
 // end::referralletter[]
@@ -1601,16 +1602,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding a medicine to the records
 
-.. Prerequisites: List all medicine using the `listStock` command. Check that the medicine to be added is not in the list.
-.. Test case: `add sn/12839400 n/panadol s/122 p/2 min/20` +
-   Expected: Medicine is added to the records. Details of the added medicine shown in the status message. Timestamp in the status bar is updated.
-.. Other incorrect delete commands to try: `add`, `add/e` (where e is a unrecognised parameter) +
+.. Prerequisites: List all medicine using the `liststock` command. Check that the medicine to be added is not in the list.
+.. Test case: `addmedicine sn/12839400 mn/panadol s/122 ppu/2 msq/20` +
+   Expected: Medicine is added to the records. Name of the added medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `addmedicine`, `addmedicine/e` (where e is a unrecognised parameter) +
    Expected: No medicine is added. Error details shown in the status message. Status bar remains the same.
 
 === Patient Queue Management System
 
 . Registering a patient
-
 .. Prequisites: List all patients using `list` command.
 .. Test case: `register 1` +
    Expected: Patient with index 1 is added to the Patient Queue.
@@ -1651,6 +1651,24 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequiisites: There is someone in the Served Patient List.
 .. Test case: `payment 1` +
 .. Expected: Served Patient of position 1 is removed from the Served Patient List.
+
+=== Editing a medicine
+
+. Editing a medicine in the records
+.. List all medicine using the `liststock` command. Check that the medicine to be edited is in the list.
+.. Test case: `editmedicine 1 msq/50` +
+   Expected: Medicine at index 1 will have its minimum stock quantity changed to 50. Name of the edited medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `editmedicine`, `editmedicine/e` (where e is a unrecognised parameter) , `em 1 msq/-2`+
+   Expected: No medicine is edited. Error details shown in the status message. Status bar remains the same.
+
+=== Restocking a medicine
+
+. Restocking a medicine in the records
+.. List all medicine using the `liststock` command. Check that the medicine to be restocked is in the list.
+.. Test case: `restock 1 amt/50` +
+   Expected: Medicine at index 1 will have its stock increased by 50. Name and restocked quantity of the restocked medicine shown in the status message. Timestamp in the status bar is updated.
+.. Other incorrect delete commands to try: `restock`, `restock/e` (where e is a unrecognised parameter) , `rs 1 amt/-2`+
+   Expected: No medicine is restocked. Error details shown in the status message. Status bar remains the same.
 
 === Saving data
 
