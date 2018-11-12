@@ -309,5 +309,5 @@ already in this mode.
    Timestamp in the status bar is not updated.
 .. Other incorrect select patient commands to try: `select appointment 0`, `select appointment e1`, `select appointment p0` +
    Expected: Similar to previous
-   
+
 ---
