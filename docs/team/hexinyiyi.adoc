@@ -16,7 +16,7 @@ iScheduler Xs Max is a desktop scheduler application morphed from the original A
 * *Major enhancement*: added *Reminder Feature of the scheduler*
 ** What it does: allows the users to create events with multiple reminders for an event. The feature is integrated with all iScheduler commands.
 ** Justification: This feature improves the product significantly because users will want to be reminded of important events.
-** Highlights: This enhancement affects all existing commands and future commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands, and research on
+** Highlights: This enhancement affects all existing commands and requires updates in `Logic`, `UI`, `Model` and `Storage`. The implementation too was challenging as it required research on
 multi-thread programming as the app has to continuously checking what reminders to pop up.
 
 * *Minor enhancement*: added more customised commands for users: `addReminder`, `deleteReminder`, `postponeReminders`
