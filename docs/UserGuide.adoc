@@ -302,7 +302,7 @@ fin HG83
 [NOTE]
 ====
 * Common words like `BLK` and `AVE` are ignored.
-* It does not matter whether it is upper or lower case characters.
+* It does not matter whether the keywords are upper or lower case characters.
 ====
 
 '''
@@ -560,6 +560,9 @@ notify 10
 * If you did not {sourceDir}/UserGuide.html#Features-Select[select] a car park beforehand, _Car Park Finder_ would not know
 which car park needs to be updated.
 * You can set within a range of _10 to 600 seconds_ (10 minutes). *Decimal values are not allowed.*
+* Typing `query` or `clear` will disable the notification.
+* As `notify` is based on the index of `select`, you can select another car park to receive notification while it is enabled.
+* This means if you type `find hougang` and the original car park is gone but the index is still valid, it will update that car park instead.
 
 '''
 
@@ -590,7 +593,7 @@ as confirmation that you typed in correctly.
 
 .Before and after receiving notification
 [[zy_notify_ba]]
-image::zy_notify_ba.png[width="600"]
+image::zy_notify_ba.png[width="700"]
 
 [caption="Message: "]
 [[notifynochange]]
@@ -882,6 +885,18 @@ weather off
 
 *Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
 *A*: Yes, by typing keywords like street names.
+
+*Q*: How much do I need to pay for the application? +
+*A*: It is totally free! Head over to our releases page to try it out!
+
+*Q*: Does car park finder harm the environment? +
+*A*: No! It reduces the amount of cars on the road by reducing the waiting time for car parks!
+
+*Q*: How do you plan to earn money in the future? +
+*A*: We plan to serve you deals on the best deals based off your selected car park!
+
+*Q*: What future expansions do you see in the future? +
+*A*: We plan on listing hawker centers and have a real time CCTV feed of the entrance of the car park.
 
 [appendix]
 == Glossary
