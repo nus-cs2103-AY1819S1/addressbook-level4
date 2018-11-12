@@ -19,6 +19,7 @@ import seedu.meeting.model.UserPrefs;
 import seedu.meeting.model.person.util.PersonPropertyComparator;
 import seedu.meeting.testutil.MeetingBookBuilder;
 
+// @@author betakuwe
 /**
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */

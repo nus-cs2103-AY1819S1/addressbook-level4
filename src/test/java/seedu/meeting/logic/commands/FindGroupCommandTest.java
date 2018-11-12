@@ -23,6 +23,7 @@ import seedu.meeting.model.ModelManager;
 import seedu.meeting.model.UserPrefs;
 import seedu.meeting.model.group.util.GroupTitleContainsKeywordsPredicate;
 
+// @@author betakuwe
 /**
  * Contains integration tests (interaction with the Model) for {@code FindGroupCommand}.
  */

@@ -208,7 +208,7 @@ public class ParserUtil {
         return new Description(trimmedDescription);
     }
 
-    // @@author
+    // @@author betakuwe
 
     /**
      * Parses a {@code String personProperty} into a {@code PersonPropertyComparator}.
@@ -226,6 +226,7 @@ public class ParserUtil {
             throw new ParseException(PersonPropertyComparator.MESSAGE_PERSON_PROPERTY_CONSTRAINTS);
         }
     }
+    // @@author
 
     /**
      * Parse {@code String filepath} into {@code Path}.

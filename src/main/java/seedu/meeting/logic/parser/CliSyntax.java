@@ -19,6 +19,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PERSON = new Prefix("p/");
     public static final Prefix PREFIX_MEETING = new Prefix("m/");
 
+    // @@author betakuwe
     /* Prefix definitions for FindCommandParser */
     public static final Prefix PREFIX_ALL = new Prefix("a/");
     public static final Prefix PREFIX_SOME = new Prefix("s/");

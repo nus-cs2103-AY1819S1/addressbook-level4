@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import seedu.meeting.model.person.Person;
 
+// @@author betakuwe
 /**
  * Represents the comparators of each property of a person.
  */
