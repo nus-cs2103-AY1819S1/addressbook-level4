@@ -765,7 +765,7 @@ If the user's spending exceeds their available spending for the budget, a warnin
  to the user.
 
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.JPG[width="790"]
+image::overbudget.png[width="790"]
 
 
 

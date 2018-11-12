@@ -1,5 +1,7 @@
 package seedu.expensetracker.model.notification;
 
+//@@author winsonhys
+
 /**
  * Represents a notification to display general notifications
  */
