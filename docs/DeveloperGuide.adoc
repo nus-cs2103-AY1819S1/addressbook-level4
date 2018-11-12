@@ -993,21 +993,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Experienced Insurance Agent |Mass import contact details (via excel) |Load my existing contacts without keying them manually
 
-
 |`* *` |Insurance Agent |Export email addresses |Email the contacts
-
 
 |`* * *` |Insurance Agent who needs to maintain contact |Add a picture for my contacts |To identify them by picture and name
 
-
-|`* * *` |Insurance Agent who needs to maintain contact |Display frequently contacted people |Contact them fast
-
+|`* *` |Insurance Agent who needs to maintain contact |Display frequently contacted people |Contact them fast
 
 |`* *` |Insurance Agent |Remove accidental duplicates |Keep my contact book neat
 
+|`* *` |Insurance Agent who has different networks |View tagged contacts |Quickly view related contacts
 
-|`* *` |Insurance Agent who has different networks |Create groups of contacts |To contact groups of contact instead of individually
+|`* *` |Insurance Agent who has tagged contacts |Edit tags |Keep my contact book updated
 
+|`* *` |Insurance Agent who has tagged contacts |Delete tags |Keep my contact book updated
 
 |=======================================================================
 
@@ -1132,6 +1130,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
+
 // tag::import[]
 === Use Case: Mass import contacts into InsuRen
 
@@ -1228,7 +1227,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-*	1b. There are multiple clients with the same name.
+* 1b. There are multiple clients with the same name.
 +
 [none]
 ** 1b1. InsuRen shows an error message, prompting the user to either use a more specific name, or delete by index.
@@ -1267,75 +1266,87 @@ Use case resumes from step 3.
 Use case resumes from step 5.
 // end::picUseCase[]
 
+// tag::tagUseCase[]
 [discrete]
-=== Use Case: List Frequently Contacted Clients
+=== Use Case: View tagged contacts
 
 *MSS*
 
-1. User requests to list frequently contacted clients.
-2. InsuRen shows a list of frequently contacted clients.
+1. User requests all contacts with any number of user-specified tags.
+2. InsuRen lists all contacts that contain any one of the user-specified tags.
 +
 Use case ends.
 
 *Extensions*
 
-*	1a. User requests to limit or extend the list results.
+* 1a. User enters tags that are not present in any contacts in Insuren.
 +
 [none]
-** 1a1. InsuRen requests for a upper limit.
-** 1a2. User enters upper limit.
-+
-Use case resumes from step 2.
-* 2a. The list is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use Case: Allow User to Edit Contact if Duplicate Contact is Added
-
-*MSS*
-
-1. User adds client with the same name and same phone number or email or address (at least one of the three fields) as an existing contact.
-2. InsuRen recognises that the contact is a duplicate and informs user of existing contact.
-3. User can choose to edit existing contact.
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. User intends to create a contact with the same name and phone number or email or address (at least one of the three fields) as an existing contact.
-+
-[none]
-** 1a1. InsuRen allows user to create near-duplicate contact instead of editing existing contact.
-+
-Use case ends.
-
-[discrete]
-=== Use Case: Create groups of contacts
-
-*MSS*
-
-1. User creates a group in InsuRen that can store clients’ contacts, specifying the group name.
-2. InsuRen creates a new group.
-3. User can create new contacts within the group or add existing contacts to the group.
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. User creates a group with the same name as an existing group.
-+
-[none]
-** 1a1. InsuRen prompts user to choose a different name that will be unique.
+** 1a1. InsuRen shows an empty contact list.
 +
 Use case resumes at step 1.
 
-* 1b. User enters a group name with an no characters (empty string).
+[discrete]
+=== Use Case: Edit tags
+
+*MSS*
+
+1. User requests to edit a tag, specifying an existing tag and a new tag name.
+2. InsuRen updates all contacts with the existing tag, changing the tag name to the new user-specified tag name.
+3. InsuRen lists all contacts whose tags have been updated.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters tags that are not present in any contacts in Insuren.
 +
 [none]
-** 1b1. InsuRen prompts user to type in a group name.
+** 1a1. InsuRen shows an empty contact list, stating that 0 contacts have their tags changed.
 +
 Use case resumes at step 1.
+
+* 1b. User does not enter any tag to edit.
++
+[none]
+** 1b1. InsuRen shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. User does not enter a new tag name.
++
+[none]
+** 1c1. InsuRen shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use Case: Delete tags
+
+*MSS*
+
+1. User requests to delete a tag, specifying any number of tags he or she wants to delete.
+2. InsuRen finds all instances of any of the user-specified tags and deletes them from each contact.
+3. InsuRen lists all contacts whose tags have been deleted.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters tags that are not present in any contacts in Insuren.
++
+[none]
+** 1a1. InsuRen shows an empty contact list, stating that 0 contacts have their tags deleted.
++
+Use case resumes at step 1.
+
+* 1b. User does not enter any tag to delete.
++
+[none]
+** 1b1. InsuRen shows an empty contact list, stating that 0 contacts have their tags deleted.
++
+Use case resumes at step 1.
+// end::tagUseCase[]
 
 // tag::nfr[]
 [appendix]
@@ -1345,6 +1356,9 @@ Use case resumes at step 1.
 .  InsuRen should be able to hold up to 1000 clients' contact without a noticeable sluggishness in performance for typical usage.
 .  InsuRen should process a user command in 1 second or less, without any noticeable delay.
 .  InsuRen should display a clear and concise error message to provide feedback to the user when an invalid input is received.
+.  InsuRen should be backward compatible with data produced by earlier versions of Insuren.
+.  InsuRen should be open-source.
+.  InsuRen is offered as a free product.
 .  All data entries are backed-up regularly.
 .  All data entries are stored in a xml file.
 .  A user should be able to learn and use the product without any form of training.
@@ -1531,6 +1545,85 @@ successfully imported contacts from asdf.csv.
    Expected: Similar to previous.
 // end::testingpicture[]
 
+// tag::testingTag[]
+=== Viewing tags
+
+. Viewing all user-specified tags
+
+.. Prerequisites: InsuRen should have these contacts initially:
+* `n/Anne Loh t/Friend`
+* `n/Ben Chua t/Friend`
+* `n/Charlie Dong t/Friend t/Buddy`
+* `n/David Ee t/Buddy`
+* `n/Euler Foo t/Buddy t/Close`
+* `n/Fiona Goh`
+
+.. Test case: `tag Friend` +
+   Expected: `Anne Loh`, `Ben Chua` and `Charlie Dong` contacts are displayed.
+.. Test case: `tag Friend Buddy` +
+   Expected: `Anne Loh`, `Ben Chua`, `Charlie Dong`, `David Ee` and `Euler Foo` contacts are displayed.
+.. Test case: `tag Friend Close` +
+   Expected: `Anne Loh`, `Ben Chua`, `Charlie Dong` and `Euler Foo` contacts are displayed.
+.. Test case: `tag friend Close` +
+   Expected: `Euler Foo` contact is displayed.
+.. Test case: `tag Friend buddy close` +
+   Expected: `Anne Loh`, `Ben Chua` and `Charlie Dong` contacts are displayed.
+.. Test case: `tag friend buddy close` +
+   Expected: No contacts are displayed.
+.. Test case: `tag` +
+   Expected: Error details shown in the status message.
+
+=== Editing tags
+
+. Editing a user-specified tag
+
+.. Prerequisites: InsuRen should have these contacts initially:
+* `n/Anne Loh t/Friend`
+* `n/Ben Chua t/Friend`
+* `n/Charlie Dong t/Friend t/Buddy`
+* `n/David Ee t/Buddy`
+* `n/Euler Foo t/Buddy t/Close`
+* `n/Fiona Goh`
+
+.. Test case: `tag edit Friend friend` +
+   Expected: `Anne Loh`, `Ben Chua` and `Charlie Dong` contacts are displayed. Their tags are updated to `friend`.
+.. Test case: `tag edit Close bestie` +
+   Expected: `Euler Foo` contact is displayed. His tags are now `t/Buddy t/bestie`.
+.. Test case: `tag edit test testing` +
+   Expected: No contacts are displayed, no tags are edited.
+.. Test case: `tag edit test` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `tag edit` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+
+=== Deleting tags
+
+. Deleting all user-specified tags
+
+.. Prerequisites: InsuRen should have these contacts initially:
+* `n/Anne Loh t/Friend`
+* `n/Ben Chua t/Friend`
+* `n/Charlie Dong t/Friend t/Buddy`
+* `n/David Ee t/Buddy`
+* `n/Euler Foo t/Buddy t/Close t/Family`
+* `n/Fiona Goh t/Family`
+* `n/George Ho t/Family t/Dad`
+
+.. Test case: `tag delete friend` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `tag delete friend buddy close` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `tag delete Close` +
+   Expected: `Euler Foo` is displayed. His tags are updated to `t/Buddy`. `Close` tag is deleted.
+.. Test case: `tag delete Friend` +
+   Expected: `Anne Loh`, `Ben Chua` and `Charlie Dong` contacts are displayed. They no longer have the `Friend` tag.
+.. Test case: `tag delete Buddy Family` +
+   Expected: `Charlie Dong`, `David Ee`, `Euler Foo`, `Fiona Goh` and `George Ho` contacts are displayed.
+   They all do no have the `Buddy` or `Family` tags.
+.. Test case: `tag delete` =
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+// end::testingTag[]
+=======
 // tag::testingschedule[]
 === Adding a Meeting
 
