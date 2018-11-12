@@ -207,9 +207,7 @@ Examples:
 
 Sample output when `restore 2` command is executed show below:
 
-* Step 1: Type `archive` command in the command box on the top of the application and click enter. You will be taken to the archive list shown below:
-
-image:restoreUserGuide1.png[width=800]
+* Step 1: Type `archive` command in the command box on the top of the application and click enter.
 
 * Step 2: Type `restore 2` command in the same command box as Step 1 and employee at location 2 (Terrence Tan) will be removed from the archive list. You will see the following output on your screen:
 
