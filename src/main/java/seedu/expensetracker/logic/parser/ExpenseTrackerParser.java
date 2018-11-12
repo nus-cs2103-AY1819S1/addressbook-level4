@@ -22,7 +22,6 @@ import seedu.expensetracker.logic.commands.LoginCommand;
 import seedu.expensetracker.logic.commands.MassEditCommand;
 import seedu.expensetracker.logic.commands.NotificationCommand;
 import seedu.expensetracker.logic.commands.RedoCommand;
-import seedu.expensetracker.logic.commands.SelectCommand;
 import seedu.expensetracker.logic.commands.SetBudgetCommand;
 import seedu.expensetracker.logic.commands.SetCategoryBudgetCommand;
 import seedu.expensetracker.logic.commands.SetPasswordCommand;
