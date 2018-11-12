@@ -28,15 +28,9 @@ be modified by the user. This feature sets the foundation for the inclusion of m
 
 //~
 * *Other enhancements*:
-
-** added *the ability to work with event tags*
-*** What it does: Allows the user to add event tags into EventsPlus+ and find events by their tags, used for tagging new events.
-*** Justification: This is required for standardization of events tagging and makes it easier to find events by tags.
-*** Highlights: Event tags are shown at the top of the *Events* tab and can be used for easy reference of event types.
-
 ** added *the command auto-completion feature*
-*** What it does: Reduces the time required for user to finish a command, especially when command words are long.
-*** Justification: Saves time on the user on typing commands (and remembering full commands), as they can use just the `Tab` key.
+*** What it does: Allows user to use the `Tab` key to auto-complete command words.
+*** Justification: Saves time on typing commands and reduces effort of remembering full commands.
 //~
 * *Other contributions*:
 
@@ -85,7 +79,7 @@ be modified by the user. This feature sets the foundation for the inclusion of m
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some excerpts of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 include::../UserGuide.adoc[tag=addEvent]
 //include::../UserGuide.adoc[tag=editEvent]
@@ -100,7 +94,7 @@ include::../UserGuide.adoc[tag=deleteEvent]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some excerpts of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=events]
 //include::../DeveloperGuide.adoc[tag=seeEventContacts]
