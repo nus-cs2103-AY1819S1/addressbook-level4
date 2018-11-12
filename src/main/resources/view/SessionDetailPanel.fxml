@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author Caephler -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ListView?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="15" />
+    </padding>
+    <HBox alignment="CENTER_LEFT">
+        <ImageView>
+            <Image url="@/images/class.png" requestedWidth="64" requestedHeight="64" />
+        </ImageView>
+        <VBox>
+            <padding>
+                <Insets left="15" />
+            </padding>
+            <Label fx:id="tutorialGroupId" styleClass="label-text-small" text="\$tutorialGroupId" />
+            <Label fx:id="name" styleClass="label-header" text="\$name" />
+            <Label fx:id="attendance" styleClass="label-subheader" text="\$attendance" />
+        </VBox>
+    </HBox>
+    <Separator orientation="HORIZONTAL">
+        <padding>
+            <Insets top="5" bottom="5" />
+        </padding>
+    </Separator>
+    <HBox VBox.vgrow="ALWAYS">
+        <VBox minWidth="200" HBox.hgrow="SOMETIMES">
+            <HBox.margin>
+                <Insets right="30" />
+            </HBox.margin>
+            <Label styleClass="label-text-medium" text="Attended" />
+            <ListView fx:id="attendanceListView" orientation="VERTICAL" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <VBox prefWidth="300" minWidth="200">
+            <Label styleClass="label-text-medium" text="Absent" />
+            <ListView fx:id="absentListView" orientation="VERTICAL" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+</VBox>

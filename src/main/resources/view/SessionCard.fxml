@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author Caephler -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets left="15" top="5" bottom="5" right="5" />
+            </padding>
+            <ImageView>
+                <Image url="@/images/class.png" requestedWidth="48" requestedHeight="48" />
+            </ImageView>
+            <VBox alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="5" bottom="5" right="5" left="15" />
+                </padding>
+                <Label fx:id="name" styleClass="cell_big_label" />
+                <Label fx:id="attendanceCount" styleClass="cell_small_label" />
+            </VBox>
+        </HBox>
+    </GridPane>
+</VBox>

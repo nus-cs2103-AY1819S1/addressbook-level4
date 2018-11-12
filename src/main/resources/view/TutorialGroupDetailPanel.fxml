@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author Caephler -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.TilePane?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="15" />
+    </padding>
+    <HBox alignment="CENTER_LEFT">
+        <ImageView>
+            <Image url="@/images/team.png" requestedHeight="64" requestedWidth="64" />
+        </ImageView>
+        <VBox>
+            <padding>
+                <Insets left="15" />
+            </padding>
+            <Label fx:id="id" styleClass="label-text-small" text="\$id" />
+            <Label fx:id="name" styleClass="label-header" text="\$name" />
+        </VBox>
+    </HBox>
+    <Separator orientation="HORIZONTAL">
+        <padding>
+            <Insets top="15" bottom="15" />
+        </padding>
+    </Separator>
+    <Label styleClass="label-text-medium">
+        <padding>
+            <Insets bottom="5" />
+        </padding>
+        Students
+    </Label>
+    <HBox alignment="CENTER" prefHeight="150" minHeight="150">
+        <padding>
+            <Insets bottom="5" />
+        </padding>
+        <ListView fx:id="students" orientation="HORIZONTAL" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+       <VBox HBox.hgrow="SOMETIMES">
+            <HBox.margin>
+                <Insets right="30" />
+            </HBox.margin>
+            <Label styleClass="label-text-medium">
+                <padding>
+                    <Insets bottom="5" />
+                </padding>
+                Assignments
+            </Label>
+            <ListView fx:id="assignments" VBox.vgrow="ALWAYS" />
+        </VBox>
+        <VBox prefWidth="300">
+            <Label styleClass="label-text-medium">
+                <padding>
+                    <Insets bottom="5" />
+                </padding>
+                Sessions
+            </Label>
+            <ListView fx:id="sessions" VBox.vgrow="ALWAYS" />
+        </VBox>
+    </HBox>
+</VBox>
+

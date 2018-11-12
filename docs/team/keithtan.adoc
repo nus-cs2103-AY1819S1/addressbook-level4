@@ -1,0 +1,65 @@
+= Keith Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SuperTA
+
+---
+
+== Overview
+
+The *purpose* of this portfolio is to document my *role* in the project and the *contributions* I made in the CS2103T project.
+
+*SuperTA* is a desktop application for *Teaching Assistants* and *Professors* of NUS School of Computing to manage their tutorials and students. It is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). It is written in Java, and has about 10 kLoC.
+
+
+== Summary of contributions
+* *Major enhancement*: added *RemoveStudentFromTutorialGroup* command. (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/90[#90])
+** What it does: Allows the user to delete students from a tutorial group.
+
+* *Code contributed*:  [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=keithtan]
+
+* *Other contributions*:
+** Minor enhancements:
+*** Created a `UniqueAssignmentList` so that assignments cannot have the same title. (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/71[#71])
+*** Enhanced `FindCommand` with the ability to search using multiple keywords. (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/136[#136])
+
+
+** Project management:
+*** Added milestones and labels on GitHub
+*** Added issues and enhancement suggestions as needed on GitHub
+** Enhancements to existing features:
+*** Created additional classes for enhancement to existing features: https://github.com/CS2103-AY1819S1-T16-2/main/pull/71[#71]
+*** Improved error messages for user experience: https://github.com/CS2103-AY1819S1-T16-2/main/pull/143[#143]
+*** Wrote additional tests for existing features to increase coverage from 80% to 82%: https://github.com/CS2103-AY1819S1-T16-2/main/pull/87[#87]
+** Documentation:
+*** Added user stories, use case and manual testing instructions to Developer Guide: https://github.com/CS2103-AY1819S1-T16-2/main/pull/49[#49], https://github.com/CS2103-AY1819S1-T16-2/main/pull/151[#151]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-T16-2/main/pull/110[#110], https://github.com/CS2103-AY1819S1-T16-2/main/pull/134[#134]
+** Community:
+*** PRs reviewed: https://github.com/CS2103-AY1819S1-T16-2/main/pull/83[#83], https://github.com/CS2103-AY1819S1-T16-2/main/pull/142[#142]
+*** Reported bugs and suggestions for other teams in the cohort (examples:  https://github.com/CS2103-AY1819S1-W10-3/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W10-3/main/pull/139[#139], https://github.com/CS2103-AY1819S1-W10-3/main/pull/143[#143])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=removefromtutorialgroup]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=introduction]
+
+include::../DeveloperGuide.adoc[tag=userstories]
+
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=testsattendance]
+
+include::../DeveloperGuide.adoc[tag=testsfeedback]

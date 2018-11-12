@@ -1,0 +1,62 @@
+= Darieca Lim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SuperTA
+
+---
+
+== Overview
+
+SuperTA is a class management tool created for School of Computing (SoC) Teaching Assistants (TA) and professors.
+It enables the TAs and professors to better manage their tutorial classes and streamline trivial process such as attendance marking and assignment marks management.
+
+This project involves a team of Computer Science (CS) undergraduates to develop a software from an existing software product.
+The 10KoC codebase was originally adapted from Seedu’s AddressBook – Level 4 application. The user of interacts with SuperTA using a CLI, and it has a GUI created with JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*: enhancement made to *find command* (https://github.com/CS2103-AY1819S1-T16-2/main/pull/64[#64])
+** What it does: allows the user to find students in the software and list the students according to the searched keyword.
+** Justification: Previously, user can only search students using name. After the enhancements are made, user can now search students using other parameters such as phone number or student ID. This enhancement improves the product usability as users can now find their desired result more easily.
+** Highlights: Further improvements on the command will be needed in the future as more parameters are added into the software such as tutorial groups and assignment grades.
+** Credits: Most of the codes are adapted from Seedu’s Addressbook application, and further enhancements are made thereafter.
+
+* *Minor enhancement*: added `UpdateAssignmentCommand` which allow users to edit an existing assignment details (ie assignment title, maximum marks) from an existing tutorial group. (https://github.com/CS2103-AY1819S1-T16-2/main/pull/152[#152])
+
+* *Code contributed*: (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=darieca)
+
+* *Other contributions*:
+
+** Documentation:
+*** Include instructions for commands implemented in the User Guide and Developer Guide. (https://github.com/CS2103-AY1819S1-T16-2/main/pull/107[#107]) (https://github.com/CS2103-AY1819S1-T16-2/main/pull/159[#159])
+*** Create marketing pitch for product in AboutUs. (https://github.com/CS2103-AY1819S1-T16-2/main/pull/21[#21])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=updateassignment]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=find]
+
+include::../DeveloperGuide.adoc[tag=updateassignment]
+
+=== Manual Testing Instructions
+include::../DeveloperGuide.adoc[tag=testfind]
+
+include::../DeveloperGuide.adoc[tag=testupdateassignment]
+

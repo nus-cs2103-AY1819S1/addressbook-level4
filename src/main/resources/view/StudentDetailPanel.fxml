@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="15" />
+    </padding>
+    <FlowPane fx:id="tags" />
+    <HBox alignment="CENTER_LEFT">
+        <ImageView>
+            <Image url="@/images/student.png" requestedWidth="64" requestedHeight="64" />
+        </ImageView>
+        <VBox>
+            <padding>
+                <Insets left="15" />
+            </padding>
+            <Label fx:id="name" styleClass="label-header" text="\$name" />
+            <Label fx:id="id" styleClass="label-subheader" text="\$id" />
+        </VBox>
+    </HBox>
+    <Label fx:id="email" styleClass="label-bright" text="\$email" />
+    <Label fx:id="phoneNumber" styleClass="label-bright" text="\$phone" />
+    <Separator orientation="HORIZONTAL">
+        <padding>
+            <Insets top="5" bottom="5" />
+        </padding>
+    </Separator>
+    <Label styleClass="label-text-medium" text="Feedback" />
+    <ListView fx:id="feedback" VBox.vgrow="ALWAYS" />
+</VBox>

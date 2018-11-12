@@ -1,0 +1,85 @@
+= Yu-He Ong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SuperTA
+
+---
+
+== Overview
+The purpose of this project portfolio is to document my contributions I have made for the project, SuperTA.
+
+SuperTA is a desktop app for Teaching Assistants and Professors of NUS School of Computing to manage their tutorials and students.
+This app has been developed from an existing software product by my CS2103T team and helps TAs with their administrative tasks.
+It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+It is written in Java, and it is equipped with various Continuous Integration/ Deployment tools such as AppVeyor and Travis CI.
+
+Some significant features of SuperTA include:
+
+* Creating of tutorial groups
+* Adding of students into tutorial groups
+* Marking attendance of students
+* Grading assignments of students
+* Giving feedback to students
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to *create attendance sessions* and *mark attendance for students* (Pull requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/97[#97], https://github.com/CS2103-AY1819S1-T16-2/main/pull/131[#131])
+** What it does: This allows the teaching assistant to create attendance sessions for each tutorial class, and subsequently mark the attendance of students in those sessions.
+** Justification: This feature is an essential part of SuperTA, since taking attendance of students is definitely a feature required by teaching assistants in classes.
+** Highlights: This enhancement is able to take in multiple student IDs as user input, allowing the attendance of multiple students to be marked a the same time. Also, this enhancement involves creating the Presence enumeration to properly encapsulate the attendance of students using fixed and constant values.
+The implementation of these commands needed to account for various exceptions, such as when the tutorial group is invalid, when the session does not exist, as well as when the attendance of students are already marked.
+
+* *Major enhancement*: added *the ability to write feedback to a student* (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/43[#43])
+** What it does: allows the teaching assistant to create feedback for a student for viewing in the future.
+** Justification: This feature improves the usability of the SuperTA client as TAs are better able to craft personalized feedback for students to help with their studies.
+** Highlights: This enhancement involves modifying the Student class and adding a new data field, Feedback to it. New feedback can also be easily added to a Student without overwriting existing feedback, as feedback objects have been modelled as array elements within the student object instead.
+
+* *Minor enhancement*: Modified the view command that allows the TA to view past feedback given to a student. (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/83[#83])
+* *Minor enhancement*: Modified the parser to be able to accept both lowercase and uppercase Student IDs. (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/133[#133])
+
+* *Code contributed*: (https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=triger15[RepoSense collated code])
+
+* *Other contributions*:
+
+** Project management:
+*** Reposense: Created config.json file and modified author names to ensure code is correctly attributed
+** Enhancements to existing features:
+*** Updated the GUI color scheme, title and icon (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/88[#88])
+*** Created the UI mockup for SuperTA client (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/23[#23])
+*** Removal of unnecessary Address class and related fields (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/75[#75])
+** Documentation:
+*** Slight modifications to feedback command in the User Guide: https://github.com/CS2103-AY1819S1-T16-2/main/pull/83[#83]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T16-2/main/pull/91[#91], https://github.com/CS2103-AY1819S1-T16-2/main/pull/90[#90], https://github.com/CS2103-AY1819S1-T16-2/main/pull/73[#73]
+*** Reported bugs and fixed them: https://github.com/CS2103-AY1819S1-T16-2/main/pull/167[#167]
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=feedback]
+
+include::../UserGuide.adoc[tag=createattendance]
+
+include::../UserGuide.adoc[tag=markattendance]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=markattendancefeature]
+
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=testsattendance]
+
+
+---
+

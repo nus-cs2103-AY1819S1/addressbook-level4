@@ -4,53 +4,47 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+SuperTA was developed by the CS2103T T16-2 team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Gabriel
+image::caephler.png[width="150", align="left"]
+{empty}[https://blog.caephler.com[homepage]] [https://github.com/caephler[github]] [<<caephler#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Team Lead, Integration
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Keith Tan
+image::keithtan.png[width="150", align="left"]
+{empty}[http://github.com/keithtan[github]] [<<keithtan#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Documentation
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Yu-He Ong
+image::triger15.png[width="150", align="left"]
+{empty}[http://github.com/triger15[github]] [<<triger15#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Responsibilities: Code Quality
+
+'''
+
+=== Darieca Lim
+image::darieca.png[width="150", align="left"]
+{empty}[http://github.com/darieca[github]] [<<darieca#, portfolio>>]
+
+Responsibilities: Testing
+
+'''
+
+=== Wenshei Ong
+image::wenshei.png[width="150", align="left"]
+{empty}[http://github.com/wenshei[github]] [<<wenshei#, portfolio>>]
+
+Responsibilities: Deliverables/Deadlines, Scheduling and Tracking
 
 '''

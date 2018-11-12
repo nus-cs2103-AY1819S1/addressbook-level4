@@ -1,0 +1,83 @@
+
+= Gabriel - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SuperTA
+
+---
+
+== Overview
+
+SuperTA is a desktop application to handle student records for Teaching Assistants and Professors in the School of Computing. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Tutorial Group and Assignment* commands. (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/19[#19], https://github.com/CS2103-AY1819S1-T16-2/main/pull/62[#62])
+** What it does: These are commands to manipulate Tutorial Groups and Assignments, including the creation and viewing of these data structures.
+** Justification: This feature is essential in achieving core functionality. It allows teaching assistants to create Tutorial Groups and Assignments, which is key to keeping track of student performance.
+** Highlights: This enhancement affects other commands interacting with these data structures.
+
+* *Major enhancement*: improved *User Interface (UI)* (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/73[#73], https://github.com/CS2103-AY1819S1-T16-2/main/pull/92[#92], https://github.com/CS2103-AY1819S1-T16-2/main/pull/135[#135])
+** What it does: The user interface was very bare-bones at the start and was not visually appealing. The improvement to the UI makes for a better experience for the user on the whole. The UI was also further improved to display details of tutorial groups, assignments, attendance sessions, as well as students. A few UI event triggers have also been implemented.
+
+|===
+| Before | After
+a| image::oldUi.png[width="800"] a| image::Ui.png[width="800"]
+image::Ui2.png[width="800"]
+|===
+
+* *Minor enhancement*: Added various view commands such as `view-session` and `list-tutorial-groups` which will trigger display relevant information in the User Interface.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=caephler[RepoSense collated code]
+
+* *Other contributions*:
+
+** Project management:
+*** Team Lead
+*** Managed Project release from `v1.1` through `v1.4` on GitHub
+*** In charge of merging most Pull Requests on GitHub
+*** Non-trivial reviews for many Pull Requests from team members.
+** Enhancements:
+*** Improve Test Coverage (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/41[#41], https://github.com/CS2103-AY1819S1-T16-2/main/pull/66[#66], https://github.com/CS2103-AY1819S1-T16-2/main/pull/101[#101])
+*** Bug fixes (Pull Requests https://github.com/CS2103-AY1819S1-T16-2/main/pull/145[#145], https://github.com/CS2103-AY1819S1-T16-2/main/pull/144[#144], https://github.com/CS2103-AY1819S1-T16-2/main/pull/141[#141], https://github.com/CS2103-AY1819S1-T16-2/main/pull/138[#138], https://github.com/CS2103-AY1819S1-T16-2/main/pull/135[#135], https://github.com/CS2103-AY1819S1-T16-2/main/pull/59[#59])
+*** Reviewed many team members' pull requests.
+*** Added documentation for features implemented.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=listtutorialgroups]
+
+include::../UserGuide.adoc[tag=createtutorialgroup]
+
+include::../UserGuide.adoc[tag=updatetutorialgroup]
+
+include::../UserGuide.adoc[tag=viewtutorialgroup]
+
+include::../UserGuide.adoc[tag=addtotutorialgroup]
+
+include::../UserGuide.adoc[tag=createassignment]
+
+include::../UserGuide.adoc[tag=grade]
+
+include::../UserGuide.adoc[tag=viewassignment]
+
+include::../UserGuide.adoc[tag=viewsession]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../TutorialGroupDesign.adoc[]
+
+=== Manual Testing
+include::../DeveloperGuide.adoc[tag=teststutorialgroup]
+
+include::../DeveloperGuide.adoc[tag=grade]

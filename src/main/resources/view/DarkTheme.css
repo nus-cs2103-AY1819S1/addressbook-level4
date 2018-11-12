@@ -24,6 +24,34 @@
     -fx-opacity: 1;
 }
 
+.label-subheader {
+    -fx-font-size: 24pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-text-large {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-text-medium {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-text-small {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -76,21 +104,24 @@
     -fx-background-color: -fx-focus-color;
 }
 
+/* Separator between StudentListPanel and TutorialGroupPanel */
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+    -fx-background-color: derive(#212F40, 3%);
+    -fx-border-color: transparent transparent transparent #212F40;
 }
 
+/* Borders of StudentListPanel & TutorialGroupPanel */
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#212F40, 0%);
 }
 
+/* Background of TutGroupPanel & empty StudentListPanel */
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#0E1F2B, 0%);
 }
 
 .list-cell {
@@ -99,21 +130,25 @@
     -fx-padding: 0 0 0 0;
 }
 
+/* StudentCard (even, first) */
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #0E1F2B;
 }
 
+/* StudentCard (odd, second) */
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #284A57;
 }
 
+/* Selected StudentCard */
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;
 }
 
+/* Selected StudentCard border */
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
+    -fx-border-width: 2;
 }
 
 .list-cell .label {
@@ -132,26 +167,42 @@
     -fx-text-fill: #010504;
 }
 
-.stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+.tutorial_group_cell_id_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
 }
 
+.tutorial_group_cell_name_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+/* Enter command here... */
+.stack-pane {
+     -fx-background-color: #0E1F2B;
+}
+
+/* Borders of command input and results output */
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: derive(#212F40, 0%);
+     -fx-border-color: derive(#212F40, 0%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 50%);
     -fx-text-fill: black;
 }
 
+/* results output window */
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
+    -fx-min-height: 100px;
 }
 
 .result-display .label {
@@ -164,7 +215,7 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#212F40, 30%);
     -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
@@ -173,26 +224,30 @@
     -fx-text-fill: white;
 }
 
+/* Border-color: bottom status bar border */
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#212F40, 20%);
     -fx-border-width: 1px;
 }
 
+/* Bottom status bar */
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#212F40, 10%);
 }
 
+/* File/Help dropdown */
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#212F40, 50%);
 }
 
 .context-menu .label {
     -fx-text-fill: white;
 }
 
+/* Top menu bar */
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#212F40, 10%);
 }
 
 .menu-bar .label {
@@ -280,13 +335,15 @@
     -fx-text-fill: white;
 }
 
+/* StudentListPanel scrollbar bg */
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#0E1F2B, 20%);
 }
 
+/* StudentListPanel scrollbar bg */
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
-    -fx-background-insets: 3;
+    -fx-background-color: derive(#0E1F2B, 50%);
+    -fx-background-insets: 2;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -306,6 +363,7 @@
     -fx-padding: 8 1 8 1;
 }
 
+/* overlay of studentCards */
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -317,7 +375,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: transparent #zaaa transparent #383838;
     -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
@@ -331,8 +389,9 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+/* Results output box */
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, #0E1F2B, transparent, #0E1F2B;
     -fx-background-radius: 0;
 }
 
@@ -341,9 +400,10 @@
     -fx-vgap: 3;
 }
 
+/* Background color of tags */
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #053C5E;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

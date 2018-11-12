@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author Caephler -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<HBox id="tutorialGroupPane" fx:id="tutorialGroupPane" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets left="15" />
+            </padding>
+            <ImageView>
+                <Image url="@/images/team.png" requestedHeight="64" requestedWidth="64" />
+            </ImageView>
+            <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+                <padding>
+                    <Insets top="5" right="5" bottom="5" left="15" />
+                </padding>
+                <Label fx:id="id" styleClass="tutorial_group_cell_id_label" text="\$id" />
+                <Label fx:id="name" styleClass="tutorial_group_cell_name_label" text="\$name" />
+                <Label fx:id="numStudents" styleClass="tutorial_group_cell_name_label" text="\$numStudents" />
+                <Label fx:id="numAssignments" styleClass="tutorial_group_cell_name_label" text="\$numAssignments" />
+            </VBox>
+        </HBox>
+    </GridPane>
+</HBox>

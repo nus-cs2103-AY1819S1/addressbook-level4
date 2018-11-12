@@ -1,0 +1,56 @@
+[[Design-TutorialGroupMaster]]
+=== TutorialGroupMaster Design
+
+.Structure of the TutorialGroupMaster
+image::TutorialGroupMasterDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/superta/model/tutorialgroup/TutorialGroupMaster.java[`TutorialGroupMaster.java`]
+
+The `TutorialGroupMaster`,
+
+* stores all Unique Identifiers (UIDs) of `TutorialGroup` in a `Set<String>`.
+* stores all `TutorialGroup` instances that are present in the SuperTA client in a `Map<String, TutorialGroup`, which maps the ID of the `TutorialGroup` to the instance for fast lookup.
+* exposes an unmodifiable `ObservableList<TutorialGroup>` that can be 'observed', mirroring changes to the internal map.
+* Can propogate removal of `Student` instances to all `TutorialGroup` s.
+* does not depend on any other component to operate.
+
+[NOTE]
+====
+The `TutorialGroupMaster` handles generation of UIDs as well. If a `TutorialGroup` is inserted when some other `TutorialGroup` instance has the same ID, then `TutorialGroupMaster` will automatically generate a unique suffix and use that as the `id` of the inserted `TutorialGroup`. For example, the user tries to insert a `TutorialGroup` whose initial ID is `04a`, but there is an existing `TutorialGroup` with that same ID. The `TutorialGroupMaster` will then generate a suffix for this new `TutorialGroup`. The new ID will look something like `04a-dusty123`.
+====
+
+The `TutorialGroupMaster` is able to handle lookup of `TutorialGroup` by ID quickly because it stores `TutorialGroup` instances in a `Map` which has the `TutorialGroup` IDs as key values. This notion of a master is necessary so we can handle operations such as propagating `Student` deletions to every single `TutorialGroup`.
+
+[[Design-TutorialGroup]]
+=== TutorialGroup Model
+
+.Structure of the TutorialGroup Component
+image::TutorialGroupDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/superta/tutorialgroup/TutorialGroup.java[`TutorialGroup.java`]
+
+The `TutorialGroup` model,
+
+* has a unique identifier.
+* has a name.
+* has a list of `Student` s that belong to it.
+* has a list of `Assignment` s that belong to it.
+* has a list of `Session` s that belong to it.
+* should only contain `Student` s that are in the main client.
+
+[NOTE]
+====
+The `TutorialGroup` model houses all other object instances that are crucial to the operation of the client. This is done because it makes logical sense - `Student` s, `Assignment` s, and `Session` s should belong to a `TutorialGroup` .
+====
+
+image::TutorialGroupObjectDiagram.png[width="800"]
+
+This is an example of the use case of a `TutorialGroup`. In this object diagram, we have a `TutorialGroup` with the name `Studio04A` and the ID `04a`. It holds lists of `Student` s, `Assignment` s, and `Session` s in its appropriate lists. Each entity is not coupled with each other - it uses the `StudentId` to find out which `Student` is associated with it. For example, The `GradeEntry` object composes of a `StudentId` object, which will allow other components to find out which is the underlying `Student` model with this `StudentId`. This is done so that we don't have to update each entity with updated copies of a `Student` when the user triggers an update event.
+
+==== Design Considerations
+
+===== Aspect: Alternative Implementation Methods
+
+* *Alternative 1*: Store `Assignment` s, `Session` s, and `Student` s in a normalised manner - that is, the `ModelManager` would instead contain lists of all of these entities. Every `TutorialGroup` would then reference an identifier if it wanted a reference to that entity.
+** Pros: Any updates to an underlying model would be propagated to every `TutorialGroup` referencing it. Normalised data is also easier to reference. Future classes can also reference these with no problem.
+** Cons: This implementation will require additional layers of abstraction, and will require many changes to the model.

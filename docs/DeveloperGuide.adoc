@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= SuperTA - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,18 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T16-2/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+// tag::introduction[]
+== Introduction
+Welcome to the SuperTA Developer Guide. This guide provides information to help you get started as a SuperTA contributor, allowing you to code, test and improve on the software without much hassle.
+
+SuperTA is a desktop application for Teaching Assistants and Professors in NUS School of Computing. It provides a convenient, flexible and fast method to manage students and their tutorials. This software is also designed to have the Command Line Interface (CLI) to be the primary mode of input while the GUI is used for visual feedback to the user.
+
+If you're brand new to SuperTA and want to jump into code, start with <<Setting up>>.
+// end::introduction[]
 
 == Setting up
 
@@ -47,14 +56,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/superta/storage/XmlAdaptedStudent.java[`XmlAdaptedStudent.java`] and link:{repoURL}/src/main/java/seedu/superta/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.superta.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -74,9 +83,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still refer to the `CS2103-AY1819S1-T16-2` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-T16-2`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -146,18 +155,18 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete-assignment as/lab1 tg/04a`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `delete-assignment as/lab1 tg/04a` command (part 1)
+image::SDforDeleteAssignment.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `SuperTaChangedEvent` when the SuperTA client data is changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+.Component interactions for `delete-assignment as/lab1 tg/04a` command (part 2)
+image::SDforDeleteAssignmentEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -170,9 +179,9 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/superta/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -190,17 +199,17 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/superta/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SuperTaClientParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a student) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete assignment as/lab1 tg/04a")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `delete-assignment as/lab1 tg/04a` Command
+image::DeleteAssignmentSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -208,17 +217,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/superta/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the SuperTA client data.
+* exposes an unmodifiable `ObservableList<Student>`,`ObservableList<Attendance>` and `ObservableList<TutorialGroup>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `SuperTaClient`, which `Student` can reference. This would allow `SuperTaClient` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -228,17 +237,21 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/superta/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the SuperTA client data in xml format and read it back.
+
+// tag::tutorialgroup[]
+include::TutorialGroupDesign.adoc[]
+// end::tutorialgroup[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.superta.commons` package.
 
 == Implementation
 
@@ -248,54 +261,54 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSuperTaClient`.
+It extends `SuperTaClient` with an undo/redo history, stored internally as an `superTaClientStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSuperTaClient#commit()` -- Saves the current SuperTA client state in its history.
+* `VersionedSuperTaClient#undo()` -- Restores the previous SuperTA client state from its history.
+* `VersionedSuperTaClient#redo()` -- Restores a previously undone SuperTA client state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSuperTaClient()`, `Model#undoSuperTaClient()` and `Model#redoSuperTaClient()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSuperTaClient` will be initialized with the initial SuperTA client state, and the `currentStatePointer` pointing to that single SuperTA client state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th student in the SuperTA client. The `delete` command calls `Model#commitSuperTaClient()`, causing the modified state of the SuperTA client after the `delete 5` command executes to be saved in the `superTaClientStateList`, and the `currentStatePointer` is shifted to the newly inserted SuperTA client state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new student. The `add` command also calls `Model#commitSuperTaClient()`, causing another modified SuperTA client state to be saved into the `superTaClientStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitSuperTaClient()`, so the SuperTA client state will not be saved into the `superTaClientStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSuperTaClient()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous SuperTA client state, and restores the SuperTA client to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial SuperTA client state, then there are no previous SuperTA client states to restore. The `undo` command uses `Model#canUndoSuperTaClient()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSuperTaClient()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the SuperTA client to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `superTaClientStateList.size() - 1`, pointing to the latest SuperTA client state, then there are no undone SuperTA client states to restore. The `redo` command uses `Model#canRedoSuperTaClient()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the SuperTA client, such as `list`, will usually not call `Model#commitSuperTaClient()`, `Model#undoSuperTaClient()` or `Model#redoSuperTaClient()`. Thus, the `superTaClientStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `superTaClientStateList`, all SuperTA client states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,29 +320,202 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire SuperTA client.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the student being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of SuperTA client states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSuperTaClient`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::deleteassignment[]
+=== Delete Assignment feature
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
 
-// end::dataencryption[]
+The `delete-assignment` command is facilitated by the `DeleteAssignmentCommand` class.
+It extends the abstract class `Command` and is supported by `DeleteAssignmentCommandParser`,
+and changes made to the `Model` are done through `Model#deleteAssignment()`.
+
+The `delete-assignment` command is executed in the following way:
+
+. `LogicManager` calls `parseCommand()` of `SuperTaClientParser`, with the user input as the argument.
+. `SuperTaClientParser` invokes `parse()` of `DeleteAssignmentCommandParser`.
+. If arguments are valid, `parse` extracts `fromTutorialGroup` and `assToDelete` strings to instantiate a `DeleteAssignmentCommand`.
+. The `DeleteAssignmentCommand` is returned to `LogicManager`, which calls `execute()` on it.
+. `DeleteAssignment` calls `Model#deleteAssignment()` using `fromTutorialGroup` and `assToDelete`.
+
+The following is a sequence diagram of the `delete-assignment` command:
+
+image::DeleteAssignmentSdForLogic.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Implementation of `DeleteAssignmentCommand`
+
+* *Alternative 1(current choice):* Store the tutorial group ID and assignment title as String fields in `DeleteAssignmentCommand`.
+** Pros: Easy to implement. Does not require instantiating new `TutorialGroup` and `Assignment` objects to hold the String values.
+** Cons: Requires that the `Model` supports finding a tutorial group and assignment within `Model#deleteAssignment()`.
+* *Alternative 2:* Wrap the tutorial group ID and assignment title in `TutorialGroup` and `Assignment` objects and store them as fields in `DeleteAssignmentCommand`.
+** Pros: Easy to compare between actual `TutorialGroup` and `Assignment` using `equals()`.
+** Cons: Dependent on the overridden `equals()` method  in the `TutorialGroup` and `Assignment` classes to work as intended.
+
+// end::deleteassignment[]
+
+// tag::find[]
+=== Find feature
+
+==== Current Implementation
+
+The `find` command is facilitated by the `FindCommand` class.
+It extends the abstract class `Command`,
+and it is triggered when the user enters `find` into `SuperTaClient`.
+
+The sequence diagram below shows the overview when `FindCommand` is called:
+
+image::SDFindCommand.png[width="800"]
+
+The `FindCommand` is implemented as follows:
+
+. `LogicManager` is called to execute the entered argument.
+. `LogicManager` calls `SuperTaClientParser`, and parses the argument through the method `parseCommand()`.
+. `SuperTaClientParser` calls its respective command parsers of the argument using `parse()`. In this case, the `FindCommandParser` is called.
+. `FindCommandParser` will now parse the arguments and turn into `name`, `phone`, `email` and `studentID` predicates. These predicates will be passed to `FindCommand`.
+. When `LogicManager` invokes `execute()`, `FindCommand` will call `updateFilteredStudentList()` to the model component and update the student list to the latest results.
+
+==== Design Considerations
+
+===== Aspect: How `FindCommandParser` parse predicates
+
+* *Alternative 1 (current choice):* Each parameter field (ie `name`, `phone`) are parsed into its respective predicates (ie. `namePredicate`, `phonePredicate`).
+** Pros: Easy to implement. Predicates are grouped into how they are parsed.
+** Cons: Less user-friendly. Users are required to remember the prefixes for each field.
+* *Alternative 2:* Parse all arguments into a general `string`, then search all the fields and stored into a main predicate.
+** Pros: More versatile and user-friendly. The `string` is able to search all the fields.
+** Cons: Slightly more tedious as compared to alternative 1. The general `string` needs to parse into respective field objects and predicates for each available parameter.
+
+// end::find[]
+
+// tag::updateassignment[]
+=== Update Assignment feature
+
+==== Current Implementation
+
+The `update-assignment` command is facilitated by `UpdateAssignmentCommand` class.
+It extends the abstract class `command`,
+and it is triggered when the user enters `update-assignment` into `SuperTaClient`.
+Actual changes of this command are made through `Model#updateAssignment()`.
+
+The `UpdateAssignmentCommand` is implemented as follows:
+
+[NOTE]
+`UpdateAssignmentCommand` only works when there is an existing assignment in an existing tutorial group,
+and the updated assignment name is not the same as other existing assignment title.
+In this implementation, it is assumed that there is a valid tutorial group and a valid existing assignment.
+
+.Logic component of the Sequence Diagram for `update-assignment` command
+image::SDUpdateAssignmentCommandLogic.png[width="800"]
+
+. `LogicManager` is called to execute the entered argument.
+. `LogicManager` calls `SuperTaClientParser`, and parses the argument through the method `parseCommand()`.
+. `SuperTaClientParser` calls its respective command parsers of the argument using `parse()`. In this case, the `UpdateAssignmentCommandParser()` is called.
+. `UpdatAassignmentCommandParser` will now parse the arguments.
+. `UpdateAssignmentCommandParser` will create a new `UpdateAssignmentDescriptor` and set the updated assignment details, which later will be passed to `UpdateAssignmentCommand`.
+. When `LogicManager` invokes `execute()`, `UpdateAssignmentCommand` will call `updateAssignment()` to the model component.
+
+.Model component of the Sequence Diagram for `update-assignment` command
+image::SDUpdateAssignmentCommandModel.png[width="800"]
+
+. When `updateAssignment()` is called in `ModelManager`, it will retrieve `tutorialGroup` and `assignment` information from `SuperTaClient` and `TutorialGroup` respectively.
+. After locating the specific `assignment` to be changed, `ModelManager` now calls `updateAssignment()` to `UiqueAssignmentList` to replace the old assignment details.
+. Updated information will be returned to the `logic` component (as ‘updated’) in the above diagram.
+
+==== Design Considerations
+
+===== Aspect: Implementation of `UpdateAssignmentDescriptor` in `UpdateAssignmentCommand`
+
+* *Alternative 1 (current choice):*  Use of `UpdateAssignmentDescriptor` in `UpdateAssignmentCommand` to store the updated `assignment` details.
+** Pros: Strengthen Single Responsibility Principle (SRP), as the `UpdateAssignmentCommand` will not need to check for differences between the old and updated `assignment` details.
+** Cons: May increase coupling. If the additional `assignment` details are added in in the future such as section maximum marks, `UpdateAssignmentDescriptor` have to change accordingly as well.
+* *Alternative 2:* Remove `UpdateAssignmentDescriptor` and parse updated `assignment` details as a new `assignment`.
+** Pros: Decreases coupling.
+** Cons: Harder to implement if user only indicate to update one field. (eg: update `assignmentTitle` only, while `maxMarks` stay the same). In this case, `UpdateAssignmentCommand` need to factor in the differences changed after the updated `assignment` details.
+
+===== Aspect: Data structure of `update-assignment` in `ModelManager`
+
+* *Alternative 1:*  Locate `assignment` from `assignmentList`, then delete old `assignment` and add updated `assignment`.
+** Pros: Easier to implement as it made use of other existing assignment commands such as `addAssignment()` and `deleteAssignment()`. No additional methods are needed for `updateAssignment()`.
+** Cons: As each assignment contains a `GradeBook` which stores all student grades, deleting the old `assignment` and add a new `assignment` may risk of losing the existing `GradeBook` records. In addition, assignment index list may be affected after deletion as well.
+* *Alternative 2 (current choice):* Locate `assignment` from `assignmentList` and replace the old `assignment` with updated `assignment` details.
+** Pros: No risk of losing `GradeBook` records as only the `assignmentTitle` and `maxMarks` are being edited.
+** Cons: An additional method, `updateAssignment()` will be implemented instead.
+
+// end::updateassignment[]
+
+// tag::markattendancefeature[]
+=== Mark Attendance feature
+
+==== Current Implementation
+
+The `mark-attendance` command is facilitated by the `MarkAttendanceCommand` class.
+It extends the abstract class `Command` and is supported by `MarkAttendanceCommandParser`,
+and changes made to the `Model` are done through `Model#markAttendance()`.
+
+The `mark-attendance` command is executed in the following way:
+
+. `LogicManager` calls `parseCommand()` of `SuperTaClientParser`, with the user input as the argument.
+. `SuperTaClientParser` invokes `parse()` of `MarkAttendanceCommandParser`.
+. If arguments are valid, `parse` extracts `tutorialGroupId` string, `sessionName` and set of `studentId` strings for parsing into a `Session` and `Set<StudentId>` to instantiate a `MarkAttendanceCommand`.
+. The `MarkAttendanceCommand` is returned to `LogicManager`, which calls `execute()` on it.
+. `MarkAttendance` calls `Model#markAttendance()` using `tgtId`, `sessionName` and `studentIdSet`.
+
+The following sequence diagrams of the `mark-attendance` command shows the sequence flow from `LogicManager` to the `ModelManager`:
+
+image::SDforMarkAttendance1.png[width="1856"]
+
+A more in-depth sequence diagram to illustrate how the `Model` executes the `mark-attendance` command:
+
+image::SDforMarkAttendance2.png[width="1452"]
+
+From the in-depth sequence diagram:
+
+. `Model` calls `VersionedSuperTaClient#markAttendance`, using `tgtId`, `sessionName` and `studentIdSet`.
+. `VersionedSuperTaClient` self-invokes the method `getTutorialGroup(tgId)` to obtain the tutorial group specified.
+. `VersionedSuperTaClient` then calls `getSession(sessionName)` in the `TutorialGroup` instance obtained previously.
+. `VersionedSuperTaClient` then streams the set of student Ids obtained in `studentIdSet`, mapping them to new `Attendance` objects and collecting them as a list.
+. Finally, the `attendanceList` obtained is streamed, with each `Attendance` object being added to the `Session` instance obtained in step 3.
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of `MarkAttendanceCommand`
+
+* *Alternative 1(current choice):* Store the tutorial group ID as String field, session name as a `Session` object and student ids as a set of `StudentIds` in `MarkAttendanceCommand`.
+** Pros: Easy to implement, and parse, with existing parsers built in. Ensures that parsed `Session` and `StudentId` objects are valid and abide by constraints.
+** Cons: Requires `Session` and `StudentId` objects to be instantiated. Also depends on `isSameSession()` method and `containsId()` method in `Session` and `UniqueStudentList` respectively.
+* *Alternative 2:* Store all parameters of `MarkAttendanceCommand` as String objects, including `StudentIds` as a set of Strings.
+** Pros: Easy to implement, will be able to find session and set of student ids by comparing strings.
+** Cons: Cannot ensure parsed session names and student ids are correct, valid and fit constraints.
+
+===== Aspect: Implementation of `Attendance`
+
+* *Alternative 1(current choice):* Store `Attendance` object with an encapsulated `StudentId` object and `Presence` enumeration.
+** Pros: `StudentId` is assured to be valid, while `Presence` will only be able to take fixed, constant values,
+** Cons: Requires a new `Presence` enumeration to be defined, instead of relying on simpler string values.
+* *Alternative 2:* Store presence of student as an integer or string value.
+** Pros: Easy to implement, no need to create additional enumeration.
+** Cons: Cannot ensure that only fixed, valid values will be used when creating `Attendance` objects.
+
+// end::markattendancefeature[]
 
 === Logging
 
@@ -429,7 +615,7 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 |`site-section`
 |Site section that the document belongs to.
 This will cause the associated item in the navigation bar to be highlighted.
-One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`
 
 _{asterisk} Official SE-EDU projects only_
 |_not set_
@@ -489,14 +675,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.superta.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.superta.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.superta.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.superta.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -533,302 +719,37 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, SuperTA depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
 
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
-[appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* <<teaching-assistant,TAs>> and <<professor,Profs>> in <<school-of-computing,SoC>>
+* has a need to manage a significant number of students
+* keeps track of student performance in tutorials
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Current situation:
+** TAs use IVLE, excel spreadsheets and many other systems to keep track of students performances, class participation and other information
+** Difficult to organize multitude of information
+** Hard to share data with other TAs, when they could be building on pre-existing data.
+
+* Proposed solution:
+** Central management system to keep track of students performances, tutorial attendance
+** Provide a platform for Tutors/TAs to better keep track of individual students and provide help early
 
 [appendix]
+// tag::userstories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -836,88 +757,253 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |TA |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |TA |add a new student |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |TA |edit a student |keep their details updated
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |TA |view a student |know the student's details in a glance
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |TA |delete a student |remove entries that I no longer need
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |TA |find a student by name |locate details of students without having to go through the entire list
+
+|`* * *` |TA |find a student by matriculation number |locate details of persons without having to remember his/her name
+
+|`* * *` |TA |give feedback for my students |update additional information about the student
+
+|`* * *` |TA |create a tutorial group |categorize them into groups
+
+|`* * *` |TA |delete a tutorial group |remove them when I am no longer teaching in it
+
+|`* * *` |TA |add a student to a tutorial group |
+
+|`* * *` |TA |delete a student from a tutorial group |see students in a specific tutorial group
+
+|`* * *` |TA |add attendance for my students |know whether my students are coming to tutorials
+
+|`* * *` |TA |delete attendance for my students |remove entries that I no longer need
+
+|`* * *` |TA |add an assignment to tutorial group |track the assignments
+
+|`* * *` |TA |delete an assignment to tutorial group |remove entries that I no longer need
+
+|`* * *` |TA |add marks to assignments |track their marks
+
+|`* * *` |TA |edit marks in assignments |change their marks
+
+|`* * *` |TA |sort students in order of their grades for a specific assignment |know who is/is not performing well
+
+|`* *` |TA |view the performance of my students over time through visual aids |easily view their progress at a glance
+
+|`* *` |TA |get recommendations on my teaching style |improve or change my teaching style
+
+|`* *` |TA |data trending of the performance of my students |track the progress of the students
+
+|`* *` |TA |plan consultations with students through a calendar system |better manage my time and the learning of the students
+
+|`* *` |TA |get suggestions on how to cater my teaching style to a specific student |teach that student better
+
+|`* *` |TA |flag a student that needs help |easily filter out the students that need help
+
+|`* *` |TA |plan non-clashing consultation sessions with students |reduce tht time needed to find a suitable date and time and better manage my schedule
+
+|`* *` |Prof/TA |access the academic records of my students with a secure password |prevent leaking of personal data
+
+|`*` |TA |share student records with other TAs |build on pre-existing data about the student
+
+|`*` |TA |receive student records from other TAs |understand my students better
+
+|`*` |TA |send emails to tutorial groups |relay important information to my students
+
+|`*` |TA |export student data to a CSV/PDF |easily share the data with related parties
+
+|`*` |Student |feedback to my TAs about their teaching style |learn better during classes
+
 |=======================================================================
 
 _{More to be added}_
+// end::userstories[]
 
 [appendix]
 == Use Cases
-
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases, the *System* is the `SuperTA Client` and the *User* is `TA`.)
 
 [discrete]
-=== Use case: Delete person
+=== UC01 - Delete student
 
-*MSS*
+*MSS:*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list students
+2. System shows a list of students
+3. User requests to delete a specific student in the list
+4. System deletes the student
+
 +
 Use case ends.
 
-*Extensions*
+*Extensions:*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
+* 1a. The list is empty.
+* Use case ends.
+* 2a. The given index is invalid.
+** 2a1. System shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== UC02 - Find student
+
+*MSS:*
+
+1. User requests to find students using prefix and keywords
+2. System finds the student who information matched with the keywords
+
++
+Use case ends.
+
+*Extensions:*
+
+[none]
+* 1a. Prefix entered is not supported by find command
+** 1a1. System shows an error message.
+* 2a. None of the student matched the keywords provided by user
+** 2a1. No students will be listed.
+
+[discrete]
+=== UC03 - Add Tutorial Group
+
+*MSS:*
+
+1. User clicks “Add Tutorial Group” button or enters command “add [tg/[NAME]] *[s/[STUDENT-ID]]”
+2. The tutorial group is created.
++
+Use case ends.
+
+*Extensions:*
+
+[none]
+* 1a. User enters invalid student details.
+** 1a1. System prompt user invalid student details entered.
+** 1a2. User re-enter student details.
++
+Use case resumes at step 2.
+
+// tag::usecasefour[]
+[discrete]
+=== UC04 - Grade Assignment
+
+*MSS:*
+
+1. User views a tutorial group.
+2. System displays the tutorial group.
+3. User creates assignment in tutorial group.
+4. System creates assignment.
+5. User enters grade of student to be graded for an assignment.
+6. System grades the assignment for the student.
++
+Use case ends.
+
+*Extensions:*
+
+[none]
+* 1a. User enters invalid tutorial group ID.
+** 1a1. System displays an error message.
++
+Use case resumes at step 1.
+
+* 3a. User enters invalid details for new assignment.
+** 3a1. System displays an error message.
++
+Use case resumes at step 3.
+
+* 5a. User enters invalid grade/student/assignment/tutorial group.
+** 5a1. System displays an error message.
++
+Use case resumes at step 5.
+
+// end::usecasefour[]
+
+// tag::usecasefive[]
+[discrete]
+=== UC05 - Mark Attendance
+
+*MSS:*
+
+1. User creates attendance session in tutorial group.
+2. System creates attendance session.
+3. User enters ID for student to mark attendance for the session.
+4. System marks student's attendance for the session.
++
+Use case ends.
+
+*Extensions:*
+
+[none]
+* 1a. User enters invalid details for new attendance session.
+** 1a1. System displays an error message.
++
+Use case resumes at step 1.
+
+* 3a. User enters invalid student/session.
+** 3a1. System displays an error message.
++
+Use case resumes at step 3.
+
+// end::usecasefive[]
+
+// tag::usecasesix[]
+[discrete]
+=== UC06 - Add feedback for student
+
+*MSS:*
+
+1. User enters feedback for student.
+2. System creates feedback for student.
++
+Use case ends.
+
+*Extensions:*
+[none]
+* 1a. User enters invalid student/empty feedback.
+** 1a1. System displays an error message.
++
+Use case resumes at step 1.
+
+// end::usecasesix[]
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The client should work without an Internet connection.
+. The client should be able to be used by a first-timer without having to refer to the documentation all the time.
+. The program should be responsive to the user’s input and display the results fast (<3s).
+. The project is expected to adhere to semantic versioning.
+. The client should not need to do syncing over the Internet.
+. The codebase should have high code coverage (90%).
+. The codebase should adhere to the Google Java style guide.
+. The codebase should use Continuous Integration (CI).
+. The master branch should always be functional.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[school-of-computing]] SoC::
+School of Computing. A term used loosely for:
+1. anyone or anything that has to do with computing
+2. the building in NUS.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[teaching-assistant]] TA::
+Teaching Assistant. An individual, usually an SoC undergraduate, who is responsible for tutorial sessions in a given module.
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[professor]] Prof::
+Professor. An individual who teaches SoC modules.
 
 [appendix]
 == Instructions for Manual Testing
@@ -941,26 +1027,156 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a student
 
-=== Deleting a person
+. Deleting a student while all students are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all students using the `list` command. Multiple students in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+// tag::testfind[]
+=== Finding a student
 
-=== Saving data
+. Finding a student while all students are listed
 
-. Dealing with missing/corrupted data files
+.. Test case: `find n/john` +
+Expected: All students with name `john` will be on the list. Since it is case-insensitive, variations such as ‘John’ or ‘joHn’ will appear on the filtered list as well.
+.. Test case: `find n/john mary` +
+Expected: All students with name `john` or ‘mary’ will be on the list. Similar to a, case-insensitive variations will appear on the filtered list.
+.. Test case: `find p/91234567 id/A0123456T` +
+Expected: All students with phone number `91234567` or with student ID `A0123456T` will appear on the filtered list.
+.. Other than the indicated prefixes (`n/`, `p/`, ‘e/’, ‘id/’), any other prefixes (ie. `tg/`, ‘m/`) will show an invalid command format error message.
+// end::testfind[]
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+// tag::teststutorialgroup[]
+=== Creating a Tutorial Group
+
+. Creating a tutorial group
+
+.. Prerequisites: List all tutorial groups using the `list-tutorial-groups` command.
+.. Test case: `create-tutorial-group id/04a n/Test` +
+   Expected: A new tutorial group with the id `04a` and the name `Test` is created, and the list view is updated.
+.. Test case: Duplicate ID - `create-tutorial-group id/04a n/Test` +
+   In this test case, the `id` argument has to be an `id` that already exists in the memory. For example, you can run the above test case with the exact same arguments again.
+   Expected: A new tutorial group with a different ID is created. The new ID has a random suffix appended to it. For example, if you run `create-tutorial-group id/04a n/Test` twice, the second tutorial group will have an ID that looks like `04a-stormy492`.
+
+=== Deleting a Tutorial Group
+
+. Deleting a tutorial group
+
+.. Prerequisites: Have a tutorial group with an ID of `04a` in the memory. +
+   View the tutorial group using the `view-tutorial-group id/04a` command.
+.. Test case: `delete-tutorial-group id/04a` +
+   Expected: The tutorial group is deleted. The UI shows `[Deleted]` next to the tutorial group name.
+// end::teststutorialgroup[]
+
+// tag::testsattendance[]
+=== Creating an attendance session
+
+. Creating an attendance session
+
+.. Prerequisites: Have one tutorial group with an ID of `04a`. +
+   View the tutorial group using the `view-tutorial-group id/04a` command.
+.. Test case: `create-attendance tg/04a n/W4 Tutorial` +
+   Expected: An attendance session should be created. If you are on the detailed tutorial group screen, the UI should update accordingly.
+.. Test case: `create-attendance tg/05a n/W4 Tutorial` +
+   Expected: An error message should be displayed, saying that there is no such tutorial group.
+.. Test case: `create-attendance tg/04a n/W4 Tutorial` +
+   Expected: An error message should be displayed, saying that the attendance session already exists in the tutorial group.
+
+=== Marking an attendance
+
+. Marking an attendance
+
+.. Prerequisites: Have one tutorial group with an ID of `04a`, an attendance session with name of `W4 Tutorial` and 3 students with student IDs `A0166733Y`, `A0123456Y` and `A0144582N` in the tutorial group. +
+   View the session in the tutorial group using the `view-session tg/04a n/W4 Tutorial` command.
+.. Test case: `mark-attendance tg/04a n/W4 Tutorial st/A0166733Y` +
+   Expected: The student with id `A0166733Y` should now be in the 'Attended' column.
+.. Test case: `mark-attendance tg/04a n/W4 Tutorial st/A0123456Y st/A0144582N` +
+   Expected: Both students with ids `A0123456Y` and `A0144582N` should now be in the 'Attended' column, as `mark-attendance` supports marking multiple students.
+.. Test case: Duplicate ID - `mark-attendance tg/04a n/W4 Tutorial st/A0166733Y` +
+   Expected: An error message should be displayed, saying that the student's attendance is already marked.
+.. Test case: `mark-attendance tg/05a n/W4 Tutorial st/A0166733Y` +
+   Expected: An error message should be displayed, saying that there is no such tutorial group.
+.. Test case: `mark-attendance tg/04a n/W4 Lab st/A0166733Y` +
+   Expected: An error message should be displayed, saying that the session does not exist.
+.. Test case: `mark-attendance tg/04a n/W4 Tutorial st/A1234560T` +
+   Expected: An error message should be displayed, saying that the student is not in the tutorial group.
+// end::testsattendance[]
+
+// tag::testsassignment[]
+=== Creating an assignment
+
+. Creating an assignment
+
+.. Prerequisites: Have one tutorial group with an ID of `04a`. +
+   View the tutorial group using the `view-tutorial-group id/04a` command.
+.. Test case: `create-assignment tg/04a n/lab1 m/40.0` +
+   Expected: An assignment should be created on the screen.
+.. Test case: `create-assignment tg/05a n/lab1 m/40.0` +
+   Expected: An error message should be displayed, saying that there is no such tutorial group.
+.. Test case: `create-assignment tg/04a n/lab1 m/test` +
+   Expected: An error message should be displayed, saying that maximum marks should be a valid floating point number.
+.. Test case: `create-assignment tg/04a n/lab1 m/-1` +
+   Expected: An error message should be displayed, saying that the maximum marks should be more than 0.
+
+// tag::grade[]
+=== Grading a student
+
+. Grading a student
+
+.. Prerequisites: Have one tutorial group with an ID of `04a`, and an assignment that belongs to it with the name `lab1` with a maximum mark of `40.0`. Also, a student with a student ID of `A0166733Y` should be added to the tutorial group. +
+   View the assignment in the tutorial group using the `view-assignment tg/04a as/lab1` command.
+.. Test case: `grade tg/04a st/A0166733Y as/lab1 m/35.0` +
+   Expected: The student gets graded `35.0` out of `40.0` marks. If you are in the detailed tutorial group or assignment screen, the UI should be updated accordingly.
+.. Test case: `grade tg/04a st/A0166733Y as/lab1 m/40.1` +
+   Expected: An error message should be shown in the status message, because `40.1` is greater than the maximum marks of `lab1`.
+.. Test case: `grade tg/04a st/A0166733Y as/lab1 m/-1` +
+   Expected: An error message will be shown, since negative marks are invalid.
+.. Test case: `grade tg/05a st/A0166733Y as/lab1 m/30` +
+   Expected: An error message showing that there is no such tutorial group.
+.. Test case: `grade tg/04a st/A0123456T as/lab1 m/30` +
+   Expected: An error message showing that there is no such student in this tutorial group. You can also try this when there is a student in the main directory with this ID, but this student is not added to the tutorial group.
+.. Test case: `grade tg/04a st/A0166733Y as/lab2 m/30` +
+   Expected: An error message showing that there is no such assignment.
+// end::grade[]
+// end::testsassignment[]
+
+// tag::testupdateassignment[]
+=== Updating an assignment detail
+
+. Update an assignment detail
+.. Prerequisites: Have one tutorial group with an ID of `04a`. +
+   View the tutorial group using the `view-tutorial-group id/04a` command. +
+  Have an assignment title named `lab1` with a maximum mark of `40.0`. +
+Have an assignment title named `lab3` with a maximum mark of `50.0`.
+.. Test case: `update-assignment tg/04a as/lab1 new_as/lab2` +
+   Expected: Assignment `lab1` name should now be changed to `lab2` under the `Assignments` UI panel. Maximum marks should be maintained at `40.0` marks.
+.. Test case: `update-assignment tg/04a as/lab2 new_m/50.0` +
+   Expected: Assignment `lab2` maximum marks should be changed from `40.0` marks to `50.0` marks under the `Assignments` UI panel.
+.. Test case: `update-assignment tg/04a as/lab2 new_m/lab3` +
+   Expected: An error message should be displayed, showing that assignment name already exists in the database.
+.. Test case: `update-assignment tg/04a as/lab4 new_m/lab5` +
+   Expected: An error message should be displayed, showing that assignment does not exist.
+// end::testupdateassignment[]
+
+// tag::testsfeedback[]
+=== Giving feedback to a student
+
+. Giving feedback to a student
+
+.. Prerequisites: Have a student with student id of `A0166733Y` +
+   View the student using the `view id/A0166733Y` command.
+.. Test case: `feedback id/A0166733Y f/Is generally attentive during class.` +
+   Expected: The student gets a feedback on the student profile.
+.. Test case: `feedback id/A0123456T f/Is generally attentive during class.` +
+   Expected: An error message showing that there is no such student.
+
+// end::testsfeedback[]
 
 _{ more test cases ... }_
