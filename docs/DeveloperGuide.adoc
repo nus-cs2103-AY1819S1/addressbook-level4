@@ -561,7 +561,7 @@ With various keyboard combinations user will be able to invoke commands' keyword
 
 Keyboard shortcuts in OASIS is implemented in the KeyEvent handler within the `CommandBox` class.
 
-When key combination is pressed, the text in the Command Box will be replaced with the corresponding command word.
+When valid key combination is pressed, the text in the Command Box will be replaced with the corresponding command word.
 
 ==== Aspect: Logic & UI
 
@@ -574,83 +574,84 @@ Current Implementation: Use the KeyEvent handler in the `CommandBox` class.
 
 ** Pros: It is easy and simple to implement.
 
-** Cons: As the number of commands increases over time, there will not be
+** Cons: As the number of commands increase, there might not be
 enough key combination to accommodate all the commands.
 
 
-// tag::keyboardshortcuts[]
-
+// end::keyboardshortcuts[]
 
 // tag::assignment[]
 === Assignment Management
-Assignment management is an important feature in company management system. As such there are four critical features of assignment management. These features are `addassignment`,
+There are four commands related to assignments. The four commands are `addassignment`,
 `listassignments`, `deleteassignment` and `editassignment`.
 
 These commands could only be executed by user with the appropriate permission.
 
-==== Proposed Implementation
+==== Current Implementation
 
-===== Aspect: Model
-Model of the assignment has been created. `Assignment` will store information such as the `assignmentName`, `assignmentAuthor` and `assignmentDescription`.
+An assignment is represented by `Assignment` model object. `Assignment` object stores the information
+of `AssignmentName`, `Author` and `Description`.
 
-The following diagram shows the class added to reflect the model `Assignment`:
+The following diagram shows the classes to model `Assignment`:
 
 image::AssignmentModel.png[width="450"]
 
-===== Aspect: Storage
-Add `XmlSerializableAssignmentList` and `XmlAdaptAssignment` class to Storage component. `XmlAdaptAssignment` will then have the element for assignment name, assignment author and assignment description.
+===== Add Assignment
 
-The following diagram shows the class `XmlSerializableAssignmentList` added to reflect the changes in storage component:
+The following sequence diagram shows how adding an assignment works:
 
-image::XmlSerializableProjectList.PNG[width="450"]
+image::AddAssignmentSequenceDiagram.png[width="1000"]
 
-==== Aspect: Logic
-When user enter the commands related to assignment, the commands will be parser to correct execution. Below are the examples scenarios:
+Below is an example oh how add assignment mechanism behaves when a new assignment
+is added.
 
-===== Add Project
-Step 1. The user enters a command `addassignment` into the CLI.
+1. When user executes `addassignment -au ASSIGNMENTNAME -au AUTHOR -de DESCRIPTION` command,
+new `Assignment` object will be initialized. It will then be compared to the existing assignments
+in the system with `hasAssignment(toAdd)` method. If the new object is unique, then it will be added
+into the system. However, if there is duplicate, the system will throw `DuplicateAssignmentException`.
 
-Step 2. The system parses the command to execute `AddAssignmentCommand`.
-
-Step 3. The system parses the assignment information to the respective fields.
-
-Step 4. The System checks if there exist the same assignment.
-* Two different cases:
-** If no existing assignment, stores the assignment.
-** If there is existing assignment, inform the user and do not store the assignment.
-
-Step 5. The system shows the result of the command.
+2. The new `Assignment` will then be copied and transformed to become `XmlAdaptedAssignment` object,
+which is then saved into a file by the <<25-storage-component, Storage>> component.
 
 ===== Delete Assignment
-Step 1. The user enters a command `deleteAssignment 1` into the CLI.
 
-Step 2. The system parses the command to execute `DeleteAssignmentCommand`.
+The following sequence diagram shows how deleting an assignment works:
 
-Step 3. The system locates the index and delete the assignment and its information.
+image::DeleteAssignmentSequenceDiagram.png[width="1000"]
 
-===== Assign Assignment
-Step 1. The user enters a command `assignassignment 1 -n Alex` into the CLI.
+Given is an example of how deleting an assignment mechanism behaves when it is executed.
 
-Step 2. The system parses the command to execute `AssignAssignmentCommand`.
+1. When user executes the `deleteassignment INDEX` command, `DeleteAssignmentCommand` object will be created.
+It then checks if the current user has the required permission to execute the command. If the user
+does not have the required permission, then and error message will be displayed.
 
-Step 3. The system parses the information.
-
-Step 4. Check if selected name is available.
-
-Step 4. The system assigns the selected assignment into the `Assignment` attribute of user.
+2. Meanwhile, if the user has the required permission, system gets the `Assignment` object to be deleted from list of assignments
+and finally delete it. It will then update the list in the <<25-storage-component, Storage>> component.
 
 ===== List Assignment
-Step 1. The user enters a command `listassignment` into the CLI.
 
-Step 2. The system parses the command to execute `ListAssignmentCommand`.
+The sequence of listing all assignments is similar to deleting an assignment. In addition, there is no permission
+required to run `listassignment` command.
 
-Step 3. The system retrieves all assignments.
+When user executes `listassignment` command, system will retrieve all assignment data in the <<25-storage-component, Storage>>
+component and list all the assignments.
 
-Step 4. The system lists the assignments.
+===== Edit Assignment
+
+The way edit assignment parse information is similar to `deleteassignment` command.
+
+1. When user executes `editassignment 1 -an ASSIGNMENTNAME` command, the command will be parsed. The given prefix and field indicate that the corresponding field of `Assignment` should be edited with the new field.
+To do so, `EditAssignmentDescriptor` object will be produce. This object has the newly edited `Assignment` object.
+
+2. After, the 'Permission' of the user will be check. If the user does not have the appropriate permission, error message will be displayed.
+
+3. While if the user has the appropriate permission, the old `Assignment` object will be replaced with the new `Assignment` object.
+
+4. The list of the assignments will then be updated in the <<25-storage-component, Storage>>.
 
 ==== Design Consideration
-===== Aspect: Storage
-* Alternative 1 (Current Choice): store assignment information in Xml file.
+===== Aspect: How the `Assignment` object is stored
+* Alternative 1 (Current Implementation): store assignment information in Xml file.
 
 ** Pros: Xml file has extensibility, as it has no fixed set of tags. Allowing future developers to enhance the information of the assignment.
 ** Cons: Inefficient retrieval of information of the assignment when the storage size gets too big.
@@ -658,9 +659,10 @@ Step 4. The system lists the assignments.
 * Alternative 2: store the assignment information using database system.
 
 ** Pros: Fast and efficient retrieval of information, even when the amount of data is massive.
-** Cons: Separated system needs to be set up to store information. Additional cost.
+** Cons: Separated system needs to be set up to store information. Thus, might result in additional cost.
 
 // end::assignment[]
+
 
 // tag::archive[]
 === Archive employee feature
