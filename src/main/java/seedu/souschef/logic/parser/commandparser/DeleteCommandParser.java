@@ -45,7 +45,6 @@ public class DeleteCommandParser {
                 throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
             Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
-            EventsCenter.getInstance().post(new RecipeDeletedEvent(toDelete));
 
             return new DeleteCommand<>(model, toDelete);
         } catch (ParseException pe) {
@@ -115,7 +114,6 @@ public class DeleteCommandParser {
                     MESSAGE_DELETE_MEALPLANNER_USAGE));
             }
             Day toDelete = lastShownList.get(targetIndex.getZeroBased());
-            EventsCenter.getInstance().post(new MealPlanDeletedEvent(toDelete, Context.MEAL_PLAN));
 
             return new DeleteCommand<>(model, toDelete);
         } catch (ParseException pe) {
