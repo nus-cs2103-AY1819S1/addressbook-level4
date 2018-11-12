@@ -10,12 +10,8 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLA
 
 import java.util.List;
 
-import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.index.Index;
-import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
-import seedu.souschef.commons.events.model.RecipeDeletedEvent;
 import seedu.souschef.logic.commands.DeleteCommand;
-import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
