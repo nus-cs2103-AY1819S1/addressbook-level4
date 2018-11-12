@@ -2056,7 +2056,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Logout
 
 .. Prerequisite: User must be logged in first.
-.. Test case: `logout`
+.. Test case: `logout` +
    *Expected*: User will be logged out, and the username will be reset back to `Guest` at the top-right corner of the
     GUI.
 
@@ -2101,7 +2101,7 @@ be able to register a new account as the user role feature will only be implemen
    *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
    valid values.
 
-. Find account
+. Find account(s)
 
 .. Prerequisite: User must be logged in.
 .. Test case: `find-account <ro>` +
@@ -2110,7 +2110,7 @@ be able to register a new account as the user role feature will only be implemen
    *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
    valid values.
 
-. Select account
+. Select an account
 
 .. Prerequisite: User must be logged in.
 .. Test case: `select-account 1` +
