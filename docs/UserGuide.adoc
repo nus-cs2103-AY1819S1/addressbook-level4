@@ -95,6 +95,13 @@ context. +
 Format: +
 `-ingredient`
 
+==== Switch to favourites context: `-favourite`
+Switch to favourites context and display favourites list, which keeps a list of all
+the users' favourite recipes. +
+See <<Favourite Recipe Commands (Only applicable in favourites context)>> to view commands for favourites context. +
+Format: +
+`-favourite`
+
 ==== Switch to ingredient-recipe query context: `-cross`
 Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients includes and get information of needed amounts of ingredients. +
 See <<Ingredient-Recipe Query Commands (Only applicable in cross context)>> to view commands for ingredient-recipe
@@ -266,12 +273,11 @@ Format: +
 * INDEX should be the index number of the recipe displayed
 ****
 ==== Surprise: `surprise`
-Add a recipe to their favourites list. +
+Displays a random recipe for the user. If you cannot make up your mind,
+why not key this in for a surprise? +
 Format: +
-`favourite INDEX`
-****
-* INDEX should be the index number of the recipe displayed
-****
+`surprise`
+
 ==== Add to meal plan: `plan`
 Add a specified recipe to meal plan. +
 Format: +
@@ -359,6 +365,16 @@ Format: +
 Show all favourite recipes. +
 Format: +
 `list`
+
+==== Display favourite recipe details: `select`
+
+View a favourite recipe and its details from the list. +
+Format: +
+`select INDEX`
+****
+* `INDEX` should be as displayed in the list.
+* All serving unit will be converted (approximately) to our common serving unit "gram" for display.
+****
 
 ==== Find favourite recipe: `find`
 
