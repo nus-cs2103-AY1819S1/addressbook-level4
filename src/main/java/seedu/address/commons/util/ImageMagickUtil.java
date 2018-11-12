@@ -64,7 +64,7 @@ public class ImageMagickUtil {
     }
 
     //these two methods are used for tesing only
-    public static void setTemporatyCommandForder(String folder) {
+    public static void setTemporaryCommandForder(String folder) {
         commandSaveFolder = folder;
     }
 
