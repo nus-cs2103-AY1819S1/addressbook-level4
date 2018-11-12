@@ -774,12 +774,12 @@ After sorting the menu, it will save the current state for undo/redo.
 The following activity diagram summarizes what happens when a user executes `sort-menu` command:
 
 image::SortMenuActivityDiagram.png[width="650"]
-_SortMenu Activity diagram_
+_Figure 4.7.2.1: SortMenu Activity diagram_
 
 The following sequence diagram shows how the `sort-menu` command works:
 
 image::SortMenuSequenceDiagram.png[width="1000"]
-_SortMenu Sequence diagram_
+_Figure 4.7.2.2: SortMenu Sequence diagram_
 
 ==== `discount-item` Command
 The `discount-item` command is facilitated by `DiscountItemCommand` and `DiscountItemCommandParser`. The command
@@ -801,7 +801,7 @@ then save the current state for undo/redo.
 The following activity diagram summarizes what happens when a user executes `discount-item` command:
 
 image::DiscountItemActivityDiagram.png[width="650"]
-_DiscountItem Activity diagram_
+_Figure 4.7.3.1: DiscountItem Activity diagram_
 
 ==== Design Considerations
 
