@@ -2067,9 +2067,9 @@ one expense. +
 .. Test case: `setPassword n/password11 o/password1`
    Expected: A message indicating that the password has been changed is shown.
 
-=== Encrypt and Decrypt `Strings`
+=== Encrypting and Decrypting `String`&#8217;s
 
-. Encrypt and decrypt `String`s
+. Encrypting and Decrypting a `String`
 .. Prerequisites: Already logged into a user account
 .. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
    Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
