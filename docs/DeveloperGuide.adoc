@@ -666,7 +666,7 @@ To do so, `EditAssignmentDescriptor` object will be produce. This object has the
 
 // tag::archive[]
 === Archive employee feature
-Employees with the "DELETE_EMPLOYEE" permissions can delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list.
+Employees with the "DELETE_EMPLOYEE" permissions can delete employees in the system - related to firing employees in real life. Deleted employees from the active list will be moved to the archived list. This feature allows an employee to view the archive list of employees.
 
 ==== Proposed implementation
 The archive employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
@@ -679,12 +679,14 @@ Step 2. The user executes delete 3 command on the active list to delete the 3rd 
 
 Step 3. The user executes archive command to change view from active list to the archive list.
 
-Step 4. OASIS shows delete person in step 2 in the archive list
+Step 4. OASIS shows delete person in step 2 in the archive list on the left panel.
 
 The following activity diagram summarizes what happens when a user executes delete and restore command:
 
 image::archiveActivityDiagram.PNG[width="350]
 
+=== Changes to architecture
+This section documents the changes made to the architecture and its components.
 
 ===== Aspect: Model
 Added a `VersionedArchiveList` object. `UniquePersonList` in `VersionedArchiveList` will store 0 or more `Person` objects.
@@ -701,6 +703,8 @@ The following diagram shows the interface and classes added to the Storage compo
 image::storageModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
+This section documents the considerations that were carefully studied for implementing this feature. The selected implementation method is denoted by "(current choice)" .
+
 ===== Aspect: Lifetime of objects in Archive list
 * **Alternative 1 (current choice):** Deleted permanently after being removed by user again.
 ** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
@@ -722,6 +726,7 @@ image::storageModelChangeJosh.PNG[width="350]
 // tag::restore[]
 === Restore employee feature
 Employees with the "RESTORE_EMPLOYEE" permissions can restore employees from the archive list into the active list - related to hiring back old employees in real life. The restored employee will be moved back to the active list and removed from the archive list. Employees with “DELETE_EMPLOYEE” permissions can also completely remove employees in the archive list, permanently removing them from OASIS.
+
 ==== Proposed implementation
 The Restore or completely remove employee feature is facilitated by `VersionedArchiveList`, `VersionedAddressBook` and `UniquePersonList`.
 
@@ -745,13 +750,15 @@ The following activity diagram summarizes what happens when a user executes remo
 
 image::archiveActivityDiagram.PNG[width="350]
 
-The following sequence diagram shows how the archive operation works:
+The following sequence diagram shows the method calls when the restore command is executed:
 
 image::restoreSequenceDiagram.jpg[width="350]
 
 ==== Design considerations
+This section documents the considerations that were carefully studied for implementing this feature. The selected implementation method is denoted by "(current choice)" .
+
 ===== Aspect: Data restored from employee
-* **Alternative 1 (current choice):** All data from the time when the employee was deleted will be restored when the employee object is restored.** Pros: Guaranteed no loss of data if an employee is accidentally deleted.
+* **Alternative 1 (current choice):** All data from the time when the employee was deleted will be restored when the employee object is restored.
 ** Pros: Employee being restored wont lose any important information and saves the hassle of having to key in all the employee’s information again.
 ** Cons: Employee may have changed job scopes and permissions assigned may be different, this could lead to big problems if employees have permissions they are not supposed to have.
 * **Alternative 2:** Only certain information like name and phone number will be restored when employee is restored.
