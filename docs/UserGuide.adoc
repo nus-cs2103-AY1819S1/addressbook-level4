@@ -267,6 +267,7 @@ Examples:
 Searches for tracks that has aliez in their names.
 // end::tracksearch_gj[]
 
+// tag::trackcommands[]
 === Adding a track into a playlist : `track add`
 
 Adds a track into a playlist. Track can be chosen by using its name or its index in the track list panel. +
@@ -284,7 +285,7 @@ Examples:
 * `track add p/Favourites t/Some Song t/Some Song2` +
 Adds the track named "Some Song" and "Some Song2" to the "Favourites" playlist.
 
-* `track add p/Favourites i/1 i/2` +
+* `track add p/Favourites i/1 2` +
 Adds the first and second track in the track list panel to the "Favourites" playlist.
 
 === Deleting a track from a playlist : `track del`
@@ -304,6 +305,7 @@ Examples:
 
 * `track del p/Favourites i/3` +
 Deletes the 3rd track in "Favourites" playlist.
+// end::trackcommands[]
 
 // tag::v2.0_gj[]
 === Stepping a track : `step` [coming in v2.0]
@@ -511,6 +513,7 @@ Format: `exit`
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the `library` folder it creates with the file that contains the data of your previous `library` folder.
 
+// tag::commandSummary_hansel[]
 == Command Summary
 
 
@@ -527,6 +530,7 @@ eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +
 eg. `stepback s/100`
 * *Replay* : `replay`
+// end::commandSummary_hansel[]
 
 // tag::commandSummary_yingnan[]
 === Commands for aiding the use of playback commands
@@ -534,6 +538,7 @@ eg. `stepback s/100`
 
 // end::commandSummary_yingnan[]
 
+// tag::commandSummary2_hansel[]
 === Commands for controlling sequence of playback
 * *Skip to next track* : `next`
 * *Skip to previous track* : `prev`
@@ -560,3 +565,4 @@ eg. `track del p/PLAYLIST i/1`
 * *List all tracks* : `track list`
 * *Search for tracks* : `track search QUERY` +
 eg. `track search Fav`
+// end::commandSummary2_hansel[]

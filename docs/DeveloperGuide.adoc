@@ -414,9 +414,22 @@ image::TrackAddCommandActivityDiagram.png[width="720"]
 image::TrackDeleteCommandSequenceDiagram.png[width="720"]
 
 ==== Design Considerations
+To add new tracks to a playlist can be a very mechanical task, hence the ease of allowing for adding multiple entries helps to ease the need for repetition. It also makes sense for the inclusion of adding tracks by referring to its index on the panel.
 
+Hence, there are two ways that tracks can be added.
+Firstly, with track name.
+Secondly, with its index from filteredTrackList panel.
+
+The omission of repeating the index prefix is also added to reduce typing required to perform deletion. Having to type the prefix with every index means including up to 200% more typing per index to add.
+
+Deleting tracks does not support deletion in multiples, and it omits the need for index prefix.
+
+While tracks can be added by name, it makes sense to allow the user to make case-insensitive references to tracks. This helps to reduce the need to follow case convention for track names.
 
 ==== Future Enhancements
+Deleting multiple tracks could be implemented as more advanced features are added.
+
+Adding multiple tracks by substrings can be implemented to facilitate quick modification of playlists.
 // end::Trackaddandremove[]
 
 === Playback Feature
