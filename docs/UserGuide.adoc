@@ -105,7 +105,7 @@ Valid: `999, 1800123456, 659192939495` +
 Invalid: `9, 1800 123456, +659192939495`
 
 * *Email* - A single string with an @ character in between the username and domain name. +
-Username can contain the following special characters: !#$%&'*+/=?`{|}~^.- +
+Username can contain the following special characters: `!#$%&'*+/=?{|}~^.-` +
 Domain name should be at least 3 letters long. +
 Valid: `alex@abc, bob123@xyz.com, example!123@nus.edu.sg` +
 Invalid: `alex, bob@co, example@123@nus.edu.sg`
