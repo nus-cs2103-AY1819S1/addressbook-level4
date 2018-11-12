@@ -24,36 +24,51 @@ may be a part of.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to remove a person, who was recently added into module or
-occasion, from it*.
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancements*: added *removeperson*, *list*.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* `removeperson`
+
+** What it does: allows the user to remove a person who was recently inserted into a module or occasion.
+** Justification: This feature helps the user, when a student is not in a module or occasion anymore,
+to remove the person from the said module or occasion.
+** Highlights: This enhancement removes the tie between a person and module or occasion.
+It required an in-depth linkage between person and module and to be able to remove one module or
+occasion from a person without affecting the rest of the list structure, and vice versa.
+
+* `list`
+
+** What it does: allows the user to switch between contexts, the different contexts of *PERSON*,
+*MODULE*, and *OCCASION*.
+** Justification: This feature helps users contextualize. When they are viewing all students, they
+are thus able to view the student's modules and occasions that they are a part of. It is the same
+for the students list in modules tab and attendance list in occasions tab.
+** Highlights: This enhancement dealt with the loading of the graphical user interface with the right
+updated contents and the ability to for the model to be updated with the right context.
+
+* *Minor enhancement*: added an *autocomplete* feature, a command suggestion for the user to see all
+possible commands containing the specified letters as the user types.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alistairong[Functional code & Test code]]_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Updated the GUI color scheme and look of different contexts
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/184[#184],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/167[#167])
+*** Object specific tests for modules and its internal components
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/103/files[#103])
+*** Made XML storage for modules and its related tests
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/87/files[#87])
+*** Made UI components for modules, and its related tests
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/51/files[#51])
+
+** Community:
+*** PRs reviewed
+*** Internal cross checking and debugging for other teams in the class
 
 == Contributions to the User Guide
 
@@ -62,9 +77,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=removeperson]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=autocomplete]
 
 == Contributions to the Developer Guide
 
@@ -72,13 +89,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=removeperson]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=list]
 
+include::../DeveloperGuide.adoc[tag=autocomplete]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

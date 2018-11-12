@@ -40,7 +40,7 @@ Additionally, the `makeShallowDuplicate` was written to create shallow copies wi
 These were useful in implementing the `edit`, `insertperson` and `removeperson` commands.
 
 
-* *Minor enhancement*: Wrote (most of)
+* *Minor enhancement*: Implemented the `select` feature
 ** Description: Allows the user to select an entry from the active list, and view additional info
 ** Importance: The implementation is symmetric across all 3 lists, so that the user does not need to use different commands for different lists.
 

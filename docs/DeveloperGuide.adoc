@@ -322,6 +322,75 @@ For example, a `Person` has 2 separate lists of Modules and Occasions respective
 but a `Module` or `Occasion` only contains a Person list.
 // end::polymorphismdecision[]
 
+// tag::updatinglists[]
+
+[[Updating-Lists]]
+=== Updating of Lists
+When executing commands for a particular type of entry, __another__ type of entry can modified.
+
+Naturally, `insertperson` and `removeperson` will affect a person and a module/occasion. +
+However, both `edit` and `delete` also can affect multiple types of entries.
+
+* If an entry is edited, all linked entries should reflect the changes accordingly.
+* If an entry is deleted, all linked entries should remove this entry from their list.
+
+==== Current Implementation
+To facilitate the execution of `undo` and `redo`, a new replacement person, module or occasion is created
+to replace the original entry. By avoiding modification of these entries, previous versions of
+the `ReadOnlyAddressBook` will not be incorrectly modified.
+
+Currently, a list only stores a *copy* of the desired entries, instead of the actual entries.
+
+Suppose that a person needs to be edited/deleted. Then correctly implementing any of these commands requires 3 stages:
+
+1.  Locate all linked modules and occasions
+2.  Replace each module and occasion with an updated version
+3.  Edit/Delete the person
+
+Methods for the implementation of 1 and 2 are contained in the `AttendanceListUtil` class. +
+The code snippets below are extracted with slight modifications,
+and are used to perform 1 and 2 by updating the person lists in modules after deleting a `Person`.
+
+[source,java]
+----
+while (moduleListIterator.hasNext()) {
+    Module module = moduleListIterator.next();
+    module.getStudents()
+            .asNormalList()
+            .stream()
+            .filter(person -> person.isSamePerson(personToRemove))
+            .findFirst()
+            .ifPresent(removePersonFromModule(model, module));
+}
+----
+
+* The above loop iterates through all modules.
+* For each module, it filters through its studentList to determine whether it should be edited.
+* If so, the person is removed from the module.
+
+[source,java]
+----
+private static Consumer<Person> removePersonFromModule(Model model, Module module) {
+    return person -> {
+        List<Person> updatedPersons = module.getStudents().makeShallowDuplicate().asNormalList();
+        updatedPersons.remove(person);
+        UniquePersonList updatedPersonList = new UniquePersonList(updatedPersons);
+        ModuleDescriptor updatedModuleDescriptor = new ModuleDescriptor();
+        updatedModuleDescriptor.setStudents(updatedPersonList);
+        Module updatedModule = Module.createEditedModule(module, updatedModuleDescriptor);
+        model.updateModule(module, updatedModule);
+    };
+}
+----
+
+* In turn, removing a person from a module is done by creating a new list of persons, excluding the one pending deletion.
+* A new module is then created based on the original module and this new list.
+* Finally, the new module replaces the original module in the model.
+
+
+Similar implementations are used for both `delete` and `edit` in the various combinations of entries and lists.
+// end::updatinglistsgeneral[]
+
 // tag::add[]
 === Add Person/Module/Occasion Feature
 The add feature is currently implemented the same way to add persons, modules and occasions.
@@ -546,6 +615,120 @@ error.
 
 // end::insertperson[]
 
+// tag::removeperson[]
+=== RemovePerson Feature
+The `removeperson` command is a complementary feature to the `insertperson` command. It enables the
+removal of a `Person` from either a `Module` students list or an `Occasion` attendance list. This thus
+means that the module or occasion will be removed from the respective list that the `Person` carries.
+The activity diagram below illustrates what happens when `removeperson` is called:
+
+image::RemovePersonActivityDiagram.png[width="800"]
+
+====  Current Implementation
+Currently, removeperson creates a whole new copy of the `Person`, and a whole new copy of the `Module` to replace.
+The difference with the copy and the original is that their internal elements contain one less element,
+and the new copy is populated with shallow duplicates.
+
+A shallow duplicate is a copy but with an empty internal list.
+For example, a shallow duplicate of Person contains an empty module list and empty occasion list.
+A shallow duplicate of Module contains an empty students list.
+
+The reason why this is done will be explained in the design considerations below.
+
+The following sequence diagram shows how the `removeperson` operation works:
+
+image::RemovePersonSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+For this feature to be possible, it has to be possible to somehow remove the link between said `Person`
+and `Module`/`Occasion`.
+The link (or pointer) to the objects can be best illustrated in the class diagram below:
+
+image::PersonModuleOccasionClassDiagram.png[width="800"]
+
+As seen, the `Person` class is associated with the `Module` class and the `Occasion` class as `Person`
+stores a list of modules and occasions. A person can thus have associations with multiple modules and
+occasions. This relationship is bidirectional as a `Module` can have associations with multiple persons.
+This is the same for occasions with persons. There is no association between `Module` and occasion.
+Thus, the relationships between `Person` and module, & `Person` and occasion are bidirectional.
+
+Let us take an example of a `Person` associated with many modules, and vice versa. A possible implementation
+of the removeperson feature may be to remove the pointers between said `Person` and the corresponding
+`Module` in mind. However, this is not feasible in TheTracker due to our implementation of `VersionedAddressBook`.
+TheTracker keeps various states of itself and its components after every command which changes an object.
+Below is a simple state list diagram of the `VersionedAddressBook`:
+
+image::VersionedABStateListDiagram.png[width="800"]
+
+When the user first opens up TheTracker, an instance of the `VersionedAddressBook` is opened and the
+`currentStatePointer` points to instance 1 as shown in the diagram. When the user changes the person object,
+an entirely new copy of the state of `TheTracker` is created and inserted as a new `VersionedAddressBook` with
+currentStatePointer being updated.
+
+As removing a pointer from an object does not entail changing an attribute inside the object, a brand
+new object has to be created for every instance when `removeperson` is called. This would enable the
+`removeperson` command to be compatible with `undo` and `redo` which use the different `VersionedAddressBook`
+to complete the job.
+
+This new object would have to be fundamentally almost an exact replica of the old object, with the only
+difference being the internal lists of modules `Person` keeps or internal lists of persons `Module` keeps.
+However, let us take an example `Person` who is linked to several Modules. If this `Person` severs links with
+a `Module`, and a new list is created (only without said `Module`), this means that the list will try to add
+the other Modules into itself. These other Modules already contain an old instance of this `Person`, but
+their lists will also have to be updated with the new `Person`, which is adding these Modules in the first
+place! This creates an infinite recursive loop.
+
+To mitigate this problem, we had to make a shallow duplicate of the `Person` / `Module` / `Occasion` (with an empty
+list to prevent infinite recursion), and put in a complete duplicate (we named it deep duplicate) when
+repopulating the internal list of `Person` / `Module` / `Occasion`.
+// end::removeperson[]
+
+// tag::list[]
+=== List feature
+The list feature acts as a switching between the lists of `Person`, `Module`, `Occasion`.
+In essence, it acts as a context switch between the 3.
+
+==== Current Implementation
+Currently, the list command will raise a context switch event, a `ShowPersonRequestEvent`
+if the `listperson` command is called. This then tells the MainWindow to update with
+the correct list of persons in its list panel, and to change the browser panel to
+show the lists of `Module` and `Occasion` that `Person` may have.
+
+[source, java]
+----
+private void handlePerson() {
+    getBrowserPlaceholder().getChildren().clear();
+    getEntityListPanelPlaceholder().getChildren().clear();
+    personListPanel.clearSelection();
+
+    personListPanel.updatePanel(logic.getFilteredPersonList());
+    getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+    getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+    logic.setActiveType(PERSON);
+    AttendanceListUtil.postClearEvent();
+}
+----
+
+The above code shows how the `MainWindow` deals with the context switch, which includes the
+setting of the active type (the context of the current window), so that contextual commands
+such as `delete` and `select` are able to function properly with correct indices.
+
+==== Design Considerations
+We had to examine whether it was better to:
+Alternative 1:
+Be able to make all commands contextual, and commands cannot be used out of context.
+This means that the `list` will set the context to limit other commands.
+
+Alternative 2:
+Leave it possible for other commands to be called even if the context is not correct.
+
+In the end, we chose alternative 1 so that users have the freedom to call specific commands
+without even looking at the specific list of choice, and to have more freedom to play around
+in the application.
+
+// end::list[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -673,16 +856,21 @@ image::HistoryCommandSequenceDiagram.png[width="400"]
 // end::history[]
 
 // tag::autocomplete[]
-=== [Proposed] Autocomplete
+=== Autocomplete
+The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's
+command line inputs. The parser will enable the autocomplete to check the user's input against a list
+of commands which are final and known by the address book. The autocomplete parser will be checking
+after every input in the command line, making it a real time feature.
 
-The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's command line inputs.
+==== Current Implementation
+Currently, the feature calls on ControlsFX API to enable the autocomplete feature.
+It uses TextFields to have an autocomplete binding on the command box created which takes in the
+user input for commands. The list is populated by an inbuilt base commands list where all possible
+known commands are stored.
 
-The parser will enable the autocomplete to check the user's input against a list of commands which are final and known by the address book.
-
-The autocomplete parser will be checking after every input in the command line, making it a real time feature.
-
-While checking, the feature will try to give a regex match of the command and also provide suggestions on correct arguments based on current entities stored in TheTracker's address book.
-
+==== Proposed Improvements (Coming in v2.0)
+While checking, the feature will try to give a regex match of the command and also provide suggestions
+on correct arguments based on current entities stored in TheTracker's address book.
 // end::autocomplete[]
 
 // tag::export[]
@@ -874,38 +1062,6 @@ It has a new `UniquePersonList` which is empty.
 *** Very tedious to remove all mentions of an entry *after* it has been deleted
 *** User may be misled that an entry still exists
 // end::delete[]
-
-// tag::updatinglistsgeneral[]
-
-[[Updating-Lists]]
-=== Updating of Lists (General)
-When executing commands for a particular type of entry, __another__ type of entry can modified.
-
-Naturally, `insertperson` and `removeperson` will affect a person and a module/occasion. +
-However, both `edit` and `delete` also can affect multiple types of entries.
-
-* If an entry is edited, all linked entries should reflect the changes accordingly.
-* If an entry is deleted, all linked entries should remove this entry from their list.
-
-==== Current Implementation
-To facilitate the execution of `undo` and `redo`, a new replacement person, module or occasion is created
-to replace the original entry. By avoiding modification of these entries, previous versions of
-the `ReadOnlyAddressBook` will not be incorrectly modified.
-
-Currently, a list only stores a *copy* of the desired entries, instead of the actual entries.
-
-Suppose that a person needs to be edited/deleted. Then correctly implementing any of these commands requires 3 stages:
-
-1.  Locate all linked modules and occasions
-2.  Replace each module and occasion with an updated version
-3.  Edit/Delete the person
-
-Methods for the implementation of 1 and 2 are contained in the `AttendanceListUtil` class.
-
-==== Design Considerations
-
-
-// end::updatinglistsgeneral[]
 
 == Documentation
 

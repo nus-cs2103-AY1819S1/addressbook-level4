@@ -188,7 +188,7 @@ can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/VALUE]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
 (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* `[]` after a command word (eg. `add[]`) refers to the postfix of the command. It may be person, module and
+* `+` after a command word (eg. `add +`) refers to the postfix of the command. It may be person, module and
 occasion respectively.
 ====
 
@@ -198,6 +198,7 @@ Opens this user guide in a separate window.
 Format: `help`
 
 // tag::add[]
+
 
 === Adding an entry: `add[]`
 
@@ -265,23 +266,36 @@ Example: +
 // end::add[]
 
 // tag::list[]
+
 === Listing all entries : `list[]`
 
-A command to show a desired list in TheTracker. +
+The different list commands will show the specified list in TheTracker. +
 
 ==== List all Persons: `listperson`
 
-A command to show the complete list of persons in TheTracker. +
+Switches context to that of PERSON in TheTracker. +
+
+It will show the complete list of persons in the TheTracker and the user is able to
+view the modules and occasions each person is taking. +
+
 Format: `listperson`
 
 ==== List all Modules: `listmodule`
 
-A command to show the complete list of modules in TheTracker. +
+Switches context to that of MODULE in TheTracker. +
+
+It will show the complete list of modules in the TheTracker and the user is able to
+view the students list of each module. +
+
 Format: `listmodule`
 
 ==== List all Occasions: `listoccasion`
 
-A command to show the complete list of occasions in TheTracker. +
+Switches context to that of OCCASION in TheTracker. +
+
+It will show the complete list of occasions in the TheTracker and the user is able to
+view the attendance list of each occasion. +
+
 Format: `listoccasion`
 
 [TIP]
@@ -351,10 +365,10 @@ Edits the module of INDEX 1 in TheTracker: edits the module code to CS1101S.
 
 A command to allow the user to edit an existing occasion in TheTracker. +
 Format: +
-`editoccasion x/VALUE ...`
+`editoccasion INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...`
 
 Example: +
-`editoccasion INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...` +
+`editoccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
 Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue, edits the occasionDate to 2019-6-17,
  edits the occasionLocation to NUS.
 ====
@@ -395,6 +409,28 @@ Example:
 * `insertperson pi/1 oi/1` Builds an association between the first `person` and `occasion` by inserting `person` 1 bi-directionally
 into `occasion` 1.
 // end::insertperson[]
+
+// tag::removeperson[]
+=== Removing person from event: `removeperson`
+
+A command which will remove a person from a module or an occasion. +
+
+Format for module: +
+`removeperson pi/PERSON_INDEX mi/MODULE_INDEX` +
+Format for occasion: +
+`removeperson pi/PERSON_INDEX oi/OCCASION_INDEX`
+
+`removeperson` will only work if there is an existing person inside an existing module or
+occasion and vice versa.
+
+If the person is not inside the module or occasion, or vice versa, it will not work.
+
+[TIP]
+If you cannot see your module or occasion to select to remove (as the GUI is in PERSON context),
+just click the menu bar items to swap context, and continue typing your command in the
+command box.
+
+// end::removeperson[]
 
 // tag::find[]
 === Locating entries: `find[]`
@@ -532,6 +568,7 @@ A command to allow the user to see the history of commands used within the addre
 Format: `history`
 // end::history
 
+// tag::autocomplete[]
 === Autocomplete
 A feature that gives a drop-down list of suggested commands based on substrings that a user types.
 
@@ -540,7 +577,9 @@ Examples:
 "add" - `addperson`, `addmodule`, `addoccasion` are suggested.
 
 [TIP]
-You can use the up & down arrows to find your intended command in the drop-down list, and press kbd:[Enter] to select it.
+You can use the up & down arrows to find your intended command in the drop-down list,
+and press kbd:[Enter] to select it.
+// end::autocomplete[]
 
 // tag::export[]
 === Exporting user data to xml/txt: `export`
@@ -657,6 +696,10 @@ e.g. `editmodule 1 mc/CS1101S`
 
 * *Edit Occasion* : `editoccasion INDEX [on/OCCASION NAME] [od/OCCASION DATE] [loc/OCCASION LOCATION] [t/TAG]...` +
 e.g. `editoccasion 1 on/Barbecue od/2019-6-17 loc/NUS`
+
+* *Remove from Event*: `removeperson pi/PERSON_INDEX mi/MODULE_INDEX`,
+`removeperson pi/PERSON_INDEX oi/OCCASION_INDEX` +
+e.g. `removeperson pi/2 mi/2`
 
 * *Find Person* : `findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS` +
 e.g. `findperson n/John Doe`, `findperson p/98765432`, `findperson e/johnd@example.com`,
