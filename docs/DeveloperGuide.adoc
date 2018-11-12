@@ -549,10 +549,20 @@ The following steps were involved in this feature's implementation:
 * Retrieve the event IDs from the relevant filtered records, along with the hours contributed.
 * Get the Event that corresponds to the event ID, and retrieve its name, startDate and endDate for input into the certificate.
 
-5. Use Apache PDFBox to create and export a volunteer certificate with the information retrieved.
+5. Use of Apache PDFBox to create and export a volunteer certificate with the information retrieved.
 * Involves the creation of a new https://pdfbox.apache.org/docs/2.0.2/javadocs/index.html?org/apache/pdfbox/pdmodel/PDDocument.html[PDDocument],
 with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPage.html[PDPage] to write the content to.
-* A https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPageContentStream.html[PDPageContentStream] is then used to write the information to a page content stream.
+* Writing of the information to a page content stream is then achieved using https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDPageContentStream.html[PDPageContentStream].
+
+The following sequence diagrams show how the `exportcert` operation will be executed for a valid command `exportcert 1`. Analyse these diagrams to achieve a more detailed understanding of the internal interactions involved in the execution of this feature.
+
+.Sequence diagram for `exportcert 1` with simplified ExportCertCommand execution
+image::command_exportcert_sd_1.png[exportcert SD, 800]
+
+The next sequence diagram below looks at the ExportCertCommand's execution in detail, including it's interaction with the model.
+
+.Detailed sequence diagram for ExportCertCommand execution
+image::command_exportcert_sd_2.png[exportcert SD, 800]
 
 ===== Design Considerations
 
