@@ -1817,7 +1817,7 @@ Use case ends.
 
 .  User login to the system
 .  OASIS shows home page
-.  User <<Use case: View leave applications, lists leave applications (Use case: View leave applications)>>
+.  User <<Use case: List leave applications, lists leave applications (Use case: List leave applications)>>
 .  User enters command to approve a leave, and chooses the leave application to approve
 .  OASIS approves the leave application
 .  OASIS shows success message
