@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskcollection>
+    <!-- Task with invalid name field -->
+    <tasks>
+        <name>Ha!ns Mu@ster</name>
+        <priority isPrivate="false">1</priority>
+    </tasks>
+</taskcollection>

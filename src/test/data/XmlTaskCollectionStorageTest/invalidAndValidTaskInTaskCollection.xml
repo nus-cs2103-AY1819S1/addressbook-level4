@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskcollection>
+    <!-- Valid Task -->
+    <tasks>
+        <name>Hans Muster</name>
+        <priority isPrivate="false">1</priority>
+    </tasks>
+    <!-- Task with invalid phone and invalid priority field -->
+    <tasks>
+        <name>Hans Muster</name>
+        <priority isPrivate="false">a</priority>
+    </tasks>
+</taskcollection>

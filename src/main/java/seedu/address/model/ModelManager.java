@@ -3,130 +3,154 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.model.ExportRequestEvent;
+import seedu.address.commons.events.model.ImportRequestEvent;
+import seedu.address.commons.events.model.TaskCollectionChangedEvent;
+import seedu.address.commons.events.storage.ImportDataAvailableEvent;
+import seedu.address.model.task.Task;
+
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the deadline manager data.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * An enum representing the possible conflict resolvers.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private final VersionedTaskCollection versionedTaskCollection;
+    private final FilteredList<Task> filteredTasks;
+
+    private String lastError;
+    private ImportConflictResolver conflictResolver;
+
+    /**
+     * Initializes a ModelManager with the given taskCollection and userPrefs.
+     */
+    public ModelManager(ReadOnlyTaskCollection taskCollection, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(taskCollection, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with deadline manager: " + taskCollection + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedTaskCollection = new VersionedTaskCollection(taskCollection);
+        filteredTasks = new FilteredList<>(versionedTaskCollection.getTaskList());
+        lastError = null;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaskCollection(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyTaskCollection newData) {
+        versionedTaskCollection.resetData(newData);
+        indicateTaskCollectionChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyTaskCollection getTaskCollection() {
+        return versionedTaskCollection;
     }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Raises an event to indicate the model has changed
      */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+    private void indicateTaskCollectionChanged() {
+        raise(new TaskCollectionChangedEvent(versionedTaskCollection));
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskCollection.hasTask(task);
+    }
+
+    @Override
+    public void deleteTask(Task target) {
+        versionedTaskCollection.removeTask(target);
+        indicateTaskCollectionChanged();
+    }
+
+    @Override
+    public void addTask(Task task) {
+        versionedTaskCollection.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        indicateTaskCollectionChanged();
+    }
+
+    @Override
+    public void updateTask(Task target, Task editedTask) {
+        requireAllNonNull(target, editedTask);
+
+        versionedTaskCollection.updateTask(target, editedTask);
+        indicateTaskCollectionChanged();
+    }
+
+    @Override
+    public void updateSortedTaskList(Comparator<Task> comparator) {
+        requireNonNull(comparator);
+        versionedTaskCollection.sort(comparator);
+    }
+
+    //=========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedTaskCollection}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return FXCollections.unmodifiableObservableList(filteredTasks);
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredTasks.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoTaskCollection() {
+        return versionedTaskCollection.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoTaskCollection() {
+        return versionedTaskCollection.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-        indicateAddressBookChanged();
+    public void undoTaskCollection() {
+        versionedTaskCollection.undo();
+        indicateTaskCollectionChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-        indicateAddressBookChanged();
+    public void redoTaskCollection() {
+        versionedTaskCollection.redo();
+        indicateTaskCollectionChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitTaskCollection() {
+        versionedTaskCollection.commit();
     }
 
     @Override
@@ -143,8 +167,56 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return versionedTaskCollection.equals(other.versionedTaskCollection)
+                && filteredTasks.equals(other.filteredTasks);
     }
 
+    //==========Import/Export===================================================================
+
+    @Override
+    public void exportTaskCollection(String filename, boolean shouldOverwrite, boolean isCsvFormat) {
+        requireNonNull(filename);
+        List<Task> lastShownList = getFilteredTaskList();
+        TaskCollection exportCollection = new TaskCollection();
+        exportCollection.setTasks(lastShownList);
+        raise(new ExportRequestEvent(exportCollection, filename, shouldOverwrite, isCsvFormat));
+    }
+
+    @Override
+    public void importTaskCollection(String filename, ImportConflictResolver mode) {
+        requireNonNull(filename);
+        requireNonNull(mode);
+        conflictResolver = mode;
+        raise(new ImportRequestEvent(filename));
+    }
+
+    @Override
+    @Subscribe
+    public void handleImportDataAvailableEvent(ImportDataAvailableEvent event) {
+        //Handle merge conflict and what not
+        ReadOnlyTaskCollection importData = event.data;
+        for (Task task : importData.getTaskList()) {
+            resolveImportConflict(task);
+        }
+        commitTaskCollection();
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+
+    /**
+     * Use the appropriate import conflict handler to resolve a conflict.
+     * If there is no conflict, simply add it to the current TaskCollection.
+     *
+     * @param task the task to deconflict
+     */
+    private void resolveImportConflict(Task task) {
+        if (!hasTask(task)) {
+            addTask(task);
+            return;
+        }
+        if (conflictResolver == null) {
+            return;
+        }
+        conflictResolver.resolve(this::addTask, this::deleteTask, task);
+    }
 }

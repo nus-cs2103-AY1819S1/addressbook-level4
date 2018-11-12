@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskcollection>
+    <!-- Task with invalid priority field -->
+    <tasks>
+        <name>Hans Muster</name>
+        <priority isPrivate="false">a</priority>
+        <deadline isPrivate="false">1/10/2018</deadline>
+    </tasks>
+</taskcollection>

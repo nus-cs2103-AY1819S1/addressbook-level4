@@ -9,6 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class HistoryCommandTest {
+
     private CommandHistory history = new CommandHistory();
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();

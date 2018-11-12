@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Task with missing name field -->
+<task>
+    <priority>1</priority>
+    <frequency>7</frequency>
+    <tagged>friends</tagged>
+    <attachments>hello.txt</attachments>
+</task>

@@ -2,12 +2,15 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ExecuteCommandEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
@@ -34,8 +37,10 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty()
+            .addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        registerAsAnEventHandler(this);
     }
 
     /**
@@ -61,8 +66,8 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Updates the text field with the previous input in {@code historySnapshot},
-     * if there exists a previous input in {@code historySnapshot}
+     * Updates the text field with the previous input in {@code historySnapshot}, if there exists a
+     * previous input in {@code historySnapshot}
      */
     private void navigateToPreviousInput() {
         assert historySnapshot != null;
@@ -74,8 +79,8 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Updates the text field with the next input in {@code historySnapshot},
-     * if there exists a next input in {@code historySnapshot}
+     * Updates the text field with the next input in {@code historySnapshot}, if there exists a next
+     * input in {@code historySnapshot}
      */
     private void navigateToNextInput() {
         assert historySnapshot != null;
@@ -87,8 +92,8 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Sets {@code CommandBox}'s text field with {@code text} and
-     * positions the caret to the end of the {@code text}.
+     * Sets {@code CommandBox}'s text field with {@code text} and positions the caret to the end of
+     * the {@code text}.
      */
     private void replaceText(String text) {
         commandTextField.setText(text);
@@ -109,7 +114,13 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
-        } catch (CommandException | ParseException e) {
+        } catch (ParseException e) {
+            initHistory();
+            // handle command failure
+            setStyleToIndicateCommandFailure();
+            logger.info("Invalid command: " + commandTextField.getText());
+            raise(new NewResultAvailableEvent(e.message));
+        } catch (CommandException e) {
             initHistory();
             // handle command failure
             setStyleToIndicateCommandFailure();
@@ -148,4 +159,10 @@ public class CommandBox extends UiPart<Region> {
         styleClass.add(ERROR_STYLE_CLASS);
     }
 
+    @Subscribe
+    private void handleExecuteCommandEvent(ExecuteCommandEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        replaceText(event.commandText);
+        handleCommandEntered();
+    }
 }

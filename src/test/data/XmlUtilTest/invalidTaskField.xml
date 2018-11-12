@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Task with an invalid priority field -->
+<task>
+    <name>Hans Muster</name>
+    <priority>a</priority>
+    <frequency>b</frequency>
+    <tagged>friends</tagged>
+    <attachments>hello.txt</attachments>
+</task>

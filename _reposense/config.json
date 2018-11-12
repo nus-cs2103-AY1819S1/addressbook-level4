@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "btzy",
+      "displayName": "BERNA...HI YI",
+      "authorNames": ["btzy", "Bernard Teo"]
+    },
+    {
+      "githubId": "sijie123",
+      "displayName": "LIN S...I JIE",
+      "authorNames": ["sijie123", "Si Jie"]
+    },
+    {
+      "githubId": "kc97ble",
+      "displayName": "NGUYE... KIEN",
+      "authorNames": ["Nguyen Tien Trung Kien", "Kien Nguyen"]
+    },
+    {
+      "githubId": "ranaldmiao",
+      "displayName": "RANAL... SHAO",
+      "authorNames": ["ranaldmiao", "Ranald Lam"]
+    },
+    {
+      "githubId": "sidhant007",
+      "displayName": "SIDHA...ANSAL",
+      "authorNames": ["sidhant007", "Sidhant Bansal"]
+    }
+  ]
+}
