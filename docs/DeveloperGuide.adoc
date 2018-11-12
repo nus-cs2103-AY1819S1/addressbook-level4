@@ -500,7 +500,7 @@ execute the `favourite INDEX` command. The recipe selected would be copied from 
 list in the favourites model.
 
 ==== Selecting a Favourite Recipe
-While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+While browsing the favourite recipes in the favourite context, and when a user likes a recipe at a particular `INDEX`, they can
 execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
 list in the favourites model.
 
