@@ -1355,12 +1355,12 @@ _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing image files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
+.. Prerequisites: A person has an updated picture aside from the default picture.
+.. Assumption: `/Users/John/Downloads/Insuren/images/petertan.jpg` is the client's picture.
+.. Test case: rename, delete, or move the image file `/Users/John/Downloads/Insuren/images/petertan.jpg` such that there is no `petertan.jpg` file in the `images` folder.
+   Expected: The default placeholder picture will be used.
 
 // tag::testingpicture[]
 === Adding picture
