@@ -17,7 +17,6 @@ ClinicIO is a desktop clinic management application used for teaching Software E
 ** What it does: This feature provides users the basic actions of managing appointments with ease.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*:
 
@@ -25,12 +24,8 @@ ClinicIO is a desktop clinic management application used for teaching Software E
 
 * *Other contributions*:
 
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Added command information regarding the appointment feature into the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/119
-** Community:
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 == Contributions to the User Guide
 

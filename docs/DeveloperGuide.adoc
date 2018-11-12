@@ -466,25 +466,17 @@ appointment.
 
 The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
 parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
-upon the complete implementation of the `Patient` class  in v2.0. +
+upon the complete implementation of the `Patient` class  in v2.0. The image below shows how the `Appointment` object is
+constructed.+
 
-.Logic sequence for AddAppt.
-image::AddApptSequenceDiagramLogic.png[width=""]
+[NOTE]
+The image does not include the method calls to construct a `Patient` object.
 
-.Model sequence for AddAppt.
-image::AddApptSequenceDiagramModel.png[width=""]
+.Appointment Construction Process in addappt Command.
+image::AddApptSequenceDiagram.png[width=""]
 
-Once the Appointment object is constructed, `AddressBook#addAppointment(Appointment appt)` is called to add the
-Appointment object into the `UniqueAppointmentList`.
-
-Before it can successfully add the `Appointment` object into the list, a check for any appointment clash is carried
-out via `UniqueAppointmentList#hasClash(Appointment appt)` and `UniqueAppointmentList#hasOverlap(Appointment appt)`.
-
-Additionally, duplicates are checked for via `UniqueAppointmentList#hasAppointment(Appointment appt)`. If no exception
-is thrown, the Appointment is then successfully added into the `UniqueAppointmentList`.
-
-`ModelManager#indicateAddressBookChanged()` is then called to shift the `VersionedAddressBook#pointer` to it's latest
-state, i.e. The addition of a new `Appointment` object.
+After the construction of the appointment, the appointment is added into the `UniqueAppointmentList` found in the
+`ClinicIo` class. The changes done to the list are then 'saved' via the `commitClinicIo` method.
 
 This means that this command can be undone or redone.
 
@@ -494,8 +486,8 @@ The `listappt` command searches for appointments in the `UniqueAppointmentList` 
 containing appointments that land on the date that was entered by the user. (fact check)
 
 *Replace current addappt seq diagram with cknstruction diagram. Use the addappt seq diagram for listappt instead.*
-.Sequence Diagram for ListAppt.
-image::ListApptSequenceDiagram.png[width=""]
+.Activity Diagram for ListAppt.
+image::ListApptActivityDiagram.png[width=""]
 
 The listappt requires a date as it’s argument and this date will act as the #apptcontainsdatepredicate to filter the
 list of appointments. A `Date` object is instantiated from the user-entered date.
@@ -509,11 +501,10 @@ It filters the #model.filteredappointments to only show the appointments that la
 This changes the list of appointments currently ‘viewable’ and ‘interactable’ by the user i.e. ability to be cancelled.
 
 [NOTE]
-What is ‘viewable’ to the viewer (what is seen in the UI) is actually the unmodifiable
-`ClinicIO#ObservableAppointment`. Commands that require the `listappt` are actually modifying the
-`Model#filteredAppointmentList` and then updating the `ObservableAppointmentList`. (
+What is seen in the UI is actually the unmodifiable `ClinicIO#ObservableAppointmentList`.
+Commands that require the `listappt` are actually modifying the
+`Model#filteredAppointmentList` and then updating the `ClinicIO#ObservableAppointmentList`. (
 Verify the usages of observableappointment)
-
 
 This is done via `ParseUtil#parseDate()`. The `date` object is then used to make a `AppointmentContainsDatePredicate`
 object. The list of filtered appointments by date are generated once the method
@@ -527,23 +518,24 @@ For example, `listappt 03 03 2018` is entered by the user. A `Date` object with 
 
 The `listallappt` behaves similarly to `listappt` with the exception that it does not take in any arguments.
 Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW_ALL_FILTERED_APPOINTMENTS`.
-`Model#updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
+`updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
 
 Refer to the above `listappt` section for a more elaborate explanation of the internal process.
 
 ==== `cancelappt` Command
 
 `cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
-The index is parsed using the `ParseUtil#parseIndex()` and is used to identify the target appointment in the
-`Model#FilteredAppointmentList`
 
 .Sequence diagram of cancelappt.
 image::CancelApptSequenceDiagram.png[width=""]
 
-The `Model#CancelAppointment` method is called. It first changes the `Appointment#status` of the `Appointment` object to
-`CANCELLED` via `Appointment#cancelAppointment()` method. The `Appointment` object then adds
-itself to the `Patient#appointmentHistoryList. `cancelAppt` is the only command that directly modifies the
-`Patient#AppointmentHistoryList`.
+The index is parsed using the `parseIndex()` and is used in `execute()`. A filtered
+appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
+
+The `cancelAppointment()` method, under `Model`, is then called on the `targetAppointment`. The process of cancellation
+has two parts, `cancelAppointment` and `removeAppointment`. `cancelAppointment` simply changes the status of the appointment and
+adds it to the `Patient` s `AppointmentHistory` (not shown). `removeAppointment` actually removes the appointment from the
+`UniqueAppointmentList`.
 
 [NOTE]
 Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
