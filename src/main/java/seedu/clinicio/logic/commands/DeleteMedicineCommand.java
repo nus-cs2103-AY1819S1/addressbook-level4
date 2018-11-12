@@ -7,9 +7,11 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_NOT_LOGGED_IN_AS_RECE
 
 import java.util.List;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.core.index.Index;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -49,7 +51,7 @@ public class DeleteMedicineCommand extends Command {
 
         Medicine medicineToDelete = medicineList.get(targetIndex.getZeroBased());
         model.deleteMedicine(medicineToDelete);
-        model.switchTab(3);
+        EventsCenter.getInstance().post(new SwitchTabEvent(3));
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, medicineToDelete));
     }
