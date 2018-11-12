@@ -21,9 +21,9 @@
 
 * *Minor enhancement*: added *the ability to export InsuRen data into a CSV file*
 ** What it does: allows the user to export the current contacts in InsuRen into a new CSV file, whose name is given by the user.
-** Justification: This feature allows for convenient movement of a user's contact list. Some usages include keeping a back up of one's contact list, allowing one to view his InsuRen data on mobile platforms, etc. 
+** Justification: This feature allows for convenient movement of a user's contact list. Some usages include keeping a back up of one's contact list, allowing one to view his InsuRen data on mobile platforms, etc.
 ** Highlights: This enhancement uses a new *Command*, *ExportCommand*.
-** Credits: http://javaonlineguide.net/2014/10/compare-two-files-in-java-example-code.html 
+** Credits: http://javaonlineguide.net/2014/10/compare-two-files-in-java-example-code.html
 
 * *Other contributions*:
 
