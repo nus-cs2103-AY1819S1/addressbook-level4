@@ -11,17 +11,17 @@ This portfolio outlines my contributions  to the following project.
 ---
 
 Anakin is the result of our search for a better command line application to revise for exams. From August 2018 to November 2018,
-Team T09-2 comprising of myself, Tay Yu Jia, Foo Guo Wei, David Goh and Nguyen Truong Thanh built Anakin as part of a Software Engineering module (CS2103T) conducted at
+Team T09-2 comprising of myself, Tay Yu Jia, Foo Guo Wei, David Goh, and Nguyen Truong Thanh built Anakin as part of a Software Engineering module (CS2103T) conducted at
 the National University of Singapore.
 
 == Overview
 
 Anakin is a desktop-based flashcard application which makes remembering things easy. The user
-interacts with it using a Command Line Interface but can fallback to the Java FX GUI if needed. Anakin uses https://www.supermemo.com/english/ol/sm2.htm[Super Memo 2]  which is the  spaced repetition algorithm used by popular language learning tools such as
+interacts with the application primarily using a Command Line Interface. However, the user can fall back to the Java FX GUI if needed. Anakin uses https://www.supermemo.com/english/ol/sm2.htm[Super Memo 2]  which is the spaced repetition algorithm used by popular language learning tools such as
 Duolingo, Wani Kani, and Memrise. +
 
-Anakin aims to revolutionise the studying experience of the technically advanced user. On top of being easy to use,
-Anakin is also environmentally friendly, having zero paper wastage unlike conventional flashcards.
+Anakin aims to revolutionize the studying experience of the technically advanced user. On top of being easy to use,
+Anakin is also environmentally friendly, having zero paper wastage, unlike conventional flashcards.
 
 image::Ui.png[width="500"]
 [NOTE]
@@ -41,19 +41,19 @@ It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-This section acts as a summary of the contributions made by Lee Yi Jie Joel to project Anakin.
+This section acts as a summary of my contributions to project Anakin.
 
 * *Major enhancement*: I added autocompletion for commands
-** What it does: allows the users to sort cards by when they should be reviewed.
+** What it does: Helps a user complete a partially typed command
 ** Justification: This feature improves the product significantly because a user will want to be able to finish expressing
 the command he wants to type with a simple press of <TAB>
-** Highlights: This enhancement affects existing commands and commands to be added in future. While typing in the command box, the student is saved from the hassle of typing and remembering
-long strings of command syntax. This will allow for a better user experience and in turn easier studying for tests.
+** Highlights: This enhancement removes the need for the user to memorise long strings of command syntax. While typing in the command box, the user is saved from the hassle of checking the user guide
+for commands he/she has forgotten. This will allow for a better user experience and in turn easier studying for tests.
 
 * *Major enhancement*: I added the scheduling algorithm at the core of the product together with the `rank` command
-** What it does: allows the users to sort cards by when they should be reviewed.
-** Justification: This feature improves the product significantly because a user will want to review cards which he or she performed poorly on
-** Highlights: This allows user to focus on what's important for review by sorting the cards in order of performance and pushing cards which require review to the top of the deck.
+** What it does: allows the users to sort cards by performance during review. Cards which the user has performed poorly on will be pushed to the top of the deck.
+** Justification: This feature improves the product significantly because a user will want to review cards which he or she performed poorly on to increase the yield of her revision.
+** Highlights: This allows user to focus on what's important to review and makes for more efficient study sessions.
 
 
 
@@ -72,35 +72,38 @@ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=leeyjj
 * *Other contributions*:
 
 ** Project management:
-*** Set up Continuous Integration:
-https://github.com/CS2103-AY1819S1-T09-2/main/issues?q=is%3Aissue+is%3Aclosed+author%3Aleeyjjoel[List of created issues]
-*** Update contact us page (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/68[#68])
-*** Added initial documentation for team README (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/23[#23])
-*** Integrate Reposense for code contribution tracking (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/75/files[#75])
-*** Configure naming convention of files and packages across the project to comply with project style guide(https://github.com/CS2103-AY1819S1-T09-2/main/pull/38/files[#38]
+*** Set up Continuous Integration
+*** Update contact us page (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/68[#68])
+*** Added initial documentation for team README (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/23[#23])
+*** Integrate Reposense for code contribution tracking (Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/75/files[#75])
+*** Configure naming convention of files and packages across the project to comply with project style guide(Pull Requests: https://github.com/CS2103-AY1819S1-T09-2/main/pull/38/files[#38]
 , https://github.com/CS2103-AY1819S1-T09-2/main/pull/106/files[#106])
 
 
 
 ** Enhancements to existing features:
-*** Wrote extensive system tests which played a major role in boosting coverage from 66% to the above 90%
+*** Wrote extensive system tests which played a major role in boosting coverage from 66% to the above 90%. The tests I have written are detailed below:
 **** Wrote integration tests and tests for help command(https://github.com/CS2103-AY1819S1-T09-2/main/pull/148[#148])
-**** Wrote Unit Tests for editdeck(https://github.com/CS2103-AY1819S1-T09-2/main/pull/121/files[#121])
-**** Wrote tests for EditCard, EditDeckParser, and GUI (https://github.com/CS2103-AY1819S1-T09-2/main/pull/157/files[#157])
-**** Wrote System Tests for ClearCommand, FindCommand, Logic Manager, EditDeck, NewDeck(https://github.com/CS2103-AY1819S1-T09-2/main/pull/158/files[#158],
+**** Wrote Unit Tests for editdeck(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/121/files[#121])
+**** Wrote tests for EditCard, EditDeckParser, and GUI(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/157/files[#157])
+**** Wrote System Tests for ClearCommand, FindCommand, Logic Manager, EditDeck, NewDeck(Pull Requests: https://github.com/CS2103-AY1819S1-T09-2/main/pull/158/files[#158],
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/165/files[#165],
  https://github.com/CS2103-AY1819S1-T09-2/main/pull/238[#238], https://github.com/CS2103-AY1819S1-T09-2/main/pull/242[#242], https://github.com/CS2103-AY1819S1-T09-2/main/pull/244[#244])
 
 
 ** Documentation:
-*** Add documentation for deck level operations(https://github.com/CS2103-AY1819S1-T09-2/main/pull/110/files[#110])
-*** Update user guide and development guide(https://github.com/CS2103-AY1819S1-T09-2/main/pull/268[#268])
+*** Add documentation for deck level operations(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/110/files[#110])
+*** Update user guide and development guide(Pull Request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/268[#268])
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
+*** Pull Requests reviewed(with non-trivial review comments):
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/189[#189]
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195]
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/271[#271]
+
+*** Discovered and reported bugs to peers:
+https://github.com/CS2103-AY1819S1-T09-2/main/issues?q=is%3Aissue+is%3Aclosed+author%3Aleeyjjoel[List of created issues]
+
 
 
 == Contributions to the User Guide
@@ -108,9 +111,9 @@ https://github.com/CS2103-AY1819S1-T09-2/main/pull/271[#271]
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
 include::../UserGuide.adoc[tag=autocompletion]
 include::../UserGuide.adoc[tag=rank]
-include::../UserGuide.adoc[tag=undoredo]
 
 
 == Contributions to the Developer Guide
@@ -120,8 +123,10 @@ include::../UserGuide.adoc[tag=undoredo]
 |===
 
 include::../DeveloperGuide.adoc[tag=autocompleteimplementation]
-//include::../DeveloperGuide.adoc[tag=deckleveloperation]
+include::../DeveloperGuide.adoc[tag=scheduling]
 
+== Additional Information
+For more information about me and to view more of my works, please feel to check out my website https://joellee.ml[here]
 
 
 

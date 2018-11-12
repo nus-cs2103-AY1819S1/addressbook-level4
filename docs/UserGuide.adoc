@@ -501,7 +501,7 @@ Hit <TAB> for autocompletion so you don't have to remember verbose commands. If 
 
 Examples: +
 
-1. Suppose you're attempting to create a new card.
+1. Suppose you are attempting to create a new card.
 
 image::newCardPreAutocomplete.png[width="500"]
 
@@ -515,15 +515,18 @@ Image: After pressing <TAB> the command is automatically completed!
 
 [NOTE]
 ====
-If the command box is empty autocompletion will default to ``cd 1``.
-Additionally, this feature does not work with trailing or preceding whitespace currently.
+If the command box is empty, autocompletion will default to ``cd 1``.
 ====
-
+[WARNING]
+====
+This feature does not work when trailing or preceding whitespace is included in the command.
+====
 // end::autocompletion[]
+
 // tag::rank[]
 === Rank : `rank`
 
-To sort all cards by a user's cumulative performance score on each card. +
+Use this command to sort all cards by a user's cumulative performance score on each card. +
 Format: `rank` +
 Examples: Suppose you are studying for an important exam, and you want to find out which cards you performed poorly on so you can review them.
 

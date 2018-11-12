@@ -206,7 +206,8 @@ The user executes `newcard q/Hello? a/World` to add a new card with question "He
 
 The following sequence diagram shows how the `newcard` operation works:
 
-image::NewcardSequenceDiagram.png[width="790", align="left"]
+image::NewCard Sequence Diagram.png[width="790", align="left"]
+
 
 ==== Design consideration
 
@@ -221,25 +222,7 @@ image::NewcardSequenceDiagram.png[width="790", align="left"]
 ** Cons: The logic for executing deck-level and card-level commands are implemented at different places. We must ensure that the implementation of each command is correct.
 
 // end::cardleveloperation[]
-// tag::deckleveloperation[]
-=== Deck-level operations
-The following deck level operations are supported in Anakin:
 
-* Anakin#newDeck()
-* Anakin#removeDeck()
-* Anakin#updateDeck()
-* Anakin#importDeck()
-* Anakin#exportDeck()
-
-The following sequence diagram describes how the editdeck command would work: +
-Step 1: +
-Step 2: +
-Step 3: +
-
-* *Alternative 1* : <Insert first option here>
-* *Alternative 2* : <Insert Alternative here>
-
-// end::deckleveloperation[]
 
 // tag::handleinvalidcommands[]
 === Handle invalid commands
@@ -557,8 +540,6 @@ The logic behind autocompletion is handled by an `Autocompleter` class.
 On pressing `<TAB>`, Command Box will raise an event and check if the current text in the command box is autocompletable, that is to say, it is a prefix of one of the existing commands supported by Anakin.
 If it is Autocompletable, Autocompleter will search through the list of existing commands in lexicographic order and find the first match for the current text in the command box.
 
-Here is a sequence diagram of what happens during the autocompletion.
-
 ==== Design considerations
 
 * *Alternative 1 (current choice):* Use a set of pre-decided completion text for each command and have a list of all supported command words
@@ -590,6 +571,46 @@ image::AddCommandToAutocompleterExample.png[width="600"]
 With that, you're good to go!
 
 // end::autocompleteimplementation[]
+
+// tag::scheduling[]
+
+=== Card Scheduling implementation
+==== Current implementation (v1.4)
+
+The logic behind scheduling is handled in `Card.java`. Each card contains a `reviewScore` and `nextReviewDate` fields which determine how well the user remembers the card and when the user should review the card again.
+When each card is classified using `classify`, it's score is adjusted according to a modified version of the Super Memo 2 algorithm which we have detailed below. The review score is then updated, and using this review score
+days are added to the current review date of the card to determine when it should be reviewed.
+
+==== Design considerations
+
+* *Alternative 1 (current choice):*  Implement the scheduling update by attaching the scheduling process to the card class
+** Pros: As only cards are meant to be scheduled, this will increase cohesion by strengthening the relationship between cards and the scheduling process.
+** Cons: Should there be a need to implement scheduling of decks, then we will need to refactor our code for scheduling.
+
+* *Alternative 2:* Create a separate scheduler class to handle performance operations.
+
+** Pros: This will allow us to schedule multiple type of objects.
+** Cons: This will decrease cohesion of the components as we only intend for cards to be scheduled in this application.
+
+==== Scheduling Algorithm details
+* The variant of the Super Memo 2 algorithm which we have implemented in this application works as follows:
+
+image::SuperMemoTwo.png[width="800"]
+
+Image : A description of the Super Memo 2 variant we implemented. Formula taken from http://www.blueraja.com/blog/477/a-better-spaced-repetition-learning-algorithm-sm2[Blue Raja's blog] +
+
+*Performance Rating*: +
+How the user assesses his/her performance during classify. +
+`easy` corresponds to a 0 before scaling +
+`normal` corresponds to a 1 before scaling +
+`hard` corresponds to a 2 before scaling +
+
+*Easiness Score* :  This corresponds to `reviewScore` in our implementation
+
+As we only have three levels of difficulty, we have added a `BIAS` term to scale the `reviewScore`.
+
+// end::scheduling[]
+
 
 
 
