@@ -15,4 +15,7 @@ public class Messages {
     public static final String MESSAGE_NONEXISTENT_CATEGORY =
             "This category does not exist your schedule planner T_T";
 
+    public static final String MESSAGE_EDIT_DEFAULT_CATEGORY =
+            "Default categories (Modules and Others) cannot be changed.";
+
 }
