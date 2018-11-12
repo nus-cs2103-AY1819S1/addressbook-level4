@@ -235,7 +235,7 @@ public class TypicalPersons {
         for (Appointment appointment : getTypicalAppointments()) {
             clinicIo.addAppointment(appointment);
         }
-      
+        
         for (Medicine medicine : getTypicalMedicines()) {
             clinicIo.addMedicine(medicine);
         }

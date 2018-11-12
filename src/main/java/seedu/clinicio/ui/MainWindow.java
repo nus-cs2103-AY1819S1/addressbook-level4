@@ -200,13 +200,10 @@ public class MainWindow extends UiPart<Stage> {
     private void setUpDisplayPanel() {
         analyticsDisplay = new AnalyticsDisplayPanel();
         analyticsDisplay.setVisible(false);
-      
         appointmentDisplay = new AppointmentDisplay();
         appointmentDisplay.setVisible(false);
-      
         patientDetailsDisplayPanel = new PatientDetailsDisplayPanel();
         patientDetailsDisplayPanel.getRoot().setVisible(false);
-      
         browserDisplayPanel = new BrowserDisplayPanel();
         browserDisplayPanel.setVisible(false);
 
