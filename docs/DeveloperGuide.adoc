@@ -1200,6 +1200,21 @@ Step 8. SidebarPanel responds to the ShowTagsRequestEvent with SidebarPanel#hand
 
 Step 9. The TitledPane with the matching name "Modules" is expanded to display all the tags listed under the Modules category.
 
+Below is a code snippet showing how the SidebarPanel handles a ShowTagsRequestEvent:
+
+----
+@Subscribe
+    public void handleShowTagsRequestEvent(ShowTagsRequestEvent e) {
+        String catName = e.getCategory();
+        ObservableList<TitledPane> titledPanes = accordion.getPanes();
+        for (TitledPane titledPane : titledPanes) {
+            if (titledPane.getText().equals(catName)) {
+                accordion.setExpandedPane(titledPane);
+            }
+        }
+    }
+----
+
 ==== Design Considerations
 
 ===== Aspect: How to update the tags on UI
@@ -1948,5 +1963,36 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `listweek` +
    Expected: All task(s) that matches the date from the current system date until the closest Sunday will be
    reflected in the panel on the bottom right of `UI`.
+
+=== Testing GUI
+
+1. Displaying categories and tags in the sidebar
+
+.. Test case: `clear` +
+   Expected: The default categories "Modules" and "Others" are be displayed in the sidebar.
+
+.. Test case: `addcat c/School` +
+   Expected: The new category "School" is displayed in the sidebar below "Modules" and "Others".
+
+.. Test case: `tags c/Modules` +
+   Expected: The Modules pane will be expanded to reveal nothing is listed underneath.
+
+.. Test case: `addtag c/Modules t/CS2100` followed by `tags c/Modules` +
+   Expected: The Modules pane will be expanded to reveal "CS2100" underneath.
+
+2. Showing progress
+
+.. Test case: `clear` followed by `progresstoday` +
+   Expected: Status message displays that user has completed NaN% of tasks for today.
+
+.. Test case: add 5 tasks due on the current date and archive one of them.
+   Expected: Both progress bars for today and this week are 20% filled.
+
+.. Test case: `progresstoday` +
+   Expected: Status message displays that user has completed 20.00% of tasks for today.
+
+.. Test case: `progressweek` +
+   Expected: Status message displays that user has completed 20.00% of tasks for this week.
+
 
 _{ more test cases ... }_
