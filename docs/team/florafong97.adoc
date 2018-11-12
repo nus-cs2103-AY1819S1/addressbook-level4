@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Flora Fong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -38,7 +38,7 @@ It required an in-depth analysis of design alternatives. The implementation too 
 *** Removed case-sensitivity for parameters for all commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/125[#125])
 ** Documentation:
 *** Updated User Guide
-*** Updated Developers guide (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/21[#21])
+*** Updated Developers guide (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/21[#21], https://github.com/CS2103-AY1819S1-T10-2/main/pull/165[#165])
 ** Community:
 *** Reported bugs and suggestions for other teams in the module (Example https://github.com/CS2103-AY1819S1-W12-4/main/issues/127[1], https://github.com/CS2103-AY1819S1-W12-4/main/issues/135[2], https://github.com/CS2103-AY1819S1-W12-4/main/issues/138[3])
 
@@ -69,3 +69,4 @@ include::../DeveloperGuide.adoc[tag=addprescription]
 
 include::../DeveloperGuide.adoc[tag=deleteprescription]
 
+include::../DeveloperGuide.adoc[tag=usecases]
