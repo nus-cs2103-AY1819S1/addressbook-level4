@@ -1195,7 +1195,7 @@ Tasks completed increases by the number of tasks completed by the batch complete
 complete command message).
 
 . Update of level on task completion
-.. Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to:
+.. Prerequisites: change the specified fields in data/taskmanager.xml(or other storage path) to: +
 `<xp>499</xp>` +
 `<level>lvl.1</level>` +
 `<xpValueByDay>0</xpValueByDay>` +
@@ -1218,7 +1218,7 @@ tasks completed from the beginning of the day. +
 
 .. Test case: `achievements this week` +
 Expected: Achievement panel shows "Weekly achievements from [date]:", current level, xp earned and number of tasks
-completed from the specified date, which is no earlier than today and not more than 6 days after today. +
+completed from the specified date. +
 
 .. Test case: `achievements all-time` +
 Expected: Achievement panel shows "All-time achievements:", current level, xp earned and number of tasks
@@ -1232,6 +1232,7 @@ On `undo`, it shows all-time achievement information again and on `redo`, it sho
 .. Prerequisites:
 ... change the specified fields in data/taskmanager.xml(or other storage path) to: +
 `<xp>400</xp>` +
+`<level>lvl.1</level>` +
 `<numTaskCompleted>14</numTaskCompleted>` +
 `<nextDayBreakPoint>dd-mm-yy 0000</nextDayBreakPoint>`(where dd-mm-yy is tomorrow's date) +
 `<xpValueByDay>200</xpValueByDay>` +
@@ -1273,7 +1274,7 @@ should never be smaller than today's number.)
 .. Test case: `<nextDayBreakPoint>12-11-18 0000</nextDayBreakPoint>`
 `<nextWeekBreakPoint>19-11-18 0000</nextWeekBreakPoint>` +
 (Inconsistent date breakpoints. `nextWeekBreakPoint` should never be earlier than `nexDayBreakPoint`, it should never be
-more than 6 days later than nexDayBreakPoint.)
+7 days or more later than nexDayBreakPoint.)
 .. Test case: `<xp>1000000001</xp>` +
 (The maximum integer value maintained by achievement record is 1000000000.)
 
