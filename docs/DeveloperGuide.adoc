@@ -970,7 +970,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 [cols="1,10"]
 |===
-|Pros| Will use less memory (e.g. for `select`, just save the car park being selected).
+|Pros| Less memory usage (e.g. for `select`, just save the car park being selected).
 |Cons| We must ensure that the implementation of each individual command are correct.
 |===
 
@@ -1158,7 +1158,7 @@ Step 1. The user launches the application.
 
 Step 2. The system loads the file, `postalcodeData.txt` into a `Hashmap<Long,String>` using the `GsonUtil#loadCarparkPostalCode()` where the key is a hash and the value is a postal code.
 
-Step 3. The system goes through every car park's coordinates and hashes them together with `GsonUtil#fnvHash(x,y)` where x is the x coordinate of the carpark and y is the y coordinate of the carpark.
+Step 3. The system goes through every car park's coordinates and hashes them together with `GsonUtil#fnvHash(x,y)` where `x` is the x-coordinate of the carpark and `y` is the y-coordinate of the carpark.
 
 Step 4. If the key is found, it will return the value which is the postal code of the car park. If not, it will return the
 default value `000000`.

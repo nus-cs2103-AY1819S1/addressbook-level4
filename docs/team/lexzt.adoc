@@ -131,9 +131,6 @@ include::../UserGuide.adoc[tag=redo]
 include::../DeveloperGuide.adoc[tag=find]
 
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-
 include::../DeveloperGuide.adoc[tag=ui]
 
 
