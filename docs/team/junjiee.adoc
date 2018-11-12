@@ -1,0 +1,55 @@
+= Ong Jun Jie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TutorPal
+
+---
+
+== Overview
+
+TutorPal is a desktop application used by mainly private home tutors to manage their students and schedules. The usage is primarily through CLI. It is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *timing attribute* for the Person class
+** What it does: It stores the tuition timings of a student in Tutor Pal.
+** Justification: In addition to having contact details of their students, allows users to keep track of their students' tuition timings increases our product's relevance to our target users, making Tutor Pal more convenient for our target user.
+
+* *Major enhancement*: implemented *addTime* / *deleteTime* commands
+** What it does: It allows user to add or delete tuition timings of their students in Tutor Pal.
+** Justification: The commands enable users to easily manage the tuition timings of their students. If there is a need to change the tuition timings of a student, users do not have to recreate the student entirely in Tutor Pal. Tuition timings of students are one of the details that changes the most in Tutor Pal as the year progresses. This may be due to changes in the student's timetable or additional school commitments. Hence, having *addTime* and *deleteTime* will make our product more convenient for our target users, private tutors, and increase our product's relevance to them.
+
+* *Code contributed*: [https://github.com[Reposense]] _{https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junjiee&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=false}_
+
+* *Other contributions*:
+
+** Project management:
+*** Enabling our code to be reposense compatible.
+** Enhancements to existing features:
+*** Updated the GUI to display tuition time slots of a student.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addtimecommand]
+
+include::../UserGuide.adoc[tag=deletetimecommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=timefeature]
+
+include::../DeveloperGuide.adoc[tag=addtimecommand]
+
+include::../DeveloperGuide.adoc[tag=deletetimecommand]
+
