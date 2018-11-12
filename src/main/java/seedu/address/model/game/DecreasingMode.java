@@ -11,12 +11,11 @@ import seedu.address.model.task.Task;
  * before the deadline, measured in days.
  */
 public class DecreasingMode extends GameMode {
-
     private int daysBefore;
     private int overdueXp;
     private int completedXp;
 
-    DecreasingMode() {
+    public DecreasingMode() {
         this(3, 30, 60);
     }
 
@@ -29,7 +28,7 @@ public class DecreasingMode extends GameMode {
      * @param overdueXp   The minimum XP, awarded to overdue tasks.
      * @param completedXp The maximum XP, awarded to tasks completed early.
      */
-    DecreasingMode(int daysBefore, int overdueXp, int completedXp) {
+    public DecreasingMode(int daysBefore, int overdueXp, int completedXp) {
         this.daysBefore = daysBefore;
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;
@@ -95,5 +94,37 @@ public class DecreasingMode extends GameMode {
 
         return earlyByMilliseconds / windowMilliseconds;
 
+    }
+
+    @Override
+    public DecreasingMode copy() {
+        return new DecreasingMode(daysBefore, overdueXp, completedXp);
+    }
+
+    @Override
+    public int getPeriod() {
+        return daysBefore;
+    }
+
+    @Override
+    public int getLowXp() {
+        return overdueXp;
+    }
+
+    @Override
+    public int getHighXp() {
+        return completedXp;
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format("Completing tasks at least %d days before they are due will earn you %d xp, "
+                + "decreasing gradually \ntill %d xp for a task completed just on time.",
+                daysBefore, completedXp, overdueXp);
+    }
+
+    @Override
+    public String getName() {
+        return "Decreasing";
     }
 }
