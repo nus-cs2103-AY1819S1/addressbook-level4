@@ -132,8 +132,9 @@ public class XmlAdaptedConsultation {
                 .getSimpleName()));
         }
 
-        return new Consultation(patient.toModelType(), doctor.toModelType(), appointment.toModelType(), description, Date.newDate
-            (date), Time.newTime(arrivalTime), Time.newTime(consultationTime), Time.newTime(endTime), prescription);
+        return new Consultation(patient.toModelType(), doctor.toModelType(), appointment.toModelType(), description,
+            Date.newDate(date), Time.newTime(arrivalTime), Time.newTime(consultationTime), Time.newTime(endTime),
+            prescription);
     }
 
     @Override
