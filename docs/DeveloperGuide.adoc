@@ -505,7 +505,7 @@ image::PQMSClassDiagram.png[width="850"]
 The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispensemedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
 
 These commands inherit from `QueueCommand` because it will require more arguments in its execute command. The PQMS is not inside `Model` as it is only required during runtime;
-it does not need to be saved into the database. A new `QueueCommand` abstract class is created that inherits from `Command` and it defines a new method signature of `execute`.
+it does not need to be saved into the database. A new `QueueCommand` abstract class that inherits from `Command` is created and it defines a new method signature of `execute`.
 
 The following code snippet shows how the `QueueCommand` is implemented:
 
