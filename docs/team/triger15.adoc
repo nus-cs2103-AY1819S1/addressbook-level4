@@ -29,12 +29,12 @@ Some significant features of SuperTA include:
 ** What it does: This allows the teaching assistant to create attendance sessions for each tutorial class, and subsequently mark the attendance of students in those sessions.
 ** Justification: This feature is an essential part of SuperTA, since taking attendance of students is definitely a feature required by teaching assistants in classes.
 ** Highlights: This enhancement is able to take in multiple student IDs as user input, allowing the attendance of multiple students to be marked a the same time. Also, this enhancement involves creating the Presence enumeration to properly encapsulate the attendance of students using fixed and constant values.
-The implementation of it needed to account for various exceptions, such as when the tutorial group is invalid, when the session does not exist, as well as when the attendance of students are already marked.
+The implementation of these commands needed to account for various exceptions, such as when the tutorial group is invalid, when the session does not exist, as well as when the attendance of students are already marked.
 
 * *Major enhancement*: added *the ability to write feedback to a student* (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/43[#43])
 ** What it does: allows the teaching assistant to create feedback for a student for viewing in the future.
 ** Justification: This feature improves the usability of the SuperTA client as TAs are better able to craft personalized feedback for students to help with their studies.
-** Highlights: This enhancement involves modifying the Student class and adding a new data field, Feedback to it. New feedback can also be easily added to a Student without overwriting existing feedback, as feedback object have been modelled as array elements within the student instead.
+** Highlights: This enhancement involves modifying the Student class and adding a new data field, Feedback to it. New feedback can also be easily added to a Student without overwriting existing feedback, as feedback objects have been modelled as array elements within the student object instead.
 
 * *Minor enhancement*: Modified the view command that allows the TA to view past feedback given to a student. (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/83[#83])
 * *Minor enhancement*: Modified the parser to be able to accept both lowercase and uppercase Student IDs. (Pull request https://github.com/CS2103-AY1819S1-T16-2/main/pull/133[#133])
@@ -64,7 +64,10 @@ The implementation of it needed to account for various exceptions, such as when 
 |===
 
 include::../UserGuide.adoc[tag=feedback]
-include::../UserGuide.adoc[tag=attendance]
+
+include::../UserGuide.adoc[tag=createattendance]
+
+include::../UserGuide.adoc[tag=markattendance]
 
 == Contributions to the Developer Guide
 

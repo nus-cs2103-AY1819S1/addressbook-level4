@@ -277,7 +277,7 @@ Examples:
 Removes the student with student ID `A1231231Y` from the tutorial group with an ID of `1`.
 // end::removefromtutorialgroup[]
 
-// tag::attendance[]
+// tag::createattendance[]
 === Create Attendance: `create-attendance`
 
 Creates an attendance listing for a specific tutorial group, identified by its ID. +
@@ -287,7 +287,9 @@ Examples:
 
 * `create-attendance tg/1 n/W4 Tutorial` +
 Creates an attendance named `W4 Tutorial` for the tutorial group with an ID of `1`.
+// end::createattendance[]
 
+// tag::markattendance[]
 === Mark Attendance: `mark-attendance`
 
 Marks attendance for students from a specific tutorial group and session name, identified by its ID and name. +
@@ -300,7 +302,7 @@ Examples:
 
 * `mark-attendance tg/1 n/W4 Tutorial st/A1234567T st/A0123456Y` +
 Marks students with IDs `A1234567T` and `A0123456Y` as present in tutorial session named `W4 Tutorial` for the tutorial group with an ID of `1`.
-// end::attendance[]
+// end::markattendance[]
 
 // tag::viewsession[]
 === View Attendance Session: `view-session`
