@@ -84,9 +84,9 @@ Format: `generateLocation d/EVENT_DATE i/EVENT_INDEX`
 
 Examples:
 
-* `generateLocation d/2018-04-06 i/1`
+* `generateLocation d/2018-04-01 i/1`
 
-=== Features coming up in V2.0:
+=== Features coming up in future *V2.0*:
 
 include::../UserGuide.adoc[tag=pratyayVersionTwo]
 

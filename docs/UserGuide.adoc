@@ -302,7 +302,7 @@ Format: `generateLocation d/EVENT_DATE i/EVENT_INDEX`
 
 Examples:
 
-* `generateLocation d/2018-04-06 i/1`
+* `generateLocation d/2018-04-01 i/1`
 // end::suggestedMeetingLocation[]
 
 // tag::addEvent[]
