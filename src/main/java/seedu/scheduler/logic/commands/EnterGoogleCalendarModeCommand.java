@@ -15,7 +15,6 @@ import com.joestelmach.natty.Parser;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.util.EventFormatUtil;
-import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;

@@ -1,4 +1,4 @@
-package seedu.scheduler.commons.web;
+package seedu.scheduler.logic.commands;
 
 import static com.google.api.client.util.DateTime.parseRfc3339;
 
@@ -43,7 +43,6 @@ import com.google.api.services.calendar.model.Events;
 
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.util.EventFormatUtil;
-import seedu.scheduler.logic.commands.EnterGoogleCalendarModeCommand;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.event.ReminderDurationList;
