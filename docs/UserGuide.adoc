@@ -8,7 +8,6 @@
 // Italics : _(word)_
 // Bold : *(word)*
 
-
 = Student Schedule Planner - User Guide
 :site-section: UserGuide
 :toc:
@@ -300,20 +299,23 @@ image::ListWeekCommand_UG_Before_After.png[width="500"]
 ====
 // end::listweek[]
 
+// tag::listmonth[]
 === Viewing Tasks Due This Month
 
-Shows a list of tasks that are due from current date till the end of the current Month. +
+Shows a list of tasks  due from current date, till the end of the current Month. +
 ====
 [blue]`listmonth`
 ====
 
 Example:
 ====
-input: [blue]`listmonth` on the date 021118 +
-output: Shows a list of tasks from 021118 to end of the month which is 301118.
+[blue]`listmonth` (on the date 021118) +
 
-image::ListMonth_Before_After.png[width="400"]
+image::ListMonth_Before_After.png[width="600"]
+
+Tasks from 021118 to end of the month (301118) are listed.
 ====
+// end::listmonth[]
 
 //tag::sorting[]
 === Sorting Tasks by Deadline Date and Priority
@@ -362,29 +364,58 @@ You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS
 [blue]`CS3230` or [blue]`CS5229`.
 
 
-=== Filtering Tasks by Tag
-Filters and lists tasks with tags matching those entered by the user. User may input more than 1 tag. +
+// tag::filtertags[]
+=== Filtering Tasks by Tags (Inclusive)
+Filters tasks with tags matching ANY of those entered by the user.
+You can include multiple tags when using [blue]`filter`. For example, [blue]`filter tutorial quiz project`
+will return tasks with tags matching at least one of user-input tags.
 ====
 [blue]`filter TAG [TAG2] ...`
 ====
 Example:
 ====
-- [blue]`filter lecture` +
-output: All tasks with the tag [blue]`tutorial` are listed.
+- [blue]`filter tutorial` +
 
--  [blue]`filter lecture 2100` +
-output: All tasks with the tag either [blue]`tutorial`, [blue]`2100`, or both [blue]`tutorial` and [blue]`2100`, are
-listed.
+image::b-a filter tutorial.png[width="600"]
 
-image::Filter_Before_After.png[width="400"]
+Tasks with the tag [blue]`tutorial` are listed.
+
+- [blue]`filter tutorial cs2100` +
+
+image::b-a filter tutorial cs2100.png[width="600"]
+
+Tasks with either [blue]`tutorial`, [blue]`2100` tags, or both, are listed.
 ====
 
+[TIP]
 The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
 
+=== Filtering Tasks by Tags (Exclusive)
+Filters tasks with tags matching ALL of those entered by the user.
+You can include multiple tags when using [blue]`filterstrict`. For example, [blue]`filterstrict tutorial quiz project`
+will return tasks with tags matching ALL user-input tags.
+====
+[blue]`filterstrict TAG [TAG2] ...`
+====
+Example:
+====
+- [blue]`filterstrict tutorial` +
+
+image::b-a filterstrict tutorial.png[width="600"]
+
+Tasks with the tag [blue]`tutorial` are listed.
+
+-  [blue]`filterstrict tutorial geh1034` +
+
+image::b-a filterstrict tut geh.png[width="600"]
+
+Tasks with both [blue]`tutorial` and [blue]`2100` tags are listed.
+
+====
 
 [TIP]
-You can include multiple tags when using [blue]`filter`. [blue]`filter tutorial quiz project`
-will return all tasks with tag matching with at least one of the provided tags in input.
+The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
+// end::filtertags[]
 
 // tag::firstday[]
 === Generating Academic Calendar
@@ -693,13 +724,22 @@ Example: +
 Example: +
 [blue]`find tutorial` +
 ====
-* **Filter Tasks by Tag** :
+* **Filter Tasks by Tags (Inclusive)** :
 ====
-[blue]`filter TAG ...` +
+[blue]`filter TAG1 [TAG2]...` +
 
 Example: +
-[blue]`filter tutorial`
+[blue]`filter tutorial ...`
 ====
+
+* **Filter Tasks by Tags (Exclusive)** :
+====
+[blue]`filterstrict TAG1 [TAG2]...` +
+
+Example: +
+[blue]`filterstrict tutorial ...`
+====
+
 * **Deleting Tasks** :
 ====
 [blue]`delete INDEX` +
