@@ -2068,7 +2068,7 @@ one expense. +
 .. Test case: `setPassword n/password11 o/password1`
    Expected: A message indicating that the password has been changed is shown.
 
-=== Encrypting and Decrypting `String`&#8217;s
+=== Encrypting and Decrypting `String`{empty}s
 
 . Encrypting and Decrypting a `String`
 .. Prerequisites: Already logged into a user account
