@@ -41,22 +41,19 @@ public class CdCommand extends Command {
         String newDir = currDirectory + "/" + toDirectories.toString();
 
         Path newCurrDirectory = Paths.get("");
+        File dir;
         try {
             if (toDirectories.isAbsolute()) {
-                File dir = toDirectories.toFile();
-                if (!dir.isDirectory()) {
-                    return new CommandResult(MESSAGE_FAILURE);
-                }
-                newCurrDirectory = toDirectories.toRealPath();
-                model.updateCurrDirectory(newCurrDirectory);
+                dir = toDirectories.toFile();
             } else {
-                File dir = new File(newDir);
-                if (!dir.isDirectory()) {
-                    return new CommandResult(MESSAGE_FAILURE);
-                }
-                newCurrDirectory = dir.toPath().toRealPath();
-                model.updateCurrDirectory(newCurrDirectory);
+                dir = new File(newDir);
             }
+
+            if (!dir.isDirectory()) {
+                return new CommandResult(MESSAGE_FAILURE);
+            }
+            newCurrDirectory = dir.toPath().toRealPath();
+            model.updateCurrDirectory(newCurrDirectory);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

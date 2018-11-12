@@ -297,6 +297,7 @@ image::OpenSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 This section contains the considerations and alternatives we had when implementing the open command.
+
 ===== Aspect: How open executes
 
 * *Alternative 1 (current choice)*: Open images within the BATCH_SIZE.
@@ -354,7 +355,7 @@ The following sequence diagram shows how the prev command works:
 image::PrevSequenceDiagram.png[width=800]
 
 ==== Design Considerations
-This section contains the considerations and alternatives we had when implementing the cd command.
+This section contains the considerations and alternatives we had when implementing the next/prev command.
 
 ===== Aspect: How next/previous executes
 * *Alternative 1 (current choice)*: Keeps track of current batch with a pointer.

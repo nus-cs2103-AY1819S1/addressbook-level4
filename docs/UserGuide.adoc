@@ -544,7 +544,7 @@ Format: `exit` -> Closes the application
 * *Help* : `help` +
 * *Ls* : `ls` +
 * *Cd* : `cd [DIRECTORY_NAME]` +
-* *open* : `open [INDEX 1-10]` +
+* *Open* : `open [INDEX 1-10]` +
 e.g. `open 1` +
 * *Next* : `next` +
 * *Previous* : `prev` +
