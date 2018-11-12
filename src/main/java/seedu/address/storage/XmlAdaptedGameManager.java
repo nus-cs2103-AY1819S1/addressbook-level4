@@ -24,13 +24,13 @@ public class XmlAdaptedGameManager {
     @XmlElement(required = true)
     private String gameMode;
 
-    @XmlElement
+    @XmlElement(required = true)
     private String period;
 
-    @XmlElement
+    @XmlElement(required = true)
     private String lowXp;
 
-    @XmlElement
+    @XmlElement(required = true)
     private String highXp;
 
     /**
@@ -68,9 +68,18 @@ public class XmlAdaptedGameManager {
             return new GameManager();
         }
 
-        int periodInt = Integer.parseInt(period);
-        int lowInt = Integer.parseInt(lowXp);
-        int highInt = Integer.parseInt(highXp);
+        int periodInt;
+        int lowInt;
+        int highInt;
+
+        try {
+            periodInt = Integer.parseInt(period);
+            lowInt = Integer.parseInt(lowXp);
+            highInt = Integer.parseInt(highXp);
+        } catch (NumberFormatException n) {
+            logger.info("Invalid parameters, reverting to default");
+            return new GameManager();
+        }
 
         GameMode mode;
         switch(gameMode) {
