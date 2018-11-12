@@ -132,7 +132,7 @@ This section contains detailed info on the usage and behaviour for every command
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add o/OBJECT_NAME`, `OBJECT_NAME` is a parameter which can be used as `add o/Bicycle`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add b/BIKE_ID`, `BIKE_ID` is a parameter which can be used as `add b/Bicycle`.
 * All parameters need to be specified in order for the command to work, unless they are in square brackets. e.g. in `add n/LOANER_NAME [t/TAGS]`, `LOANER_NAME` must be specified, but `TAGS` can be left out.
 * Parameters can be specified in any order.
 * Command words are case-sensitive and should be in all lowercase. Most parameters are case-sensitive too.
