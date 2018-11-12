@@ -1119,6 +1119,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |considerate university student |obtain a meeting location that is convenient for all contacts in a group
 (based on faculty) |find a convenient location for meetups
 
+|`* * *` |user |edit an event's address |update the event's address after getting a suggested location
+
+|`* * *` |busy university student |view all contacts related an event quickly |get the contact information I needed quickly
+
+|`* * *` |organized university student |view events by tags |know quickly the events I have upcoming of a certain type
+
 |`* * *` |university student |view my events for a particular week [Coming in V2.0] |gauge my availability for that week
 
 |`*` |user |share multiple contacts with my peers [Coming in V2.0] |exchange contacts quickly
@@ -1334,6 +1340,23 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== UC12: View contacts of an event
+
+*MSS*
+
+. User requests to view contacts for an event.
+. System displays the contact information for all contacts included in the event.
++
+
+Use case ends.
+
+*Extensions*
+
+* 2a. System is unable to find a matching contact
+** 2a1. System does not display the information for the contact which cannot be found and shows only the existing contacts' information.
++
+Use case ends.
 ////
 === Coming in V2.0
 
