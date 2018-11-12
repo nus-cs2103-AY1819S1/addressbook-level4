@@ -716,6 +716,8 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+//tag::manualteststorage[]
+
 === Launch and Shutdown
 
 . Initial launch
@@ -729,7 +731,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-   
+
 . Saving transcript data
 
 .. Add some modules, set a CAP goal, and close the app.
@@ -748,6 +750,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Replace the `data/transcript.json` of the second app with the `data/transcript.json` from the first app.
 .. Relaunch the new app. +
    Expected: The app will initialize with the added modules and CAP goal from the first app.+
+//end::manualteststorage[]
 
 //tag::manualtestcaptargetcalculation[]
 === CAP Calculation

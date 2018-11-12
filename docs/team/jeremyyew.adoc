@@ -55,6 +55,11 @@ include::../UserGuide.adoc[tag=savingdata]
 |===
 
 include::../DeveloperGuide.adoc[tag=transcriptstorageimplementation]
+
 include::../DeveloperGuide.adoc[tag=designstorage]
+
+=== Instructions for Manual Testing
+
+include::../DeveloperGuide.adoc[tag=manualteststorage]
 
 
