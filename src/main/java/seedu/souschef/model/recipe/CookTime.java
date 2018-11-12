@@ -25,12 +25,13 @@ public class CookTime {
      * @param duration A valid cook time.
      */
     public CookTime(String duration) {
-        if (duration == null) {
-            duration = ZERO_COOKTIME;
+        String stringTime = duration;
+        if (stringTime == null) {
+            stringTime = ZERO_COOKTIME;
         }
-        checkArgument(isValidCookTime(duration), MESSAGE_COOKTIME_CONSTRAINTS);
-        duration = TIME_PREFIX + duration;
-        value = Duration.parse(duration);
+        checkArgument(isValidCookTime(stringTime), MESSAGE_COOKTIME_CONSTRAINTS);
+        stringTime = TIME_PREFIX + stringTime;
+        value = Duration.parse(stringTime);
     }
 
     /**

@@ -553,7 +553,8 @@ Once user's input is being parsed, a `RecipeBuilder` is created instead of a `Re
 will be stored in `History` when the command is being executed.
 [NOTE]
 ====
-Repeating use of `add` will replace existing `RecipeBuilder` rendering the previous data unsaved.
+Repeating use of `add` will replace existing `RecipeBuilder` rendering the previous data unsaved until user complete
+the add recipe command.
 ====
 
 The following is the sequence diagram of the `cont` command:

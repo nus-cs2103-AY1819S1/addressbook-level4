@@ -38,7 +38,7 @@ public class XmlUtilTest {
 
     private static final String INVALID_DIFFICULTY = "9482asf424";
 
-    private static final String VALID_NAME = "Hans Muster";
+    private static final String VALID_NAME = "Chicken Pizza";
     private static final String VALID_DIFFICULTY = "5";
     private static final String VALID_COOKTIME = "23M";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("asian"));
