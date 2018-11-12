@@ -24,17 +24,17 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new CrossFindCommand object
  */
 public class CrossFindCommandParser {
+    private static final String DUPLICATE_INVENTORY = "inventory keyword must used only once, either following "
+            + "include or prioritize!\n%1$s";
+    private static final String INCLUDE = "include";
+    private static final String PRIORITIZE = "prioritize";
+    private static final String INVENTORY = "inventory";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CrossFindCommand
      * and returns an CrossFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private final String DUPLICATE_INVENTORY = "inventory keyword must used only once, either following include or " +
-            "prioritize!\n%1$s";
-    private final String INCLUDE = "include";
-    private final String PRIORITIZE = "prioritize";
-    private final String INVENTORY = "inventory";
-
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
                                   String argument) throws ParseException {
         String[] tokens = argument.trim().toLowerCase().split("\\s+");
