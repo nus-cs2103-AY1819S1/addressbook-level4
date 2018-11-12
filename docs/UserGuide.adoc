@@ -192,6 +192,7 @@ Shows the list of all playlists in the library. +
 Format: `playlist list`
 
 // tag::playlistSearch_hayden[]
+
 === Searching for a playlist : `playlist search`
 
 Searches for playlists by names. +
