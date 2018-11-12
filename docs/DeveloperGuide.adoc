@@ -356,7 +356,7 @@ that exist in this MeetingBook. The commands thus modify and update this list of
 // tag::join/leave[]
 === Join and Leave feature
 The Join and Leave commands modify the relationship between groups existed in the `UniqueGroupList` and
-people in the `UniquePersonList` maintained by `versionedMeetingBook. This section provides description of the usage
+people in the `UniquePersonList` maintained by `versionedMeetingBook`. This section provides description of the usage
 and implementation of these commands.
 
 ==== `join` command usage
@@ -503,7 +503,7 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 ==== Current Implementation
 
 .The object diagram of MeetingBook
-image::addressbookObject.png[width="350"]
+image::meetingbookObject.png[width="350"]
 
 *Enhancements:*
 
