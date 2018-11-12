@@ -24,11 +24,11 @@ public class PatientTest {
         patient.addAllergy("Nuts");
 
         // Check if added correctly
-        assertTrue(patient.getMedicalHistory().getAllergies().contains("Nuts"));
-        assertFalse(patient.getMedicalHistory().getAllergies().contains("Chicken"));
+        assertTrue(patient.getMedicalHistory().getAllergies().contains(new Allergy("Nuts")));
+        assertFalse(patient.getMedicalHistory().getAllergies().contains(new Allergy("Chicken")));
 
         patient.addAllergy("Chicken");
-        assertTrue(patient.getMedicalHistory().getAllergies().contains("Chicken"));
+        assertTrue(patient.getMedicalHistory().getAllergies().contains(new Allergy("Chicken")));
     }
 
     @Test
@@ -37,11 +37,11 @@ public class PatientTest {
         patient.addCondition("Asthma");
 
         // Check if added correctly
-        assertTrue(patient.getMedicalHistory().getConditions().contains("Asthma"));
-        assertFalse(patient.getMedicalHistory().getConditions().contains("Heart Pain"));
+        assertTrue(patient.getMedicalHistory().getConditions().contains(new Condition("Asthma")));
+        assertFalse(patient.getMedicalHistory().getConditions().contains(new Condition("Heart Pain")));
 
         patient.addCondition("Heart Pain");
-        assertTrue(patient.getMedicalHistory().getConditions().contains("Heart Pain"));
+        assertTrue(patient.getMedicalHistory().getConditions().contains(new Condition("Heart Pain")));
     }
 
     @Test

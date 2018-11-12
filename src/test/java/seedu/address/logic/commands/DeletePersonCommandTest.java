@@ -7,15 +7,16 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.ALICE_PATIENT_APPT;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.BENSON_PATIENT_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.CARL_PATIENT_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.ELLE_PATIENT_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIFTH;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIONA_DOCTOR_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIRST;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.GEORGE_DOCTOR_APPT;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.THIRD;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.HELENA_DOCTOR_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.IONA_PATIENT_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.SIXTH;
 import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt
-        .getTypicalAddressBookWithPatientAndDoctorWithAppt;
+        .getSmallerAddressBookWithPatientAndDoctorWithAppt;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -23,35 +24,61 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.GoogleCalendarStub;
 import seedu.address.testutil.PatientBuilder;
+import seedu.address.testutil.PrescriptionBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
  */
 public class DeletePersonCommandTest {
 
     private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
-    private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctorWithAppt(), new UserPrefs());
+    private Model model = new ModelManager(getSmallerAddressBookWithPatientAndDoctorWithAppt(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validPatient_success() {
-        Patient firstPatient = (Patient) model.getFilteredPersonList().get(0);
-        DeletePatientCommand deletePatientCommand =
-                new DeletePatientCommand(firstPatient.getName(), firstPatient.getPhone());
-
-        String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, firstPatient);
+    public void execute_deletePatient_success() {
+        Appointment expectedAppointment = new AppointmentBuilder().withAppointmentId(10005)
+                .withDoctor("Helena Sophia")
+                .withPatient("Iona Porter")
+                .withDateTime("2018-12-16 12:00")
+                .withComments("Body check up")
+                .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
+                .withAppointmentId(10005)
+                .withMedicineName("Aspirin").build()))).build();
+        Patient expectedPatient = new PatientBuilder()
+                .withName("Iona Porter").withPhone("9482224")
+                .withEmail("iona@example.com")
+                .withAddress("24th ave")
+                .withRemark("")
+                .withTags("Patient")
+                .withMedicalHistory("", "").build();
+        Doctor expectedDoctor = new DoctorBuilder()
+                .withName("Helena Sophia")
+                .withPhone("95264283")
+                .withEmail("helena@example.com")
+                .withAddress("7th street")
+                .withRemark("")
+                .withTags("Doctor").build();
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(firstPatient);
+        expectedModel.updatePerson(IONA_PATIENT_APPT, expectedPatient);
+        expectedModel.updatePerson(HELENA_DOCTOR_APPT, expectedDoctor);
+        expectedModel.updateAppointment(SIXTH, expectedAppointment);
+        expectedModel.deletePerson(expectedPatient);
         expectedModel.commitAddressBook();
-        FIONA_DOCTOR_APPT.addUpcomingAppointment(FIRST);
+
+        DeletePatientCommand deletePatientCommand =
+                new DeletePatientCommand(IONA_PATIENT_APPT.getName(), IONA_PATIENT_APPT.getPhone());
+
+        String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, IONA_PATIENT_APPT);
 
         assertCommandSuccess(deletePatientCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -63,44 +90,59 @@ public class DeletePersonCommandTest {
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
 
         // not patient
-        assertCommandFailure(new DeletePatientCommand(GEORGE_DOCTOR_APPT.getName(), GEORGE_DOCTOR_APPT.getPhone()),
+        assertCommandFailure(new DeletePatientCommand(HELENA_DOCTOR_APPT.getName(), HELENA_DOCTOR_APPT.getPhone()),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
     }
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() {
         // duplicate patient
-        model.addPatient(new PatientBuilder().withName(ALICE_PATIENT_APPT.getName().toString())
+        model.addPatient(new PatientBuilder().withName(IONA_PATIENT_APPT.getName().toString())
                 .withPhone("1234111").build());
-        assertCommandFailure(new DeletePatientCommand(ALICE_PATIENT_APPT.getName(), null),
+        assertCommandFailure(new DeletePatientCommand(IONA_PATIENT_APPT.getName(), null),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_DUPLICATE_DELETE_PERSON, "Patient",
                         "Patient", "Patient"));
     }
 
     @Test
-    public void execute_duplicateDoctor_throwsCommandException() {
-        // duplicate patient
-        model.addDoctor(new DoctorBuilder().withName(FIONA_DOCTOR_APPT.getName().toString())
-                .withPhone("1234111").build());
-        assertCommandFailure(new DeleteDoctorCommand(FIONA_DOCTOR_APPT.getName(), null),
-                model, commandHistory, String.format(DeletePatientCommand.MESSAGE_DUPLICATE_DELETE_PERSON, "Doctor",
-                        "Doctor", "Doctor"));
-    }
+    public void execute_deleteDoctor_success() {
+        Appointment expectedAppointment = new AppointmentBuilder().withAppointmentId(10005)
+                .withDoctor("Helena Sophia")
+                .withPatient("Iona Porter")
+                .withDateTime("2018-12-16 12:00")
+                .withComments("Body check up")
+                .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
+                .withAppointmentId(10005)
+                .withMedicineName("Aspirin").build()))).build();
+        Patient expectedPatient = new PatientBuilder()
+                .withName("Iona Porter").withPhone("9482224")
+                .withEmail("iona@example.com")
+                .withAddress("24th ave")
+                .withRemark("")
+                .withTags("Patient")
+                .withMedicalHistory("", "").build();
+        Doctor expectedDoctor = new DoctorBuilder()
+                .withName("Helena Sophia")
+                .withPhone("95264283")
+                .withEmail("helena@example.com")
+                .withAddress("7th street")
+                .withRemark("")
+                .withTags("Doctor").build();
 
-    @Test
-    public void execute_validDoctor_success() {
-        Doctor firstDoctor = (Doctor) model.getFilteredPersonList().get(5);
-        DeleteDoctorCommand deleteDoctorCommand =
-                new DeleteDoctorCommand(firstDoctor.getName(), firstDoctor.getPhone());
-
-        String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, firstDoctor);
+        expectedPatient.addUpcomingAppointment(expectedAppointment);
+        expectedDoctor.addUpcomingAppointment(expectedAppointment);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(firstDoctor);
+        expectedModel.updatePerson(IONA_PATIENT_APPT, expectedPatient);
+        expectedModel.updatePerson(HELENA_DOCTOR_APPT, expectedDoctor);
+        expectedModel.updateAppointment(SIXTH, expectedAppointment);
+        expectedModel.deletePerson(expectedDoctor);
         expectedModel.commitAddressBook();
-        ALICE_PATIENT_APPT.addUpcomingAppointment(FIRST);
-        CARL_PATIENT_APPT.addUpcomingAppointment(THIRD);
-        ELLE_PATIENT_APPT.addUpcomingAppointment(FIFTH);
+
+        DeleteDoctorCommand deleteDoctorCommand =
+                new DeleteDoctorCommand(HELENA_DOCTOR_APPT.getName(), HELENA_DOCTOR_APPT.getPhone());
+
+        String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, HELENA_DOCTOR_APPT);
 
         assertCommandSuccess(deleteDoctorCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -112,79 +154,19 @@ public class DeletePersonCommandTest {
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
 
         // not doctor
-        assertCommandFailure(new DeleteDoctorCommand(ALICE_PATIENT_APPT.getName(), null),
+        assertCommandFailure(new DeleteDoctorCommand(IONA_PATIENT_APPT.getName(), null),
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
     }
 
-    //        @Test
-    //        public void executeUndoRedo_validPatient_success() throws Exception {
-    //            Patient patientToDelete = ALICE_PATIENT_APPT;
-    //            DeletePatientCommand deletePatientCommand =
-    //                    new DeletePatientCommand(patientToDelete.getName());
-    //            Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-    //            expectedModel.deletePerson(patientToDelete);
-    //            expectedModel.commitAddressBook();
-    //
-    //            // delete -> first person deleted
-    //            deletePatientCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
-    //
-    //            // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-    //            expectedModel.undoAddressBook();
-    //            assertCommandSuccess(new UndoCommand(), model, commandHistory,
-    //     UndoCommand.MESSAGE_SUCCESS, expectedModel);
-    //
-    //            // redo -> same first person deleted again
-    //            expectedModel.redoAddressBook();
-    //            assertCommandSuccess(new RedoCommand(), model, commandHistory,
-    //     RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    //        }
-
-    //    @Test
-    //    public void executeUndoRedo_validDoctor_success() throws Exception {
-    //        Doctor doctorToDelete = GEORGE_DOCTOR_APPT;
-    //        DeleteDoctorCommand deleteDoctorCommand =
-    //                new DeleteDoctorCommand(doctorToDelete.getName());
-    //        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-    //        expectedModel.deletePerson(doctorToDelete);
-    //        expectedModel.commitAddressBook();
-    //
-    //        // delete -> first person deleted
-    //        deleteDoctorCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
-    //
-    //        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-    //        expectedModel.undoAddressBook();
-    //        assertCommandSuccess(new UndoCommand(), model, commandHistory,
-    // UndoCommand.MESSAGE_SUCCESS, expectedModel);
-    //
-    //        // redo -> same first person deleted again
-    //        expectedModel.redoAddressBook();
-    //        assertCommandSuccess(new RedoCommand(), model, commandHistory,
-    // RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    //    }
-
-    //    @Test
-    //    public void executeUndoRedo_invalidPatient_failure() {
-    //        // execution failed -> address book state not added into model
-    //        assertCommandFailure(new DeletePatientCommand(new Name("JASKLFJA12412445")),
-    //                model, commandHistory, String.format(
-    // DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
-    //
-    //        // single address book state in model -> undoCommand and redoCommand fail
-    //        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-    //        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    //    }
-    //
-    //    @Test
-    //    public void executeUndoRedo_invalidDoctor_failure() {
-    //        // execution failed -> address book state not added into model
-    //        assertCommandFailure(new DeleteDoctorCommand(new Name("JASKLFJA12412445")),
-    //                model, commandHistory, String.format(
-    // DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
-    //
-    //        // single address book state in model -> undoCommand and redoCommand fail
-    //        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-    //        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
-    //    }
+    @Test
+    public void execute_duplicateDoctor_throwsCommandException() {
+        // duplicate patient
+        model.addDoctor(new DoctorBuilder().withName(HELENA_DOCTOR_APPT.getName().toString())
+                .withPhone("1234111").build());
+        assertCommandFailure(new DeleteDoctorCommand(HELENA_DOCTOR_APPT.getName(), null),
+                model, commandHistory, String.format(DeletePatientCommand.MESSAGE_DUPLICATE_DELETE_PERSON, "Doctor",
+                        "Doctor", "Doctor"));
+    }
 
     @Test
     public void equals() {

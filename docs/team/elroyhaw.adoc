@@ -1,0 +1,84 @@
+= Elroy Haw - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthBook
+
+---
+
+== Overview
+
+HealthBook is for clinic receptionist who *prefer to use a desktop app for managing doctors and patients information and appointments*.
+It is *optimized for receptionist who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to add and delete appointments
+** What it does: This allows the user to add new appointments and remove existing appointments that are done in the HealthBook.
+** Justification: This feature enables the user to keep track of the upcoming and past appointments in the HealthBook, and updates the doctors' calendars at the same time.
+** Highlights: This enhancement is the primary purpose of the HealthBook. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required integration with Google calendar commands.
+** Credits: http://github.com/giamjuxian[giamjuxian] for the Google calendar integration
+
+* *Minor enhancement*:
+** Added autocomplete commands on tab feature
+** Added commands to view patients/doctors
+** Added commands to delete patients/doctors
+** Updated UI and events after every command call
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=elroyhaw[Functional code]
+
+* *Other contributions*:
+
+** Project management:
+*** Setting up AppVeyor, Travis, Coveralls and Netlify for the project
+** Implementation of new features:
+*** Added `add-appointment` and `delete-appointment`  commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/29[#29])
+*** Added `delete-patient` and `delete-doctor` commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/8[#8])
+*** Added `view-patient` and `view-doctor` commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/50[#50], https://github.com/CS2103-AY1819S1-T10-2/main/pull/72[#72])
+*** Wrote test cases for new commands (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/47[#47], https://github.com/CS2103-AY1819S1-T10-2/main/pull/60[#60],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/77[#77], https://github.com/CS2103-AY1819S1-T10-2/main/pull/78[#78],
+https://github.com/CS2103-AY1819S1-T10-2/main/pull/126[#126])
+** Enhancements to existing features:
+*** Updated the GUI information panel (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/39[#39], https://github.com/CS2103-AY1819S1-T10-2/main/pull/51[#51])
+*** Updated the GUI to autocomplete commands on tab (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/7[#7])
+** Documentation:
+*** Updated User Guide (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/80[#80])
+*** Updated Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-T10-2/main/pull/47[#47])
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T09-4/main/issues/112[1], https://github.com/CS2103-AY1819S1-T09-4/main/issues/110[2])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=deletepatient]
+
+include::../UserGuide.adoc[tag=deletedoctor]
+
+include::../UserGuide.adoc[tag=viewpatient]
+
+include::../UserGuide.adoc[tag=viewdoctor]
+
+include::../UserGuide.adoc[tag=addappointment]
+
+include::../UserGuide.adoc[tag=deleteappointment]
+
+include::../UserGuide.adoc[tag=autocomplete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=deleteperson]
+
+include::../DeveloperGuide.adoc[tag=viewperson]
+
+include::../DeveloperGuide.adoc[tag=addappointment]
+
+include::../DeveloperGuide.adoc[tag=deleteappointment]

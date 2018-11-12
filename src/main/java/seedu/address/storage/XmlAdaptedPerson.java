@@ -46,7 +46,8 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedAppointment> pastAppointments = new ArrayList<>();
     @XmlElement
-    private MedicalHistory medicalHistory = new MedicalHistory();
+    private XmlAdaptedMedicalHistory medicalHistory = new XmlAdaptedMedicalHistory();
+
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -79,7 +80,7 @@ public class XmlAdaptedPerson {
     }
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             String remark, List<XmlAdaptedTag> tagged, List<XmlAdaptedAppointment> upcomingAppointments,
-                            List<XmlAdaptedAppointment> pastAppointments, MedicalHistory medicalHistory) {
+                            List<XmlAdaptedAppointment> pastAppointments, XmlAdaptedMedicalHistory medicalHistory) {
 
         this.name = name;
         this.phone = phone;
@@ -122,7 +123,7 @@ public class XmlAdaptedPerson {
             pastAppointments = ((Patient) source).getPastAppointments().stream()
                     .map(XmlAdaptedAppointment::new)
                     .collect(Collectors.toList());
-            medicalHistory = ((Patient) source).getMedicalHistory();
+            medicalHistory = new XmlAdaptedMedicalHistory(((Patient) source).getMedicalHistory());
         } else if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Doctor"))) {
             upcomingAppointments = ((Doctor) source).getUpcomingAppointments().stream()
                     .map(XmlAdaptedAppointment::new)
@@ -151,8 +152,8 @@ public class XmlAdaptedPerson {
             allPastAppointments.add(pastAppointments.toModelType());
         }
 
-        final MedicalHistory modelMedicalHistory = new MedicalHistory(medicalHistory.getAllergies(),
-                medicalHistory.getConditions());
+        MedicalHistory modelMedicalHistory = medicalHistory.toModelType();
+
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

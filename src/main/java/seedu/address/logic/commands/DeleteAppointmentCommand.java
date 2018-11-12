@@ -15,6 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.Status;
 import seedu.address.model.appointment.exceptions.InvalidInputOutputException;
 import seedu.address.model.appointment.exceptions.InvalidSecurityAccessException;
 import seedu.address.model.doctor.Doctor;
@@ -37,6 +38,7 @@ public class DeleteAppointmentCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment deleted";
     public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "AppointmentId is invalid";
+    public static final String MESSAGE_COMPLETED_APPOINTMENT = "Completed appointments cannot be deleted";
 
     private final int appointmentId;
 
@@ -64,6 +66,10 @@ public class DeleteAppointmentCommand extends Command {
 
         if (appointment == null) {
             throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
+        }
+
+        if (appointment.getStatus().equals(Status.COMPLETED)) {
+            throw new CommandException(MESSAGE_COMPLETED_APPOINTMENT);
         }
 
         for (Person person : personList) {

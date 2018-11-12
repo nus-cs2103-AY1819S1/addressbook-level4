@@ -51,13 +51,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `register-patient n/NAME`, `NAME` is a parameter which can be used as `register-patient n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [al/ALLERGIES] [c/CONDITION]` can be used as `n/John Doe al/milk c/healthy` or as `n/John Doe al/milk`.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER` `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
+// tag::registerpatient[]
 === Registering a patient: `register-patient`
 Registers a patient to the HealthBook. Patient is automatically tagged as a "Patient". +
 Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
@@ -65,15 +66,23 @@ Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 Examples:
 
 * `register-patient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+// end::registerpatient[]
 
+// tag::registerdoctor[]
 === Registering a doctor: `register-doctor`
 Registers a doctor to the HealthBook. Doctor is automatically tagged as a "Doctor". +
 Format: `register-doctor n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 
+[WARNING]
+Login to Google Calendar is mandatory. If no login is done, the application will not be able to proceed.
+Please ensure login is done before proceeding back to the HealthBook.
+
 Examples:
 
 * `register-doctor n/Mary Jane p/98765432 e/maryj@example.com a/John street, block 123, #01-01`
+// end::registerdoctor[]
 
+// tag::deletepatient[]
 === Deleting a patient: `delete-patient`
 Deletes a patient from the HealthBook by name and phone. +
 Format: `delete-patient n/NAME [p/PHONE]`
@@ -83,9 +92,11 @@ Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook,
 
 Examples:
 
-* `delete-patient n/Jane Doe'
+* `delete-patient n/Jane Doe`
 * `delete-patient n/John Doe p/98264293`
+// end::deletepatient[]
 
+// tag::deletedoctor[]
 === Deleting a doctor: `delete-doctor`
 Deletes a doctor from the HealthBook by name and phone. +
 Format: `delete-doctor n/NAME [p/PHONE]`
@@ -97,7 +108,9 @@ Examples:
 
 * `delete-doctor n/Amanda Jane`
 * `delete-doctor n/Mary Jane p/94726274`
+// end::deletedoctor[]
 
+// tag::viewpatient[]
 === Viewing a patient: `view-patient`
 Views a landing page of a patient on the HealthBook. This will display all information of the patient onto the HealthBook
 including their medical history, upcoming appointment and their past appointments. +
@@ -116,7 +129,9 @@ Examples:
 
 * `view-patient n/John Doe`
 * `view-patient n/Jane Doe p/93726273`
+// end::viewpatient[]
 
+// tag::viewdoctor[]
 === Viewing a doctor: `view-doctor`
 Views a landing page of a doctor on the HealthBook. This will display the doctor's upcoming appointments. +
 Format: `view-doctor n/NAME [p/PHONE]`
@@ -134,19 +149,25 @@ Examples:
 
 * `view-doctor n/Amanda Jane p/93726272`
 * `view-doctor n/Mary Jane`
+// end::viewdoctor[]
 
 === Listing all patients and doctors : `list`
 Shows a list of all patients and doctors in the HealthBook. +
 Format: `list`
 
-=== Filtering doctors from list : `filter-doctor`
-Shows a list of all doctors in the Healthbook. +
-Format: `filter-doctor`
-
+// tag::filterpatient[]
 === Filtering patients from list : `filter-patient`
 Shows a list of all patients in the Healthbook. +
 Format: `filter-patient`
+// end::filterpatient[]
 
+// tag::filterdoctor[]
+=== Filtering doctors from list : `filter-doctor`
+Shows a list of all doctors in the Healthbook. +
+Format: `filter-doctor`
+// end::filterdoctor[]
+
+// tag::addappointment[]
 === Booking an appointment: `add-appointment`
 Book a doctor's appointment for the patient. An ID of this appointment will be generated. +
 Format: `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/DOCTOR_PHONE] d/DATE_TIME`
@@ -162,7 +183,9 @@ Examples:
 
 * `add-appointment np/Jane Doe pp/92937272 nd/Amanda Jane pd/94827284 d/2018-12-12 13:00`
 * `add-appointment np/John Doe nd/Mary Jane d/2018-10-17 15:00`
+// end::addappointment[]
 
+// tag::deleteappointment[]
 === Deleting an appointment `delete-appointment`
 Delete a doctor's appointment for the patient by its ID. +
 Format: `delete-appointment APPOINTMENT_ID`
@@ -174,7 +197,9 @@ Format: `delete-appointment APPOINTMENT_ID`
 Examples:
 
 * `delete-appointment 10001`
+// end::deleteappointment[]
 
+// tag::completeappointment[]
 === Completing an appointment `complete-appointment`
 Complete an appointment. +
 Format: `complete-appointment APPOINTMENT_ID`
@@ -182,7 +207,9 @@ Format: `complete-appointment APPOINTMENT_ID`
 Examples:
 
 * `complete-appointment 10001`
+// end::completeappointment[]
 
+// tag::addprescription[]
 === Adding prescriptions to a patient's appointment: `add-prescription`
 Adds a prescription to the patient's appointment with details of medicine name, dosage and number of times to consume
 in a day. +
@@ -197,7 +224,9 @@ Examples:
 * There cannot be a duplicate of drug name for that particular appointment.
 * Drug that patient is allergic to cannot be added
 ****
+// end::addprescription[]
 
+// tag::deleteprescription[]
 === Deleting prescriptions of a patient's appointment: `delete-prescription`
 Delete a prescription of the patient's appointment by appointment ID and medicine name. +
 Format: `delete-prescription APPOINTMENT_ID pn/MEDICINE_NAME`
@@ -205,36 +234,48 @@ Format: `delete-prescription APPOINTMENT_ID pn/MEDICINE_NAME`
 Examples:
 
 * `delete-prescription 10001 pn/Paracetamol`
+// end::deleteprescription[]
 
+// tag::addmedicalhistory[]
 === Adding medical condition or allergy to patient: `add-medical-history`
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
 Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
+[NOTE]
+Allergies and conditions should only contain alphanumeric characters and spaces, and they should not be blank.
+
 Examples:
 
-* `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* `add-medical-history n/John Doe al/penicillin,milk c/subhealthy,hyperglycemia`
 * `add-medical-history n/John Doe al/penicillin,milk`
-* `add-medical-history n/John Doe c/sub-healthy`
+* `add-medical-history n/John Doe c/subhealthy`
 
 ****
-* Either condition or allergy must be provided.
+* Either allergy or condition must be provided.
 * Duplicated allergy or condition is not allowed.
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
 ****
+// end::addmedicalhistory[]
 
+// tag::deletemedicalhistory[]
 === Deleting medical condition or allergy to patient: `delete-medical-history`
 Delete a condition or allergy to the patient's medical history. This will then be removed on the patient's information page. +
 Format: `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
-* `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* `delete-medical-history n/John Doe al/penicillin,milk c/subhealthy,hyperglycemia`
 * `delete-medical-history n/John Doe al/penicillin,milk`
-* `delete-medical-history n/John Doe c/sub-healthy`
+* `delete-medical-history n/John Doe c/subhealthy`
 
 ****
 * Either allergy or condition must be provided.
-* Input allergy or condition must exist in the healthbook.
+* Input allergy or condition must exist in the HealthBook.
+* Allergy and condition is NOT case sensitive (`EGG` and `egg` is treated as the same).
 ****
+// end::deletemedicalhistory[]
+
+// tag::remark[]
 === Adding remark to patient : `remark`
 Adds a remark to the patient/doctor's information. Input will override current remark. If input is empty, previous remark will be deleted. +
 Format: `remark n/NAME [p/PHONE] r/REMARK`
@@ -247,6 +288,7 @@ Examples:
 
 * `remark n/John Doe r/Has chronic heart disease`
 * `remark n/Amanda Jane p/84739294 r/`
+// end::remark[]
 
 === Listing entered commands : `history`
 
@@ -257,57 +299,6 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the HealthBook to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the HealthBook's content (`register-doctor`,`register-patient`,
-`delete-doctor`, `delete-patient` and `remark`).
-====
-
-Examples:
-
-* `delete-patient 10001` +
-`list` +
-`undo` (reverses the `delete-patient 10001` command) +
-
-* `view-patient n/John Doe` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete-patient 10001` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete-patient 10001` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete-patient 10001` +
-`undo` (reverses the `delete-patient 10001` command) +
-`redo` (reapplies the `delete-patient 10001` command) +
-
-* `delete-patient 10001` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete-patient 10001` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete-patient 10001` command) +
-`redo` (reapplies the `delete-patient 10001` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 === Clearing all entries : `clear`
 
@@ -324,9 +315,11 @@ Format: `exit`
 HealthBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::autocomplete[]
 === Tab to autocomplete commands
 
 In the command box, user can type the first few characters of the command and tab to autocomplete it.
+// end::autocomplete[]
 
 === Remind patient on their upcoming appointment `[coming soon in v2.0]`
 Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform
@@ -356,8 +349,8 @@ e.g. `view-patient n/John Doe p/84729292`
 * *View doctor* : `view-doctor n/NAME [p/PHONE]` +
 e.g. `view-doctor n/Mary Jane`
 * *List* : `list`
-* *Filter doctors* : `filter-doctor`
 * *Filter patients* : `filter-patient`
+* *Filter doctors* : `filter-doctor`
 * *Book appointment* : `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/PATIENT_PHONE] d/DATE_TIME` +
 e.g. `add-appointment np/John Doe nd/Mary Jane pd/93736272 d/2018-10-17 15:00`
 * *Delete appointment* : `delete-appointment APPOINTMENT_ID` +
@@ -369,13 +362,11 @@ e.g. `add-prescription 10001 pn/Paracetamol pd/2 pc/3`
 * *Delete prescriptions* : `delete-prescription APPOINTMENT_ID pn/MEDICINE_NAME` +
 e.g. `delete-prescription 10001 pn/Paracetamol`
 * *Add allergies or conditions* : `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
-e.g. `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+e.g. `add-medical-history n/John Doe al/penicillin,milk c/subhealthy,hyperglycemia`
 * *Delete allergies or conditions* : `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
-e.g. `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+e.g. `delete-medical-history n/John Doe al/penicillin,milk c/subhealthy,hyperglycemia`
 * *Remark* : `remark n/NAME [p/PHONE] r/REMARK` +
 e.g `remark n/John Doe p/84729292 r/Has chronic heart disease`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
 * *Clear* : `clear`
 * *Exit* : `exit`

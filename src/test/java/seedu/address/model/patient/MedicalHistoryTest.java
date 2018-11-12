@@ -17,14 +17,14 @@ public class MedicalHistoryTest {
         medicalHistory.addAllergy("Nuts");
 
         // Check addition of allergies
-        assertTrue(medicalHistory.getAllergies().get(0).equals("Nuts"));
-        assertFalse(medicalHistory.getAllergies().get(0).equals("Diary"));
+        assertTrue(medicalHistory.getAllergies().get(0).toString().equals("Nuts"));
+        assertFalse(medicalHistory.getAllergies().get(0).toString().equals("Diary"));
 
         medicalHistory.addAllergy("Diary");
 
         // Check if new allergy is added to the back of list
-        assertFalse(medicalHistory.getAllergies().get(0).equals("Diary"));
-        assertTrue(medicalHistory.getAllergies().get(1).equals("Diary"));
+        assertFalse(medicalHistory.getAllergies().get(0).toString().equals("Diary"));
+        assertTrue(medicalHistory.getAllergies().get(1).toString().equals("Diary"));
     }
 
     @Test
@@ -33,15 +33,16 @@ public class MedicalHistoryTest {
         medicalHistory.addCondition("Asthma");
 
         // Check addition of condition
-        assertTrue(medicalHistory.getConditions().get(0).equals("Asthma"));
-        assertFalse(medicalHistory.getConditions().get(0).equals("Sleep Walking"));
+        assertTrue(medicalHistory.getConditions().get(0).toString().equals("Asthma"));
+        assertFalse(medicalHistory.getConditions().get(0).toString().equals("Sleep Walking"));
 
         medicalHistory.addCondition("Sleep Walking");
 
         // Check if new condition is added to back of list
-        assertFalse(medicalHistory.getConditions().get(0).equals("Sleep Walking"));
-        assertTrue(medicalHistory.getConditions().get(1).equals("Sleep Walking"));
+        assertFalse(medicalHistory.getConditions().get(0).toString().equals("Sleep Walking"));
+        assertTrue(medicalHistory.getConditions().get(1).toString().equals("Sleep Walking"));
     }
+
 
     @Test
     public void equals() {

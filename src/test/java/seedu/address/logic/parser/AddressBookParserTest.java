@@ -4,10 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_ID_FIRST;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PARACETAMOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
@@ -21,6 +24,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE_PATIENT;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,6 +66,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Allergy;
+import seedu.address.model.patient.Condition;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -273,22 +279,30 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addMedicalHistoryCommandWord_returnsAddMedicalHistoryCommand() throws Exception {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        allergies.add(new Allergy(VALID_ALLERGY_1));
+        conditions.add(new Condition(VALID_CONDITION_1));
         AddMedicalHistoryCommand command = (AddMedicalHistoryCommand) parser.parseCommand(
-                AddMedicalHistoryCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY + " "
-                        + PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_ALLERGY + VALID_ALLERGY + " "
-                        + PREFIX_CONDITION + VALID_CONDITION);
-        assertEquals(new AddMedicalHistoryCommand(new Name(VALID_NAME_AMY), new Phone(VALID_PHONE_AMY),
-                VALID_ALLERGY, VALID_CONDITION), command);
+                AddMedicalHistoryCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_ALICE
+                        + " " + PREFIX_ALLERGY + VALID_ALLERGY_1 + " "
+                        + PREFIX_CONDITION + VALID_CONDITION_1);
+        assertEquals(new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null,
+                allergies, conditions), command);
     }
 
     @Test
     public void parseCommand_deleteMedicalHistoryCommandWord_returnsDeleteMedicalHistoryCommand() throws Exception {
+        ArrayList<Allergy> allergies = new ArrayList<>();
+        ArrayList<Condition> conditions = new ArrayList<>();
+        allergies.add(new Allergy(VALID_ALLERGY_TO_DELETE));
+        conditions.add(new Condition(VALID_CONDITION_TO_DELETE));
         DeleteMedicalHistoryCommand command = (DeleteMedicalHistoryCommand) parser.parseCommand(
-                DeleteMedicalHistoryCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY + " "
-                        + PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_ALLERGY + VALID_ALLERGY + " "
-                        + PREFIX_CONDITION + VALID_CONDITION);
-        assertEquals(new DeleteMedicalHistoryCommand(new Name(VALID_NAME_AMY), new Phone(VALID_PHONE_AMY),
-                VALID_ALLERGY, VALID_CONDITION), command);
+                DeleteMedicalHistoryCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+                        + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " "
+                        + PREFIX_CONDITION + VALID_CONDITION_TO_DELETE);
+        assertEquals(new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null,
+                allergies, conditions), command);
     }
 
     @Test

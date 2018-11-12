@@ -14,12 +14,14 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPatientsAndDoctors {
 
+
+
     public static final Patient ALICE_PATIENT = new PatientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("egg", "sub-health").build();
+            .withMedicalHistory("egg", "subhealth").build();
     public static final Patient BENSON_PATIENT = new PatientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
@@ -76,6 +78,13 @@ public class TypicalPatientsAndDoctors {
             .withAddress("7th street")
             .withRemark("")
             .withTags("Doctor").build();
+    public static final Patient IONA_PATIENT = new PatientBuilder()
+            .withName("Iona Porter").withPhone("9482224")
+            .withEmail("iona@example.com")
+            .withAddress("24th ave")
+            .withRemark("")
+            .withTags("Patient")
+            .withMedicalHistory("", "").build();
 
     private TypicalPatientsAndDoctors() {} // prevents instantiation
 

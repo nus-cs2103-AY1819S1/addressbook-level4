@@ -4,11 +4,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.CARL_PATIENT;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.HELENA_DOCTOR;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.ALICE_PATIENT_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIONA_DOCTOR_APPT;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.FIRST;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt
+        .getTypicalAddressBookWithPatientAndDoctorWithAppt;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -18,36 +21,58 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
+import seedu.address.testutil.AppointmentBuilder;
+import seedu.address.testutil.DoctorBuilder;
+import seedu.address.testutil.PatientBuilder;
+import seedu.address.testutil.PrescriptionBuilder;
 
 
 /**
  * Contains integration tests and unit tests for DeleteAppointmentCommand.
  */
 public class DeleteAppointmentCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctorWithAppt(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_deleteAppointment_success() {
-        // add appointment into expectedModel and actualModel first
-        Appointment appointment = new Appointment(10000, HELENA_DOCTOR.getName().toString(),
-                CARL_PATIENT.getName().toString(), LocalDateTime.of(2018, 10, 17, 18, 0));
+        Appointment expectedAppointment = new AppointmentBuilder().withAppointmentId(10000)
+                .withDoctor("Fiona Kunz").withPatient("Alice Pauline")
+                .withDateTime("2018-10-11 12:00")
+                .withComments("Heart check up")
+                .withPrescriptions(new ArrayList<>(Arrays.asList(new PrescriptionBuilder()
+                .withAppointmentId(10000)
+                .withMedicineName("Aspirin").build()))).build();
+        Patient expectedPatient = new PatientBuilder()
+                .withName("Alice Pauline")
+                .withAddress("123, Jurong West Ave 6, #08-111")
+                .withEmail("alice@example.com")
+                .withPhone("94351253")
+                .withRemark("")
+                .withTags("Patient")
+                .withMedicalHistory("egg", "subhealth").build();
+        Doctor expectedDoctor = new DoctorBuilder()
+                .withName("Fiona Kunz")
+                .withPhone("9482427")
+                .withEmail("lydia@example.com")
+                .withAddress("little tokyo")
+                .withRemark("")
+                .withTags("Doctor").build();
+
+        expectedPatient.addUpcomingAppointment(expectedAppointment);
+        expectedDoctor.addUpcomingAppointment(expectedAppointment);
+
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.addAppointment(appointment);
-        expectedModel.incrementAppointmentCounter();
-        expectedModel.commitAddressBook();
-        model.addAppointment(appointment);
-        model.incrementAppointmentCounter();
-        model.commitAddressBook();
-
-        // delete
-        expectedModel.deleteAppointment(appointment, CARL_PATIENT, HELENA_DOCTOR);
+        expectedModel.updatePerson(ALICE_PATIENT_APPT, expectedPatient);
+        expectedModel.updatePerson(FIONA_DOCTOR_APPT, expectedDoctor);
+        expectedModel.updateAppointment(FIRST, expectedAppointment);
+        expectedModel.deleteAppointment(expectedAppointment, expectedPatient, expectedDoctor);
         expectedModel.commitAddressBook();
 
-        CARL_PATIENT.addUpcomingAppointment(appointment);
-        HELENA_DOCTOR.addUpcomingAppointment(appointment);
         DeleteAppointmentCommand deleteAppointmentCommand =
-                new DeleteAppointmentCommand(appointment.getAppointmentId());
+                new DeleteAppointmentCommand(FIRST.getAppointmentId());
 
         String expectedMessage = DeleteAppointmentCommand.MESSAGE_SUCCESS;
 

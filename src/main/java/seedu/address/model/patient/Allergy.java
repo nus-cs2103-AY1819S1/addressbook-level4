@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Allergy {
 
     public static final String MESSAGE_ALLERGY_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Allergy should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /**
      * the first character of the allergy must not be a whitespace,
@@ -18,7 +18,7 @@ public class Allergy {
      */
     public static final String ALLERGY_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    private final String allergy;
+    public final String allergy;
 
     /**
      * Constructs a {@code Allergy}.
@@ -41,6 +41,7 @@ public class Allergy {
     public static boolean isValidAllergy(String test) {
         return test.matches(ALLERGY_VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {

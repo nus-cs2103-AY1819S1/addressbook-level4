@@ -135,6 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void completeAppointment(Appointment appointment, Patient patient, Doctor doctor) {
         requireNonNull(appointment);
         requireNonNull(patient);
+        requireNonNull(doctor);
         versionedAddressBook.completeAppointment(appointment, patient, doctor);
         indicateAddressBookChanged();
     }

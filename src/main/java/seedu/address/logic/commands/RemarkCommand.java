@@ -21,7 +21,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 
 /**
- * edits remark of index of person in addressbook
+ * Edits remark of person in HealthBook
  */
 public class RemarkCommand extends Command {
 
