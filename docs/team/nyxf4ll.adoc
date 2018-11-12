@@ -12,7 +12,7 @@ Here you can find details on my contributions to various Software Engineering pr
 
 === 1. Overview
 
-MeetingBook is a desktop scheduler and contact book hybrid designed for university students involved in multiple Co-Curricular Activities and Project-Based modules. By using our application, you can group your contacts according to their project groups, and create reminders on upcoming meetings with the groups you created, so that you don't miss your meeting again. 
+MeetingBook is a desktop scheduler and contact book hybrid designed for university students involved in multiple Co-Curricular Activities and Project-Based modules. By using our application, you can group your contacts according to their project groups, and create reminders on upcoming meetings with the groups you created, so that you don't miss your meeting again.
 
 MeetingBook is forked from https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4] written by https://se-edu.github.io/[SE-EDU] by our team which composed of 5 students from National University of Singapore's School of Computing.
 
@@ -131,7 +131,7 @@ image::meetingClassDiagram.png[width="300"]
 `Meeting` have the following properties:
 
 * It contains the title, time, location and description of the meeting it describes.
-* Each `Group` object can have a maximum of one meeting. 
+* Each `Group` object can have a maximum of one meeting.
 * Two `Meetings` are considered similar if they share the same title, time, and location.
 
 ==== 4.1.2. Using the Meeting class
@@ -150,7 +150,7 @@ These operations can be accessed through the model using the following operation
 
 **Given below is an example usage scenario and how the model behaves at each step.**
 
-Step 1. The application is launched. 
+Step 1. The application is launched.
 
 [NOTE]
 We assumes that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the MeetingBook, and that none of the groups mentioned has a meeting scheduled.
