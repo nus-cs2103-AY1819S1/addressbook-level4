@@ -31,7 +31,6 @@ The following section shows my major code contributions to OASIS.
 === Minor enhancement:
 The following section shows all the other minor enhancements done for the project that are not part of my major enhancement above.
 
-
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=choojeremy[Reposense link]]
 
 * *Other contributions*:
