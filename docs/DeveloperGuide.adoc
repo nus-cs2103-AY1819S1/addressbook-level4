@@ -774,7 +774,7 @@ image::FindCommandDeveloperGuideSequenceDiagram.png[width="800"]
 * **Alternative 2:** Generalise the search function by searching through all fields and providing the most relevant
 information through predictive search.
 ** Pros: It provides an even more powerful search function that is both simple to use and accurate.
-** Cons: It is incredibly difficult to implement such an search function without the use of machine-learning algorithms
+** Cons: It is incredibly difficult to implement such a search function without the use of machine-learning algorithms
 or an internet connection.
 
 // end::findcommand[]
