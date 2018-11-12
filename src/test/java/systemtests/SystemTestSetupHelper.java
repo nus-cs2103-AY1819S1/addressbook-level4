@@ -36,12 +36,12 @@ public class SystemTestSetupHelper {
      */
     public TestApp setupApplication(Supplier<ReadOnlyScheduler> addressBook,
                                     Supplier<ReadOnlyToDoList> toDoList,
-                                    Path saveFileLocation,
+                                    Path saveFileLocationCalendarEvent,
                                     Path saveFileLocationToDo) {
         try {
             FxToolkit.registerStage(Stage::new);
             FxToolkit.setupApplication(() -> testApp =
-                new TestApp(addressBook, toDoList, saveFileLocation, saveFileLocationToDo));
+                new TestApp(addressBook, toDoList, saveFileLocationCalendarEvent, saveFileLocationToDo));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
