@@ -56,6 +56,7 @@ public class CalculateCommandParser implements Parser<CalculateCommand> {
         Date inputEnd;
         try {
             SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh.mmaa");
+            dateFormat1.setLenient(false);
             inputStart = dateFormat1.parse(startTime);
             inputEnd = dateFormat1.parse(endTime);
 

@@ -66,6 +66,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("hh.mmaa");
+            dateFormat.setLenient(false);
 
             Date inputStart;
             Date inputEnd;
