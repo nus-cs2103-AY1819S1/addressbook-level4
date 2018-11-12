@@ -350,7 +350,7 @@ When the user executes a `HelpCommand`, the required level of help is encoded in
 This event type is subscribed to by `MainWindow`, which will load the respective help page in the required window
 (`BrowserPanel` or `HelpWindow`). These interactions are illustrated in the class diagram below:
 
-.Class diagram of help mechanism
+.Class Diagram of help mechanism
 image::AutocompleteSuggestActivityDiagram1.png[width="800"]
 
 [#accessibility_autocomplete]
@@ -360,17 +360,17 @@ It extends `Command` and serves as a special kind of `Command` that cannot be di
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
 or when kbd:[TAB] is pressed inside the *Command Box*. See the 2 figures below:
 
-.Activity diagram of user executing command
+.Activity Diagram of user executing command
 image::AutocompleteSuggestActivityDiagram1.png[width="800"]
 
-.Activity diagram of user pressing tab
+.Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram2.png[width="800"]
 
 The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched `Command` s.
 These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
 `ResultDisplay` and `CommandBox` text. See figure below:
 
-.Activity diagram of user pressing tab
+.Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="800"]
 
 You can easily add other pattern matching heuristics such as `nearest word distance` by implementing the following interface, `PatternMatcher`:
@@ -424,7 +424,11 @@ Step 4. The result panel displays the list of user inputs upon notification by t
 
 * Example scenario 2: User requests for cumulative history. +
 
-When the cumulative history of all commands is requested,
+When the cumulative history of all commands is requested through `history more` command, a `HTML` report is generated.
+The process of generating a `HTML` report upon execution of `history more` is illustrated in the Sequence Diagram below.
+
+.Sequence Diagram of HTML report generation since command
+image::HistorySequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 

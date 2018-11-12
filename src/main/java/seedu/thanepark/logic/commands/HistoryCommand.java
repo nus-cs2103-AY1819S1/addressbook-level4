@@ -8,10 +8,10 @@ import java.util.List;
 
 import seedu.thanepark.commons.core.EventsCenter;
 import seedu.thanepark.commons.events.ui.ShowHistoryRequestEvent;
-import seedu.thanepark.commons.util.CommandReportGenerator;
 import seedu.thanepark.commons.util.FilePathToUrl;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
+import seedu.thanepark.storage.html.CommandReportGenerator;
 
 /**
  * Lists all the commands entered by user from the start of app launch.
