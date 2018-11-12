@@ -32,7 +32,6 @@ import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.PersonBuilder;
-import seedu.clinicio.ui.Ui;
 
 public class AddCommandTest {
 
