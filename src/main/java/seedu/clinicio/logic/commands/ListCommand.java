@@ -22,7 +22,6 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        // model.switchTab(0);
         EventsCenter.getInstance().post(new SwitchTabEvent(0));
         return new CommandResult(MESSAGE_SUCCESS);
     }

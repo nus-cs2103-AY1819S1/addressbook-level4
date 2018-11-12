@@ -277,6 +277,9 @@ public class MainWindow extends UiPart<Stage> {
      * @param index The index position of the tab
      */
     public void switchTab(int index) {
+        for (int i = 0; i < tabLists.getTabs().size(); i++) {
+            tabLists.getSelectionModel().clearAndSelect(login r/receptionist n/Bell pass/recep1login r/receptionist n/Bell pass/recep1i);
+        }
         tabLists.getSelectionModel().clearAndSelect(index);
     }
 

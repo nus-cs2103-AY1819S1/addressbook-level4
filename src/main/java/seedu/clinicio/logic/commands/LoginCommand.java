@@ -58,10 +58,10 @@ public class LoginCommand extends Command {
             return new CommandResult(MESSAGE_LOGIN_ALREADY);
         }
 
-        boolean isAuthenticatedSuccess = model.checkStaffCredentials(toAuthenticate);
-        if (!isAuthenticatedSuccess) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
+//        boolean isAuthenticatedSuccess = model.checkStaffCredentials(toAuthenticate);
+//        if (!isAuthenticatedSuccess) {
+//            return new CommandResult(MESSAGE_FAILURE);
+//        }
 
         UserSession.create(toAuthenticate);
         EventsCenter.getInstance().post(new LoginSuccessEvent(toAuthenticate));
