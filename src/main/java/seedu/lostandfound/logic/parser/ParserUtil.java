@@ -103,7 +103,9 @@ public class ParserUtil {
      * @throws ParseException if the given {@code image} is invalid.
      */
     public static Image parseImage(String image) throws ParseException {
-        if (image == null) return Image.DEFAULT;
+        if (image == null) {
+            return Image.getDefault();
+        }
         String trimmedFile = image.trim();
         if (!Image.isValid(trimmedFile)) {
             throw new ParseException(Image.MESSAGE_CONSTRAINTS);

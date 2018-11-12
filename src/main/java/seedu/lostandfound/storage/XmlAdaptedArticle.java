@@ -53,8 +53,8 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String description, String image, String finder, String owner,
-        boolean isResolved, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedArticle(String name, String phone, String email, String description, String image, String finder,
+                             String owner, boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -132,7 +132,7 @@ public class XmlAdaptedArticle {
         final Description modelDescription = new Description(description);
 
         if (image == null) {
-            image = Image.DEFAULT.toString();
+            image = Image.getDefault().toString();
         }
         if (!Image.isValid(image)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);

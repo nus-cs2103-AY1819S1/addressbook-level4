@@ -19,7 +19,6 @@ import java.util.List;
 
 import seedu.lostandfound.model.ArticleList;
 import seedu.lostandfound.model.article.Article;
-import seedu.lostandfound.model.image.Image;
 
 /**
  * A utility class containing a list of {@code Article} objects to be used in tests.

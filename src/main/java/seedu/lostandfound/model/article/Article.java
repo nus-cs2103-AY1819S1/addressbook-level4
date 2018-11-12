@@ -66,7 +66,7 @@ public class Article {
     }
 
     public Image getImage() {
-        return image != null ? image : Image.DEFAULT;
+        return image != null ? image : Image.getDefault();
     }
 
     public boolean getIsResolved() {

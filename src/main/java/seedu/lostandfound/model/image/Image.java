@@ -3,15 +3,10 @@ package seedu.lostandfound.model.image;
 import static java.util.Objects.requireNonNull;
 import static seedu.lostandfound.commons.util.AppUtil.checkArgument;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.regex.Pattern;
 
 import seedu.lostandfound.commons.util.FileUtil;
 import seedu.lostandfound.model.util.Sequence;
@@ -21,15 +16,14 @@ import seedu.lostandfound.model.util.Sequence;
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Image {
+    public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
 
-    private static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg)";
+    private static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg|jpeg)";
     private static final Sequence SEQUENCE = Sequence.getInstance();
     private static final Path IMAGE_FOLDER = Paths.get("data", "images");
 
-    public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
-    public static final Image DEFAULT = new Image("data/images/0.png");
+    public final String filename;
 
-    public String filename;
     private Path path;
     private String basename;
     private Integer id;
@@ -62,8 +56,15 @@ public class Image {
         return Image.create(Paths.get(pathName));
     }
 
+    /**
+     * Create image from a path and import it to our own data library.
+     * @param path The original image path
+     * @return an image from such path copied to our path
+     * @throws IOException
+     */
     public static Image create(Path path) throws IOException {
-        Path target = Paths.get(IMAGE_FOLDER.toString() , SEQUENCE.next().toString() + "." + FileUtil.getExtension(path));
+        Path target = Paths.get(IMAGE_FOLDER.toString() ,
+                SEQUENCE.next().toString() + "." + FileUtil.getExtension(path));
         System.out.println(path);
         System.out.println(target);
         FileUtil.copy(path, target);
@@ -87,6 +88,10 @@ public class Image {
         }
 
         return Paths.get(test).getFileName().toString().matches(VALIDATION_REGEX);
+    }
+
+    public static Image getDefault() {
+        return new Image("data/images/0.png");
     }
 
     @Override
