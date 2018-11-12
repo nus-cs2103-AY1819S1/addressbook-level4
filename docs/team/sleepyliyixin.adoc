@@ -21,7 +21,7 @@ It is written in Java, and has about 10 kLoC.
 ** Highlights: This enhancement uses a different model from calendar events and it need re-construct logic, storage and ui conponents.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: 
+* *Minor enhancement*:
 ** Add a showDescriptionCommand to show description of task with a popup window.
 ** Make priorities displyed in different colors.
 
@@ -30,7 +30,7 @@ It is written in Java, and has about 10 kLoC.
 * *Other contributions*:
 
 ** Project management:
-*** Set up some issues. 
+*** Set up some issues.
 *** Managing milestones.
 ** Enhancements to existing features:
 *** Implement GUI for todo lisk (Pull requests https://github.com/CS2103-AY1819S1-T10-1/main/pull/64)
