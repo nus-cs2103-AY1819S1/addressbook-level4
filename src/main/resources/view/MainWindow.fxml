@@ -34,10 +34,10 @@
           <Menu mnemonicParsing="false" text="Person">
             <MenuItem fx:id="personMenuItem" mnemonicParsing="false" onAction="#handlePerson" text="Show Persons" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Modules">
+          <Menu mnemonicParsing="false" text="Module">
             <MenuItem fx:id="moduleMenuItem" mnemonicParsing="false" onAction="#handleModule" text="Show Modules" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Occasions">
+          <Menu mnemonicParsing="false" text="Occasion">
             <MenuItem fx:id="occasionMenuItem" mnemonicParsing="false" onAction="#handleOccasion" text="Show Occasions" />
           </Menu>
         </MenuBar>

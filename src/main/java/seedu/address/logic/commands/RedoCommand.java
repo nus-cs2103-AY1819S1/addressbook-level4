@@ -31,7 +31,7 @@ public class RedoCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
-        AttendanceListUtil.postClearEvent(model);
+        AttendanceListUtil.postClearEvent();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
