@@ -10,6 +10,7 @@ import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
+import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.RecipeBuilder;
 
@@ -19,6 +20,7 @@ import seedu.souschef.testutil.RecipeBuilder;
 public class AddCommandIntegrationTest {
 
     private Model<Recipe> model;
+    private Model<Ingredient> ingredientModel;
     private History history = new History();
 
     @Before
@@ -37,12 +39,5 @@ public class AddCommandIntegrationTest {
         assertCommandSuccess(new AddCommand<Recipe>(model, validRecipe), model, history,
                 String.format(AddCommand.MESSAGE_ADD_SUCCESS, "recipe", validRecipe), expectedModel);
     }
-
-    /*@Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Recipe recipeInList = model.getAppContent().getObservableRecipeList().get(0);
-        assertCommandFailure(new AddCommand(model, recipeInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_RECIPE);
-    }*/
 
 }

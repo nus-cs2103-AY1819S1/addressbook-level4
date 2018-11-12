@@ -38,7 +38,7 @@ data consistency across the different models.
 one or more other models.
 *** Recipe that is already planned in the Meal Planner is deleted from the recipe model. +
 In this scenario, the deleted recipe will now also be removed from the days in the Meal
-Planner where it was previously planned.
+Planner where it was previously planned, and also from the day planned in the Health Planner.
 *** 3 recipes that have been planned in a single day are deleted from the recipe model. +
 In this scenario, the day in the Meal Planner which has had all its recipes removed will also
 be deleted from the Meal Planner. This then cascades on to the Health Planner, and the deleted
@@ -50,6 +50,9 @@ Planner where it was previously added.
 *** Clearing the Meal Planner while days have been added to health plans in the Health Planner. +
 In this scenario, all the health plans in the Health Planner will now have all their previously
 added days removed.
+*** A recipe that is already planned in the Meal Planner is edited. +
+In this scenario, the recipe's changes will now also be reflected in the Meal Planner and also
+in the Health Planner if the day has been added to a health plan.
 ** Highlights: This ensures that the different types of data across the different models in
 SousChef all remain in synchronization and logically correct.
 ** https://github.com/CS2103-AY1819S1-W10-4/main/pull/256[#256],
