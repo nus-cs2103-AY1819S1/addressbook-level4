@@ -729,7 +729,6 @@ every time a person's details are edited or a person is deleted. Programming suc
 Due to the Singapore Personal Data Protection Act (PDPA), any disclosure of the user's personal information is considered to have severe implications.
 Thus, all data that are being stored in `Storage` should be encrypted using a secure encryption scheme with a secret key.
 When the user opens InsuRen, he should be prompted to login before he is able to access the secure data.
-
 // end::dataencryption[]
 
 // tag::addpictureurl[]
