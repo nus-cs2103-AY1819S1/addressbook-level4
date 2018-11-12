@@ -762,7 +762,7 @@ to ClinicIO.
 === Patient Management feature
 
 ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
-This patient management is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
+This patient management is the equivalent of Create, Read, Update and Delete (CRUD).
 
 ==== Current Implementation
 
@@ -784,6 +784,24 @@ The `addpatient` command behaves similarly to the `add`. The command takes in pa
 The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
 Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
 that the `preferredDoctor` exists inside the staff records.
+
+Here is a step-by-step on how `addpatient` command execute: +
+
+Step 1: The user executes the `addpatient` command. +
+
+Step 2: The `addpatient` command calls `UserSession#isLoginAsReceptionist()` to ensure that user is logged in as a receptionist. +
+
+Step 3: Once the verfication has been made, the `addpatient` command call `Model#hasPatient()` to avoid duplicate patient being added. +
+
+Step 4: Once the verfication has been made, the `addpatient` command call `Model#hasStaff()` and `preferredDoctor.getRole().equals(DOCTOR)` to check if the preferred doctor is a doctor in ClinicIO. +
+
+Step 5: Once the verfication has been made, the `addpatient` command call `Model#addPatient` to add patient to the patient record.
+
+Step 6: The `addpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+Step 7: The `addpatient` command call `Model#commitClinicIo()` to finalise the changes made to the patient record.
+
+Step 8: The `addpatient` command provide the success message to indicate that patient has been added to ClinicIO.
 
 The following code snippet shows how `addpatient` Command is executed:
 [source,java]
