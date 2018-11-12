@@ -241,7 +241,7 @@ The `Storage` component,
 === Player component
 
 .Structure of the Player Component
-image::PlayerClassDiagram.png[width="800"]
+image::PlayerClassDiagram.png[width="400"]
 
 *API* : link:{repoURL}/src/main/java/seedu/jxmusic/player/Player.java[`Player.java`]
 
@@ -273,7 +273,7 @@ The job of the Player is basically forwarding requests of media playback control
 Player is implemented as a singleton as only one instance of it is required at any time. While singleton brings about undesired implications such as tighter coupling and lower testability, we ensured that Player is only used by the Command classes and no other parts of the code touches Player. As for testability, we discover that JUnit is not compatible for JavaFX media (details in <<Notable-Issues-JavaFXMedia>>). On the plus side, singleton pattern makes adding dependency very easy which is very helpful as adding dependency into the Logic component of Address Book was tedious.
 
 .Player component complete class diagram
-image::PlayerCompleteClassDiagram.png[width="800"]
+image::PlayerCompleteClassDiagram.png[width="600"]
 
 [[PlayableStatus]]
 ===== PlayableStatus
@@ -286,7 +286,7 @@ image::PlayerCompleteClassDiagram.png[width="800"]
 5. `ERROR` - Any other states of the `MediaPlayer.Status` which JxMusic is not concerned with
 
 .`PlayableStatus` state chart diagram
-image::PlayableStatusStateChartDiagram.png[width="800"]
+image::PlayableStatusStateChartDiagram.png[width="300"]
 
 [[Skipped-Tests]]
 ===== Skipped Tests
@@ -435,19 +435,20 @@ PlayCommand caters for commands having the word `play` in it, in particular, `pl
 These modes are determined by the different PlayCommand constructors called by the PlayCommandParser after it parses the user input, as shown in the activity diagram below:
 
 .Play command activity diagram
-image::PlayCommandActivityDiagram.png[width="800"]
+image::PlayCommandActivityDiagram.png[width="600"]
 
 Playing a playlist constructs a PlayablePlaylist which is essentially playing a list of PlayableTrack. The currently playing track is pointed by the `currentIndex`.
 
-image::PlayablePlaylistObjectDiagram1.png[width="800"]
+image::PlayablePlaylistObjectDiagram1.png[width="600"]
 
 When a track finishes playing, the next track is played.
 
-image::PlayablePlaylistObjectDiagram2.png[width="800"]
+image::PlayablePlaylistObjectDiagram2.png[width="600"]
 
 Future enhancement: implement `prev()` for playing the previous track.
 
-image::PlayablePlaylistObjectDiagram3.png[width="800"]
+image::PlayablePlaylistObjectDiagram3.png[width="600"]
+// end::ImplementationPlaybackFeaturePlay_david[]
 
 ===== Design Considerations
 ===== Aspect: Initialization stage of PlayablePlaylist
@@ -463,8 +464,6 @@ image::PlayablePlaylistObjectDiagram3.png[width="800"]
 ** Cons:
 *** Slightly worse performance
 *** More complex implementation
-
-// end::ImplementationPlaybackFeaturePlay_david[]
 
 // tag::playbackFeature_yingnan[]
 ==== Pause

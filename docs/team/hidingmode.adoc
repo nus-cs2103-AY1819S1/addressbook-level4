@@ -54,23 +54,12 @@ https://github.com/CS2103-AY1819S1-T13-3/main/issues/34[Guiding principle] was t
 ** Used issue tracker as backlog by https://github.com/CS2103-AY1819S1-T13-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Ahidingmode[listing user stories]
 ** Coordinated release branching strategy https://github.com/CS2103-AY1819S1-T13-3/main/pull/52[v1.2], https://github.com/CS2103-AY1819S1-T13-3/main/pull/62[v1.3], https://github.com/CS2103-AY1819S1-T13-3/main/pull/104[v1.4].
 
-* *Evidence of helping others:* Bug reports of testing other team's product +
-https://github.com/CS2103-AY1819S1-F11-4/main/issues/183[here], https://github.com/CS2103-AY1819S1-F11-4/main/issues/191[here], and https://github.com/CS2103-AY1819S1-F11-4/main/issues/185[here]
-
 * *Evidence of technical leadership:* Occasional participation on the module forum
-** Suggestions/responses
 *** https://github.com/nus-cs2103-AY1819S1/forum/issues/40#issuecomment-424299702[feedback to AB4]
 *** https://github.com/nus-cs2103-AY1819S1/forum/issues/15[module website]
 *** https://github.com/TEAMMATES/teammates/issues/9115[TEAMMATES website]
 *** https://github.com/nus-cs2103-AY1819S1/forum/issues/119#issuecomment-432974823[reply to a similar issue I encountered]
 *** https://github.com/nus-cs2103-AY1819S1/forum/issues/17[sharing of an issue I thought others might face]
-** Questions
-*** https://github.com/nus-cs2103-AY1819S1/forum/issues/67[Immutability of model]
-*** https://github.com/nus-cs2103-AY1819S1/forum/issues/104[Verbose Travis logs]
-*** https://github.com/nus-cs2103-AY1819S1/forum/issues/46[Comparing PR merge methods]
-*** https://github.com/nus-cs2103-AY1819S1/forum/issues/97[Overriding equals for many classes]
-*** https://github.com/nus-cs2103-AY1819S1/forum/issues/116[Purpose of preamble]
-
 
 == Contributions to the User Guide
 
@@ -99,4 +88,4 @@ include::../DeveloperGuide.adoc[tag=ImplementationPlayerComponent_david]
 
 include::../DeveloperGuide.adoc[tag=ImplementationPlaybackFeaturePlay_david]
 
-include::../DeveloperGuide.adoc[tag=InstructionsForManualTesting_david]
+*I also wrote the entire "Instructions for manual testing" section in developer guide which is too long to be included here.*
