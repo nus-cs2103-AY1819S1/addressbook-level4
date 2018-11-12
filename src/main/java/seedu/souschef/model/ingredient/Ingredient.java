@@ -55,7 +55,6 @@ public class Ingredient extends IngredientPortion {
 
         return otherIngredient != null
                 && otherIngredient.getName().equals(getName())
-                && otherIngredient.getAmount().equals(getAmount())
                 && otherIngredient.getUnit().equals(getUnit())
                 && otherIngredient.getDate().equals(getDate());
     }
