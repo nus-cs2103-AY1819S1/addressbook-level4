@@ -52,6 +52,7 @@ public class DueDate implements Comparable<DueDate> {
 
     /**
      * Returns time difference (in milliseconds) between now and due date
+     *
      * @return time to the time
      */
     public long timeToDueDate() {

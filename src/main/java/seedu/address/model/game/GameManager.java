@@ -7,7 +7,7 @@ import seedu.address.model.task.Task;
 
 /**
  * Manages the gamification aspects of the task manager.
- *
+ * <p>
  * Varies the amount of XP awarded to the player based on the task and on game settings.
  */
 public class GameManager {
@@ -16,11 +16,27 @@ public class GameManager {
     private GameMode gameMode;
 
     public GameManager() {
-        this.gameMode = new FlatMode();
+        this.gameMode = GameMode.getDefaultGameMode();
     }
 
     public GameManager(GameMode gameMode) {
         this.gameMode = gameMode;
+    }
+
+    public void replace(GameManager other) {
+        this.gameMode = other.getGameMode().copy();
+    }
+
+    /**
+     * Makes a copy of the supplied gameManager.
+     */
+    public GameManager copy() {
+        GameMode copyMode = this.gameMode.copy();
+        return new GameManager(copyMode);
+    }
+
+    public GameMode getGameMode() {
+        return this.gameMode.copy();
     }
 
     /**
@@ -29,7 +45,7 @@ public class GameManager {
      * Uncompleted tasks are worth 0XP.
      *
      * @param taskFrom The task to be changed
-     * @param taskTo    The changed task
+     * @param taskTo   The changed task
      * @return Returns the XP the supplied task is worth at present
      */
     public int appraiseXpChange(Task taskFrom, Task taskTo) {
@@ -67,7 +83,7 @@ public class GameManager {
         int low;
         int high;
 
-        switch(newGameDifficultyName) {
+        switch (newGameDifficultyName) {
         case ModeCommand.EASY_MODE:
             period = 1;
             low = 40;
@@ -124,27 +140,20 @@ public class GameManager {
      * Checks if the given game mode name is a valid name.
      */
     public static boolean isValidGameMode(String gameModeName) {
-        if (gameModeName.equals(ModeCommand.FLAT_MODE)) {
+        switch(gameModeName) {
+        case ModeCommand.FLAT_MODE:
+        case ModeCommand.DECREASING_MODE:
+        case ModeCommand.INCREASING_MODE:
+        case ModeCommand.PRIORITY_MODE:
             return true;
+        default:
+            return false;
         }
-
-        if (gameModeName.equals(ModeCommand.DECREASING_MODE)) {
-            return true;
-        }
-
-        if (gameModeName.equals(ModeCommand.INCREASING_MODE)) {
-            return true;
-        }
-
-        if (gameModeName.equals(ModeCommand.PRIORITY_MODE)) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
      * Checks if the supplied string describes a valid game difficulty.
+     *
      * @param gameDifficultyName The proposed game difficulty.
      * @return
      */

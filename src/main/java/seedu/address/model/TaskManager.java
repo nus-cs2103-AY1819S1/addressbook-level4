@@ -73,6 +73,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
         setTasks(newData.getTaskList());
         setAchievements(newData.getAchievementRecord());
+        setGameManager(newData.getGameManager());
     }
 
     //// task list related operation(s)
@@ -332,6 +333,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         AchievementRecord copy = new AchievementRecord();
         copy.resetData(achievements);
         return copy;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager.copy();
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager.replace(gameManager);
     }
 
     @Override

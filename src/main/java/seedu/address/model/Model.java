@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
+import seedu.address.model.game.GameMode;
 import seedu.address.model.task.Task;
 
 /**
@@ -81,6 +82,11 @@ public interface Model {
      * indicating all-time's, today's or this week's achievements are displayed on UI.
      */
     void updateAchievementDisplayOption(int displayOption);
+
+    /**
+     * Gets a copy of the current game mode.
+     */
+    GameMode getGameMode();
 
     /**
      * Updates the current game mode to the new mode specified.

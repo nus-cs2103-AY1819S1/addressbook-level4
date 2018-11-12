@@ -16,6 +16,7 @@ import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
+import seedu.address.model.game.GameMode;
 import seedu.address.model.task.Task;
 
 /**
@@ -66,6 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void clearTaskData() {
         TaskManager taskManagerWithTasksCleared = new TaskManager();
         taskManagerWithTasksCleared.setAchievements(versionedTaskManager.getAchievementRecord());
+        taskManagerWithTasksCleared.setGameManager(versionedTaskManager.getGameManager());
         this.resetData(taskManagerWithTasksCleared);
     }
 
@@ -137,6 +139,12 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.updateAchievementDisplayOption(displayOption);
         indicateTaskManagerChanged();
         indicateAchievementsUpdated();
+    }
+
+    @Override
+    public GameMode getGameMode() {
+        // No violation of Law of Demeter due to copying
+        return versionedTaskManager.getGameManager().getGameMode();
     }
 
     /**
