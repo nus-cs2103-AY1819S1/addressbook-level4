@@ -2174,10 +2174,10 @@ be able to register a new account as the user role feature will only be implemen
 .. Test case: `sort-menu price` +
    *Expected*: Sorts the menu by price. Sorting method shown in status message.
 
-. Giving discount to all item
+. Giving discount to all items in the displayed item list
 .. Prerequisites: You must have at least 1 item in the menu.
 .. Test case: `discount-item ALL dp/20` +
-   *Expected*: Gives all items in the menu a discount. Number of items given a discount shown in status message.
+   *Expected*: Give all items in the displayed item list a discount. Number of items given a discount shown in status message.
 .. Incorrect commands to try: `discount-item -2 dp/20`, `discount-item string dp/20`
 
 . Adding a recipe to an item

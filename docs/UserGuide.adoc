@@ -452,10 +452,10 @@ Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 
 ****
 * ITEM_NAME and ITEM_PRICE must be provided.
-* An item can have any number of tags (including 0).
-* ITEM_NAME should only contain alphanumeric characters and spaces, and it should not be blank.
-* ITEM_PRICE should only contain numbers(no negative), at most 2 decimal place and smaller than or equals to 2,147,483,647.
-* You cannot add items with the same name.
+* An item can have any number of tags (including 0)
+* ITEM_NAME should only contain alphanumeric characters and spaces, and it should not be blank
+* ITEM_PRICE should only contain numbers(no negative), at most 2 decimal place and smaller than or equals to 2,147,483,647
+* You cannot add items with the same name
 ****
 
 Examples:
@@ -469,13 +469,13 @@ Edits an existing item in the menu. +
 Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...`
 
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list.
+* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
-* You can remove all the item's tags by typing `t/` without specifying any tags after it.
-* Editing item price will remove discount given by `discount-item` command.
+* At least one of the optional fields must be provided
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
+* You can remove all the item's tags by typing `t/` without specifying any tags after it
+* Editing item price will remove discount given by `discount-item` command
 ****
 
 Examples:
@@ -491,11 +491,11 @@ Deletes the specified item from the menu. +
 Format: `delete-item-index INDEX [ei/INDEX]`
 
 ****
-* Deletes the item(s) specified by `INDEX`.
-* The index refers to the index number shown in the displayed item list.
+* Deletes the item(s) specified by `INDEX`
+* The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* 1, 2, 3, ...
-* You can delete a range of items by adding the ending index `ei\INDEX`.
-* The ending index can not be smaller than starting index.
+* You can delete a range of items by adding the ending index `ei\INDEX`
+* The ending index can not be smaller than starting index
 ****
 
 Examples:
@@ -513,8 +513,8 @@ Deletes the specified item from the menu. +
 Format: `delete-item-name ITEM_NAME`
 
 ****
-* Deletes the item by the specified `ITEM_NAME`.
-* The ITEM_NAME *must be in the menu*.
+* Deletes the item by the specified `ITEM_NAME`
+* The ITEM_NAME *must be in the menu*
 * ITEM_NAME is case-insensitive. e.g `burger` will match `Burger`
 ****
 
@@ -542,8 +542,8 @@ Selects the item identified by the index number used in the menu. +
 Format: `select-item INDEX`
 
 ****
-* Selects the item and loads the page the item at the specified `INDEX`.
-* The index refers to the index number shown in the displayed item list.
+* Selects the item and loads the page the item at the specified `INDEX`
+* The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -564,7 +564,7 @@ Format: `find-item KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `burger` will match `Burger`
 * The order of the keywords does not matter. e.g. `Cheese Burger` will match `Burger Cheese`
-* Only the name is searched.
+* Only the name is searched
 * Only full words will be matched e.g. `Bur` will not match `Burger`
 * Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Cheese Burger` will return
 `Cheese Burger`, `Cheese Fries` and `Beef Burger`
@@ -585,10 +585,10 @@ Format: `filter-menu KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `burger` will match `Burger`
-* Only filter by tag.
+* Only filter by tag
 * Only full words will be matched e.g. `Bur` will not match `Burger`
 * Items with tags matching at least one keyword will be returned (i.e. `OR` search). e.g. `drinks burger` will return
-items that are tagged with drinks or burger.
+items that are tagged with drinks or burger
 ****
 
 [NOTE]
@@ -608,10 +608,10 @@ Sort the menu by name or price. +
 Format: `sort-menu SORTING_METHOD`
 
 ****
-* Sort the menu by name or price.
+* Sort the menu by name or price
 * `SORTING_METHOD` refers the method to sort menu: name or price
 * Case-insensitive, it can be: `sort-menu name` or `sort-menu NAME`
-* Only one of the sorting method should be provided.
+* Only one of the sorting method should be provided
 ****
 
 Examples:
@@ -628,15 +628,16 @@ Gives the item identified by the index number used in the displayed item list a 
 Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 
 ****
-* Gives the item at the specified `INDEX` a discount based on the percentage.
-* If the item is already on discount, it will update the new discounted price.
-* The index refers to the index number shown in the displayed item list.
+* Gives the item at the specified `INDEX` a discount based on the percentage
+* If the item is already on discount, it will update the new discounted price
+* The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* `1, 2, 3, ...`
-* You can remove discount by typing `0` for the percentage.
-* You can give a discount to the whole menu by typing `ALL`(case-insensitive) instead of a specified `INDEX`.
-* You can give a discount to a range of items by adding the ending index `ei\INDEX`.
-* The ending index can not be smaller than starting index.
-* The percentage should only contain numbers(no negative), and it should be at most 2 digits(no decimal place).
+* You can remove discount by typing `0` for the percentage
+* You can give a discount to all items in the displayed item list by typing ALL(case-insensitive) instead of a
+specified INDEX
+* You can give a discount to a range of items by adding the ending index `ei\INDEX`
+* The ending index can not be smaller than starting index
+* The percentage should only contain numbers(no negative), and it should be at most 2 digits(no decimal place)
 ****
 
 Examples:
