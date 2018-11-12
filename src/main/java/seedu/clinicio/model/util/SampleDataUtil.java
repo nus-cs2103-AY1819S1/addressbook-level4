@@ -77,6 +77,21 @@ public class SampleDataUtil {
                     new Phone("91028233"), new Email("cas@live.com"),
                     new Address("221, Bishan Street 12, #01-12"),
                     getMedicalProblemSet("Diabetes"), getMedicationSet(), getAllergySet(),
+                    getSampleStaffs().get(1)),
+            new Patient(new Name("Dan Levy"), new Nric("S9871235G"),
+                    new Phone("91028233"), new Email("dl@live.com"),
+                    new Address("221, Bishan Street 12, #01-12"),
+                    getMedicalProblemSet("Diabetes"), getMedicationSet(), getAllergySet(),
+                    getSampleStaffs().get(0)),
+            new Patient(new Name("Freddie Mercury"), new Nric("S5143735G"),
+                    new Phone("99126923"), new Email("fmq@queen.com"),
+                    new Address("61, Queen Street"),
+                    getMedicalProblemSet("AIDS"), getMedicationSet(), getAllergySet(),
+                    getSampleStaffs().get(0)),
+            new Patient(new Name("Eddy Kilmer"), new Nric("S7432165J"),
+                    new Phone("92100329"), new Email("ek74@gmail.com"),
+                    new Address("220, Bishan Street 12, #12-65"),
+                    getMedicalProblemSet("Broken Left Leg"), getMedicationSet("Painkiller"), getAllergySet("sand"),
                     getSampleStaffs().get(1))
         };
     }
@@ -90,7 +105,9 @@ public class SampleDataUtil {
                 new Staff(RECEPTIONIST, new Name("Alan Lee"),
                         new Password(HashUtil.hashToString("reception1"), true)),
                 new Staff(RECEPTIONIST, new Name("Frank Tay"),
-                        new Password(HashUtil.hashToString("reception2"), true))));
+                        new Password(HashUtil.hashToString("reception2"), true)),
+                new Staff(RECEPTIONIST, new Name("Mary Jane"),
+                        new Password(HashUtil.hashToString("reception3"), true))));
     }
 
     //@@author aaronseahyh

@@ -29,6 +29,7 @@ public class Analytics {
      * Sets patients for all types of statistics that require it.
      */
     public void setPatients(ObservableList<Patient> patients) {
+        doctorStatistics.setPatients(patients);
         patientStatistics.setPatients(patients);
     }
 

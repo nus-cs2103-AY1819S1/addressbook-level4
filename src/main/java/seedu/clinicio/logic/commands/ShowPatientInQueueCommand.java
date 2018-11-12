@@ -2,6 +2,8 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -23,7 +25,7 @@ public class ShowPatientInQueueCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitClinicIo();
-        model.switchTab(1);
+        EventsCenter.getInstance().post(new SwitchTabEvent(2));
         if (model.hasPatientInPatientQueue()) {
             return new CommandResult(String.format(MESSAGE_SHOW_PATIENTS_IN_QUEUE_SUCCESS));
         } else {

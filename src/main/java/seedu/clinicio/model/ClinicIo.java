@@ -227,7 +227,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     //@@author gingivitiss
-    /**
+    /**enqueue
      * Adds an appointment to the ClinicIO.
      * The appointment must not already exist in the ClinicIO.
      */
@@ -240,7 +240,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
      * Adds a consultation to the address book.
      * The consultation must not already exist in the address book.
      */
-    public void add(Consultation consultation) {
+    public void addConsultation(Consultation consultation) {
         consultations.add(consultation);
     }
 

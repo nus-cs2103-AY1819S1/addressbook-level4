@@ -5,12 +5,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -30,6 +33,7 @@ public class AddApptCommand extends Command {
             + PREFIX_DATE + "dd mm yyyy "
             + PREFIX_TIME + "hh mm "
             + PREFIX_TYPE + "followup "
+            + PREFIX_IC + " IC "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -40,6 +44,7 @@ public class AddApptCommand extends Command {
             + PREFIX_TIME + "16 30 "
             + PREFIX_TYPE + "followup "
             + PREFIX_NAME + "John Doe "
+            + PREFIX_IC + "S9111111E"
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
@@ -68,7 +73,7 @@ public class AddApptCommand extends Command {
         }
         model.addAppointment(toAdd);
         model.commitClinicIo();
-        model.switchTab(2);
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

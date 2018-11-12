@@ -30,19 +30,6 @@ This guide does not assume any prior technical knowledge. Check the <<FAQ>> sect
 ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency.
 You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics. +
 
-As a doctor, you will be able to do the following:
-
-* View patient record
-* Enter patient additional medical information.
-
-As a receptionist, you will be able to do the following:
-
-* Manage patient record
-* Manage clinic queue
-* Manage medicine inventory in the clinic
-* Manage future patient appointment
-* View statistics and export data.
-
 Head to the <<Installation Guide>> to get started on install ClinicIO.
 
 == Installation Guide
@@ -60,10 +47,9 @@ Ensure you have Java version `9` or later installed in your Computer. +
 .  Download the latest `clinicio.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ClinicIO.
 .  Double-click `clinicio.jar` to start the app. You should be able to view the window shown below.
-+
+
+.Startup Window
 image::Ui.png[width="1200"]
-_Figure 1 Startup Window_
-+
 
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -75,14 +61,16 @@ This section is designed to help you familiarise with all of the user component 
 
 Here is an example of how ClinicIO looks like:
 
+.Ui Screen after login.
 image::user-guide-ui-walkthrough-overview.png[width="900"]
 
-It consists of 8 parts: <<#Menu Bar, Menu Bar>>, <<#Command Box, Command Box>>,
-<<#Result Display, Result Display>>, <<#List Panel, List Panel>>,
-<<#Card, Card>>, <<#Display Panel, Display Panel>>
-<<#Sync Status Bar, Sync Status Bar>>, <<#User Session Status Bar, User Session Status Bar>>,
+It consists of 9 parts: <<#Menu-Bar, Menu Bar>>, <<#Command-Box, Command Box>>,
+<<#Result-Display, Result Display>>, <<#Tab-Pane, Tab Pane>>, <<#List-Panel, List Panel>>,
+<<#Card, Card>>, <<#Display-Panel, Display Panel>>
+<<#SSB, Sync Status Bar>>, <<#USSB, User Session Status Bar>>,
 each of the sections is explained as below.
 
+[[Menu-Bar]]
 === Menu Bar
 
 The *Menu Bar* provide you quick access to functions as below.
@@ -95,30 +83,52 @@ Here are the available options currently: +
 
 You can also press F1 to show ClinicIO tutorial.
 
+[[Command-Box]]
 === Command Box
 
 The *Command Box* allow you to enter command input. +
 
+[[Result-Display]]
 === Result Display
 
 The *Result Display* provides you information with regards to the result of the command. +
 
+[[Tab-Pane]]
+=== Tab Pane
+
+The *Tab Pane* provides you with more accessibility to different areas of ClinicIO system. +
+
+.Screenshot of Tab Pane
+image::user-guide-ui-walkthrough-tab-pane.png[width="900"]
+
+There are 4 tabs in the tab pane altogether. The sections are as follow:
+
+. Patient
+. Queue
+. Appointment
+. Medicine
+
+[[List-Panel]]
 === List Panel
 
 The *List Panel* displays a list of objects. +
 
+[[Card]]
 === Card
 
 The *Card* displays the object with minimal information. +
 
+[[Display-Pane]]
 === Display Panel
 
 The *Display Panel* displays the object in detail. +
 
+[[SSB]]
 === Sync Status Bar
 
 The *Sync Status Bar* displays the last updated date and time of any changes to the data. +
 
+[[USSB]]
 === User Session Status Bar
 
 The *User Session Status Bar* displays the current user session. +
@@ -128,6 +138,19 @@ The *User Session Status Bar* displays the current user session. +
 == Features
 
 This section is designed to provide a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.
+
+As a doctor, you will be able to do the following:
+
+* View patient record
+* Enter patient additional medical information.
+
+As a receptionist, you will be able to do the following:
+
+* Manage patient record
+* Manage clinic queue
+* Manage medicine inventory in the clinic
+* Manage future patient appointment
+* View statistics and export data.
 
 ================
 *Command Format*
@@ -148,6 +171,7 @@ Format: `help`
 You will be able to view ClinicIO guide (as below)
 in a new window. +
 
+.Help Window
 image::user-guide-help-window-after.png[width="500"]
 
 ==== Listing entered commands : `history`
@@ -245,10 +269,12 @@ If you have already logged in, you cannot login again. +
 
 Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet (Shown as below):
 
+.User login before
 image::user-guide-login-before.png[width="500"]
 
 Once you have login successfully, the ClinicIO user status will be updated as below:
 
+.User login after
 image::user-guide-login-after.png[width="500"]
 
 Examples:
@@ -257,15 +283,21 @@ Examples:
 
 * `login r/receptionist n/Mary Jane pass/reception3` +
 
-==== Log out of the program : `logout` `[coming in v2.0]`
+==== Log out of the program : `logout`
 
 // tag::loginUser[]
 [WARNING]
-You must login in order to use this feature. +
+You must log-in in order to use this feature. +
 // end::loginUser[]
 
 You can log out of ClinicIO. +
 Format: `logout`
+
+Once you entered the logout command, you will be redirected back to the startup page.
+
+.User logout success
+image::Ui.png[width="500"]
+
 // end::authenticationcommands[]
 
 // tag::patientcommands[]
@@ -280,12 +312,22 @@ Here are the list of commands:
 
 // tag::loginReceptionist[]
 [WARNING]
-You must login as a receptionist in order to use this feature. +
+You must log-in as a receptionist in order to use this feature. +
 // end::loginReceptionist[]
 
 You can add a patient to the clinic record. +
 
 Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [med/MEDICATIONS]... [alrg/ALLERGIES]... [preDr/PREFERRED_DOC]`
+
+You just need to type in the `addpatient` command as shown below:
+
+.Before adding patient
+image::user-guide-addpatient-before.png[width=500]
+
+Then, the new patient will be added to the list as shown below:
+
+.After adding patient
+image::user-guide-addpatient-after.png[width=500]
 
 [TIP]
 A patient can have any number of medical problems, medications, allergies (including 0) +
@@ -348,7 +390,8 @@ Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing t
 
 You can find patients whose names contain any of the given keywords. +
 
-include::UserGuide.adoc[tag=login]
+[WARNING]
+You must login in order to use this feature. +
 
 Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 
@@ -359,6 +402,16 @@ Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
+
+You just need to type in the `findpatient` command as shown below:
+
+.Before finding patient
+image::user-guide-findpatient-before.png[width=500]
+
+Then, any patient that matches the keywords will be displayed as shown below:
+
+.After adding patient
+image::user-guide-findpatient-after.png[width=500]
 
 Examples:
 
@@ -371,9 +424,21 @@ Returns any patient having names `Betsy`, `Tim`, or `John`
 
 You can view a list of all patients in the clinic record. +
 
-include::UserGuide.adoc[tag=loginUser]
+[WARNING]
+You must login in order to use this feature. +
 
 Format: `listpatient`
+
+You just need to type in the `listpatient` command as shown below:
+
+.Before showing all patient
+image::user-guide-listpatient-before.png[width=500]
+
+Then, all patients will be displayed as shown below:
+
+.After showing all patient
+image::user-guide-listpatient-after.png[width=500]
+
 
 ==== Selecting a patient : `selectpatient` `[coming in v2.0]`
 
@@ -579,22 +644,35 @@ Each consultation record consists of the following fields, in order:
 // tag::medicinecommands[]
 === Medicine Inventory Commands
 
-==== Adding a medicine: `add medicine`
+==== Adding a medicine: `addmed`
 
 Adds a medicine to the medicine inventory +
-Format: `add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...`
+
+include::UserGuide.adoc[tag=loginReceptionist]
+
+Format: `addmed mn/MEDICINE_NAME mt/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE mp/PRICE mq/QUANTITY`
 
 [TIP]
-A medicine can have any number of tags (including 0)
+The __lethal dosage__ of a `Medicine` should be more than its __effective dosage__.
 
 Example:
 
-* `add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours`
+* `addmed mn/fedac mt/tablet ed/2 ld/8 mp/0.09 mq/1500`
 
-==== Finding a medicine by name: `find medicine`
+Usage: (refer to screenshots below)
+
+* Enter the command in the correct format to add a medicine to the medicine inventory.
+
+image::before-addmed-command.png[width="500"]
+
+* After successfully entering the command, you will see the newly added medicine in the displayed list of medicines.
+
+image::after-addmed-command.png[width="500"]
+
+==== Finding a medicine by name: `findmed`
 
 Find a medicine in the medicine inventory +
-Format: `find medicine MEDICINE_NAME`
+Format: `findmed MEDICINE_NAME`
 
 ****
 * The search is case insensitive. e.g `ibuprofen` will match `Ibuprofen`
@@ -605,23 +683,100 @@ Format: `find medicine MEDICINE_NAME`
 
 Example:
 
-* `find ibuprofen` +
-Returns `Ibuprofen`
+* `findmed ibuprofen` +
+Returns the details of `Ibuprofen`
 
-==== Removing a medicine by name : `remove medicine`
+==== Listing all medicines: `listmed`
+
+Displays a list of all the medicines in the medicine inventory. +
+Format: `listmed`
+
+Example:
+
+* `listmed`
+
+Usage: (refer to screenshot below)
+
+* After successfully entering the command, you will see a list of medicines in the medicine inventory.
+
+image::listmed-command.png[width="500"]
+
+==== Removing a medicine by index : `deletemed`
 
 Removes the specified medicine from the medicine inventory. +
-Format: `remove medicine MEDICINE_NAME`
+
+include::UserGuide.adoc[tag=loginReceptionist]
+
+Format: `deletemed INDEX`
 
 ****
-* The medicine name is case insensitive.
-* Medicine with the matching name will be removed.
+The medicine with the matching index in the displayed list of medicines will be removed.
 ****
 
 Example:
 
-* `remove medicine Paracetemol` +
-Removes the Paracetemol entry from the medicine inventory.
+* `listmed` +
+Displays list of medicines in the medicine inventory.
+* `deletemed 1` +
+Removes the first entry in the list of medicines.
+
+Usage: (refer to screenshots below)
+
+* Enter the command in the correct format to remove a medicine from the medicine inventory.
+
+image::before-deletemed-command.png[width="500"]
+
+* After successfully entering the command, you will see the updated displayed list of medicines without the removed medicine.
+
+image::after-deletemed-command.png[width="500"]
+
+==== Selecting a medicine by index : `selectmed`
+
+Selects the specified medicine in the displayed list of medicines. +
+Format: `selectmed INDEX`
+
+****
+The medicine with the matching index in the displayed list of medicines will be selected.
+****
+
+Example:
+
+* `listmed` +
+Displays a list of medicines in the medicine inventory.
+* `selectmed 3` +
+Selects the third entry in the list of medicines.
+
+==== Increasing quantity of a medicine : `increasemed` `[coming in v2.0]`
+
+Increases the quantity of the specified medicine in the displayed list of medicines. +
+Format: `increasemed INDEX mq/QUANTITY`
+
+****
+The quantity of the medicine with the matching index in the displayed list of medicines will be increased.
+****
+
+Example:
+
+* `listmed` +
+Displays a list of medicines in the medicine inventory.
+* `increasemed 3 mq/500` +
+Increase the quantity of the third entry in the list of medicines by 500 units.
+
+==== Decreasing quantity of a medicine : `decreasemed` `[coming in v2.0]`
+
+Decreases the quantity of the specified medicine in the displayed list of medicines. +
+Format: `decreasemed INDEX mq/QUANTITY`
+
+****
+The quantity of the medicine with the matching index in the displayed list of medicines will be decreased.
+****
+
+Example:
+
+* `listmed` +
+Displays a list of medicines in the medicine inventory.
+* `decreasemed 2 mq/10` +
+Decrease the quantity of the second entry in the list of medicines by 10 units.
 // end::medicinecommands[]
 
 // tag::appointmentcommands[]
@@ -735,8 +890,8 @@ e.g.`selectpatient 2`
 
 === Queue Commands
 
-* *Show patients in the queue* : `queue` +
-e.g. `queue`
+* *Show patients in the queue* : `showqueue` +
+e.g. `showqueue`
 * *Enqueue a patient* : `enqueuepatient INDEX` +
 e.g. `enqueuepatient 3`
 * *Remove a patient from the queue* : `dequeuepatient INDEX` +
@@ -754,16 +909,22 @@ e.g. `dequeuepatient 4`
 
 === Medicine Inventory Commands
 
-* *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
-e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
-* *Delete Medicine* : `deletemedicine MEDICINE_NAME` +
-e.g. `deletemedicine Paracetamol`
-* *Find Medicine* : `findmedicine MEDICINE_NAME` +
-e.g. `findmedicine Paracetamol`
-* *Increase Medicine Quantity* : `increasemedicine m/MEDICINE_NAME q/QUANTITY` +
-e.g. `increasemedicine m/Paracetamol q/500`
-* *Decrease Medicine Quantity* : `decreasemedicine m/MEDICINE_NAME q/QUANTITY` +
-e.g. `decreasemedicine m/Paracetamol q/20`
+* *Add Medicine* : `addmed mn/MEDICINE_NAME mt/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE mp/PRICE mq/QUANTITY` +
+e.g. `addmed mn/Paracetamol mt/tablet ed/2 ld/8 mp/0.05 mq/1000`
+* *Find Medicine* : `findmed MEDICINE_NAME` +
+e.g. `findmed Paracetamol`
+* *List Medicine* : `listmed` +
+e.g. `listmed`
+* *Delete Medicine* : `deletemed INDEX` +
+e.g. `deletemed 1`
+* *Select Medicine* : `selectmed INDEX` +
+e.g. `selectmed 3`
+* *Increase Medicine Quantity* : `increasemed INDEX mq/QUANTITY` +
+`[coming in v2.0]` +
+e.g. `increasemed 3 mq/500`
+* *Decrease Medicine Quantity* : `decreasemed INDEX mq/QUANTITY`
+`[coming in v2.0]` +
+e.g. `decreasemed 2 mq/20`
 
 === Appointment Commands
 * *Add Appointment* : `addappt [d/DATE] [tm/TIME] [tp/TYPE] [ic/NRIC] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +

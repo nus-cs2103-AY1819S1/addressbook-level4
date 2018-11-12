@@ -4,7 +4,9 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.Messages;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
@@ -17,12 +19,9 @@ public class ListApptCommand extends Command {
     public static final String COMMAND_WORD = "listappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all appointments that lands on "
-            + "the specified date (case-insensitive) and displays them as a list "
-            + "with index numbers in chronological order.\n"
+            + "the specified date (case-insensitive) and displays them as a list.\n"
             + "Parameters: dd mm yyyy\n"
             + "Example: " + COMMAND_WORD + " 12 12 2012";
-
-    public static final String MESSAGE_SUCCESS = "Listed all appointments";
 
     private final AppointmentContainsDatePredicate predicate;
 
@@ -34,6 +33,7 @@ public class ListApptCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(predicate);
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(
                 String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
                         model.getFilteredAppointmentList().size()));
