@@ -253,38 +253,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:CalendarModel[]
-=== Calendar Model
-==== Implementation
-
-The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
-
-`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the calendar, such as the title, description, start and end date/time, venue and tags.
-
-`Title`, `Description` and `Venue` now inherit from a `TextField` parent class, to represent fields in the model that store string data.
-
-`DateTime` stores and validates the input start and end date/time of each event in the calendar.
-
-`DateTimeInfo` validates that the start date/time are not after the end date/time.
-
-`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
-New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
-
-Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
-
-Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
-
-Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
-
-Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
-
-Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
-
-Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
-
-Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the calendar GUI.
-// end::CalendarModel[]
-
 // tag::ToDoList[]
 === ToDoList feature
 ==== Current implementation
@@ -524,6 +492,40 @@ In order to implement this feature, we could create a new class specifically to 
 
 // end::FuzzySearch[]
 
+// tag::CalendarModel[]
+=== Calendar Model
+==== Implementation
+
+The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
+
+`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the
+calendar, such as the title, description, start and end date/time, venue and tags.
+
+`Title`, `Description` and `Venue` now inherit from a `TextField` parent class, to represent fields in the model that
+store string data.
+
+`DateTime` stores and validates the input start and end date/time of each event in the calendar.
+
+`DateTimeInfo` validates that the start date/time are not after the end date/time.
+
+`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
+New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
+
+Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
+
+Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
+
+Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
+
+Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
+
+Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
+
+Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
+
+Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the calendar GUI.
+// end::CalendarModel[]
+
 // tag::calendardisplay[]
 === Calendar Display
 
@@ -682,7 +684,7 @@ containing the target date.
 display the specified date and time.
 // end::calendardisplay[]
 
-// tag::parsing
+// tag::parsing[]
 === SchedulerParser
 
 ==== Current Implementation
@@ -700,8 +702,7 @@ identified by two words. Some commands such as `help` and `exit` are not specifi
 
 One other alternative is to keep the commands to one word and split these words by a delimiter such as a dash (`-`) e
 .g. `add-event`. However this is assumed to be less natural to the end user.
-
-// end::parsing
+// end::parsing[]
 
 // tag::undoredo[]
 === Undo/Redo feature
