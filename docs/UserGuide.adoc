@@ -17,23 +17,18 @@ endif::[]
 By: `Nus School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-
-Office Assistance Specialized Integration System (OASIS) is for users who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves. More importantly, OASIS is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, OASIS can get your employee management tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quickstart” to get started. Enjoy!
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management. Sounds good? Jump to Section 2, <<Quick Start, Quickstart>> to get started. Enjoy!
 
 === An Introduction to OASIS
-The image shown below highlights the difference sections of OASIS's user interface:
+The image shown below highlights the different sections of OASIS's user interface:
 
 image::introToOASIS.png[width="900"]
 
 === Symbols used in this guide
 [NOTE]
-====
 Denotes something that you may want to take note of.
-====
 [WARNING]
-====
 Denotes a warning for something critical.
-====
 
 // tag::quickstart-begin[]
 == Quick Start
