@@ -147,10 +147,12 @@ public interface Model {
      */
     void updateFilteredGroupList(Predicate<Group> predicate);
 
+    // @@author betakuwe
     /**
      * @return An unmodifiable view of the sorted person list
      */
     ObservableList<Person> getSortedPersonList();
+    // @@author
 
     /**
      * Sets meeting field of {@code group} in the group list to {@code meeting}.
@@ -173,11 +175,13 @@ public interface Model {
      */
     ObservableList<Meeting> getFilteredMeetingList();
 
+    // @@author betakuwe
     /**
      * Updates the sorting of the sorted person list to sort by the given {@code comparator}.
      * @param personPropertyComparator The comparator to sort the list by.
      */
     void updateSortedPersonList(PersonPropertyComparator personPropertyComparator);
+    // @@author
 
     /**
      * Returns true if the model has previous MeetingBook states to restore.

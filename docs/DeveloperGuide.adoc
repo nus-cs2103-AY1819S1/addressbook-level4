@@ -356,7 +356,7 @@ that exist in this MeetingBook. The commands thus modify and update this list of
 // tag::join/leave[]
 === Join and Leave feature
 The Join and Leave commands modify the relationship between groups existed in the `UniqueGroupList` and
-people in the `UniquePersonList` maintained by `versionedMeetingBook. This section provides description of the usage
+people in the `UniquePersonList` maintained by `versionedMeetingBook`. This section provides description of the usage
 and implementation of these commands.
 
 ==== `join` command usage
@@ -496,26 +496,6 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 ** Pros: This design is easier to use when the number of groups is high.
 ** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.
 // end::meeting[]
-
-// tag::meetingbook[]
-=== MeetingBook feature
-
-==== Current Implementation
-
-.The object diagram of MeetingBook
-image::addressbookObject.png[width="350"]
-
-*Enhancements:*
-
-* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
-* `Group` can be created or removed from the MeetingBook.
-* `Meeting` can be scheduled or cancelled from the MeetingBook.
-* When a `Group` is removed from the MeetingBook, all members will be removed from this group.
-* When a `Person` is removed from the MeetingBook, all groups containing this person as member will remove this person from the group.
-
-[NOTE]
-The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
-// end::meetingbook[]
 
 // tag::sortfind[]
 === Sort and Find feature
@@ -715,17 +695,19 @@ Step 1. The user launches the application. `ModelManager` will be initialized wi
 without filter.
 
 Step 2. The user executes `list` command with additional parameter to specify the list to show all items. Available
-parameters are `person`, `meeting` and `group`, or their shorthand equivalent `p`, `m` and `g`. `ListCommandParser`
-parses the command to determine the list type, and the command executes the following steps:
+parameters are `person`, `meeting`, `group` and `all`, or their shorthand equivalent `p`, `m`, `g` and `a`.
+`ListCommandParser` parses the command to determine the list type, and the command executes the following steps:
 
 * Step 2.1. If the parameter is `group` / `g`, `Model#updateFilteredGroupList` is called with
 `PREDICATE_SHOW_ALL_GROUPS` to remove any filters applied to `UniqueGroupList`.
 
-* Step 2.1. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
+* Step 2.2. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
 `PREDICATE_SHOW_ALL_MEETINGS` to remove any filters applied to `UniqueMeetingList`.
 
-* Step 2.1. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
+* Step 2.3. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
 `PREDICATE_SHOW_ALL_PERSONS` to remove any filters applied to `UniquePersonList`.
+
+* Step 2.4. If the parameter is `all` / `a` / empty, steps 2.1., 2.2. and 2.3. will be executed.
 
 [NOTE]
 List will remain unchanged if it does not have any filters applied before executing `list` command.
@@ -763,19 +745,19 @@ The program will raise a `MeetingBookExportEvent` to `EventCenter`. `StorageMana
 This method will then attempt to export the data as a XML file using `Model#exportMeetingBook`.
 
 ===== Export to a XML file
-Translation from MeetingBook to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
+The translation from MeetingBook to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
 As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into Java Architecture for XML Binding (JAXB)-friendly version before it can be successfully saved.
 ``Object``s are modelled using their respective `XMLAdapted` classes which contain directions for it to parse into JAXB-friendly version. `Marshal` Object will then marshal all the JAXB-friendly version of `Person`, `Meeting`, `Group` and assemble it into a XML file.
 
 .Class diagram of XmlAdapted classes and their associations
-image::xmlAdaptedClassDiagram.png[]
+image::xmlAdaptedMarshalDiagram.png[]
 
 ==== Design Consideration
 
 ===== Aspect: Make export undoable
 * **Alternative 1 (current choice):** Does not allow it to be undo.
 ** Pros: Easy to implement and verify if the command is executed successfully.
-** Cons: User have to manually navigate through the directory to delete the XML file to achieve the same result as undoing the command.
+** Cons: Hard for the user as the user have to manually navigate through the directory to delete the XML file to achieve the same result as undoing the command.
 
 * **Alternative 2: ** Allow it to be undoable.
 ** Pros: Allow user to undo the command.
@@ -790,33 +772,122 @@ These scenarios create unnecessary complications when we want to attempt undoing
 
 // tag::import[]
 === Import feature
-==== Current Implementation
+==== Current implementation
 ===== Overview
 The import command allow the user to import a XML file containing of MeetingBook data into his MeetingBook.
 This is facilitated by is facilitated by `ImportCommand`. `ImportCommandParser` is responsible for parsing the input arguments.
 The end result of this command is entries of `Person`, `Group`, `Meeting` added into the current MeetingBook.
 
 ===== Import from XML file
-Translation from XML formatted file to `MeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
+The translation from XML formatted file to `MeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
 As MeetingBook consists `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted back into Java Architecture for XML Binding (JAXB)-friendly version before it can then modelled into its respective classes (i.e. `xmlAdaptedPerson` modelled back into `Person` object).
 Each ``Object``s has their respective `XMLAdapted` class which contain directions to model back from JAXB-friendly version . `Unmarshal` Object is solely responsible for disassemble the XML file into  JAXB-friendly versions of `Person`, `Meeting`, `Group`, which will then be feed as parameters to create another instance of `MeetingBook`.
 The imported `MeetingBook` will then merge with the current `MeetingBook` using `MeetingBook#merge`.
 
 .Class diagram of XmlAdapted classes and their associations
-image::xmlAdaptedClassDiagram.png[]
+image::xmlAdaptedUnmarshalDiagram.png[]
+
+==== Handling of conflicting entries
+The default behavior of handling conflicting entries is to ignore any conflicting entries. However, user can choose to change this behavior to overwrite any conflicting entries using `--force` option when entering the command.
+An example of the command set to the overwriting behaviour is `import --force f/backup.xml`.
+
+The code snippet below showcase how MeetingBook toggle between the behaviour.
+[source, java]
+----
+public void merge(ReadOnlyMeetingBook imported, boolean overwrite) {
+    // If Both book contains same entries
+    if (equals(imported)) {
+        return;
+    }
+    if (imported instanceof MeetingBook) {
+        MeetingBook importedBook = (MeetingBook) imported;
+        Iterator<Person> personItr = importedBook.persons.iterator();
+        while (personItr.hasNext()) {
+            Person importPerson = personItr.next();
+            if (!hasPerson(importPerson)) {
+                addPerson(importPerson);
+            } else {
+                if (overwrite) {
+                    Person samePerson = getPersonByName(importPerson.getName());
+                    updatePerson(samePerson, importPerson);
+                }
+            }
+        }
+
+      // ... Do likewise for group...
+
+    }
+}
+----
+
+
+==== Handling of irrelevant imported data
+
+The behaviour when importing data that is incorrectly formatted differs on where the incorrect data detected. If the data imported is wrong in entirety, `DataConversionException` is thrown and the error message, "Data file provided is not in the correct format." is shown to the user.
+
+However, when a XML file which is valid yet incorrectly formatted (e.g. `persons` stored in `groups` is not stored also in `persons`), the `persons` inside the `members` tag of the XML file is ignored. This removes and prevents the addition of the association between `Person` and `Group` to the current MeetingBook.
+
+Also, when `--force` is not used in the command and integrating the imported groups into the current MeetingBook, the `persons` inside the `members` tag may not be available in the current MeetingBook. The behaviour to handle this situation is the same as how it handles valid yet incorrectly formatted XML.
+
+.Example of correctly Formatted XML file.
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<meetingbook>
+    <persons>
+        <name>Alex Yeoh</name>
+        // Meeting info..
+    </persons>
+    <groups>
+        <title>CS2101</title>
+        <meeting>
+            // Meeting info...
+        </meeting>
+        <members>
+            <name>Alex Yeoh</name>
+            // Person info...
+        </members>
+    </groups>
+</meetingbook>
+----
+<1> The `Person` is available as it is also contained as `persons` in this XML file  as well as in `members`.
+
+.Example of Incorrectly Formatted XML file where Unknown Person contained inside Group
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<meetingbook>
+    <persons>
+        <name>Alex Yeoh</name>
+        // Person info...
+    </persons>
+    <groups>
+        <title>CS2101</title>
+        <meeting>
+          // Meeting info...
+        </meeting>
+        <members>
+            <name>Incorrect User</name> <!--1-->
+            // Person info
+        </members>
+    </groups>
+</meetingbook>
+----
+<1> The `Person` is not available as is not contained as `persons` in this XML file but only in `members`.
 
 ==== Design Consideration
-===== Aspect: Handling of conflict files
-* **Alternative 1 (current choice):** Either ignore or overwrite conflicting files.
+===== Aspect: Handling of conflict entries
+* **Alternative 1 (current choice):** Either ignore or overwrite conflicting entries.
 *** Pros: Easy to handle conflicting cases.
 *** Cons: Loss of data as information is destroyed or lost when importing.
 When we choose to ignore, we lose data from the XML file as they are not imported in.
-If we were to overwrite conflicting files, we lose information in our current MeetingBook as they are overwritten by the imported data.
+If we were to overwrite conflicting entries, we lose information in our current MeetingBook as they are overwritten by the imported data.
 * **Alternative 2:**  Append an arbitrary number to the name of `Person`/`Group`.
 *** Pros: No loss of data when importing.
 *** Cons: End up with lots of data with arbitrary number appended to it.
 This may cause confusion to the user as there is many similar entries of the `Person`/`Group` object only to  be differ by an arbitrary number.
 This will also cause `find` command to not work as expected. `find` command currently matches exact search term and the arbitrary number appended cause it to no longer match the name of the `Object`.
+
 // end::import[]
 
 // tag::dataencryption[]

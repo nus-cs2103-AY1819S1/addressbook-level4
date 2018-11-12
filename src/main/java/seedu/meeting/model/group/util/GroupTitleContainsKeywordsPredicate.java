@@ -6,7 +6,7 @@ import java.util.function.Function;
 import seedu.meeting.model.group.Group;
 import seedu.meeting.model.util.EntityContainsKeywordsPredicate;
 
-// @@author jeffreyooi
+// @@author betakuwe
 /**
  * Tests that a {@code Group}'s {@code Title} matches any of the keywords given.
  */
