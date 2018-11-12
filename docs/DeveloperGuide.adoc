@@ -1857,23 +1857,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Modify permission of an employee
+
+. Add or remove employee's permission using `modifypermission` command while active persons are listed
+
+.. Adding one permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `ADD_EMPLOYEE`.
+
+... Test case: `modifypermission 1 -a ADD_EMPLOYEE` +
+Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE`+
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Removing multiple permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with `DELETE_EMPLOYEE` and `EDIT_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -r DELETE_EMPLOYEE -r EDIT_EMPLOYEE` + 
+Expected: DELETE_EMPLOYEE & EDIT_EMPLOYEE permission is removed from employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Adding and removing permission
+
+... Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 with only `ADD_EMPLOYEE` permission.
+
+... Test case: `modifypermission 1 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE` +
+Expected: Employee at index 1 only has `DELETE_EMPLOYEE` permission. List of updated permission shown in status message. Timestamp in status bar is updated.
+
+.. Incorrect `modifypermission` commands to try:
+
+... `modifypermission 1 -a INVALID_PERMISSION`, `modifypermission 1 -a DELETE_EMPLOYEE -r INVALID_PERMISSION` + 
+Expected: Status message shows that permission name is invalid.
+... `modifypermission`, `modifypermission -a DELETE_EMPLOYEE -a EDIT_EMPLOYEE` + 
+Expected: Status message shows that the command format is invalid.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-=== Modify permission of an employee
-
-. Modify permission of an employee while active persons are listed
-
-.. Prerequisites: Logged in as a user with `ASSIGN_PERMISSION` permission. List all persons using the `active` command. At least one person in the list. Employee at index 1 without any permission.
-
-..Test case: `modifypermission 1 -a ADD_EMPLOYEE`
-Expected: ADD_EMPLOYEE permission is granted to employee at index 1. List of updated permission shown in status message. Timestamp in status bar is updated.
-
-.. Test case: 
-
-... `modifypermission 1 -a ADD_EMPLOYEE`
-... `modifypermission 1 -a DELETE_EMPLOYEE -r ADD_EMPLOYEE`
-Expected: 
