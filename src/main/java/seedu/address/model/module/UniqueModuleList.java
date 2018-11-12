@@ -66,7 +66,7 @@ public class UniqueModuleList implements Iterable<Module> {
 
     //@@author waytan
     /**
-     * Makes an copy of this UniqueModuleList with shallow copies of the modules inside.
+     * Makes a copy of this UniqueModuleList with shallow copies of the modules inside.
      */
     public UniqueModuleList makeShallowDuplicate() {
         List<Module> newList = this.internalList.stream()

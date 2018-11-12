@@ -39,7 +39,7 @@ public class Semester {
     /**
      * Makes an identical deep copy of this Semester.
      */
-    public Semester makeDeepDuplicate() {
+    public Semester makeCopy() {
         if (semesterNumber.equals("")) {
             return new Semester();
         }

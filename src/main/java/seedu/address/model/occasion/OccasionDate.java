@@ -42,7 +42,7 @@ public class OccasionDate {
     /**
      * Make an identical deep copy of this OccasionDate.
      */
-    public OccasionDate makeDeepDuplicate() {
+    public OccasionDate makeCopy() {
         if (this.fullOccasionDate.equals("")) {
             return new OccasionDate();
         }

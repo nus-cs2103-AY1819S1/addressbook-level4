@@ -49,7 +49,7 @@ public class ModuleTitle {
     /**
      * Makes an identical deep copy of this ModuleTitle.
      */
-    public ModuleTitle makeDeepDuplicate() {
+    public ModuleTitle makeCopy() {
         if (fullModuleTitle.equals("")) {
             return new ModuleTitle();
         }

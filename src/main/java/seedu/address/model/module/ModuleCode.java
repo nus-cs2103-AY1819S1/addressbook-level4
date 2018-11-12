@@ -41,7 +41,7 @@ public class ModuleCode {
     /**
      * Makes an identical deep copy of this ModuleCode.
      */
-    public ModuleCode makeDeepDuplicate() {
+    public ModuleCode makeCopy() {
         ModuleCode newCode = new ModuleCode(new String(fullModuleCode));
         return newCode;
     }

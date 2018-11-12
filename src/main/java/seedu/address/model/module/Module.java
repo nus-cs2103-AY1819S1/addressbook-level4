@@ -112,12 +112,12 @@ public class Module {
      * Makes an identical deep copy of this module.
      */
     public Module makeDeepDuplicate() {
-        ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
-        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicate();
-        AcademicYear newYear = this.academicYear.makeDeepDuplicate();
-        Semester newSem = this.semester.makeDeepDuplicate();
+        ModuleCode newCode = this.moduleCode.makeCopy();
+        ModuleTitle newTitle = this.moduleTitle.makeCopy();
+        AcademicYear newYear = this.academicYear.makeCopy();
+        Semester newSem = this.semester.makeCopy();
         UniquePersonList newList = this.students.makeDeepDuplicate();
-        Set<Tag> newTag = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        Set<Tag> newTag = this.tags.stream().map(value -> value.makeCopy()).collect(Collectors.toSet());
         return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
     }
 
@@ -126,12 +126,12 @@ public class Module {
      * Makes an identical copy of this module with an empty person list.
      */
     public Module makeShallowDuplicate() {
-        ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
-        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicate();
-        AcademicYear newYear = this.academicYear.makeDeepDuplicate();
-        Semester newSem = this.semester.makeDeepDuplicate();
+        ModuleCode newCode = this.moduleCode.makeCopy();
+        ModuleTitle newTitle = this.moduleTitle.makeCopy();
+        AcademicYear newYear = this.academicYear.makeCopy();
+        Semester newSem = this.semester.makeCopy();
         UniquePersonList newList = new UniquePersonList();
-        Set<Tag> newTag = this.tags.stream().map(value -> value.makeDeepDuplicate()).collect(Collectors.toSet());
+        Set<Tag> newTag = this.tags.stream().map(value -> value.makeCopy()).collect(Collectors.toSet());
         return new Module(newCode, newTitle, newYear, newSem, newList, newTag);
     }
 

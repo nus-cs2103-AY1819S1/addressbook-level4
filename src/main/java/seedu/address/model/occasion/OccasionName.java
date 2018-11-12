@@ -43,7 +43,7 @@ public class OccasionName {
     /**
      * Makes an identical deep copy of this OccasionName.
      */
-    public OccasionName makeDeepDuplicate() {
+    public OccasionName makeCopy() {
         OccasionName newName = new OccasionName(new String(fullOccasionName));
         return newName;
     }
