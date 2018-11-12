@@ -847,10 +847,63 @@ Because of the volatile nature of the data (it can change when attributes of eve
 Instead, whenever the `OverviewPanel` UI class detects an `OverviewPanelChangedEvent`, it calls on the `Overview` to provide it with updated statistics.
 
 The figure below is the sequence diagram to show how the `overview` command works when running from the 'event' context.
+Note that the `OverviewPanel` calls the calculateNumOfEvents and calculateVolunteerDemographics methods in `Overview` class.
 
-.Simplified sequence diagram for manage command
-image::command_overview_sd.png[manage SD, 800]
+.Simplified sequence diagram for `overview` command
+image::command_overview_sd.png[overview SD, 800]
 
+In the calculateNumOfEvents method, events are categorised into 3 events types:
+
+* Upcoming (events that have yet to happen).
+* Ongoing (events that are currently happening).
+* Completed (events that have already happened).
+
+The categorisation process can be found in the `DateTimeUtil` class in the getEventStatus method.
+The start to end period of each event is compared with the current date and time to determine its category.
+This behaviour is illustrated in the code snippet below.
+
+``` Java
+public static int getEventStatus(Date startDate, Time startTime, Date endDate, Time endTime) {
+    ...
+    //build start from startDate and startTime
+    java.util.Date start = inf.parse(startDate + " " + startTime);
+
+    //build end from endDate and endTime
+    java.util.Date end = inf.parse(endDate + " " + endTime);
+
+    if (now.compareTo(start) < 0) {
+        return UPCOMING_EVENT;
+    } else if (now.compareTo(start) >= 0 && now.compareTo(end) <= 0) {
+        return ONGOING_EVENT;
+    } else {
+        return COMPLETED_EVENT;
+    }
+    ...
+}
+```
+
+In the calculateVolunteerDemographics method, the ages of volunteers are derived from their birthdates instead of being stored in the system.
+
+===== Design considerations
+
+====== Aspect: How statistics are aggregated
+* **Alternative 1 (current choice):** Calculate statistics from scratch using existing volunteers and events
++
+[cols="1,10"]
+|===
+|Pros| No need to store and maintain volatile statistical data.
+|Cons| Requires heavier processing every time statistics are aggregated.
+|===
++
+
+* **Alternative 2:** Store and maintain statistics after each operation
++
+[cols="1,10"]
+|===
+|Pros| No need for heavy computation as a result of building statistics from scratch.
+|Cons| Have to propagate changes to statistical data after changes to volunteers and events.
+|===
++
 
 
 
