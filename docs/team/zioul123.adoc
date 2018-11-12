@@ -28,7 +28,7 @@
 * *Other contributions*:
 
 ** Project management:
-*** Managed release `v1.3.1` on GitHub
+*** Managed release `v1.2` and `v1.3.1` on GitHub
 ** Enhancements to existing features:
 *** Add a display for the number of people in InsuRen on the status bar (Pull request https://github.com[#8])
 *** Change aesthetics and add text wrapping to Person Cards (Pull request https://github.com[#4])
@@ -47,9 +47,7 @@
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=editByName]
-
-include::../UserGuide.adoc[tag=deleteByName]
+include::../UserGuide.adoc[tag=byNameCommands]
 
 == Contributions to the Developer Guide
 
