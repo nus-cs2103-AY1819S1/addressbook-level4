@@ -652,11 +652,11 @@ Format: `logout`
 
 2+|*Manage Attractions*
 
-|*Add* |`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
-  e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+|*Add* |`add <n/attraction>` `<m/maintenance>` `<w/waitTime>` `<z/zone>` `[t/tag(s)]` +
+  e.g. add n/Mummy m/3 w/45 z/311, Clementi Ave 2, #02-25 t/3D t/indoor
 |*Delete* |`delete <index>` +
   e.g. delete 3
-|*Update* |`update <index> <tag> <value>`
+|*Update* |`update <index> <prefix/value>`
 |*Shutdown* |`shutdown <index>`
 |*Open* |`open <index>`
 |*Maintain* |`maintain <index>`
