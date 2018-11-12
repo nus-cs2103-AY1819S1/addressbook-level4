@@ -171,7 +171,7 @@ Examples:
 // tag::archive[]
 === To view deleted employee archive : `archive`
 
-Displays all active employees in OASIS.
+Displays all archived employees in OASIS.
 
 [NOTE]
 Archived employees will remain in archive list until they are restored which will send it back to the active list or deleted from archive which will erase all selected employee data completely.
@@ -183,6 +183,7 @@ Format: `archive`
 ****
 
 Type in `archive` command in the command box at the top of the application and hit enter, you will be shown the following screen shown below:
+
 image:archiveUserGuide.png[width=800]
 
 // end::archive[]
@@ -190,7 +191,7 @@ image:archiveUserGuide.png[width=800]
 // tag::restore[]
 === To restore employee to active list : `restore`
 
-Adds the restored employee to the active list and remove the employee from the archive list.
+Adds the restored employee to the active list and removes the employee from the archive list.
 
 Format: `restore INDEX`
 
@@ -207,9 +208,11 @@ Examples:
 Sample output when `restore 2` command is executed show below:
 
 * Step 1: Type `archive` command in the command box on the top of the application and click enter. You will be taken to the archive list shown below:
+
 image:restoreUserGuide1.png[width=800]
 
 * Step 2: Type `restore 2` command in the same command box as Step 1 and you will see the following output on your screen:
+
 image:restoreUserGuide2.png[width=800]
 // end::restore[]
 
