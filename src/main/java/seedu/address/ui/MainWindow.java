@@ -34,12 +34,16 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private GraphPanel graphPanel;
     private StudentListPanel studentListPanel;
     private EventListPanel eventListPanel;
-    private MarkListPanel markListPanel;
+    private GroupListPanel groupListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+
+    @FXML
+    private StackPane graphPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,7 +55,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane studentListPanelPlaceholder;
 
     @FXML
-    private StackPane markListPanelPlaceholder;
+    private StackPane groupListPanelPlaceholder;
 
     @FXML
     private StackPane eventListPanelPlaceholder;
@@ -123,14 +127,18 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
+        graphPanel = new GraphPanel();
+        graphPlaceholder.getChildren().add(graphPanel.getRoot());
+
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
-        markListPanel = new MarkListPanel(logic.getFilteredMarkList());
-        markListPanelPlaceholder.getChildren().add(markListPanel.getRoot());
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupList());
+        groupListPanelPlaceholder.getChildren().add(groupListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -193,6 +201,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+
 
     public StudentListPanel getStudentListPanel() {
         return studentListPanel;

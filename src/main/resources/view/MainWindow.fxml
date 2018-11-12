@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.TilePane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="900" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -47,12 +48,14 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="markList" minWidth="120" prefWidth="120" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="markListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+            <VBox fx:id="groupList" minWidth="320" prefWidth="320" SplitPane.resizableWithParent="false" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="groupListPanelPlaceholder" VBox.vgrow="ALWAYS" minHeight="240"/>
+              <StackPane fx:id="graphPlaceholder" minWidth="300" prefWidth="300" maxWidth="300" VBox.vgrow="ALWAYS" />
+            </VBox>
+
 
           <VBox fx:id="studentList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>

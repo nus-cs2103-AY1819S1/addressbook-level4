@@ -16,11 +16,12 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EmailCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GraphCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.TagCommand;
-import seedu.address.logic.commands.mark.MarkCommand;
+import seedu.address.logic.commands.group.GroupCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -102,11 +103,15 @@ public class AddressBookParser {
         case CancelCommand.COMMAND_WORD:
             return new CancelCommandParser().parse(arguments);
 
-        case MarkCommand.COMMAND_WORD:
-            return new MarkCommandParser().parse(arguments);
+        case GroupCommand.COMMAND_WORD:
+        case GroupCommand.ALIAS:
+            return new GroupCommandParser().parse(arguments);
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
+
+        case GraphCommand.COMMAND_WORD:
+            return new GraphCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

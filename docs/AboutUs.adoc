@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Preethi Devarajan
 image::preethi-d.png[width="150", align="left"]
-{empty}[http://github.com/preethi-d[github]]
+{empty}[http://github.com/preethi-d[github]][https://cs2103-ay1819s1-w13-3.github.io/main/team/preethi-d.html[Project Portfolio]]
 
 Role: Team lead +
 Responsibilities: Deliverables and deadlines
@@ -20,16 +20,16 @@ Responsibilities: Deliverables and deadlines
 
 === Andrew Tan
 image::andrewtanjs.png[width="150", align="left"]
-{empty}[https://github.com/andrewtanJS[github]]
+{empty}[https://github.com/andrewtanJS[github]][https://cs2103-ay1819s1-w13-3.github.io/main/team/andrewtanjs.html[Project Portfolio]]
 
-Role: Integration +
+Role: Integration, Project Management +
 Responsibility: Git Expert
 
 '''
 
 === Cyrus Guo
 image::cyrusguo.png[width="150", align="left"]
-{empty}[http://github.com/cyrusguo[github]]
+{empty}[http://github.com/cyrusguo[github]][https://cs2103-ay1819s1-w13-3.github.io/main/team/cyrusguo.html[Project Portfolio]]
 
 Role: Scheduling and tracking +
 Responsibilities: Security Expert
@@ -39,7 +39,7 @@ Responsibilities: Security Expert
 
 === Yip Seun Yuen
 image::alyip98.png[width="150", align="left"]
-{empty}[http://github.com/alyip98[github]]
+{empty}[http://github.com/alyip98[github]][https://cs2103-ay1819s1-w13-3.github.io/main/team/alyip98.html[Project Portfolio]]
 
 Role: Developer +
 Responsibilities: Code quality
@@ -48,7 +48,7 @@ Responsibilities: Code quality
 
 === Yogusvi Tewari +
 image::yogtew.png[width="150", align="left"]
-{empty}[http://github.com/yogtew[github]]
+{empty}[http://github.com/yogtew[github]][https://cs2103-ay1819s1-w13-3.github.io/main/team/yogtew.html[Project Portfolio]]
 
 Role: Developer +
 Responsibilities: Documentation

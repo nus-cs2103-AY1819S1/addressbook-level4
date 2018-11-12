@@ -163,7 +163,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `StatusBarFooter`, `EventListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `EventListPanel`, `GroupListPanel`, `GraphPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -206,7 +206,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * stores the Calendar data.
-* exposes an unmodifiable `ObservableList<Student>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Student>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
@@ -342,7 +342,7 @@ image::EventStorageSequenceDiagram.png[width="800"]
 The diagram below shows how the schedule command is parsed in the Logic component. Here again, `EVENT` is the event as specified by the input parameters.
 
 .Logic diagram for `schedule EVENT` command
-image::ScheduleEventSdForLogic.png[width="800"]
+image::ScheduleSequenceDiagram.png[width="800"]
 
 ===== Cancel
 
@@ -413,26 +413,14 @@ interacts as expected with the undo/redo command as well.
 ==== Aspect: How to display events
 * **Alternative 1 (current choice):** Simply display all events, and scroll to nearest upcoming event.
 ** Pros: Allows the user to see the entire list of events, past and future.
-** Cons: Will definitely get cluttered over time.
 
 * **Alternative 2:** Display upcoming events, and keep past events in a "history" tab.
 ** Pros: Is a compromise between the alternative 1 and 3.
-** Cons: May make the GUI itself cluttered.
+** Cons: Will distract from the focus of the events.
 
 * **Alternative 3:** Delete events once they are in the past.
 ** Pros: Keeps things neat and in a to-do fashion.
 ** Cons: Takes control away from the user to handle their own events.
-
-===== Aspect: How schedule handles the event model and storage
-
-* **Alternative 1 (current choice):** Stores the list of events within the same model as the addressbook, but keep
-storage separate.
-** Pros: Will be consistent with the implementation of the addressbook, while also ensuring that the storage component
-is distinct.
-
-* **Alternative 2:** Store the list of events as its own separate model and separate storage.
-** Pros: Will not interfere greatly with the implementation of the addressbook itself
-** Cons: Will be detached from the original architecture
 // end::calendar[]
 
 // tag::attendance[]
@@ -457,16 +445,16 @@ Currently, the main operation is the `attendance` command, and it is implemented
 
 * `attendance INDEX at/ATTENDANCE`
 
-The `attendance` command may also be used with the `mark` command to update the attendance of multiple students at the same time. It is implemented as such:
+The `attendance` command may also be used with the `group` command to update the attendance of multiple students at the same time. It is implemented as such:
 
-* `attendance m/MARK_NAME at/ATTENDANCE`
+* `attendance PREFIX_GROUP/groupName PREFIX_ATTENDANCE/attendance`
 
 Currently, this operation exists within the logic component of ConTAct.
 
 Below is an example of how the attendance command behaves:
 
 * `attendance 1 at/0`
-* `attendance m/tutorial1 at/1`
+* `attendance g/tutorial1 at/1`
 
 This will simply specify the attendance field of the Student/Students with the specified attendance and store it similar to how the addressbook stores a student.
 Furthermore, the attendance command ensures that all the fields specified must be valid for it to be a success.
@@ -585,36 +573,53 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::markfeature[]
-=== Mark feature
-Marks allow tutors to manage groups of students easily without typing a command multiple times for each student in the class.
-It is designed to work well with the existing `Tag` system, and designed with commands such as `attendance` and `email` in mind.
+// tag::groupfeature[]
+
+=== Group feature
+A `Group` allows tutors to manage students easily without typing a command for each student.
+It is designed to work with the existing `Tag` system, and designed with commands such as `attendance` and `email` in mind.
 It is session based, meaning that groups are not stored in the data files after the app has closed, and is not intended as a replacement for `Tag`.
 
+Note: was previously called `Mark`
+
 ==== Implementation
-`Mark` is a container class which stores a `Set<Student>` and exposes getter and setter methods, as well as methods for union and intersection of `Marks`.
+Each `Group` represents a collection of unique students, stored with a `Set<Student>` and exposes getter and setter methods, as well as methods for the manipulation of `Groups`.
 
-Marks are maintained by `ModelManager`, which is responsible for updating, storing and providing the correct `Mark` for commands.
+image::GroupClassDiagram.png[]
 
-Commands relating to the creation and manipulations of Marks are parsed by `MarkCommandParser`, which then returns the appropriate `MarkSubCommand` to be executed.
+Groups are maintained by `ModelManager`, which is responsible for updating, storing and providing the correct `Group` for commands.
+
+Commands relating to the creation and manipulations of Groups are parsed by `GroupCommandParser`, which then returns the appropriate `GroupSubCommand` to be executed.
 It is designed in this way to be easily extensible in the future as more sub-commands are added.
 
 The commands adhere to the following pattern:
 
- mark [m/m1] <subcommand> [m/m2] [m/m3]`
+ group [g/m1] <subcommand> <arguments>`
 
-The arguments `m/m1`, `m/m2`, `m/m3` may be optional in some cases and default to `Mark.DEFAULT_NAME`
+The arguments `g/m1` may be optional in some cases and default to `Group.DEFAULT_NAME`
 
 ==== Sub-commands
-* `find [name|tag]` -- marks Students matched by find command
-* `join m/m2 [m/m3]` -- returns union of m2 and m3
-* `and m/m2 [m/m3]` -- returns intersection of m2 and m3
-* `show` -- shows marked Students in GUI
+* `find name` -- groups Students matched by name
+* `find t/tag...` -- groups Students matched by tags
+* `join g/m2 [g/m3]` -- returns union of m2 and m3
+* `and g/m2 [g/m3]` -- returns intersection of m2 and m3
+* `show` -- shows grouped Students in GUI
 
-==== Planned Sub-commands (1.4)
-* `tag [tagName]` -- tags marked Students with tagName
-* `attd [0|1]` -- marks attendance of marked Students
-* `email [emailText]` -- sends email to marked Students
+Note: The base command by itself does not do anything, i.e. `group` will not do anything but display an error
+
+image::GroupCommandClassDiagram.png[]
+
+==== Planned Sub-commands (2.0)
+* `index <indexes>` -- groups students by index, separated by space, e.g. `group index 1 3 4 5`
+
+==== Parser Flowchart
+
+image::GroupCommandParserFlowchart.png[]
+
+==== Execution
+The following sequence diagram illustrates how `GroupCommands` are processed and executed
+
+image::GroupCommandSeqDiagram.png[]
 
 ==== Use Cases:
 Suppose a tutor wants to mark the attendance of all students from tutorial groups W13 and W14.
@@ -634,24 +639,127 @@ Instead of:
 
 The tutor can type in:
 
- mark m/a find t/W13` // adds students tagged with "W13" to mark m/a
- mark m/b find t/W14` // adds students tagged with "W14" to mark m/b
- mark m/res join m/a m/b` // merges students in m/a and m/b to mark m/res
- attendance m/res at/Present` // updates the marked students' attendance
+ group g/a find t/W13` // adds students tagged with "W13" to group g/a
+ group g/b find t/W14` // adds students tagged with "W14" to group g/b
+ group g/res join g/a g/b` // merges students in g/a and g/b to group g/res
+ attendance g/res at/Present` // updates the grouped students' attendance
 
 Suppose the tutor then wants to send an email to the aforementioned group of students.
 They can do that with a simple command:
 
- email m/res b/[emailText]
+ email g/res s/subject b/body (group email command coming in V2.0)
+
+==== Tracking students
+
+The application is implemented with immutable `Student` objects.
+As a result, when a student is edited, a new `Student` instance is created with the updated fields and stored in the `AddressBook`.
+This causes the stored `Student` objects in existing `Groups` to be outdated, and attempts to use those objects will lead to a crash.
+
+To solve this issue, after every command where student(s) are changed, the stored `Groups` will be updated as depicted in the activity diagram below.
+
+image::UpdateStudentsActivityDiagram.png[]
 
 ==== Design considerations
+===== Aspect: Data structure for storing Students
 
-// end::markfeature[]
+* HashSet (Current)
+** Pros: Built in duplicates prevention, easier implementation of methods, faster
+* ArrayList
+** Pros: Order is preserved, able to convert to ObservableList easily
+
+Ordering was not as important as duplicates prevention and the fact that many of the methods are designed for a Set.
+Efficiency is a nice bonus but not significant as the expected number of Student entries is well below the magnitude where the difference in speed is significant.
+
+===== Aspect: Command format
+
+* Separate commands for subcommands
+** separate commands into `group-find`, `group-show` etc.
+** Pros: Easy parsing, easy to understand, beginner friendly
+
+* Single command (Current)
+** single root command `group` with subcommands `group find`, `group show`
+** Pros: More usable, intuitive, minimize code duplication, better extensiblity
+
+* Natural language
+** single "root" command but parsed intelligently using keywords such as `to` and `with`
+** e.g. `group students with tags t/tut1 to g/destination`, `group g/group1 and g/group2 to g/group3`
+** Pros: Highly intuitive, beginner friendly
+** Cons: Difficult to implement and exhaustively test
+
+Initially, the single command approach was thought to be better as I had expected users with CLI experience to be familiar with this style of commands, and will provide greater degree of customization of commands (due to the different combinations of arguments available). Furthermore, as the subcommands have very similar argument patterns, I believed that it would make more sense to consolidate the parsing code in one place.
+
+However, feedback from trials suggest that some users prefer self-explanatory command names e.g. `group-by-tag-to t/tagName g/destinationGroup` over `group g/destinationGroup find t/tagName`.
+Despite this, as a developer I prefer the latter.
+
+I briefly considered a natural language parser but decided that it was not worth the effort.
+
+
+// end::groupfeature[]
+
+// tag::graph[]
+=== Graph feature
+==== Current implementation - Graphing attendance of a group of students
+
+The graph feature leverages on d3 graph for the responsiveness and asthetics of displaying data.
+
+This feature uses query strings to make server-client communication to draw and display the graph data. This is made so that it can be compatible with exporting of data to other applications in the near future. Future iterations of this feature can be made to RESTful API for better compatibilty with 3rd party applications
+
+The graph command get the set of users `Set<Student>` to query for the attendance status and then returns an array of data to be graphed on a d3 graph.
+
+Commands relating to the manipulation of the Set data of students are parsed by `GraphCommandParser`, which then returns the appropriate graph to be shown.
+
+This architecture is planned such that the feature has low coupling which allows for future integration with 3rd party applications are easy.
+
+The commands adhere to the following pattern:
+
+ graph KEYWORD [KEYWORDS]`
+or
+ graph t\TAGS`
+
+==== Sequence Diagram
+The sequence diagram below shows how the components interact for the scenario where the user issues the graph command.
+
+.High level Sequence Diagram for `graph` command
+image::GraphSD.png[width="800"]
+
+.Sequence Diagram for `graph` command
+image::GraphCI.png[width="800"]
+
+==== Design Considerations:
+
+For displaying of the data a donut graph is to display the 3 main attendance states as mentioned in AttendanceEnum class. The donut graph allows more room to display more data points in future should there be a need to as well. The labels used instead of a legend as legend can be confusing when there are many colors/data available on the graph as well.
+
+.Rendering of the Attendance Graph
+image::GraphMockup.png[width="500"]
+
+
+==== Use Cases:
+A tutor can graph and understand the attendance information of students in various tags or names.
+
+Original Use Case:
+
+ find alan
+ <see attendance record of alan>
+ find bob
+ <see attendance record of alan>
+
+Using graphs:
+
+ graph alan bob
+ <graph of attendance statistics is displayed>
+ graph t/cs2103
+ <graph of attendance statistics of all students with the cs2103 tag is displayed>
+
+// end::graph[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== [Proposed] Data Encryption for v2.0
 
-_{Explain here how the data encryption feature will be implemented}_
+Data Encryption can be done using by encrypting the contents addressbook.xml and other data files with the tutor's generated asymmetric key (2048-bit RSA keys). The private key would be safely stored with the tutor while the data.xml files will be encrypted and unaccessable by anyone else other than the tutor themselves.
+
+We would incorporate the `javax.crypto` and `java.security` packages to perform the keypair generation, encrypting and decrypting.
+
+For future use cases we would consider AES 256 for faster symmetric encyption for more frequent operations.
 
 // end::dataencryption[]
 
@@ -965,69 +1073,64 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
-=== Use case: Sort students
-
-*MSS*
-
-1. User requests to sort the students according to a parameter
-2. ConTAct displays the list of students in sorted order
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The parameter is invalid.
-+
-[none]
-** 1a1. ConTAct shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. The list is empty
-+
-[none]
-** 2a1. ConTAct shows an error message.
-+
-Use case ends.
-
+// tag::attendanceusecases[]
 [discrete]
 === Use case: Mark attendance
 
 *MSS*
 
-1. User requests to mark the attendance of a specified group
-2. ConTAct displays the list of students in that group
-3. The user inputs the attendance of the group
-4. ConTAct displays the resulting list
+1. User requests to mark the attendance of a student
+2. The user inputs the attendance of the student
+3. ConTAct displays the resulting student with the updated attendance
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The group is invalid.
+* 1a. The formatting is invalid.
 +
 [none]
 ** 1a1. ConTAct shows an error message.
 +
 Use case ends.
-
 [none]
-* 2a. The list is empty
-+
+* 2a. The user types in an incorrect input.
 [none]
 ** 2a1. ConTAct shows an error message.
 +
 Use case ends.
+* 3a. User wants to mark attendance of a group.
++
 [none]
-* 3a. The user types in an incorrect input.
-[none]
-** 3a1. ConTAct shows an error message.
+** 3a1. User requests to mark the attendance of a specified group
+** 3a2. User creates a group for that
+** 3a3. The user inputs the attendance of the group
+** 3a4. ConTAct displays the resulting list with the updated attendance
 +
 Use case ends.
+** *Extensions*
+[none]
+*** 1b. The group is invalid.
++
+[none]
+**** 1b1. ConTAct shows an error message.
++
+Use case ends.
+[none]
+*** 2b. The group is empty
++
+[none]
+**** 2b1. ConTAct shows an error message.
++
+Use case ends.
+[none]
+*** 3b. The user types in an incorrect input.
+[none]
+**** 3b1. ConTAct shows an error message.
++
+Use case ends.
+// end::attendanceusecases[]
 
 [discrete]
 === Use case: Delete students
@@ -1109,7 +1212,7 @@ Use case ends.
 Use case ends.
 // end::calendarusecases[]
 
-// tag:: emailUseCase[]
+// tag::emailUseCase[]
 [discrete]
 === Use case: Email students
 
@@ -1139,7 +1242,7 @@ Use case ends.
 ** 2a1. ConTAct shows an error message.
 +
 Use case ends.
-// end:: emailUseCase[]
+// end::emailUseCase[]
 
 [appendix]
 == Non Functional Requirements
@@ -1158,23 +1261,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1212,9 +1298,153 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Delete ./data folder
+.. Launch the jar file +
+Expected: A set of sample data (students and calendar) is automatically generated
+
+. Dealing with corrupt data files
+
+.. Prerequisites: Modify files inside ./data folder (random additions/deletions)
+.. Launch the jar file
+... Possible scenario: syntax is still preserved (unlikely) +
+Expected: Data still shows up but with missing/incorrect entries
+... Possible scenario: syntax is broken (extremely likely) +
+Expected: Application launches with a clean data folder (no entries)
+
+// tag::calendartests[]
+=== Scheduling of an event
+
+. Scheduling an event in the event list
+.. Test case: `schedule event/CS2103 Practical Exam date/16-11-2018 start/16:00 end/18:00 descr/Acceptance testing` +
+   Expected: The event with the specified details is scheduled into the calendar. Details of the event are shown. Timestamp in the status bar is updated. +
+.. Test case: `schedule event/CS2103 Practical Exam date/16-11-2018 start/16:00 end/18:00 descr/Testing other programs` +
+   Expected: No event scheduled. Error message denoting duplicate event (if previous test case has run) +
+.. Test case: `schedule event/Tutorial date/16-11-2018 start/12:00 end/13:00` +
+   Expected: The event with the specified details (without description) is scheduled into the calendar. Details of the event are shown. Timestamp in the status bar is updated. +
+.. Test case: `schedule event/Consultation date/32-11-2018 start/16:00 end/18:00 descr/With Bob` +
+   Expected: No event scheduled. Error message denoting invalid date +
+.. Test case: `schedule event/CS2103 Tutorial date/15-11-2018 end/12:00 descr/Content review` +
+  Expected: No event scheduled. Error message denoting missing parameter. +
+.. Test case: `schedule event/CS2103 Practical Exam date/16-11-2018 start/16:00 end/18:00 descr/Acceptance testing` +
+   Expected: The event with the specified details are scheduled into the calendar. +
+
+. Cancelling an event in the event list
+.. Prerequisites: The events must exist in the calendar.
+.. Test case: `cancel event/CS2103 Practical Exam date/16-11-2018 start/16:00 end/18:00` +
+   Expected: The event with the specified details is deleted from the calendar. Details of the cancelled event are shown. Timestamp in the status bar is updated. +
+.. Test case: `cancel event/tutorial date/16-11-2018 start/25:00 end/18:00` +
+   Expected: Error message denoting invalid time. Calendar remains the same. +
+.. Other incorrect cancel commands to try: `cancel`, `cancel e` (where e is not in the calendar)
+   Expected: Error details shown.
+
+. Undoing and Redoing commands between the calendar and address book
+.. Prerequisites: Multiple students in the student list, and the following test cases are carried out in order
+.. Test case (set up): `schedule event/CS2103 Practical Exam date/16-11-2018 start/16:00 end/18:00 descr/Acceptance testing` +
+   Expected: The event with the specified details is scheduled into the calendar. Details of the event are shown. Timestamp in the status bar is updated. +
+.. Test case (set up): `delete 1` +
+   Expected: First student is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated. +
+.. Test case: `undo` +
+   Expected: Deleted student is added back into the list. Undo success is shown. Timestamp in the status bar is updated. +
+.. Test case: `undo` +
+   Expected: The event added in the first test case is deleted from the calendar. Details of the event are shown. Timestamp in the status bar is updated. +
+.. Test case: `redo` +
+   Expected: The event deleted in the previous `undo` is scheduled back into the calendar. Details of the event are shown. Timestamp in the status bar is updated. +
+.. Incorrect commands to try: `undo` when no changes have been made, `redo` when the previous command was not an `undo` and had changed the calendar/address book.
+   Expected: Error details shown.
+
+. Clearing the calendar and address book
+.. Test case: `clear`
+   Expected: The calendar and address book are cleared.
+// end::calendartests[]
+
+=== Groups
+. Creating groups
+.. Prerequisites: user is using the default data set
+.. Test case: `group find t/tut1` +
+Expected: 5 students are grouped under _default_, shown in the leftmost panel of the GUI.
+... Clicking on the card (_default_ 5 students) OR entering `group show` +
+Expected: Student display area updated to show only 5 students, all of them are tagged with "tut1"
+.. Test case: `group find dylan` +
+Expected: 1 student is grouped under _default_, shown in the leftmost panel of the GUI.
+... Clicking on the card (_default_ 1 students) OR entering `group show` +
+Expected: Student display area updated to show only 1 student, called Dylan
+.. Test case: `group g/y2 find t/year2` +
+Expected: A new card appears on the left panel, (_y2_ 13 students), middle panel does not change
+... Clicking on the card (_y2_ 13 students) OR entering `group g/y2 show` +
+Expected: Student display area updated to show only 13 students, all of them are tagged with "year2"
+.. Test case: `group g/y2@ find t/year2` +
+Expected: Invalid group name message shown.
+.. Test case: `group g/y2 find` +
+Expected: Invalid command format message shown.
+
+. Manipulating groups
+.. Prerequisites: user is using the default data set, and ran these commands: `group g/y2 find t/year2`, `group g/t1 find t/tut1`
+.. Test case: `group join g/y2 g/t1` +
+Expected: 16 students are grouped under _default_, shown in the leftmost panel of the GUI.
+... Clicking on the card (_default_ 16 students) OR entering `group show` +
+Expected: Student display area updated to show only 16 students, all of them are tagged with "tut1" and/or "year2"
+.. Test case: `group and g/y2 g/t1` +
+Expected: 2 students are grouped under _default_, shown in the leftmost panel of the GUI.
+... Clicking on the card (_default_ 2 students) OR entering `group show` +
+Expected: Student display area updated to show only 2 students, all of them are tagged with both  "tut1" and "year2"
+.. Variations of the above:
+... `group g/grp1 and g/y2 g/t1` +
+Expected: New group _grp1_ created with 2 students
+
+// tag::attendancetests[]
+=== Marking Attendance of a student(s)
+* Marking attendance
+
+. Update the attendance of a student or a `group` of students
+
+.. Prerequisites: The student must exist on the conTAct list/the `group` of students must exist. If the student does not exist, add the student first. If the `group` does not exist, create a `group` of students with the existing required tag.
+.. Test case: `attendance 1 at/1` +
+   Expected: The attendance of the first student on the list is updated to PRESENT. Success message shown in the status bar.
+.. Test case: `attendance 2 at/0` +
+   Expected: The attendance of the second student on the list is updated to ABSENT. Success message shown in the status bar.
+.. Test case: `attendance 3 at/123` +
+   Expected: The attendance of the third student on the list is updated to UNDEFINED. Success message shown in the status bar.
+.. Test case: `attendance 4 at/present` +
+   Expected: The attendance of the fourth student on the list is updated to PRESENT. Success message shown in the status bar.
+.. Test case: `attendance 5 at/absent` +
+   Expected: The attendance of the fifth student on the list is updated to ABSENT. Success message shown in the status bar.
+.. Test case: `attendance 6 at/not here` +
+   Expected: The attendance of the sixth student on the list is updated to UNDEFINED. Success message shown in the status bar.
+.. Test case: `attendance 0 at/1` +
+   Expected: Invalid index. Error message is shown in the status bar.
+.. Test case: `attendance 0 at/` +
+   Expected: The attendance of the first student on the list is updated to UNDEFINED. Success message shown in the status bar.
+.. Test case: `attendance g/tut2 at/1` +
+   Expected: The attendance of all students in `group` tut2 is updated to PRESENT. Success message shown in the status bar.
+.. Test case: `attendance g/tut1 at/0` +
+   Expected: The attendance of all students in `group` tut1 is updated to ABSENT. Success message shown in the status bar.
+.. Test case: `attendance g/tu1 at/0` +
+   Expected: If `group` does not exist, attendance will not be updated. Error message shown in the status bar.
+.. Test case: `attendance g/ at/1` +
+   Expected: The `group` name should not be blank, attendance will not be updated. Error message shown in the status bar.
+.. Other incorrect commands to try: `attendance`, `attendance a/tut2 b/1`, `attendance at/1`, `attendance x at/0` (where x is larger than the size of the list) +
+   Expected: Error message shown in status bar.
+// end::attendancetests[]
+
+// tag::graphtests[]
+=== Displaying the attendance graph of students
+
+. Display the attendance graph of a student or a `tag` of students
+
+.. Prerequisites: The student must exist on the conTAct list/the `tag` of students must exist. If the student does not exist, add the student first. If the `tag` does not exist, create a `tag` of students with the existing required tag.
+.. Test case: `graph alan` +
+   Expected: The attendance graph of only Alan is shown.
+.. Test case: `graph alan von` +
+   Expected: The attendance graph of Alan and Von is shown.
+.. Test case: `graph t/student` +
+   Expected: The attendance graph of all students with the tag "student" is shown.
+.. Test case: `graph abcxyz` +
+   Expected: The attendance graph is not updated as student does not exist.
+.. Other incorrect commands to try: `attendance` +
+   Expected: Error message shown in status bar.
+// end::graphtests[]
 
 // tag::emailManualTest[]
 === Emailing a student
