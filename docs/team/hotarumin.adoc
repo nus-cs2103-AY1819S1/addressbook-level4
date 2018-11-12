@@ -29,7 +29,7 @@ My key contributions in this project were mainly improvements to the UI. The dis
 * *Minor enhancements*:
 ** Added `listarchived` command that displays all of the archived tasks
 ** Added `progresstoday` and `progressweek` commands to display the exact percentage of user's progress.
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yilin&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 * *Other contributions*:
 
