@@ -567,9 +567,9 @@ e.g. `mark-attendance tg/1 n/W4 Tutorial st/A1234567T st/A0123456Y`
 e.g. `view-session tg/1 n/W4 Tutorial`
 * *Create Assignment*: `create-assignment tg/TUTORIAL-GROUP-ID n/ASSIGNMENT-TITLE m/MAXMARKS` +
 e.g. `create-assignment tg/04a n/lab1 m/40`
-* *Update Assignment*: `update-assignment tg/TUTORIAL-GROUP-ID as/OLD-ASSIGNMENT-TITLE m/OLD-ASSIGNMENT-MAX-MARKS
-            [new_as/NEW-ASSIGNMENT-TITLE] [new_m/NEW-ASSIGNMENT-MAX-MARKS]` +
-e.g. `update-assignment tg/04a as/lab1 m/40.0 new_as/lab2`
+* *Update Assignment*: `update-assignment tg/TUTORIAL-GROUP-ID as/OLD-ASSIGNMENT-TITLE [new_as/NEW-ASSIGNMENT-TITLE]
+    [new_m/NEW-ASSIGNMENT-MAX-MARKS]` +
+e.g. `update-assignment tg/04a as/lab1 new_as/lab2`
 * *Delete Assignment*: `delete-assignment tg/TUTORIAL-GROUP-ID as/ASSIGNMENT-TITLE` +
 e.g. `delete-assignment as/lab1 tg/04a`
 * *Grade Assignment*: `grade tg/TUTORIAL-GROUP-ID as/ASSIGNMENT-TITLE st/STUDENT-ID m/MARKS` +
