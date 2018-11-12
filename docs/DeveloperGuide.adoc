@@ -1,4 +1,4 @@
-= FinancialDatabase Level 4 - Developer Guide
+= FinancialDatabase - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -102,224 +102,6 @@ When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
-
-== User Stories
-
-Priorities:  High (should have) +
-             Medium (would like to have) +
-             Low (unlikely to have) +
-
-|===
-|Priority | As a .. | I want to .. | So that I can
-
-
-| High
-{set:cellbgcolor:green}
-| new user
-| see the available command
-| execute the correct command as per need
-
-| High
-| user
-| add a new transaction
-| so that my transaction history is updated
-
-| High
-| user
-| delete a transaction
-| keep only the relevant records in my transaction history
-
-
-| High
-| user
-| hide private contact
-| uphold the confidentiality of the information provided by the contact
-
-| High
-| user
-| add an image attribute for each transactor
-| identify that user before settling a debt
-
-| High
-| user
-| know the past loans that I took
-| manage my finances
-
-| High
-| user
-| filter creditors and debtors
-| know who are the debtors and creditors
-
-| High
-| user
-| have a reminder to pay my creditor
-| ensure that my loans are not left outstanding
-
-| High
-| user
-| convert an amount between two different currencies
-| transact with people from different countries
-
-| High
-| user
-| able to provide an analysis of my financial transactions
-| give you an overview of my finances
-
-| Medium
-{set:cellbgcolor:yellow}
-| user
-| find a transaction by name
-| retrieve information about the transaction
-
-| Medium
-| user
-| sort debtors by rating
-| take note of defaulters for future transactions
-
-| Medium
-| user
-| sort by deadline for creditors
-| prioritise the persons who I should pay first
-
-| Medium
-| user
-| convert an amount between two different currencies
-| transact with people from different countries
-
-| Medium
-| user
-| sort by deadline for debtors
-| prioritise the persons who need to repay my loan
-
-| Medium
-| user
-| track debtors that did not pay you past the deadline
-| contact them for further information
-
-
-| Medium
-| user
-| sort creditors by amount of money I owe
-| roughly gauge my borrowing capacity
-
-| Medium
-| user
-| add location attribute to my user record
-| know where to make the payment if the payment is to be done in transaction
-
-| Medium
-| user
-| sort debtors by amount of money the owe me
-| assess my lending capacity
-
-| Medium
-| user
-| calculate the interest rate of the loan
-| know the right amount to collect from the debtors
-
-| Medium
-{set:cellbgcolor:yellow}
-| user
-| view a calendar with details of current transactions
-| have an overview of upcoming transactions
-
-| Medium
-{set:cellbgcolor:yellow}
-| user
-| filter transactions within a certain period
-| focus on transactions in a certain period
-
-| Low
-{set:cellbgcolor:red}
-| user
-| calculate the interest rate of the loan
-| know the right amount to collect from the debtors
-
-| Low
-| user
-| know how much money to borrow
-| prevent accruing debt
-
-| Low
-| user
-| know how much money that I have loaned that transaction
-| keep records of the amount of money that I have loaned to that transaction
-
-| Low
-| user
-| filter debtors that pay on time
-| I can decide to award them more loans in the future
-
-|===
-
-
-== Use Cases
-=== Analyses Financial Income
-
-MSS:
-
-1.  User requests analyses financial income according to
-     certain conditions.
-2.  User can choose to enter a valid date or not enter any text and press enter.
-3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
-
-Extensions:
-
-2a. User enters invalid date
-
-	... The system raises an error specifying that the given date is invalid.
-	... Use case ends.
-
-2b. User enters no conditions.
-
-	... The system generates the total financial income base on all the transaction in the database.
-	... Use case ends.
-
-2c. User enters valid date
-
-	... The system generates the total financial income up to the given date.
-	... Use case ends.
-
-=== Wildcard Search
-
-MSS:
-
-1. User requests to find a certain contact containing the substring they key in.
-2. The system will filter out a list of contacts whose first names or last names contain the substring.
-
-Extensions:
-
-1a. User does not enter a substring after the command word.
-
-    ... The system raises an error specifying that there must be a substring input.
-    ... Use case ends.
-
-=== Paid
-
-MSS:
-
-1. User requests to shift a transaction under the Current Transactions tab to the Past Transactions tab.
-2. User is prompted to input the list index of the transaction to be shifted.
-3. User keys in the index in the form and submits the form.
-4. Selected transaction is deleted from the transactions list under the Current Transactions tab, and is stored in the
-transactions list under the Past Transactions tab, in the database.
-
-Extensions:
-
-2a. User inputs an invalid index.
-
-    ... The system raises an error specifying that the index entered was invalid.
-    ... Use case ends.
-
-2b. The transactions list under Past Transactions is full and cannot store any more transactions.
-
-    ... The user is informed that the quota of transactions allocated to him/her has exceeded.
-    ... The user is prompted that his oldest transaction will be removed. If user agrees, then the oldest transaction will
-    be removed.
-    ... If the user declines, the user is displayed his/her 5 oldest transactions and asked to clear one of them.
-    ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
-    transaction without clearing any of the previous transactions.
-    ... Use case ends.
 
 
 == Design
@@ -800,12 +582,10 @@ A project often depends on third-party libraries. For example, Debt Tracker depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
+[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
@@ -823,23 +603,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting a transaction
 
-. Deleting a transaction while all transactions are listed
+Deletes a transaction while all transactions are listed
 
-.. Prerequisites: List all transactions using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Prerequisite: There must be at least one transaction in the database.
 
-=== Saving data
+. Test case: `delete 1` +
+  Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+. Test case: `delete 0` +
+  Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+  Expected: Similar to previous.
 
-. Dealing with missing/corrupted data files
+=== Adding a Profile Image
 
-=== Add Profile Image
-
-.  Prerequisites: The Profile Image should not exceed 10MB.
+.  Prerequisite: The Profile Image should not exceed 10MB.
 
 .. Advantage: It would prevent user from uploading large files as the application may be unstable.
 .. Prerequisities: You have a png image that is less than 10MB at Users folder. +
@@ -857,25 +634,27 @@ image::LogicComponentDiagram2.png[width="800"]
 .. The new photo is displayed and updated
 
 
-
-=== Paid Command
- .  Prerequisites: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
+=== Marking transactions as paid
+ .  Prerequisite: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
  list under the Current Transactions tab.
- .. Test case: `paid 1` +
-    Expected: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
+ . Test cases: +
+ .. Input: `paid 1` +
+    Output: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
     transaction from that list is deleted, and added to the transactions list under the Past Transactions tab.
- .. Incorrect paid commands to try: `paid`, `paid 0`, `paid x` (where x is larger than the list size) _{give more}_ +
-    Expected: Error details (showing an invalid index was keyed in) will be displayed in the results display.
+ .. Input: `paid x` (where x is larger than the list size) +
+    Output: Error details (showing an invalid index was keyed in) will be shown in the results display.
 
-=== Filter Command
-.  Prerequisites: Command input must adhere strictly to specified format
-.. Test case: `filter n/alex e/example.com` +
-Expected: Lists all transactions with name 'alex' with an 'example.com' email
-.. Test case: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
-Expected: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
-.. Test case: `filter n/alex e/example.com and/ or/`
-Expected: Command fails. Error details shown in the status message.
-.. Other incorrect filter commands to try: `filter`, `filter n/;;`, `filter or/`
+=== Filtering transactions
+.  Prerequisite: Command input must adhere strictly to specified format
+.  Test cases: +
+.. Input: `filter n/alex e/example.com` +
+   Output: Lists all transactions with name 'alex' with an 'example.com' email
+.. Input: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
+   Output: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
+.. Input: `filter n/alex e/example.com and/ or/`
+   Output: Command fails. Error details shown in the results display.
+.. Inputs: `filter`, `filter n/;;`,`filter or/`
+   Output: Error details shown in the results display (same as above).
 
 === Using the Google Calendar service
 
@@ -898,3 +677,267 @@ Expected: Command fails. Error details shown in the status message.
 . Syncing the Calendar
 .. Calendar data is synced automatically when entering a command that modifies the debt tracker data.
 .. To perform a manual sync in cases where the calendar data is not in sync with the debt tracker app, enter `calendar sync` into the command box.
+
+=== Converting currencies
+
+Converting the amounts of all the transactions in the database to their respective amounts in the *base currency, Singapore Dollars.* +
+
+. Prerequisites:
+ .. The application must have an internet connection. +
+ .. All the amounts in the transaction are valid. +
+
+. Test case: +
+.. Input: `convert`, `convert x` (x is any random input) +
+   Output: The amounts in all the transactions conducted in foreign currencies will converted to Singapore Dollars. +
+
+=== Calculating interest
+
+Calculates the interest on all the transaction amounts based on the provided *monthly interest rate*
+(which is capped at a *maximum of 4.00%*), following either the *simple* or *compound* interest scheme. +
+
+. Prerequisite: All the transactions in the database have a valid amount. +
+. Test cases: +
+.. Inputs: `interest simple 1.00%`, `interest SIMPLE 1.00%`, `interest Simple 1.00%` +
+   Output: Those transactions whose deadline is more than a month have their amounts incremented by the interest amount. +
+.. Input: `interest sample 1.00%` +
+   Output: Error message is shown in the results display due to the wrongly entered interest scheme. +
+.. Input: `interest simple 1.0%`, `interest simple 1.000%`, `interest simple 1`
+   Output: Error message is shown in the results display because the interest rate is formatted incorrectly.
+
+=== Sorting transactions
+
+Sorts all the transactions based on *transaction amount*, *transaction type* or *transaction deadline* if the respective parameters
+are provided. Otherwise, the transactions are sorted in alphabetical ordering of the person's name and
+the tie is broken using the person's email or phone number.
+
+. Prerequisites:
+ .. All the transactions are converted to the base currency using the `convert` command. +
+ .. All the attributes of the transaction are valid. +
+. Test cases:
+.. Input: `sort amount` +
+   Output: All the transactions are sorted in the descending order of amount values. +
+.. Input: `sort type` +
+   Output: All the transactions are sorted in the alphabetical ordering of the types i.e. the debts come before the loans. +
+.. Input: `sort deadline` +
+   Output: All the transactions are sorted from the earliest to the latest deadlines. +
+.. Input: `sort`, `sort x` (where x is any random input) +
+   Output: All the transactions are sorted in alphabetical order of the person names, with tie broken using the person's email or phone number. +
+
+[appendix]
+== User Stories
+
+Priorities:  High (should have) +
+             Medium (would like to have) +
+             Low (unlikely to have) +
+
+|===
+|Priority | As a .. | I want to .. | So that I can
+
+
+| High
+{set:cellbgcolor:green}
+| new user
+| see the available command
+| execute the correct command as per need
+
+| High
+| user
+| add a new transaction
+| so that my transaction history is updated
+
+| High
+| user
+| delete a transaction
+| keep only the relevant records in my transaction history
+
+
+| High
+| user
+| hide private contact
+| uphold the confidentiality of the information provided by the contact
+
+| High
+| user
+| add an image attribute for each transactor
+| identify that user before settling a debt
+
+| High
+| user
+| know the past loans that I took
+| manage my finances
+
+| High
+| user
+| filter creditors and debtors
+| know who are the debtors and creditors
+
+| High
+| user
+| have a reminder to pay my creditor
+| ensure that my loans are not left outstanding
+
+| High
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| High
+| user
+| able to provide an analysis of my financial transactions
+| give you an overview of my finances
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| find a transaction by name
+| retrieve information about the transaction
+
+| Medium
+| user
+| sort debtors by rating
+| take note of defaulters for future transactions
+
+| Medium
+| user
+| sort by deadline for creditors
+| prioritise the persons who I should pay first
+
+| Medium
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| Medium
+| user
+| sort by deadline for debtors
+| prioritise the persons who need to repay my loan
+
+| Medium
+| user
+| track debtors that did not pay you past the deadline
+| contact them for further information
+
+
+| Medium
+| user
+| sort creditors by amount of money I owe
+| roughly gauge my borrowing capacity
+
+| Medium
+| user
+| add location attribute to my user record
+| know where to make the payment if the payment is to be done in transaction
+
+| Medium
+| user
+| sort debtors by amount of money the owe me
+| assess my lending capacity
+
+| Medium
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| view a calendar with details of current transactions
+| have an overview of upcoming transactions
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| filter transactions within a certain period
+| focus on transactions in a certain period
+
+| Low
+{set:cellbgcolor:red}
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Low
+| user
+| know how much money to borrow
+| prevent accruing debt
+
+| Low
+| user
+| know how much money that I have loaned that transaction
+| keep records of the amount of money that I have loaned to that transaction
+
+| Low
+| user
+| filter debtors that pay on time
+| I can decide to award them more loans in the future
+
+|===
+
+[appendix]
+== Use Cases
+=== Analyse Financial Income
+
+MSS:
+
+1.  User requests analyses financial income according to
+     certain conditions.
+2.  User can choose to enter a valid date or not enter any text and press enter.
+3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+2a. User enters invalid date
+
+	... The system raises an error specifying that the given date is invalid.
+	... Use case ends.
+
+2b. User enters no conditions.
+
+	... The system generates the total financial income base on all the transaction in the database.
+	... Use case ends.
+
+2c. User enters valid date
+
+	... The system generates the total financial income up to the given date.
+	... Use case ends.
+
+=== Wildcard Search
+
+MSS:
+
+1. User requests to find a certain contact containing the substring they key in.
+2. The system will filter out a list of contacts whose first names or last names contain the substring.
+
+Extensions:
+
+1a. User does not enter a substring after the command word.
+
+    ... The system raises an error specifying that there must be a substring input.
+    ... Use case ends.
+
+=== Paid
+
+MSS:
+
+1. User requests to shift a transaction under the Current Transactions tab to the Past Transactions tab.
+2. User is prompted to input the list index of the transaction to be shifted.
+3. User keys in the index in the form and submits the form.
+4. Selected transaction is deleted from the transactions list under the Current Transactions tab, and is stored in the
+transactions list under the Past Transactions tab, in the database.
+
+Extensions:
+
+2a. User inputs an invalid index.
+
+    ... The system raises an error specifying that the index entered was invalid.
+    ... Use case ends.
+
+2b. The transactions list under Past Transactions is full and cannot store any more transactions.
+
+    ... The user is informed that the quota of transactions allocated to him/her has exceeded.
+    ... The user is prompted that his oldest transaction will be removed. If user agrees, then the oldest transaction will
+    be removed.
+    ... If the user declines, the user is displayed his/her 5 oldest transactions and asked to clear one of them.
+    ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
+    transaction without clearing any of the previous transactions.
+    ... Use case ends.
