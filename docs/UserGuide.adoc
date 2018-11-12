@@ -261,7 +261,7 @@ Examples:
 
 // tag::loginUser[]
 [WARNING]
-You must login in order to use this feature. +
+You must log-in in order to use this feature. +
 // end::loginUser[]
 
 You can log out of ClinicIO. +
@@ -280,7 +280,7 @@ Here are the list of commands:
 
 // tag::loginReceptionist[]
 [WARNING]
-You must login as a receptionist in order to use this feature. +
+You must log-in as a receptionist in order to use this feature. +
 // end::loginReceptionist[]
 
 You can add a patient to the clinic record. +
@@ -579,22 +579,35 @@ Each consultation record consists of the following fields, in order:
 // tag::medicinecommands[]
 === Medicine Inventory Commands
 
-==== Adding a medicine: `add medicine`
+==== Adding a medicine: `addmed`
 
 Adds a medicine to the medicine inventory +
-Format: `add medicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...`
+
+include::UserGuide.adoc[tag=loginReceptionist]
+
+Format: `addmed mn/MEDICINE_NAME mt/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE mp/PRICE mq/QUANTITY`
 
 [TIP]
-A medicine can have any number of tags (including 0)
+The __lethal dosage__ of a `Medicine` should be more than its __effective dosage__.
 
 Example:
 
-* `add m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary t/effects last 6 hours`
+* `addmed mn/fedac mt/tablet ed/2 ld/8 mp/0.09 mq/1500`
 
-==== Finding a medicine by name: `find medicine`
+Usage: (refer to screenshots below)
+
+* Enter the command in the correct format to add a medicine to the medicine inventory.
+
+image::before-addmed-command.png[width="500"]
+
+* After successfully entering the command, you will see the newly added medicine in the displayed list of medicines.
+
+image::after-addmed-command.png[width="500"]
+
+==== Finding a medicine by name: `findmed`
 
 Find a medicine in the medicine inventory +
-Format: `find medicine MEDICINE_NAME`
+Format: `findmed MEDICINE_NAME`
 
 ****
 * The search is case insensitive. e.g `ibuprofen` will match `Ibuprofen`
@@ -605,23 +618,100 @@ Format: `find medicine MEDICINE_NAME`
 
 Example:
 
-* `find ibuprofen` +
-Returns `Ibuprofen`
+* `findmed ibuprofen` +
+Returns the details of `Ibuprofen`
 
-==== Removing a medicine by name : `remove medicine`
+==== Listing all medicines: `listmed`
+
+Displays a list of all the medicines in the medicine inventory. +
+Format: `listmed`
+
+Example:
+
+* `listmed`
+
+Usage: (refer to screenshot below)
+
+* After successfully entering the command, you will see a list of medicines in the medicine inventory.
+
+image::listmed-command.png[width="500"]
+
+==== Removing a medicine by index : `deletemed`
 
 Removes the specified medicine from the medicine inventory. +
-Format: `remove medicine MEDICINE_NAME`
+
+include::UserGuide.adoc[tag=loginReceptionist]
+
+Format: `deletemed INDEX`
 
 ****
-* The medicine name is case insensitive.
-* Medicine with the matching name will be removed.
+The medicine with the matching index in the displayed list of medicines will be removed.
 ****
 
 Example:
 
-* `remove medicine Paracetemol` +
-Removes the Paracetemol entry from the medicine inventory.
+* `listmed` +
+Displays list of medicines in the medicine inventory.
+* `deletemed 1` +
+Removes the first entry in the list of medicines.
+
+Usage: (refer to screenshots below)
+
+* Enter the command in the correct format to remove a medicine from the medicine inventory.
+
+image::before-deletemed-command.png[width="500"]
+
+* After successfully entering the command, you will see the updated displayed list of medicines without the removed medicine.
+
+image::after-deletemed-command.png[width="500"]
+
+==== Selecting a medicine by index : `selectmed`
+
+Selects the specified medicine in the displayed list of medicines. +
+Format: `selectmed INDEX`
+
+****
+The medicine with the matching index in the displayed list of medicines will be selected.
+****
+
+Example:
+
+* `listmed` +
+Displays a list of medicines in the medicine inventory.
+* `selectmed 3` +
+Selects the third entry in the list of medicines.
+
+==== Increasing quantity of a medicine : `increasemed` `[coming in v2.0]`
+
+Increases the quantity of the specified medicine in the displayed list of medicines. +
+Format: `increasemed INDEX mq/QUANTITY`
+
+****
+The quantity of the medicine with the matching index in the displayed list of medicines will be increased.
+****
+
+Example:
+
+* `listmed` +
+Displays a list of medicines in the medicine inventory.
+* `increasemed 3 mq/500` +
+Increase the quantity of the third entry in the list of medicines by 500 units.
+
+==== Decreasing quantity of a medicine : `decreasemed` `[coming in v2.0]`
+
+Decreases the quantity of the specified medicine in the displayed list of medicines. +
+Format: `decreasemed INDEX mq/QUANTITY`
+
+****
+The quantity of the medicine with the matching index in the displayed list of medicines will be decreased.
+****
+
+Example:
+
+* `listmed` +
+Displays a list of medicines in the medicine inventory.
+* `decreasemed 2 mq/10` +
+Decrease the quantity of the second entry in the list of medicines by 10 units.
 // end::medicinecommands[]
 
 // tag::appointmentcommands[]
@@ -746,16 +836,22 @@ e.g. `dequeuepatient 4`
 
 === Medicine Inventory Commands
 
-* *Add Medicine* : `addmedicine m/MEDICINE_NAME ty/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE q/QUANTITY [t/TAG]...` +
-e.g. `addmedicine m/Paracetamol ty/tablet ed/2 ld/8 q/1000 t/take when necessary`
-* *Delete Medicine* : `deletemedicine MEDICINE_NAME` +
-e.g. `deletemedicine Paracetamol`
-* *Find Medicine* : `findmedicine MEDICINE_NAME` +
-e.g. `findmedicine Paracetamol`
-* *Increase Medicine Quantity* : `increasemedicine m/MEDICINE_NAME q/QUANTITY` +
-e.g. `increasemedicine m/Paracetamol q/500`
-* *Decrease Medicine Quantity* : `decreasemedicine m/MEDICINE_NAME q/QUANTITY` +
-e.g. `decreasemedicine m/Paracetamol q/20`
+* *Add Medicine* : `addmed mn/MEDICINE_NAME mt/MEDICINE_TYPE ed/EFFECTIVE_DOSAGE ld/LETHAL_DOSAGE mp/PRICE mq/QUANTITY` +
+e.g. `addmed mn/Paracetamol mt/tablet ed/2 ld/8 mp/0.05 mq/1000`
+* *Find Medicine* : `findmed MEDICINE_NAME` +
+e.g. `findmed Paracetamol`
+* *List Medicine* : `listmed` +
+e.g. `listmed`
+* *Delete Medicine* : `deletemed INDEX` +
+e.g. `deletemed 1`
+* *Select Medicine* : `selectmed INDEX` +
+e.g. `selectmed 3`
+* *Increase Medicine Quantity* : `increasemed INDEX mq/QUANTITY` +
+`[coming in v2.0]` +
+e.g. `increasemed 3 mq/500`
+* *Decrease Medicine Quantity* : `decreasemed INDEX mq/QUANTITY`
+`[coming in v2.0]` +
+e.g. `decreasemed 2 mq/20`
 
 === Appointment Commands
 * *Add Appointment* : `addappt [d/DATE] [tm/TIME] [tp/TYPE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... ` +
