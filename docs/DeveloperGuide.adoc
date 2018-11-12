@@ -314,7 +314,7 @@ for (int i = 1; i < Integer.parseInt(repeat.value); i++) {
 ...
 ----
 
-This loop occurs after the first task is added. The tasks are created within the loop with duplicate names, dates, priorities, venues and tags.
+This loop occurs after the first task is added. The tasks are created within the loop with duplicate names, priorities, venues and tags.
 Before adding a task, the function checks with the model if such a task already exists. If not, the task is added. If the task is a duplicate task, it is skipped and the loop proceeds until it terminates.
 
 The following sequence diagram shows how the add repeat operation works:
