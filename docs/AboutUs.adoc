@@ -4,53 +4,62 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+iScheduler Xs Max was developed by the https://github.com/CS2103-AY1819S1-F11-1[F11-1] team. +
+It was developed with reference to the work of the https://github.com/se-edu/[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
+=== RAJAPAKSE, Damith Chatura
+image::damithc.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Zhang Yezhong
+image::yezhongz.png[width="150", align="left"]
+{empty}[http://github.com/YeZhongZ[github]] [<<yezhongz#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Code quality, Logic, IntelliJ expert
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== NG, Daniel, S. Y.
+image::heartofal1on.png[width="150", align="left"]
+{empty}[http://github.com/HEARTOFAL1ON[github]] [<<heartofal1on#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Roles: Deliverables and deadlines + Scheduling and tracking +
+Responsibilities: Testing, Logic and IntelliJ expert
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Wu Jiacheng
+image::jiacheng-panda.png[width="150", align="left"]
+{empty}[http://github.com/jiacheng-panda[github]] [<<jiacheng-panda#, portfolio>>]
 
 Role: Developer +
+Responsibilities: Documentation, Markdown, Component Model
+
+'''
+
+=== Goh Cheng Yu
+image::chengyuuu.png[width="150", align="left"]
+{empty}[https://github.com/chengyuuu[github]] [<<chengyuuu#, portfolio>>]
+
+Role: Integration +
+Responsibilities: Storage
+
+'''
+
+=== He Xinyi
+image::hexinyiyi.png[width="150", align="left"]
+{empty}[https://github.com/hexinyiyi[github]] [<<hexinyiyi#, portfolio>>]
+
+Role: Developer + Testing +
 Responsibilities: UI
 
 '''

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= iScheduler Xs Max - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,22 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-F11-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+iScheduler Xs Max is for those who *prefer to use a desktop app for scheduling personal events*. More importantly,
+this version is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having
+the benefits of a Graphical User Interface (GUI). If you can type fast, we can get your event scheduling tasks done
+faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `iScheduler Xs Max.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your iScheduler Xs Max.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +36,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add`**`add n/Interview at Jane Street` : adds an Event named `Interview at Jane Street` to the Event Scheduler.
+* *`list`* : lists all events
+* **`delete`**`3` : deletes the 3rd event shown in the current event
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -44,135 +47,485 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+*Command Format* +
+ -- Some commands have (an) alias(es), which you can also use to execute the command e.g. to add an event to the
+scheduler, you can type either `add n/Interview at Jane Street` or `a n/Interview at Jane Street`. +
+ -- Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/EVENT_NAME`, `EVENT_NAME` is a
+parameter which can be used as `add n/Interview at Jane Street`. +
+ -- Items in square brackets are optional e.g `n/EVENT_NAME [t/TAG]` can be used as `n/Interview at Jane Street
+t/serious` or as `n/Interview at Jane Street`. +
+ -- Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
+(i.e. 0 times), `t/priority.low`, `t/fun t/serious` etc. +
+ -- Parameters can be in any order e.g. if the command specifies `n/EVENT_NAME v/VENUE`, `v/VENUE n/EVENT_NAME` is also
+acceptable.
 ====
 
 === Viewing help : `help`
 
-Format: `help`
+Format: `help` +
+Aliases: `hel` OR `he` OR `h` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
-=== Adding a person: `add`
+// tag::add[]
+=== Adding an event : `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds an event to the scheduler. +
+Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
+[ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]… ` +
+// end::add[]
+Aliases: `ad` OR `a` in place of `add` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
+// tag::add[]
 [TIP]
-A person can have any number of tags (including 0)
+An event can have any number of tags and reminders(including 0).
+If you want multiple tags and reminders, we need to use `[t/]` and [`re/`] for multiple times
+
+[WARNING]
+Except for tags(t/) and reminders(re/), all other fields will take in the latest field that is being input.
+
+****
+* `DATETIME` is the natural language of date and time in English.
+* `REPEAT_TYPE` should be left empty or chosen from either daily, weekly or monthly.
+* `REMINDER_TIME` (in `xxHxxMxxS`) represents the duration before the `START_DATETIME` that you want a pop-up alert.
+* Adding events with the exact values as another event is possible.
+* Only future reminders will be added. Please refer to <<Pop Up Feature>>.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/MONTHLY ru/next friday 3pm t/adhoc re/30M`
+* `add n/CS2103 Lecture s/23 September 2018 6pm e/24 September 2018 rt/WEEKLY ru/next monday t/timetable re/1H30M`
 
-=== Listing all persons : `list`
+Below are the supported formats of date, time and reminder times:
 
-Shows a list of all persons in the address book. +
-Format: `list`
+:sectnums!:
 
-=== Editing a person : `edit`
+==== Date and time formats
+==== Explicit dates
+Formal dates::
+Formal dates are expressed in integer values month, day and year separated by / or -.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format:::
+
+* `MM-DD-YYYY`
+* `MM/DD/YYYY`
+* `YYYY-MM-DD`
+* `YYYY/MM/DD`
+
+Examples:::
+|===
+| *Input*    | *Output*
+| 10-15-2018 | October 15 2018
+| 10/15/2018 | October 15 2018
+| 2018-10-15 | October 15 2018
+| 2018/10/15 | October 15 2018
+|===
+// end::add[]
+
+Relaxed dates::
+Relaxed dates are month, day and year expressed in a loose manner such as a combination of English and integers.
+
+Examples:::
+|===
+| *Input*    | *Output*
+| The 15th of October in the year 2018 | October 15 2018
+| Mon, 15 Oct 2018 | October 15 2018
+| Oct 15, 2018 | October 15 2018
+| Oct 15th | October 15 of the current year
+| October fifteen | October 15 of the current year
+|===
+
+==== Relative dates
+Relative date are dates relative to the current date.
+
+Examples::
+|===
+| *Input*          | *Output*
+| next thursday    | The Thursday after command execution date
+| last wednesday   | The Wednesday before command execution date
+| today            | The day of command execution
+| tomorrow         | The day after command execution date
+| yesterday        | The day before command execution date
+| 3 days from now  | 3 days after command execution date
+| three weeks ago  | 3 weeks before command execution date
+|===
+
+==== Explicit times
+Explicit times are expressed in integer values hours, minutes and seconds. If meridian is compulsory in 12-hour clock.
+
+Format:::
+* `HH`[`MM`][`SS`][`MERIDIAN`]
+
+Example:::
+|===
+| *Input*    | *Output*
+| 10         | 10:00:00am
+| 191215     | 17:12:15pm
+| 201311 pm  | 8:13:11pm
+| 1900       | 7:00:00pm
+| 7am        | 7:00:00am
+| 10:30 am   | 10:30:00am
+|===
+
+==== Relative times
+
+Examples::
+|===
+| *Input*             | *Output*
+| 10 seconds ago      | 10 seconds before command execution time
+| in 5 minutes        | 5 minutes after command execution time
+| 4 minutes from now  | 4 minutes after command execution time
+| 3 hours later       | 3 hours after command execution time
+| 6 seconds from 1030 | 6 seconds after 1030
+|===
+
+==== Reminder time format
+==== Reminder times
+
+Examples::
+* `xxHxxMxxS`: xx must be non-negative integers.
+|===
+| *Input*        | *Output*
+| 30m or 30min   | 30 minutes before `START_DATETIME`
+| 3h             | 3 hours before `START_DATETIME`
+| 1h30m30s       | 1 hour 30 minutes 30 seconds before `START_DATETIME`
+| 48h            | 2 days before `START_DATETIME`
+|===
+
+:sectnums:
+
+// tag::addTag[]
+=== [Partial Implementation] Adding a tag : `addTag` [by v2.0]
+This is the command format for adding tags.
+
+*Note:* This feature has NOT been fully implemented yet. However, do feel free to play around with it and to report any
+bugs/problems as well :)
+
+_It will be FULLY implemented by v2.0._
+// end::addTag[]
+
+=== Listing all events : `list`
+
+Shows a list of all events in the scheduler. +
+Format: `list` +
+Aliases: `lis` OR `li` OR `l` +
+_Coming in V2.0: Command format can be typed case-insensitive_
+
+// tag::edit[]
+=== Editing an event : `edit`
+
+Edits existing events in the scheduler. +
+Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
+[ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [re/REMINDER_TIME]... [-a | -u]` +
+// end::edit[]
+Aliases: `edi` OR `ed` in place of `edit` +
+_Coming in V2.0: Command format can be typed case-insensitive_
+
+// tag::edit[]
+[TIP]
+Only one option can exists at any one time. Either `-a` or `-u`.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.
+* You can remove all the event's tags by typing `t/` without specifying any tags after it.
+* The logic for editing reminder times is the same as tags
+* Only future reminders will be edited. Please refer to <<Pop Up Feature>>.
+* Repeating events can be edited together using a valid option.
+* `REPEAT_TYPE` and `REPEAT_UNTIL_DATETIME` cannot be edited for single events and events without a valid option.
+****
+// end::edit[]
+
+The supported formats of date, time and reminder times are identical to that of
+<<Adding an event : `add`, Adding an event>>. +
+Refer to <<Date and time formats>> and <<Reminder time format>>.
+
+[NOTE]
+====
+The current version does not auto-refresh the Google Calendar page on the right.
+Please right click and select 'Reload Page' to see the effects.
+Alternatively, you can select any Event using your keyboard/mouse, the page on the right will be refreshed.
+====
+
+// tag::edit[]
+:sectnums!:
+==== Options
+`-a` +
+Tell the command to select all the repeating events that are associated with the event selected.
+
+`-u` +
+Tell the command to select the upcoming events that are associated with the event selected.
+
+Examples:
+
+// end::edit[]
+* `edit 1 n/Study with John d/Study for Mathematics exam` +
+Edits the event name and description of the 1st event to be `Study with John` and `Study for Mathematics exam`
+respectively.
+// tag::edit[]
+* `edit 2 n/Play t/ -a` +
+Edits all the repeating event's name of the 2nd event to be `Play` and clears all existing tags.
+// end::edit[]
+* `edit 2 re/ -u` +
+Clear all the upcoming event's reminder times.
+
+
+[WARNING]
+=====
+If your repeating events have different fields, using `-a | -u` options will overwrite individuality. +
+i.e. different fields of other repeating events will be replaced by the fields of event identified by the index. +
+Below is a detailed example
+=====
+
+`add n/Event v/NUS ...`:
+|===
+|1. Name: Event |Venue: NUS |...
+|2. Name: Event |Venue: NUS |...
+|3. Name: Event |Venue: NUS |...
+|===
+You added a set of 3 recurring events
+
+`edit 1 n/CHANGE`:
+|===
+|1. Name: CHANGE |Venue: NUS |...
+|2. Name: Event  |Venue: NUS |...
+|3. Name: Event  |Venue: NUS |...
+|===
+You edited event 1 only. Now the set of recurring events have different fields.
+
+
+`edit 2 v/NTU -a`:
+|===
+|1. Name: Event| Venue: NTU |...
+|2. Name: Event| Venue: NTU |...
+|3. Name: Event| Venue: NTU |...
+|===
+Different fields of first event will be overwritten by fields of the second event as identified by the INDEX used in the command .
+
+:sectnums:
+
+
+=== Listing all events : `list`
+
+Shows a list of all events in the scheduler. +
+Format: `list` +
+Aliases: `lis` OR `li` OR `l` +
+_Coming in V1.4: Command format can be typed case-insensitive_
+
+
+=== Locating events by event name: `find`
+
+Finds events whose event names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]` +
+Aliases: `fin` OR `fi` OR `f` in place of `find` +
+_Coming in V2.0: Command format can be typed case-insensitive_
+
+****
+* The search is case insensitive. e.g `work` will match `Work`
+* The order of the keywords does not matter. e.g. `Work Hard` will match `Hard Work`
+* Only the event name is searched.
+* Only full words will be matched e.g. `Work` will not match `Works`
+* Events matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hard Work` will return `Work Smart`,
+`Play Hard`
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `find Study` +
+Returns `study` and `Study Hard`
+* `find Study Hard` +
+Returns any event having event names `Study` or `Hard`
 
-=== Locating persons by name: `find`
+// tag::delete[]
+=== Deleting an event : `delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Deletes the specified event from the scheduler. +
+Format: `delete INDEX [-a | -u]` +
+// end::delete[]
+Aliases: `delet` OR `dele` OR `del` OR `de` or `d` in place of `delete` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+[NOTE]
+====
+The current version does not auto-refresh the Google Calendar page on the right.
+Please right click and select 'Reload Page' to see the effects.
+Alternatively, you can select any Event using your keyboard/mouse, the page on the right will be refreshed.
+====
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+// tag::delete[]
+[TIP]
+Only one option can exists at any one time. Either `-a` or `-u`.
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the event at the specified `INDEX`.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Repeating events can be deleted together using a valid option.
 ****
+
+Supported options are identical to those found in <<Editing an event : `edit`, Editing an event>>. +
+Refer to <<Options>>.
 
 Examples:
 
+// end::delete[]
 * `list` +
+// tag::delete[]
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd event in the scheduler. +
+// end::delete[]
+* `find Study` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st event in the results of the `find` command. +
+* `list` +
+`delete 3 -a` +
+Deletes the 3rd event and its repeating events from the scheduler. +
+* `list` +
+// tag::delete[]
+`delete 4 -u` +
+Deletes the 4th event and its upcoming events from the scheduler. +
+// end::delete[]
 
-=== Selecting a person : `select`
+Selects the event identified by the index number used in the displayed event list. +
+Format: `select INDEX` +
+Aliases: `selec` OR `sele` OR `sel` OR `se` OR `s` in place of `select` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+// tag::Reminder Feature[]
+=== Reminder Operations: `addReminder` `deleteReminder` `postponeReminder`
+Customised commands to add, delete reminders incrementally, and postpone all reminders for the event. +
+
+If you have set reminder for an event, a window will pop up at the specified duration before event start time. +
+You can find event name, venue, start and end time information in the pop up window. +
+Eg: If you set 30min for an event that starts at 11:00, a window will pop up at 10:30 (+-1min) if the app is open. +
+
+General Format: +
+`addReminder/ deleteReminder INDEX [re/REMINDER_TIME]... [-a | -u]`. +
+`postponeReminder INDEX [re/REMINDER_TIME] [-a | -u]`. (multiple durations not allowed) +
+At most 1 option (either `-a` or `-u`) can exists at any one time. +
+For the correct format for time, please refer to <<Reminder time format>>. +
+
+You may choose to use `add` or `edit` command to set this field with prefix `re`. +
+Please refer to  <<Adding an event : `add`>> and <<Editing an event : `edit`>> command. +
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* If you have not set any reminder for the event, the event card will display as "No Reminder".
+* When you open the app, it will NOT pop up past reminders since the last time you close the app. +
+Eg. If you open the app at 11am, the reminder at 10am will not pop up when you open the app.
+* When you add/edit reminder times, past reminders will be displayed on the event card but will not pop up. +
+Eg. you add a reminder that is supposed to pop up an hour ago, the duration will still be displayed on the event card but will never pop up since the reminder time has already passed.
+* When the reminder pops up, the reminder time displayed will not be deleted.
 ****
+
+[WARNING]
+=====
+The reminder commands follow the same logic as `edit`. +
+If your repeating events have different fields, using `-a | -u` options will overwrite individuality. +
+i.e. different fields of other repeating events will be replaced by the fields of event identified by the index. +
+For detailed explanations, refer to <<Editing an event : `edit`>>.
+=====
+
+==== Add reminders to event: `addReminder`
+Add new reminders to events incrementally +
+Format: `addReminder INDEX [re/REMINDER_TIME]... [-a | -u]`. At most 1 option (either `-a` or `-u`) can exists at any one time.
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `addReminder 1 re/30M` +
+Add a reminder 30min before Event 1 start time
+* `addReminder 1 re/30M -a` +
+Add a reminder 30min before start time for all repeating events of Event 1.
+
+[NOTE]
+=====
+* If Event 1 already has reminders at 30m, 1h before the start time, and you want to add another 2h reminder, the following commands are equivalent: +
+`edit 1 re/30m re/1h re/2h` = `addReminder 1 re/2h`
+* If you add a duration that already exists in the event, it will have no effect.
+=====
+
+==== Delete reminders from event: `deleteReminder`
+Delete reminders of events if it exists +
+Format: `deleteReminder INDEX [re/REMINDER_TIME]... [-a | -u]`. At most 1 option (either `-a` or `-u`) can exists at any one time. +
+
+[TIP]
+====
+To avoid unexpected behavior, please enter the exact duration displayed in the event card.
+====
+
+Examples:
+
+* `deleteReminder 1 re/30M` +
+Delete a reminder 30min before Event 1 start time if the reminder exists.
+* `addReminder 1 re/30M re/1H -a` +
+Delete reminders 30min and 1h before start time for all repeating events of Event 1 if the reminders exist.
+
+[NOTE]
+=====
+* If Event 1 already has reminders at 30m, 1h, 2h before the start time, and you want to delete the 1h reminder, the following commands are equivalent: +
+  `edit 1 re/30m re/2h` = `deleteReminder 1 re/1h`
+* If you delete a duration that does not exist in the event, it will have no effect.
+=====
+
+==== Postpone all reminders for event: `postponeReminder`
+Postpone all reminders for events. If the postpone duration is larger than the original duration, reminder duration will become 0S.
+Format: `postponeReminder INDEX [re/REMINDER_TIME] [-a | -u]`. At most 1 option (either `-a` or `-u`) can exists at any one time. +
+
+[TIP]
+====
+Please enter only ONE duration to postpone here.
+====
+
+Examples:
+
+* Event 1 has reminders 30min, 1H before the start time. +
+`postponeReminder 1 re/5M` +
+Reminders displayed become: 25min, 55min.
+
+* Event 1 has reminders 30min, 1H before the start time. +
+`postponeReminder 1 re/2H` +
+Reminders displayed become: 0S. Reminders will pop up right at the start time.
+
+[NOTE]
+=====
+* If the identified event has no reminders, it will have no effect.
+=====
+
+// end::Reminder Feature[]
+
 
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Format: `history` +
+Aliases: `histor` OR `histo` OR `hist` OR `his` OR `hi` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
+box.
 ====
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+[NOTE]
+====
+Current version only supports the local changes, Google Calendar is NOT undoable.
+====
+
+Restores the scheduler to the state before the previous _undoable_ command was executed. +
+Format: `undo` +
+Aliases: `und` OR `un` OR `u` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the scheduler's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -193,8 +546,15 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
+[NOTE]
+====
+Current version only supports the local changes, Google Calendar is NOT redoable.
+====
+
 Reverses the most recent `undo` command. +
-Format: `redo`
+Format: `redo` +
+Aliases: `red` OR `re` OR `r` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 Examples:
 
@@ -216,18 +576,213 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+[NOTE]
+====
+The current version does not sync this command with Google Calendar.
+====
+
+Clears all entries from the scheduler. +
+Format: `clear` +
+Aliases: `clea` OR `cle` OR `cl` OR `c` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 === Exiting the program : `exit`
 
 Exits the program. +
-Format: `exit`
+Format: `exit` +
+Aliases: `exi` OR `ex` OR `e` +
+_Coming in V2.0: Command format can be typed case-insensitive_
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Scheduler data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+
+// tag::EnterGoogleCalendarMode[]
+=== EnterGoogleCalendarMode : `EnterGoogleCalendarMode`
+Initialize the app. The followings are done: Pull events from your Google Calendar (login required) and add them to local calendar. +
+Format: `EnterGoogleCalendarMode`
+Note that you shall NOT type any extra input after the command word `EnterGoogleCalendarMode`. behavior is not guaranteed.
+
+[NOTE]
+====
+For now, those events downloaded from Google will be regarded as *purely local* Events. Commands on them will only have local effects, no real-time effects on the original events on Google Calendar.
+They will be suppported in v2.0.
+====
+
+As a normal user (new user who does not understand the implementation of the app), you should not modify the data files or tokens manually, such edits would lead to various errors and exceptions. +
+
+By default, that is, before initializarion (before a normal user enters the `EnterGoogleCalendarMode`), the app is in Offline Mode. That means all command effects are local. The app does not attempt to connect to the internet. +
+
+When the user types the command `EnterGoogleCalendarMode`, then a pop up windows will appear in your default browser for you to log in your google account.
+
+*Log-ins*
+Take note that you will be requried to log in twice.
+- log-in for estabishing the link between the app and your google calendar. This is log-in from the webpage pop-up in your default browser. *This log-in credential is stored locally in your computer* Normally, you shall not swtch to another account. If you do want to switch, please close the app and delete the `StoredCredential` file. A more user-friendly command will be supported in v2.0.
+
+- log-in for viewing the Google Calendar on the right panel. This is log-in from the webpage on the right panel. *Note that the cookies are not stored. You will be required to log in again if you close the app*
+
+[NOTE]
+====
+Note for Log-In Process
+====
+****
+After the pop-up windonw appear, you shall enter your account number and password. +
+You shall not close the log in page. +
+If you have done so, the app is very like to become inactive and unable to accept any command. +
+
+Solution: +
+- You should try to enter the command again.
+
+If the problem persists, try the following: +
+
+- close the app and delete the `StoredCredential` file in your `token` folder found in the root folder.
+- make sure the content of `mode.txt` file is `Disabled`. Note that this file shall NOT be deleted at any time. If it is missing, the app is likely to have unexpected bebavior.
+****
+
+[NOTE]
+====
+Note for two-factor authentication (2FA) of your Google Account
+====
+****
+The app might able / not able to support your 2FA log in method, depends on the security level set by you.
+If the internet is not good, the log in page might not appear.
+****
+
+Below is the guide for the log-in process.
+
+[NOTE]
+====
+This command will have to access your Google Calendar data, Google authentication is required.
+====
+
+****
+Step 1: If you have not sucesfuuly logged into our application using `EnterGoogleCalendarMode` before, a pop-up login window will appear in your default browser.
+
+Step 2:
+
+- You will be required to log in your Google account, just like when you are using many other Google services.
+- After successful authorization, the message +
+`Received verification code. You may now close the window.` +
+will appear.
+
+Step 3:
+
+- The application proceeds automatically after successful authorization. +
+- As instructed, you do not have to do anything else so please do feel free to close the browser tab.
+
+Step 4:
+
+- The application then proceeds with the pulling of Google Calendar events, and trying to add them to local database.
+- A success message appears after the completion of addition of supported events.
+
+Note that if Google service is not stable, the limit of the IP address/account is reached or there are too many events. The command might not able to retrieve any event.
+Also, when Google receives too frequent command, the account/IP address might be locked but no error is shown to user. +
+
+Only single events and repeated events with single repeat date with a 'Repeat Until' date are supported.
+****
+
+[NOTE]
+====
+Note for concurrent usage of same account
+====
+****
+Note that your Google Account used for this app should only be one single user. We do not support multiple people using the same account.
+
+If more than one person is using the account, there might be more events showed in the calendar panel on the right compared to the left panel. The real time effec is only for local commands, commands entered from anywhere else (except from the app you are using right now) are not captured in the app and hence no effects.
+****
+
+[NOTE]
+====
+Note for using multiple account in the app
+====
+****
+This is not supported. Switching of account is also not supported. +
+
+For advcaned user, if you do want to switch, please close the app and delete the `StoredCredential` file. +
+However the behaviour is not guranteed.
+
+A more user-friendly command will be supported in v2.0.
+****
+
+*Note for different implementation of our app and Google*
+Note that this version is still v1.4 while we are not able to fully understand the implementation of Google Calendar on their side. +
+
+We can *only guarantee the command sent from the app is the same as intended*. However, we are not able to gurantee how Google interprete the command, and how they implement the bebavior of the command. It is expeccted to see differnet behaviors. That being said, we have tried as much as possible to ensure similar behavior.
+
+Below is an example of different implementation.
+- For an event across differnet days. Locally is shown as one item. Google's way of showing it might seem like multiple items because the start time and end time is not shown.
+
+Local Display:
+
+image::localDisplay.png[width="300"]
+
+Google Display:
+
+image::googleDisplay.png[width="300"]
+
+- For repeatUntil date, Google implements it differently and we are not able to fully understand it.
+
+
+*Note for Select Command*
+`Select` command is partially depreciated in this version. Selecting an event will not have any useful result, but only refresh the right panel.
+
+*Note for Event Description*
+This feature is partially depreciated in this version. Description is not shown in the app.
+
+*Note for Single non repeat Event*
+Such type of event shall not have a `RepeatUntil`,`RepeatType` field/attribute, and you shall not edit those fields as well. Behavior is not guaranteed.
+
+*Note for Tag*
+Not supported for syc with Google in this verion.
+
+*Note for Auto-refreshing of webpage on the right panel*
+This web panel's behavior is not guaranteed because it is much depend on your local set up. It may or may not auto-refresh. Please right click and refresh it. Alternatively, you can move keyboard to move to another Event, the webpage will be refreshed.
+When you do not see expected outcome, please ensure your webpage is re-freshed.
+
+*Note for Commands on Events already passed (before current time)*
+Due to Google's optimization, effect of commands on such events is not guaranteed.
+
+
+When you are offline, no effects on Google Calendar and command effects are only local.
+Depends on your internet quality, the command might not work as intended. Special locations such as school, dormitory and hotel, the firewall might affect our app. We are able to capture some error and report as `Warning: Internet Error/Status File Does Not Exist.` or `Only local changes` or `no effects on your Google Calender`. However, due to the complex Internet enviroment, we might not able to capture all internet connection problem.+
+
+If your internet quality is bad, the app could report above error as well. Please try your command again when the quality improves.
+
+// end::EnterGoogleCalendarMode[]
+
+
+// tag::postGCEvents[]
+=== Post Events to Google Calendar : `postGCEvents` `[coming in v2.0]`
+
+Posts the events from your local database and merge your local events with Google Calendar events (login is required). +
+
+This command is used to syc with Google Calendar, after your are offline and back online. +
+Note that when you are offline, commands will only have effects locally, no effect on Google Calendar online.
+
+Format: `postGCEvents`
+// end::postGCEvents[]
+
+// tag::autoCompletion[]
+=== Auto-Completion of Commands
+As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type certain
+(or _certain combinations_ of) alphabetical characters.
+
+_Note: It even works for command aliases!_
+// end::autoCompletion[]
+
+// tag::commandAliasing[]
+=== Command Aliasing
+As you may have also already noticed, most commands support aliases
+// end::commandAliasing[]
+
+// tag:: caseSensitive[]
+=== Case-Insensitive Invoking of Commands `[coming in v2.0]`
+Commands can be invoked in case-insensitive format. For example, typing `hElP` can invoke the `help` command. +
+Only applicable to these commands: `add`, `clear`, `delete`, `edit`, `exit`, `find`, `help`, `history`, `list`, `redo`,
+`select` and `undo`
+// end:: caseSensitive[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -238,23 +793,55 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous iScheduler folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [v/VENUE]
+[rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
+e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/monthly t/ad-hoc`
+
+* *Edit event* `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE]
+[ru/REPEAT_UNTIL_DAETIME] [t/TAG] [-a | -u]...` +
+e.g. `edit 1 n/Study with John d/Study for Mathematics exam` +
+
+* *Find event* `add event KEYWORD [MORE_KEYWORDS]` +
+e.g. `Find exam`
+
+* *List event* `list event [t/tag] or [d/date=today]` +
+e.g. `list exam`
+
+* *Add tag* `add tag [TAG_NAME]` +
+e.g. `addtag exam`
+
+* *Delete tag* `delete tag [TAG_NAME]` +
+e.g. `deletetag exam`
+
+* *List tag* `list all tags stored in scheduler` +
+e.g. `listtag`
+
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+
+* *Delete event* : `delete INDEX [-a | -u]` +
+e.g. `delete 3 -a`
+
+* *Add reminders* : `addReminder INDEX [re/REMINDER_TIME]... [-a | -u]` +
+e.g. `addReminder 1 re/30m re/1h -a`
+
+* *Delete reminders* : `deleteReminder INDEX [re/REMINDER_TIME]... [-a | -u]` +
+e.g. `deleteReminder 2 re/30m re/1h`
+
+* *Postpone reminders* : `postponeReminder INDEX [re/REMINDER_TIME] [-a | -u]` +
+e.g. `postponeReminder 3 re/30m -u`
+
 * *Help* : `help`
+
 * *Select* : `select INDEX` +
 e.g.`select 2`
+
 * *History* : `history`
+
 * *Undo* : `undo`
+
 * *Redo* : `redo`
