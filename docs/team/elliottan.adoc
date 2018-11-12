@@ -29,9 +29,8 @@ This section documents the major and minor contributions that I have made to thi
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Added the basic backend support in the Model and Storage components for a user's profile picture. This was to facilitate future development where a user will be allowed to upload a profile picture.
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote tests for the features I implemented (!!!! Pull requests https://github.com[#36], https://github.com[#38])
+*** Added the basic backend support in the Model and Storage components for a user's profile picture. This was to facilitate future development where a user will be allowed to upload a profile picture. (Pull request https://github.com/CS2103-AY1819S1-F10-1/main/pull/15[#15])
+*** Wrote tests for the features I implemented (Pull requests https://github.com/CS2103-AY1819S1-F10-1/main/pull/70/commits/20e8b90371bce09252c27782fc32692fb4ef24d6[#70], https://github.com/CS2103-AY1819S1-F10-1/main/pull/108[#108], https://github.com/CS2103-AY1819S1-F10-1/main/pull/111[#111], https://github.com/CS2103-AY1819S1-F10-1/main/pull/132[#132])
 ** Documentation:
 *** Updated the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#Design-Model[Model class diagram] in the Developer Guide to better represent all the features that we built.
 *** Added documentation in the link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/DeveloperGuide.adoc#leave-application[Leave Application section] of the Developer Guide, for the leave management feature I implemented.
