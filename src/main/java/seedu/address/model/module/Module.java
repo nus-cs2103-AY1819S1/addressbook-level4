@@ -10,8 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 

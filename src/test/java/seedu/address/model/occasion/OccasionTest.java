@@ -3,9 +3,7 @@ package seedu.address.model.occasion;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.DESC_ONE;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_TWO;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONLOCATION_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONLOCATION_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_TWO;
@@ -79,12 +77,13 @@ public class OccasionTest {
         assertFalse(occasionWithSameValues.isSameOccasion(null));
 
         // different occasion name -> returns true
-        Occasion editedOccasionOne = new OccasionBuilder(occasionWithSameValues).withOccasionName(VALID_OCCASIONNAME_ONE)
-                .build();
+        Occasion editedOccasionOne = new OccasionBuilder(occasionWithSameValues)
+                .withOccasionName(VALID_OCCASIONNAME_ONE).build();
         assertTrue(occasionWithSameValues.isSameOccasion(editedOccasionOne));
 
         // different occasion date -> returns false
-        editedOccasionOne = new OccasionBuilder(occasionWithSameValues).withOccasionDate(VALID_OCCASIONDATE_TWO).build();
+        editedOccasionOne = new OccasionBuilder(occasionWithSameValues).withOccasionDate(VALID_OCCASIONDATE_TWO)
+                .build();
         assertFalse(occasionWithSameValues.isSameOccasion(editedOccasionOne));
 
         // different attendence list -> return true

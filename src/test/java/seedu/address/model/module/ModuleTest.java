@@ -7,8 +7,6 @@ import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICY
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_ST2131;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_SEMESTER_CS2100;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_SEMESTER_ST2131;
 import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_ONE;
 import static seedu.address.testutil.TypicalModules.TYPICAL_MODULE_TWO;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -19,7 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.CommandModuleTestUtil;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.ModuleDescriptorBuilder;
