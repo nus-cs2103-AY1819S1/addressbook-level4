@@ -446,11 +446,13 @@ this week` commands to specify their choices.
 // end::achievements[]
 
 // tag::complete[]
-
 === Batch Completion via Label feature
 
 _If you require involved context for the execution of the whole `CompleteCommand` please refer
 to: Appendix E: Complete Command Activity Diagram_
+
+[NOTE]
+This section is written with reference to commit: 9ddb0ffddf5d769d357e28fbd5337011614e7b14
 
 ==== Current Implementation
 
