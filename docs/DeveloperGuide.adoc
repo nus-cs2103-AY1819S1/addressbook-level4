@@ -2349,7 +2349,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Composing an Email to All Currently Listed Residents
 
-. Deleting an email while all persons are listed.
+. Composing an email while all persons are listed.
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
@@ -2362,12 +2362,84 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `compose_email_list from/john@gmail.com to/0 subject/Example Subject content/Example Content` +
    Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
 
-. Deleting an email while no persons are listed.
+. Composing an email while no persons are listed.
 
 .. Prerequisites: Clear all persons by executing `clear all`. List should be empty.
 
 .. Test case: `compose_email_list from/john@gmail.com to/1 2 subject/Example Subject content/Example Content` +
    Expected: Email not displayed on the BrowserPanel. Error details shown in the status message.
+
+=== Creating a monthly Calendar
+. Creating a new monthly calendar.
+
+.. Test case: `create_calendar month/oct year/2018` +
+   Expected: "Calendar created: OCT-2018.ics". The GUI remains at the same state as it was before the command execution.
+
+.. Test case: `create_calendar month/october year/2018` +
+   Expected: The GUI remains at the same state as it was before the command execution. Error details shown in the status message.
+
+.. Test case: `create_calendar month/oct year/-2018` +
+   Expected: The GUI remains at the same state as it was before the command execution. Error details shown in the status message.
+
+. Creating an existing monthly calendar.
+
+.. Test case: `create_calendar month/oct year/2018` +
+   Expected: The GUI remains at the same state as it was before the command execution. Error details shown in the status message.
+
+It is recommend to test the calendar and its relevant commands using the present month and year as arguments. This is because the calendar GUI will always display the current week as its default time frame.
+
+=== Viewing a monthly Calendar
+. Viewing an existing calendar.
+
+.. Test case: `view_calendar month/oct year/2018` +
+   Expected: The monthly calendar displays on the UI with the current week as its default time frame.
+
+. Viewing a non-existing calendar.
+
+.. Test case: `view_calendar month/sep year/1998` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+=== Add all day event into monthly Calendar
+* Adding a new all day event into the calendar.
+
+.. Test case: `add_all_day_event month/oct year/2018 date/25 title/Example` +
+   Expected: The updated calendar displays on the UI with the current week as its default time frame.
+
+.. Test case: `add_all_day_event month/oct year/2018 date/-1 title/Example` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+* Adding an already existing identical all day event into the calendar.
+
+.. Test case: `add_all_day_event month/oct year/2018 date/25 title/Example` +
+   Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event already exist in the calendar and its duplicate is not created.
+
+Events in Hallper are considered the same if they have the same start date, end date and title (case-sensitive).
+
+=== Add event into monthly Calendar
+* Adding a new event with a specified time frame into the calendar.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/30 title/Example` +
+   Expected: The updated calendar displays on the UI with the current week as its default time frame.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/24 smin/0 edate/2 ehour/17 emin/30 title/Example` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/60 title/Example` +
+   Expected: Error details shown in the status message. The GUI remains at the same state as it was before the command execution.
+
+* Adding an already existing identical event into the calendar.
+
+.. Test case: `add_event month/oct year/2018 sdate/1 shour/8 smin/0 edate/2 ehour/17 emin/30 title/Example` +
+   Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event already exist in the calendar and its duplicate is not created.
+
+=== Delete event from monthly Calendar
+* Deleting an existing event from the monthly calendar.
+
+.. Test case: `delete_event month/oct year/2018 sdate/25 edate/25 title/example` +
+   Expected: Displays the monthly calendar on the UI with the current week as its default time frame. Status message shows that the event doesn't exist in the calendar and nothing is deleted. (Event titles are case-sensitive)
+
+.. Test case: `delete_event month/oct year/2018 sdate/25 edate/25 title/Example` +
+   Expected: The updated calendar displays on the UI with the current week as its default time frame.
 
 === Clearing Persons
 . Clearing persons while all persons are listed

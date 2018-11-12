@@ -486,6 +486,7 @@ This section lists features related to managing the calendar in Hallper.
 // end::calendarIntro[]
 
 // tag::calendarAddEvent[]
+
 ==== Adding all day event into calendar : `add_all_day_event`
 
 Adds an all day event into the calendar. +
@@ -543,6 +544,7 @@ image::add_event_diagram_after.png[width="700"]
 _Figure 4.4.2.2: Screen after running `add_event` on Hallper._
 
 // tag::calendarCreate[]
+
 ==== Creating calendar : `create_calendar`
 
 Creates a calendar file in Hallper for updating of events. +
@@ -614,6 +616,7 @@ Displays view of calendar with current week as default page with the events load
 image::calendar_view_diagram.png[width="700"]
 
 // tag::budget[]
+
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
 
