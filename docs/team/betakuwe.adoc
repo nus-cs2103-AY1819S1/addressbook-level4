@@ -57,6 +57,7 @@ https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[#134]
 https://github.com/CS2103-AY1819S1-W17-3/main/pull/95[#95]
 ** Community:
 *** PRs reviewed: https://github.com/CS2103-AY1819S1-W17-3/main/pull/211[#211],
+https://github.com/CS2103-AY1819S1-W17-3/main/pull/212[#212],
 https://github.com/CS2103-AY1819S1-W17-3/main/pull/118[#118],
 https://github.com/CS2103-AY1819S1-W17-3/main/pull/116[#116],
 https://github.com/CS2103-AY1819S1-W17-3/main/pull/92[#92],
