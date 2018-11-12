@@ -72,6 +72,15 @@ auto-completed is the nearest word containing the current input as a prefix.
 
 Format: `help`
 
+=== Toggling UI tabs : `toggle`, alias `t`
+
+Format: `toggle`
+
+[NOTE]
+====
+Undo/Redo commands will not undo/redo the toggle command.
+====
+
 === Adding a person: `add`, alias `a`
 
 Adds a person to the address book +

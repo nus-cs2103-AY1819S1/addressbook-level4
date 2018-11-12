@@ -95,7 +95,6 @@ public class MainWindow extends UiPart<Stage> {
 
         model.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
         model.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
-        model.commitAddressBook();
 
         if (model.getNotificationPref()) {
             if (model.getFavourite() != null) {

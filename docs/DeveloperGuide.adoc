@@ -239,6 +239,31 @@ Classes used by multiple components are in the `seedu.System.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::toggle[]
+=== Toggles the UI tab to the tab on its right.
+==== Current Implementation
+
+Toggle command raises a TabPanelSelectionChangedEvent event through the ModelManager.
+The tab panel is subscribed to this event and will loop the tabList and change the selected tab to its adjacent tab when the event is raised.
+
+* `logic#parser#ToggleCommandParser()` -- creates a ToggleCommand object.
+* `logic#commands#ToggleCommand()` -- raises a TabPanelSelectionChangedEvent through the ModelManager.
+
+[NOTE]
+ToggleCommand is not compatible with undo/redo since there is no writing of data to storage.
+
+==== Design Considerations
+
+==== Aspect: How change of UI tab is executed
+
+* **Alternative 1 (current choice):** TabPanel subscribe to an event which will be raised by ToggleCommand
+** Pros: Convenient to implement.
+** Cons: Creates a new object and a new handler method.
+* **Alternative 2:** Pass TabPanel into the ToggleCommand and select the new tab from ToggleCommand
+** Pros: Does not require new event to be raised.
+** Cons: Increases coupling.
+// end::toggle[]
+
 //tag::favourite[]
 === Select an existing event to be detailed in the notification if notification is enabled.
 ==== Current Implementation
@@ -282,7 +307,7 @@ The favourite command will update favouriteEvent regardless of whether the new f
 * **Alternative 2:** Check for difference between Model preferences and preferences.json, only write to preferences.json if there is difference.
 ** Pros: Efficient.
 ** Cons: Code becomes more complicated because additional check required
-// end::notification[]
+// end::favourite[]
 
 //tag::notification[]
 === Enable/Disable Notification feature
