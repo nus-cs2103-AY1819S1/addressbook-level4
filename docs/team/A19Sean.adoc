@@ -13,35 +13,26 @@
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to view tagged contacts and to edit and delete tags*
+** What it does: allows the user view all contacts with user-specified tags, as well as edit and delete tags across all contacts.
+** Justification: This feature improves the product significantly because a user can easily view relevant contacts and organise their contact book.
+** Highlights: This enhancement makes use of a new `PersonContainsTagPredicate` to find the relevant tagged contacts. The enhancement also has three different functionality within one command word by recognising other keywords present in the user's command.
+** Credits: Nil
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=a19sean&sort=displayName&since=2018-09-12&until=2018-10-08&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Edited ResultDisplay such that upon an invalid command, the result display text would be in a red font. (Pull request https://github.com/CS2103-AY1819S1-W13-1/main/pull/13[#13])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Regularly updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/9[#9], https://github.com/CS2103-AY1819S1-W13-1/main/pull/102[#102], https://github.com/CS2103-AY1819S1-W13-1/main/pull/108[#108], https://github.com/CS2103-AY1819S1-W13-1/main/pull/172[#172], https://github.com/CS2103-AY1819S1-W13-1/main/pull/183[#183]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-1/main/pull/39[#39], https://github.com/CS2103-AY1819S1-W13-1/main/pull/73[#73], https://github.com/CS2103-AY1819S1-W13-1/main/pull/79[#79]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W12-3/main/issues/127[1],
+https://github.com/CS2103-AY1819S1-W12-3/main/issues/142[2], https://github.com/CS2103-AY1819S1-W12-3/main/issues/145[3])
 
 == Contributions to the User Guide
 
@@ -50,9 +41,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=tag]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +49,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=tagUseCase]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=testingTag]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=nfr]
