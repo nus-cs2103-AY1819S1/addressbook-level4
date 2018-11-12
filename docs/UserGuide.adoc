@@ -276,11 +276,11 @@ You must specify at least 1 `DATE`.
 If the `DATE` is of an illegal format, the command will be rejected.
 ====
 
-Examples:
+Example:
 
 * `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
-** The system will display a success message, as follows: image:LeaveApplyResult2.PNG[width=800]
-** You will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command, as shown below: image:LeaveApplyResult.PNG[width=200]
+** The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: image:LeaveApplyResult.PNG[width=800]
+[TIP] If you do not see your list of leave applications, run the `leavelist` command.
 
 === View a list of leave applications : `leavelist`
 
