@@ -157,6 +157,10 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.stream().collect(Collectors.toList());
     }
 
+    public int getSize() {
+        return internalList.size();
+    }
+
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
