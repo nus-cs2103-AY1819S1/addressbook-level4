@@ -97,7 +97,7 @@ public class StatsCommand extends Command {
      * @param mode a string for mode
      */
     public StatsCommand(int periodAmount, String period, String mode) {
-        requireNonNull(periodAmount, mode);
+        requireNonNull(period, mode);
         checkArgument(isValidMode(mode), MESSAGE_PARAMETERS_FORMAT);
         checkArgument(isValidPeriod(period), MESSAGE_PARAMETERS_FORMAT);
         checkArgument(isValidPeriodAmount(periodAmount), MESSAGE_PERIOD_AMOUNT_ERROR);
