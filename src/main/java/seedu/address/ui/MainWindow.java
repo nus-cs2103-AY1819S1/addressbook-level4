@@ -28,12 +28,10 @@ import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
-import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.UniqueOccasionList;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * The MainWindow parent class from which children entity windows are spawned from.
@@ -193,6 +191,7 @@ public class MainWindow extends UiPart<Stage> {
         getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
 
         logic.setActiveType(MODULE);
+        AttendanceListUtil.postClearEvent();
     }
 
     /**
@@ -209,6 +208,7 @@ public class MainWindow extends UiPart<Stage> {
         getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
 
         logic.setActiveType(PERSON);
+        AttendanceListUtil.postClearEvent();
     }
 
     /**
@@ -225,34 +225,35 @@ public class MainWindow extends UiPart<Stage> {
         getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
 
         logic.setActiveType(OCCASION);
+        AttendanceListUtil.postClearEvent();
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        if (logic.getFilteredPersonList().size() > 0) {
-            Person firstPerson = logic.getFilteredPersonList().get(0);
-            personBrowserPanel = new PersonBrowserPanel(firstPerson);
-        } else { // Means that there are no modules within the addressbook.
-            personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
-                    new UniqueOccasionList().asUnmodifiableObservableList());
-        }
+        //if (logic.getFilteredPersonList().size() > 0) {
+        //    Person firstPerson = logic.getFilteredPersonList().get(0);
+        //    personBrowserPanel = new PersonBrowserPanel(firstPerson);
+        //} else { // Means that there are no modules within the addressbook.
+        personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
+                new UniqueOccasionList().asUnmodifiableObservableList());
+        //}
 
-        if (logic.getFilteredModuleList().size() > 0) {
-            Module firstModule = logic.getFilteredModuleList().get(0);
-            moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
-        } else {
-            moduleBrowserPanel = new ModuleBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
-        }
+        //if (logic.getFilteredModuleList().size() > 0) {
+        //    Module firstModule = logic.getFilteredModuleList().get(0);
+        //    moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
+        //} else {
+        moduleBrowserPanel = new ModuleBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        //}
 
-        if (logic.getFilteredOccasionList().size() > 0) {
-            Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
-            occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
-                    .getAttendanceList().asUnmodifiableObservableList());
-        } else {
-            occasionBrowserPanel = new OccasionBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
-        }
+        //if (logic.getFilteredOccasionList().size() > 0) {
+        //    Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
+        //    occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
+        //            .getAttendanceList().asUnmodifiableObservableList());
+        //} else {
+        occasionBrowserPanel = new OccasionBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        //}
 
         getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
 

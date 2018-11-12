@@ -8,7 +8,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Lists all occasions in the address book to the user.
@@ -26,7 +25,6 @@ public class ListOccasionCommand extends Command {
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         model.setActiveType(OCCASION);
         EventsCenter.getInstance().post(new ShowOccasionRequestEvent());
-        AttendanceListUtil.postClearEvent();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

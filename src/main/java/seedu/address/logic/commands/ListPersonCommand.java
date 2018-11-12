@@ -8,7 +8,6 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.util.AttendanceListUtil;
 
 /**
  * Lists all persons in the address book to the user.
@@ -26,7 +25,6 @@ public class ListPersonCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.setActiveType(PERSON);
         EventsCenter.getInstance().post(new ShowPersonRequestEvent());
-        AttendanceListUtil.postClearEvent();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

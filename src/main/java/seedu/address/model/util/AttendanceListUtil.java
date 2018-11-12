@@ -51,9 +51,9 @@ public class AttendanceListUtil {
      * Posts correct event for clearing current browser.
      */
     public static void postClearEvent() {
-            EventsCenter.getInstance().post(new PersonBrowserChangeEvent(new Person(new PersonDescriptor())));
-            EventsCenter.getInstance().post(new ModuleBrowserChangeEvent(new Module(new ModuleDescriptor())));
-            EventsCenter.getInstance().post(new OccasionBrowserChangeEvent(new Occasion(new OccasionDescriptor())));
+        EventsCenter.getInstance().post(new PersonBrowserChangeEvent(new Person(new PersonDescriptor())));
+        EventsCenter.getInstance().post(new ModuleBrowserChangeEvent(new Module(new ModuleDescriptor())));
+        EventsCenter.getInstance().post(new OccasionBrowserChangeEvent(new Occasion(new OccasionDescriptor())));
     }
 
     //@@author waytan
