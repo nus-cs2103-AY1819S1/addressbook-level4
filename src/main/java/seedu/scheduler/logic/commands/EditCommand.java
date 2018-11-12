@@ -132,7 +132,7 @@ public class EditCommand extends Command {
         //Calculate parameters for updating events in Google Calender
         logger.info("Calculating parameters for Google calender edit commands.");
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
-        boolean operationOnGoogleCalIsSuccessful;
+        boolean operationOnGoogleCalIsSuccessful = false;
 
         try {
             //Update by cases
@@ -202,11 +202,15 @@ public class EditCommand extends Command {
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDescription());
         Venue updatedVenue = editEventDescriptor.getVenue().orElse(eventToEdit.getVenue());
         RepeatType updatedRepeatType = editEventDescriptor.getRepeatType().orElse(eventToEdit.getRepeatType());
-        DateTime updatedRepeatUntilDateTime = updatedEndDateTime.compareTo(eventToEdit.getEndDateTime()) > 0
-                ? updatedEndDateTime : eventToEdit.getRepeatUntilDateTime();
+        DateTime updatedRepeatUntilDateTime = editEventDescriptor.getRepeatUntilDateTime()
+                .orElse(eventToEdit.getRepeatUntilDateTime());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
-        ReminderDurationList updatedReminderDurationList =
-                editEventDescriptor.getReminderDurationList().orElse(eventToEdit.getReminderDurationList());
+        ReminderDurationList updatedReminderDurationList = editEventDescriptor.getReminderDurationList()
+                .orElse(eventToEdit.getReminderDurationList());
+
+        if (updatedEndDateTime.compareTo(updatedRepeatUntilDateTime) > 0) {
+            updatedRepeatUntilDateTime = updatedEndDateTime;
+        }
 
         if (!Event.isValidEventDateTime(updatedStartDateTime, updatedEndDateTime)) {
             throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);

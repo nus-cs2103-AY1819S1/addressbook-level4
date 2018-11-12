@@ -60,23 +60,28 @@ public class DeleteCommand extends Command {
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
-        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToDelete);
         boolean operationOnGoogleCalIsSuccessful;
         if (flags.length == 0) {
             operationOnGoogleCalIsSuccessful =
-                    connectToGoogleCalendar.deleteOnGoogleCal(googleCalendarIsEnabled, eventToDelete, instanceIndex);
+                    connectToGoogleCalendar.deleteEventOnGoogleCal(
+                            googleCalendarIsEnabled, eventToDelete,
+                            instanceIndex, true, false);
             model.deleteEvent(eventToDelete);
         } else {
+            int effectRangeStartingIndex;
             if (flags[0].equals(FLAG_UPCOMING)) {
+                effectRangeStartingIndex = instanceIndex;
                 operationOnGoogleCalIsSuccessful =
-                        connectToGoogleCalendar.deleteUpcomingOnGoogleCal(
+                        connectToGoogleCalendar.deleteEventOnGoogleCal(
                                 googleCalendarIsEnabled, eventToDelete,
-                                instanceIndex, totalInstance);
+                                effectRangeStartingIndex, false, false);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
+                effectRangeStartingIndex = 0;
                 operationOnGoogleCalIsSuccessful =
-                        connectToGoogleCalendar.deleteAllOnGoogleCal (
-                                googleCalendarIsEnabled, eventToDelete, instanceIndex);
+                        connectToGoogleCalendar.deleteEventOnGoogleCal(
+                                googleCalendarIsEnabled, eventToDelete,
+                                effectRangeStartingIndex, false, true);
                 model.deleteRepeatingEvents(eventToDelete);
             }
         }

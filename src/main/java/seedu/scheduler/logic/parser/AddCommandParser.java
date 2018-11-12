@@ -68,19 +68,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         RepeatType repeatType = argMultimap.getValue(PREFIX_REPEAT_TYPE).isPresent()
                 ? ParserUtil.parseRepeatType(argMultimap.getValue(PREFIX_REPEAT_TYPE).get())
                 : RepeatType.NONE;
+        repeatUntilDateTime = argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent()
+                ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).get())
+                : endDateTime;
         Set<Tag> tags = argMultimap.getValue(PREFIX_TAG).isPresent()
                 ? ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG))
                 : Collections.emptySet();
         ReminderDurationList reminderDurationList = ParserUtil.parseReminderDurations(
                 argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
-
-        if (repeatType.equals(RepeatType.NONE)) {
-            repeatUntilDateTime = endDateTime;
-        } else {
-            repeatUntilDateTime = argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent()
-                    ? ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).get())
-                    : endDateTime;
-        }
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
             throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
