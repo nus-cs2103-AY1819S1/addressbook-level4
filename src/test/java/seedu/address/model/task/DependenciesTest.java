@@ -80,7 +80,7 @@ public class DependenciesTest {
     public void removeDependency() {
         //Creating expected dependency
         sampleSet.remove(Integer.toString(sampleTaskInDependency.hashCode()));
-        Dependencies expectedDependency = new Dependencies(sampleSet);
+        Dependencies expectedDependency = new Dependencies(samplieSet);
         //Checking equality
         assertEquals(expectedDependency, sampleDependencies.spliceDependency(sampleTaskInDependency));
     }
