@@ -489,7 +489,6 @@ The transformation feature mainly consists of:
 * `createApplyCommand`: Allows users to define their own custom transformation set.
 
 The following describes main operations and processes contained in the classes above.
-
 ==== ImageMagickUtil:
 
 This class is used to provide utility methods to facilitate interoperability with ImageMagick such as:
@@ -502,7 +501,7 @@ This class is used to provide utility methods to facilitate interoperability wit
 
 This command validates a transformation provided by the user and attempts to add it to the current `PreviewImage`++'s++ `TransformationSet`.
 
-Given below is an example usage scenario and how the transformation should behave at each step.
+Given below is an example usage scenario and how the command should behave at each step.
 
 . Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
 
