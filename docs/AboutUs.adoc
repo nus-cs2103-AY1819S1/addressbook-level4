@@ -11,7 +11,7 @@ We are a team of NUS students and students on exchange at NUS.
 
 === Vighnesh Ramesh Iyer
 image::vig42.png[width="150", align="left"]
-{empty}[https://github.com/vig42] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/vig42] [<<vighneshrameshiyer#, portfolio>>]
 
 Role: Team Lead, Developer +
 Responsibilities: Dev Ops, Integration, Travis expert +
