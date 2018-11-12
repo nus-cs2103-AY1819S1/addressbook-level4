@@ -243,7 +243,7 @@ public class ConnectToGoogleCalendar {
                 return false;
             }
         }
-        logger.warning("Pushing to Google Calendar is successful");
+        logger.info("Pushing to Google Calendar is successful");
         return true;
     }
 
@@ -761,6 +761,7 @@ public class ConnectToGoogleCalendar {
             instance = setCommonAttributes(instance, editedEvents.get(editedEventIndex));
             instance = setRepeatAttribute(instance, editedEvents.get(editedEventIndex));
             calendar.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
+            //Note that this is not a re-assignment, but a counter, which has to be re-signed
             editedEventIndex++;
         }
     }
