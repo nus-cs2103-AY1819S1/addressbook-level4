@@ -8,7 +8,7 @@ import static seedu.souschef.commons.util.AppUtil.checkArgument;
 public class Age {
 
     public static final String MESSAGE_AGE_CONSTRAINTS =
-            "Age should only contain numbers and minimum of 2 digits";
+            "Age should only contain a minimum of 2 non-decimal numbers";
     public static final String AGE_VALIDATION_REGEX = "^[1-9]\\d{1,}$";
     public final String value;
 
