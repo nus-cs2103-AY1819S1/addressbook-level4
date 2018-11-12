@@ -7,9 +7,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-import com.oracle.tools.packager.UnsupportedPlatformException;
-
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -71,7 +70,7 @@ public class ApplyCommand extends Command {
             model.addTransformation(isRaw ? new Transformation(transformation.getOperation()) : transformation);
             model.updateCurrentPreviewImage(modifiedImage);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
-        } catch (UnsupportedPlatformException e) {
+        } catch (IllegalOperationException e) {
             throw new CommandException(e.getMessage());
         } catch (Exception e) {
             throw new CommandException(isRaw ? "Invalid operation!" : e.getMessage());

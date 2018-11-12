@@ -8,9 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.oracle.tools.packager.UnsupportedPlatformException;
-
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -73,7 +72,7 @@ public class SaveCommand extends Command {
             BufferedImage savedImage = ImageMagickUtil.processCanvas(model.getCanvas());
             fileName = saveFile.getName();
             ImageIO.write(savedImage, format, saveFile);
-        } catch (UnsupportedPlatformException e) {
+        } catch (IllegalOperationException e) {
             throw new CommandException(e.getMessage());
         } catch (IOException | InterruptedException e) {
             throw new CommandException(String.format(OUTPUT_FAILURE, fileName));
