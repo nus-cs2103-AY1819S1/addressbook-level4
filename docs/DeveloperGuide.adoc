@@ -301,7 +301,7 @@ Step 1: The user launches TheTracker for the first time. The
 `VersionedAddressBook` will be initialised with the initial address book
 state, which the `currentStatePointer` is currently pointing to.
 
-image::AddStartingStateListDiagram.png[width="800"]
+image::AddStartingStateListDiagram.png[width="500"]
 
 Step 2: The user executes `addperson n/David...` command to add a person named David in his TheTracker. The `addperson`
 string input in the command line is passed into the `AddressBookParser` object, which parses the input and creates an
@@ -312,12 +312,12 @@ thus adding the new `Person` into the versionedAddressBook. The `addperson` comm
 then calls `Model#commitAddressBook()`, causing the modified state of TheTracker
 after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
 
-image::AddNewCommand1StateListDiagram.png[width="800"]
+image::AddNewCommand1StateListDiagram.png[width="500"]
 
 The following sequence diagram shows how the `addperson` operation works:
 `addperson n/David`
 
-image::AddCommandLogicDiagram.png[width="800"]
+image::AddCommandLogicDiagram.png[width="500"]
 
 `addmodule` and `addoccasion` works in a similar way as `addperson`
 
