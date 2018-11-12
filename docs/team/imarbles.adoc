@@ -17,10 +17,10 @@ This application is designed to help manage volunteers and events effectively. T
 
 My main role as a developer for SocialCare was to implement *record management functions*, which enable users to do the following:
 
-* View volunteers assigned to event
-* Assign volunteers to event
+* View volunteers assigned to an event
+* Assign volunteers to an event
 * Update volunteering records for volunteers
-* Delete volunteering records of volunteer
+* Delete volunteering records of volunteers
 
 == Summary of Contributions
 * *Major enhancement*:
