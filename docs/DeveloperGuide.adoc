@@ -483,16 +483,21 @@ After the user enabled the Google Calendar feature, when the command `add n/Onli
 -> If it is a RepeatEvent, set special attributes to it such as `googleRecurringEventId`, `googleiCalId`, `eventRepeatType`,`eventUntilDateTime`. A Google specific `commandMessage` is constructed and sent to Google API.
 
 Various convertion methods are called to convert the Event format from local Event to Google Event.
+
 ==== Design Considerations  - Add
+
 A common identifier is needed to uniquelly identify the same Event in local database and in Google Calendar.
+
+
 * **Use Event Unique Id and EventSet Unique Id** (current choice)
-*
-** Pro: Improves the user experience -- user won’t have to log in every time they use this command, it would be too troublesome and not user-friendly.
-** Con: Improper protection could cause a leak of personal info.
+** Pro: It is unique and randomly generated.
+** Con: Very hard to implement and have to find the equivalent unique string in Google's implementation. Eventually, after checking out Google's implementation, we set the following equivalent properties: +
+EventUid == EventId +
+EventSetUid == iCalId
 
 * **By Name** (alternative)
-** Pro: Very secured.
-** Con: Not user-friendly.
+** Pro: Very easy to implement
+** Con: User unable to create events with the same name.
 // end::EnterGoogleCalendarMode[]
 
 // tag::dataencryption[]
