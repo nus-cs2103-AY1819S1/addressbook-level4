@@ -1951,22 +1951,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Adding a task to the task list
 
-.. Test case: add n/cs2100 d/161118 p/3 v/home +
+.. Test case: `add n/cs2100 d/161118 p/3 v/home` +
    Expected: A new task is added and reflected in the panel on the bottom right of `UI`. Status bar is updated.
-.. Test case: add n/cs2100 d/161118 p/4 v/home +
+.. Test case: `add n/cs2100 d/161118 p/4 v/home` +
    Expected: No task is added. Error details shown in status message. Status bar remains the same.
-.. Test case: add n/cs2100 d/999999 p/3 v/home +
+.. Test case: `add n/cs2100 d/999999 p/3 v/home` +
    Expected: No task is added. Error details shown for date field.
 
 === Editing a task
 
 . Editing a task from the task list
 
-.. Test case: edit 1 v/library +
+.. Test case: `edit 1 v/library` +
    Expected: First task is edited. The new venue is library.
-.. Test case: edit 1 t/ +
+.. Test case: `edit 1 t/` +
    Expected: First task is edited. Any existing tags would be removed.
-.. Test case: edit 1 d/999999 +
+.. Test case: `edit 1 d/999999` +
    Expected: First task is not edited. Error details shown in status message. Status bar remains the same.
 
 === Deleting a task
@@ -2000,7 +2000,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Academic calendar weeks data is generated and saved. Details shown in status message to inform user. After
    relaunching the application, the application title will be appended with current week's description.
 
-2. View tasks due today/this week
+2. Viewing tasks due today/this week
 
 .. Test case: `listday` +
    Expected: All task(s) that match the current system date will be reflected in the panel on the bottom right of
@@ -2011,7 +2011,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Filtering Tasks
 
-1. View tasks due this month
+1. Viewing tasks due this month
 
 .. Test case: `listmonth` +
    Expected: All task(s) that match the current system date until the end of the month will be reflected in the task
@@ -2064,4 +2064,3 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Status message displays that user has completed 20.00% of tasks for this week.
 
 
-_{ more test cases ... }_
