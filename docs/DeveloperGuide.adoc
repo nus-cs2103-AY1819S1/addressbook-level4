@@ -794,8 +794,9 @@ If the inputs are not valid, it will throw a `ParseException`
 
 The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount to all
 items in the `UniqueItemList`. Otherwise, it will give the discount to the item(s) specified by the index or the
-range of index. The `DiscountItemCommand` object indirectly call `UniqueItemList#setItem(Item target, Item
-editedItem)` to give the discount the `Item`. It will then save the current state for undo/redo.
+range of index. The `DiscountItemCommand` object create another Item with the discounted price and indirectly call
+`UniqueItemList#setItem(Item target, Item editedItem)` to give the discount the `Item`. It will then save the current
+ state for undo/redo.
 
 The following activity diagram summarizes what happens when a user executes `discount-item` command:
 
@@ -2015,7 +2016,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: You must have at least 1 item in the menu.
 .. Test case: `edit-item 1 n/Duck Rice p/3 t/rice t/duck` +
    *Expected*: Item specified by the index is updated with new details. New details of the item shown in status message.
-.. Incorrect commands to try: `edit-item 1 n/test p/string`, `edit-item n/@*@^&@* p/3`
+.. Incorrect commands to try: `edit-item 1 n/test p/string`, `edit-item n/name p/3`
 
 . Deleting an item by index
 
@@ -2062,13 +2063,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Sorting the menu by name
 
-.. Prerequisites: You must have at least 2 item in the menu.
 .. Test case: `sort-menu name` +
    *Expected*: Sorts the menu by name. Sorting method shown in status message.
 
 . Sorting the menu by price
 
-.. Prerequisites: You must have at least 2 item with different prices in the menu.
 .. Test case: `sort-menu price` +
    *Expected*: Sorts the menu by price. Sorting method shown in status message.
 

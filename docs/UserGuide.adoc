@@ -1159,8 +1159,8 @@ contains the data of your previous *MeNUS* folder.
 |*List items* |`list-items` |`list-items`
 |*Clear menu* |`clear-menu` |`clear-menu`
 |*Filter menu* |`filter-menu KEYWORD` |`filter-menu cheese`
-|*Sort menu* |`sort-menu` |`sort-menu NAME`
-|*Discount item* |`discount-item INDEX d/PERCENTAGE` |`discount-item 2 d/20`
+|*Sort menu* |`sort-menu SORTING_METHOD` |`sort-menu NAME`
+|*Discount item* |`discount-item INDEX dp/PERCENTAGE` |`discount-item 2 dp/20`
 |*Today's special* |`today-special` |`today-special`
 |*Add recipe to item* |`recipe-item r/RECIPE` |`recipe-item r/some recipe`
 |*Add required ingredients to item* |`add-required-ingredients n/INGREDIENT_NAME nu/NUMBER_OF_INGREDIENTS`
