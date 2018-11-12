@@ -22,11 +22,11 @@ The following section highlights my contributions to OASIS:
 *** What it does: This allows authorized users to create new assignment.
 *** Justification: Within a company there will be many assignment being done concurrently and the documents
 of the assignments could get messy. Howerver, with OASIS the information related to the assignments
-will be computirized. Therefore, managing assignments will be more efficient 
+will be computirized. Therefore, managing assignments will be more efficient.
 *** Highlights: In order to implement and store the assignment, prior understanding the existing components relation
 and how information is stored is needed.
 
-** Delete assignment: `deleteassignment` 
+** Delete assignment: `deleteassignment`
 *** What it does: This allows authorized users to delete assignment from the system when it is no longer needed.
 *** Justification: Having an overwhealming number of data might not necessarily be good.
 Especially, when the data is no longer important. Therefore, when the assignment data is
@@ -34,10 +34,10 @@ not used anymore, it can be remove from the system.
 
 ** Edit assignment: `editassignment`
 *** What it does: This allows authorized users to make changes to existing
-document. 
+document.
 *** Justification: It is normal to make changes as the assignment is ongoing to
 make the final product better. Therefore, there is a need authorized users to make
-changes to the assignments in the system. 
+changes to the assignments in the system.
 
 ** List assignments: `listassignments`
 *** What it does: This allows the user to view all the existing assignments in
@@ -50,7 +50,7 @@ they are working on.
 *** What it does: With valid key combinations, command word corresponding to the
 key pressed will be inserted into the command box.
 *** Justification: Frequent users could get the command word of commonly used
-command quickly. 
+command quickly.
 
 * *Other contributions*:
 
