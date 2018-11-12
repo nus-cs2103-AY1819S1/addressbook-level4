@@ -125,7 +125,7 @@ used by the entire system.
 
 .Architecture Diagram
 [[Architecture]]
-image::Architecture.png[width="600"]
+image::Architecture.png[width="800"]
 
 [underline]#<<Architecture>># explains the high-level design of _Car Park Finder_,
 which contains six [underline]#<<Architecture-Components, `architecture components`>># and
@@ -175,7 +175,7 @@ and exposes its functionality using the `LogicManager` class.
 
 .Class Diagram of the Logic Component
 [[examplelogic]]
-image::LogicClassDiagram.png[width="700"]
+image::LogicClassDiagram.png[width="800"]
 
 [[Architecture-design]]
 === Events-driven nature of the design
@@ -186,7 +186,7 @@ This section explains the main nature of design adopted by the system.
 
 .Component interactions for `query` command
 [[sdquery]]
-image::SDforQuery.png[width="700"]
+image::SDforQuery.png[width="800"]
 
 [NOTE]
 Note how the `Model` simply raises a `CarparkFinderChangedEvent` when _Car Park Finder_ data are changed, instead of
@@ -197,7 +197,7 @@ the updates being saved to the hard disk and the status bar of the User Interfac
 
 .Component interactions for `query` event handling
 [[sdqueryhandle]]
-image::SDforQueryEventHandling.png[width="700"]
+image::SDforQueryEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be
@@ -239,7 +239,7 @@ Please refer to [underline]#<<UIclass>># below for more details on how they are 
 
 .Structure of the User Interface component
 [[UIclass]]
-image::UiClassDiagram.png[width="700"]
+image::UiClassDiagram.png[width="800"]
 
 In general, this is the workflow of the `UI` component:
 
@@ -263,7 +263,7 @@ Please refer to the *_class diagram_* below for more details on how they are con
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="700"]
+image::LogicClassDiagram.png[width="800"]
 
 In general, this is the workflow of the `Logic` component:
 
@@ -277,7 +277,7 @@ when `execute("find Y9")` is called.
 
 .Sequence Diagram when executing `find Y9`
 [[findlogic]]
-image::FindSdForLogic.png[width="700"]
+image::FindSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -290,7 +290,7 @@ Please refer to [underline]#<<modelclass>># below for more details.
 
 .Structure of the Model Component
 [[modelclass]]
-image::ModelClassDiagram.png[width="700"]
+image::ModelClassDiagram.png[width="800"]
 
 In general, this is the structure of the `Model` Component:
 
@@ -314,7 +314,7 @@ each `Carpark` needing their own `Tag` object. <<modelbetter>> is an example of 
 
 .Unique tag object
 [[modelbetter]]
-image::ModelClassBetterOopDiagram.png[width="700"]
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -326,7 +326,7 @@ Please refer to [underline]#<<storageclass>># below for more details on how they
 
 .Structure of the Storage Component
 [[storageclass]]
-image::StorageClassDiagram.png[width="700"]
+image::StorageClassDiagram.png[width="800"]
 
 [[localcopy]]
 The `Storage` component can perform the following functions:
@@ -339,141 +339,10 @@ The `Storage` component can perform the following functions:
 Implementation of features will be described here. This is not meant to be exhaustive, so only the noteworthy details
 will be mentioned.
 
-// tag::undoredo[]
-=== Undo/Redo feature
-
-The `undo` command changes the car park finder state to before the previous undoable command was executed.
-On the other hand, the `Redo` command reverse the most recent `undo` changes.
-
-==== Overview
-
-The undo/redo mechanism is facilitated by `VersionedCarparkFinder`.
-It extends `CarparkFinder` with an undo/redo history, stored internally as an `carparkFinderStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedCarparkFinder#commit()` -- Saves the current car park finder state in its history.
-* `VersionedCarparkFinder#undo()` -- Restores the previous car park finder state from its history.
-* `VersionedCarparkFinder#redo()` -- Restores a previously undone car park finder state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitCarparkFinder()`, `Model#undoCarparkFinder()` and `Model#redoCarparkFinder()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedCarparkFinder` will be initialized with the initial car park finder state, and the `currentStatePointer` pointing to that single car park finder state.
-
-[underline]#<<undoredoact>># below showcases the state at the start of the program.
-
-.State and the start of the program
-[[undoredoact]]
-image::UndoRedoActivityDiagramNew1.png[width="700"]
-
-Step 2. The user executes `find sengkang` command to find list of car park which contain sengkang from the car park finder. The `find` command calls `Model#updateFilteredCarparkList()`, causing the modified state of the car park finder after the `find sengkang` command executes to be saved in the `carparkFinderStateList`, and the `currentStatePointer` is shifted to the newly inserted car park finder state.
-
-[underline]#<<undoredoact2>># below shows a new state is created after the command `find segkang` is ran.
-
-.State after running find command
-[[undoredoact2]]
-image::UndoRedoActivityDiagramNew2.png[width="700"]
-
-Step 3. The user executes `clear` to clear all entries. The `clear` command also calls `Model#commitCarparkFinder()`, causing another modified car park finder state to be saved into the `carparkFinderStateList`.
-
-[underline]#<<undoredoact3>># below shows a new state is created after the command `clear` is ran.
-
-.State after running find then clear command
-[[undoredoact3]]
-image::UndoRedoActivityDiagramNew3.png[width="700"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitCarparkFinder()`, so the car park finder state will not be saved into the `carparkFinderStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCarparkFinder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous car park finder state, and restores the car park finder to that state.
-
-[underline]#<<undoredoact4>># below shows a new state is created after the command `undo` is ran. The state pointer is moved.
-
-.How the undo feature works in a diagram
-[[undoredoact4]]
-image::UndoRedoActivityDiagramNew4.png[width="700"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-[underline]#<<undoredo>># below shows how the undo operation works.
-
-.Sequence diagram of `undo` command
-[[undoredo]]
-image::UndoRedoSequenceDiagram.png[width="700"]
-
-The `redo` command does the opposite -- it calls `Model#redoCarparkFinder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `carparkFinderStateList.size() - 1`, pointing to the latest car park finder state, then there are no undone car park finder states to restore. The `redo` command uses `Model#canRedoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the car park finder, such as `list`, will usually not call `Model#commitCarparkFinder()`, `Model#undoCarparkFinder()` or `Model#redoCarparkFinder()`. Thus, the `carparkFinderStateList` remains unchanged.
-
-[underline]#<<undoredoact5>># below showcases what happen when a command that does not modify the state is used.
-
-.A new state is introduced
-[[undoredoact5]]
-image::UndoRedoActivityDiagramNew5.png[width="700"]
-
-Step 6. The user executes `clear`, which calls `Model#commitCarparkFinder()`. Since the `currentStatePointer` is not pointing at the end of the `carparkFinderStateList`, all car park finder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `find sengkang` command. This is the behavior that most modern desktop applications follow.
-
-[underline]#<<undoredoact6>># below showcases when a new command is used after an undo.
-
-.Deleting a state after an undo
-[[undoredoact6]]
-image::UndoRedoActivityDiagramNew6.png[width="700"]
-
-[underline]#<<undoredodiagram>># below summarizes what happens when a user executes a new command:
-
-.Executing a new command
-[[undoredodiagram]]
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire car park finder.
-
-[cols="1,10"]
-|===
-|Pros| Easy to implement.
-|Cons| May have performance issues in terms of memory usage.
-|===
-
-
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-
-[cols="1,10"]
-|===
-|Pros| Will use less memory (e.g. for `select`, just save the car park being selected).
-|Cons| We must ensure that the implementation of each individual command are correct.
-|===
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of car park finder states.
-
-[cols="1,10"]
-|===
-|Pros| Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-|Cons| Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCarparkFinder`.
-|===
-
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-
-[cols="1,10"]
-|===
-|Pros| We do not need to maintain a separate list, and just reuse what is already in the codebase.
-|Cons| Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-|===
-// end::undoredo[]
-
 // tag::query[]
 === Query feature
 
-The `query` command updates the information of every car park using the latest information provided by
+The query feature updates the information of every car park using the latest information provided by
 _data.gov.sg_ database.
 
 ==== Overview
@@ -488,7 +357,7 @@ Some notable methods that `GsonUtil` implement are:
 * `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
 * `GsonUtil#loadCarparkPostalCode` — Return a list of postal code information, with hashed coordinate data.
 
-Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
+Only `GsonUtil#fetchCarparkInfo()` is used in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
 
 [TIP]
 A [underline]#{sourceDir}/DeveloperGuide.html#localcopy[local copy]# of the data is saved at the end. Users only need to execute this command if they want to get the most recent information from the database.
@@ -506,9 +375,6 @@ Step 2. The user executes the `query` command to fetch the latest data. The `que
 Step 3. The user waits for data to be updated. `GsonUtil#getCarparkData()` establishes a connection with the API
 to read `JSON` data containing basic car park information.
 
-[NOTE]
-If `GsonUtil#getCarparkData()` fails to read from the API, IOException would be thrown.
-
 Step 4. The `JSON` data is parsed using `Gson` library and stored inside `CarparkJson`. A `HashSet` is used to consolidate
 all the car parks and prevent duplicate entries.
 
@@ -517,40 +383,55 @@ Step 5. Once `GsonUtil#getCarparkData()` is done getting all the basic car park 
 
 Step 6. `GsonUtil#getCarparkAvailability()` appends the additional the parking lot details using `CarparkJson#addOn()`
 
-Step 7. Next, a final check is done to see if there is any car park with no parking lot data. The value 0 is added if there is no data.
+[NOTE]
+====
+The loading of postal code, `GsonUtil#loadCarparkPostalCode()` is called inbetween here. Please refer
+[underline]#{sourceDir}/DeveloperGuide.html#Implementation-PostalCode[here]# for more information on how it works.
+====
+
+Step 7. Next, a final check is done to see if there is any car park with no parking lot data. The value '0' is added if there is no data.
 
 Step 8. Finally an `ArrayList<ArrayList<String>>` is returned from `GsonUtil#fetchCarparkInfo()` to update the car park finder state.
  The line of text at the bottom of the application then will show that the application is updated.
 
-Please refer to the _Sequence Diagram_ below for the `query` operation.
+[IMPORTANT]
+====
+If `GsonUtil#getCarparkData()` or `GsonUtil#getCarparkAvailability()` fails to read from the API, IOException would be thrown.
+====
+
+Please refer to the [underline]#<<zy_seq>># below for how the `query` operation works.
 
 .Interactions for query operation
-image::zy_seq.png[width="700", align="left"]
+[[zy_seq]]
+image::zy_seq.png[width="800", align="left"]
 
 [NOTE]
-For more details on the internal workings of `Model` please refer to `undo`.
+For more details on the internal workings of `Model`, please refer to [underline]#{sourceDir}/DeveloperGuide.html#undo-redo-feature[Undo/Redo]#.
 
 ==== Design Considerations
 
-===== Aspect: How query executes
+To find out why certain designs were chosen for the query feature, please read the following section for the
+explanation and reason behind such choices.
 
-* **Alternative 1 (current choice):** Wait for data to be queried sequentially.
+===== Aspect: How `query` executes
+
+* **Alternative 1 :** Wait for data to be queried sequentially.
 +
 [cols="1,10"]
 |===
-|Pros| Easy to implement.
-|Cons| Application hangs while data is being queried.
+|Pros| No side effects as everything is done sequentially. If an error occurred, it is easy to trace the source.
+|Cons| The application hangs while data is being queried due to long processing time.
 |===
 
-* **Alternative 2 :** Data is queried using a separate thread.
+* **Alternative 2 (current choice) :** Data is queried using a separate thread.
 +
 [cols="1,10"]
 |===
-|Pros| Application can continue to function as the data is being fetched in the background.
+|Pros| Application can provide feedback to the user as the data is being fetched in the background.
 |Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
 |===
 
-===== Aspect: Data structure to support query command
+===== Aspect: Data structure to support `query` command
 
 * **Alternative 1 (current choice):** Use `ArrayList<ArrayList<String>>` to store car park information.
 +
@@ -565,47 +446,10 @@ For more details on the internal workings of `Model` please refer to `undo`.
 [cols="1,10"]
 |===
 |Pros| Much more efficient in accessing elements by using a key and better code readability.
-|Cons| `HashMap` does not provide an ordered collection.
+|Cons| `HashMap` does not provide an ordered collection. Since order of insertion is not known, the output for the list
+of car parks might be different every time.
 |===
 // end::query[]
-
-// tag::notify[]
-=== Notify feature
-
-The notify feature updates specific car parks.
-
-==== Overview
-
-The notify mechanism will fetch data from the API every interval. The interval can be set in terms of seconds/minutes
-and is used in conjunction with the `select` command.
-
-This means that it will only notify the current selected car park only, and not all the car parks.
-
-==== Example
-
-.Summary for executing a notify command
-image::zy_act.png[width="700", align="left"]
-
-==== Design Considerations
-
-===== Aspect: How notify executes
-
-* **Alternative 1 (current choice):** Set an interval for data to be queried sequentially.
-+
-[cols="1,10"]
-|===
-|Pros| Easy to implement.
-|Cons| Performance issues as the application might stall.
-|===
-
-* **Alternative 2 :** Data is queried using a separate thread every interval.
-+
-[cols="1,10"]
-|===
-|Pros| Application can be used as the data is being fetched in the background.
-|Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
-|===
-// end::notify[]
 
 // tag::find[]
 === Find feature
@@ -625,7 +469,7 @@ The find mechanism is supported by `FindCommandParser`. It implements `Parser` a
 The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and checks if any of the strings matches the name or address of a car park fully or partially.
 
 .How the find operation works
-image::seqdiagram-find.png[width="700", align="left"]
+image::FindSdForLogic.png[width="800", align="left"]
 
 The diagram above describes how the flow of a find command would execute. It rely on `FindCommandParser` to ensure the variables are correct.
 
@@ -648,7 +492,7 @@ Step 4. The filtered list of car parks is returned to the GUI.
 The flow chart below describes the user interaction with the application and how it processes it.
 
 .Flow chart of the find operation.
-image::actdiagram-find.png[width="700", align="left"]
+image::actdiagram-find.png[width="880", align="left"]
 
 ==== Design Considerations
 
@@ -755,20 +599,20 @@ input by the user falls between the free parking time period of the car park.
 
 Step 10. To combine the filtering criteria, a boolean variable, `collective`, is used. The following snippet of code shows more clearly how it is used.
 
-image::CarparkFilteringPredicate_code_snippet.png[width="700", align="left"]
+image::CarparkFilteringPredicate_code_snippet.png[width="800", align="left"]
 
 Step 11. The list of car parks is filtered against the predicate and returned to the GUI.
 
 Please refer to the _Sequence Diagram_ below for the filter operation.
 
 .How the filter operation works
-image::SequenceDiagram-filter.png[width="700", align="left"]
+image::SequenceDiagram-filter.png[width="800", align="left"]
 
 //The following _Activity Diagram_ summarizes the implementation of the
 //filter command.
 //
 //.Summary for executing a filter command
-//image::ActivityDiagram-filter.png[width="700", align="left"]
+//image::ActivityDiagram-filter.png[width="800", align="left"]
 
 ---
 
@@ -795,7 +639,7 @@ A whole new set of classes and methods needs to be written to store the filtered
 // end::filter[]
 
 // tag::calculate[]
-=== Calculate Feature
+=== Calculate feature
 
 The calculate feature helps users calculate the cost of parking at a specific car park for a specified time period.
 
@@ -866,7 +710,263 @@ Since car park number is unique to each car park, there would only be one car pa
 //==== Design Considerations
 //===== Aspect: How calculation is done
 
-=== Abbreviation Feature
+// tag::notify[]
+=== Notify feature
+
+The notify feature updates the lot availability of the car park selected by the user. It also displays a notification
+message periodically to inform the user.
+
+==== Overview
+
+The notify mechanism is facilitated by `NotifyCommand` and `NotifyCommandParser`. It enables notifications at a given
+interval and disables notification when it detects that the interval is set to '0'.
+
+The `NotifyCommandParser` implements `Parser` with the following operation:
+
+* `NotifyCommandParser#parse()` — This checks the validity of the argument on whether it is non-negative integer and
+between 10 to 600, including 0. It throws a `ParseException` when then user input does not conform the expected format.
+
+When notification is enabled:
+
+* `NotifyCommand` calls `ScheduledExecutorService#scheduleAtFixedRate()` to start `NotifyTimeTask#run()`
+and repeat the execution at a fixed interval.
+* At every interval, `NotifyTimeTask` will call `GsonUtil#getSelectedCarparkInfo()` to get the lot details from the
+API and update the specific car park using `Carpark#setLots()`.
+* It will also create an event called `NewResultAvailableEvent()` to update the user on how many parking lots are available by displaying a message.
+
+Take a look before at the code snippet below for more details on how `NotifyTimeTask` works.
+
+.NotifyTimeTask.java
+[source,java]
+----
+@Override
+public void run() {
+    try {
+        //...
+        // Get the data from the database
+        List<String> updateData = new ArrayList<>(GsonUtil.getSelectedCarparkInfo(
+                selectedNumber.toString()));
+
+        // Update the specific car park
+        model.getCarparkFinder().getCarparkList().parallelStream()
+                .filter(carpark -> carpark.getCarparkNumber()
+                .equals(selectedNumber))
+                .findFirst().ifPresent(carpark -> carpark.setLots(
+                new LotsAvailable(updateData.get(1)), new TotalLots(updateData.get(2))));
+        // This event updates the UI for the CarparkListPanel to account for any changes
+        // in lotsAvailable variable
+        EventsCenter.getInstance().post(new NotifyCarparkRequestEvent());
+        model.commitCarparkFinder();
+
+        // Check if notification is enabled
+        if (CarparkListPanel.getTimeInterval() > 0) {
+            // show notification...
+        }
+    }
+    //...
+}
+----
+
+==== Example
+Given below is an example usage scenario of how the `notify` mechanism behaves at each step.
+
+[IMPORTANT]
+====
+To enable it, `notify` must be used in conjunction with the `select` command. This means that it will only `notify` the
+current selected car park and not all the car parks.
+====
+
+Step 1. The user executes the `select` command on the 10th car park in the list.
+
+Step 2. The user executes the `notify` command and indicates the interval to be 10 seconds. The `NotifyCommandParser#parse()`
+gets called This means that every 10
+seconds, the user will receive a notification on the number of available lots left for the 10th car park.
+
+
+[underline]#<<actnotify>># below summarises what happens when a user executes the `notify` command:
+
+.Executing a `notify` command
+[[actnotify]]
+image::zy_act.png[width="880", align="left"]
+
+==== Design Considerations
+
+To find out why certain designs were chosen for the notify feature, please read the following section for the
+explanation and reason behind such choices.
+
+===== Aspect: How `notify` executes
+
+* **Alternative 1 :** Set an interval for data to be queried sequentially.
++
+[cols="1,10"]
+|===
+|Pros| No side effects as everything is done sequentially. If an error occurred, it is easy to trace the source.
+|Cons| Performance issues as the application might stall, despite only updating one car park.
+|===
+
+* **Alternative 2 (current choice):** Data is queried using a separate thread every interval.
++
+[cols="1,10"]
+|===
+|Pros| Application can provide feedback to user as the data is being fetched in the background.
+|Cons| Reading the car park list while updating on a separate thread might cause unintended side effects if not handled properly.
+|===
+
+===== Aspect: Class to run `NotifyTimeTask`
+
+* **Alternative 1 :** Use `Timer` class to run  and schedule `NotifyTimeTask`.
++
+[cols="1,10"]
+|===
+|Pros| Using `Timer` class allows for `notify` to run in the background thread and handles
+the repeated calls as well.
+|Cons| If the user were to change the system clock, it might affect how `Timer` class works. This is because
+the class relies on the system time to calculate when to run the task again.
+|===
+
+* **Alternative 2 (current choice):** Use `ExecutorService` class to run  and schedule `NotifyTimeTask`.
++
+[cols="1,10"]
+|===
+|Pros| `ScheduledThreadPoolExecutor` supports the use of multiple threads, whereas `Timer` only has one.
+Also, `ScheduledThreadPoolExecutor` is not affected by the system clock.
+|Cons| Unable to handle more complex operations if the application continues to add more features. For example, handling
+updates to multiple car parks with different intervals.
+|===
+// end::notify[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+
+The `undo` command changes the car park finder state to before the previous undoable command was executed.
+On the other hand, the `Redo` command reverse the most recent `undo` changes.
+
+==== Overview
+
+The undo/redo mechanism is facilitated by `VersionedCarparkFinder`.
+It extends `CarparkFinder` with an undo/redo history, stored internally as an `carparkFinderStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedCarparkFinder#commit()` -- Saves the current car park finder state in its history.
+* `VersionedCarparkFinder#undo()` -- Restores the previous car park finder state from its history.
+* `VersionedCarparkFinder#redo()` -- Restores a previously undone car park finder state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitCarparkFinder()`, `Model#undoCarparkFinder()` and `Model#redoCarparkFinder()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedCarparkFinder` will be initialized with the initial car park finder state, and the `currentStatePointer` pointing to that single car park finder state.
+
+[underline]#<<undoredoact>># below showcases the state at the start of the program.
+
+.State and the start of the program
+[[undoredoact]]
+image::UndoRedoActivityDiagramNew1.png[width="800"]
+
+Step 2. The user executes `find sengkang` command to find list of car park which contain sengkang from the car park finder. The `find` command calls `Model#updateFilteredCarparkList()`, causing the modified state of the car park finder after the `find sengkang` command executes to be saved in the `carparkFinderStateList`, and the `currentStatePointer` is shifted to the newly inserted car park finder state.
+
+[underline]#<<undoredoact2>># below shows a new state is created after the command `find segkang` is ran.
+
+.State after running find command
+[[undoredoact2]]
+image::UndoRedoActivityDiagramNew2.png[width="800"]
+
+Step 3. The user executes `clear` to clear all entries. The `clear` command also calls `Model#commitCarparkFinder()`, causing another modified car park finder state to be saved into the `carparkFinderStateList`.
+
+[underline]#<<undoredoact3>># below shows a new state is created after the command `clear` is ran.
+
+.State after running find then clear command
+[[undoredoact3]]
+image::UndoRedoActivityDiagramNew3.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitCarparkFinder()`, so the car park finder state will not be saved into the `carparkFinderStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCarparkFinder()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous car park finder state, and restores the car park finder to that state.
+
+[underline]#<<undoredoact4>># below shows a new state is created after the command `undo` is ran. The state pointer is moved.
+
+.How the undo feature works in a diagram
+[[undoredoact4]]
+image::UndoRedoActivityDiagramNew4.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+[underline]#<<undoredo>># below shows how the undo operation works.
+
+.Sequence diagram of `undo` command
+[[undoredo]]
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoCarparkFinder()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the car park finder to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `carparkFinderStateList.size() - 1`, pointing to the latest car park finder state, then there are no undone car park finder states to restore. The `redo` command uses `Model#canRedoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the car park finder, such as `list`, will usually not call `Model#commitCarparkFinder()`, `Model#undoCarparkFinder()` or `Model#redoCarparkFinder()`. Thus, the `carparkFinderStateList` remains unchanged.
+
+[underline]#<<undoredoact5>># below showcases what happen when a command that does not modify the state is used.
+
+.A new state is introduced
+[[undoredoact5]]
+image::UndoRedoActivityDiagramNew5.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitCarparkFinder()`. Since the `currentStatePointer` is not pointing at the end of the `carparkFinderStateList`, all car park finder states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `find sengkang` command. This is the behavior that most modern desktop applications follow.
+
+[underline]#<<undoredoact6>># below showcases when a new command is used after an undo.
+
+.Deleting a state after an undo
+[[undoredoact6]]
+image::UndoRedoActivityDiagramNew6.png[width="800"]
+
+[underline]#<<undoredodiagram>># below summarises what happens when a user executes a new command:
+
+.Executing a new command
+[[undoredodiagram]]
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire car park finder.
+
+[cols="1,10"]
+|===
+|Pros| Easy to implement.
+|Cons| May have performance issues in terms of memory usage.
+|===
+
+
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+
+[cols="1,10"]
+|===
+|Pros| Will use less memory (e.g. for `select`, just save the car park being selected).
+|Cons| We must ensure that the implementation of each individual command are correct.
+|===
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of car park finder states.
+
+[cols="1,10"]
+|===
+|Pros| Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|Cons| Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedCarparkFinder`.
+|===
+
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+
+[cols="1,10"]
+|===
+|Pros| We do not need to maintain a separate list, and just reuse what is already in the codebase.
+|Cons| Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|===
+// end::undoredo[]
+
+=== Abbreviation
 
 The abbreviation feature reduces the amount of characters needed to type.
 
@@ -893,7 +993,7 @@ Step 3. This _command word_ will be matched to a `COMMAND_ABBREVIATION` from
 proceeds as if a `find` command is given.
 
 .Flow chart of command abbreviation usage.
-image::ActivityDiagram-abbreviation.png[width="700", align="left"]
+image::ActivityDiagram-abbreviation.png[width="880", align="left"]
 
 The _Activity Diagram_ above explains what happens when a user executes a `f`
 command.
@@ -922,7 +1022,7 @@ in each Command file.
 |Cons| When there are 2 command words starting with same two characters e.g. `find` & `filter`, this does not work.
 |===
 
-=== Autocomplete feature
+=== Autocomplete
 
 The autocomplete feature simplifies overcomplicated commands by prompting correct format.
 
@@ -946,10 +1046,10 @@ moves on to highlight its first placeholder, `DAY`, in the command line. As seen
 from the following diagrams.
 
 .After `fi` is entered.
-image::screenshot-fi.png[width="700", align="left"]
+image::screenshot-fi.png[width="800", align="left"]
 
 .After kbd:[Tab] is pressed for the first time.
-image::screenshot-fiFirstArgSelected.png[width="700", align="left"]
+image::screenshot-fiFirstArgSelected.png[width="800", align="left"]
 
 Step 3. The user replaces `DAY` with an actual value, `SUN`, and presses 'Tab'
 key again. `autoComplete()` is called again, but because this time it checks that `input`
@@ -957,13 +1057,13 @@ key again. `autoComplete()` is called again, but because this time it checks tha
 is shown in the following diagram.
 
 .After kbd:[Tab] is pressed for the second time.
-image::screenshot-fiSecondArgSelected.png[width="700", align="left"]
+image::screenshot-fiSecondArgSelected.png[width="800", align="left"]
 
 Step 4. The user continues step 3 until all placeholders are filled up with actual
 values and then presses kbd:[Enter]  to execute this command.
 
 .Activity Diagram for Auto Completion Mechanism.
-image::ActivityDiagram-autocompletion.png[width="700", align="left"]
+image::ActivityDiagram-autocompletion.png[width="880", align="left"]
 
 The _Activity Diagram_ above explains what happens when user presses kbd:[Tab].
 
@@ -1071,23 +1171,23 @@ As we wanted to showcase real time updates when the user issues a command, we ha
 However, we did not want to just update it. We wanted to showcase the selected car park or the filtered list accordingly.
 
 ==== Example
-Step 1. The user launches the application and is greeted by this UI
+Step 1. The user launches the application and is greeted by this UI.
 
 .On start of the application
-image::UIstep3.png[width="700", align="left"]
+image::UiS1.png[width="800", align="left"]
 
 Step 2. The user selects a car park with a `select` command. E.g. `select 10`.
 
 .An example outcome of the `select 10` command
-image::UIstep2.png[width="700", align="left"]
+image::UiS2.png[width="800", align="left"]
 
 `SelectCommand#Execute` is called. If the input is valid, it creates a `JumpToListRequestEvent` event for `BrowserPanel#handleCarparkPanelSelectionChangedEvent()` to catch.
 
 Step 3. The user then list all the car park with a `list` command.
 A `ListCarparkRequestEvent` is created and `BrowserPanel` catches the event to call `BrowserPanel#handleListCarparkRequestEvent()`
 
-.An example outcome of the `select 10` command
-image::UIstep1.png[width="700", align="left"]
+.An example outcome of the `list` command
+image::UiS3.png[width="800", align="left"]
 
 The HTML is refreshed to show all car parks.
 
@@ -1111,11 +1211,12 @@ The HTML is refreshed to show all car parks.
 
 // end::ui[]
 
-// tag::weather[]
 === [Proposed] Weather Forecast
 
+When notification is enabled, the user is able to check the weather forecast for the area. This is to warn them
+if the car park they chose is not sheltered.
+
 _This feature is coming in v2.0._
-// end::weather[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -1146,20 +1247,20 @@ We chose asciidoc over Markdown because asciidoc, although a bit more complex th
 
 === Editing Documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+See [underline]#{sourceDir}/UsingGradle.html#rendering-asciidoc-files[Using Gradle]# to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
 === Publishing Documentation
 
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+See [underline]#{sourceDir}/UsingTravis.html#enabling-auto-publishing-of-documentation[Using Travis]# to learn how to deploy GitHub Pages using Travis.
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use [underline]#https://www.google.com/chrome/browser/desktop/[Google Chrome]# for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Follow the instructions in [underline]#{sourceDir}/UsingGradle.html#rendering-asciidoc-files[Using Gradle]# to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
@@ -1170,7 +1271,8 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The [underline]#link:{repoURL}/build.gradle[`build.gradle`]# file specifies some project-specific
+[underline]#https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes]# which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -1186,7 +1288,7 @@ If set, the name will be displayed near the top of the page.
 |_not set_
 
 |`site-githuburl`
-|URL to the site's repository on https://github.com[GitHub].
+|URL to the site's repository on [underline]#https://github.com[GitHub]#.
 Setting this will add a "View on GitHub" link in the navigation bar.
 |_not set_
 
@@ -1200,9 +1302,11 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc` file may also specify some file-specific
+[underline]#https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes]# which affects how the file is rendered.
 
-Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+Asciidoctor's [underline]#https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes]# may be
+specified and used as well.
 
 [TIP]
 Attributes left unset in `.adoc` files will use their *default value*, if any.
@@ -1228,11 +1332,12 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in [underline]#link:{repoURL}/docs/stylesheets[`docs/stylesheets`]# are the
+[underline]#https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets]# of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
-These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+The files in [underline]#link:{repoURL}/docs/templates[`docs/templates`]# controls the rendering of `.adoc` files into HTML5.
+These template files are written in a mixture of [underline]#https://www.ruby-lang.org[Ruby]# and [underline]#http://slim-lang.com[Slim]#.
 
 [WARNING]
 ====
@@ -1263,11 +1368,11 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
 [NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+See [underline]#{sourceDir}/UsingGradle.html[Using Gradle]# for more info on how to run tests using Gradle.
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Thanks to the [underline]#https://github.com/TestFX/TestFX[TestFX]# library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
@@ -1299,31 +1404,39 @@ Dev Ops ensure the product runs on both Linux and Windows by building it and tes
 
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+See [underline]#{sourceDir}/UsingGradle.html[Using Gradle]# to learn how to use Gradle for build automation.
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use [underline]#https://travis-ci.org/[Travis CI]# and [underline]#https://www.appveyor.com/[AppVeyor]# to perform
+_Continuous Integration_ on our projects. See [underline]#{sourceDir}/UsingTravis.html[Using Travis]# and
+[underline]#{sourceDir}/UsingAppVeyor.html[Using AppVeyor]# for more details.
 
 === Coverage Reporting
 
-We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+We use [underline]#https://coveralls.io/[Coveralls]# to track the code coverage of our projects.
+See [underline]#{sourceDir}/UsingCoveralls.html[Using Coveralls]# for more details.
 
 === Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+When a pull request has changes to asciidoc files, you can use [underline]#https://www.netlify.com/[Netlify]# to see a
+preview of how the HTML version of those asciidoc files will look like when the pull request is merged.
+See [underline]#{sourceDir}/UsingNetlify.html[Using Netlify]# for more details.
 
 === Making a Release
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
-.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Update the version number in [underline]#link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`]#.
+.  Generate a JAR file [underline]#{sourceDir}/UsingGradle.html#creating-the-jar-file[using Gradle]#.
 .  Tag the repo with the version number. e.g. `v0.1`
-.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+.  [underline]#https://help.github.com/articles/creating-releases/[Create a new release using GitHub]# and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Car Park Finder depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Car Park Finder depends on the
+[underline]#http://wiki.fasterxml.com/JacksonHome[Jackson library]# for XML parsing.
+Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies
+automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -1779,9 +1892,9 @@ Use case resumes before step 1.
 * 1b. No input for timing.
 +
 [none]
-** 1b1. *System* will use the default interval to notify.
+** 1b1. *System* will prompt user to input valid timing.
 +
-Use case resumes at step 2.
+Use case ends.
 
 * 2a. Unable to retrieve car park availability.
 +

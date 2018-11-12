@@ -2,6 +2,8 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.concurrent.TimeUnit;
+
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.events.ui.TimeIntervalChangeEvent;
 import seedu.parking.logic.CommandHistory;
@@ -56,15 +58,15 @@ public class NotifyCommand extends Command {
         if (targetTime > 0) {
             NotifyTimeTask task = new NotifyTimeTask(model, targetTime);
             CarparkListPanel.setTimer();
-            CarparkListPanel.getTimer().scheduleAtFixedRate(task, targetTime * 50, targetTime * 1000);
+            CarparkListPanel.getTimer().scheduleAtFixedRate(task, targetTime * 50, targetTime * 1000,
+                    TimeUnit.MILLISECONDS);
             EventsCenter.getInstance().post(new TimeIntervalChangeEvent(targetTime));
             CarparkNumber selectedNumber = CarparkListPanel.getSelectedCarpark().getCarparkNumber();
             return new CommandResult(String.format(MESSAGE_SUCCESS, selectedNumber.toString(), targetTime));
         } else {
             if (CarparkListPanel.getTimeInterval() > 0) {
                 EventsCenter.getInstance().post(new TimeIntervalChangeEvent(0));
-                CarparkListPanel.getTimer().cancel();
-                CarparkListPanel.getTimer().purge();
+                CarparkListPanel.getTimer().shutdownNow();
                 return new CommandResult(MESSAGE_OFF);
             } else {
                 throw new CommandException(MESSAGE_ERROR_OFF);

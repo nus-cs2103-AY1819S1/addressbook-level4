@@ -91,18 +91,18 @@ public class NotifyTimeTask extends TimerTask {
                 }
             }
         } catch (CommandException e) {
-            cancel();
+            CarparkListPanel.getTimer().shutdownNow();
             if (CarparkListPanel.getTimeInterval() > 0) {
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(e));
             }
         } catch (IOException e) {
-            cancel();
+            CarparkListPanel.getTimer().shutdownNow();
             if (CarparkListPanel.getTimeInterval() > 0) {
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(
                         new CommandException(MESSAGE_ERROR_CARPARK)));
             }
         } catch (Exception e) {
-            cancel();
+            CarparkListPanel.getTimer().shutdownNow();
             if (CarparkListPanel.getTimeInterval() > 0) {
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(
                         new CommandException(MESSAGE_ERROR_NODATA)));

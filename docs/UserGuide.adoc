@@ -560,6 +560,9 @@ notify 10
 * If you did not {sourceDir}/UserGuide.html#Features-Select[select] a car park beforehand, _Car Park Finder_ would not know
 which car park needs to be updated.
 * You can set within a range of _10 to 600 seconds_ (10 minutes). *Decimal values are not allowed.*
+* Typing `query` or `clear` will disable the notification.
+* As `notify` is based on the index of `select`, you can select another car park to receive notification while it is enabled.
+* This means if you type `find hougang` and the original car park is gone but the index is still valid, it will update that car park instead.
 
 '''
 
@@ -590,7 +593,7 @@ as confirmation that you typed in correctly.
 
 .Before and after receiving notification
 [[zy_notify_ba]]
-image::zy_notify_ba.png[width="600"]
+image::zy_notify_ba.png[width="700"]
 
 [caption="Message: "]
 [[notifynochange]]
