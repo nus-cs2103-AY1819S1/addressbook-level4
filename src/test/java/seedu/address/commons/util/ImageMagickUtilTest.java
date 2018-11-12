@@ -12,9 +12,8 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 
-import com.oracle.tools.packager.UnsupportedPlatformException;
-
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.commands.CreateApplyCommand;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transformation.Transformation;
@@ -67,7 +66,7 @@ public class ImageMagickUtilTest {
             Path path = Paths.get("src", "test", "data", "sandbox", "test.jpg");
             ImageMagickUtil.copyOutside(userPrefs, System.getProperty("os.name").toLowerCase());
             ImageMagickUtil.processImage(path, new Transformation("blur", "0x8"), false);
-        } catch (UnsupportedPlatformException e) {
+        } catch (IllegalOperationException e) {
             return;
         } catch (Exception e) {
             fail();
@@ -86,7 +85,7 @@ public class ImageMagickUtilTest {
             new CreateApplyCommand("blurR", list);
             ImageMagickUtil.setTemporaryCommandForder(testCommandFolder.toString());
             ImageMagickUtil.processImage(path, new Transformation("@blurR"), false);
-        } catch (UnsupportedPlatformException e) {
+        } catch (IllegalOperationException e) {
             return;
         } catch (Exception e) {
             fail();
