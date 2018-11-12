@@ -488,7 +488,6 @@ Various convertion methods are called to convert the Event format from local Eve
 
 A common identifier is needed to uniquelly identify the same Event in local database and in Google Calendar.
 
-
 * **Use Event Unique Id and EventSet Unique Id** (current choice)
 ** Pro: It is unique and randomly generated.
 ** Con: Very hard to implement and have to find the equivalent unique string in Google's implementation. Eventually, after checking out Google's implementation, we set the following equivalent properties: +
@@ -498,6 +497,46 @@ EventSetUid == iCalId
 * **By Name** (alternative)
 ** Pro: Very easy to implement
 ** Con: User unable to create events with the same name.
+
+==== EnterGoogleCalendarMode - Edit
+
+**Step 1** +
+->Command `clear` +
+Cleans up the enviroment
+
+**Step 2** +
+->Command `add n/Study For next sem s/2018-12-1 9pm e/2018-12-1 10pm rt/WEEKLY ru/2018-12-25 9pm`
+to create a repeat event, this event will trigger Google to create 4 Event Instances
+
+**Step 3** +
+->Command `edit 1 n/change1` +
+Only the first event will be edited, its name will become change1. +
+A command requst will be sent to edit the first event instance.
+
+**Step 4** +
+`edit 2 n/change2 -u`+
+The first event is untouched. +
+The event instances from the second one onwards in the same EventSet will be edited, their name swill become change2. +
+A command requst will be sent to edit the various event instances.
+
+**Step 5** +
+`edit 3 n/change3 -a`+
+All event instances in the same EventSet will be edited, their name swill become change3. +
+A command requst will be sent to edit the underlying Event, instead of editing individual event instances.
+
+==== EnterGoogleCalendarMode - test
+We need to carry out integration test on Github. +
+However various limits are posted on the usage of APIs, but tests are necessary to run. +
+
+* **Introduce offline mode** (current choice)
+** Pro: Offline mode introduced at the code level to disable certain Google Calendar functions.
+** Con: Have to write seperate set of tests and helper functions.
+
+* **No offline mode** (alternative)
+** Pro: Easy to implement.
+** Con: Running the current set of test cases will certainly sending too many requests to Google.
+
+
 // end::EnterGoogleCalendarMode[]
 
 // tag::dataencryption[]
