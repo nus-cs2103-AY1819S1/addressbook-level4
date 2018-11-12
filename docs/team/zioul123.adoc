@@ -62,3 +62,10 @@ include::../DeveloperGuide.adoc[tag=addUseCase]
 include::../DeveloperGuide.adoc[tag=editUseCase]
 
 include::../DeveloperGuide.adoc[tag=deleteUseCase]
+
+include::../DeveloperGuide.adoc[tag=testingAdd]
+
+include::../DeveloperGuide.adoc[tag=testingEdit]
+
+include::../DeveloperGuide.adoc[tag=testingDelete]
+

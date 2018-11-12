@@ -1380,21 +1380,80 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+// tag::testingAdd[]
+=== Adding a person
 
+. Adding a person to InsuRen
+
+.. Prerequisites: No `Person` in the list is identifiable as identical to those that are to be added during this test.
+... Identifiable as identical means that:
+.... `name` is the same *and*
+.... `phone` *or* `email` is the same
+.. Test case: `add n/Anne Loh p/11114444 e/abc@email.com a/44th Street t/Friend` +
+   Expected: Anne Loh is added. Details of the client are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/Ben Chua t/Friend` +
+   Expected: Ben Chua is added. Details of the client are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/Anne Loh p/22223333 e/def@email.com` +
+   Expected: Anne Loh is added. Details of the client are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/Anne Loh p/22223333` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `add n/Anne Loh p/22223333 a/abc street` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `add n/Anne Loh e/abc@email.com a/abc street` +
+   Expected: Nothing is updated. Error details shown in the status message. Status bar remains the same.
+.. Test case: `add n/Anne Loh` +
+   Expected: Anne Loh is added. Details of the client are shown in the status message. Timestamp in the status bar is updated.
+// end::testingAdd[]
+
+// tag::testingEdit[]
+=== Editing a person
+
+. Editing a person
+
+.. Editing by Index
+... Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+... Test case: `edit 1 n/Abcde t/` +
+    Expected: First client is renamed "Abcde" and tags are deleted. Details of the edited client shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit 0 p/18854835 t/friend t/jailed` +
+    Expected: No person is edited. Error details shown in the status message. Status bar remains the same.
+... Other incorrect edit commands to try: `edit` (no arguments), `edit x t/friend` (where x is larger than the list size or negative), `edit 3` (where no fields are provided) +
+    Expected: Similar to previous.
+.. Editing by Name
+... Prerequisites: Make sure that nobody in InsuRen has the name/part of their name as Alice, Lee, Lim, Chua or Bob, then add people to the list with the names `Alice Lee`, `Alice Chua`, `Alice Lim` and `Bob`.
+... Test case: `edit Bob e/abc@email.com`
+    Expected: Bob's email is changed to abc@email.com. Details of the edited client shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit Alice Chua n/Bobby Chua`
+    Expected: Alice Chua is renamed to Bobby Chua. Details of the edited client shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit Alice p/883838333` +
+    Expected: No person is edited. Error details shown in the status message. Status bar remains the same.
+... Other incorrect edit commands to try: `edit x n/abc` (where x matches nobody in the list), `edit Alice Lim` (where no fields are provided) +
+    Expected: Similar to previous.
+// end::testingEdit[]
+
+// tag::testingDelete[]
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First client is deleted from the list. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
+.. Deleting by Index
+... Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+... Test case: `delete 1` +
+    Expected: First client is deleted from the list. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
+... Test case: `delete 0` +
+    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+... Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or negative) +
+    Expected: Similar to previous.
+.. Deleting by Name
+... Prerequisites: Make sure that nobody in InsuRen has the name/part of their name as Alice, Lee, Lim, Chua or Bob, then add people to the list with the names `Alice Lee`, `Alice Chua`, `Alice Lim` and `Bob`.
+... Test case: `delete Bob`
+    Expected: Bob is deleted. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
+... Test case: `delete Alice Chua`
+    Expected: Alice Chua is deleted. Details of the deleted client shown in the status message. Timestamp in the status bar is updated.
+... Test case: `delete Alice` +
+    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+... Other incorrect delete commands to try: `delete x` (where x matches nobody in the list) +
+    Expected: Similar to previous.
+// end::testingDelete[]
 
 === Saving data
 
