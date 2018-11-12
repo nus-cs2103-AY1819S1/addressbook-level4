@@ -696,15 +696,12 @@ Step 1: The user launches TheTracker for the first time. The
 `VersionedAddressBook` will be initialised with the initial address book
 state.
 
-image::DeleteStartingStateListDiagram.png[width="800"]
-
 Step 2: The user executes `addperson n/David...` command to add a person named
 David in his TheTracker. The parser `AddPersonCommandParser` will parse the person's attributes and create
 a new person object with these attributes and pass the person to `AddPersonCommand`. The `addperson` command
 calls `Model#commitAddressBook()`, causing the modified state of TheTracker
 after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
-
-image::DeleteNewCommand1StateListDiagram.png[width="800"]
+(refer to the Add Command diagram)
 
 Step 3: The user executes `deleteperson 1` to delete the person who has an index 1 (named David) in the current active list.
 The parser `DeletePersonCommandParser` will identify by the index of the person to be
