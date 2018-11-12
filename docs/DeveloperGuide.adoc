@@ -429,15 +429,23 @@ Aspect: How to implement ToDoList UI
 // end::ToDoList[]
 
 // tag::FuzzySearch[]
-=== Fuzzy Search and Filter by Tags for Find Event Command
+=== Fuzzy Search and Filter by Date/Time and Tags
 ==== Current Implementation
 
-===== Model
-The Fuzzy Search enhancement for the `find event` command is achieved using the `fuzzywuzzy` API. The existing
-`TitleContainsKeywordsPredicate` was modified such that the `test` method checks if the `keyword` matches the `Title`
-of the `CalendarEvent` using a fuzzy algorithm based on Levenshtein distance between strings, and assigns an integer
-score to the match. If this score is under the `threshold` of 70, the `Predicate` will filter out the `CalendarEvent`
-from the `ObservableList`.
+===== Overview
+The Fuzzy Search enhancement for the `find event` command is achieved by modifying the `Predicate` used to filter the `FilteredList` already present in the `ModelManager`, by using a fuzzy match algorithm to check the similarity of the event's `Title`, `Description` and `Venue` text with each input keywords, and seeing if it exceeds a given threshold.
+
+The Filter by Date/Time and Tags feature is achieved by allowing the aforementioned `FilteredList` to accept multiple predicates at a time, by taking the logical AND of all the input predicates.
+
+The feature to show the most relevant search results first is achieved by sorting the `FilteredList`, by wrapping it with a `SortedList`, and changing the `Comparator` used based on the input command.
+
+Finally, the `FindEventCommandParser` and the `ArgumentTokenizer` were modified to accept commands that may or may not have keywords (i.e. preamble), and handle having varying numbers of prefixes in each command.
+
+====== Model
+Firstly, to allow for fuzzy matching, the `fuzzywuzzy` API was used
+
+The existing `TitleContainsKeywordsPredicate` was modified such that the `test` method checks if the `keyword` matches the `Title` of the `CalendarEvent` using a fuzzy algorithm based on Levenshtein distance between strings, and assigns an integer score to the match.
+If this score is under the `threshold` of 70, the `Predicate` will filter out the `CalendarEvent` from the `ObservableList`.
 
 The Filter by Tags enhancement is achieved using a second `Predicate`, the `TagsPredicate`. This `Predicate` will `test`
 the `CalendarEvent` by checking if any of its `Tags` matches with any of the user input `tags`. The `Predicate` will
