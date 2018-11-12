@@ -199,7 +199,7 @@ Format: `help`
 
 // tag::add[]
 
-=== Adding an entry: `add + person`
+=== Adding an entry: `add` + `person`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
@@ -315,7 +315,7 @@ On startup, no entry should be selected. Entries will not be deselected until an
 // end::select[]
 
 // tag::edit[]
-=== Editing an entry : `edit + person`
+=== Editing an entry : `edit` + `person`
 
 Edits an existing person, module or occasion in TheTracker. +
 It can be used to add optional field that is not specified in the add command.
@@ -430,7 +430,7 @@ command box.
 // end::removeperson[]
 
 // tag::find[]
-=== Locating entries: `find`
+=== Locating entries: `find` + `person`
 
 ==== Finding a person: `findperson`
 Finds a person in TheTracker. +
@@ -565,6 +565,7 @@ A command to allow the user to see the history of commands used within the addre
 Format: `history`
 // end::history
 
+// tag::autocomplete[]
 === Autocomplete
 A feature that gives a drop-down list of suggested commands based on substrings that a user types.
 
@@ -575,6 +576,7 @@ Examples:
 [TIP]
 You can use the up & down arrows to find your intended command in the drop-down list,
 and press kbd:[Enter] to select it.
+// end::autocomplete[]
 
 // tag::export[]
 === Exporting user data to xml/txt: `export`

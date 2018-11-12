@@ -465,6 +465,71 @@ error.
 
 // end::insertperson[]
 
+// tag::removeperson[]
+=== RemovePerson Feature
+The `removeperson` command is a complementary feature to the `insertperson` command. It enables the
+removal of a `Person` from either a `Module` students list or an `Occasion` attendance list. This thus
+means that the module or occasion will be removed from the respective list that the `Person` carries.
+
+====  Current Implementation
+Currently, removeperson creates a whole new copy of the `Person`, and a whole new copy of the `Module` to replace.
+The difference with the copy and the original is that their internal elements contain one less element,
+and the new copy is populated with shallow duplicates.
+
+A shallow duplicate is a copy but with an empty internal list.
+For example, a shallow duplicate of Person contains an empty module list and empty occasion list.
+A shallow duplicate of Module contains an empty students list.
+
+The reason why this is done will be explained in the design considerations below.
+
+The following sequence diagram shows how the `removeperson` operation works:
+
+image::RemovePersonSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+For this feature to be possible, it has to be possible to somehow remove the link between said `Person`
+and `Module`/`Occasion`.
+The link (or pointer) to the objects can be best illustrated in the class diagram below:
+
+image::PMORelationshipClassDiagram.png[width="800"]
+
+As seen, the `Person` class is associated with the `Module` class and the `Occasion` class as `Person`
+stores a list of modules and occasions. A person can thus have associations with multiple modules and
+occasions. This relationship is bidirectional as a `Module` can have associations with multiple persons.
+This is the same for occasions with persons. There is no association between `Module` and occasion.
+Thus, the relationships between `Person` and module, & `Person` and occasion are bidirectional.
+
+Let us take an example of a `Person` associated with many modules, and vice versa. A possible implementation
+of the removeperson feature may be to remove the pointers between said `Person` and the corresponding
+`Module` in mind. However, this is not feasible in TheTracker due to our implementation of `VersionedAddressBook`.
+TheTracker keeps various states of itself and its components after every command which changes an object.
+Below is a simple state list diagram of the `VersionedAddressBook`:
+
+image::VersionedABStateListDiagram.png[width="800"]
+
+When the user first opens up TheTracker, an instance of the `VersionedAddressBook` is opened and the
+`currentStatePointer` points to instance 1 as shown in the diagram. When the user changes the person object,
+an entirely new copy of the state of `TheTracker` is created and inserted as a new `VersionedAddressBook` with
+currentStatePointer being updated.
+
+As removing a pointer from an object does not entail changing an attribute inside the object, a brand
+new object has to be created for every instance when `removeperson` is called. This would enable the
+`removeperson` command to be compatible with `undo` and `redo` which use the different `VersionedAddressBook`
+to complete the job.
+
+This new object would have to be fundamentally almost an exact replica of the old object, with the only
+difference being the internal lists of modules `Person` keeps or internal lists of persons `Module` keeps.
+However, let us take an example `Person` who is linked to several Modules. If this `Person` severs links with
+a `Module`, and a new list is created (only without said `Module`), this means that the list will try to add
+the other Modules into itself. These other Modules already contain an old instance of this `Person`, but
+their lists will also have to be updated with the new `Person`, which is adding these Modules in the first
+place! This creates an infinite recursive loop.
+
+To mitigate this problem, we had to make a shallow duplicate of the `Person` / `Module` / `Occasion` (with an empty
+list to prevent infinite recursion), and put in a complete duplicate (we named it deep duplicate) when
+repopulating the internal list of `Person` / `Module` / `Occasion`.
+// end::removeperson[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -592,16 +657,21 @@ image::HistoryCommandSequenceDiagram.png[width="800"]
 // end::history[]
 
 // tag::autocomplete[]
-=== [Proposed] Autocomplete
+=== Autocomplete
+The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's
+command line inputs. The parser will enable the autocomplete to check the user's input against a list
+of commands which are final and known by the address book. The autocomplete parser will be checking
+after every input in the command line, making it a real time feature.
 
-The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's command line inputs.
+==== Current Implementation
+Currently, the feature calls on ControlsFX API to enable the autocomplete feature.
+It uses TextFields to have an autocomplete binding on the command box created which takes in the
+user input for commands. The list is populated by an inbuilt base commands list where all possible
+known commands are stored.
 
-The parser will enable the autocomplete to check the user's input against a list of commands which are final and known by the address book.
-
-The autocomplete parser will be checking after every input in the command line, making it a real time feature.
-
-While checking, the feature will try to give a regex match of the command and also provide suggestions on correct arguments based on current entities stored in TheTracker's address book.
-
+==== Proposed Improvements (Coming in v2.0)
+While checking, the feature will try to give a regex match of the command and also provide suggestions
+on correct arguments based on current entities stored in TheTracker's address book.
 // end::autocomplete[]
 
 // tag::export[]

@@ -81,6 +81,8 @@ include::../UserGuide.adoc[tag=removeperson]
 
 include::../UserGuide.adoc[tag=list]
 
+include::../UserGuide.adoc[tag=autocomplete]
+
 == Contributions to the Developer Guide
 
 |===
@@ -90,4 +92,6 @@ include::../UserGuide.adoc[tag=list]
 include::../DeveloperGuide.adoc[tag=removeperson]
 
 include::../DeveloperGuide.adoc[tag=list]
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
 
