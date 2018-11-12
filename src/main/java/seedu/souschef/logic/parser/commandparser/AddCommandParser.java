@@ -41,9 +41,8 @@ import seedu.souschef.model.planner.Day;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser {
-    private static final String MESSAGE_INGREDIENT_PROMPT_EDIT = "Ingredient with same name and date already exists! "
-            + "Please use edit function instead!";
-
+    private static final String MESSAGE_INGREDIENT_PROMPT_EDIT = "Ingredient with the same name and date already "
+            + "exist! Please use edit function instead.";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.

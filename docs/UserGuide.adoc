@@ -267,8 +267,10 @@ Format: +
 ****
 
 // end::recipeCommand[]
+
 // tag::favouriteCommand[]
-==== Add recipe to favourite: `favourite`
+==== Add recipe to 
+: `favourite`
 Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
@@ -320,8 +322,8 @@ teaspoon and cup.
 * Format for date should be MONTH-DAY-YEAR.
 * Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
 expiry date.
-* It is not allowed add ingredients with same name and same date. To add in more amount, edit function should be used
- instead.
+* It is not allowed to add ingredients with same name and same date. To add in more amount, edit function should be
+used instead.
 ****
 ==== Sort and list all ingredients: `list`
 
@@ -419,7 +421,10 @@ Format: +
 === Ingredient-Recipe Query Commands (Only applicable in cross context)
 
 ==== View Recipes based on Ingredients `view`
-By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
+By default, the page show the recipe list that is same with the recipe list shown in recipe context at the point of
+initiation of the
+application. User can
+filter or sort the recipes
 based on ingredients contained in recipes. Also, needed amounts of ingredients are calculated by considering the number
  of
 serving units and ingredients stored in ingredient manager, so
@@ -447,7 +452,7 @@ servings are considered for calculation of needed amounts ingredients.
 Manager
 as parameter to the keyword it follows. +
 * It is not allowed to provide same ingredient as a parameter for both "include" and "prioritize" part. This is also
-applicable for "inventory" parameter because it is also a set of ingredients.
+applicable for "inventory" parameter becasues it is also a set of ingredients.
 ****
 
 ==== View needed amounts of ingredients for a Recipe `select`
@@ -517,7 +522,7 @@ Format: `list`
 
 Adds a health plan under the user. +
 Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
-TARGET WEIGHT, AND DURATION+
+TARGET WEIGHT, AND DURATION +
 
 Format: +
 `add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
@@ -545,7 +550,7 @@ Format: +
 After listing the list of health plans by User. +
 Prompts for edit on the plan selected by the user. +
 Format : +
-`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]` +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]`
 
 ****
 * INDEX specifies the entry to edit, has to be numeric and more than 0
@@ -678,7 +683,7 @@ or +
 * Search recipes: `find KEYWORD...`
 * Delete recipe details: `delete INDEX`
 * Activate cook-mode [coming in V2.0]: `cook INDEX`
-* Add recipe to favourite: `favourite`
+* Add recipe to favourite [coming in V2.0]: `favourite`
 * Add to meal plan: `plan INDEX DATE MEAL`
 * Add to review [Coming in V2.0]: `review [COMMENT] RATING`
 
