@@ -1598,6 +1598,15 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Adding a medical record to patient
+. Adding a medical record to a patient referenced from filtered list
+
+.. Prerequisites: List all patients using the `list` command. Multiple patients in the list. Patient at index `1` has not had any medical record added yet.
+.. Test case: `addmedicalrecord 1 b/A+ da/Panadol d/High Fever` +
+   Expected: A medical record is added to the first person in the list with specified details. Details of added medical record shown in status message.
+.. Test case: `addmedicalrecord 0 b/A+` +
+   Expected: No medical record added to any patient. Error details shown in status message.
+
 === Showing all medicines
 
 . Listing all medicines in the records
