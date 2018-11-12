@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Word with an invalid name field -->
+<word>
+    <name></name>
+    <meaning>to move through the air using wings.</meaning>
+    <tagged>birds</tagged>
+</word>

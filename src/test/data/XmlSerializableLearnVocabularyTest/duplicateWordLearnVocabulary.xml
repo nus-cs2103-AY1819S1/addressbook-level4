@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<learnvocabulary>
+    <words>
+        <name>Alice Pauline</name>
+        <meaning>123, Jurong West Ave 6, #08-111</meaning>
+        <tagged>friends</tagged>
+    </words>
+
+    <!-- Word with same identity Pauline -->
+    <words>
+        <name>Alice Pauline</name>
+        <meaning>The meaning of life</meaning>
+        <tagged>friends</tagged>
+    </words>
+</learnvocabulary>

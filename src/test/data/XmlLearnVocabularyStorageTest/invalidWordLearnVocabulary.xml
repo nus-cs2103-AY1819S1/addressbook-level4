@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<learnvocabulary>
+    <!-- Word with invalid name field -->
+    <words>
+        <name>Ha!ns Mu@ster</name>
+        <meaning isPrivate="false">4th street</meaning>
+    </words>
+</learnvocabulary>

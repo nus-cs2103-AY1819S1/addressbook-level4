@@ -1,0 +1,26 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "russellong95",
+      "displayName": "Russell",
+      "authorNames": ["Russell Ong"]
+    },
+    {
+      "githubId": "alexehrs",
+      "displayName": "Alexander",
+      "authorNames": ["Alexander Ehrs"]
+    },
+    {
+      "githubId": "danielkoh94",
+      "displayName": "Daniel",
+      "authorNames": ["Daniel Koh"]
+    },
+    {
+      "githubId": "Harryqu123",
+      "displayName": "Haoxuan",
+      "authorNames": ["Qu Haoxuan"]
+    }
+
+  ]
+}

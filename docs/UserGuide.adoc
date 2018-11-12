@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= LearnVocabulary - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,31 +12,27 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T10-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T10-3`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+LearnVocabulary is for those who prefer to use an offline version of the dictionary for learning purposes.
+
+More importantly, LearnVocabulary is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+If you can type fast, LearnVocabulary can fetch the words faster than searching it on the website.
+
+Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
-
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java version 9 or later installed in your Computer.
+.  Download the latest dictionary.jar link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for LearnVocabulary
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Type the command in command box and press kbd:[Enter] to execute the command.
+E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,82 +42,175 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/WORD`, `WORD` is a parameter which can be used as `add n/levitate`.
+* Items in square brackets are optional e.g `n/WORD [t/TAG]` can be used as `n/levitate t/Easy` or as `n/levitate`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Easy`, `t/Ability t/Testing` etc.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::basic[]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Adding a word: `add`
+
+Adds a word to the vocabulary list +
+Format: `add n/WORD m/MEANING [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+A word can have any number of tags provided the groups of the tags are already created. Words that are added without tags will be added to the toLearn group by default
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/levitate m/to float or fly t/Test`
+* `add n/levitate m/to float or fly t/Test t/RealTest` (Each tag is contained in their own prefix `t/`)
+* `add n/levitate m/to float or fly` (toLearn tag will be attached to word by default)
 
-=== Listing all persons : `list`
+[NOTE]
+Group (tag) must already exist (been created) by user. The only default tag that has no need to be created is the "toLearn" tag.
 
-Shows a list of all persons in the address book. +
+// end::basic[]
+
+//tag::learn[]
+
+=== Learning a word: `learn`
+
+With the access of an internet connection, the user can enter `learn [word]` and the application will query the word's definition.
+
+Format: `learn happy`
+
+It will then be attached to a default tag called `toLearn`, for easier reference for the user.
+
+Examples:
+
+* `learn happy`
+
+Queries the `meaning` on dictionary.com and attaches a default tag (toLearn) to the word.
+
+This function does *not* accept multiple entries.
+
+// end::learn[]
+
+=== Listing all word : `list`
+
+Shows a list of all words in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+// tag::basic[]
+=== Editing a word : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing word in the vocabulary list. +
+Format: `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Edits the word at the specified `INDEX`. The index refers to the index number shown in the displayed vocabulary list. The index *must be a positive integer* 1, 2, 3, ...
+* Name and Meaning class must have their fields filled in eg: `add n/hello m/a greeting`.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the word will be removed i.e adding of tags is not cumulative.
+* There will be at least one tag to each word, so it is enforced that no edits allow for 0 tags per word.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 m/diabolic magic or art` +
+Edits the meaning of the first word to `diabloic magic or art`.
 
-=== Locating persons by name: `find`
+* `edit 1 t/darkarts` +
+Edits the tag of the first word to `darkarts`, replacing every other tag.
 
-Finds persons whose names contain any of the given keywords. +
+* `edit 1 t/darkarts t/magical` +
+Edits the tag of the first word to `darkarts` and `magical`, replacing every other tag.
+
+* `edit 1 t/` +
+Fails to remove all tags as there must be at least one tag attached to every word.
+
+[NOTE]
+Group (tag) must already exist (been created) by user. The only default tag that has no need to be created is the "toLearn" tag.
+
+// end::basic[]
+
+=== Locating word by name: `find`
+
+Finds words whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `levitate` will match `Levitate`
+* The order of the keywords does not matter.
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched e.g. `levi` will not match `levitate`
+* Persons matching at least one keyword will be returned.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find levitate` +
+Returns `levitate`
 
-=== Deleting a person : `delete`
+//tag::group[]
 
-Deletes the specified person from the address book. +
+=== Showing word by different group: `showgroup`
+
+(1). Shows all the existed group. +
+Format: `showgroup`
+
+****
+* the group name is now set to be four per line
+****
+
+(2). Shows word inside some particular group. +
+Format: `showgroup GROUPNAME`
+
+****
+* can only show those existed group
+****
+
+
+Examples:
+
+* `showgroup toLearn` +
+Returns all the word inside group toLearn
+
+=== Creating a new empty group: `groupadd`
+
+Creates a new group. +
+Format: `groupadd GROUPNAME`
+
+****
+* the group name cannot be dublicately added
+* after clear, all the added group would also be cleared except the default toLearn group
+****
+
+Examples:
+
+* `groupadd mustLearn` +
+Creates a new empty group called mustLearn
+
+=== deleting an existing group: `groupdelete`
+
+Deletes a existed group with all the word inside. +
+Format: `groupdelete GROUPNAME`
+
+****
+* the group must has existed
+* after clear, words which do not belong to any group would be deleted automately also
+****
+
+Examples:
+
+* `groupdelete mustLearn` +
+Deletes group mustLearn and all the words inside
+// end::group[]
+
+=== Deleting a word : `delete`
+
+Deletes the specified word from the vocabulary list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the word at the specified `INDEX`.
+* The index refers to the index number shown in the displayed vocabulary list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -129,19 +218,19 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd word in the vocabulary list.
+* `find levitate` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st word in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a word : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the word identified by the index number used in the displayed vocabulary list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the person and loads a page displaying the word and its meaning at the specified `INDEX`.
+* The index refers to the index number shown in the displayed vocabulary list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -149,10 +238,73 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd word in the vocabulary list.
+* `find computing` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st word in the results of the `find` command.
+
+// tag::basic[]
+=== Showing a word : `show`
+Shows the word identified by the word itself.
+
+Format `show WORD` or `show WORD WORD` or `show WORD WORD WORD`...
+
+****
+* Finds the word (or multiple words and shows the word with its meaning and tags in the command box.
+****
+
+Examples:
+
+* `show levitate`
+
+Outputs the `meaning` and `tags` of levitate in the command box.
+
+* `show levitate fly`
+
+Outputs the `meaning` and `tags` of levitate and fly in the command box.
+
+This will output a list of words that follows the sequence of the already established list.
+
+For example:
+
+List contains 1. hi 2. bye 3. try 4. neigh
+
+Typing in 'show bye hi neigh' will output the result of 1, 2 and 4 in sequence following the established list.
+
+Moreover, the first sequence number will be selected automatically. If there are no existing words that are found,
+the default display would be the last displayed placeholder page.
+
+However, user should note that showing a word not present would not result in any changes to the Ui as it is not intended, it
+will still continue to display the previous word being selected in the panel on the right.
+
+// end::basic[]
+
+// tag::trivia[]
+
+=== Trivia game: `trivia`
+
+A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
+`trivia` will output at most 10 questions depending on the size of the user's vocabulary list.
+
+Format `trivia`
+
+To answer the trivia question, simply input the answer in the command box. Answer to the trivia questions are case-insensitive.
+
+Format `WORD`
+// end::trivia[]
+
+// tag::triviaother[]
+==== Other commands in `trivia`
+Show the current trivia question.
+
+Format `triviaShow`
+
+Exits trivia game.
+
+Format `triviaExit`
+
+[NOTE] The above commands can only be used when in `trivia` and the commands are case-sensitive.
+// end::triviaother[]
 
 === Listing entered commands : `history`
 
@@ -214,6 +366,19 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+//tag::wod[]
+
+=== Word of the day : `word`
+
+Displays the current word of the day and its meaning from Dictionary.com. (Requires a working internet connection).
+Format: `word`
+
+[NOTE]
+This function does only display the word and its meaning. If you want to learn the word. Please use the `LearnCommand` feature:
+Format: learn [word]
+
+// end::wod[]
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -224,33 +389,34 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+== Future features till v2.0
+.  Support multilingual mode.
+.  Allow group merge and group divide.
+.  Achieve the functionality of auto-delete after a word has been well remembered by the user.
+.  Record the trivia score for user to self check later
+.  Synonym function to mass query multiple words that have same meaning
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LearnVocabulary folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME m/MEANING [t/TAG]...` +
+e.g. `add n/magic m/mystical arts [t/darkarts]`
+* *Learn* `learn NAME` +
+e.g. `learn fire`
 * *Clear* : `clear`
+* *WordOfTheDay* : `word`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Edit* : `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...` +
+e.g. `edit 2 m/somewhere far away`
+* *Find* : `find WORD [MORE_KEYWORDS]` +
+e.g. `find magic`
+* *Show* : `show WORD [MORE_WORDS]` +
+e.g. `show magic fire ice`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
@@ -258,3 +424,6 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Trivia* : `trivia`
+* *Show trivia* : `triviaShow`
+* *Exit trivia* : `triviaExit`

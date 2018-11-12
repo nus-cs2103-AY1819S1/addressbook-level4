@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= LearnVocabulary - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T10-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T10-3`      Since: `Oct 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -47,14 +47,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/learnvocabulary/storage/XmlAdaptedWord.java[`XmlAdaptedWord.java`] and link:{repoURL}/src/main/java/seedu/learnvocabulary/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/learnvocabulary/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/learnvocabulary/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.learnvocabulary.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -116,7 +116,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/learnvocabulary/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -149,15 +149,15 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteWord.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `LearnVocabularyChangedEvent` when LearnVocabulary's data is changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteWordEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -170,11 +170,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/learnvocabulary/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `WordListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/learnvocabulary/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -190,17 +190,17 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/learnvocabulary/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `LearnVocabularyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a word) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::DeleteWordSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -208,19 +208,14 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/learnvocabulary/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the LearnVocabulary data.
+* exposes an unmodifiable `ObservableList<Word>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -228,17 +223,17 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/learnvocabulary/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the LearnVocabulary data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.learnvocabulary.commons` package.
 
 == Implementation
 
@@ -248,54 +243,54 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedLearnVocabulary`.
+It extends `LearnVocabulary` with an undo/redo history, stored internally as an `learnVocabularyStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedLearnVocabulary#commit()` -- Saves the current learnvocabulary state in its history.
+* `VersionedLearnVocabulary#undo()` -- Restores the previous learnvocabulary state from its history.
+* `VersionedLearnVocabulary#redo()` -- Restores a previously undone learnvocabulary state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitLearnVocabulary()`, `Model#undoLearnVocabulary()` and `Model#redoLearnVocabulary()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedLearnVocabulary` will be initialized with the initial learnvocabulary state, and the `currentStatePointer` pointing to that single learnvocabulary state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the learnvocabulary. The `delete` command calls `Model#commitLearnVocabulary()`, causing the modified state of the learnvocabulary after the `delete 5` command executes to be saved in the `learnVocabularyStateList`, and the `currentStatePointer` is shifted to the newly inserted learnvocabulary state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitLearnVocabulary()`, causing another modified learnvocabulary state to be saved into the `learnVocabularyStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitLearnVocabulary()`, so the learnvocabulary state will not be saved into the `learnVocabularyStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoLearnVocabulary()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous learnvocabulary state, and restores the learnvocabulary to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial learnvocabulary state, then there are no previous learnvocabulary states to restore. The `undo` command uses `Model#canUndoLearnVocabulary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoLearnVocabulary()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the learnvocabulary to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `learnVocabularyStateList.size() - 1`, pointing to the latest learnvocabulary state, then there are no undone learnvocabulary states to restore. The `redo` command uses `Model#canRedoLearnVocabulary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the learnvocabulary, such as `list`, will usually not call `Model#commitLearnVocabulary()`, `Model#undoLearnVocabulary()` or `Model#redoLearnVocabulary()`. Thus, the `learnVocabularyStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitLearnVocabulary()`. Since the `currentStatePointer` is not pointing at the end of the `learnVocabularyStateList`, all learnvocabulary states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,7 +302,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire learnvocabulary.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -316,20 +311,339 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of learnvocabulary states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedLearnVocabulary`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::learn[]
+=== Learn feature
+==== Current Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The learn mechanism is facilitated by the `Dictionary` class.
+The backbone of LearnVocabulary would have to be the `Learn` command, because it allows the user to query words from the internet and parse their meanings into readable format for storage.
+The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
+This command is requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception.
+Additionally, it implements the following operations:
 
-// end::dataencryption[]
+* `Dictionary#invoke()` -- calls the main function of Dictionary which links it to LearnVocabulary
+* `Dictionary#isConnectedToInternet()` -- checks to see if there is an Internet connection established.
+* `Dictionary#isWordInOnlineDictionary(Word)` -- checks to see if it is a valid word and if it exists in Dictionary.com
+* `Dictionary#convertWord(Word)` -- converts word into first letter is in big caps, whilst the others are in small caps.
+* `Dictionary#isValidWord(Word)` -- checks to see if it word contains any illegal characters.
+
+`Dictionary#invoke()` is exposed in the `LearnCommandParser` class as `LearnCommandParser#parse()`, while all the other operations are self-contained within the `Dictionary#invoke()` operation.
+
+Given below is an example usage scenario and how the learn mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The user types in `learn magic` into the CLI.
+
+Step 2. `learn magic` will be parsed by LearnVocabularyParser, where the `learn` command will be triggered, calling `LearnCommandParser#parse()`.
+
+Step 3. This in turn calls `Dictionary` class and all of its relevant operations, starting with `Dictionary#invoke()`.
+
+Step 4. The word `magic` will be checked against the model and the current LearnVocabulary to see if they hold the same exact word.
+
+Step 4a. The word does not exist and will be stored, together with the meaning that was queried as a result of `Dictionary#invoke()`.
+
+Step 4b. The word already exists and the command will throw a Duplicate Word Exception.
+
+[NOTE]
+The newly queried word would be attached with a "toLearn" tag, which allows the user to know that he/she just queried the word and can leave it for the future to learn it.
+
+Step 5. The word, meaning will be assigned a default tag and be displayed in the Command Box.
+
+The following sequence diagram shows how the learn command works:
+
+image::LearnSequenceDiagram.png[width="820"]
+
+==== Design Considerations
+===== Aspect: How Words are queried in Dictionary
+* **Alternative 1 (current choice):** Online querying of every word being learned.
+** Pros: Easy to implement and change (in the future) to accommodate extra meanings.
+** Cons: Requires the use of Internet Connection.
+* **Alternative 2:** Offline querying of every word being learned.
+** Pros: Does not require Internet to query word.
+** Cons: Untested, but a corrupt xml file would be disastrous causing corrupt findings, memory space will be an issue as well.
+
+===== Aspect: How Words are stored in Dictionary
+* **Alternative 1** (current choice): Offline storage of every word being learned.
+** Pros: Easy to implement and does not require the use of a cloud storage.
+** Cons: Not mobile and accessible to the user
+* **Alternative 2:** Online storage of every word being learned.
+** Pros: Mobile access by the user on the go.
+** Cons: Will consume a lot of resources. Might not be necessary.
+
+==== Rejected/Put off implementations
+===== Idea: Multiple words to be learned at the same time
+* `learn fire ice` will simultaneously pull data of 2 words `fire` and `ice` into LearnVocabulary
+* This was put off in terms of implementations because:
+** Firstly, loading speed will be slow, affecting performance
+** Secondly, it causes the command box to freeze
+
+A simple fix was thought of, which was to run threads in LearnVocabulary to pull data simultaneously to reduce time and improve overall performance. That will be explored in later versions.
+
+===== Idea: Synonyms of the same word to be learned at the same time
+* `learn hot 10` will simultaneously pull data of hot and 10 of its synonyms. Effectively querying and storing 11 words in total.
+* This was rejected terms of implementations because:
+** Firstly, it does not serve the intended target audience well. Words can be fetched at random without bearing resemblance to the original queried word.
+** Secondly, Speed and performance issue as mentioned in the first idea.
+
+A simple fix for the speed and performance issue was mentioned above.
+
+// end::learn[]
+
+// tag::group[]
+=== Group features
+==== Current Implementation
+The group feature is mainly for user to manage their word lists inside our LearnVocabulary application and it now supports three functionalitys, which are groupadd, groupdelete, and showgroup.
+
+===== groupadd functionality implementation
+Similar to the other existed functionalities, the groupadd functionality mainly consists of a GroupaddCommandParser and a GroupaddCommand.
+The groupadd parser is indicated as `GroupaddCommand` in `parser`, and inherits the `Parser` class. It enables the application to handle the input given by the the user, check its validity and delete whitespaces.
+The groupadd command is indicated as `Groupadd` in `commands`, and inherits the `Command` class. It handles a valid group name input and enables the user to "add" a empty word group to the application.
+
+Given below is an example usage scenario and how the groupadd functionality behaves at each step.
+
+Step 1: User calls “groupadd + [groupname]” where `groupname` is the name of the newly added group.
+
+Step 2: `GroupAddCommandParser` checks the validity of the groupname, trim the given groupname and create the GroupaddCommand.
+
+Step 3a: If the user set a group name that has already existed, the system throws an exception to the user to indicate that the group name has existed.
+
+Step 3b: Otherwise it lets the model component to add the group with given groupname.
+
+image::groupaddSequentialDiagram.jpg[width="820"]
+
+===== groupdelete functionality implementation
+Similar to the other existed functionalities, the groupdelete functionality mainly consists of a GroupDeleteCommandParser and a GroupdeleteCommand.
+The groupdelete parser is indicated as `GroupDeleteCommand` in `parser`, and inherits the `Parser` class. It enables the application to handle the input given by the the user.
+The groupdelete command is indicated as `Groupdelete` in `commands`, and inherits the `Command` class. It handles a valid group name input and enables the user to "delete" a word group and all the words inside.
+
+Given below is an example usage scenario and how the groupdelete functionality behaves at each step.
+
+Step 1: User calls “groupdelete + [groupname]” where `groupname` is the name of the desired deleted group.
+
+Step 2: `GroupDeleteCommandParser` checks the validity of the groupname, trim the given groupname and create the GroupdeleteCommand.
+
+Step 3: `GroupDeleteCommand` checks passed arguments.
+
+Step 4a: If the user set a group name that does not exist, the system throw an exception to indicate that the desired deleted group does not exist.
+
+step 4b: Otherwise it lets the model component to delete the group with given groupname. Especially, for those words which exist in this only deleted group, those words would also be deleted automately.
+
+image::groupdeleteSequentialDiagram.jpg[width="820"]
+
+===== showgroup functionality implementation
+Similar to the other existed functionalities, the showgroup functionality mainly consists of a ShowGroupCommandParser and a ShowGroupCommand.
+The showgroup parser is indicated as `ShowGroupCommand` in `parser`, and inherits the `Parser` class. It enables the application to handle the input given by the the user.
+The showgroup command is indicated as `ShowGroup` in `commands`, and inherits the `Command` class. It handles a valid group name input and enables the user to either see all the existing groups or open a selected word group and see all the words inside.
+
+Given below are two example usage scenarios and how the showgroup functionality behaves at each step.
+
+====== Example a
+
+Step 1: User calls “showgroup + [groupname]” where `groupname` is the name of the desired checked group.
+
+Step 2: `ShowGroupCommandParser` checks the validity of the groupname, trims the given groupname and create the ShowGroupCommand.
+
+Step 3: `ShowgroupCommand` checks passed arguments.
+
+Step 4a: If the user set a group name that does not exist, the system throw an exception to indicate that the desired checked group does not exist.
+
+Step 4b: Otherwise it lets the model component to update the groupname as the predicate in the filterList.
+
+image::showgroupSequentialDiagram2.jpg[width="820"]
+
+====== Example b
+
+Step 1: User calls “showgroup”.
+
+Step 2: `ShowGroupCommandParser` creates the ShowGroupCommand.
+
+Step 3: `ShowGroupCommand` gets all the existing groupname from the model by calling getTags() and show these groupnames to the user.
+
+image::showgroupSequentialDiagram1.jpg[width="820"]
+
+// end::group[]
+
+// tag::basic[]
+=== Basic features
+==== Current Implementation
+Improved from the previous versions, the `Add` and `Edit` commands have been refined in LearnVocabulary.
+There is also a minor feature added `Show`, which displays a filtered word list on the Ui.
+
+[NOTE]
+Each tag being added follows AB4's implementation, separate tags are considered via `t/` +
+So, `t/happy`, `t/emotions`, `t/sad` is considered 3 tags and they MUST have already been added via `groupadd`.
+Tags will not be added as a whole if any of them do not exist.
+
+===== Add command improvements
+When adding a new word to LearnVocabulary, only the `Name` and `Meaning` fields must be entered as follows: `add n/fire m/something hot`.
+As can be seen from the example given, there is no `Tag` being entered at all. However, LearnVocabulary will enforce that every word would
+require at least one tag. As such, the default tag "toLearn" will be given to words without any tags at the start.
+
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user types in `add n/fire m/something hot` into the CLI.
+
+Step 2. `add n/fire m/something hot` will be parsed by LearnVocabularyParser, where the `add` command will be triggered, calling `AddCommandParser#parse()`.
+
+Step 3a. Illegal characters will cause the command to throw an exception and await a new command.
+
+Step 3b. Word with letters being parsed will be checked against LearnVocabulary to ensure no duplicate words.
+
+Step 4. Word will have a default tag attached, be added to LearnVocabulary after ensuring no duplicates.
+
+===== Edit command improvements
+When editing an existing word in LearnVocabulary, there cannot be empty tags for any words provided.
+
+Given below is an example usage scenario and how the edit mechanism behaves at each step.
+
+Step 1. The user types in `edit 1 t/` which shows the user wanting to clear all tags from existing word.
+
+Step 2. The command box outputs that it is not possible, at least one tag must be attached to the word.
+
+===== Show feature
+The `show` command is an improvement in leaps and bounds ahead of the `find` command, but it exists as a separate command on its own due to its nature.
+Simply put, when entering `show fire magic life`, it will display the 3 words on the Ui and automatically outputs
+the word, meaning and tags onto the Command Box. The first word from the list will also be automatically selected.
+
+As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
+
+Given below is an example usage scenario and how the show mechanism behaves at each step.
+
+Step 1. The user types in `show fire magic life`, it will display the 3 words in order as it was in the list.
+
+[NOTE]
+Multiple words are allowed to be queried. Allows for more flexibility compared to the Ui option.
+
+Step 2. From the filtered list of words, the program automatically selects and displays first word from list.
+
+Step 3. The 3 words will appear in the Command Box as well.
+
+// end::basic[]
+
+// tag::trivia[]
+=== Trivia feature
+
+The trivia function is facilitated by `LearnVocabulary`.
+Besides storing a `UniqueWordList`, `LearnVocabulary` also stores the current trivia question as `triviaQuestion` and stores a list of trivia questions is `triviaQuestionList`.
+Scores for a trivia game are also stored using `currentScore` and `maxScore`.
+
+Additionally, it also implements the following operations:
+
+* `setTriviaList` -- sets the trivia question list based on the current vocabulary list
+* `setTrivia` -- sets the trivia question based on `triviaQuestionList`
+* `getTrivia` -- outputs the current trivia question.
+* `updateScore` -- adds 1 to the the`currentScore`
+* `clearTrivia` -- clears the current trivia question as well as removing it from the `triviaQuestionList`
+* `isTriviaMode` -- a boolean to indicate whether the model is currently in trivia mode.
+* `toggleTriviaMode` -- toggle trivia mode
+
+These operations are exposed in the `Model` interface as `Model.setTrivia()` and `Model.getTrivia()`.
+
+
+Outlined below is how the trivia function operates at each step:
+
+Step 1. The user inputs trivia in the CLI.
+
+Step 2. `TriviaCommand.execute()` checks `lastShownList` to see if it is empty.
+
+[NOTE]
+If `lastShownList` is empty, `TriviaCommand.execute()` will terminate and a message will be displayed to the user indicating that the user has to add words in before `trivia` can be used
+
+Step 3. `TriviaCommand.execute()` calls `toggleTriviaMode` to indicate that LearnVocabulary is in trivia mode.
+
+[NOTE]
+While in trivia mode, every command the user types will be parsed as `TriviaAnsCommand`. Trivia mode can be exited by either completing the trivia or typing "triviaExit"
+
+Step 4. `TriviaCommand.execute()` now calls `Model.setTriviaList()` to set the trivia question within `LearnVocabulary`.
+
+Step 5. `TriviaCommand.execute()` calls `Model.getTrivia()` and outputs to the user.
+
+Below shows a sequence diagram of how the trivia feature works.
+
+image::TriviaSequenceDiagram.png[width="820"]
+
+**Answer**
+
+The answer command is indicated as `TriviaAnsCommand` in `commands`. It will take in arguments passed in by the user and checks whether it is the correct/wrong answer to the current trivia question.
+
+Outlined below is how the answer function operates:
+
+Step 1: User enters  his/her argument.
+
+[NOTE]
+Attempting to call the `answer` command without first calling `trivia` will result in an error.
+
+Step 2: `TriviaAnsCommandParser` processes the argument and parses it to `TriviaAnsCommand`.
+
+[NOTE]
+If the user inputs `triviaExit` or `triviaShow`, the inputs will be processed as commands instead.
+
+Step 3: `TriviaAnsCommand.execute()` checks the passed argument is the same word as `triviaQuestion` in `LearnVocabulary`.
+
+Step 4: Outputs a correct or wrong message based on the result in step 3.
+
+Below shows a sequence diagram of how the answer feature works.
+
+image::TriviaAnsSequenceDiagram.png[width="820"]
+
+// end::trivia[]
+
+**Select**
+
+The select command is indicated as `SelectCommand` in `commands`, and inherits the `Command` class. It selects a word identified by a user using its index from the review list.
+
+Below is a description on how the select function operates:
+
+Step 1: User calls “select + [index]” where `index` is the index of the word that the user wants to select.
+
+Step 2: `SelectCommand` checks passed arguments.
+
+Step 3: If the user leaves out or in other ways enters an invalid index, `SelectCommand` throws an exception. Otherwise it returns the desired word.
+
+//tag::wod[]
+
+=== WordOfTheDay feature
+==== Current Implementation
+
+The Word Of The Day command is indicated as `WordOfTheDay` in `commands`, and inherits the `Command` class. It enables the user to display the current word of the day taken from website Dictionary.com. Similarly to the "learn" command, this command also requires a working internet connection. It is impossible to make this feature available offline since the word of the day cannot be predicted on Dictionary.com
+
+The Word Of The Day command utilizes the same functions in the Dictionary class made for the 'LearnCommand', but also adds the following functions:
+
+* `Dictionary#doesWordOfTheDayExist()` -- Checks to see if the word of the day exist on Dictionary.com and returns the word of the day page as a Document object.
+* `Dictionary#fetchWordOfTheDay()` -- Parses the word of the day and its meaning from the Document object returned by `doesWordOfTheDayExist()` and returns itself (Dictionary object).
+
+Dictionary#fetchWordOfTheDay() is used in the WordOfTheDayParser class as WordOfTheDayParser#parse(), while all the other executions are self-contained within the Dictionary#fetchWordOfTheDay() function.
+
+Below is a description on how the Word Of The Day function operates:
+
+Step 1: User cannot think of a word so he/she wants to display the word of the day on Dictionary.com.
+
+Step 2: User would make sure that there is a working internet connection.
+
+Step 3: User would type "word" into the command line.
+
+Step 4: The word of the day will be parsed by WordOfTheDayParser, calling `WordOfTheDayParser#parse()` The WordOfTheDayParser exists solely for the purpose of utilizing the existing functions made for parsing the online Dictionary and putting the word into a `Word` object.
+
+Step 5: This calls the `Dictionary` class and all relevant functions. The first one being `Dictionary#fetchWordOfTheDay()`.
+
+Step 6: The Word Of The Day will be fetched online from Dictionary.com and displayed by the WordOfTheDayCommand together with its meaning. Should the internet-connection fail, the operation throws a `MESSAGE_NO_INTERNET`.
+
+
+[NOTE]
+The Word Of The Day is displayed together with a "WordOfTheDay" tag. The word and the tag are not stored in any group somewhere, but is only displayed for the user. If the user wants to learn the word, he or she shall use the LearnCommand.
+
+The following sequence diagram shows how the Word Of The Day command works:
+
+image::WordOfTheDaySequentialDiagram.jpg[width="820"]
+
+// end::wod[]
 
 === Logging
 
@@ -489,14 +803,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.learnvocabulary.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.learnvocabulary.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.learnvocabulary.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.learnvocabulary.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -533,338 +847,82 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, LearnVocabulary depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to learn, storage and retrieve words they are currently learning
+* non-native English speakers who want to improve their vocabulary
+* schools who want to use this in language courses
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: personalized storage per user for their own list of vocabulary words
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
-
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a... |I want to... |So that I can...
 
-|`* * *` |user |add a new person |
+|`* * *`
+|Non-native English speaker
+|Search for the meaning of words
+|Improve my English abilities
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *`
+|Non-native English speaker
+|Add/keep words that I have searched
+|Reference them easily to learn better
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *`
+|Non-native English speaker
+|Play a game that would improve my English capabilities
+|Not get bored of the learning process and have fun at the same time
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *`
+|Non-native English speaker
+|Refer to my native tongue while looking at English words
+|Speed up the learning process much faster
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *`
+|Non-native English speaker
+|Group words together
+|Refer to them easily in the future
+
+|`* *`
+|English speaker
+|Look up words
+|Learn the meanings of words
+
+|`* *`
+|English speaker
+|Play a game
+|Improve my English further
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `LearnVocabulary` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete word
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list words
+2.  LearnVocabulary shows a list of words
+3.  User requests to delete a specific word in the list
+4.  LearnVocabulary deletes the word
 +
 Use case ends.
 
@@ -878,18 +936,155 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. LearnVocabulary shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add word - Add a word to LearnVocabulary
+
+*MSS*
+
+1.  User enters a word to add to the review list.
+2.  System checks if word exists in the LearnVocabulary
+3.  Status will appear saying word has been successfully added.
+4.  It also displays the meaning of the word.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 3a. Word exists in LearnVocabulary
++
+Use case ends
+
+[discrete]
+=== Use case: Find word - Find a word in LearnVocabulary
+
+*MSS*
+
+1.  User enters the word they want to look up
+2.  System filters the list in LearnVocabulary and displays the word within the Ui.
++
+Use case ends
+
+[discrete]
+=== Use case: Trivia mode
+
+*MSS*
+
+1.  User inputs command (trivia)
+2.  System displays meaning of a selected word in user’s review list
+3.  User enters the word which corresponds to the meaning displayed.
+4.  System reveals the answer
++
+Repeat steps 2 - 4 until 10 questions have been displayed
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User’s review list is empty
++
+[none]
+** 2a1. System displays that user’s review list is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: GroupAdd - Group words together
+
+*MSS*
+
+1.  User inputs command (group)
+2.  System responds with helper text (group [word] in [group])
+3.  User enters “group gazelle in animals
+4.  System groups the word “gazelle” in “animals”
++
+Use case ends
+
+[discrete]
+=== Use case: List words - List all words within LearnVocabulary
+
+*MSS*
+
+1.  User inputs command (list)
+2.  All words within LearnVocabulary will be displayed
++
+Use case ends.
+
+[discrete]
+=== Use case: Learn words - Query words and their meaning, store into LearnVocabulary
+
+*MSS*
+
+1.  User inputs command (learn)
+2.  User types in learn [word], the word will be queried online.
+3.  The definition of the entered word will be displayed.
+4.  The word is then saved within the storage.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Word already exists in LearnVocabulary, error message will be displayed.
++
+Use case ends.
+
+* 3a. There is no internet connection, error message will be displayed.
++
+Use case ends.
+
+* 3a. Word contains illegal characters, error message will be displayed.
++
+Use case ends.
+
+* 3a. Word does not exist in Dictionary.com, error message will be displayed.
++
+Use case ends.
+
+[discrete]
+=== Use case: Show words - Filter and display words with their meanings on Ui.
+
+*MSS*
+
+1.  User inputs command (show)
+2.  User types in show [word], the word card will be displayed on the Ui.
+3.  Word will be selected as well, being displayed with its meaning.
++
+Use case ends.
+
+//tag::wod2[]
+[discrete]
+=== Use case: Show Word Of The Day - Todays random, special word from Dictionary.com
+
+*MSS*
+
+1.  User inputs command (word).
+2.  The word of the day will be queried online.
+3.  The word and its meaning will be displayed.
+4.  User can choose to learn the word by using the `learn` command
++
+Use case ends.
+//end::wod2[]
+
+*Extensions*
+
+[none]
+* 2a. There is no internet connection, error message will be displayed.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 words without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Handles at least one complete dictionary (e.g. English)
 
 _{More to be added}_
 
@@ -898,26 +1093,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -933,7 +1108,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample words. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -941,26 +1116,107 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+//tag::learn[]
+=== Learning a word (Manual Testing)
+. Learning a word from Dictionary.com
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: Ensure Internet Connection is established.
+.. Test case: `learn potato` +
+   Expected: The word `potato` is added to LearnVocabulary, with its definition and a default tag. Details of the learnt word shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `learn !potato` +
+   Expected: No word is learnt. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect learn commands to try: `learn`, `learn x`, `learn 1`, `learn notarealword` +
    Expected: Similar to previous.
+//end::learn[]
 
-_{ more test cases ... }_
+//tag::basic[]
+=== Showing a word (Manual Testing)
+. Showing a word from LearnVocabulary's list.
 
-=== Saving data
+.. Prerequisites: List all words using the `list` command. Multiple words in the list.
+.. Test case: `show potato` +
+   Expected: The word `potato` is filtered and returned inside LearnVocabulary, together with its definition and tags attached to it. Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `show potato gravy happy` +
+   Expected: The words `potato`, `gravy`, `happy` are filtered and returned inside LearnVocabulary, together with their definitions and tags attached to it. Details of the words are shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `show` +
+   Expected: No word is shown. Error details shown in the status message. Status bar remains the same. Display remains the same.
+.. Other incorrect learn commands to try: `show 1`, `show x`, `show !potato`, `show notarealword` +
+   Expected: Similar to previous. Except now, filtered list is empty.
 
-. Dealing with missing/corrupted data files
+=== Adding a word (Manual Testing)
+. Adding a word to LearnVocabulary's list.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Word must not have been added to LearnVocabulary.
+.. Test case: `add n/potato m/type of starch` +
+   Expected: The word `potato` is added inside LearnVocabulary, together with its definition and default tag `toLearn` attached to it. Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/potato` +
+   Expected: The word potato will not be added inside LearnVocabulary, because meaning field is missing. Error details shown in the status message. Status bar remains the same. Display remains the same.
 
-_{ more test cases ... }_
+=== Editing a word (Manual Testing)
+. Editing a word in LearnVocabulary's list.
+
+.. Prerequisites: List must be non-empty.
+.. Test case: `edit 1 m/something lightweight` +
+   Expected: The word `potato` in index 1 will have its meaning changed from its existing meaning to its new definition "something lightweight". Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit 1 m/something lightweight t/light t/weight` +
+   Expected: The word `potato` in index 1 will have its meaning changed from its existing meaning to its new definition "something lightweight". It's tags (should they already been created in groupadd), will attach 2 tags `light` and `weight` to the word. Details of the word is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit n/potato t/` +
+   Expected: The word potato will not be edited inside LearnVocabulary, because tag field is missing, it is enforced that there can no longer be any words that have 1 tag. Error details shown in the status message. Status bar remains the same. Display remains the same.
+//end::basic[]
+
+//tag::group[]
+=== Create a word group (Manual Testing)
+. Create a new empty word group.
+
+.. Test case: `groupadd test` +
+   Expected: If the group test has not been created, then "test" will be created as a new word group. Otherwise some exception is handled and the user will see "The group typed has existed"
+.. Test case: 'groupadd ' +
+   Expected: Some exception is handled and the user will see "please type in the group".
+.. Test case: `groupadd stud_ispm` +
+   Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
+.. Test case: `groupadd groupa groupb` +
+   Expected: Some exception is handled and the user will see "Only one group can be created once".
+
+=== Delete a word group (Manual Testing)
+. Delete a word group with all the word inside.
+
+.. Test case: `groupdelete test` +
+   Expected: If the group test do exist, then group "test" and all the word inside will be deleted. Otherwise some exception is handled and the user will see "The group typed does not exist."
+.. Test case: 'groupdelete ' +
+   Expected: Some exception is handled and the user will see "please type in the group".
+.. Test case: 'groupdelete toLearn test' +
+   Expected: Some exception is handled and the user will see "Only one group can be deleted once.".
+.. Test case: `groupdelete stud_ispm` +
+   Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
+
+=== Show a word group or all the word group name (Manual Testing)
+. Show a word group or all the word group name.
+
+.. Test case: `showgroup test` +
+   Expected: If the group test do exist, then all the words inside test group will be filtered and shown. Otherwise some exception is handled and the user will see "The group typed does not exist."
+.. Test case: 'showgroup ' +
+   Expected: All the existed word group will be shown.
+.. Test case: 'showgroup toLearn test' +
+   Expected: Some exception is handled and the user will see "Only one group can be shown once.".
+.. Test case: `showgroup stud_ispm` +
+   Expected: Some exception is handled and the user will see "Tags names should be alphanumeric".
+//end::group[]
+
+=== Trivia
+. Starting the trivia
+.. Prerequisites: Empty vocabulary list.
+.. Test case: `trivia`
+Expected: Trivia is unable to start. Error message shown on command box indicating that user needs to add words to the trivia list.
+.. Prerequisites: Non-empty vocabulary list.
+.. Test case: `trivia`
+Expected: Trivia mode starts. Command box shows the first question in the trivia
+ === Trivia answers
+.. Prerequisites: Trivia mode started.
+.. Test case: `triviaExit`
+Expected: Trivia mode is exited. The CLI should recognized and execute commands again.
+ .. Test case: `triviaexit`
+Expected: Trivia will output a wrong/correct message as the input is recognized as an answer to the trivia question instead of a command.
+ .. Test case: `triviaShow`
+Expected: Command box shows the current trivia question.
+ ..Test case: `triviashow`
+Expected: Similar to `triviaexit`
