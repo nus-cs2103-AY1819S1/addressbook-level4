@@ -21,8 +21,8 @@ By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`  �
 
 === What is OASIS?
 
-Office Assistance Specialized Integration System (OASIS) is an all-in-one office management software. It has the common of management system and additional features that would make managing efficient, quick and fun. Unlike any other management software, OASIS adopts Command Line Interface.
-
+OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management.
+    
 === Architectural Overview
 
 This document describes the design, implemented features and possible features that could be implemented in OASIS. These could serve as guidelines for future developers. Happy Programming!!
