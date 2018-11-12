@@ -49,7 +49,6 @@ It requires an in-depth understanding of ClinicIO's architecture.
 ** Alter the UI to provide a more beautiful UI. [Pull Requests: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
 ** Create a `PasswordPrefixFormatter` to mask password.
 
-
 * *Other contributions*:
 
 ** Project management:
@@ -63,7 +62,7 @@ It requires an in-depth understanding of ClinicIO's architecture.
 *** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide:
-https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-W14-1/main/pull/263[#263], https://github.com/CS2103-AY1819S1-W14-1/main/pull/278[#278] 
+https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-W14-1/main/pull/263[#263], https://github.com/CS2103-AY1819S1-W14-1/main/pull/278[#278]
 *** Did cosmetic tweaks to existing contents of the Developer Guide: -
 *** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174], https://github.com/CS2103-AY1819S1-W14-1/main/pull/278[#278]
 ** Tools:
