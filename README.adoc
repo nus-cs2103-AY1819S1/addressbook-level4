@@ -41,7 +41,7 @@ endif::[]
 7. Some modules planned now have their pre-requisites unfulfilled.
 8. Sighs in frustration.
 9. Repeat (8).
-----
+****
 
 So *tedious*.
 
