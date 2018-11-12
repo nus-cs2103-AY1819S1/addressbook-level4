@@ -69,6 +69,8 @@ Refer to <<Features>> for more details on the available commands.
 * Optional items separated by - e.g. `editdeck 1 [q/Question?]-[a/Answer]` denote that at least one of the optional
  parameters are needed minimally to execute the command.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
+* Any argument followed by `...` indicates that the command is able to accept multiple arguments for that field.
+* If you provide multiple parameters for fields that do not support multiple arguments, only the last argument will be accepted. I.e. If you entered `newdeck n/nameOne n/nameTwo`, the new deck will have the name "nameTwo".
 ====
 
 === Viewing help : `help`
@@ -355,7 +357,7 @@ Search decks by names or cards by questions.
 
 * If user is not in a deck, find decks.
 
-Format: `find KEYWORD [MORE_KEYWORDS]…`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
