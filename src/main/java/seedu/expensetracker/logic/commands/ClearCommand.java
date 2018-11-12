@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.expensetracker.commons.core.EventsCenter;
 import seedu.expensetracker.commons.events.ui.UpdateBudgetPanelEvent;
+import seedu.expensetracker.commons.events.ui.UpdateCategoriesPanelEvent;
 import seedu.expensetracker.logic.CommandHistory;
 import seedu.expensetracker.model.ExpenseTracker;
 import seedu.expensetracker.model.Model;
@@ -23,7 +24,6 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
-        // TODO: Move code to Model class for better adherence to OOP principles
         ExpenseTracker newExpenseTracker =
                 new ExpenseTracker(model.getExpenseTracker().getUsername(),
                         model.getExpenseTracker().getPassword().orElse(null),
@@ -33,6 +33,7 @@ public class ClearCommand extends Command {
         clearedSpendingTotalBudget.clearSpending();
         model.modifyMaximumBudget(clearedSpendingTotalBudget);
         model.commitExpenseTracker();
+        EventsCenter.getInstance().post(new UpdateCategoriesPanelEvent(model.getCategoryBudgets().iterator()));
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         return new CommandResult(MESSAGE_SUCCESS);
     }

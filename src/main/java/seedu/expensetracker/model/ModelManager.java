@@ -60,7 +60,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private VersionedExpenseTracker versionedExpenseTracker;
     private FilteredList<Expense> filteredExpenses;
-    private Username username;
 
 
     //Stats related variables
