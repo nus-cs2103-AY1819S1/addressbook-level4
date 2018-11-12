@@ -374,17 +374,20 @@ Format: `clear`
 
 Example:
 
-`switch r/doctor` switches over to the doctor's database as shown in the figure below:
+`switch r/doctor` +
+Switches over to the doctor's database as shown in the figure below:
 
 .Upon switching to doctor's database
 image::clearStep1.png[width="600"]
 
-`clear` clears all the data in the currently active database i.e. clears all doctors only, shown in the figure below:
+`clear` +
+Clears all the data in the currently active database i.e. clears all doctors' data only, shown in the figure below:
 
 .Clearing the active database
 image::clearStep2.png[width="600"]
 
-`switch r/patient` switches over to the patient's database and as shown in the figure below, the patients' data are
+`switch r/patient` +
+Switches over to the patient's database and as shown in the figure below, the patients' data are
 still present:
 
 .Upon switching to patient's database
@@ -418,36 +421,40 @@ Format: `avail [d/DATE] [st/START TIME] [et/END TIME]`
 NOTE: If no date is specified by the user, the system would use the current date by default. Similarly, if neither start
  nor end time is specified by the user, the system would use the current time as an input for both start and end time.
 
+NOTE: Also, there is a 1 minute buffer time allocated for doctors after the end of their appointments. This means that
+ if a doctor has an appointment from 1100 to 1200, the doctor will be considered unavailable even at the time 1201.
+
 [IMPORTANT]
 Inputs for both start and end time should either be both present or both absent. There should not be
 an end time without there being a start time specified, and vice versa. +
 
-[WARNING]
-This command will not work should the user be viewing the patient's database, since this command applies only for
-doctors. In this case, executing this command will throw a message that will prompt the user to switch the current
-active database.
 
 Examples:
 
 `avail` +
-Lists all doctors available at the moment (i.e. the date and time when the command is executed), as shown in the figure
+List all doctors available at the moment (i.e. the date and time when the command is executed), as shown in the figure
 below:
 
 .Display available doctors at current datetime diagram
-image::avail.png[width="800"]
+image::avail.png[width="600"]
 
 `avail d/24.11.2018`
-Lists all doctors available on the 24th November 2018, at the time when this command is executed, as seen in the
+List all doctors available on the 24th November 2018, at the time when this command is executed, as seen in the
 figure below:
 
 .Display available doctors on 24th November diagram
-image::avail2.png[width="800"]
+image::avail2.png[width="600"]
 
 `avail d/24.11.2018 st/1200 et/1300`
 Lists all doctors available from 12pm to 1pm, on the 24th November 2018, shown in the diagram below:
 
 .Display available doctors base on the given date and time diagram
-image::avail3.png[width="800"]
+image::avail3.png[width="600"]
+
+[WARNING]
+This command will not work should the user be viewing the patient's database, since this command applies only for
+doctors. In this case, executing this command will throw a message to prompt the user to switch the current
+active database to either the doctor's database or the combined database containing both patients' and doctors' data.
 
 // tag::displayappt[]
 === Displaying medical appointments : `select`
