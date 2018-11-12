@@ -52,7 +52,7 @@ Follow the steps below to get started with CLInic.
 
 .CLInic's UI
 //tag::UI[]
-image::UiActual.png[width="790"]
+image::UIActual.png[width="790"]
 //end::UI[]
 +
 
