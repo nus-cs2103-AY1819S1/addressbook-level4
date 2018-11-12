@@ -69,6 +69,8 @@ Refer to <<Features>> for more details on the available commands.
 * Optional items separated by - e.g. `editdeck 1 [q/Question?]-[a/Answer]` denote that at least one of the optional
  parameters are needed minimally to execute the command.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
+* Any argument followed by `...` indicates that the command is able to accept multiple arguments for that field.
+* If you provide multiple parameters for fields that do not support multiple arguments, only the last argument will be accepted. I.e. If you entered `newdeck n/nameOne n/nameTwo`, the new deck will have the name "nameTwo".
 ====
 
 === Viewing help : `help`
@@ -80,6 +82,23 @@ Format: `help`
 
 Displays a list of all available decks. If inside a deck displays all cards in that deck. +
 Format: `list`
+
+==== Filter by performance
+This feature allows you to filter the displayed cards by their difficulty.
+
+Format: `list [difficulty] [more difficulties]...`
+
+When inside a deck, the `list` command can be used to filter the displayed cards by their difficulty, by passing
+ in the desired difficulty as a keyword after the command.
+
+For example:
+
+`list hard` will display all cards with the `hard` difficulty
+
+Multiple difficulties can be specified as well, in which case all cards with a difficulty matching one of those
+specified will be displayed:
+
+`list easy hard` will display all cards with either an `easy` or `hard` difficulty.
 
 
 === Navigating into a deck : `cd`
@@ -315,20 +334,6 @@ Format: `sort`
 
 // end::sort[]
 
-// tag::showDue[]
-=== Show cards that should be reviewed on a particular date : `showDue` [coming in v1.4]
-Show cards due on a particular date
-
-* Shows the cards which require a review for a particular date based on past card performance. +
-
-Format: `showDue c/10 m/12 y/14`
-****
-* Note: User must be inside a deck to perform this command.
-* The above command will display the cards due on the 10th December, 2014. If no arguments are given for date
-* If no day, month or year is given, showDue will default to showing the cards due for today
-****
-// end::showDue[]
-
 // tag::find[]
 === Search for a deck or card : `find`
 
@@ -338,7 +343,7 @@ Search decks by names or cards by questions.
 
 * If user is not in a deck, find decks.
 
-Format: `find KEYWORD [MORE_KEYWORDS]…`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -396,28 +401,27 @@ Format: `import FILEPATH`
 ****
 * You must include the filename of the target file in `FILEPATH`.
 * This operation is disabled when you navigate into a deck.
-* The default base directory is the same directory as the Anakin.jar file.
+* The default base directory is the directory that the Anakin.jar file is in.
 ****
 
 Examples:
 
-Say you want to import a deck called "Geography" and you have the `Geography.xml` file in the same directory as Anakin.jar. +
+Say you want to import a deck called "Geography" and you have the `Geography.xml` file in the same folder as Anakin.jar. +
 
 image::exportScreenshot3.png[width="300"]
 
-* Simply  enter `import Geography.xml` +
+* Simply  enter `import Geography.xml` and Anakin will import the deck "Geography". +
 
-Before:
+**Before**
 
 image::importScreenshot1.png[width="500"]
 
-After:
+**After**
 
 image::importScreenshot2.png[width="500"]
 
-Anakin imports the deck "My Deck" if it is in the same directory as the Anakin.jar file.
-* `import C:/Users/Admin/Desktop/My Deck2.xml` +
-Anakin imports the deck "My Deck2".
+
+* If you want to import a deck that is located elsewhere, for example the file is in Desktop, you can enter `import` followed by the full filepath (something like: `import C:/Users/Admin/Desktop/My Deck2.xml`) and Anakin will be able to import the deck. +
 
 // end::importexport[]
 
@@ -482,26 +486,67 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // end::undoredo[]
 
 === Clearing all entries : `clear`
-Clears all entries from Anakin. +
+To clear all entries from Anakin. +
 Format: `clear`
 
 
 === Exiting Anakin : `exit`
-Exits the program. +
+To exit the program. +
 Format: `exit`
 
-// start::autocompletion[]
+// tag::autocompletion[]
 === Autocompletion : Hit `<TAB>`
 
-Provides autocompletion for existing text. If there is an available autocompletion for the text in the textbox then hitting <TAB> will replace the text in the command box with the autocompletion text of the existing command
-which is lexicographically closest to what is in the text box. If the command box is empty autocompletion will default to ``cd 1``. Unfortunately, this feature does not work with trailing or preceeding whitespace currently.
+Hit <TAB> for autocompletion so you don't have to remember verbose commands. If there is an autocompletion available, hitting <TAB> will replace the current text in the command box with the autocompletion text.
+
+Examples: +
+
+1. Suppose you're attempting to create a new card.
+
+image::newCardPreAutocomplete.png[width="500"]
+
+Image: Partially completed `newcard` command.
+
+2. Just hit <TAB> and you will instantly get the desired result
+
+image::newCardPostAutocomplete.png[width="500"]
+
+Image: After pressing <TAB> the command is automatically completed!
+
+[NOTE]
+====
+If the command box is empty autocompletion will default to ``cd 1``.
+Additionally, this feature does not work with trailing or preceding whitespace currently.
+====
 
 // end::autocompletion[]
-// start::rank[]
+
+// tag::rank[]
 === Rank : `rank`
 
-When in a deck, this command sorts all by a user's cummulative performance score on each card as determined by the Super Memo 2 algorithm. +
-Format: `rank`
+To sort all cards by a user's cumulative performance score on each card. +
+Format: `rank` +
+Examples: Suppose you are studying for an important exam, and you want to find out which cards you performed poorly on so you can review them.
+
+
+1. Classify cards as described in the `classify` section above and type `rank`
+
+image::rankScreenshot1.png[width="500"]
+
+Image: Appearance of cards before sorting by performance
+
+2. Type  and you will instantly get the desired result
+
+image::rankScreenshot2.png[width="500"]
+Image: Appearance of cards after sorting by performance. As can be seen, harder cards move to the top. +
+
+[NOTE]
+====
+ The indicator in the card panel only shows the most recent classification of the card while the scheduling algorithm takes into account all past reviews.
+As such, cards labelled HARD may not always be above cards ranked NORMAL.
+====
+
+
 // end::rank[]
 
 
