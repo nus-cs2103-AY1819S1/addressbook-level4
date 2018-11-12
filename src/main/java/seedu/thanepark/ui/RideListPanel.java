@@ -13,7 +13,6 @@ import javafx.scene.layout.Region;
 import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
 import seedu.thanepark.commons.events.ui.RidePanelSelectionChangedEvent;
-import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.ui.exceptions.AccessibilityException;
 
