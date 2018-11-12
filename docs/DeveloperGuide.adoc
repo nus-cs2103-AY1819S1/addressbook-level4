@@ -425,6 +425,91 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+
+//tag::command-add[]
+=== Add Volunteer command
+The `add` command in the volunteer context is used to add a volunteer to the application.
+
+===== Current implementation
+
+This `add` command requires the `AddCommandParser` class to parse user input and add a volunteer with the details specified by the user. Currently, the details that are required by the user is Name, VolunteerId (NRIC), Gender, Birthday, Phone, Email and Address.
+
+`AddCommandParser` implements the `Parser` class which has the `Parser#parse()` operation. This operation will throw an error if the user input does not match the command format.
+
+The `add` command updates the context in `ModelManager` through `addVolunteer`.
+
+In addition to adding a volunteer, the `add` command also does the following:
+
+* Saves the current database state through `commitAddressBook` (for undo/redo functions).
+* Raise a `OverviewPanelVolunteerUpdateEvent` to update the Overview panel for volunteer context.
+
+The figure below shows the sequence diagram for an `add` command in the volunteer context.
+
+image::command_add_sd.png[switch SD, 800]
+
+The following code snippet shows the fields that are required by the user when inputting the volunteer details for the `add` command:
+```Java
+public class AddCommand extends Command {
+    //...
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasVolunteer(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_VOLUNTEER);
+        }
+
+        model.addVolunteer(toAdd);
+        model.commitAddressBook();
+        EventsCenter.getInstance().post(new OverviewPanelVolunteerUpdateEvent());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+    //...
+}
+```
+
+===== Design considerations
+====== Aspect: Choice of VolunteerId
+* **Alternative 1 (current choice):** The use of unique identifier NRIC.
++
+[cols="1,10"]
+|===
+|Pros| It is unique to each volunteer, and validates the uniqueness of a volunteer entry.
+|Cons| It is larger in size than an integer, hence may incur more storage use.
+|===
++
+
+* **Alternative 2:** Use of auto-incremented integer VolunteerId.
++
+[cols="1,10"]
+|===
+|Pros| It requires less storage, and easier to maintain.
+|Cons| It may not be a strong indicator of uniqueness.
+|===
++
+
+
+====== Aspect: Birthday Display Format
+* **Alternative 1 (current choice):** Use a BirthdayUtil class to change format of date.
++
+[cols="1,10"]
+|===
+|Pros| It requires less storage to store Birthday in original format.
+|Cons| It requires BirthdayUtil to be invoked every time Birthday is to be displayed to the user.
+|===
++
+
+* **Alternative 2:** Immediately store Birthday as preferred user friendly format.
++
+[cols="1,10"]
+|===
+|Pros| It does not require BirthdayUtil to be invoked every time the Birthday is to be displayed to the user.
+|Cons| It is difficult to maintain given that Birthday formats are of different length. Furthermore, requires more storage usage.
+|===
++
+
+//end::command-add[]
+
 //tag::command-switch[]
 
 [[Implementation-Switch]]
