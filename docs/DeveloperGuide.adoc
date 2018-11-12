@@ -556,12 +556,11 @@ A `SalesRecord` is associated with 6 attributes - `Date`, `ItemName`, `QuantityS
 4) There are sufficient ingredients to make `QuantitySold` units of `ItemName` in the `Ingredient` list.
 
 [NOTE]
-If any of the above conditions are not satisfied, sales volume will be recorded without updating the ingredient
-list.
+If any of the above conditions are not satisfied, sales volume will be recorded without updating the ingredient list
 
 [NOTE]
 If conditions 1 and 2 are satisfied, `RecordSalesCommand` will compute all the ingredients used and store the data in
- `IngredientUsed` attribute of `SalesRecord`.
+ `IngredientUsed` attribute of `SalesRecord`
 
 This mechanism is aided by methods from the `Menu` and `Ingredient` components, all of which are exposed in the
 `Model` interface. Given below is an example scenario and how the auto-ingredient update mechanism behaves at each step.
@@ -589,7 +588,7 @@ method given in `Sales` component of `Model`.
 
 [NOTE]
 An exception will be thrown in step 2, 3 or 5 should the conditions be violated. In such scenario,
-`RecordSalesCommand` will jump to step 6 instantly and omit the remaining steps.
+`RecordSalesCommand` will jump to step 6 instantly and omit the remaining steps
 
 The following activity diagram summarizes what happens when a user executes `record-sales` command:
 
@@ -673,11 +672,11 @@ Step 1. The user executes `display-sales 25-12-2017` command to request for the 
 `SalesReport` in return.
 
 [NOTE]
-`display-sales` command will not call `Model#getSalesReport(Date)` if the specified date is invalid.
+`display-sales` command will not call `Model#getSalesReport(Date)` if the specified date is invalid
 
 [NOTE]
 If no sales record associated with the given `Date` is found, an empty SalesReport will be
-returned. In such cases, the command will terminate with a message notifying the user about the absence of such record.
+returned. In such cases, the command will terminate with a message notifying the user about the absence of such record
 
 Step 2. The `display-sales` command then raises the `DisplaySalesReportEvent` event, which also encapsulates the
 generated `SalesReport` in step 1.
@@ -1962,7 +1961,7 @@ Use case resumes at step 3.
 === Use case: UC505 - Ranking items according to total revenue
 
 [NOTE]
-The use cases for 1) ranking dates according to total revenue and 2) displaying sales chart are the same.
+The use cases for 1) ranking dates according to total revenue & 2) displaying sales chart are the same
 
 *MSS*
 

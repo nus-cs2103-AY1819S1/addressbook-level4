@@ -844,19 +844,19 @@ See <<stockup, Section 5.3.6, “Stocking up an ingredient">> for more informati
 [NOTE]
 ====
 Sales volume will still be recorded even if some of the above conditions are not met. However, ingredient list
-will not be updated.
+will not be updated
 ====
 
 [NOTE]
 ====
 [[ingredients-used]]**Ingredient used**: MeNUS will remember the name and quantity of ingredients you used as long as
-the item and its required ingredients have been specified in the menu component.
+the item and its required ingredients have been specified in the menu component
 ====
 
 [TIP]
 ====
 If you recorded a sales volume by mistake, you can use the `Undo` command to recover the deducted ingredients,
-provided that the ingredients have been deducted automatically.
+provided that the ingredients have been deducted automatically
 ====
 
 [[display-sales]]
@@ -896,7 +896,7 @@ Format: `delete-sales INDEX` or `des INDEX`
 [NOTE]
 ====
 Deleting a sales record will not undo the effect of <<auto-ingredient-update, "Auto-ingredient update">> which may or
- may not have happened during recording.
+ may not have happened during recording
 ====
 
 Examples:
@@ -921,13 +921,13 @@ Format: `edit-sales INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY_SOLD] [p/ITEM_PRICE
 
 [WARNING]
 ====
-Editing a sales record will permanently delete its <<ingredients-used, "Ingredient used">> data.
+Editing a sales record will permanently delete its <<ingredients-used, "Ingredient used">> data
 ====
 
 [NOTE]
 ====
 Editing a sales record will **not** update the ingredient list. See <<auto-ingredient-update, Auto-ingredient
-update>> for more information.
+update>> for more information
 ====
 
 Examples:
@@ -969,7 +969,7 @@ Format: `rank-date` or `rad`
 [TIP]
 ====
 You can generate the sales report of a specific date to get a more detailed analysis. See <<display-sales,
-Section 5.6.2, “Display sales report">> for more information.
+Section 5.6.2, “Display sales report">> for more information
 ====
 
 The following is an example of what you will see if the ranking is generated and displayed correctly:
@@ -990,7 +990,7 @@ Format: `rank-item` or `rai`
 [TIP]
 ====
 You can check the sales history of a specific item to get a more detailed analysis. This feature will be available
-in v2.0. See <<check-history, Section 5.7.6, “Checking item sales history">> for more information.
+in v2.0. See <<check-history, Section 5.7.6, “Checking item sales history">> for more information
 ====
 
 The following is an example of what you will see if the ranking is generated and displayed correctly:
@@ -1077,7 +1077,7 @@ will be extended to the following features: +
 
 [NOTE]
 ====
-A negative profit denotes a loss.
+A negative profit denotes a loss
 ====
 
 [[check-history]]
