@@ -224,10 +224,7 @@ Examples:
 * `playlist new p/Favourites t/Some Song t/Some Song 2` +
 Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
 
-<<<<<<< Updated upstream
 // end::PlaylistNew_david[]
-
-=======
 
 // tag::playlistDel_hayden[]
 
