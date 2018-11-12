@@ -1251,8 +1251,6 @@ Use case ends.
 .  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1326,9 +1324,9 @@ Expected: Application launches with a clean data folder (no entries)
 .. Test case: `schedule event/Consultation date/32-11-2018 start/16:00 end/18:00 descr/With Bob` +
    Expected: No event scheduled. Error message denoting invalid date +
 .. Test case: `schedule event/CS2103 Tutorial date/15-11-2018 end/12:00 descr/Content review` +
-  Expected: No event scheduled. Error message denoting missing parameter. +
-.. Test case: `schedule event/CS2103 Practical Exam date/16-11-2018 start/16:00 end/18:00 descr/Acceptance testing` +
-   Expected: The event with the specified details are scheduled into the calendar. +
+   Expected: No event scheduled. Error message denoting missing parameter. +
+.. Other incorrect schedule commands to try: `schedule` with missing non-optional parameters or invalid values
+   Expected: Corresponding error details shown.
 
 . Cancelling an event in the event list
 .. Prerequisites: The events must exist in the calendar.
@@ -1337,7 +1335,7 @@ Expected: Application launches with a clean data folder (no entries)
 .. Test case: `cancel event/tutorial date/16-11-2018 start/25:00 end/18:00` +
    Expected: Error message denoting invalid time. Calendar remains the same. +
 .. Other incorrect cancel commands to try: `cancel`, `cancel e` (where e is not in the calendar)
-   Expected: Error details shown.
+   Expected: Corresponding error details shown.
 
 . Undoing and Redoing commands between the calendar and address book
 .. Prerequisites: Multiple students in the student list, and the following test cases are carried out in order
