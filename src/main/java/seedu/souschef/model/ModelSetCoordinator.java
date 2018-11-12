@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.MealPlanDeletedEvent;
+import seedu.souschef.commons.events.model.MealPlannerClearedEvent;
 import seedu.souschef.commons.events.model.RecipeDeletedEvent;
 import seedu.souschef.commons.events.storage.SwitchFeatureStorageEvent;
 import seedu.souschef.logic.parser.Context;
@@ -108,6 +109,10 @@ public class ModelSetCoordinator implements ModelSet {
         return favouriteModel;
     }
 
+    private void setFeatureStorage(Context context) {
+        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(context));
+    }
+
     @Subscribe
     protected void handleMealPlanDeletedEvent(MealPlanDeletedEvent event) {
         Day toDelete = event.day;
@@ -119,9 +124,9 @@ public class ModelSetCoordinator implements ModelSet {
                 h.getMealPlans().remove(toDelete);
             }
         }
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.HEALTH_PLAN));
+        setFeatureStorage(Context.HEALTH_PLAN);
         healthPlanModel.indicateAppContentChanged();
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(event.context));
+        setFeatureStorage(event.context);
     }
 
     @Subscribe
@@ -141,8 +146,20 @@ public class ModelSetCoordinator implements ModelSet {
                 }
             }
         }
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.MEAL_PLAN));
+        setFeatureStorage(Context.MEAL_PLAN);
         mealPlannerModel.indicateAppContentChanged();
-        EventsCenter.getInstance().post(new SwitchFeatureStorageEvent(Context.RECIPE));
+        setFeatureStorage(Context.RECIPE);
+    }
+
+    @Subscribe
+    protected void handleMealPlannerClearedEvent(MealPlannerClearedEvent event) {
+        healthPlanModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
+        List<HealthPlan> hpList = healthPlanModel.getFilteredList();
+        for (HealthPlan hp : hpList) {
+            hp.getMealPlans().clear();
+        }
+        setFeatureStorage(Context.HEALTH_PLAN);
+        healthPlanModel.indicateAppContentChanged();
+        setFeatureStorage(Context.MEAL_PLAN);
     }
 }
