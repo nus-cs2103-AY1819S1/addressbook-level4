@@ -15,6 +15,7 @@ endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T13-3/main
 
 By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
+
 // tag::intro_hayden[]
 == Introduction
 
