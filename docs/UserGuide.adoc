@@ -157,7 +157,7 @@ Format: `maintain <index>`
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Manage commands
+=== Manage Commands
 
 This section contains all commands related to managing commands.
 
