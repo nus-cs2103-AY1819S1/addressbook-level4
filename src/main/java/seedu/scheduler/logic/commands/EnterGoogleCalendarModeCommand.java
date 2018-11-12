@@ -56,11 +56,9 @@ public class EnterGoogleCalendarModeCommand extends Command {
         if (ConnectToGoogleCalendar.isGoogleCalendarEnabled()) {
             throw new CommandException(MESSAGE_REJECT_SECOND_INITIALIZE);
         }
-
         //Get the Google Calendar calendar object
         logger.info("Getting a calendar");
         Calendar calendar = connectToGoogleCalendar.getCalendar();
-
         //Obtain Google Events
         logger.info("Getting Google Events");
         Events events = connectToGoogleCalendar.getEvents(calendar);
@@ -68,7 +66,6 @@ public class EnterGoogleCalendarModeCommand extends Command {
             logger.info(MESSAGE_INTERNET_ERROR);
             return new CommandResult(MESSAGE_INTERNET_ERROR);
         }
-
         //Get events from a specified calendar
         CommandResult commandResult;
         try {
@@ -78,43 +75,32 @@ public class EnterGoogleCalendarModeCommand extends Command {
         } catch (NullPointerException e) {
             return new CommandResult(MESSAGE_INTERNET_ERROR);
         }
-
         return commandResult;
     }
 
     /**
      * Pulls events from google calendar
-     * @param model the local model
-     * @param events the events from Google Calendar
+     *
+     * @param model    the local model
+     * @param events   the events from Google Calendar
      * @param calendar the google calendar object
      *
      * @return a coomandResult indicating the result
      *
-     * @throws CommandException wraps with appropriate message
-     * @throws ParseException parser error
+     * @throws CommandException         wraps with appropriate message
+     * @throws ParseException           parser error
      * @throws java.text.ParseException parser exception
      */
     private CommandResult pullEventFromGoogleCalendar(
             Model model, Events events, Calendar calendar)
             throws CommandException, ParseException, java.text.ParseException {
-        List<Event> eventsToadd;
+        List<Event> eventsToAdd;
         HashMap<String, RepeatType> googleiCalAndRepeatType = new HashMap<>();
         HashMap<String, DateTime> googleiCalAndRepeatUntilTime = new HashMap<>();
+        prepareRepeatEvent(events, googleiCalAndRepeatType, googleiCalAndRepeatUntilTime);
 
-        //Obtain a list of Google Events
-        logger.info("Obtaining a list of Google Events with NO instances");
-        List<com.google.api.services.calendar.model.Event> listOfGoogleEvents =
-                events.getItems();
-
-        //Retrieve any recurrence property if any
-        //and then check whether we support its format
-        logger.info("Retrieving recurrence event property");
-        retrieveRecurrenceEventProperty(googleiCalAndRepeatType, googleiCalAndRepeatUntilTime,
-                listOfGoogleEvents);
-        checkForRepeatTypeSupport(googleiCalAndRepeatType);
-
-        //Obtain a list Of Google Events instances
-        //Previously only Events (not
+        List<com.google.api.services.calendar.model.Event> listOfGoogleEvents;
+        //Obtain a list Of Google Events instances (previously only Events, not instances)
         logger.info("Obtaining a list of Google Events with instances");
         Events eventsIncludingInstances = connectToGoogleCalendar.getSingleEvents(calendar);
         //Retrieve the event instances
@@ -125,22 +111,41 @@ public class EnterGoogleCalendarModeCommand extends Command {
             return new CommandResult(MESSAGE_NO_EVENTS);
         } else {
             //Upcoming events
-            eventsToadd = eventFormatUtil.convertGoogleListToLocalList(listOfGoogleEvents,
+            eventsToAdd = eventFormatUtil.convertGoogleListToLocalList(listOfGoogleEvents,
                     googleiCalAndRepeatType, googleiCalAndRepeatUntilTime);
         }
-
         //Add to local database
-        for (Event event : eventsToadd) {
-            logger.info("Adding events to local databse");
-            model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
-        }
+        addToLocalDatabase(model, eventsToAdd);
         ConnectToGoogleCalendar.setGoogleCalendarEnabled();
         model.commitScheduler();
         return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
 
+    private void addToLocalDatabase(Model model, List<Event> eventsToAdd) {
+        for (Event event : eventsToAdd) {
+            logger.info("Adding events to local databse");
+            model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
+        }
+    }
+
+    private void prepareRepeatEvent(Events events, HashMap<String, RepeatType> googleiCalAndRepeatType,
+                                    HashMap<String, DateTime> googleiCalAndRepeatUntilTime)
+            throws CommandException, ParseException, java.text.ParseException {
+        //Obtain a list of Google Events
+        logger.info("Obtaining a list of Google Events with NO instances");
+        List<com.google.api.services.calendar.model.Event> listOfGoogleEvents =
+                events.getItems();
+
+        //Retrieve any recurrence property if any and then check whether we support its format
+        logger.info("Retrieving recurrence event property");
+        retrieveRecurrenceEventProperty(googleiCalAndRepeatType, googleiCalAndRepeatUntilTime,
+                listOfGoogleEvents);
+        checkForRepeatTypeSupport(googleiCalAndRepeatType);
+    }
+
     /**
      * Checks whether the Recurrence Event is supported by the app
+     *
      * @param googeliCalAndRepeatType the Map of Google Event and its RepeatType
      *
      * @throws CommandException if any
@@ -159,14 +164,14 @@ public class EnterGoogleCalendarModeCommand extends Command {
     }
 
     /**
-     * Retrieves recurrence Event Property from the list of Google Events
-     * and save those properties to the maps
-     * @param googleiCalAndRepeatType the map storing RepeatType
-     * @param googleiCalAndRepeatUntilTime the map storing RepeatUntilDateTime
-     * @param listOfGoogleEvents the list of Google Evnts
+     * Retrieves recurrence Event Property from the list of Google Events and save those properties to the maps
      *
-     * @throws CommandException if any
-     * @throws ParseException if any
+     * @param googleiCalAndRepeatType      the map storing RepeatType
+     * @param googleiCalAndRepeatUntilTime the map storing RepeatUntilDateTime
+     * @param listOfGoogleEvents           the list of Google Evnts
+     *
+     * @throws CommandException         if any
+     * @throws ParseException           if any
      * @throws java.text.ParseException if any
      */
     private void retrieveRecurrenceEventProperty(HashMap<String, RepeatType> googleiCalAndRepeatType,
@@ -195,16 +200,16 @@ public class EnterGoogleCalendarModeCommand extends Command {
     }
 
     /**
-     * @param googleiCalAndRepeatTypeMap the map storing RepeatType
+     * @param googleiCalAndRepeatTypeMap   the map storing RepeatType
      * @param googleiCalAndRepeatUntilTime the map storing RepeatUntilDateTime
-     * @param googleEvent a google Event
-     * @param recurrence the recurrence rule
+     * @param googleEvent                  a google Event
+     * @param recurrence                   the recurrence rule
      *
      * @return Repeat Until Date Time
      *
-     * @throws CommandException  if any
-     * @throws ParseException  if any
-     * @throws java.text.ParseException  if any
+     * @throws CommandException         if any
+     * @throws ParseException           if any
+     * @throws java.text.ParseException if any
      */
     private DateTime getRepeatUntilDateTimeFromRecurrenceAttribute(
             HashMap<String, RepeatType> googleiCalAndRepeatTypeMap,
@@ -214,9 +219,8 @@ public class EnterGoogleCalendarModeCommand extends Command {
             throws CommandException, ParseException, java.text.ParseException {
         String[] recurrenceText;
         recurrenceText = getRecurrenceRuleFromRecurrenceAttribute(recurrence);
-        //Expected recurrence rule text:
+        //Expected recurrence rule text, specified by Google
         //RRULE:FREQ=WEEKLY;UNTIL=20181203T155959Z;BYDAY=MO
-        //This is specified by Google
         if (recurrenceText.length != 3) {
             logger.info(MESSAGE_EVENT_NOT_SUPORTED);
             throw new CommandException(MESSAGE_EVENT_NOT_SUPORTED);
@@ -232,7 +236,6 @@ public class EnterGoogleCalendarModeCommand extends Command {
             logger.info(MESSAGE_EVENT_NOT_SUPORTED);
             throw new CommandException(MESSAGE_EVENT_NOT_SUPORTED);
         }
-
         //Retrieve repeat type and repeat until DateTime
         logger.info("Retrieving repeat type and repeat until DateTime");
         retrieveRepeatTypeFromRecurrenceRuleTextField(
@@ -243,13 +246,14 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     /**
      * Converts the Google RepeatUntilDateTime in text field to local DateTime
+     *
      * @param googleiCalAndRepeatUntilTimeMap the map storing RepeatUntilDateTime
-     * @param googleEvent a google Event
-     * @param recurrenceUntilTextField the text field
+     * @param googleEvent                     a google Event
+     * @param recurrenceUntilTextField        the text field
      *
      * @return local repeat until DateTime
      *
-     * @throws ParseException if any
+     * @throws ParseException           if any
      * @throws java.text.ParseException if any
      */
     private DateTime convertToLocalRepeatUntilDateTimeFromTextField(
@@ -270,7 +274,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
         DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
         repeatUntilDateTimeFromGoogleEvent = ParserUtil
                 .parseDateTime(format.parse(eventTimeInString)
-                .toString());
+                        .toString());
         //Store in the map
         googleiCalAndRepeatUntilTimeMap.put(googleEvent.getICalUID(), repeatUntilDateTimeFromGoogleEvent);
         return repeatUntilDateTimeFromGoogleEvent;
@@ -278,6 +282,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     /**
      * Corrects the time zone of the repeatUntilDateTime obtained from Google
+     *
      * @param repeatUntilDateTime repeat Until Date Time of a event
      *
      * @return the adjusted DateTime in String format
@@ -293,6 +298,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     /**
      * Formats the RepeatUntilDateTime from the text field of recurrence
+     *
      * @param recurrenceUntilTextField the original text
      *
      * @return the epeatUntilDateTime
@@ -318,9 +324,10 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     /**
      * Retrieves RepeatType from RecurrenceRule TextField
+     *
      * @param googleiCalAndRepeatTypeMap the map storing RepeatType
-     * @param googleEvent a google event
-     * @param recurrenceRuleTextField the original text field containing recurrenceRule
+     * @param googleEvent                a google event
+     * @param recurrenceRuleTextField    the original text field containing recurrenceRule
      */
     private void retrieveRepeatTypeFromRecurrenceRuleTextField(
             HashMap<String, RepeatType> googleiCalAndRepeatTypeMap,
@@ -355,6 +362,7 @@ public class EnterGoogleCalendarModeCommand extends Command {
 
     /**
      * Covverts a recurrenceRule text to RepeatType
+     *
      * @param recurrenceRule the recurrence Rule text
      *
      * @return corresponding RepeatType

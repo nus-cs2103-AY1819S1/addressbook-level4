@@ -2,6 +2,7 @@ package seedu.scheduler.logic.commands;
 
 import static com.google.api.client.util.DateTime.parseRfc3339;
 
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -269,8 +270,9 @@ public class ConnectToGoogleCalendar {
 
     /**
      * Constructs a command message for Google's usage
+     *
      * @param eventRepeatType an event RepeatType specified by a String
-     * @param eventUntilDate n event UntilDate specified by a String
+     * @param eventUntilDate  n event UntilDate specified by a String
      *
      * @return the constructed command message
      */
@@ -285,6 +287,7 @@ public class ConnectToGoogleCalendar {
 
     /**
      * Adjusts a local EventUntilDate To Google Format
+     *
      * @param eventUntilDateTime
      *
      * @return
@@ -307,24 +310,23 @@ public class ConnectToGoogleCalendar {
             com.google.api.services.calendar.model.Event googleEvent, Event toAddEvent) {
         //Set various Event attributes
         logger.info("Setting Event attributes");
-        googleEvent.setSummary(String.valueOf(toAddEvent.getEventName()));
-        googleEvent.setLocation(String.valueOf(toAddEvent.getVenue()));
-        googleEvent.setDescription(String.valueOf(toAddEvent.getDescription()));
+        setBasicEventAttribute(googleEvent, toAddEvent);
 
         //StartDateTime
         logger.info("Setting StartDateTime");
-        String startDateTime = EventFormatUtil.convertStartDateTimeToGoogleFormat(toAddEvent);
-        DateTime start = parseRfc3339(startDateTime);
-        googleEvent.setStart(new EventDateTime().setDateTime(start).setTimeZone("Singapore"));
+        setStartDateTime(googleEvent, toAddEvent);
 
         //EndDateTime
         logger.info("Setting EndDateTime");
-        String endDateTime = EventFormatUtil.convertEndDateTimeToGoogleFormat(toAddEvent);
-        DateTime end = parseRfc3339(endDateTime);
-        googleEvent.setEnd(new EventDateTime().setDateTime(end).setTimeZone("Singapore"));
+        setEndDateTime(googleEvent, toAddEvent);
 
         //Reminders
         logger.info("Setting Reminders");
+        setReminders(googleEvent, toAddEvent);
+        return googleEvent;
+    }
+
+    private void setReminders(com.google.api.services.calendar.model.Event googleEvent, Event toAddEvent) {
         ReminderDurationList reminderDurationList = toAddEvent.getReminderDurationList();
         List<EventReminder> reminderOverrides = new ArrayList<>();
         Set<Duration> reminderMap = reminderDurationList.get();
@@ -338,7 +340,24 @@ public class ConnectToGoogleCalendar {
         }
         reminder.setOverrides(reminderOverrides);
         googleEvent.setReminders(reminder);
-        return googleEvent;
+    }
+
+    private void setEndDateTime(com.google.api.services.calendar.model.Event googleEvent, Event toAddEvent) {
+        String endDateTime = EventFormatUtil.convertEndDateTimeToGoogleFormat(toAddEvent);
+        DateTime end = parseRfc3339(endDateTime);
+        googleEvent.setEnd(new EventDateTime().setDateTime(end).setTimeZone("Singapore"));
+    }
+
+    private void setStartDateTime(com.google.api.services.calendar.model.Event googleEvent, Event toAddEvent) {
+        String startDateTime = EventFormatUtil.convertStartDateTimeToGoogleFormat(toAddEvent);
+        DateTime start = parseRfc3339(startDateTime);
+        googleEvent.setStart(new EventDateTime().setDateTime(start).setTimeZone("Singapore"));
+    }
+
+    private void setBasicEventAttribute(com.google.api.services.calendar.model.Event googleEvent, Event toAddEvent) {
+        googleEvent.setSummary(String.valueOf(toAddEvent.getEventName()));
+        googleEvent.setLocation(String.valueOf(toAddEvent.getVenue()));
+        googleEvent.setDescription(String.valueOf(toAddEvent.getDescription()));
     }
 
     /**
@@ -358,28 +377,33 @@ public class ConnectToGoogleCalendar {
             logger.warning(MESSAGE_NOT_ENABLED);
             return false;
         }
-
         Calendar calendar = getCalendar();
-        List<String> eventIds = new ArrayList<>();
-        String recurringEventId = null;
-        boolean repeatedEventsFound = false;
-
-        //Case1: delete non-repeat event
-        //find EventId
+        //Case1: delete non-repeat event: find EventId and delete
         logger.info("Deleting a non-repeat Event");
+        List<String> eventIds = new ArrayList<>();
         Boolean result = deleteSingleNonRepeatEvent(eventToDelete, calendar, eventIds);
         //This return structure is to facilitate the deleting of other types of event
         if (result != null) {
             return result;
         }
+        //Case2: delete repeated events: find the ICalUid and delete
+        result = deleteRepeatEvents(eventToDelete, instanceIndex, deleteSingle, deleteAll, calendar, eventIds);
+        if (result != null) {
+            return result;
+        }
+        return true;
 
-        //Case2: delete repeated events
-        //Find the ICalUid
+    }
+
+    private Boolean deleteRepeatEvents(Event eventToDelete, int instanceIndex, boolean deleteSingle, boolean deleteAll,
+                                       Calendar calendar, List<String> eventIds) {
+        String recurringEventId = null;
+        boolean repeatedEventsFound = false;
         if (eventToDelete.isRepeatEvent()) {
             //Find iCalUid from Google Event
             FindIcalUid findIcalUid =
                     new FindIcalUid(eventToDelete, calendar, eventIds, recurringEventId, repeatedEventsFound).invoke();
-            if (findIcalUid.getResult()) {
+            if (!findIcalUid.getResult()) {
                 return false;
             }
             recurringEventId = findIcalUid.getRecurringEventId();
@@ -390,29 +414,38 @@ public class ConnectToGoogleCalendar {
         if (eventToDelete.isRepeatEvent() && !repeatedEventsFound) {
             logger.info(MESSAGE_IO_ERROR);
             return false;
-        } else { //EventSet Found
-            try {
-                assert recurringEventId != null;
-                //Case 2.1: delete single instance
-                if (deleteSingle) {
-                    logger.info("Deleting a single instance of a Repeat Event");
-                    return deleteSingleInstance(instanceIndex, calendar, recurringEventId);
-                } else if (deleteAll | instanceIndex == 0) {
-                    //delete multiple instances
-                    //Case2.2: Delete All
-                    logger.info("Deleting all instances of a Repeat Event");
-                    deleteAllInstances(calendar, eventIds);
-                } else {
-                    //Case2.3:delete upcoming (and this is not the first instance)
-                    logger.info("Deleting On and upcoming instances of a Repeat Event");
-                    deleteUpcomingInstances(instanceIndex, calendar, recurringEventId);
-                }
-            } catch (IOException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
-            }
-            return true;
         }
+        Boolean result = deleteInstances(instanceIndex, deleteSingle, deleteAll, calendar, eventIds, recurringEventId);
+        if (result != null) {
+            return result;
+        }
+        return null;
+    }
+
+    private Boolean deleteInstances(int instanceIndex, boolean deleteSingle, boolean deleteAll, Calendar calendar,
+                                    List<String> eventIds, String recurringEventId) {
+        //EventSet Found
+        try {
+            assert recurringEventId != null;
+            //Case 2.1: delete single instance
+            if (deleteSingle) {
+                logger.info("Deleting a single instance of a Repeat Event");
+                return deleteSingleInstance(instanceIndex, calendar, recurringEventId);
+            } else if (deleteAll | instanceIndex == 0) {
+                //delete multiple instances
+                //Case2.2: Delete All
+                logger.info("Deleting all instances of a Repeat Event");
+                deleteAllInstances(calendar, eventIds);
+            } else {
+                //Case2.3:delete upcoming (and this is not the first instance)
+                logger.info("Deleting On and upcoming instances of a Repeat Event");
+                deleteUpcomingInstances(instanceIndex, calendar, recurringEventId);
+            }
+        } catch (IOException e) {
+            logger.info(MESSAGE_IO_ERROR);
+            return false;
+        }
+        return null;
     }
 
     /**
@@ -652,10 +685,8 @@ public class ConnectToGoogleCalendar {
      *
      * @return command result, true if successful
      */
-    public boolean updateRangeGoogleEvent(boolean enabled,
-                                          Event eventToEdit, List<Event> editedEvents, int instanceIndex,
-                                          int rangeStartIndex)
-            throws CommandException {
+    public boolean updateRangeGoogleEvent(boolean enabled, Event eventToEdit, List<Event> editedEvents,
+                                          int instanceIndex, int rangeStartIndex) throws CommandException {
         if (statusIsDisabled(enabled)) {
             logger.warning(MESSAGE_NOT_ENABLED);
             return false;
@@ -664,33 +695,21 @@ public class ConnectToGoogleCalendar {
         assert editedEvents.get(0).isRepeatEvent();
         assert eventToEdit != null;
         Calendar service = getCalendar();
-
         String recurringEventId = getRecurringEventId(eventToEdit, service);
         if (recurringEventId == null) {
             logger.info(MESSAGE_NOT_FOUND);
             return false;
         }
-
-        Events instances = null;
-
+        Events instances;
         if (instanceIndex > 0) {
-            try {
-                instances = service.events()
-                        .instances(CALENDAR_NAME, recurringEventId)
-                        .execute();
-                editNotAllEventInstances(editedEvents, rangeStartIndex, service, instances);
-            } catch (IOException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
+            if (deleteIndividually(editedEvents, rangeStartIndex, service, recurringEventId)) {
+                return true;
             }
         } else if (instanceIndex == 0) {
             //If the Event is the first instance of the EventSet
             //Google recommends to change the EventSet as a whole
-            try {
-                editAllEventInstances(editedEvents, service, recurringEventId);
-            } catch (IOException e) {
-                logger.info(MESSAGE_IO_ERROR);
-                return false;
+            if (deleteAsSet(editedEvents, service, recurringEventId)) {
+                return true;
             }
         } else {
             return false;
@@ -698,10 +717,36 @@ public class ConnectToGoogleCalendar {
         return true;
     }
 
+    private boolean deleteAsSet(List<Event> editedEvents, Calendar service, String recurringEventId) {
+        try {
+            editAllEventInstances(editedEvents, service, recurringEventId);
+        } catch (IOException e) {
+            logger.info(MESSAGE_IO_ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean deleteIndividually(List<Event> editedEvents, int rangeStartIndex, Calendar service,
+                                       String recurringEventId) {
+        Events instances;
+        try {
+            instances = service.events()
+                    .instances(CALENDAR_NAME, recurringEventId)
+                    .execute();
+            editNotAllEventInstances(editedEvents, rangeStartIndex, service, instances);
+        } catch (IOException e) {
+            logger.info(MESSAGE_IO_ERROR);
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Edits all event instances in a EventSet
-     * @param editedEvents a list of edited Events
-     * @param calendar calendar service object
+     *
+     * @param editedEvents     a list of edited Events
+     * @param calendar         calendar service object
      * @param recurringEventId the identifier, a recurringEvengtId
      *
      * @throws IOException if any
@@ -721,10 +766,11 @@ public class ConnectToGoogleCalendar {
 
     /**
      * Edits a range of instances in a EventSet
-     * @param editedEvents a list of edited Events
+     *
+     * @param editedEvents    a list of edited Events
      * @param rangeStartIndex the starting index of target event
-     * @param calendar calendar service object
-     * @param instances the instances to be edited
+     * @param calendar        calendar service object
+     * @param instances       the instances to be edited
      *
      * @throws IOException if any
      */
@@ -744,10 +790,11 @@ public class ConnectToGoogleCalendar {
 
     /**
      * Edits the Event after the specified index
-     * @param editedEvents  a list of edited Events
+     *
+     * @param editedEvents     a list of edited Events
      * @param rangeStartIndex  the starting index of target event
-     * @param calendar calendar service object
-     * @param instanceSort the sorted Event instances
+     * @param calendar         calendar service object
+     * @param instanceSort     the sorted Event instances
      * @param editedEventIndex the index of edited event
      *
      * @throws IOException if any
@@ -767,9 +814,10 @@ public class ConnectToGoogleCalendar {
 
     /**
      * Edits the Event before the specified index
-     * @param rangeEndIndex  The specified nd index of target event
-     * @param calendar calendar service object
-     * @param instanceSort the sorted Event instances
+     *
+     * @param rangeEndIndex The specified nd index of target event
+     * @param calendar      calendar service object
+     * @param instanceSort  the sorted Event instances
      *
      * @throws IOException if any
      */
@@ -936,10 +984,10 @@ public class ConnectToGoogleCalendar {
                 }
             } catch (NullPointerException e) {
                 logger.info(MESSAGE_IO_ERROR);
-                myResult = true;
+                myResult = false;
                 return this;
             }
-            myResult = false;
+            myResult = true;
             return this;
         }
     }
