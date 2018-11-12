@@ -48,17 +48,20 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandTextField.caretPositionProperty().addListener((unused1) -> updateCaretPosition());
 
-        //Adapted from
+        //Directly taken from
         //https://stackoverflow.com/questions/22714268/how-to-limit-the-amount-of-characters-a-javafx-textfield/31161519
         commandTextField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (newValue.intValue() <= oldValue.intValue()) {
-                    return;
-                }
-                // Check if the new character is greater than CHARACTER_LIMIT
-                if (commandTextField.getText().length() >= CHARACTER_LIMIT) {
-                    commandTextField.setText(commandTextField.getText().substring(0, CHARACTER_LIMIT));
+            public void changed(ObservableValue<? extends Number> observable,
+                                Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than CHARACTER_LIMIT
+                    if (commandTextField.getText().length() >= CHARACTER_LIMIT) {
+
+                        // if it's 11th character then just setText to previous
+                        // one
+                        commandTextField.setText(commandTextField.getText().substring(0, CHARACTER_LIMIT));
+                    }
                 }
             }
         });

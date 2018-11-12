@@ -56,9 +56,7 @@ The bar at the top of the window allows you to access `Help` or `About`. The `Ab
 [WARNING]
 You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`. +
 Additionally, note that you may not enter more than 250 characters inside the `CommandBox`.
-Any character past the 250th will be forcefully truncated. This is to guard against abuse. +
-The ride list also does not support any text longer than 22 characters. Excess characters will be truncated and +
-replaced by `...`.
+Any character past the 250th will be forcefully truncated. This is to guard against abuse.
 
 
 Congratulations! You have successfully set up ThanePark!
@@ -105,14 +103,21 @@ This section contains all commands related to managing attractions.
 ==== Adding attractions: `add`
 
 Adds an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
+Format: ``add `<n/attraction>` `<m/maintenance>` `<w/waitTime>` `<z/zone>` [t/tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
+[NOTE]
+Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
+1 billion.
+
+[NOTE]
+The length limit for zone and tag(s) field is 40 characters.
+
 Examples:
 
-* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
-* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+* add n/Transformers m/1 w/30 z/John street, block 123, #01-01
+* add n/The Mummy m/3 w/45 z/311, Clementi Ave 2, #02-25 t/3D t/indoor
 
 ==== Deleting attractions: `delete`
 
@@ -139,18 +144,68 @@ Examples:
 
 ==== Updating information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
-Format: `update <index> <tag> <value>`
+Updates the details of the ride identified by the index number used in the displayed ride list.
+
+[NOTE]
+The length limit for zone and tag(s) field is 40 characters.
+
+Format: `update <index> <prefix/value>`
+
+Parameters: INDEX (must be a positive integer) [n/NAME] [m/MAINTENANCE] [w/WAITING_TIME] [z/ZONE] [t/TAG].
+
+Examples:
+
+* `update 1 m/90` +
+  Updates the 1st ride in ThanePark.
+
+* `update 2 m/90 w/60` +
+  Updates the 2nd ride in ThanePark.
+
+[NOTE]
+This command cannot update the waiting time and maintenance field when the ride is not open.
+
+[NOTE]
+Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
+1 billion.
 
 ==== Shutting down attraction: `shutdown`
 
 Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <index>`
 
+[NOTE]
+This command will reset the waiting time field to zero.
+
+|===
+a|
+Example : `shutdown 1`
+
+* `shutdown 1` +
+  Closes the 1st ride in ThanePark.
+
+As seen in the diagram below, the status of the 1st ride changes from `open` to `shutdown` within the red box after
+`shutdown 1` is executed.
+
+.Before executing `shutdown 1`
+image::./ui_screenshots/shutdown-example-1.png[width="600"]
+
+.After executing `shutdown 1`
+image::./ui_screenshots/shutdown-example-2.png[width="600"]
+
+After `shutdown 1` is executed, the name, status, days since last maintenance, waiting time, zone and tags for
+the ride is displayed.
+
+|===
+
 ==== Opening attraction: `open`
 
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
+
+Example:
+
+* `open 2` +
+  Opens the 2nd ride in ThanePark.
 
 [NOTE]
 This command also resets the waiting time field to zero.
@@ -626,11 +681,14 @@ Format: `logout`
 
 2+|*Manage Attractions*
 
-|*Add* |`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
-e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+
+|*Add* |`add <n/attraction>` `<m/maintenance>` `<w/waitTime>` `<z/zone>` `[t/tag(s)]` +
+  e.g. add n/Mummy m/3 w/45 z/311, Clementi Ave 2, #02-25 t/3D t/indoor
 |*Delete* |`delete <index>` +
-e.g. delete 3
-|*Update* |`update <index> <tag> <value>`
+  e.g. delete 3
+|*Update* |`update <index> <prefix/value>` +
+  e.g. update 2 m/90 w/60
+
 |*Shutdown* |`shutdown <index>`
 |*Open* |`open <index>`
 |*Maintain* |`maintain <index>`
