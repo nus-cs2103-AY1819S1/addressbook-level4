@@ -32,7 +32,6 @@ import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.util.PatientComparator;
-import seedu.clinicio.ui.Ui;
 import seedu.clinicio.ui.UiManager;
 
 
@@ -105,10 +104,6 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Ui changes ======================================================================
 
     //@@author iamjackslayer
-    public void addUi(Ui ui) {
-        uiManager = (UiManager) ui;
-    }
-
     /**
      * Switches the current tab to the tab of given index.
      * @param index the index of the tab
@@ -318,6 +313,17 @@ public class ModelManager extends ComponentManager implements Model {
         } else if (preferenceQueue.getList().contains(patient)) {
             preferenceQueue.getList().remove(patient);
         }
+
+        ArrayList<Patient> temp = new ArrayList<>();
+        temp.addAll(mainQueue.getList().subList(0, mainQueue.getList().size()));
+        temp.addAll(preferenceQueue.getList().subList(0, preferenceQueue.getList().size()));
+        PatientComparator<Person> comparator = new PatientComparator<>();
+        //   temp.sort(comparator);
+
+        versionedClinicIo.setQueue(temp.subList(0, temp.size()));
+
+        updateQueue(PREDICATE_SHOW_ALL_PATIENTS);
+        indicateClinicIoChanged();
 
         patient.setIsNotQueuing();
     }

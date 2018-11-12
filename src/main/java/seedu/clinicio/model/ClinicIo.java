@@ -227,7 +227,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     //@@author gingivitiss
-    /**
+    /**enqueue
      * Adds an appointment to the ClinicIO.
      * The appointment must not already exist in the ClinicIO.
      */

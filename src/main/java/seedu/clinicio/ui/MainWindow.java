@@ -32,7 +32,7 @@ import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
 import seedu.clinicio.commons.events.ui.MedicinePanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
-
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
@@ -289,7 +289,19 @@ public class MainWindow extends UiPart<Stage> {
      * @param index The index position of the tab
      */
     public void switchTab(int index) {
+        for (int i = 0; i < tabLists.getTabs().size(); i++) {
+            tabLists.getSelectionModel().clearAndSelect(i);
+        }
         tabLists.getSelectionModel().clearAndSelect(index);
+    }
+
+    /**
+     * Subscribes to the event when tab is switched.
+     * @param switchTabEvent the event when tab is switched.
+     */
+    @Subscribe
+    public void handleSwitchTabEvent(SwitchTabEvent switchTabEvent) {
+        switchTab(switchTabEvent.getTabIndex());
     }
 
     void hide() {

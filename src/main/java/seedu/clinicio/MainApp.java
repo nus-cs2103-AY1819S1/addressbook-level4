@@ -73,8 +73,6 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic, config, userPrefs);
 
-        model.addUi(ui);
-
         initEventsCenter();
     }
 

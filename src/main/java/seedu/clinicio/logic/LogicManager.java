@@ -19,6 +19,7 @@ import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.ui.UiManager;
 
 /**
  * The main LogicManager of the app.
@@ -29,6 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final ClinicIoParser clinicIoParser;
+    private UiManager uiManager;
 
     public LogicManager(Model model) {
         this.model = model;

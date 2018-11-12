@@ -12,6 +12,8 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
@@ -71,7 +73,7 @@ public class AddApptCommand extends Command {
         }
         model.addAppointment(toAdd);
         model.commitClinicIo();
-        model.switchTab(1);
+        EventsCenter.getInstance().post(new SwitchTabEvent(1));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
