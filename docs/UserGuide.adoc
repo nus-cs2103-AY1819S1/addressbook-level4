@@ -267,7 +267,7 @@ Format: +
 ****
 
 // end::recipeCommand[]
-
+// tag::favouriteCommand[]
 ==== Add recipe to favourite: `favourite`
 Add a recipe to their favourites list. +
 Format: +
@@ -275,12 +275,14 @@ Format: +
 ****
 * INDEX should be the index number of the recipe displayed.
 ****
+// end::favouriteCommand[]
+// tag::surpriseCommand[]
 ==== Surprise: `surprise`
 Displays a random recipe for the user. If you cannot make up your mind,
 why not key this in for a surprise? +
 Format: +
 `surprise`
-
+// end::surpriseCommand[]
 ==== Add to meal plan: `plan`
 Add a specified recipe to meal plan. +
 Format: +
