@@ -1,52 +1,52 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2018;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalExpenses.GAMBLE;
-import static seedu.address.testutil.TypicalExpenses.GAME;
-import static seedu.address.testutil.TypicalExpenses.IPHONE;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
-import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
-import static seedu.address.testutil.TypicalExpenses.STOCK;
-import static seedu.address.testutil.TypicalExpenses.TOY;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.COST_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.DATE_DESC_1990;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.DATE_DESC_2018;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_COST_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.NAME_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.expensetracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.expensetracker.testutil.TypicalExpenses.GAMBLE;
+import static seedu.expensetracker.testutil.TypicalExpenses.GAME;
+import static seedu.expensetracker.testutil.TypicalExpenses.IPHONE;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.expensetracker.testutil.TypicalExpenses.SCHOOLFEE;
+import static seedu.expensetracker.testutil.TypicalExpenses.STOCK;
+import static seedu.expensetracker.testutil.TypicalExpenses.TOY;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.budget.TotalBudget;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.ExpenseBuilder;
-import seedu.address.testutil.ExpenseUtil;
+import seedu.expensetracker.commons.core.Messages;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.AddCommand;
+import seedu.expensetracker.logic.commands.RedoCommand;
+import seedu.expensetracker.logic.commands.UndoCommand;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.budget.TotalBudget;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.expense.Category;
+import seedu.expensetracker.model.expense.Cost;
+import seedu.expensetracker.model.expense.Expense;
+import seedu.expensetracker.model.expense.Name;
+import seedu.expensetracker.model.tag.Tag;
+import seedu.expensetracker.testutil.ExpenseBuilder;
+import seedu.expensetracker.testutil.ExpenseUtil;
 
 public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
@@ -119,7 +119,7 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         command = ExpenseUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a duplicate expense except with different address -> added */
+        /* Case: add a duplicate expense except with different expensetracker -> added */
         toAdd = new ExpenseBuilder(STOCK).withCost(VALID_COST_IPHONE).build();
         command = ExpenseUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
@@ -151,7 +151,7 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + COST_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
+        /* Case: missing expensetracker -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + CATEGORY_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 

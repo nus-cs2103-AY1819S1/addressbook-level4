@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import seedu.address.model.budget.CategoryBudget;
+import seedu.expensetracker.model.budget.CategoryBudget;
 
 //@@author Snookerballs
 /**
