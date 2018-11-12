@@ -614,6 +614,8 @@ into the system. However, if there is duplicate, the system will throw `Duplicat
 which is then saved into a file by the <<25-storage-component, Storage>> component.
 
 ===== Delete Assignment
+[WARNING]
+Deleting an assignment form the system will remove it permanently!
 
 The following sequence diagram shows how deleting an assignment works:
 
