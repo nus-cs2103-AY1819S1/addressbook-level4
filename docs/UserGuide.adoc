@@ -221,10 +221,7 @@ Imports file containing Hallper-related information and updates Hallper accordin
 Format: `import f/FILEPATH`
 
 ****
-* Allows for the mass upload of resident(s) information.
-* Allows for the mass upload of CCA(s) list.
-* Allows for the mass upload of budget book information.
-* Allows for the mass upload of CCA transaction(s).
+* Allows for the mass upload of resident or CCA information.
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
