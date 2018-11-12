@@ -43,7 +43,7 @@ It requires an in-depth understanding of ClinicIO's architecture.
 *** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
 *** Justification: This feature provide more security to ensure that user has the appropriate rights to access the commands.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging as all commands is relying on this feature to run the system with more secure and efficient.
-*** Credits: https://github.com/patrickfav/bcrypt[BCrypt - A library to hash password]
+*** Credits: https://github.com/patrickfav/bcrypt[BCrypt - A password hashing library for Java]
 
 * *Minor enhancement*:
 ** Alter the UI to provide a more beautiful UI. [Pull Requests: https://github.com/CS2103-AY1819S1-W14-1/main/pull/248[#248], https://github.com/CS2103-AY1819S1-W14-1/main/pull/251[#251]]
