@@ -1524,18 +1524,15 @@ Use case ends.
  ** 1a1. App returns a message telling user that the command format is invalid.
  ** 1a2. User requests to stock up ingredient again.
  +
- Steps 1a1-1a2 are repeated until a valid command format is entered.
- +
+ Steps 1a1-1a2 are repeated until a valid command format is entered. +
  Use case resumes at step 2.
 
 [none]
  * 2b. The ingredient name does not exist.
 [none]
  ** 2b1. App returns a message telling user that the ingredient does not exist.
- ** 2b2. User requests to stock up ingredient again.
- +
- Steps 2b1-2b2 are repeated until a valid ingredient name is entered.
- +
+ ** 2b2. User requests to stock up ingredient again. +
+ Steps 2b1-2b2 are repeated until a valid ingredient name is entered. +
  Use case resumes at step 3.
 // end::ucingredient[]
 
