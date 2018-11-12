@@ -6,7 +6,7 @@ import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
 
 /**
- * Format full help instructions for every command for display.
+ * Format full help instructions for every command for display to user.
  */
 public class HelpCommand extends Command {
 
