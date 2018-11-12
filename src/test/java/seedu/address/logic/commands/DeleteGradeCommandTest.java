@@ -15,18 +15,18 @@ public class DeleteGradeCommandTest {
         Index indexOne = INDEX_FIRST_PERSON;
         Index indexTwo = INDEX_SECOND_PERSON;
 
-        final String EXAM_NAME_ONE = "Y1819S1_Mid";
-        final String EXAM_NAME_TWO = "test";
+        final String examNameOne = "Y1819S1_Mid";
+        final String examNameTwo = "test";
 
-        DeleteGradeCommand firstDeleteGradeCommand = new DeleteGradeCommand(indexOne, EXAM_NAME_ONE);
-        DeleteGradeCommand secondDeleteGradeCommand = new DeleteGradeCommand(indexTwo, EXAM_NAME_ONE);
-        DeleteGradeCommand thirdDeleteGradeCommand = new DeleteGradeCommand(indexOne, EXAM_NAME_TWO);
+        DeleteGradeCommand firstDeleteGradeCommand = new DeleteGradeCommand(indexOne, examNameOne);
+        DeleteGradeCommand secondDeleteGradeCommand = new DeleteGradeCommand(indexTwo, examNameOne);
+        DeleteGradeCommand thirdDeleteGradeCommand = new DeleteGradeCommand(indexOne, examNameTwo);
 
         //same object -> returns true
         assertTrue(firstDeleteGradeCommand.equals(firstDeleteGradeCommand));
 
         // same values -> returns true
-        DeleteGradeCommand firstDeleteGradeCommandCopy = new DeleteGradeCommand(indexOne, EXAM_NAME_ONE);
+        DeleteGradeCommand firstDeleteGradeCommandCopy = new DeleteGradeCommand(indexOne, examNameOne);
         assertTrue(firstDeleteGradeCommand.equals(firstDeleteGradeCommandCopy));
 
         //different person with same exam name -> returns false;
