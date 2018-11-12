@@ -13,7 +13,7 @@
 This is a project portfolio about a team project called Module Planner when taking CS2103T,
 Software Engineering.
 
-Module Planner is a desktop module planning application to help NUS Computer Science students
+Module Planner is a desktop module planning application to help National University of Singapore (NUS) Computer Science students
 figuring out what modules in order to graduate. The user interacts with it using a Command Line
 Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
 
