@@ -18,8 +18,7 @@ public class Friend {
      * Constructs a {@code Friend} given a {@code Person}
      */
     public Friend(Person person) {
-        friendAttributes = person.getName() + verticalBar + person.getPhone() + verticalBar
-                + person.getEmail() + verticalBar + person.getAddress();
+        friendAttributes = person.getName() + verticalBar + person.getPassword();
     }
 
     /**
