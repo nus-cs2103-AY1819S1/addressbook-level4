@@ -9,43 +9,63 @@
 
 == Overview
 
-The Tracker (v1.4) is a desktop application that helps NUS students to monitor contacts, modules and events.
+This document is written for summarizing my contributions in the project TheTracker.
+
+The Tracker (v1.4) is a desktop application that helps NUS students to monitor contacts, modules and occasions.
+The Tracker is optimized for those who prefer to work with a Command Line Interface (CLI) while still having
+the benefits of a Graphical User Interface (GUI). It is designed for programmers who are used to CLI
+applications and are good at typing.
+
+TheTracker is implemented for applying CS2103 learning outcomes and show understanding of the software design.
+It is implemented by our CS2103 Project group. My key contribution is edit commands.
+TheTracker is written in Java and JavaFX, and is morphed from AddressBook-level4,
+the application used for teaching Software Engineering principles.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** Improved existing edit function to edit any type of entry.
-*** What it does: allows the user to edit a person, module or occasion by index
-*** Justification: This is one of the basic features of TheTracker, which allows a user to edit module and occasion in a
+* *Major enhancement*: Improved existing edit function to edit any type of entry.
+** What it does: allows the user to edit a person, module or occasion by index
+** Justification: This is one of the basic features of TheTracker, which allows a user to edit module and occasion in a
 similar way of how he edit a person in his address book.
-*** Highlights: This feature is necessary for a user to simultaneously maintain all three types of entries.
-*** Credits: This enhancement requires the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
+** Highlights: This feature is necessary for a user to simultaneously maintain all three types of entries.
+** Credits:
+*** This enhancement requires the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
+*** This enhancement is designed to fit the insert command (All the attendence list related to the edited entity will be updated simultaneously).
 
+* *Minor enhancement*:
 ** Create the export function
 *** What it does: allows the user to export user data to a specified file type at a specified location.
 *** Highlights: This feature enhance user's experience to TheTracker. He can now raise a data communication (with import feature in coming v2.0) with the external world.
 *** Credits: This enhancement requires the command to access storage access directly, and has restrictions on the file path user typed in.
 
-* *Minor enhancement*: Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
+**Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed milestones for `v1.2` - `v1.4` on Github
-****Opened issues
+**** Opened issues
 **** Set up milestone deadlines, close issues accordingly on GitHub
 ** Enhancements to existing features:
-*** Add related classes for `EditPerson`, `EditModule` and `EditOccasion` (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108])
-*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108], https://github.com/CS2103-AY1819S1-W10-1/main/pull/189)
-*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests )
+*** Add related classes for `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108])
+*** Write additional tests for existing features to increase coverage
+(Pull requests +
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/121[#121],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/189[#189])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/112[#112]
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/112[#112],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/173[#173],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/183[#183]
 ** Documentation:
-*** Wrote user stories for v1.0
+*** Write user stories for v1.0
 *** Updated AboutUs.adoc to match application design (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/34[#34])
-*** Polish documentation style to keep consistent.
-== Contributions to the User Guide
+*** Did cosmetic tweaks to existing contents of the User Guide (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/124[#124])
+*** Did cosmetic tweaks to existing contents of the Developer Guide (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/114[#114], https://github.com/CS2103-AY1819S1-W10-1/main/pull/84[#84])
 
+== Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -54,7 +74,6 @@ similar way of how he edit a person in his address book.
 include::../UserGuide.adoc[tag=edit]
 include::../UserGuide.adoc[tag=export]
 include::../UserGuide.adoc[tag=import]
-include::../UserGuide.adoc[tag=undoredo]
 
 
 
@@ -66,9 +85,6 @@ include::../UserGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=edit]
 include::../DeveloperGuide.adoc[tag=export]
-include::../DeveloperGuide.adoc[tag=undoredo]
-include::../DeveloperGuide.adoc[tag=history]
-
 
 
 == PROJECT: ORBITAL 2018

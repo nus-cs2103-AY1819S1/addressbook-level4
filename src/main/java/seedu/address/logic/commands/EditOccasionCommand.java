@@ -13,6 +13,8 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.EditModuleRequestEvent;
+import seedu.address.commons.events.ui.EditOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -67,6 +69,7 @@ public class EditOccasionCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Occasion> lastShownList = model.getFilteredOccasionList();
+        EventsCenter.getInstance().post(new EditOccasionRequestEvent());
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);

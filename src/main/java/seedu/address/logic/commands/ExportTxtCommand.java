@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.EditModuleRequestEvent;
+import seedu.address.commons.events.ui.ExportTxtRequestEvent;
 import seedu.address.commons.util.XmlToTxtUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,6 +34,7 @@ public class ExportTxtCommand extends ExportCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         requireNonNull(storage);
+        EventsCenter.getInstance().post(new ExportTxtRequestEvent());
 
         if (!isValidTxtFile()) {
             throw new CommandException(String.format(MESSAGE_INVALID_TXT_FILE_PATH));

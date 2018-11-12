@@ -14,6 +14,8 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.EditModuleRequestEvent;
+import seedu.address.commons.events.ui.EditPersonRequestEvent;
 import seedu.address.commons.events.ui.ShowModuleRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -58,6 +60,7 @@ public class EditModuleCommand extends Command {
     public EditModuleCommand(Index index, ModuleDescriptor editModuleDescriptor) {
         requireNonNull(index);
         requireNonNull(editModuleDescriptor);
+        EventsCenter.getInstance().post(new EditModuleRequestEvent());
 
         this.index = index;
         this.editModuleDescriptor = new ModuleDescriptor(editModuleDescriptor);
