@@ -648,6 +648,7 @@ It implements the following commands:
 
 However, only the implementation of `create`, `update`, `add_trans` and `budget` will be discussed.
 // tag::create[]
+
 ===== Create Command
 The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
 When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
