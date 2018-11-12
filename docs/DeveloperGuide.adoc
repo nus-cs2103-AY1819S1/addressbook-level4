@@ -575,23 +575,23 @@ and adding an event tag. This may violate the Single Responsibility Principle (S
 //tag::seeEventContacts[]
 
 === See Event Contacts feature
+//end::seeEventContacts[]
 ==== Current Implementation
+//tag::seeEventContacts2[]
 To obtain an event's contacts, comparisons are done using `Person#isSamePerson` to check if for each event contact, there exists a person in the system
 who is the same person as the contact. By the use of a `Predicate` with this logic, we then apply the filter on `filteredPersons` in `Model`. +
-//end::seeEventContacts[]
+//end::seeEventContacts2[]
 
 The sequence diagram below shows a typical usage of the feature.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
 image::see-event-contacts-condensed_logic-model.png[Interactions between Logic and Model, width="700"]
 
-//tag::seeEventContacts2[]
 Step 1. User enters command to see an event's contacts. +
 Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +
 Step 3. `SeeEventContactsCommand` <<gettingAnEvent, gets the event>>. +
 Step 4. A `ExistingPersonInEventPredicate` is created based on the event's contacts from the event retrieved in Step 3. +
 Step 5. `SeeEventContactsCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` object generated in step 4. +
-//end::seeEventContacts2[]
 
 ==== Considerations
 The displayed person list shown using this feature is aligned with the contact information displayed in the UI when hovering over the event contact. +
@@ -617,19 +617,21 @@ the user would see a message indicating that the person has been deleted from th
 //tag::editEventAddress[]
 
 === Edit Event Address feature
+//end::editEventAddress[]
+
 ==== Current Implementation
+//tag::editEventAddress2[]
 To edit an event's existing address, the system first retrieves the event from the address book. This process is similar to that for
 deleting an event. A new `Event` object is created with the same details as the old `Event` object, but with the updated `EventAddress`.
 This new `Event` replaces the old one in the address book in the `Model#updateEvent` method, i.e. the old `Event` object is removed
 from the internal list, and the new one set in its position. +
-//end::editEventAddress[]
+//end::editEventAddress2[]
 
 The overall flow between the `Logic` and `Model` component when editing an event address's tag is as follows.
 The flow for getting an event using date and index is the same as in <<gettingAnEvent, getEvent>>.
 
 image::edit-event-address-condensed_logic-model.png[Interactions between Logic and Model, width="750"]
 
-//tag::editEventAddress2[]
 Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
 Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
 and the updated `EventAddress`. +
@@ -638,34 +640,37 @@ Step 4. A new event with all details (except `EventAddress`) duplicated from the
 The `EventAddress` attribute of this new event is set to the updated `EventAddress` passed in to `EditEventAddressCommand` in step 2. +
 Step 5. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
 
+//tag::editEventAddress3[]
 ==== Considerations
 When editing an event, there are several possible values that can be updated, including the event's name, description, etc.
 However, this functionality is mainly catered to complement the `suggestLocation` functionality, whereby the user
 can first add an event without specifying any location (and address will be displayed as TBD), and
 edit the suggested location in afterwards.
-//end::editEventAddress2[]
+//end::editEventAddress3[]
 
 [[EventTags]]
 // tag::eventTags[]
 
 === Add Event Tags feature
+// end::eventTags[]
 ==== Current Implementation
+// tag::eventTags2[]
 The list of event tags in the system is stored in a `UniqueTagList` in `Model`.
 This implementation requires all event `Tag` objects to be unique (using case-insensitive comparison) +
 All event tags are always shown, hence it is sufficient to
 to keep an `ObservableList<Tag>` in `ModelManager`, rather than a `FilteredList` which is used to store list of `Person` and `Event` objects. +
-// end::eventTags[]
+// end::eventTags2[]
 
 An event tag specified by the user is added in the system as depicted in the sequence diagram below.
 
 image::add-event-tag_logic-model.png[Interactions between Logic and Model, width="700"]
 
-// tag::eventTags2[]
+// tag::eventTags3[]
 Step 1. User enters command to add an event tag. +
 Step 2. `AddressBookParser` calls `AddEventTagCommandParser`, which generates an `AddEventTagCommand` with a `Set` of `Tag` object. +
 Step 3. `AddEventTagCommand` calls `Model#hasEventTag` to check for duplicate tags already in the system. +
 Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag` into `Model`.
-// end::eventTags2[]
+// end::eventTags3[]
 
 [[filteringEvents]]
 //tag::filterEvents[]
@@ -673,21 +678,23 @@ Step 4. `AddEventTagCommand` calls `Model#addEventTag` to add the new event `Tag
 === Filtering of Events
 [[FindEvent]]
 ==== Find Event (by tag) feature
+//end::filterEvents[]
 ===== Current Implementation
+//tag::filterEvents2[]
 To find events by their tags, we make use of a `Predicate`. The `EventTagMatchesKeywordsPredicate` is used in filtering
 all events which have at least one tag matching at least one of the keywords provided by the user. +
-//end::filterEvents[]
+//end::filterEvents2[]
 
 image::find-event_logic-model.png[Interactions between Logic and Model, width="750"]
 
-//tag::filterEvents2[]
+//tag::filterEvents3[]
 Step 1. User enters command to find events with certain tags. +
 Step 2. `AddressBookParser` calls `FindEventCommandParser`, which generates an `FindEventCommand` with an `EventTagMatchesKeywordsPredicate`. +
 Step 3. `FindEventCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` generated in step 2. +
 
 Similar to the other event-related commands, the list-filtering is done in `Model`, and
 the change is propagated to the `UI` component by triggering an event.
-//end::filterEvents2[]
+//end::filterEvents3[]
 The details of the event triggers are as follows.
 
 

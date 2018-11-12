@@ -49,13 +49,12 @@ be modified by the user. This feature sets the foundation for the inclusion of m
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/177[#177])
-*** Added the add event tag/find event functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
-  https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
-*** Added the command auto-completion feature (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
+*** Added the add event tag/find event/command auto-completion functionalities and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175], https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
 *** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull request https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
 
 ** Documentation:
-*** Updated documentation for the enhancements as above: (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
+*** Updated documentation for the enhancements as above (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/73[#73],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/99[#99],
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/102[#102],
@@ -101,20 +100,37 @@ include::../DeveloperGuide.adoc[tag=addEvents]
 More details can be found in the <<../DeveloperGuide.adoc#AddDeleteEvents, Developer Guide>>.
 include::../DeveloperGuide.adoc[tag=addEvents2]
 include::../DeveloperGuide.adoc[tag=seeEventContacts]
+include::../DeveloperGuide.adoc[tag=seeEventContacts2]
 General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#seeEventContacts, Developer Guide>>. +
 
-include::../DeveloperGuide.adoc[tag=seeEventContacts2]
+Step 1. User enters command to see an event's contacts. +
+Step 2. `AddressBookParser` calls `SeeEventContactsCommandParser`, which generates a SeeEventContactsCommand` with an `EventDate` and `Index` +
+Step 3. `SeeEventContactsCommand` gets the event. +
+Step 4. A `ExistingPersonInEventPredicate` is created based on the event's contacts from the event retrieved in Step 3. +
+Step 5. `SeeEventContactsCommand` calls `Model#updateFilteredEventList` to filter the displayed list using the `Predicate` object generated in step 4. +
+
 include::../DeveloperGuide.adoc[tag=editEventAddress]
+include::../DeveloperGuide.adoc[tag=editEventAddress2]
 General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#EditEventAddress, Developer Guide>>. +
 
-include::../DeveloperGuide.adoc[tag=editEventAddress2]
+Step 1. User enters command to edit an event's address based on the event date and index (as displayed in the UI) +
+Step 2. `AddressBookParser` calls `EditEventAddressCommandParser`, which generates an `EditEventAddressCommand` with an `EventDate`, `Index`
+and the updated `EventAddress`. +
+Step 3. `EditEventAddressCommand` gets the event.
+Step 4. A new event with all details (except `EventAddress`) duplicated from the old event in step 3 is created. +
+The `EventAddress` attribute of this new event is set to the updated `EventAddress` passed in to `EditEventAddressCommand` in step 2. +
+Step 5. The old event is replaced with the new one in the system from the `Model` component, through the execution of `Model#updateEvent`.
+
+include::../DeveloperGuide.adoc[tag=editEventAddress3]
 include::../DeveloperGuide.adoc[tag=eventTags]
+include::../DeveloperGuide.adoc[tag=eventTags2]
 General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#EventTags, Developer Guide>>. +
 
-include::../DeveloperGuide.adoc[tag=eventTags2]
+include::../DeveloperGuide.adoc[tag=eventTags3]
 include::../DeveloperGuide.adoc[tag=filterEvents]
+include::../DeveloperGuide.adoc[tag=filterEvents2]
 General steps are as follows. Detailed diagrams can be found in the <<../DeveloperGuide.adoc#filteringEvents, Developer Guide>>. +
 
-include::../DeveloperGuide.adoc[tag=filterEvents2]
+include::../DeveloperGuide.adoc[tag=filterEvents3]
 The implementation of the <<../DeveloperGuide.adoc#listEvent, listEvent>> feature is similar to the above,
 and more details can be found in <<../DeveloperGuide.adoc#listEvent, Developer Guide>>
