@@ -12,8 +12,10 @@ import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
+import seedu.souschef.logic.commands.SelectCommand;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
+import seedu.souschef.logic.parser.commandparser.SelectCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
@@ -54,6 +56,9 @@ public class FavouritesParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand(model);
+
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parseIndex(model, arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand<>(model);
