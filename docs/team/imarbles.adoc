@@ -13,11 +13,9 @@ This portfolio page documents my involvement in SocialCare, a project done as pa
 For this project, my team had the goal to _'harness the potential of software to create sustainable social change'_.
 
 With our goal in mind, we developed SocialCare, a desktop application made for social welfare organizations.
-The application is designed to help manage volunteers and events effectively.
-Users interact with the application using a Command Line Interface (CLI).
-In addition, SocialCare has a Graphical User Interface (GUI) to display information in a user-friendly manner.
+This application is designed to help manage volunteers and events effectively. This is done through the Command Line Interface (CLI), which help users to interact with the application; and the Graphical User Interface (GUI), which displays information in a user-friendly manner.
 
-My main role as a developer for SocialCare was to implement *record management functions*, which enables users to do the following:
+My main role as a developer for SocialCare was to implement *record management functions*, which enable users to do the following:
 
 * View volunteers assigned to event
 * Assign volunteers to event
