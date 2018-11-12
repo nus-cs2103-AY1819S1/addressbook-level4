@@ -5,15 +5,14 @@ import static java.util.Objects.requireNonNull;
 //@@author m4dkip
 /**
  * Represents a Reservation's remark in the restaurant book.
- * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {
-    public final String value;
+    private final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code Remark}.
      *
-     * @param remark A valid address.
+     * @param remark A valid remark.
      */
     public Remark(String remark) {
         requireNonNull(remark);

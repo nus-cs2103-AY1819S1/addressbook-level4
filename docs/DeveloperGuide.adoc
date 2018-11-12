@@ -484,7 +484,7 @@ Given below is an example usage scenario and how the user session mechanism beha
 The following activity diagram summarizes what happens when a user logs in or out:
 
 image::UserSessionActivityDiagram.png[width="650"]
-_Figure 4.2.1.3: Activity diagram to illustrate the user session_
+_Figure 4.3.1.1: Activity diagram to illustrate the user session_
 
 The following code snippet demonstrates how these static methods are implemented:
 
@@ -537,6 +537,10 @@ of the current solution which might affect the test ability.
 // end::useraccount[]
 
 // tag::salesmanagement[]
+
+// tag::auto-ingredient-update[]
+
+[[auto-ingredient-update]]
 === Auto-ingredient update feature
 
 The auto-ingredient update mechanism is facilitated by `RecordSalesCommand` and triggers whenever the "record-sales"
@@ -700,8 +704,10 @@ search to fill in the `List<SalesRecord>` every time a sales report is requested
 takes up an O(N) memory space.
 // end::salesmanagement1[]
 
-// tag::deleteingredient[]
-===  Delete Ingredient feature
+// tag::ingredient[]
+===  Delete ingredient feature
+This feature allows the user to delete an ingredient from the ingredient list, specified by its name or index.
+
 ==== Current Implementation
 
 The delete ingredient mechanism is facilitated by `DeleteIngredientCommand`. It is implemented as an abstract class
@@ -713,32 +719,79 @@ with the following abstract methods:
 `DeleteIngredientByIndexCommand` and `DeleteIngredientByNameCommand` extends `DeleteIngredientCommand` and implement
 their own behaviour for these methods.
 
+* `DeleteIngredientCommandByIndexCommand#execute()` - Removes an ingredient specified by a valid index
+* `DeleteIngredientCommandByNameCommand#execute()` - Removes an ingredient specified by a valid name
+
 The following sequence diagrams illustrate how the delete operation works.
 
 * Diagram 1: When user enters `delete-ingredient 1`
 
-image::DeleteIngredientByIndexSequenceDiagram.png[width="1000"]
+image::DeleteIngredientByIndexSequenceDiagram.png[width="800"]
+
+_Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
 
 * Diagram 2: When user enters `delete-ingredient apple`
-
-image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
++
+image::DeleteIngredientByNameSequenceDiagram.png[width="800"]
+_Figure 4.6.1.1: Component interactions for `delete-ingredient apple` command_
 
 ==== Design Considerations
 
 ===== Aspect: Implementation of delete ingredient command
+Two different implementations were considered.
 
 * **Alternative 1 (current choice):** Separate classes to handle deleting by index and deleting by name.
 ** Pros: Allows different attributes and method implementation for each class.
 ** Cons: Tight coupling between `DeleteIngredientCommand` and the inheriting classes
 * **Alternative 2:** Single class to handle deleting by both index and name.
 ** Pros: Less coupling since the methods related to the delete ingredient command are confined to a single class.
-** Cons: Two attributes are required, but only one has a value while the other has to be set to null. This makes the
+** Cons: Two attributes are required, but only one has a value while the other has to be set to `null`. This makes the
 `equals()` method difficult to implement.
-// end::deleteingredient[]
+
+===  Stock up ingredient feature
+This feature allows the user to stock up one or more ingredients in the ingredient list.
+
+==== Current Implementation
+The Stock Up mechanism involves mainly the `StockUpCommandParser`, `StockUpCommand` and the `Model`
+interface. The `StockUpCommandParser` parses the command input from the user, creating a `HashMap` mapping
+`IngredientName` keys to `NumUnits` values. This `HashMap` represents the ingredients to be stocked up, and their
+respective stock up amounts. With this `HashMap`, the `StockUpCommandParser` creates a `StockUpCommand` object. The
+`StockUpCommand` executes the stock up operation, which is exposed in the `Model` interface as
+`Model#stockUpIngredients()`.
+
+[WARNING]
+The operation is atomic, thus if it fails for one ingredient, none of the ingredients will be stocked up and an
+exception is thrown
+
+The following activity diagram shows what happens when the user executes the `stockup` command:
+
+image::StockUpActivityDiagram.png[width="1000"]
+_Figure 4.7.1: Flow of events after a user executes the `stockup` command_
+
+==== Design Considerations
+
+===== Aspect: Implementation of Stock Up command
+Two different implementations were considered.
+
+* **Alternative 1 (current choice):** Create a stock up operation exposed in the `Model`. A list of ingredients is
+passed as a `HashMap` argument to the model interface to perform the stock up on all ingredients.
+** Pros: Maintains good abstraction. The sales feature can call upon the stock up operation of the interface without
+needing to know its implementation or creating any Ingredient objects.
+** Cons: Additional code has to be written and maintained, as opposed to using existing methods.
+* **Alternative 2:** Use the edit operation of the `Model` interface exposed as `Model#updateIngredient()`. For each
+ingredient to be stocked up, a new ingredient with the updated number of units is created and then passed as an
+argument to `updateIngredient()`.
+** Pros: Simple to implement, by using the existing `updateIngredient()` method.
+** Cons: Difficult to integrate different features while maintaining abstraction. The
+<<auto-ingredient-update, auto-update-ingredient>> feature would require the sales component to create each
+updated ingredient, before calling the `updateIngredient()` method. This means poor abstraction and possibly a
+violation of the Law of Demeter.
+
+// end::ingredient[]
 
 // tag::menu[]
-=== Menu Management feature
-Menu management feature extends `MeNuS` with a menu and provides the users with the ability to add items to the
+=== Menu management feature
+Menu management feature extends `MeNUS` with a menu and provides the users with the ability to add items to the
 menu, edit items and remove items from the menu.
 
 ==== Current Implementation
@@ -748,61 +801,68 @@ The menu management feature implements the following operations:
 * `add-item` command -- Adds an item to the menu. The item must not already exist in the menu.
 * `edit-item` command -- Replaces the target item with the editedItem. Target item
  must be in the menu and editedItem must not be the same as another existing item in the menu.
-* `delete-item` command -- Removes the equivalent item from the menu. The item must exist in the menu.
+* `delete-item-index` or `delete-item-name` command -- Removes the equivalent item(s) from the menu.
+The item(s) must exist in the menu.
 * `list-items` command -- Lists all the items in the menu.
+* `clear-menu` command -- Removes all items from the menu.
 * `select-item` command -- Selects an item in the menu and loads the page of the selected item.
 * `sort-menu` -- Sorts the menu by name or price. The user must specify the sorting method.
 * `find-item` command -- Finds items whose names contain any of the given keywords.
 * `filter-menu` command -- Finds items whose tags contain any of the given keywords.
 * `today-special` command -- Finds items whose tags contain the `DAY_OF_THE_WEEK`.
+* `discount-item` command -- Gives discount to the equivalent item(s) in the menu. The item(s) must exist in the menu.
+* `recipe-item` command -- Adds a recipe to the equivalent item in the menu. The item must exist in the menu.
+* `add-required-ingredients` command --  Adds the required ingredients to the equivalent item in the menu. The item
+must exist in the menu.
 
-Each `Item` object consists of `Name` and `Price`.
-
-==== `add-item` Command
-The `add-item` command is facilitated by `AddItemCommand` and `AddItemCommandParser`. The command takes in
-user input for `Name`, `Price` and `Tag`(optional).
-
-The `AddItemCommandParser` will parse the user input and checks if the input is valid.
-It will then construct an `Item` object.
-[NOTE]
-If the input is not valid, it will throw a `ParseException`.
-
-The `AddItemCommand` will indirectly call the `UniqueItemList#add(Item toAdd)` and the adds the item.
-After adding the item, it will save the current state for undo/redo.
+Each `Item` object consists of `Name`, `Price`, `Recipe`, `Set<Tag>` and `Map<IngredientName, Integer>`
 
 ==== `sort-menu` Command
 The `sort-menu` command is facilitated by `SortMenuCommand` and `SortMenuCommandParser`. The command takes in
 user input for the sorting method.
 [NOTE]
-Currently only sort by name or price.
+Currently only sort by name or price
 
-The `SortMenuCommandParser` will parse the user input and checks if the input is valid.
+The `SortMenuCommandParser` will parse the user input and checks if the input is valid. If the input is valid, it
+constructs an `SortMenuCommand` object.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`.
+If the input is not valid, it will throw a `ParseException`
 
-The `SortMenuCommand` will indirectly call the `UniqueItemList#sortItemsByName()` or
+The `SortMenuCommand` object will indirectly call the `UniqueItemList#sortItemsByName()` or
 `UniqueItemList#sortItemsByPrice()` and the sorts the menu.
 After sorting the menu, it will save the current state for undo/redo.
 
 The following activity diagram summarizes what happens when a user executes `sort-menu` command:
 
 image::SortMenuActivityDiagram.png[width="650"]
+_Figure 4.7.2.1: SortMenu Activity diagram_
 
 The following sequence diagram shows how the `sort-menu` command works:
 
 image::SortMenuSequenceDiagram.png[width="1000"]
+_Figure 4.7.2.2: SortMenu Sequence diagram_
 
-==== `filter-menu` Command
-The `filter-menu` command is facilitated by `FilterMenuCommand` and `FilterMenuCommandParser`. The command takes in
-user input for the keywords.
+==== `discount-item` Command
+The `discount-item` command is facilitated by `DiscountItemCommand` and `DiscountItemCommandParser`. The command
+takes in user input for discount percentage and index or the keyword `all`.
 
-The `FilterMenuCommandParser` will parse the user input and checks if the input is valid and constructs an
-`TagContainsKeywordsPredicate` object.
+The `DiscountItemCommandParser` will parse the user input and checks if the input is valid. It will check if the
+keyword `all` is entered. If keyword `all` is entered, `DiscountItemCommandParser` will construct an
+`DiscountItemCommand` object with `isAll` set to true. If index or a range of index is entered, it will construct an
+`DiscountItemCommand` object with `isAll` set to false.
 [NOTE]
-If the input is not valid, it will throw a `ParseException`.
+If the inputs are not valid, it will throw a `ParseException`
 
-The `FilterMenuCommand` will directly call the `ModelManager#updateFilteredItemList(Predicate<Item> predicate)` and
-set the predicate for `ModelManger#filteredItems`.
+The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount to all
+items in the `UniqueItemList`. Otherwise, it will give the discount to the item(s) specified by the index or the
+range of index. The `DiscountItemCommand` object create an `Item with discounted price` and indirectly call
+`UniqueItemList#setItem(Item target, Item editedItem)` to update the `Item` with `Item with discounted price`. It will
+then save the current state for undo/redo.
+
+The following activity diagram summarizes what happens when a user executes `discount-item` command:
+
+image::DiscountItemActivityDiagram.png[width="650"]
+_Figure 4.7.3.1: DiscountItem Activity diagram_
 
 ==== Design Considerations
 
@@ -822,61 +882,81 @@ to check if the currency symbol and price entered are valid.
 The Reservations feature allows users to store customer reservations, view them, and to cancel them.
 
 ==== Current Implementation
-The Reservations feature currently contains 3 commands to modify the `UniqueReservationsList` stored in `ModelManager`.
+The Reservations feature currently contains 6 commands to modify the `UniqueReservationsList` stored in `ModelManager`.
 
 * `add-reservation` command - Adds reservations to the reservations list.
 * `edit-reservation` command - Edits existing reservations in the reservations list.
 * `delete-reservation` command - Deletes existing reservations in the reservations list.
+* `list-reservation` command - Lists reservations in the reservations list.
+* `select-reservation` command - Select existing reservations in the reservations list.
+* `sort-reservation` command - Sorts existing reservations in the reservations list.
 
-Each `Reservation` object contains `Name`, `Pax`, and `LocalDateTime`.
+Each `Reservation` object contains `Name`, `Pax`, `Date` and `Time`.
 
 ==== `add-reservation` Command
-The `add-reservation` command follows similar implementation of the current `add` command.
+The command takes in 3 parameters, `Name`, `Pax`,`Date` and `Time` to create a `Reservation` object.
+[NOTE]
+====
+The `Date` class will reject dates that have already passed the current date
 
-The command takes in 3 parameters, `Name`, `Pax`, and `DateTime` to create a `Reservation` object.
+Dates are parsed using the `Natty` Library
+====
 
-After the `Reservation` Object is created, RestaurantBook#addReservation(Reservation reservation) is called to add the
+[WARNING]
+====
+Due to the way `Natty` is implemented, `Natty` will try to parse dates in `MM-DD-YYYY` format +
+i.e. `03-11-2019` will be parsed as `11th March` instead of `3rd November`
+
+As a temporary workaround, the `Date` class will  check to see if the date entered is in the
+`DD-MM-YYYY` format
+
+If it is, then it will be parsed using `LocalDate.parse()` +
+If not, it will continue use the `Natty` Library to parse the date value
+====
+
+After the `Reservation` Object is created, `RestaurantBook#addReservation(Reservation reservation)` is called to add the
 `Reservation` Object to the `UniqueReservationsList`.
 
-==== `edit-reservation` Command
-The `edit-reservation` command follows similar implementation of the current `edit` command.
+The following activity diagram summarizes what happens when a user executes `add-reservation` command:
 
+image::AddReservationActivityDiagram.png[width="650"]
+_Figure 4.8.2.1: Activity diagram to illustrate the `add-reservation` command_
+
+==== `edit-reservation` Command
 The command takes in 1 mandatory parameter, `Index`, followed by **1 or more** of the following  optional parameters,
- `Name`, `Pax`, `DateTime`.
+ `Name`, `Pax`, `Date`, `Time`.
 
 The `Reservation` associated with the given `Index` is then identified within the internal `UniqueReservationsList`,
-then has its values updated to the new values specified by the `Name`, `Pax`, and `DateTime` parameters.
+then has its values updated to the new values specified by the `Name`, `Pax`,`Date`, and `Time` parameters.
 
 ==== `delete-reservation` Command
-The `delete-reservation` command follows similar implementation of the current `delete` command.
-
 The command takes in 1 parameter, `Index`.
 
 The `Reservation` associated with the given `Index` is then identified, then deleted from the internal
 `UniqueReservationsList`.
 
+==== `list-reservations` Command
+The command does not require any additional parameters.
+
+A `DisplayReservationListRequestEvent` is posted to the `EventsCenter`, which will call the
+`handleDisplayReservationListRequestEvent` method of the `MainWindow`. The Reservations List will then be shown on
+the UI.
+
+The following sequence diagram shows how the `list-reservations` command works:
+
+image::ListReservationsSequenceDiagram.png[width="1000"]
+_Figure 4.8.5.1: Sequence diagram to illustrate the `list-reservations` command_
+
 ==== Design Considerations
-*Aspect: How DateTime is stored*
+*Aspect: How `Date` and `Time` are parsed*
 
-* **Alternative 1 (current choice):** `Reservation` stores the Date and Time by wrapping it in a `LocalDateTime` object.
-** Pros: Easy to implement.
-** Cons: Unable to easily change attributes like how the Date and Time are displayed, and unable to store Message
-Constraints as it is not its own dedicated class.
+* **Alternative 1 (current choice):** `Date` and `Time` are parsed using Natty.
+** Pros: Easy to implement as it only requires importing the Natty library with minimal configuration.
+** Cons: Natty will sometimes try to "guess" unexpected `Date` values.
 
-* **Alternative 2:** Create dedicated `DateTime` class.
-** Pros: This will solve the aforementioned issues of not having a dedicated class to store the Date and Time.
-
-*Aspect: How DateTime is parsed*
-
-* **Alternative 1 (current choice):** `DateTime` is parsed in the format ``yyyy-mm-ddThh:mm:ss``
-** Pros: Easy to implement as the `LocalDateTime` object can directly parse this format without any additional input
-manipulation.
-** Cons: Unintuitive and troublesome to enter the fields. Additionally, it is unnecessary to keep track of the
-`Seconds` field in the context of restaurant reservations.
-
-* **Alternative 2:** Use `Natty` library for `DateTime` parsing
-** Pros: Natty uses natural language parsing, so the user can enter the `Date` and `Time` fields in their preferred
-format.
+* **Alternative 2:** Configure the Natty library to avoid unexpected parse results.
+** Pros: The parser will be able to provide more accurate `Date` and `Time` values.
+** Cons: Difficult to implement as it requires deep understanding of how the Natty library works.
 //end::reservations[]
 
 === Logging
@@ -1159,8 +1239,6 @@ application
 
 |`* * *` |restaurant owner |clear menu |revamp my menu when there is a need
 
-|`* * *` |restaurant owner |export menu |print hard copies of the menu
-
 |`* * *` |restaurant owner |add a reservation |keep track of who booked a table in my restaurant
 
 |`* * *` |restaurant owner |edit a reservation |make changes when a customer requests to do so
@@ -1324,6 +1402,16 @@ Use case ends.
 *Extensions*
 
 [none]
+* 1a. The user enters an invalid command format.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to add ingredient again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
+
+[none]
 * 2a. The ingredient name entered is already in the ingredient list.
 [none]
 ** 2a1. App returns a message telling user the ingredient name already exists.
@@ -1333,16 +1421,7 @@ Steps 2a1-2a2 are repeated until an ingredient name which does not exist is ente
 +
 Use case resumes at step 3.
 
-[none]
-* 2b. The user enters an invalid command format.
-[none]
-** 2b1. App returns a message telling user that the command format is invalid.
-** 2b2. User requests to add ingredient again.
-+
-Steps 2b1-2b2 are repeated until a valid command format is entered.
-+
-Use case resumes at step 3.
-
+// tag::ucingredient[]
 [discrete]
 === Use case: UC202 - Delete ingredient
 
@@ -1406,13 +1485,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The given index is invalid.
-+
+* 1a. The given index or name is invalid.
 [none]
-** 1a1. App returns a message telling user that the index is invalid.
+** 1a1. App returns a message telling user the index or name entered is invalid.
 ** 1a2. User requests to edit ingredient again.
 +
-Steps 1a1-1a2 are repeated until a valid index is entered.
+Steps 1a1-1a2 are repeated until a valid index or name is entered.
 +
 Use case resumes at step 2.
 
@@ -1426,6 +1504,16 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until at least one optional field is entered.
 +
 Use case resumes at step 2.
+
+[none]
+* 2a. The ingredient name does not exist.
+[none]
+** 2a1. App returns a message telling user that the ingredient cannot be found.
+** 2a2. User requests to edit ingredient again.
++
+Steps 2a1-2a2 are repeated until an existing ingredient name is entered.
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: UC204 - Stock up ingredient
@@ -1441,50 +1529,25 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The ingredient name does not exist.
-+
+ * 1a. The user enters an invalid format.
 [none]
-** 1a1. App returns a message telling user that the ingredient does not exist.
-** 1a2. User requests to stock up ingredient again.
-+
-Steps 1a1-1a2 are repeated until a valid ingredient name is entered.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: UC205 - Consume ingredient
-
-*MSS*
-
-1.  User requests to consume a specific ingredient.
-2.  App updates the count of the specified ingredient.
-3.  App returns a success message confirming the specified ingredient has been consumed.
-+
-Use case ends.
-
-*Extensions*
+ ** 1a1. App returns a message telling user that the command format is invalid.
+ ** 1a2. User requests to stock up ingredient again.
+ +
+ Steps 1a1-1a2 are repeated until a valid command format is entered.
+ +
+ Use case resumes at step 2.
 
 [none]
-* 1a. The ingredient name does not exist.
-+
+ * 2b. The ingredient name does not exist.
 [none]
-** 1a1. App returns a message telling user that the ingredient does not exist.
-** 1a2. User requests to consume ingredient again.
-+
-Steps 1a1-1a2 are repeated until a valid ingredient name is entered.
-+
-Use case resumes at step 2.
-
-[none]
-* 1b. The intended consumption is more than the number of units available.
-+
-[none]
-** 1b1. App informs user that there is not enough of the ingredient.
-** 1b2. User requests to consume ingredient again.
-+
-Steps 1b1-1b2 are repeated until the number of units entered is less than the number of units available.
-+
-Use case resumes at step 2.
+ ** 2b1. App returns a message telling user that the ingredient does not exist.
+ ** 2b2. User requests to stock up ingredient again.
+ +
+ Steps 2b1-2b2 are repeated until a valid ingredient name is entered.
+ +
+ Use case resumes at step 3.
+// end::ucingredient[]
 
 // tag::ucmenu[]
 [discrete]
@@ -1522,7 +1585,7 @@ Steps 1b1-1b2 are repeated until item name that does not exist in the menu is en
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC302 - Delete item from menu
+=== Use case: UC302 - Delete item by index from menu
 
 *MSS*
 
@@ -1550,6 +1613,7 @@ Use case ends.
 Steps 3a1-3a2 are repeated until a valid index is entered.
 +
 Use case resumes at step 4.
+// end::ucmenu[]
 
 [discrete]
 === Use case: UC303 - Edit item from menu
@@ -1631,31 +1695,7 @@ Steps 3b1-3b2 are repeated until a valid percentage is entered.
 +
 Use case resumes at step 4.
 
-[discrete]
-=== Use case: UC305 - Export menu
-
-*MSS*
-
-1.  User requests to export menu.
-2.  App export the menu.
-3.  App returns a success message confirming the menu has been exported.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Invalid file path given for the command.
-+
-[none]
-** 1a1. App shows an error message that file path is invalid.
-** 1a2. User requests to export menu again.
-+
-Steps 1a1-1a2 are repeated until invalid file path is entered.
-+
-Use case resumes at step 2.
-// end::ucmenu[]
-
+// tag::ucreservations[]
 [discrete]
 === Use case: UC401 - Add reservation
 
@@ -1742,6 +1782,7 @@ Use case ends.
 Steps 3a1-3a2 are repeated until a valid index is entered.
 +
 Use case resumes at step 3.
+// end::ucreservations[]
 
 // tag::ucsales[]
 [discrete]
@@ -2029,3 +2070,264 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the `jar` file. +
    *Expected*: The most recent window size and location is retained.
 
+=== Ingredient Management
+. Adding an ingredient
+
+.. Pre-requisites: The ingredient must not have the same name as another existing ingredient in the ingredient list
+and must be logged in.
+.. Test case: `add-ing n/Chicken Thigh u/kilogram p/14.00 m/20` +
+   *Expected*: Ingredient is added into the ingredient list. Details of the added ingredient is shown in the
+   status message. Timestamp in the status bar is updated.
+.. Test case: add-ing n/ +
+   *Expected*: No ingredient is added. Error details are shown in the status message. Status bar remains the
+   same.
+.. Other incorrect `add-ing` commands to try: `add-ing`, `add-ing n/123 u/kilogram p/14.00 m/20`,
+`add-ing n/Chicken Thigh u/+++ p/14.00 m/20` +
+   *Expected*: Similar to previous.
+
+. Listing all ingredients
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `list-ing` +
+   *Expected*: All ingredients are listed at the panel on the left of the UI.
+
+. Listing all the items that are low on stock
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `low-stock` +
+   *Expected*: All ingredients that have a number of units less than its minimum value are listed.
+
+. Deleting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `delete-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing Chicken Thigh` +
+   *Expected*: The ingredient with the specified name is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing 0` +
+   *Expected*: No ingredient is deleted. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `delete-ing` commands to try: `delete-ing`, `delete-ing x` (where x is larger
+ than the ingredient list size) +
+   *Expected*: Similar to previous.
+
+. Editing an ingredient
+
+.. Pre-requisites: The ingredient to be edited must be an existing entry in the ingredient list and must be logged in.
+The edited ingredient must not have the same name as another ingredient existing in the ingredient list.
+.. Test case: `edit-ing 1 n/Chicken Drumstick` +
+   *Expected*: Edited ingredient replaces the existing ingredient in the ingredient list. Details of the edited
+   ingredient is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-ing Chicken Thigh n/Chicken Drumstick` +
+   *Expected*: Similar to previous.
+.. Test case: `edit-ing n/` +
+   *Expected*: No ingredient is edited. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `edit-ing` commands to try: `edit-ing`, `edit-ing Chicken Drumstick+` +
+   *Expected*: Similar to previous.
+. Stocking up an ingredient or multiple ingredients
+
+.. Pre-requisites: The ingredient(s) to be stocked up must be an existing entry or existing entries in the ingredient
+list and must be logged in.
+.. Test case: `stockup n/Chicken Drumstick nu/10` +
+   *Expected*: The number of units of the ingredient increases by the specified number. The name of the
+   ingredient being restocked is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `stockup n/Chicken Drumstick nu/10 n/Cheese nu/15` +
+   *Expected*: Similar to previous.
+.. Test case: `stockup n/Chicken Drumstick` +
+   *Expected*: No ingredient is stocked up. Error details are shown in the status message. Status
+    bar remains the same.
+.. Other incorrect `stockup` commands to try: `stockup`, `stockup n/Chicken Drumstick n/Cheese nu/10 nu/20` +
+   *Expected*: Similar to previous.
+
+. Selecting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `select-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is selected. Details of the selected ingredient is
+   shown in the right panel of the UI.
+.. Test case: `select-ing 0` +
+   *Expected*: No ingredient is selected. Error details are shown in the status message.
+.. Other incorrect `select-ing` commands to try: `select-ing`, `select-ing x` (where x is larger
+ than the ingredient list size)
+   *Expected*: Similar to previous.
+
+// tag::testMenu[]
+=== Menu Management
+
+. Adding a new item with valid name, price and tag
+
+.. Prerequisites: You must not have the item, specified in the test case below, in the menu.
+.. Test case: `add-item n/Chicken Rice p/3 t/rice t/chicken` +
+   *Expected*: Item is added to the menu. Details of the item shown in status message.
+.. Incorrect commands to try: `add-item n/test p/string`, `add-item n/@*@^&@* p/3`
+
+. Editing an item with valid name, price and tag
+
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `edit-item 1 n/Duck Rice p/3 t/rice t/duck` +
+   *Expected*: Item specified by the index is updated with new details. New details of the item shown in status message.
+.. Incorrect commands to try: `edit-item 1 n/test p/string`, `edit-item n/name p/3`
+
+. Deleting an item by index
+
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `delete-item-index 1` +
+   *Expected*: Item specified by the index is deleted from the menu. Number of items deleted shown in status message.
+.. Incorrect commands to try: `delete-item-index -2`, `delete-item-index string`
+
+. Deleting an item by name
+
+.. Prerequisites: You must have the item, specified in the test case below, in the menu.
+.. Test case: `delete-item-name chicken rice` +
+   *Expected*: Item specified by name is deleted from the menu. Details of the deleted item shown in status message.
+.. Incorrect commands to try: `delete-item-name @*@^&@*`
+// end::testMenu[]
+
+. Listing all items
+
+.. Test case: `list-items` +
+   *Expected*: List all items in the menu.
+
+. Clearing menu
+
+.. Test case: `clear-menu` +
+   *Expected*: Deletes all items in the menu.
+
+. Selecting an item
+
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `select-item 1` +
+   *Expected*: Selects the item specified by the index in the menu. Index of the selected item shown in status message.
+.. Incorrect commands to try: `select-item -2`, `select-item string`
+
+. Locating items by name
+
+.. Prerequisites: You must have at least 1 item with name matching the keyword specified in the test case below.
+.. Test case: `find-item rice` +
+   *Expected*: Finds the item with name matching the keyword in the menu. Number of matched items shown in status message.
+
+. Locating items by tag
+
+.. Prerequisites: You must have at least item with tag matching the keyword specified in the test case below.
+.. Test case: `filter-menu duck` +
+   *Expected*: Finds the item with tag matching the keyword in the menu. Number of matched items shown in status message.
+
+. Sorting the menu by name
+
+.. Test case: `sort-menu name` +
+   *Expected*: Sorts the menu by name. Sorting method shown in status message.
+
+. Sorting the menu by price
+
+.. Test case: `sort-menu price` +
+   *Expected*: Sorts the menu by price. Sorting method shown in status message.
+
+. Giving discount to all item
+
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `discount-item ALL dp/20` +
+   *Expected*: Gives all items in the menu a discount. Number of items given a discount shown in status message.
+.. Incorrect commands to try: `discount-item -2 dp/20`, `discount-item string dp/20`
+
+. Adding a recipe to an item
+
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `recipe-item 1 r/some recipe` +
+   *Expected*: Adds the recipe to the item specified by the index in the menu. Details of specified item shown in
+   status message.
+
+. Adding required ingredients to an item
+
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `add-required-ingredients 1 n/chicken nu/3 n/rice nu/3` +
+   *Expected*: Adds the required ingredients to the item specified by the index in the menu. Details of specified item shown in status message.
+.. Incorrect commands to try: `add-required-ingredients -2 n/str nu/3`, `add-required-ingredients 1 n/str nu/-3`,
+`add-required-ingredients 1 n/str n/other nu/3 nu/3`
+
+// tag::testreservations[]
+=== Reservation Management
+
+. Adding a reservation
+
+.. Prerequisites: The reservation to be added must not be a duplicated entry in the reservations list and the user must be
+                  logged in.
+
+.. Test case: `add-reservation n/John Doe px/4 d/05-12-2019 ti/10:00 t/Driving` +
+   *Expected*: Reservation will be added into the reservation list. Details of the added reservation will be shown.
+
+.. Test case: `add-reservation n/` +
+   *Expected*: Reservation will not be added. Improper format error details shown.
+
+.. Test case: `add-reservation n/John Doe px/4 d/01-01-2018 ti/10:00 t/Driving` +
+   *Expected*: Reservation will not be added. "Date should not have passed" error will be shown.
+
+.. Other incorrect add-reservation commands to try: `add-reservation`, `add-reservation n/John Doe px/4@ d/05-12-2019 ti/10:00` +
+   *Expected*: Reservation will not be added. Improper format error details shown.
+
+
+. Listing reservations
+
+.. Prerequisites: The user must be logged in.
+
+.. Test case: `list-reservations` +
+   *Expected*: The reservations list will be shown.
+
+
+. Selecting a reservation
+
+.. Prerequisites: The reservations list must contain at least 1 reservation.
+
+.. Test case: `select-reservation 1` +
+   *Expected*: Selects the reservation specified by the index in the reservations list. Index of the selected
+   reservation will be shown.
+
+.. Incorrect commands to try: `select-reservation`, `select-reservation all`
+
+
+. Editing a reservation
+
+.. Prerequisites: The reservation to be edited must be an existing entry in the reservations list and the user must be
+                  logged in.
+
+.. Test case: `edit-reservation 1 d/06-10-2020` +
+   *Expected*: Edited reservation will replace the existing reservation in the reservations list. Details of the
+edited reservation will be shown.
+
+.. Test case: `edit-reservation n/` +
+   *Expected*: No reservation is edited. Improper format error details shown.
+
+.. Other incorrect edit-reservation commands to try: `edit-reservation` , `edit-reservation 1 px/4@` +
+   *Expected*: Similar to previous.
+
+
+. Deleting a reservation
+
+.. Prerequisites: The reservation to be deleted must be an existing entry in the reservations list and the user must be
+                  logged in.
+
+.. Test case: `delete-reservation 1` +
+   *Expected*: First reservation will be deleted from the list. Details of the deleted reservation will be shown.
+
+.. Test case: `delete-reservation 0` +
+   *Expected*: No reservations are deleted. Improper format error details shown.
+
+.. Other incorrect delete-reservation commands to try: `delete-reservation`, `delete-reservation all` +
+   *Expected*: Similar to previous.
+
+
+. Sorting reservations
+
+.. Prerequisites: The user must be logged in and the reservations list must be populated with more than one entry. +
+(and preferably be initially unsorted, to see the effects of the `sort-reservations` command)
+
+.. Setup: Enter these commands to populate the reservations list with an unsorted set of reservations.
+... `add-reservation n/Mandelbrot px/3 d/06-12-2019 ti/18:00`
+... `add-reservation n/Benoit px/1 d/05-12-2019 ti/10:00`
+... `add-reservation n/B px/2 d/05-12-2019 ti/12:00`
+
+.. Test case: `sort-reservations` +
+   *Expected*: Reservations list will be sorted by Date/Time in ascending order.
+// end::testreservations[]

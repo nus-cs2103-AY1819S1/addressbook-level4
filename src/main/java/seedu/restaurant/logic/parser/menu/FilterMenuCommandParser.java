@@ -29,7 +29,16 @@ public class FilterMenuCommandParser implements Parser<FilterMenuCommand> {
 
         String[] tags = trimmedArgs.split("\\s+");
 
-        return new FilterMenuCommand(new TagContainsKeywordsPredicate(Arrays.asList(tags)));
+        TagContainsKeywordsPredicate predicate;
+
+        try {
+            predicate = new TagContainsKeywordsPredicate(Arrays.asList(tags));
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterMenuCommand.MESSAGE_USAGE));
+        }
+
+        return new FilterMenuCommand(predicate);
     }
 
 }

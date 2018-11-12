@@ -276,7 +276,7 @@ public class GuiTestAssert {
         assertEquals("Date: " + expectedReservation.getDate().toString(), actualCard.getDate());
         assertEquals("Time: " + expectedReservation.getTime().toString(), actualCard.getTime());
         assertTagsEqualForReservation(expectedReservation, actualCard);
-        assertEquals(expectedReservation.getRemark().value, actualCard.getRemark());
+        assertEquals(expectedReservation.getRemark().toString(), actualCard.getRemark());
         assertEquals(expectedReservation.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

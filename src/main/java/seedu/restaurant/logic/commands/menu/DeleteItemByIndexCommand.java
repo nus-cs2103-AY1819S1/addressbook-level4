@@ -26,7 +26,7 @@ public class DeleteItemByIndexCommand extends Command {
     public static final String COMMAND_ALIAS = "dii";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the item identified by the index number used in the displayed item list.\n"
+            + ": Deletes the item(s) identified by the index number used in the displayed item list.\n"
             + "Parameters: INDEX (must be a positive integer, starting index) "
             + "[" + PREFIX_ENDING_INDEX + "INDEX](cannot be smaller than the starting index)\n"
             + "Example: " + COMMAND_WORD + " 1";

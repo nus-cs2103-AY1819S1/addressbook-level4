@@ -30,16 +30,17 @@ public class DiscountItemCommand extends Command {
     public static final String COMMAND_ALIAS = "dci";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gives the item identified "
-            + "by the index number used in the displayed item list a discount based on the percent. "
+            + "by the index number used in the displayed item list a discount based on the percentage. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer, starting index) "
+            + "Parameters: INDEX|ALL "
             + "[" + PREFIX_ENDING_INDEX + "INDEX](cannot be smaller than the starting index) "
-            + PREFIX_PERCENT + "PERCENT "
+            + PREFIX_PERCENT + "PERCENTAGE "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PERCENT + "20";
 
     public static final String MESSAGE_DISCOUNT_ITEM_SUCCESS = "Discounted %1$d items";
     public static final String MESSAGE_REVERT_ITEM_SUCCESS = "Reverted %1$d items";
+    public static final String MESSAGE_NO_ITEM = "Menu is empty";
 
     private Index index;
     private Index endingIndex;
@@ -66,8 +67,12 @@ public class DiscountItemCommand extends Command {
         List<Item> lastShownList = model.getFilteredItemList();
 
         if (isAll) {
-            index = Index.fromZeroBased(0);
-            endingIndex = Index.fromOneBased(lastShownList.size());
+            try {
+                index = Index.fromZeroBased(0);
+                endingIndex = Index.fromOneBased(lastShownList.size());
+            } catch (IndexOutOfBoundsException iooe) {
+                throw new CommandException(MESSAGE_NO_ITEM);
+            }
         }
 
         if (endingIndex.getZeroBased() >= lastShownList.size()) {

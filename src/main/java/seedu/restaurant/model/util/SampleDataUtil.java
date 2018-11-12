@@ -70,7 +70,7 @@ public class SampleDataUtil {
 
     //@@author hyperionnkJ
     private static SalesRecord[] getSampleSalesRecords() {
-        return new SalesRecord[] {
+        return new SalesRecord[]{
                 new SalesRecord(new seedu.restaurant.model.sales.Date("14-11-2018"), new ItemName("Apple Juice"),
                         new QuantitySold("31"), new seedu.restaurant.model.sales.Price("2"))
                         .setIngredientsUsed(getRequiredIngredients(Map.of("Apple", "93"))),
@@ -108,12 +108,12 @@ public class SampleDataUtil {
                         getTagSet("drinks", "friday"), getRequiredIngredients(Map.of("Apple", "3"))),
                 new Item(new seedu.restaurant.model.menu.Name("Beef Burger"), new Price("3"), new Recipe(""),
                         getTagSet("burger", "monday"), getRequiredIngredients(Map.of("Beef", "1", "Bread", "2"))),
-                new Item(new seedu.restaurant.model.menu.Name("Cheese Cake"), new Price("2.50"),new Recipe(""),
+                new Item(new seedu.restaurant.model.menu.Name("Cheese Cake"), new Price("2.50"), new Recipe(""),
                         getTagSet("cake", "tuesday"), getRequiredIngredients(Map.of("Cheese", "3"))),
                 new Item(new seedu.restaurant.model.menu.Name("Fruit Cake"), new Price("2.50"), new Recipe(""),
-                        getTagSet("cake", "thursday"), new HashMap<IngredientName, Integer>()),
+                        getTagSet("cake", "thursday"), new HashMap<>()),
                 new Item(new seedu.restaurant.model.menu.Name("Bacon Carbonara"), new Price("12"), new Recipe(""),
-                        getTagSet("bacon", "friday"), new HashMap<IngredientName, Integer>()),
+                        getTagSet("bacon", "friday"), new HashMap<>())
         };
     }
 
@@ -140,12 +140,12 @@ public class SampleDataUtil {
                 new Reservation(new seedu.restaurant.model.reservation.Name("Ang Zhi Kai"), new Pax("16"),
                         new seedu.restaurant.model.reservation.Date("02-01-2020"), new Time("13:00"),
                         new Remark("More chili sauce"), getTagSet("Lunch")),
-                new Reservation(new seedu.restaurant.model.reservation.Name("Rebecca"), new Pax("2"),
+                new Reservation(new seedu.restaurant.model.reservation.Name("Rebecca Tan"), new Pax("2"),
                         new seedu.restaurant.model.reservation.Date("04-01-2020"), new Time("19:00"),
                         new Remark("Extra napkins"), getTagSet("Dinner")),
-                new Reservation(new seedu.restaurant.model.reservation.Name("Kaijun"), new Pax("3"),
+                new Reservation(new seedu.restaurant.model.reservation.Name("Neo Kai Jun"), new Pax("3"),
                         new seedu.restaurant.model.reservation.Date("05-01-2020"), new Time("10:00"),
-                        new Remark("Takeaway only"), getTagSet("Breakfast")),
+                        new Remark("Takeaway only"), getTagSet("Breakfast"))
         };
     }
 
@@ -184,6 +184,7 @@ public class SampleDataUtil {
     }
 
     //@@author
+
     /**
      * Returns a tag set containing the list of strings given.
      */

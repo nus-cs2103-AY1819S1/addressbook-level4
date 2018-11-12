@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.restaurant.logic.commands.CommandTestUtil.showItemAtIndex;
+import static seedu.restaurant.logic.commands.menu.DiscountItemCommand.MESSAGE_NO_ITEM;
 import static seedu.restaurant.logic.commands.menu.DiscountItemCommand.createDiscountedItem;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
@@ -22,6 +23,7 @@ import seedu.restaurant.logic.commands.RedoCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
+import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.menu.Item;
 
@@ -166,6 +168,18 @@ public class DiscountItemCommandTest {
         // single restaurant book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void execute_invalidAllFilteredList_throwsCommandException() {
+        model = new ModelManager(new RestaurantBook(), new UserPrefs());
+
+        Index outOfBoundIndex = INDEX_SECOND;
+        assertTrue(outOfBoundIndex.getZeroBased() > model.getRestaurantBook().getItemList().size());
+
+        DiscountItemCommand discountItemCommand = new DiscountItemCommand(outOfBoundIndex, outOfBoundIndex, 0, true);
+
+        assertCommandFailure(discountItemCommand, model, commandHistory, MESSAGE_NO_ITEM);
     }
 
     /**

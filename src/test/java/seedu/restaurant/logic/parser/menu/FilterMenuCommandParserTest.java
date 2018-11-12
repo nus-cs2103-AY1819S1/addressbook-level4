@@ -23,6 +23,12 @@ public class FilterMenuCommandParserTest {
     }
 
     @Test
+    public void parse_invalidArg_throwsParseException() {
+        assertParseFailure(parser, "&(*&(", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FilterMenuCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_returnsFindItemCommand() {
         // no leading and trailing whitespaces
         FilterMenuCommand expectedFindItemCommand =

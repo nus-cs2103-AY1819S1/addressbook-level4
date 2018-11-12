@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_ITEMS;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 
 import org.junit.Test;
@@ -37,6 +38,7 @@ public class DeleteItemByNameCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
+        expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         expectedModel.commitRestaurantBook();
 
         assertCommandSuccess(deleteItemCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -56,6 +58,7 @@ public class DeleteItemByNameCommandTest {
         DeleteItemByNameCommand deleteItemCommand = new DeleteItemByNameCommand(new Name("Apple Juice"));
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
+        expectedModel.updateFilteredItemList(PREDICATE_SHOW_ALL_ITEMS);
         expectedModel.commitRestaurantBook();
 
         // delete -> first item deleted
