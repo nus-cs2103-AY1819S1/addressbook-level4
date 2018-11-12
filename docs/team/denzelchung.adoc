@@ -18,12 +18,11 @@
 ** What it does: allows the user to add a picture for his clients.
 ** Justification: This feature improves the usability and convenience of the product as the user can now identify his clients by their picture. In the event where the user has two clients of similar names, this feature can help the user identify their identities by looking at their picture and not make the mistake of calling the wrong person.
 ** Highlights: This enhancement added a new command. It required knowledge on path validation and handling the different platform's path format to make the program run on any mainstream OS.
+InsuRen is programmed to do the following:
+*** Loads a default picture if no picture is specified.
+*** Loads the default picture if the set picture is somehow deleted and could not be found.
+*** Accepts both absolute and relative path from the program's running directory.
 ** Credits: _rongjiecomputer_ for his suggestion on using `Guava` on the https://github.com/nus-cs2103-AY1819S1/forum/issues/115[forum].
-
-* *Minor enhancement*:
-** Loads a default picture if no picture is specified.
-** Loads the default picture if the set picture is somehow deleted and could not be found.
-** Accepts both absolute and relative path from the program's running directory.
 
 * *Other contributions*:
 
@@ -32,13 +31,13 @@
 ** Enhancements to existing features:
 *** Updated `Storage` to backup data file (Pull request https://github.com/CS2103-AY1819S1-W13-1/main/pull/12[#12])
 ** Documentation:
-*** Did general changes to existing contents of the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/34/files[#34]
-*** Updated `PictureCommand` documentation on the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/93/files[#93]
+*** Did general changes to existing contents of the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/34[#34]
+*** Updated `PictureCommand` documentation on the User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W13-1/main/pull/93[#93], https://github.com/CS2103-AY1819S1-W13-1/main/pull/152[#152], https://github.com/CS2103-AY1819S1-W13-1/main/pull/157[#157]
 ** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W13-1/main/pull/85[#85], https://github.com/CS2103-AY1819S1-W13-1/main/pull/160[#160]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T12-4/main/issues/147[1], https://github.com/CS2103-AY1819S1-T12-4/main/issues/148[2], https://github.com/CS2103-AY1819S1-T12-4/main/issues/151[3])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -63,3 +62,5 @@ include::../DeveloperGuide.adoc[tag=addpictureurl]
 include::../DeveloperGuide.adoc[tag=picUseCase]
 
 include::../DeveloperGuide.adoc[tag=nfr]
+
+include::../DeveloperGuide.adoc[tag=testingpicture]
