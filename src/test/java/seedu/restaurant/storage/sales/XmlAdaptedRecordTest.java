@@ -24,6 +24,7 @@ import seedu.restaurant.storage.elements.XmlAdaptedRecord;
 import seedu.restaurant.testutil.Assert;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class XmlAdaptedRecordTest {
     private static final String INVALID_DATE = "32-12-2017";
     private static final String INVALID_ITEM_NAME = "Apple Juice :D";

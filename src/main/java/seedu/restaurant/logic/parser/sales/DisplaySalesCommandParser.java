@@ -7,6 +7,7 @@ import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.sales.Date;
 
+//@@author HyperionNKJ
 /**
  * Parses input arguments and creates a new DisplaySalesCommand object
  */

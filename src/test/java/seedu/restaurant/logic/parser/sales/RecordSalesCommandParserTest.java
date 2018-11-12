@@ -29,6 +29,7 @@ import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
+//@@author HyperionNKJ
 public class RecordSalesCommandParserTest {
     private RecordSalesCommandParser parser = new RecordSalesCommandParser();
 

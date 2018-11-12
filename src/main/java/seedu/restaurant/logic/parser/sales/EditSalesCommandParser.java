@@ -16,6 +16,7 @@ import seedu.restaurant.logic.parser.util.ArgumentMultimap;
 import seedu.restaurant.logic.parser.util.ArgumentTokenizer;
 import seedu.restaurant.logic.parser.util.ParserUtil;
 
+//@@author HyperionNKJ
 /**
  * Parses input arguments and creates a new EditSalesCommand object
  */

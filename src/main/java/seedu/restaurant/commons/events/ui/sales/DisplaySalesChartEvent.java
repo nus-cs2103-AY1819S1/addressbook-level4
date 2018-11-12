@@ -5,6 +5,7 @@ import java.util.Map;
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.sales.Date;
 
+//@@author HyperionNKJ
 /**
  * An event requesting to display the sales line chart using data given in the Map
  */

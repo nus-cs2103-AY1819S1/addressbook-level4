@@ -8,6 +8,7 @@ import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.util.ParserUtil;
 
+//@@author HyperionNKJ
 /**
  * Parses input arguments and creates a new DeleteSalesCommand object
  */

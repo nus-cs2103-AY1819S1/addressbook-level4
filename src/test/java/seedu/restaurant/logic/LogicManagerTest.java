@@ -74,11 +74,14 @@ public class LogicManagerTest {
         assertHistoryCorrect(listCommand);
     }
 
+
+    //@@author HyperionNKJ
     @Test
     public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredRecordList().remove(0);
     }
+    //@@author
 
     @Test
     public void getFilteredAccountList_modifyList_throwsUnsupportedOperationException() {

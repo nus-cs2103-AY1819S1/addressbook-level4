@@ -16,6 +16,7 @@ import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
+//@@author HyperionNKJ
 /**
  * Panel containing the list of sales records.
  */

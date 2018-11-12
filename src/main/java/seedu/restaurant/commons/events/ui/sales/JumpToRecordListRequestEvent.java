@@ -3,6 +3,7 @@ package seedu.restaurant.commons.events.ui.sales;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author HyperionNKJ
 /**
  * Indicates a request to jump to the list of sales records
  */

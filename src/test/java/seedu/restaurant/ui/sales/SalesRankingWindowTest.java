@@ -12,6 +12,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author HyperionNKJ
 public class SalesRankingWindowTest extends GuiUnitTest {
 
     private SalesRankingWindow salesRankingWindow;
