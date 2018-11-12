@@ -50,7 +50,7 @@ public abstract class Notification {
 
     /**
      * Returns true if two Notification objects are equal, false otherwise.
-     * @param otherNotification to compare with
+     * @param otherNotification The {@code Notification} object to compare with.
      */
     public boolean isSameNotification(Notification otherNotification) {
         return (otherNotification.header.equals(header)) && (otherNotification.body.equals(body));

@@ -162,7 +162,7 @@ Read <<Design-Ui,*`UI`*>> for more details.
 `Model` holds the data of the App in-memory. It defines its API in the `Model.java` interface and exposes its functionality using the `ModelManager.java` class.
 Read <<Design-Model,*`Model`*>> for more details.
 
-`Storage` reads data from, and writes data to, the hard disk.It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
+`Storage` reads data from, and writes data to, the hard disk. It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
 Read <<Design-Storage,*`Storage`*>> for more details.
 
 [discrete]
@@ -639,12 +639,14 @@ The UI has been redesigned to implement the following UI elements required for E
 * Notifications Panel
 * Categories Panel
 
-Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of `BudgetPanel`,
-which is the most extensive.
+.Before and After shots of the UI
+image::UiChange.png[width="600"]
 
-*Budget Panel*
+As an example of how the new UI elements were implemented, we will examine the implementation of `BudgetPanel`.
 
-The `Budget` panel consists of 4 UI elements:
+==== The Budget Panel
+
+`BudgetPanel` consists of 4 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
@@ -659,48 +661,46 @@ Given below are the steps of an example scenario of how `BudgetPanel` is updated
 * `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default `totalBudget`.
 * `BudgetPanel#budgetBar` is green and at 0% progress.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies `totalBudget` and
+. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
 [NOTE]
-If a command fails its execution, `UpdateBudgetPanelEvent` will not be posted.
+If a command fails its execution, or does not affect budget or expenses,`UpdateBudgetPanelEvent` will not be posted.
 
 . The `UpdateBudgetPanelEvent` event is handled by `MainWindow#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
 
 . `BudgetPanel#update()` calls `BudgetPanel#animateBudgetPanel()`, which creates a new `Timeline` object.
 
-. Two `KeyFrame` objects are added to the Timeline that smooths the transition of the `BudgetPanel#budgetBar` progress percentage from 0% to the updated percentage.
+. Two `KeyFrame` objects are added to `Timeline`, creating the animation `BudgetPanel#budgetBar` that transits the `BudgetPanel#budgetBar#progress` to the updated number.
 [NOTE]
-If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+If the updated percentage is more than 1.0, `BudgetPanel#budgetBar#progress` will be set to 1.0. Barring oversights, it should never fall below 0.0.
 
-. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects.
-With this information, the amount to increment `BudgetPanel#expenseDisplay` by in each `KeyFrame` can be calculated.
- `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
+. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetCapDisplay`.
+ In each `KeyFrame`, `BudgetPanel#updateExpenseDisplay()` and  `BudgetPanel#updateBudgetCapDisplay()` is called to increment the `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetCapDisplay` respectively.
 [NOTE]
-`BudgetPanel#addTextAnimationKeyFrames()` handles the incrementing animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+The number of `KeyFrame` objects and the time interval between each `KeyFrame` has been predetermined.
 
-. For each `KeyFrame`, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to `BudgetPanel#alterTextSize()`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
-different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width matches `BudgetPanel#percentageDisplay#maxHeight`.
+. A call is also made to `BudgetPanel#alterTextSize()` in each `KeyFrame`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
+different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width is equal to `BudgetPanel#percentageDisplay#maxHeight`.
 
-. `Timeline#playFromStart()` is called to execute the animation.
+. A call to `Timeline#playFromStart()` is made to execute the animations.
 
-. `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()`. The method detects that the user has gone
-over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+. A call is also made concurrently to `BudgetPanel#setBudgetUiColors()`. If `BudgetPanel#expenseDisplay` is larger than `BudgetPanel#budgetCapDisplay`, the color of `BudgetPanel#expenseDisplay`
+and `BudgetPanel#budgetBar` changes to red, indicating that the user is over budget.
 [NOTE]
 Similarly, if the user has gone from over budget to under budget, the color of
-'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
+'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` changes to green.
 
 The following sequence diagram shows the process of updating the `BudgetPanel` UI elements:
 
 .Sequence diagram of the `BudgetPanel` update
-image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
+image::implementation/BudgetPanelSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 ===== Aspect: Choosing which library to use for animation implementation
 
 * **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes.
 ** Pros: More flexible; Able to create the animation frame by frame.
-
-** Cons: Animations tricks and effects will require manual tweaking for the intended effect.
+** Cons: More tedious. Animations effects will require manual addition of `KeyFrame` objects for the intended effect.
 * **Alternative 2:** Use the `Transition` class
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for `Text` elements of `BudgetPanel`.
@@ -716,7 +716,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 
 * **Alternative 3 (Current Choice):** Wrap two `Text` objects in a `TextFlow` object
 ** Pros: Easy to centralize the `Text` objects by taking advantage of the properties of `TextFlow`. Allows the implementation of separate text color changing and animation.
-** Cons: Does not solve the issue of decentralization when `currentExpenses` or `budgetCap` are large numbers.
+** Cons: Does not solve the issue of decentralized text when `currentExpenses` or `budgetCap` are large numbers.
 
 ===== Aspect: Solving the issue of `TextFlow` positioning when `currentExpenses` or `budgetCap` are large numbers.
 * **Alternative 1:** During the budget update, manipulate the font size of both `Text` objects when the `TextFlow` object reaches a certain height.
@@ -726,7 +726,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 * **Alternative 2: ** Manipulate the scale of the `TextFlow` object such that it always maintains a predetermined width.
 ** Pros: A solution that is simple and easy to implement.
 ** Cons: In the case of very large numbers, the `TextFlow` object is shrunk down to a point where the text in non-legible. However,
-we assume that the average user who is seriously using `ExpenseTracker` will not set  `currentExpenses` or `budgetCap` to such large numbers.
+we assume that the average user who is seriously using `ExpenseTracker` will not set `currentExpenses` or `budgetCap` to such large numbers.
 
 === Notification System
 The Notification System is comprised of the following classes:
@@ -737,26 +737,30 @@ The Notification System is comprised of the following classes:
 * `NotificationHandler` - Manages the list of notifications.
 * `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
 * `NotificationHandler` - Handles the storage and creation of `Notification` objects.
-* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on Notifications.
 * `Tips` - Reads and stores `Tip` objects in a list.
+* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on `Notification` and `Tip` objects.
+
+==== Adding a Notification
 
 Given below are the steps of an example scenario of how the Notification System functions:
 
-. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` is instantiated, and a call
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` object is instantiated, and a call
 to `JsonTipsStorage#readTips` is made to read a list of `Tip` objects from a JSON file.
 
 . A call to `NotificationHandler#isTimeToSendTip()` is made upon login. In turn, a check is made to see if it has
-been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
+been 24 hours since the last `TipNotification` has been sent. It also checks if `NotificationHandler#isTipEnabled` is `true. If both conditions are met, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addTipNotification()`.
 [NOTE]
 If this is the user's first time logging into their account, a new `TipNotification` will be sent.
 
 . The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning()` to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification()`.
+It also checks if `NotificationPanel#isWarningEnabled` is `true`. If both conditions are met, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addWarningNotification()`.
 [NOTE]
 The same procedure is carried out if the user executes an `edit` command.
 
 . If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
 the new `Notification`.
+
+==== Executing Notification Command
 
 Given below is an example scenario of how `NotificationCommand` functions:
 . The user executes `notification n/warning t/off`. THe command is received by `ExpenseTrackerParser`.
@@ -766,16 +770,18 @@ extracted parameters `warning` and `off`. A `NotificationCommand` is returned to
 [NOTE]
 The `n/` suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 
-. `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
+. `LogicManager` then calls `NotificationCommand#execute()`, which calls `NotificationHandler#toggleWarningNotifications()` to set
 `NotificationPanel#isWarningEnabled` to `false`.
 [NOTE]
  If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications()` would be called to set `NotificationHandler#isTipEnabled`
  to `true`.
- If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead.
+[NOTE]
+ If `notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead to set both `NotificationHandler#isTipEnabled` and
+`NotificationPanel#isWarningEnabled`.
 
 The following sequence diagram shows the process of executing a `NotificationCommand`:
 
-image::implementation/NotificationCommandSequenceDiagram.png[width="800"]
+image::implementation/NotificationCommandSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 ===== Aspect: Storing of Tips
@@ -801,7 +807,7 @@ If the user's spending exceeds their available spending for the budget, a warnin
  to the user.
 
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.JPG[width="790"]
+image::overbudget.png[width="790"]
 
 
 
@@ -993,7 +999,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 We use asciidoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility for formatting.
 
 === Editing Documentation
 
@@ -1103,7 +1109,7 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+Method 3 is the most reliable way to run tests. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 

@@ -33,7 +33,6 @@ public class XmlAdaptedNotification {
 
     /**
      * Converts a given Notification into this class for JAXB use.
-     *
      * @param source source budget
      */
     public XmlAdaptedNotification(Notification source) {
@@ -44,7 +43,6 @@ public class XmlAdaptedNotification {
 
     /**
      * Converts a given Notification into this class for JAXB use.
-     *
      * @param header of the notification
      * @param body of the notification
      */
