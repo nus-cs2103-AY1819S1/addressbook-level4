@@ -805,7 +805,7 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ==== `Model` component
 
 *Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
- 
+
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
