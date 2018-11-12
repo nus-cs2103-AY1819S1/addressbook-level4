@@ -4,23 +4,9 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: TheTracker
-
----
-
 == Overview
 
-TheTracker (v1.4) is a desktop application to help students track and plan different events and modules happening in and around the NUS campus.
-Not just for NUS, it can help students of all universities and of all backgrounds.
-Most of the time, collating information about students and linking them to the required modules
-and the occasions.
-
-This makes it really easy for students to keep track of which module their friends are in,
-making changes in person's details in case any mistakes or changes occur, and also keep track
-of their occasions.
-
-TheTracker is thus developed with this in mind, to make it easy to create, remove, update,
-and delete your friends' contacts, their associations with modules, and also the events they
-may be a part of.
+TheTracker (v1.4) is a desktop application to help students track and plan different events and modules.
 
 == Summary of contributions
 
@@ -31,24 +17,16 @@ may be a part of.
 ** What it does: allows the user to remove a person who was recently inserted into a module or occasion.
 ** Justification: This feature helps the user, when a student is not in a module or occasion anymore,
 to remove the person from the said module or occasion.
-** Highlights: This enhancement removes the tie between a person and module or occasion.
-It required an in-depth linkage between person and module and to be able to remove one module or
-occasion from a person without affecting the rest of the list structure, and vice versa.
 
 * `list`
 
 ** What it does: allows the user to switch between contexts, the different contexts of *PERSON*,
 *MODULE*, and *OCCASION*.
-** Justification: This feature helps users contextualize. When they are viewing all students, they
-are thus able to view the student's modules and occasions that they are a part of. It is the same
-for the students list in modules tab and attendance list in occasions tab.
-** Highlights: This enhancement dealt with the loading of the graphical user interface with the right
-updated contents and the ability to for the model to be updated with the right context.
+** Justification: This feature helps users contextualize.
 
-* *Minor enhancement*: added an *autocomplete* feature, a command suggestion for the user to see all
-possible commands containing the specified letters as the user types.
+* *Minor enhancement*: added an *autocomplete* feature.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alistairong[Functional code & Test code]]_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alistairong[Functional code & Test code]]
 
 * *Other contributions*:
 
@@ -56,19 +34,13 @@ possible commands containing the specified letters as the user types.
 *** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme and look of different contexts
+*** Updated the GUI color scheme
 (Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/184[#184],
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/167[#167])
-*** Object specific tests for modules and its internal components
-(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/103/files[#103])
-*** Made XML storage for modules and its related tests
-(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/87/files[#87])
-*** Made UI components for modules, and its related tests
-(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/51/files[#51])
-
-** Community:
-*** PRs reviewed
-*** Internal cross checking and debugging for other teams in the class
+*** Module, XML, UI Module Tests
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/103/files[#103],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/87/files[#87],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/51/files[#51])
 
 == Contributions to the User Guide
 
