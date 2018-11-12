@@ -13,12 +13,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
-import com.oracle.tools.packager.UnsupportedPlatformException;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ChangeImageEvent;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.canvas.Canvas;
@@ -96,7 +95,7 @@ public class ImageMagickUtil {
      */
     public static BufferedImage processImage(Path path, Transformation transformation, boolean isRaw)
             throws ParseException, IOException, InterruptedException, IllegalArgumentException,
-            UnsupportedPlatformException {
+            IllegalOperationException {
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
         ArrayList<String> args = new ArrayList<>();
@@ -196,14 +195,14 @@ public class ImageMagickUtil {
      */
 
     public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
-            throws IOException, InterruptedException, IllegalArgumentException, UnsupportedPlatformException {
+            throws IOException, InterruptedException, IllegalArgumentException, IllegalOperationException {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform(osName) == MAC) {
             Map<String, String> mp = pb.environment();
             mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "/ImageMagick-7.0.8/lib/");
         }
         if (getPlatform(osName) == LINUX || getPlatform(osName) == 0) {
-            throw new UnsupportedPlatformException();
+            throw new IllegalOperationException("Unsupported OS!");
         }
         Process process = pb.start();
         process.waitFor();
@@ -268,7 +267,7 @@ public class ImageMagickUtil {
      * @return a buffered image with a merged canvas.
      */
     public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException,
-            UnsupportedPlatformException {
+            IllegalOperationException {
         ArrayList<String> args = new ArrayList<>();
         String output = tmpPath + "/modified.png";
         args.add(getConvertExecutablePath());
@@ -344,7 +343,7 @@ public class ImageMagickUtil {
                                     ImageMagickUtil.processCanvas(c), null), target));
         } catch (IOException e) {
             logger.severe(e.getMessage());
-        } catch (InterruptedException | UnsupportedPlatformException e) {
+        } catch (InterruptedException | IllegalOperationException e) {
             logger.severe(e.getMessage());
         }
 
