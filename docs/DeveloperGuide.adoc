@@ -404,7 +404,10 @@ The _Medicine_ class and the properties of the medicine are located in <<Model c
 They are modeled after the properties of a real medicine in a clinic context.
 The list of medicines currently tracked in the clinic is located in the AddressBook class.
 
-See the <<UserGuide.adoc#Medicine Records System,User Guide>> for the list of commands related to the medicine class.
+Refer to the diagram below for the commands that involves the _Medicine Class_:
+
+.Class Diagram for Medicine Commands
+image::ClassDiagramForMedicineCommands.png[width="650"]
 
 Given below are examples of how the medicine commands are used:
 
