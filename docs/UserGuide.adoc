@@ -27,6 +27,7 @@ WatchOver is for those who *prefer to use a desktop app for managing tasks*. Mor
 .  Download the latest `watchover.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your task manager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Extend the screen by dragging the sides of the window should the entire UI not be seen.
 +
 image::ActualUi.png[width="790"]
 +
@@ -72,7 +73,10 @@ that can be edited.
 * Remaining time: the time remaining, from the current time, until the Due Date of the task.
 * Status: the current status of the task, depending on whether it has been completed or not.
 It is denoted by either "IN PROGRESS", "COMPLETED" or "OVERDUE".
-* Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task
+* Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task, including the
+task itself
+
+[Note]: effective due date is not used in any command i.e. list by date or in checking overdue
 
 // end::task-fields[]
 === System Commands
@@ -125,7 +129,7 @@ Task <INDEX>, <TASK_NAME> was created.
 
 -Example:
 `add n/complete milestone t/2018/09/14 p/important`
-`add n/complete milestone t/2018/09/14 p/-4`
+`add n/complete milestone t/14-09-19 p/-4`
 
 [TIP]
 Duplicated tasks are not allowed in the task manager. Duplicated tasks are defined as tasks with the same name and
@@ -154,9 +158,10 @@ Format:
 // tag::dependency[]
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
-Adds/removes a dependency of a task dependant to the task dependee.
-For a given scenario where task A is dependent on task B, task A is defined as the dependent task while task B is defined as the dependee task.
-The dependency is added if it already exists amd removed if it does not.
+Adds/removes a dependency of a task dependent to the task dependee.
+For a given scenario where task A is dependent on task B, task A is defined as the dependant task while task B is defined
+as the dependee task.
+The dependency is added if it already exists and removed if it does not exist.
 
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
@@ -187,7 +192,6 @@ The dependency will violate the notion of a completed task as tasks can only be 
 on are completed.
 ====
 // end::dependency[]
-
 
 // tag::complete-usage[]
 ==== Completing a Task: `complete`
@@ -324,8 +328,8 @@ Selects the 1st task in the results of the `find` command.
 [%hardbreaks]
 Shows a list of uncompleted tasks by their topological order in the CLI window.
 
-It defines a possible valid sequence of tasks to tackle given existing task dependency
- constraints.
+A topological order defines a possible valid sequence of tasks to tackle given existing task dependency
+ constraints. Dependencies to completed tasks are deemed as fulfilled and is not a "constraint".
 
 Example:
 

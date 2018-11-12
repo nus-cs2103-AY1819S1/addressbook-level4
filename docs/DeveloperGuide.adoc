@@ -581,8 +581,12 @@ _Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for br
 The dependency mechanism is facilitated by an embedded `Dependencies` object. This object represents dependencies with
 a hashset that contains the hashcodes of the tasks that the task is dependent upon.
 
-Sequence Diagram of the dependencies command
+The dependencies between tasks are added or removed using the dependency command. If a given task A is dependent on a given task B,
+task A is the dependant task while task B is the dependee task.
 
+image::DependencyActivityDiagram.png[width="1200"]
+
+_Activity diagram for the dependency command (dependencies are toggled using the command)_
 
 ==== Design Considerations
 ===== Aspect: Modelling of the embedded dependency object.
