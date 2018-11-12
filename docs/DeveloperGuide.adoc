@@ -1165,7 +1165,36 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View attraction
+=== Use case: Maintain attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User closes an attraction for maintenance.
+2.  ThanePark sets the status of attraction to be under maintenance.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for closing the attraction for maintenance.
++
+Use case ends.
+
+[none]
+* 1b. The attraction is already under maintenance.
++
+[none]
+** 1b1. ThanePark shows error.
++
+Use case ends.
+
+[discrete]
+=== Use case: View a list of all attractions
 *System*: ThanePark +
 *Actor* All +
 *MSS*
@@ -1180,13 +1209,13 @@ Use case ends.
 none
 
 [discrete]
-=== Use case: View status of rides
+=== Use case: View a list of rides that matches the given ride status
 *System*: ThanePark +
 *Actor* All +
 *MSS*
 
 1.  User requests to view attractions by status.
-2.  ThanePark shows a summarized view sorted by queue status.
+2.  ThanePark shows all attractions that matches the ride status.
 +
 Use case ends.
 
