@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.meeting.MainApp;
+import seedu.meeting.model.MeetingBook;
 import seedu.meeting.model.ReadOnlyMeetingBook;
 import seedu.meeting.model.person.Email;
 import seedu.meeting.model.person.Name;
@@ -81,7 +82,7 @@ public class SampleDataUtil {
             XmlMeetingBookStorage defaultMeetingBook = new XmlMeetingBookStorage(defaultMeetingBookPath);
             return defaultMeetingBook.readMeetingBook().get();
         } catch (Exception e) {
-            throw new RuntimeException();
+            return new MeetingBook();
         }
     }
     // @@author
