@@ -1,0 +1,79 @@
+= Koh Chi Hao - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: FoodZoom
+
+---
+
+Hello there! I am Koh Chi Hao. I am currently studying at National University of Singapore (NUS) in School of Computing and majoring in Computer Science. As of right now, I am studying my second year of study. This portfolio serves the purpose of documenting what I have contributed to the project and my roles in it.
+
+== Overview
+
+FoodZoom is a desktop food delivery management application designed for food businesses to streamline their delivery process. FoodZoom is responsive and quick, allowing managers to plan routes for order delivery and dispatch them to delivery men using the Command Line Interface (CLI). The delivery men can also use this application to view their delivery routes and increase their efficiency. FoodZoom is built by 5 computer science student namely Koh Chi Hao, Rahul Rajesh, Julius Sander, Monika Manuela Hengki and Tan Jin Ying. The picture below shows the home page of FoodZoom.
+
+image::Ui.png[width="800"]
+
+
+== Summary of Contribution
+
+---
+
+|===
+|Given below are sections I contributed to the application. They showcase my ability to write and manage the code within the project.
+|===
+
+* *Major enhancement*: added the ability to sign up, login and logout for the user.
+** What it does: It allows the user the sign up for the application when they first use it. Subsequently, they can
+login into the application to create orders and dispatch them. At the end of the day, they can easily log out from the application to protect the details.
+** Justification: This feature improves the security of the application as it allows only the manager of the shop to
+use the application and no one else. As such, the application will be protected against random people from the shop attempting to foil the data.
+** Highlights: This enhancement will affect all the current and future commands because only certain commands can be
+used when the user is not logged in. As such, when commands in the future are implemented, they are required to be place under either authorised or unauthorised commands.
+
+* *Minor enhancement*:
+** Implemented major UI changes when user log in and log out.
+** Updated status bar with username after the user log in.
+** Add `/order done` command.
+
+* *Code contribution*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=kohchihao[RepoSense]
+
+* *Other contributions*:
+** Project management:
+*** Managed release for `v1.1`, `v1.2`, `v1.2.1`, `v1.3`
+** Documentation:
+*** Update DeveloperGuide to remove and update all non-relevant stuff (Pull requests https://github.com/CS2103-AY1819S1-T16-3/main/pull/90[#90])
+** Community:
+*** Review weekly Pull Requests
+*** Contributed to CS2103T forum discussion https://github.com/nus-cs2103-AY1819S1/forum/issues/created_by/kohchihao[(questions I posted)]
+*** Reported bugs and suggestions for other projects (
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/186[#186],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/188[#188],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/189[#189],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/194[#194],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/198[#198],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/200[#200],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/206[#206],
+ https://github.com/CS2103-AY1819S1-W10-4/main/issues/207[#207])
+
+== Contributions to User Guide
+
+|===
+|This section shows my contributions to User Guide for the project. It showcases my ability to write user-centric documentation.
+|===
+
+include::../UserGuide.adoc[tag=signup]
+
+include::../UserGuide.adoc[tag=login]
+
+include::../UserGuide.adoc[tag=logout]
+
+include::../UserGuide.adoc[tag=orderdone]
+
+== Contributions to Developer Guide
+
+|===
+|This section shows my contributions to Developer Guide for the project. It showcases my ability to write a technical document and the technical aspect of my contribution to the project.
+|===
+
+include::../DeveloperGuide.adoc[tag=loginfeature]

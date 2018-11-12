@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= FoodZoom - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,228 +12,552 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T16-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T16-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FoodZoom is a food delivery management platform targeted at food business looking to streamline their delivery process. It is responsive and quick, allowing manager to plan their routes and dispatch orders to delivery man *using a Command Line Interface* (CLI) while having the benefits of a Graphical User Interface (GUI). The delivery man can also this application to view their delivery routes and increase their efficiency.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `foodzoom.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your FoodZoom.
+.  Double-click the file to start the app. The GUI should appear in a few seconds (the below screen is after you signup/login).
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`/help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`/signup n/John Doe u/johndoe pw/johndoepassword`*: Sign into the application
+* *`/order list`* : lists all orders
+* *`/order find n/david`* : finds the order david has ordered
+* *`/exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+Before starting on the application, read through the below sections. They cover
+the format to be used for all the commands and the syntax that is to be followed.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `/order add n/NAME`, `NAME` is a parameter which can be used as `/order add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [p/PHONE]` can be used as `n/John Doe p/9112` or as `n/John Doe`.
+* Parameters can be in any order e.g. if the command specifies `n/NAME a/ADDRESS`, `a/ADDRESS n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+====
+*Fields restrictions*
+[width="100%",cols="20%,<80%"]
+|=======================================================================
 
-Format: `help`
+|NAME | Can only be alphanumeric and spaces are allowed, it should not be blank and be 1 to 64 characters long
 
-=== Adding a person: `add`
+|PHONE | Phone should only contain numbers, and it should be at least 3 digits long
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+|ADDRESS | Can take any values, and it should not be blank. The last 6 characters should be a valid postal code
 
-[TIP]
-A person can have any number of tags (including 0)
+|FOOD | Should only contain alphanumeric characters and spaces, and it should not be blank
+
+|DATETIME | Must conform to the format `dd-MM-YYYY h:m:s`, where _dd_ is date, _MM_ is month, _YYYY_ is year, _h_ is 24 hour of the day, _m_ is minutes and _s_ is seconds. e.g. `14-10-2018 23:30:00`
+
+|ORDER_STATUS | Only `PENDING`, `ONGOING` or `COMPLETED` are allowed
+
+|USERNAME | Can be alphanumeric and spaces are *NOT* allowed, it should not be blank and be 3 to 64 characters long.
+
+|PASSWORD | Can be alphanumeric, should be at least *6* characters long and spaces are *NOT* allowed. Not encrypted
+in current releases.
+
+|INDEX | Refers to the index number shown by the order / deliveryman list command & it must be a positive integer 1, 2, 3, ... and no larger than 2147483647.
+
+|=======================================================================
+====
+
+====
+*Available Commands*
+[cols="s,a"]
+|=======================================================================
+
+| That don't require login
+|`/help`
+
+`/signup`
+
+`/login`
+
+`/logout`
+
+`/exit`
+
+`/history`
+
+|That require login
+| `/order add`
+
+`/order list`
+
+`/order edit`
+
+`/order find`
+
+`/order select`
+
+`/order delete`
+
+`/order clear`
+
+`/order done`
+
+`/deliveryman add`
+
+`/deliveryman list`
+
+`/deliveryman find`
+
+`/deliveryman select`
+
+`/deliveryman delete`
+
+`/assign`
+
+`/home`
+
+|=======================================================================
+====
+
+=== Viewing help : `/help` `[Since v1.1]`
+
+Format: `/help`
+
+// tag::signup[]
+=== Sign up for system : `/signup` `[Since v1.1]`
+
+Sign up for a new manager account so that the manager can use the application. Once you sign up, you will be
+automatically logged into the application. Since the managers using the application is working for one stall, they will have access to that stall data and see the same home screen
+
+Format: `/signup n/NAME u/USERNAME pw/PASSWORD`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `/signup n/John Doe u/johndoe pw/johndoepassword`
 
-=== Listing all persons : `list`
+// end::signup[]
 
-Shows a list of all persons in the address book. +
-Format: `list`
+// tag::login[]
+=== Login to system : `/login` `[Since v1.1]`
 
-=== Editing a person : `edit`
+Login into the application so that the manager can use the application. Once you login, you can use the authenticated
+ commands. Since the managers using the application is working for one stall, they will have access to that stall data and see the same home screen
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `/login u/USERNAME pw/PASSWORD`
+
+Examples:
+
+* `/login u/manager pw/password`
+
+// end::login[]
+
+// tag::logout[]
+=== Logout from system : `/logout` `[Since v1.3]`
+
+Logout from the application.
+
+Format: `/logout`
+
+// end::logout[]
+
+// tag::home[]
+=== Return to Home Page : `/home` `[Since v1.3]`
+
+If any selection is done, allows you to return back to the home page with the dashboard +
+Format: `/home`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Renders a bar graph which shows the order history (limited to the latest 7 orders by date)
+* Shows a map - the map gives a reasonable *estimate* for the locations of the pending orders. It is
+designed to work offline and give you a rough gauge of where your orders are
+* This dashboard dynamically updates itself when the order list is changed
+****
+
+Once the command is executed, you will be greeted with a screen similar to below (statistics shown will vary based on
+ the data you have):
+
+.Home page for application
+image::UiHome.png[width="400"]
+
+The screen consists of a map showing your pending orders and a statistics panel. The size of the
+placeholder is indicative of how many orders they are in a region. You can observe these
+components change when carrying out some of the other commands in the application! (try `/order find`)
+
+This feature allows you to keep track of how many orders you have on certain days and also take note of
+what is the most common item people have ordered from your stall!
+// end::home[]
+
+// tag::orderAdd[]
+=== Adding an order : `/order add` `[Since v1.1]`
+
+Allows you to adds a new order to the list of orders. +
+Format: `/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME`
+
+There are also some things you need to take note of:
+****
+* Able to add more than 1 food items by specifying more food tags. e.g. `f/Roti Prata f/Ice Milo`.
+* Address must be a valid address that exists in Singapore to be displayed on the map.
+* If the postal code is longer than 6 digits, much like any other field, only the *last 6 digits* will be taken into
+consideration for approximating the location
+* The manager is able to add dates from any time period as long as it is valid.
+* Two orders are considered the same if they have the same name, phone, and date time.
+****
+
+Examples of add order commands (note that the above parameters can be re-ordered):
+
+* `/order add f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01 610123 dt/26-12-2018 10:10:54`
+* `/order add a/block 55 Computing Drive 117417 n/Harry f/Tissue Prata f/Nasi Briyani p/81889111 dt/14-12-2018 14:10:54`
+// end::orderAdd[]
+
+// tag::orderList[]
+=== Listing all orders : `/order list` `[Since v1.1]`
+
+Shows a list of all orders in chronological order +
+Format: `/order list`
+// end::orderList[]
+
+// tag::orderedit[]
+=== Editing an order : `/order edit` `[Since v1.2]`
+
+Edits an existing order in the list of orders. +
+Format: `/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATETIME]`
+
+****
+* Edits the order at the specified `INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When a parameter is specified, e.g. `f/`, `n/`, empty fields are not allowed. Value must be specified.
+* Orders that are `Ongoing` or `Completed` cannot be edited.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `/order list` +
+`/order edit 1 p/91234567 n/Jonathan` +
+Edits the phone number and name of the 1st order to be `91234567` and `Jonathan` respectively.
+* `/order list` +
+`/order edit 2 f/Maggi Goreng f/Ice Milo` +
+Edits the food of the 2nd order to be `Maggi Goreng, Ice Milo`.
+// end::orderedit[]
 
-=== Locating persons by name: `find`
+// tag::orderfind[]
+=== Finding orders : `/order find` `[Since v1.2]`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Find any order/s with any given order fields. +
+Format: `/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME] [st/ORDER_STATUS]` +
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* All fields are optional. However, at least one field must be specified.
+* Empty value after any fields are not allowed. e.g. `n/`
+* The search is case insensitive. e.g `tom` will match `Tom`
+* Partial match is allowed for name, phone, food and address. e.g. `alex` will match `alex lim` and `al` will match `alex lim`
+* When more than 1 fields are given, the find will do an `and` on all fields. e.g. `n/alex p/1234`, will be `n == 'alex' AND p == 1234`
+* When the same fields are given, it will take the last field, except for date search. For date search refer below. e.g. `n/alex n/tom`, Only `n/tom` is taken
+* Phone Find
+** Multiple phone search is allow when phone numbers are separated by spaces. e.g. `p/1234 9111` will match phones with `1234` and `9111`
+* Date Find
+** To find for orders from a specific date, use 1 date field. e.g `dt/01-10-2018 10:00:00` will return order/s on that
+ date.
+** To find for orders with a date range, use 2 or more date fields. e.g. `dt/01-10-2018 10:00:00 dt/03-10-2018
+  10:00:00` will return order/s within the 2 dates. When more than 2 date fields are given, it will take the smallest and the biggest datetime
 ****
 
 Examples:
 
-* `find John` +
+* `/order find n/john` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `/order find p/81231233 a/block 123, Clementi Drive, #01-01` +
+Returns orders with phone number of `81231233` and address of `block 123,
+Clementi Drive, #01-01`
+* `/order find dt/01-10-2018 10:00:00 dt/03-10-2018 10:00:00` +
+Returns for orders that are within the datetime `01-10-2018 10:00:00 and 03-10-2018 10:00:00`
+// end::orderfind[]
 
-=== Deleting a person : `delete`
+=== Deleting an order : `/order delete` `[Since v1.1]`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Deletes the specified order from the list of order. +
+Format: `/order delete INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Deletes an order at the specified `INDEX`.
+* Orders that are `Ongoing` cannot be deleted.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `/order list` +
+`/order delete 2` +
+Deletes the 2nd order in the list of orders.
+* `/order find n/tom` +
+`/order delete 1` +
+Deletes the 1st order in the results of the `find` command.
 
-=== Listing entered commands : `history`
+=== Selecting an order : `/order select` `[Since v1.1]`
+
+Selects the specified order from the list of order. +
+Format: `/order select INDEX`
+
+****
+* Select an order at the specified `INDEX`.
+* Renders a new view for the select order - use /home to return the original view
+****
+
+Examples:
+
+* `/order list` +
+`/order select 2` +
+Selects the 2nd order in the list of orders.
+* `/order find n/david` +
+`/order select 1` +
+Selects the 1st order in the results of the `find` command.
+
+=== Clearing all order entries : `/order clear` `[Since v1.1]`
+
+Clears all entries from the list of orders. +
+Format: `/order clear`
+
+****
+* If there is an order already assigned to a deliveryman, order list cannot be cleared.
+****
+
+// tag::deliverymanadd[]
+=== Adding a delivery man : `/deliveryman add` `[Since v1.2]`
+
+Allows you to add a delivery man to the list of delivery men +
+Format: `/deliveryman add n/NAME`
+
+Examples:
+
+* `/deliveryman add n/John Smith`
+// end::deliverymanadd[]
+
+// tag::deliverymanlist[]
+=== Listing all delivery men : `/deliveryman list` `[Since v1.2]`
+
+Lets you see the list of all delivery men in that were added for chronological order +
+Format: `/deliveryman list`
+// end::deliverymanlist[]
+
+=== Editing a delivery man : `/deliveryman edit` `[Coming in v2.0]`
+
+Edits an existing delivery man in the list of delivery men. +
+Format: `/deliveryman edit INDEX n/NAME`
+
+****
+* Edits the delivery man at the specified `INDEX`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When a parameter is specified, e.g. `n/`, empty fields are not allowed. A value must be specified.
+****
+
+Examples:
+
+* `/deliveryman list` +
+`/deliveryman edit 1 n/John Doe` +
+Edits the name of the 1st delivery man to be `John Doe`.
+
+// tag::deliverymanfind[]
+=== Finding delivery man by name : `/deliveryman find` `[Since v1.2]`
+
+Find delivery men whose name contain in the given parameter. +
+Format: `/deliveryman find n/NAME` +
+
+****
+* The search is case insensitive. e.g `tom` will match `Tom`
+* When more than one name field is given, it will only consider the last name field. e.g. `n/alex n/tom`, only `n/tom` will be considered
+* Partial match is allowed e.g. `tom` will match `tommy`
+****
+
+Examples:
+
+* `/deliveryman find n/John Smith` +
+Returns all delivery men with the names `John` e.g. `John Smith` and `John Doe`
+// end::deliverymanfind[]
+
+// tag::deliverymandelete[]
+=== Deleting a delivery man : `/deliveryman delete` `[Since v1.2]`
+
+Allows you to delete the specified delivery man from the list of delivery men +
+Format: `/deliveryman delete INDEX`
+
+****
+* Deletes a delivery man at the specified `INDEX`.
+* Deliveryman that already have orders assigned cannot be deleted.
+****
+
+Examples:
+
+* `/deliveryman list` +
+`/deliveryman delete 2` +
+Deletes the 2nd delivery man in the list of delivery men.
+* `/deliveryman find n/tom` +
+`/deliveryman delete 1` +
+Deletes the 1st delivery man in the results of the `find` command.
+// end::deliverymandelete[]
+
+// tag::deliverymanselect[]
+=== Selecting a deliveryman : `/deliveryman select` `[Since v1.4]`
+
+Allows you to select the specified deliveryman from the list of deliverymen. +
+Format: `/deliveryman select INDEX`
+
+****
+* Select an deliveryman at the specified `INDEX`.
+* Renders a new view for the selected deliveryman - use /home to return the original view
+****
+
+Examples:
+
+* `/deliveryman list` +
+`/deliveryman select 2` +
+Selects the 2nd deliveryman in the list of deliverymen.
+* `/deliveryman find n/david` +
+`/deliveryman select 1` +
+Selects the 1st deliveryman in the results of the `find` command.
+// end::deliverymanselect[]
+
+=== Clearing all delivery men entries : `/deliveryman clear` `[Coming in v2.0]`
+
+Allows you to clear all entries from the list of delivery men. +
+Format: `/deliveryman clear`
+
+// tag::assignfeature[]
+=== Assign orders to a delivery man : `/assign` `[Since v1.3]`
+
+Lets you assign multiple orders to a delivery man +
+Format: `/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX`
+
+****
+* Assigns orders at the specific `ORDER_INDEX` to the delivery man at the `DELIVERYMAN_INDEX`
+* There must be at least 1 order and 1 delivery man.
+* Add more than 1 orders by specifying more tags. e.g. `o/1 o/2 o/3`.
+* Orders that are `Ongoing` or `Completed` cannot be reassigned.
+* No more than 5 can be assigned to a deliveryman at one time.
+****
+
+Examples:
+
+* `/order list` +
+`/deliveryman list` +
+`/assign d/2 o/1 o/2` +
+Assigns order number 1 and 2 to delivery man number 2.
+
+Before the command is executed, the order status is `Pending` and the delivery man is available:
+
+.Before `/assign` command is executed
+image::assign-before.png[width="750"]
+
+After the command is executed, the order status changes to `Ongoing` and the delivery man has 2 assigned orders:
+
+.After `/assign` command is executed successfully
+image::assign-after.png[width="750"]
+
+// end::assignfeature[]
+
+// tag::orderdone[]
+=== Mark an order as completed : `/order done` `[Since v1.4]`
+
+Mark an order as completed.
+Format: `/order done ORDER_INDEX`
+
+****
+* Mark ORDER_INDEX as completed.
+* The index refers to the index number shown in the orders list.
+* The index *must be a positive integer* 1, 2, 3, ... and must be within the number of displayed orders.
+* There must be only 1 order index.
+* Only `ongoing` orders can be marked as completed.
+****
+
+Examples:
+
+* `/order list` +
+`/deliveryman list` +
+`/assign d/2 o/1` +
+`/order done 1`
+Mark order number 1 as completed.
+
+After you mark an order done:
+
+.Order status changed to Completed after the order is marked as done
+image::orderdone.png[width="350"]
+
+// end::orderdone[]
+
+=== Listing entered commands : `/history` `[Since v1.1]`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Format: `/history`
 
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+=== Exiting the program : `/exit` `[Since v1.1]`
 
 Exits the program. +
-Format: `exit`
+Format: `/exit`
+
+// tag::routecreatefeature[]
+=== Creating a new route: `/route create` `[Deprecated since v1.2.1]`
+
+Creates a route with a set of orders +
+Format: `/route create o/ORDER_ID`
+
+****
+* All fields need to have at least a value. e.g. `o/` is not allowed.
+* Able to add more than 1 orders by specifying more tags. e.g. `o/1 o/2 o/3`.
+****
+
+Examples:
+
+* `/route create o/1 o/3`
+// end::routecreatefeature[]
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+FoodZoom data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Viewing help : `/help` `(Deliveryman Command)` `[Coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `/help`
+
+=== Login to system : `/login` `(Deliveryman Command)` `[Coming in v2.0]`
+
+Format: `/login u/USERNAME pw/PASSWORD`
+
+Examples:
+
+* `/login u/deliveryman pw/password`
+
+=== Logout from system : `/logout` `(Deliveryman Command)` `[Coming in v2.0]`
+
+Format: `/logout`
+
+=== Listing assigned orders : `/order list` `(Deliveryman Command)` `[Coming in v2.0]`
+
+List details of assigned order/s +
+Format: `/order list`
+
+=== Exiting the program : `/exit` `(Deliveryman Command)` `[Coming in v2.0]`
+
+Exits the program. +
+Format: `/exit`
 
 == FAQ
 
@@ -242,19 +566,50 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Sign Up* : `/signup n/NAME u/USERNAME pw/PASSWORD` +
+e.g. `/signup n/John Doe u/johndoe pw/johndoepassword`
+* *Login* : `/login u/USERNAME pw/PASSWORD` +
+e.g. `/login u/manager pw/password`
+* *Logout* : `/logout`
+* *Return to Home* : `/home`
+* *Add order* : `/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME` +
+e.g. `/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665 dt/14-12-2018 10:18:00`
+* *Listing orders* : `/order list`
+* *Edit order* : `/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATETIME]` +
+e.g. `/order edit 2 n/James Lee`
+* *Find order* : `/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME] [st/ORDER_STATUS]` +
+e.g. `/order find n/James Jake`
+* *Delete order* : `/order delete INDEX` +
+e.g. `/order delete 3`
+* *Select order* : `/order select INDEX` +
+e.g. `/order select 3`
+* *Clear order* : `/order clear`
+* *Add delivery man* : `/deliveryman add n/NAME` +
+e.g. `/deliveryman add n/James Ho`
+* *Listing delivery men* : `/deliveryman list`
+* *Edit delivery man* (Coming in v2.0) : `/deliveryman edit INDEX n/NAME` +
+e.g. `/deliveryman edit 2 n/James Lee`
+* *Find delivery man* : `/deliveryman find n/NAME` +
+e.g. `/deliveryman find n/James Jake`
+* *Delete delivery man* : `/deliveryman delete INDEX` +
+e.g. `/deliveryman delete 3`
+* *Select delivery man* : `/deliveryman select INDEX` +
+e.g. `/deliveryman select 1`
+* *Clear delivery men* (Coming in v2.0) : `/deliveryman clear`
+* *Assign orders to a delivery man* : `/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX` +
+e.g. `/assign d/1 o/1 o/3`
+* *Mark an order as completed* : `/order done ORDER_INDEX` +
+e.g. `/order done 1`
+* *Help* : `/help`
+* *History* : `/history`
+* *Exit the program* : `/exit`
+* *Create a route* [DEPRECATED] : `/route create o/ORDER_INDEX` +
+e.g. `/route create o/1 o/3`
+
+* *Login (Deliveryman)* (Coming in v2.0) : `/login u/USERNAME pw/PASSWORD` +
+e.g. `/login u/deliveryman pw/password`
+* *Logout (Deliveryman)* (Coming in v2.0) : `/logout`
+* *View delivery route (Deliveryman)* (Coming in v2.0) : `/route list`
+* *View assigned orders (Deliveryman)* (Coming in v2.0) : `/order list`
+* *Help (Deliveryman)* (Coming in v2.0) : `/help`
+* *Exit the program (Deliveryman)* (Coming in v2.0) : `/exit`

@@ -1,0 +1,32 @@
+{
+  "ignoreGlobList": ["about-us/**", "**index.html"],
+  "ignoreCommitList": [],
+  "authors":
+  [
+    {
+      "githubId": "kohchihao",
+      "displayName": "Koh Chi Hao",
+      "authorNames": ["Marcus Koh"]
+    },
+    {
+      "githubId": "jinyingtan",
+      "displayName": "Tan Jin Ying",
+      "authorNames": ["Jin Ying"]
+    },
+    {
+      "githubId": "monmanuela",
+      "displayName": "Monika Manuela Hengki",
+      "authorNames": ["Monika", "Monika Manuela Hengki"]
+    },
+    {
+      "githubId": "juxd",
+      "displayName": "Julius Sander",
+      "authorNames": ["Julius S"]
+    },
+    {
+      "githubId": "rrtheonlyone",
+      "displayName": "Rahul Rajesh",
+      "authorNames": ["Rahul Rajesh"]
+    }
+  ]
+}

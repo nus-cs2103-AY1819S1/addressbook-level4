@@ -9,7 +9,9 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.ReadOnlyUsersList;
+import seedu.address.model.deliveryman.DeliverymenList;
 
 /**
  * Contains helper methods that system tests require.
@@ -17,20 +19,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
-
-    /**
-     * Sets up a new {@code TestApp} and returns it.
-     */
-    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, Path saveFileLocation) {
-        try {
-            FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
-        } catch (TimeoutException te) {
-            throw new AssertionError("Application takes too long to set up.", te);
-        }
-
-        return testApp;
-    }
 
     /**
      * Initializes TestFX.
@@ -42,6 +30,23 @@ public class SystemTestSetupHelper {
         } catch (TimeoutException e) {
             throw new AssertionError(e);
         }
+    }
+
+    /**
+     * Sets up a new {@code TestApp} and returns it.
+     */
+    public TestApp setupApplication(Supplier<ReadOnlyOrderBook> orderBook, Supplier<DeliverymenList> deliverymenList,
+                                    Supplier<ReadOnlyUsersList> usersList, Path saveFileLocation,
+                                    Path usersFileLocation) {
+        try {
+            FxToolkit.registerStage(Stage::new);
+            FxToolkit.setupApplication(() -> testApp = new TestApp(orderBook, deliverymenList, usersList,
+                saveFileLocation, usersFileLocation));
+        } catch (TimeoutException te) {
+            throw new AssertionError("Application takes too long to set up.", te);
+        }
+
+        return testApp;
     }
 
     /**

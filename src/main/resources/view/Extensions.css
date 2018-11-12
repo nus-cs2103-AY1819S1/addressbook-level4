@@ -18,3 +18,29 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+#orderListViewForCard {
+    -fx-background-color: transparent;
+}
+
+#orderListViewForCard .list-cell {
+    -fx-background-color: transparent;
+}
+
+#orderListViewForCard .list-cell:filled:even {
+    -fx-background-color: #e5ffde;
+}
+
+#orderListViewForCard .list-cell:filled:odd {
+    -fx-background-color: derive(#e5ffde, 30%);
+}
+
+#orderListViewForCard .label {
+    -fx-text-fill: #363636;
+}
+
+#orderListViewForCard #address {
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+

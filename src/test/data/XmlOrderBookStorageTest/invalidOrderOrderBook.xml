@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<orderbook>
+    <!-- Order with invalid name field -->
+    <orders>
+        <name>Ha!ns Mu@ster</name>
+        <phone isPrivate="false">9482424</phone>
+        <address isPrivate="false">4th street, 612234</address>
+        <date>01-10-2018 10:00:00</date>
+        <status>PENDING</status>
+        <food>milo</food>
+    </orders>
+</orderbook>

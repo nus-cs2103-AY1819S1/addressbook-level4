@@ -3,7 +3,8 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalDeliverymen.getTypicalDeliverymenList;
+import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,27 +15,30 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.FoodZoomChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.OrderBook;
+import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.ReadOnlyUsersList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.deliveryman.DeliverymenList;
+import seedu.address.storage.user.XmlUsersListStorage;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
 
     @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
-    @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
-
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
     private StorageManager storageManager;
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        XmlUsersListStorage usersListStorage = new XmlUsersListStorage(getTempFilePath("users"));
+        XmlFoodZoomStorage foodZoomStorage = new XmlFoodZoomStorage(getTempFilePath("foodzoom"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(usersListStorage, foodZoomStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -57,47 +61,65 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void foodZoomReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         * {@link XmlFoodZoomStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlFoodZoomStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        OrderBook original = getTypicalOrderBook();
+        DeliverymenList deliverymenList = getTypicalDeliverymenList();
+        storageManager.saveFoodZoom(original, deliverymenList);
+        ReadOnlyOrderBook ordersRetrieved = storageManager.readOrderBook().get();
+        assertEquals(original, new OrderBook(ordersRetrieved));
+        DeliverymenList dmenRetrieved = storageManager.readDeliverymenList().get();
+        assertEquals(deliverymenList, new DeliverymenList(dmenRetrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getFoodZoomFilePath() {
+        assertNotNull(storageManager.getFoodZoomFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleOrderBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
-                                             new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        Storage storage = new StorageManager(new XmlUsersListStorageExceptionThrowingStub(Paths.get("dummy")),
+                new XmlFoodZoomStorageExceptionThrowingStub(Paths.get("dummy2")),
+                new JsonUserPrefsStorage(Paths.get("dummy")));
+        storage.handleFoodZoomChangedEvent(new FoodZoomChangedEvent(new OrderBook(), new DeliverymenList()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
-
 
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
+    class XmlFoodZoomStorageExceptionThrowingStub extends XmlFoodZoomStorage {
 
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
+        public XmlFoodZoomStorageExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveFoodZoom(ReadOnlyOrderBook orderBook, DeliverymenList deliverymenList, Path filePath) throws
+                IOException {
             throw new IOException("dummy exception");
         }
     }
 
+    /**
+     * A Stub class to throw an exception when the save method is called
+     */
+    class XmlUsersListStorageExceptionThrowingStub extends XmlUsersListStorage {
+
+        public XmlUsersListStorageExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveUsersList(ReadOnlyUsersList usersList, Path filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+    }
 
 }

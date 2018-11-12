@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routelist>
+    <routes tag="9e1c61c1-5cae-40bf-95b5-8fb5265805c3">
+        <source>12 Clementi Rd</source>
+        <orders tag="ec11e415-4794-44c2-9d29-861d359d8b76">
+            <name>Carl Kurz</name>
+            <phone>95352563</phone>
+            <address>wall street</address>
+            <date>01-10-2018 10:00:00</date>
+            <food>Milkshake</food>
+        </orders>
+    </routes>
+
+    <!-- Route with same source and destination -->
+    <routes tag="9e1c61c1-5cae-40bf-95b5-8fb5263805c3">
+        <source>12 Clementi Rd</source>
+        <orders tag="ec11e415-4794-44c2-9d29-861d359d8b76">
+            <name>Carl Kurz</name>
+            <phone>95352563</phone>
+            <address>wall street</address>
+            <date>01-10-2018 10:00:00</date>
+            <food>Milkshake</food>
+        </orders>
+    </routes>
+
+</routelist>

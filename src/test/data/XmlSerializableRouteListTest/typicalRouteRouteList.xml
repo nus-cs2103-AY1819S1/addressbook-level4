@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Routelist save file which contains the same Route values as in TypicalRoutes#getTypicalRouteList() -->
+<routelist>
+    <routes tag="92c54d56-e971-407a-81e7-5df71c3c82fc">
+        <source>12 Clementi Rd</source>
+        <orders tag="92c54d56-e971-407a-81e7-5df71c3c82fc">
+            <name>Alice Pauline</name>
+            <phone>94351253</phone>
+            <address>123, Jurong West Ave 6, #08-111</address>
+            <date>01-10-2018 10:00:00</date>
+            <food>Roti Prata</food>
+        </orders>
+        <orders tag="e328789f-c707-49a9-8147-d93e213fb1d7">
+            <name>Benson Meier</name>
+            <phone>98765432</phone>
+            <address>311, Clementi Ave 2, #02-25</address>
+            <date>02-10-2018 10:00:00</date>
+            <food>Egg Fried Rice</food>
+            <food>Milo</food>
+        </orders>
+    </routes>
+    <routes tag="6c974f14-e5f5-4652-ba14-4df75e259b25">
+        <source>12 Clementi Rd</source>
+        <orders tag="6c974f14-e5f5-4652-ba14-4df75e259b25">
+            <name>Carl Kurz</name>
+            <phone>95352563</phone>
+            <address>wall street</address>
+            <date>03-10-2018 10:00:00</date>
+            <food>Milkshake</food>
+        </orders>
+    </routes>
+    <routes tag="ec11e415-4794-44c2-9d29-861d359d8b76">
+        <source>12 Clementi Rd</source>
+        <orders tag="ec11e415-4794-44c2-9d29-861d359d8b76">
+            <name>Daniel Meier</name>
+            <phone>87652533</phone>
+            <address>10th street</address>
+            <date>04-10-2018 10:00:00</date>
+            <food>Fish and Chips</food>
+        </orders>
+    </routes>
+</routelist>

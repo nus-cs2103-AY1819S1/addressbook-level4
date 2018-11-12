@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<orderbook>
+    <!-- Valid Order -->
+    <orders tag="03b326f4-4000-4c71-a200-975b93b8d066">
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <address isPrivate="false">4th street, 612234</address>
+        <date>01-10-2018 10:00:00</date>
+        <status>PENDING</status>
+        <food>milo</food>
+    </orders>
+    <!-- Person with invalid phone field -->
+    <orders tag="27bef72a-03b2-46d9-94d7-b8a0d359ec6e">
+        <name>Hans Muster</name>
+        <phone isPrivate="false">948asdf2424</phone>
+        <address isPrivate="false">4th street</address>
+        <date>01-10-2018 10:00:00</date>
+        <status>PENDING</status>
+        <food>milo</food>
+    </orders>
+</orderbook>

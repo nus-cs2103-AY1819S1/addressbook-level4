@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="namePrintOut" alignment="CENTER" text="\$first" textAlignment="CENTER" />
+
+       <Label fx:id="statusOP" text="Current Status:" />
+
+       <VBox fx:id="deliverymanStatusOPWrapper">
+        <Label fx:id="deliverymanStatusPrintOut" text="Available" />
+       </VBox>
+
+       <Label fx:id="orderAssignedOP" text="Orders Assigned:" />
+
+      <ScrollPane>
+         <content>
+            <VBox fx:id="orderListDisplay" prefHeight="200.0" prefWidth="100.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

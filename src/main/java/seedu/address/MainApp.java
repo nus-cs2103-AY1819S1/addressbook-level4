@@ -20,18 +20,23 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.OrderBook;
+import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.ReadOnlyUsersList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UsersList;
+import seedu.address.model.deliveryman.DeliverymenList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.FoodZoomStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlFoodZoomStorage;
+import seedu.address.storage.user.UsersListStorage;
+import seedu.address.storage.user.XmlUsersListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -51,10 +56,13 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing OrderBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -62,8 +70,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        FoodZoomStorage foodZoomStorage = new XmlFoodZoomStorage(userPrefs.getFoodZoomFilePath());
+        UsersListStorage usersListStorage = new XmlUsersListStorage(userPrefs.getUsersListFilePath());
+        storage = new StorageManager(usersListStorage, foodZoomStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -77,28 +86,61 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s order book and {@code userPrefs}. <br>
+     * The data from the sample order book will be used instead if {@code storage}'s order book is not found,
+     * or an empty order book will be used instead if errors occur when reading {@code storage}'s order book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyOrderBook> orderBookOptional;
+        ReadOnlyOrderBook initialData;
+        Optional<ReadOnlyUsersList> usersListOptional;
+        ReadOnlyUsersList initialUser;
+        Optional<DeliverymenList> deliverymenListOptional;
+        DeliverymenList initialDeliverymenData;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            orderBookOptional = storage.readOrderBook();
+            if (!orderBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample OrderBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
+            initialData = new OrderBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
+            initialData = new OrderBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            usersListOptional = storage.readUsersList();
+            if (!usersListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample UsersList");
+            }
+            initialUser = usersListOptional.orElseGet(SampleDataUtil::getSampleUsersList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty UsersList");
+            initialUser = new UsersList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty UsersList");
+            initialUser = new UsersList();
+        }
+
+        try {
+            deliverymenListOptional = storage.readDeliverymenList();
+            if (!deliverymenListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample DeliverymenList");
+            }
+            initialDeliverymenData = deliverymenListOptional.orElseGet(SampleDataUtil::getSampleDeliverymenList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DeliverymenList");
+            initialDeliverymenData = new DeliverymenList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DeliverymenList");
+            initialDeliverymenData = new DeliverymenList();
+        }
+
+        return new ModelManager(initialData, initialUser, initialDeliverymenData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -159,7 +201,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
             initializedPrefs = new UserPrefs();
         }
 
@@ -179,7 +221,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting OrderBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
@@ -200,9 +242,5 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         stop();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

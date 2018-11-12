@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deliverymenlist>
+    <!-- Person with invalid name field -->
+    <deliverymen>
+        <name>Ha!ns Mu@ster</name>
+    </deliverymen>
+</deliverymenlist>

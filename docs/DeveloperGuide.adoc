@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= FoodZoom - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T16-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-3`      Since: `Oct 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -47,10 +47,6 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -105,7 +101,6 @@ When you are ready to start coding,
 
 == Design
 
-[[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
@@ -146,33 +141,33 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `/order delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `/order delete 1` command (part 1)
+image::SDforDeleteOrder.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `OrderBookChangedEvent` when the Order Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+.Component interactions for `/order delete 1` command (part 2)
+image::SDforDeleteOrderEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
 
-[[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram1.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `OrderListPanel`,
+`StatusBarFooter`, `Dashboard` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -182,7 +177,6 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
-[[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -192,17 +186,17 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `OrderBookParser` class to parse the user command.
+.  `OrderBookParser` further creates either a `OrderCommandParser` or `DeliverymanCommandParser` to parse order or deliveryman command respectively. Other commands that is neither order or deliveryman skip this creation of the extra Parser.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding an order) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("/order delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `/order delete 1` Command
+image::DeleteOrderSdForLogic.png[width="800"]
 
-[[Design-Model]]
 === Model component
 
 .Structure of the Model Component
@@ -213,17 +207,21 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Order data.
+* stores the Users data.
+* stores the Deliveryman data.
+* stores a `UserSession` object that represents the user's login session.
+* exposes an unmodifiable `ObservableList<Order>` that can be 'observed' e.g. the UI can be bound to this list so that
+the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Deliveryman>` that can be 'observed' e.g. the UI can be bound to this list so
+that
+the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
-
-[[Design-Storage]]
+// tag::storagecomponent[]
 === Storage component
+
+The following diagram shows how the Storage component is structured.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -233,9 +231,37 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the FoodZoom data in xml format and read it back.
+** FoodZoom allows deliverymen and users to be stored separately to prevent
+duplication of data while retaining object associations.
+* can save the Users' data in xml format and read it back.
 
-[[Design-Commons]]
+The following diagram depicts the sequence diagram of how `StorageManager` saves changes every time a change is made
+in FoodZoom.
+
+.Interactions inside the Storage component for whenever `ModelManager.saveFoodZoom(orderBook, deliverymenList)` is called.
+image::StorageSequenceDiagram.png[width="800"]
+
+==== Design considerations
+
+===== Aspect: Implementation of file storage structure for FoodZoom
+This concerns the implementation of how application data is stored in a reloadable file.
+
+* **Alternative 1**: Use two separate files for the storage of FoodZoom data
+** Pros:
+*** This solution presents a better separation of concerns between deliverymen and orders. This means that corruption of one
+file would not affect the other.
+** Cons:
+*** It is more difficult to manage JXML marshalling from two separate files.
+
+* **Alternative 2 (current choice):** Use a single file to the storage of `deliverymen` and `orders`
+** Pros:
+*** Coupling of `deliverymen` and `orders` allows more cohesion, as information like `id` for a deliveryman's orders would
+be unusable without knowing the orders.
+** Cons:
+*** Corruption of one file would mean corruption of all application data.
+// end::storagecomponent[]
+
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
@@ -244,92 +270,552 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::loginfeature[]
+=== Login Command
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The `/login` command allows the `Manager` to login into the FoodZoom application and use authenticated commands like
+`/order add`, `/order edit`, `/order list`, ... .Basically all the `/order` commands and `/deliveryman` commands. The
+only commands that can be used without logging in are `/signup`, `/login`, `/help` and `/history`. The format of this
+ command is `/login u/[USERNAME] pw/[PASSWORD]`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+In our current implementation, the `/login` command inherits from `Command` class. 2 components, `Logic` and `Model`
+are involved in the execution of this command. The `Logic` class is responsible for parsing the user input and the
+`Model` class deals with storing the `UserSession` and checking if the user is logged in or not.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Below is a sequence diagram that illustrates how these 2 components interact when the `/login` command is executed:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+image::LoginCommandSequenceDiagram1.png[width="800"]
+Figure 3.1.1.1 Sequence diagram to illustrate `Logic` component interactions for `/login`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+image::LoginCommandSequenceDiagram2.png[width="800"]
+Figure 3.1.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for `/login`.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+As shown above, execution of the `/login` command comprises of the following steps:
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
+1. `LogicManager` invokes the `parseCommand` method of `OrderBookParser`, taking in user inputs as arguments.
+2. During the `parseCommand` method call, an instance of `LoginCommandParser` will be created with the keyword
+`/login` is matched. `LoginCommandParser` then extracts the remaining user inputs and a `LoginCommand` instance will
+be returned provided that the user's input is correct.
+3. `LoginCommand` then invokes `isRegisteredUser` method which belongs to `ModelManager` class. The `ModelManager`
+will the invoke `IsRegisteredUser` method in `UsersList` to check if the user is in the list of users.
+4. After checking if the user is in the list, if it returns `true` then `storeUserInSession` method will be invoked
+to store the `User` object inside `UserSession`. The `execute` method will then return a `CommandResult` with success
+ login message.
+5. If the user is not in the list, `execute` method will just return a `CommandResult` with failure to login message.
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How `/login` executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Check if user is in users list.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Not necessary to implement users list because there will only be 1 user.
 
-===== Aspect: Data structure to support the undo/redo commands
+* **Alternative 2:** Automatic login even after application is opened more than once.
+** Pros: User do not need to login multiple times after application is re-opened.
+** Cons: Difficult to implement because it requires caching user details locally.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+===== Aspect: Data Structure to support `/login` command
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+* **Alternative 1 (current choice):** Create a unique user list to store all the user and create a `users.xml` to
+store locally.
+** Pros: Easy to implement and you can make sure that there is only unique users.
+** Cons: Not necessary because there would only be 1 user using the application.
 
-_{Explain here how the data encryption feature will be implemented}_
+* **Alternative 2:** Store user session inside `User` class
+** Pros: Easy to handle login session.
+** Cons: Would break the SRP (Single Responsibility Principle) because `User` class should only be about the user and
+ nothing to do with login at all.
 
-// end::dataencryption[]
+===== Aspect: Checking if user is logged in
+
+* **Alternative 1 (current choice):** Check if user is logged in after command is parsed
+** Pros: It is easy to implement and it doesn't violate the SRP because it wouldn't make sense to check if the user
+is logged in inside a method that is supposed to be parsing the user input.
+** Cons: User is able to type authenticated commands like `/order add` and receive a parse exception which is the
+incorrect behavior.
+
+* **Alternative 2:** Check if user is logged in before command is parsed
+** Pros: It is easy to implement.
+** Cons: It breaks the SRP because `parseCommand` method should only be used to parse commands and not check for user
+ logged in status.
+// end::loginfeature[]
+
+// tag::dashboard[]
+=== Dashboard
+
+==== Current Implementation
+
+The dashboard for this application is the main screen that the user first sees when he or
+she logs into the application. It looks like this:
+
+image::Ui.png[width="400"]
+Figure 3.2.1.1 Main Screen showing the dashboard with the Map and Statistics Panel
+
+The 2 main components in the dashboard are the:
+
+..   Map showing location of pending orders
+..   Statistics Panel giving insights for the data
+
+Before delving into the details for these specific components, it is
+important to consider some of the implementation details that are common to both.
+
+The dashboard dynamically updates itself when the order list has been changed. For example,
+if `/order find n/john` is executed, the dashboard will also show orders that are specific
+to john.
+
+This is done by using the observer pattern. A higher-level component, `Display.java` listens for
+changes and renders the user interface for the dashboard screen. This component attaches
+a listener to the Observable List of Orders. The following activity diagram summarize
+what happens inside the `Display` Component when a user executes a new command:
+
+image::UIListenerActivityDiagram.png[width="500"]
+Figure 3.2.1.1 Activity Diagram showing what happens inside the `Display` component when a user
+executes a command
+
+The code snippet for the listener being attached is shown below:
+
+```
+this.orderList.addListener((ListChangeListener.Change<? extends Order> change) -> {
+    while (change.next()) {
+        if (change.wasUpdated()) {
+            // handle order list being updated
+            ....
+        } else {
+            // handle removal or addition to order list
+            ....
+        }
+    }
+});
+```
+
+Through this, the `Display` component is able to control the flow of the dashboard. It is responsible for
+rendering the Map and Statistics components along with passing in the data that
+they need. The data to be passed in has to be processed into a specific format so that
+they can be easily rendered. The next two subsections in 3.2 would elaborate on how this
+data processing is done.
+
+==== Map Component
+
+The Map shows the locations of the pending orders.
+
+image::MapPanel.png[width="400"]
+Figure 3.2.2.1 A closer look at the Map on the dashboard.
+
+The functionality that the map provides is as follows:
+
+.. It works offline and does not require internet. There is no reliance on any external service
+like Google Maps
+.. Placeholders are rendered based on the location of Order given
+.. The size of the placeholder is indicative of the number of orders in a specific area.
+
+In order to work offline, the map makes use of the postal code that is given
+with the order address to give a *reasonable* approximation of its location in Singapore.
+The reason this can be done is because the first 2 digits of a Singapore postal code
+refers to a specific district in Singapore. The demarcation diagram is show below:
+
+image::SingaporeDemarcation.png[width="500"]
+Figure 3.2.1.2 Diagram to illustrate how the regions are split up in Singapore. Each of the
+regions above corresponds to a specifc postal code tag
+
+For example, if the first 2 digits of the given postal code is "61", the
+Order falls under district 22 (with reference to the image above). If the first 2 digits are
+"47", the location is district 16.
+
+Based on this information in order to create an offline map, the components/data structures
+used are as follows:
+
+**An image of a Map that lies on a grid (JavaFx `GridPane`)**
+
+This is the component that displays on the dashboard. This component creates and
+updates the placeholders on the map based on the information that it is provided. The component
+has no knowledge of changes to the list of orders. Instead, it exposes 2 methods, `initialise`
+and `clear` that is used by the higher-order component to update the placeholders.
+// end::dashboard[]
+
+The code snippet for the initialisation of the placeholders is shown below. Further details on
+the data passed in is given below.
+```
+public void initialise(HashMap<String, Integer> orderMap) {
+    // for each postal code
+    for (String postalCodeKey : orderMap.keySet()) {
+
+        if (POSTAL_CODE_CACHE.containsKey(postalCodeKey)) {
+
+            int regionCode = POSTAL_CODE_CACHE.get(postalCodeKey);
+            Integer[] coordinates = DISTRICT_CACHE.get(regionCode);
+
+            placeholderContainer = new ImageView(placeholder);
+
+            int count = orderMap.get(postalCodeKey);
+            int increment = 16 + count * 2;
+
+            placeholderContainer.setPreserveRatio(true);
+            placeholderContainer.setFitHeight(increment);
+            placeholderContainer.setFitWidth(increment);
+
+            mapPane.add(placeholderContainer, coordinates[1], coordinates[0]);
+        }
+    }
+}
+```
+// tag::dashboard2[]
+**A Hashtable (Java `HashMap`) that maps the first two digits of the postal
+code to a specific coordinate on the grid**
+
+As mentioned above, the map is an image that lies on a grid. The placeholders are
+put onto a specific coordinate specified on the grid. The Map component is thus given
+a Hash Table of how many orders fall under a specific postal code region. An example data that it
+could be given is shown below:
+
+[width="59%",cols="",options="header",]
+|=======================================================================
+|Postal Code Region |Count
+| 61                | 5
+| 16                | 1
+| 32                | 2
+|=======================================================================
+
+Using this information, the `MapPanel` uses another lookup table to find out
+which coordinate the placeholder should be put inside. For example, postal code 61, is
+to be put inside grid {row: 6, column: 2}. The size of the placeholder is determined
+by the `count` of orders that fall within a specific region.
+
+The job of the `Display` component is to process the list of Orders into the format shown
+in the table above. It then calls specific method on the `MapPanel` component to allow
+for placeholders to be shown on the map. This is how the map is able to show locations
+of orders without relying on any internet connection.
+
+
+==== Statistics Panel
+
+Another aspect for the dashboard is the statistics panel.
+
+image::StatisticsPanel.png[width="250"]
+Figure 3.2.3.1 A closer look at the statistics panel in the dashboard
+
+The statistics panel has four key indicators:
+
+.. The total number of orders displayed
+.. The percentage of orders that are still pending
+.. The most common food item bought
+.. The Order History for the last 7 days in which there was at least one order
+
+Similar to the `MapPanel`, there is a `StatisticsPanel` which updates these statistics based
+on the information that it is provided from a higher-level component. It has similar methods
+to the `MapPanel` that allow data to be initialized and cleared.
+
+The data that is passed in to the `StatisticsPanel` along with the techniques employed to
+process the data is further elaborated on in the table below:
+
+[width="90%",cols="",options="header",]
+|=======================================================================
+|Statistic                    |Data Structure  | Technique
+| Total Orders                | Variable       | Count the orders in the list
+| Pending Order Percentage    | Variable       | Count orders with status "PENDING" and divide with total orders
+| Trending Food Item          | HashTable      | Use a lookup table to track the count of each food item in menu.
+Each time there is an update ot the orders, run through the table and see which food item has the largest count value.
+| Order Histogram             | Balanced Binary Search Tree (Java `TreeMap`)  | The dates from the Orders are put
+into a binary search tree along with their count. The tree uses a custom comparator that allows for dates to be
+compared with each other. This allows the 7 most recent dates with at least one order to be retrieved quickly. The
+tree is updated accordingly when orders are added or removed.
+|=======================================================================
+// end::dashboard2[]
+
+// tag::dashboard3[]
+==== Design Considerations (for both Map/Statistics)
+
+===== Aspect: Processing of data
+* **Alternative 1 (Current Approach):** Let the UI component handle the
+processing of data once the listener detects a change
+** Pros:
+- Separation of Concerns: the UI need not rely on other components to
+update the statistics once a change has been detected.
+** Cons:
+- There is a lot of code within the UI component itself and this solution
+is not very scalable. If more statistics are needed in the future, it will
+be difficult to configure.
+
+* **Alternative 2 :** Create a Statistics Manager under Model
+
+Instead of doing all the processing of data in the UI component itself,
+one consideration was to use a statistics manager. This
+manager will take in the list of orders and return the required statistics needed.
+
+** Pros:
+- This solution is more scalable. By having a separate class dedicated to managing the
+statistics of orders, it is easier to add in much more
+complex statistics for the application in future.
+** Cons:
+- There is more coupling. The UI has to constantly check with the
+statistics manager once a change to the observable list is detected.
+- The code becomes much more complex. There also may be a need to re-look at
+how the entire listener pattern is established.
+
+
+===== Aspect: Gathering Location Data
+* **Alternative 1 (Current Approach):** Use a cache to map points based
+on the first 2 digits of postal code
+** Pros:
+- The application would work offline.
+- There is no reliance on an external API service for the application to
+function. If the API service fails to function at any point of time, the
+map may not work anymore.
+** Cons:
+- There are inaccuracies in the data that is displayed on the map. It is also
+not very precise. e.g. You cannot zoom into the map and locate where
+exactly the orders are.
+
+* **Alternative 2 :** Make use of an external API service like Google
+Maps to render the location placeholders on the map
+
+** Pros:
+- The location data would be much more accurate and precise. Locations
+can be mapped exactly as they are. Relying on a powerful service could
+mean that this map feature can even be extended to work globally (not
+just Singapore).
+** Cons:
+- As mentioned above, there will now be a reliance on this service for this
+application to work. This would also introduce more overhead to the code e.g
+there is now a need to check for internet connection and render loaders so
+that the user experience is not affected.
+// end::dashboard3[]
+
+// tag::orderAdd[]
+=== Add Order Feature
+
+==== Current Implementation
+The `add` order command allows the `Manager` to create a new order and add it to the list of orders.
+Adding a new order requires the customer's `name`, customer's `phone` number, customer's `address`, `food` and the `datetime`. +
+The format of the `add` command is `/order add n/NAME p/PHONE a/ADDRESS f/FOOD dt/DATETIME`.
+
+The following sequence shows the sequence when the `add` command is execute by the `Manager`:
+
+image::OrderAddSequenceDiagram.png[width="650"]
+Figure 3.3.1.1 Sequence Diagram for order `find` command
+
+From the diagram above:
+
+.  `LogicManager`'s execute is called when the `Manager` keys in `/order add` and it calls upon `parseCommand` of `OrderBookParser` to parse the command
+.  `OrderBookParser` will initialize `OrderCommandParser` and invoke the method `parse` to further parse `order` command
+.  `AddCommandParser` will be invoked and passed the parameters of the add command.
+.  If all the arguments of the `add` commands are valid, `AddCommand` will be returned to the `LogicManager`
+.  `LogicManger` will then calls the method `execute` method of `AddCommand`
+.  `AddCommand` will call `addOrder` passing `Order` as an argument to `Model` and after calls `commitOrderBook` method from `Model`
+.  A `CommandResult` will be returned at the end,
+
+==== Design Consideration
+===== Aspect: Data Structure for the list of Orders
+* **Alternative 1 (Current Approach):** Using a `UniqueOrderList`
+** Pros: The comparison is not as rigid. You can create orders with similar names/address as long as it passes a less stringent criteria.
+** Cons: You need additional overhead. You need to create an extra class and function to check.
+
+* **Alternative 2:** Using a `Set`
+** Pros: Do not need an extra function. You can use use `equals` for comparison
+** Cons: It is a strict check and as a result you will not be allowed to create orders with same address/same name etc.
+
+===== Aspect: Data Structure of `Order`
+* **Alternative 1 (Current Approach):** All parameters in `Order` are abstracted out to have a class of its own.
+** Pros: It adheres to the Single Responsibility Principles (SRP) and the Separation of Concerns (SoC) as each parameter checks whether it is valid
+** Cons: Many different classes are created which increases the complexity of the code
+
+* **Alternative 2:** Store all parameters of `Order` as `String`
+** Pros: Easy to implement.
+** Cons: Violates SRP as one single class will need to check if the arguments are valid.
+// end::orderAdd[]
+
+// tag::orderfindfeature[]
+=== Find Order Feature
+
+==== Current Implementation
+The order `find` command allows searching of orders in FoodZoom. It allows searching for orders with any order fields.
+
+The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enter a `find` command:
+
+image::OrderFindSequenceDiagram.png[width="650"]
+Figure 3.4.1.1 Sequence Diagram for order `find` command
+
+From the sequence diagram:
+
+.  When `LogicManager` receive the `execute` command, it calls the `parseCommand` method in `OrderBookParser`.
+.  `OrderBookParser` will receive `/order` as the command and instantiate `OrderCommandParser` to further parse the command.
+.  `OrderCommandParser` receive `find` as the command and calls `FindCommandParser` to handle the fields for the find command.
+.  If at least one field is provided, `FindCommandParser` will call `parsePredicate` of `OrderPredicateUtil` to handle the given fields.
+.  `OrderPredicateUtil` will call its own `chainPredicate` to create the predicate for the relevant fields.
+.  If all fields give are valid, `FindCommand` will be created and return back to `LogicManager`.
+.  `LogicManager` will proceed to call execute of `FindCommand`.
+.  `FindCommand` will update the list in the `Model` and create a new `CommandResult` to be returned.
+
+The differentiation is handled by `OrderPredicateUtil` which checks for the fields provided. It throws `ParseException` if a invalid order field is specified or when any field is given without any value.
+
+`OrderPredicateUtil` will chain up the different fields and return a `Predicate<Order>` to narrow the scope
+of the search.
+
+`Datetime` search can be performed in two ways. Below is a sequence diagram to show flow of how `datetime` search:
+
+image::OrderDatePredicate.png[width="650"]
+Figure 3.4.1.2 Sequence Diagram for `datetime` search
+
+* If one `datetime` field is given, `OrderDatePredicate` creates a `OrderDateSinglePredicate` object and run its' `test` method.
+
+* If more than one `datetime` field is given, `OrderDatePredicate` creates a `OrderDateRangePredicate` object and run its' `test` method.
+
+==== Design Consideration
+
+===== Aspect: Implementation of `FindCommand`
+* **Alternative 1 (current choice):** All different order field having its own test method.
+** Pros: It adheres to the Single Responsibility Principle (SRP) and the Separation of Concern (SoC). Each predicate handles its own search values.
+** Cons: More classes will be needed, which results in higher complexity of the code base.
+* **Alternative 2:** One predicate class to handle all the predicates.
+** Pros: Reduces the number of classes, which makes it for new developers to understand.
+** Cons: It decreases the cohesion as one class will need to handle different predicates.
+
+===== Aspect: Implementation of `FindCommandParser`
+* **Alternative 1 (current choice):** Further parsing of the predicates are passed to `OrderPredicateUtil` to handle
+** Pros: It adheres to SRP as the handling of the predicates are passed on to `OrderPredicateUtil` class.
+** Cons: Increase in the complexity of the code as more classes are needed, with more lines of code being written
+* **Alternative 2:** `FindCommandParser` to handles the predicates.
+** Pros: It makes it easy for new developers to understand the code as `FindCommandParser` handles all the parsing of the predicates
+** Cons: It violates SRP. `FindCommandParser` has to break down the fields as well as check which fields are present.
+// end::orderfindfeature[]
+
+// tag::deliverymanaddfeature[]
+=== Add deliveryman feature
+
+==== Current Implementation
+
+The `add` deliveryman command allows the Manager to add deliveryman into FoodZoom. It ensures that the newly-added deliveryman
+is not a duplicate of an existing deliveryman.
+
+The following diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `/deliveryman add`
+command:
+
+image::DeliverymanAddCommandSequenceDiagram.png[width="650"]
+Figure 3.5.1.1 Sequence Diagram for deliveryman `add` command
+
+From Figure 3.5.1.1:
+
+1. When `LogicManager` receives the `execute` command from the App, it calls the `parseCommand` method in `OrderBookParser`.
+
+2. `OrderBookParser` will receive `/deliveryman` as the command and instantiate `DeliverymanCommandParser` to parse the rest of the command.
+
+3. If the arguments specified in the `add` command are valid, a `DeliverymanAddCommand` would be created and returned back
+to the `LogicManager`.
+
+4. `LogicManager` would proceed to call `execute` of the `DeliverymanAddCommand`.
+
+5. A new deliveryman would be added and a successful `CommandResult` would be returned and displayed.
+
+FoodZoom's deliveryman is only stored with names currently, and can be search and listed
+only with names.
+
+These names are checked against validations with the `Name` model, and this is a compulsory
+field for a deliveryman to be added. If the provided command either does not have a name, or is an invalid `Name`,
+a `ParseException` would be thrown.
+
+==== Design Considerations
+
+===== Implementation of `DeliverymanAddCommandParser`
+This concerns the implementation and organization of a `DeliverymanAddCommand`
+
+* ** Alternative 1 (current choice):** `DeliverymanCommand` is parsed first, then as a `DeliverymanAddCommand`.
+** Pros: Better modularization for all commands relating to `Deliveryman`
+** Cons: More complicated file & package organization
+
+* ** Alternative 2: ** `DeliverymanAddCommand` is parsed straight from `OrderBookParser`
+** Pros: Easier to manage file structure
+** Cons: Poor modularization of related `Command` classes.
+
+===== Implementation of `DeliverymanAddCommand`
+This concerns how deliverymen data is stored with relation to orders.
+
+* **Alternative 1 (current choice):** Deliverymen are stored in separate file
+** Pros: Allows for greater flexibility in how deliverymen interact with other resources like order/routes - better separation of concerns.
+** Cons: Harder to implement & maintain
+
+* **Alternative 2:** Deliverymen are stored in the same file as `Order`
+** Pros: Easier to implement & maintain
+** Cons: Deliveryman can only be accessed & treated as parts of an `Order`
+// end::deliverymanaddfeature[]
+
+// tag::route[]
+=== Create Route Feature [deprecated since v1.2.1]
+This feature is deprecated as there was a design change regarding the relationship between delivery man and order.
+Previously, route was the middleman between delivery men and orders. Now, delivery men and orders are directly related.
+Route is removed as its existence will complicate implementations of other features without adding much benefit.
+
+==== Current Implementation
+The `create` route command allows creation of routes in FoodZoom.
+It allows creating routes based on the order ids.
+
+The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enter a `/route create` command:
+
+image::CreateRouteCommandSequenceDiagram1.png[width=800]
+Figure 3.6.1.1 Sequence diagram to illustrate `Logic` component interactions for route `create` command.
+
+image::CreateRouteCommandSequenceDiagram2.png[width=800]
+Figure 3.6.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for route `create` command.
+
+From the sequence diagram:
+
+.  When `LogicManager` receive the `execute` command, it calls the `parseCommand` method in `OrderBookParser`.
+.  `OrderBookParser` will receive `/route` as the command and instantiate `RouteCommandParser` to further parse the command.
+.  If the arguments specified in the `create` command are valid, a `CreateRouteCommand` will be created and return back to the `LogicManger`
+.  `LogicManager` will proceed to call the `execute` command of `CreateRouteCommand`
+.  `CreateRouteCommand` will proceed to call the `getFilteredOrderList` method of `Model`
+.  Iterate through the `orderIds`, if valid, add the `Index` and the corresponding `Order` to the set of `Index` and `Order` respectively.
+.  Create a `Route` from the set of `Order`
+.  A new route would be added and create a new `CommandResult` to be returned.
+
+==== Design Consideration
+
+===== Aspect: Implementation of `CreateRouteCommandParser`
+* **Alternative 1 (current choice):** `RouteCommandParser` is parsed first, then pass to `CreateRouteCommandParser`
+** Pros: Better modularization for `Route` commands, better cohesion, adheres to the Single Responsibility Principle.
+** Cons: More complicated file & package structure.
+* **Alternative 2:** `CreateRouteCommand` is parsed straight from `OrderBookParser`.
+** Pros: Easier to manage the file structure.
+** Cons: Poor modularization of the `Command` classes.
+// end::route[]
+
+// tag::assign[]
+=== Assign feature
+==== Current Implementation
+The `/assign` command allows assigning of multiple orders to a delivery man in FoodZoom.
+
+The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enter a `/assign` command:
+
+image::AssignCommandSequenceDiagram1.png[width=800]
+Figure 3.7.1.1 Sequence diagram to illustrate `Logic` component interactions for `/assign` command.
+
+image::AssignCommandSequenceDiagram2.png[width=800]
+Figure 3.7.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for route `create` command.
+
+From the sequence diagram:
+
+.  When `LogicManager` receive the `execute` command, it calls the `parseCommand` method in `OrderBookParser`.
+.  `OrderBookParser` will receive `/assign` as the command and instantiate `AssignCommandParser` to further parse the command.
+.  If the arguments specified in the `/assign` command are valid, a `AssignCommand` will be created and return back to the `LogicManger`
+.  `LogicManager` will proceed to call the `execute` command of `AssignCommand`
+.  `AssignCommand` will proceed to call the `getFilteredOrderList` and `getFilteredDeliverymanList` method of `Model`
+.  Iterate through the `orderIds`, if valid, add the `order` corresponding to that `index` to the set of `Order`.
+.  Create a new `Deliveryman` to be assigned from the `deliveryman` corresponding to the deliveryman index.
+.  Iterate through the orders, call `setDeliveryman`.
+.  A new route would be added and create a new `CommandResult` to be returned.
+
+==== Design Consideration
+
+===== Aspect: Relationship between `Order` and `Deliveryman`
+* **Alternative 1 (current choice):** Two way associations between the `Order` and `Deliveryman`
+** Pros: Performing update operations such as assigning orders or marking orders as completed and displaying information on each order and
+delivery man are more effective as they are aware of one another.
+** Cons: More complicated to implement the assigning of order, and subsequently other features regarding this relationship such as removing of order.
+* **Alternative 2:** Only the `Deliveryman` is aware of the `Order`
+** Pros: Easier to implement the feature and manage the order and deliveryman states.
+** Cons: Performing the update operations mentioned above will be ineffective, and it will be more difficult to display information on which delivery man an order is assigned to.
+
+// end::assign[]
 
 === Logging
 
@@ -565,16 +1051,19 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/OrderBookParser.java[`OrderBookParser`] is responsible for
+analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/OrderBookParser
+.java[`OrderBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute
+ the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
 ****
 
 [discrete]
-==== `Model` component
+==== `Model`
 
 *Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
@@ -585,12 +1074,13 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/OrderBook.java[`OrderBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/OrderBook
+.java[`OrderBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/OrderBook.java[`OrderBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/OrderBook.java[`OrderBook`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `OrderBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -643,7 +1133,7 @@ image::getting-started-ui-result-after.png[width="200"]
 ** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:{repoURL}/src/test/java/systemtests/OrderBookSystemTest.java[`OrderBookSystemTest#assertCommandBoxShowsDefaultStyle() and OrderBookkSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
@@ -664,9 +1154,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleOrderBookChangedEvent
+(OrderBookChangedEvent)`] to update the number of persons whenever there are new changes to the orderbook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/OrderBookSystemTest.java[`OrderBookSystemTest`] to also verify the new total number of persons status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -678,12 +1169,12 @@ image::getting-started-ui-status-after.png[width="500"]
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupOrderBook(ReadOnlyOrderBook)`, so that the address book can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/OrderBookStorage.java[`OrderBookStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlOrderBookStorage.java[`XmlOrderBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -693,7 +1184,8 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `orderbook`, as the former developer team has moved on to new projects.
+The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -714,12 +1206,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/OrderBookParser.java[`OrderBookParser`] to accept a
+`RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/OrderBookParserTest.java[`OrderBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -728,14 +1221,14 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/OrderBookParser.java[`OrderBookParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/OrderBookParserTest.java[`OrderBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
@@ -768,7 +1261,8 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 
 . Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks
+for the sample data (delete your `orderBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
 We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
@@ -779,7 +1273,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidPersonOrderBook.xml`, `typicalPersonsOrderBook.xml`, `validOrderBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
 Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
@@ -820,13 +1314,15 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* Business Owners and Delivery Man
+* Needs to manage a large collection of orders
+* Needs to dispatch orders to relevant delivery man
+* Wants to view route information and calculate timings
+* Wants insights on purchases and order history
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: Integrate end-to-end systems and streamline food delivery management
 
 [appendix]
 == User Stories
@@ -836,62 +1332,196 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |new manager |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |manager |login/logout/signup of application |able to protect my data and access it when I need do
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |manager |add a new customer order | can track the current orders I
+have
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |manager |add or remove a deliveryman | can manage the deliverymen available to dispatch orders
+
+|`* * *` |manager |assign orders to available deliverymen | can send out orders and fulfil customer requests
+
+|`* * *` |manager |delete an order | can cancel orders that should not be in the queue
+
+|`* * *` |manager |find an order using phone number | can find specific orders quickly
+
+|`* *` |manager |update my menu (add/remove food items) | can manage the food items I have and expand by business
+
+|`* *` |manager |view a basic route for order | have a clearer idea on how to dispatch my deliverymen
+
+|`* *` |manager |find orders by more files (name, food item etc.) | have more options to locate specific orders
+
+|`* *` |manager |trace status of orders (estimated timeline)  | can have visibility on when orders will be delivered
+
+|`* *` |manager |have a dashboard to view succesful and failed orders  | can have insights on how my outlet is doing
+
+|`* *` |manager |have a dynamic indication of which deliveryman is available  | can send out multiple orders to many deliverymen and have improved service
+
+|`* *` |manager |view individual customer order history  | gain insights on
+what specific customers are ordering
+
+|`* *` |manager |find my deliverman by name     | find details about the deliveryman,
+
+|`* *` |manager |see a thumbnail of deliveryman  | can easily tell who is who in one glance
+
+|`* *` |manager |edit my order  | make changes to the order
+
+|`*` |manager |sms confirmation on succesful order  | have visibility on how my order delivery service is doing
+
+|`*` |manager |view a map with placeholders showing orders/deliverymen routes  | have immediate view on delivery status and gain insights on my service
+
+|`* * *` |new deliveryman |see usage instructions |refer to instructions when I forget how to use the App
+
+|`* * *` |deliveryman |login/logout of application |able to protect my data and access it when I need do
+
+|`* * *` |deliveryman |list assigned orders |can tell what are the jobs I need to complete
+
+|`* * *` |deliveryman |get customer contact for orders |can contact customer if there is a need (delivery delay/incorrect address/queries etc.)
+
+|`* *` |deliveryman |view delivery route for orders |dont have to consult external service to know how to reach the destination
+
+|`* *` |deliveryman |confirm succesful order in system |the manager can track the completion of orders
+
+|`*` |deliveryman |send feedback on delivery process |the manager can relate and improve the dispatch service
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For the use cases below, the *System* is FoodZoom and the *Actor* is the Managers)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case: Add Order
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Manager requests to add order to the FoodZoom
+2.  FoodZoom checks the format of the add command
+3.  FoodZoom adds the order to the database
+4.  FoodZoom shows success message to the manager
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 2a. Add command is invalid
+* 2b. FoodZoom shows an error message to the manager
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use Case: Find orders by phone number
+
+*MSS*
+
+1.  Manager request to list orders by phone number
+2.  FoodZoom shows a list of orders and their status
+3.  Use case ends.
+
+*Extensions*
+
+* 1a. The phone number not found in the list of orders.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Assign Order to Delivery man
+
+*MSS*
+
+1. Manager requests to view pending orders
+2. FoodZoom lists all orders
+3. Manager adds pending orders to planner
+4. FoodZoom shows travel route and timing details to Manager for all orders added
+5. Manager requests to add route to available deliverymen
+6. FoodZoom adds route to delivery man and displays on same screen
+7. Manager requests to show routing information
+8. Manager shown a screen showing what each deliveryman is assigned
++
+Use case ends.
+
+*Extension*
+
+* 2a.  No available orders
++
+Use case ends.
+
+* 4a.  Travel Details cannot be fetched
+** 4b.  FoodZoom shows relevant error message to user
++
+Use case ends.
+
+*	5a. No available delivery-men
+**	5b. FoodZoom shows error message
++
+Use case ends.
+
+[discrete]
+=== Use Case: Delete Order
+
+*MSS*
+
+1.  Manager requests to find the order by phone number
+2.  FoodZoom shows the order
+3.  Manager requests to delete the order
+4.  FoodZoom deletes the order
+5.  FoodZoom shows message order successfully deleted
++
+Use case ends.
+
+*Extension*
+
+* The order does not exist.
+** 1a. FoodZoom shows message that order does not exist
++
+Use case ends
+
+(For the use cases below, the *System* is FoodZoom and the *Actor* is the Delivery-men)
+
+[discrete]
+=== Use Case: View Assigned Route
+
+*MSS*
+
+1.  Delivery man logs in to the app
+2.  FoodZoom shows if delivery man has routes available
+3.  Delivery man requests for assigned route
+4.  FoodZoom shows the assigned route
+5.  Delivery man looks through each destination and checks address info
+6.  Delivery man checks for status of food
+7.  Deliveryman logs out to collect food & leave for delivery
++
+Use case ends.
+
+*Extensions*
+
+* 2a. Delivery man doesn't have any routes
++
+Use case ends
+
+* 4a. Location info is unclear to deliveryman
+** 4b. Delivery man searches for order to get customer's contact
+** 4c. Delivery man contacts customer to clarify location
++
+Use case ends
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should be able to hold up to 1000 orders and should respond within 2 seconds
+. The system should work on both 32-bit and 64-bit environments.
+. The system should only show data to the people with the <<appropriate-roles,appropriate roles>>
+. The system should persist data about orders for the past year
 
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -899,8 +1529,9 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[appropriate-roles]] Appropriate roles::
+Manager, Delivery Men
+
 
 [appendix]
 == Product Survey
@@ -941,26 +1572,345 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Login into account
 
-=== Deleting a person
+. Login into the application
+.. Prerequisites: Needs to be logged out of the application.
+... Test case: Invalid username and valid password +
+Command: `/login u/1 pw/password123` +
+Expected: Cannot login because username is too short and it needs to be 3 - 64 characters.
 
-. Deleting a person while all persons are listed
+... Test case: Username with 65 characters (invalid) and valid password +
+Command: `/login u/012345678901234567890123456789012345678901234567890123456789012345 pw/password123` +
+Expected: Cannot login because username is too long and it needs to be 3 - 64 characters.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+... Test case: Valid username and invalid password +
+Command: `/login u/lucaskoh pw/123` +
+Expected: Cannot login because password is too short and it needs to be at least 6 characters.
+
+... Test case: Valid username and 6 characters password (valid) +
+Command: `/login u/lucaskoh pw/123456` +
+Expected: Cannot login because account does not exist.
+
+.. Prerequisites: Application comes with default valid user.
+... Test case: Valid username and valid password +
+Command: `/login u/alicepauline pw/alicepauline01` +
+Expected: Successfully login into the application because of valid username and password and user exist in application. The application will bring you to the home page.
+
+
+=== Sign up for an account
+. Sign up for an account
+.. Prerequisites: No exisiting account in application.
+... Test case: Invalid name, valid username, valid password +
+Command: `/signup n/lu u/lucaskoh pw/123456` +
+Expected: Fail to sign up. Name is too short and it needs to be 3 - 64 characters long.
+
+... Test case: Invalid name(65 characters long), valid username, valid password +
+Command: `/signup n/012345678901234567890123456789012345678901234567890123456789012345 u/lucaskoh pw/123456` +
+Expected: Fail to sign up. Name is too long and it needs to be 3 - 64 characters long.
+
+... Test case: Valid name, invalid username, valid password +
+Command: `/signup n/LucasKoh u/@1234~2! pw/123456` +
+Expected: Fail to sign up. Username should only contain alphanumeric characters.
+
+... Test case: Valid name, valid username, invalid password +
+Command: `/signup n/LucasKoh u/lucaskoh pw/!!@@15` +
+Expected: Fail to sign up. Password should only contain alphanumeric characters.
+
+... Test case: Valid name, valid username, valid password +
+Command: `/signup n/Lucas Koh u/lucaskoh pw/lucaskoh54321` +
+Expected: Successfully sign up for account. Application will automatically logged you into the home page.
+
+.. Prerequisites: Already have `n/Alice Pauline u/alicepauline pw/alicepauline01` account within the application.
+... Test case: Different name, same username and same password +
+Command: `/signup n/Alicepauline u/alicepauline pw/alicepauline01` +
+Expected: Fail to sign up. User already exist within the application.
+
+=== Adding an Order
+.. Prerequisites: Logged into the application. An order with name "John Lee", phone "98765432" and date "20-10-2018
+00:00:00" does not already exist. To check, type `/order list` to see all existing order.
+
+... Test case: `/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo
+dt/20-10-2018 00:00:00` +
+    Expected: A new order with the above details is added to the list. The command box should reflect this accordingly
+    with the message "New order added: " + <details of order>. The map should show a new placeholder (or an existing
+    placeholder will increase in size). Timestamp in the status bar is updated.
+
+... Test case: `/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo
+dt/21-10-2018 00:00:00` +
+    Expected: A new order with the above details is added to the list. The command box should reflect this accordingly
+             with the message "New order added: " + <details of order>. The map should show a new placeholder (or an
+             existing placeholder will increase in size) that gives an approximation of location. Timestamp in the
+             status bar is updated.
+
+... Test case: `/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo
+                dt/32-10-2018 00:00:00` +
+    Expected: No order is added. Error details shown in the status message (invalid date). Status bar remains the same.
+
+... Test case: `/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 dt/32-10-2018 00:00:00` +
+    Expected: No order is added. Error details shown in the status message (no food). Status bar remains the same.
+
+... Test case: `/order add n/John Lee n/John Roe p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice
+Milo dt/30-10-2018 00:00:05` +
+    Expected: A new order with the above details is added to the list. The name is taken as the last name given which
+     is John Roe. The command box should reflect this accordingly
+           with the message "New order added: " + <details of order>. The map should show a new placeholder (or an
+            existing placeholder will increase in size) that gives an approximation of location. Timestamp in the
+            status bar is updated.
+
+... Test case: `/order add n/John Lee n/John Roe p/98765432 a/311, Clementi Ave 2, #02-25, 54612344 f/Roti Prata f/Ice
+Milo dt/30-10-2018 00:00:01` +
+    Expected: A new order with the above details is added to the list. The command box should reflect this accordingly
+           with the message "New order added: " + <details of order>. The map should show a new placeholder (or an
+            existing placeholder will increase in size) that gives an approximation of location. The location will
+            point to postal code `612344` as only last six digits are considered. Timestamp in the
+            status bar is updated.
+
+
+.. Prerequisites: An order with name "John Lee", phone "98765432" and date "20-10-2018
+                  00:00:00" already exists
+... Test case: `/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo dt/20-10-2018 00:00:00` +
+    Expected: No order is added. Error details shown in the status message (duplicate order). Status bar remains the
+    same.
+
+
+=== Selecting order
+.. Prerequisites: Logged into the application. There is at least 1 order being displayed in the list.
+
+... Test case: `/order select 1` +
+    Expected: The selected order would be displayed on the display panel.
+
+... Test case: `/order select 0` +
+    Expected: No order would be selected and displayed as this is an invalid index.
+
+=== Finding orders
+. Finding order by phone
+.. Prerequisites: Having at least 1 order.
+.. Test case: Valid phone without space +
+    Command: `/order find p/9111` +
+    Expected: Order/s with the phone `9111` and `911122113` is shown on the left panel.
+
+.. Test case: Valid phones with space +
+    Command: `/order find p/1234 9111` +
+    Expected: Order/s with the phone `9111`, `911122113`, `1234`, `12345678` is shown on the left panel.
+
+.. Test case: Empty value +
+    Command: `/order find p/` +
+    Expected: Error is shown in the status message. Value cannot be empty.
+
+. Finding order by address, name, food
+.. Prerequisites: Having at least 1 order.
+.. Test case: Valid address +
+    Command: `/order find a/Blk 10` +
+    Expected: Order/s with the address containing `Blk 10` is shown on the left panel.
+
+.. Test case: Valid food +
+    Command: `/order find f/Chicken Rice` +
+    Expected: Order/s with food `Chicken Rice`, `Chicken Rice with Chilli` is shown on the left panel.
+
+.. Test case: Valid name +
+    Command: `/order find n/Alex Yeoh` +
+    Expected: Order/s with name `Alex Yeoh`, `Alex Yeoh Jin` is shown on the left panel.
+
+. Finding order by status
+.. Prerequisites: Logged into the application. Having orders in the list with 3 different status
+.. Test case: Exact Status +
+    Command: `/order find st/PENDING` +
+    Expected: Order/s with status `PENDING` is shown on the left panel.
+
+.. Test case: Exact status in lower case +
+    Command: `/order find st/pending` +
+    Expected: Order/s with status `PENDING` is shown on the left panel.
+
+.. Test case: Empty status value +
+    Command: `/order find st/` +
+    Expected: Error is shown in the status message. Value cannot be empty.
+
+.. Test case: Invalid status +
+    Command: `/order find st/abc` +
+    Expected: Error is shown in the status message. Only valid status are allowed.
+
+. Finding order by date
+.. Prerequisites: Logged into the application. Having orders added with different dates
+.. Test case: Find with one datetime parameter +
+    Command: `/order find dt/01-10-2018 10:00:00` +
+    Expected: Order/s with the datetime `01-10-2018 10:00:00` is shown on the left panel.
+
+.. Test case: Find with two datetime parameter +
+    Command: `/order find dt/01-10-2018 10:00:00 dt/03-10-2018 14:00:00` +
+    Expected: Order/s within and on the datetime `01-10-2018 10:00:00` and `03-10-2018 10:00:00` is shown on the left panel.
+
+.. Test case: Find with more than 2 datetime parameter +
+    Command: `/order find dt/01-10-2018 10:00:00 dt/03-10-2018 14:00:00 dt/02-10-2018 10:00:00` +
+    Expected: Order/s within and on the datetime `01-10-2018 10:00:00` and `03-10-2018 10:00:00` is shown on the left panel.
+
+.. Test case: Empty date value +
+    Command: `/order find dt/` +
+    Expected: Error is shown in the status message. Value cannot be empty.
+
+.. Test case: Only date is given. No time is given +
+    Command: `/order find dt/01-10-2018` +
+    Expected: Error is shown in the status message. Date should follow the format `dd-MM-yyy HH:mm:ss`.
+
+.. Test case: Invalid datetime is given +
+    Command: `/order find dt/57-10-2018 10:00:00` +
+    Expected: Error is shown in the status message. Date should be a valid date.
+
+. Finding order with more than 1 argument
+.. Prerequisites: Logged into the application. Having at least 1 order
+.. Test case: Valid name and status value +
+    Command: `/order find n/john st/pending` +
+    Expected: Order/s with the name `john` and the status `PENDING` is shown on the left panel.
+
+.. Test case: 2 names field are specified. +
+    Command: `/order find n/john n/tom` +
+    Expected: Only order/s with the name `tom` is shown on the left panel. Only the last field is taken.
+
+=== Editing an order
+. Edit an order while all orders are listed
+.. Prerequisites: Logged into the application. List all orders using the `/order list` command. Multiple orders in the
+ list.
+... Test case: Valid arguments +
+    Command: `/order edit <order_index> f/Roti Canai` +
+    Expected: Food of the order with the `<order_index>` will be overwritten with the food `Roti Canai`
+
+... Test case: Invalid order index +
+    Command: `/order edit 0 n/alex` +
+    Expected: Cannot edit as the order index is a non-zero unsigned integer.
+
+... Other incorrect edit commands to try: `/order edit x f/alex` (where x is larger than the list on the left) +
+    Expected: Cannot edit as the order index must be a valid index in the list shown on the left.
+
+.. Prerequisites: Logged into the application. There is an order with the name `alex`, phone `12345678` and datetime
+`01-10-2018 10:00:00`
+... Test case: Edit an order to an existing order in the list +
+    Command: `/order edit 1 n/alex p/12345678 dt/01-10-2018 10:00:00` +
+    Expected: Cannot edit as an order with the same name, phone and datetime is already in the list of orders.
+
+.. Prerequisites: Logged into the application. Have orders that are `Ongoing` or `Completed`
+... Test case: Edit an order with status `Ongoing` or `Completed` +
+    Command: `/order edit <ongoing_or_completed_order_index> f/tea` +
+    Expected: Cannot edit as the order is already assign to a deliveryman.
+
+=== Deleting an order
+
+. Deleting an order while all order are listed
+
+.. Prerequisites: Logged into the application. List all orders using the `/order list` command. Multiple orders in the
+ list. The order to be deleted is `Pending` or `Completed`.
+.. Test case: `/order delete <pending_or_completed_order_index>` +
+   Expected: That order is deleted from the list. Details of the deleted order shown in the status message.
+   Timestamp in the status bar is updated.
+.. Test case: `/order delete 0` +
+   Expected: No order is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `/order delete`, `/order delete x` (where x is larger than the list size)
+_{give more}_ +
    Expected: Similar to previous.
+.. Test case: Logged into the application. Deleting an `Ongoing` order +
+   Command: `/order delete o/<ongoing_order_index>`
+   Expected: Unable to delete the order because it is already assigned to a deliveryman.
 
-_{ more test cases ... }_
+=== Mark an order as Completed
 
-=== Saving data
+. Marking an order as `Completed`
+.. Prerequisites: Logged into the application. Already have an `Ongoing` order.
+... Test case: Mark an invalid index as completed +
+Command: `/order done 0` +
+Expected: No order is marked as completed. Index have to a positive integer.
 
-. Dealing with missing/corrupted data files
+... Test case: Mark an valid index `Ongoing` order as completed +
+Command: `/order done <order_index_of_ongoing_status>` +
+Expected: Order on order list panel is marked as `Completed` and deliveryman is updated (Deliveryman total assigned
+orders will decrease by `1` or become `available`).
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: Logged into the application. Have some `Pending` orders.
+... Test case: Mark a valid index as completed but would fail. +
+Command: `/order done <order_index_of_pending_status>` +
+Expected: Fail to mark the order as `Completed` because only `ongoing` status can be marked as `completed`.
 
-_{ more test cases ... }_
+.. Prerequisites: Logged into the application. Have some `Completed` orders.
+... Test case: Mark a valid index as completed but would fail. +
+Command: `/order done <order_index_of_completed_status>` +
+Expected: Fail to mark the order as `Completed` because it is already `completed`.
+
+=== Assigning orders to a deliveryman
+
+. Assigning multiple pending orders to a deliveryman
+
+.. Prerequisite: Logged into the application. Have orders that are `Pending`, and a deliveryman +
+   Test case: Assigning two `Pending` orders to a deliveryman +
+   Command: `/assign o/<first_pending_order_index> o/<second_pending_order_index> d/1` +
+   Expected: First deliveryman's assigned order count increases by 2, the two orders change status to become `Ongoing`.
+
+.. Prerequisite: Logged into the application. Have a deliveryman +
+   Test case: Invalid order or deliveryman index +
+   Command: `/assign o/0 d/1`, `/assign o/1 d/0` +
+   Expected: Cannot assign because the order index is not a non-zero unsigned integer.
+
+.. Prerequisite: Logged into the application. Have an `Ongoing` or `Completed` order +
+   Test case: Assigning an `Ongoing` or `Completed` order to a deliveryman +
+   Command: `/assign o/<ongoing_or_completed_order_index> d/1` +
+   Expected: Cannot assign because that order was already assigned to a deliveryman previously.
+
+=== Adding deliveryman
+
+.. Prerequisites: Logged into the application. Name "John" has not been used for any existing deliverymen. To check,
+type `/deliveryman list` to see
+all existing deliverymen.
+
+... Test case: `/deliveryman add n/John` +
+    Expected: A new deliveryman named 'John' is added to the list. The command box should reflect this accordingly
+    with the message "New deliveryman added: John". Timestamp in the status bar is updated.
+
+... Test case: `/deliveryman add n/John-Paul` +
+    Expected: No deliveryman is added. Error details shown in the status message - non-alphanumeric characters are not allowed.
+    Status bar remains the same.
+
+.. Prerequisites: Logged into the application. A deliveryman named "John" exists in the system.
+
+... Test case: `/deliveryman add n/John` +
+    Expected: No deliveryman is added. Error details shown in the status message.
+    Status bar remains the same.
+
+=== Deleting deliveryman
+
+.. Prerequisites: Logged into the application. There is 1 deliveryman being displayed in the list. This deliveryman
+must not have any orders assigned to him too.
+To achieve this, you can filter deliverymen by name, for example, using the default deliverymen, you can try `/deliveryman find n/Chi Kao`
+
+... Test case: `/deliveryman delete 0` +
+    Expected: No deliveryman would be deleted as the index is invalid.
+
+... Test case: `/deliveryman delete 2` +
+    Expected: No deliveryman would be deleted as the index is invalid.
+
+... Test case: `/deliveryman delete 1` +
+    Expected: The deliveryman displayed will be deleted.
+
+.. Prerequisites: Logged into the application. There is 1 deliveryman being displayed in the list. This deliveryman
+has an order assigned to him.
+To achieve this, you can filter deliveryman by name, then assign him a `Pending` order, for example `/assign o/1 d/1`.
+
+... Test case: `/deliveryman delete 1` +
+    Expected: Deliveryman would not be deleted as you are not allowed to delete deliveryman with orders assigned.
+
+=== Selecting deliveryman
+.. Prerequisites: Logged into the application. There is at least 1 deliveryman being displayed in the list.
+
+... Test case: `/deliveryman select 1` +
+    Expected: The selected deliveryman would be displayed on the display panel.
+
+... Test case: `/deliveryman select 0` +
+    Expected: No deliveryman would be selected and displayed as this is an invalid index.
+
+=== Finding deliveryman
+.. Prerequisite: Logged into the application. Having at least one deliveryman.
+
+... Test case: `/deliveryman find n/tom` +
+    Expected: Deliveryman with the name `tom`, `tommy`, `tom hanks` would be displayed on the display panel.
+
+... Test case: `/deliveryman find n/tom n/john` +
+    Expected: Deliveryman with the name `john`, `johnny`, `john doe` would be displayed on the display panel. Only the last field is taken.
+
+... Test case: `/deliveryman find n/` +
+    Expected: Error is shown in the status message. Value cannot be empty.

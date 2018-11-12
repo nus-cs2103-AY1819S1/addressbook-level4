@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox fx:id="countWrapper" prefHeight="20.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/bag.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="orderCount" prefHeight="34.0" prefWidth="160.0" text="Total Orders: 30" />
+               </children>
+            </HBox>
+            <HBox fx:id="progressWrapper" prefHeight="36.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="progressLabel" prefHeight="25.0" prefWidth="130.0" text="Pending Orders:" />
+                  <ProgressBar fx:id="orderProgress" prefHeight="24.0" prefWidth="124.0" progress="0.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="trendingWrapper" prefHeight="34.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="33.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/famous.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="trendingFood" text="Trending" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <BorderPane prefHeight="300.0" prefWidth="200.0">
+         <center>
+            <BarChart fx:id="barChart" prefHeight="300.0" prefWidth="150.0" title="Order History" titleSide="BOTTOM" BorderPane.alignment="CENTER">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </center>
+      </BorderPane>
+
+   </children>
+</VBox>

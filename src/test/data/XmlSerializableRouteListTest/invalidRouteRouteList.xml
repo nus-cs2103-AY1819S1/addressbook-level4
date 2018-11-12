@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<routelist>
+    <!-- Route with invalid destination field -->
+    <routes tag="9e1c61c1-5cae-40bf-95b5-8fb5265805c3">
+        <source>12 Clementi Rd</source>
+        <destination> </destination>
+    </routes>
+</routelist>

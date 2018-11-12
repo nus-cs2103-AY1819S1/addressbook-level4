@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="orderHeader" prefHeight="52.0" prefWidth="300.0" text="Order Details" />
+      <ImageView fitHeight="124.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/cutlery.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="foodL" prefHeight="30.0" prefWidth="300.0" styleClass="display_order" text="Label" />
+      <Label fx:id="dateL" prefHeight="30.0" prefWidth="300.0" styleClass="display_order" text="Label" />
+      <Label fx:id="phoneL" prefHeight="30.0" prefWidth="300.0" styleClass="display_order" text="Label" />
+
+      <VBox fx:id="textWrapper">
+         <Text fx:id="addressL" wrappingWidth="300" />
+      </VBox>
+
+      <Label fx:id="nameL" prefHeight="30.0" prefWidth="300.0" styleClass="display_order" text="Label" />
+      <Label fx:id="deliverymanL" prefHeight="30.0" prefWidth="300.0" styleClass="display_order" text="Label" />
+   </children>
+</VBox>

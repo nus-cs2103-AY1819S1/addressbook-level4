@@ -5,14 +5,18 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.common.Address;
+import seedu.address.model.common.Name;
+import seedu.address.model.common.Password;
+import seedu.address.model.common.Phone;
+import seedu.address.model.common.Username;
+import seedu.address.model.order.Food;
+import seedu.address.model.order.OrderDate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +29,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -33,6 +38,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Index> parseIndexes(Collection<String> index) throws ParseException {
+        requireNonNull(index);
+        final Set<Index> indexSet = new HashSet<>();
+        for (String indexNo : index) {
+            indexSet.add(parseIndex(indexNo));
+        }
+        return indexSet;
+
     }
 
     /**
@@ -81,18 +99,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String orderDate} into a Java Date.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code orderDate} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+    public static OrderDate parseDate(String orderDate) throws ParseException {
+        requireNonNull(orderDate);
+        String trimmedDate = orderDate.trim();
+        if (!OrderDate.isValidDate(trimmedDate)) {
+            throw new ParseException(OrderDate.MESSAGE_DATE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new OrderDate(trimmedDate);
     }
 
     /**
@@ -111,6 +129,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String food} into a {@code Food}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code food} is invalid.
+     */
+    public static Food parseFood(String food) throws ParseException {
+        requireNonNull(food);
+        String trimmedFood = food.trim();
+        if (!Food.isValidFood(trimmedFood)) {
+            throw new ParseException(Food.MESSAGE_FOOD_CONSTRAINTS);
+        }
+        return new Food(trimmedFood);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -120,5 +153,56 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Food> parseFoods(Collection<String> food) throws ParseException {
+        requireNonNull(food);
+        final Set<Food> foodSet = new HashSet<>();
+        for (String foodName : food) {
+            foodSet.add(parseFood(foodName));
+        }
+        return foodSet;
+
+    }
+
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidUsername(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername.toLowerCase());
+    }
+
+    /**
+     * Parses a {@code String password} into an {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code password} is invalid.
+     */
+    public static Password parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedPassword = password.trim();
+        if (!Password.isValidPassword(trimmedPassword)) {
+            throw new ParseException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        return new Password(trimmedPassword);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

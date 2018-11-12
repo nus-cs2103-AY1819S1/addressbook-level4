@@ -1,0 +1,61 @@
+= Tan Jin Ying - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+My name is Jin Ying, a Year 2 Student reading Computer Science at National University of Singapore. This
+project portfolio documents my contributions to the project.
+
+== Project: FoodZoom
+
+---
+
+== Overview
+image::Ui.png[width="800"]
+
+FoodZoom is a desktop application providing food businesses a delivery management platform for them to streamline their delivery process. FoodZooms' responsiveness and quickness allows manager to plan for route through a Command Line Interface (CLI). The platform also allows delivery man to view their delivery routes and increase their efficiency. FoodZoom is created by 5 students, namely Tan Jin Ying, Monika Manuela, Julius Sander, Rahul Rajesh and Koh Chi Hao.
+
+== Summary of Contribution
+
+---
+* *Major enhancement*:
+**  Added the ability to *find for existing order/s*
+*** What it does: It allows the user to find for existing order in the list of orders with any order parameter that it was created with.
+*** Justification: This feature improve the ease for the user to look for the order in the potential long list of order they could have.
+*** Highlights: The enhancement changes the `INDEX` in the User Interface. Any command that relies on the `INDEX` needs keep this in mind.
+
+** Added the ability to *edit existing order*
+*** What it does: This feature allows the user to make amendments to any order they have created previous.
+*** Justification: As a user could add the order with the wrong parameter, this feature allows the user to make any edits to the order.
+*** Highlights: This enhancement creates a new `Order` object and any future commands that need a reference to the original `Order` object need to be able to track a change in the object.
+
+* *Minor enhancement*: added a find command to search for existing deliveryman
+
+* *Code Contribution*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jinyingtan[RepoSense]
+
+* *Other contributions*:
+
+** Documentation:
+*** Update User Guide for `v1.1` & `v1.2` (Pull requests https://github.com/CS2103-AY1819S1-T16-3/main/pull/27[#27], https://github.com/CS2103-AY1819S1-T16-3/main/pull/80[#80])
+** Community:
+*** Review weekly Pull Requests
+*** Reported bugs and suggestions for other projects (https://github.com/CS2103-AY1819S1-F10-1/main/issues/150[#150], https://github.com/CS2103-AY1819S1-F10-1/main/issues/153[#153], https://github.com/CS2103-AY1819S1-F10-1/main/issues/156[#156], https://github.com/CS2103-AY1819S1-F10-1/main/issues/158[#158], https://github.com/CS2103-AY1819S1-F10-1/main/issues/160[#160], https://github.com/CS2103-AY1819S1-F10-1/main/issues/164[#164], https://github.com/CS2103-AY1819S1-F10-1/main/issues/169[#169])
+
+== Contributions to User Guide
+
+|===
+|This section shows my contributions to User Guide for the project. It showcases my ability to write user-centric documentation.
+|===
+
+include::../UserGuide.adoc[tag=orderfind]
+
+include::../UserGuide.adoc[tag=orderedit]
+
+include::../UserGuide.adoc[tag=deliverymanfind]
+
+== Contributions to Developer Guide
+
+|===
+|This section shows my contributions to Developer Guide for the project. It showcases my ability to write a technical document and the technical aspect of my contribution to the project.
+|===
+
+include::../DeveloperGuide.adoc[tag=orderfindfeature]

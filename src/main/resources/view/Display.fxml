@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="displayBox" dividerPositions="0.6595394736842105" minHeight="370" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox minWidth="260" prefWidth="300" SplitPane.resizableWithParent="false">
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="displayPending" prefHeight="17.0" prefWidth="350.0" text="Where are the Pending Orders?"/>
+         </children>
+      </HBox>
+
+        <StackPane fx:id="mapWrapper">
+        </StackPane>
+
+    </VBox>
+
+    <VBox>
+      <StackPane fx:id="displayPanelPlaceholder">
+          <StackPane fx:id="statisticsWrapper" prefWidth="340">
+          </StackPane>
+      </StackPane>
+    </VBox>
+</SplitPane>

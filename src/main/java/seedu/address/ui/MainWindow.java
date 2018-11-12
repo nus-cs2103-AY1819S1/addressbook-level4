@@ -10,11 +10,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.model.UserLoggedOutEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
@@ -27,6 +30,8 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String DISPLAYING_LOGGED_IN_PANEL = "Displaying logged in panel";
+    private static final String HIDE_LOGGED_IN_PANEL = "Hiding logged in panel";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -34,14 +39,12 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
-    @FXML
-    private StackPane browserPlaceholder;
+    private LoginPanel loginPanel;
+    private Dashboard loggedInPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,13 +53,14 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private AnchorPane mainDisplayPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -87,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -119,20 +124,36 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getFoodZoomFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        loginPanel = new LoginPanel();
+        mainDisplayPlaceholder.getChildren().add(loginPanel.getRoot());
+    }
+
+    /**
+     * Display logged in panel after login successful.
+     */
+    void displayLoggedInPanel() {
+        mainDisplayPlaceholder.getChildren().removeAll(loginPanel.getRoot());
+
+        loggedInPanel = new Dashboard(logic);
+        mainDisplayPlaceholder.getChildren().add(loggedInPanel.getRoot());
+    }
+
+    /**
+     * Hide logged in panel after logout successful.
+     */
+    void hideLoggedInPanel() {
+        mainDisplayPlaceholder.getChildren().removeAll(loggedInPanel.getRoot());
+
+        mainDisplayPlaceholder.getChildren().add(loginPanel.getRoot());
     }
 
     void hide() {
@@ -187,17 +208,21 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleUserLoggedInEvent(UserLoggedInEvent event) {
+        logger.info(DISPLAYING_LOGGED_IN_PANEL);
+        displayLoggedInPanel();
+    }
+
+    @Subscribe
+    private void handleUserLoggedOutEvent(UserLoggedOutEvent event) {
+        logger.info(HIDE_LOGGED_IN_PANEL);
+        hideLoggedInPanel();
     }
 }

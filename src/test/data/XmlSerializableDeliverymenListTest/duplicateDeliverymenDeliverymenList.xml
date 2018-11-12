@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deliverymenlist>
+
+    <deliverymen tag="71cac1b0-33ea-4d0e-b1bd-c9e72cd3351f">
+        <name>Alice Pauline</name>
+    </deliverymen>
+
+    <!-- Person with same identity as Alice Pauline -->
+    <deliverymen tag="71cac1b0-33ea-4d0e-b1bd-c9e72cd3351f">
+        <name>Alice Pauline</name>
+    </deliverymen>
+
+</deliverymenlist>
