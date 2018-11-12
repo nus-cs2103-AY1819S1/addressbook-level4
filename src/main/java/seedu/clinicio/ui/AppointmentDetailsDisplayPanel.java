@@ -75,5 +75,5 @@ public class AppointmentDetailsDisplayPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setAllText(event);
         appointmentBox.setVisible(true);
-
+    }
 }
