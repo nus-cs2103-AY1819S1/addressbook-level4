@@ -719,7 +719,7 @@ _Figure 4.5.6.2: Budget Window showing the transaction history of Softball_
 * Otherwise, the new window will open up and show a blank screen until a CCA is selected from the CCA panel.
 ****
 
-image::BudgetWindowCcaPanel.png[width=500"]
+image::BudgetWindowCcaPanel.png[width=200"]
 _Figure 4.5.6.3: CCA panel of the Budget Window._
 
 [NOTE]
