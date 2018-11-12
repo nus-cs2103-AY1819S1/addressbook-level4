@@ -53,8 +53,8 @@ public class RemoveCategoryCommand extends Command {
         }
 
         model.removeCategory(categoryName);
-        model.commitSchedulePlanner();
         EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
+        model.commitSchedulePlanner();
         return new CommandResult(String.format(MESSAGE_SUCCESS, categoryName));
     }
 }
