@@ -280,7 +280,8 @@ Example:
 
 * `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
 ** The system will display a success message and you will also be able to view the new leave application using the <<View a list of leave applications : `leavelist`, `leavelist`>> command. You should see something as follows: image:LeaveApplyResult.PNG[width=800]
-[TIP] If you do not see your list of leave applications, run the `leavelist` command.
+[TIP]
+If you do not see your list of leave applications, run the `leavelist` command.
 
 === View a list of leave applications : `leavelist`
 
