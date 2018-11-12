@@ -1937,7 +1937,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
@@ -2004,11 +2003,35 @@ These instructions only provide a starting point for testers to work on; testers
 2. View tasks due today/this week
 
 .. Test case: `listday` +
-   Expected: All task(s) that matches the current system date will be reflected in the panel on the bottom right of
+   Expected: All task(s) that match the current system date will be reflected in the panel on the bottom right of
    `UI`.
 .. Test case: `listweek` +
-   Expected: All task(s) that matches the date from the current system date until the closest Sunday will be
+   Expected: All task(s) that match the date from the current system date until the closest Sunday will be
    reflected in the panel on the bottom right of `UI`.
+
+=== Filtering Tasks
+
+1. View tasks due this month
+
+.. Test case: `listmonth` +
+   Expected: All task(s) that match the current system date until the end of the month will be reflected in the task
+   list panel in the `UI`.
+
+.. Test case: `filter tutorial`
+   Expected: All tasks that contain the tag `tutorial` will be reflected in the task list panel in the `UI`.
+
+.. Test case: `filter tutorial CS2100`
+   Expected: All tasks that contain EITHER `tutorial`, `CS2100`, OR BOTH tags, will be  reflected in the task list
+   panel in the `UI`.
+
+.. Test case: `filterstrict tutorial`
+   Expected: All tasks that contain the tag `tutorial` will be reflected in the task list panel in the `UI`. Similar
+   to `filter tutorial`.
+
+.. Test case: `filterstrict tutorial GEH1034`
+   Expected: All tasks that contain BOTH `tutorial` and `GEH1034` tags will be reflected in the task list panel in
+   the `UI`
+
 
 === Testing GUI
 
