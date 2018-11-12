@@ -105,7 +105,7 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find calendar event in address book, name is substring of keyword -> 3 calendar events found */
+        /* Case: find calendar event in scheduler, name is substring of keyword -> 3 calendar events found */
         command = FindEventCommand.COMMAND_WORD + " Bring";
         ModelHelper.setFilteredAndSortedList(expectedModel, GOOGLE_INTERVIEW, CHOIR_PRACTICE, CAREER_FAIR);
         assertCommandSuccess(command, expectedModel);
