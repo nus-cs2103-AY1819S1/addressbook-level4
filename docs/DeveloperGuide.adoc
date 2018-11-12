@@ -22,7 +22,7 @@ By: `NUS School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`  �
 === What is OASIS?
 
 OASIS is an employee management application that brings your office together. It is an all-in-one tool for office administration and communication that runs on any computer. With the use of primarily textual commands coupled with a beautiful user interface, you can get your administrative jobs done faster than with traditional point-and-click applications. Some of the main features that you can look forward to using are employee records management, authentication and permissions, assignment management, and leave management.
-    
+
 === Architectural Overview
 
 This document describes the design, implemented features and possible features that could be implemented in OASIS. These could serve as guidelines for future developers. Happy Programming!!
@@ -387,7 +387,7 @@ Permission system is used to ensure that each user are only able to perform comm
 ===== Aspect: Model
 Model of a person have been changed to reflect the permission that each user possesses.
 
-The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
 
 image::permissionPersonModel.png[width="750"]
 
@@ -403,7 +403,7 @@ As of v1.4, `PresetPermission` only contains the following preset: `Admin`, `Man
 ===== Aspect: Storage
 Permission have to be stored in the addressbook where the information for `Person` is stored. This is achieved through creation of `XmlAdaptedPermission`, which was utilised by `XmlAdaptedPerson` to store the information in an xml file.
 
-The class highlighted in Red in the following diagram represents the class that have been created to support the Permission system.
+The class highlighted in Red in the following diagram represents the classes that have been created to support the Permission system.
 
 image::permissionStorage.png[width="350]
 
@@ -441,19 +441,19 @@ Step 3. The system compares user's `PermissionSet` with `DeleteCommand` 's `requ
 
 ** User don't have required permissions, show error message.
 
-The following activity diagram summarizes what happens when a user excutes a command.
+The following activity diagram summarizes what happens when a user executes a command.
 
 image::permissionCommandActivityDiagram.png[width="450"]
 
 ==== Design Considerations
 
-* Alternative 1 (Current Implementation): Assign permission to each individual user, and restrict commands executable by user based on permission assigned.
+* Alternative 1 (Current Implementation): Assign permission to each individual user and restrict commands executable by user based on permission assigned.
 
 ** Pros: Easy to control the commands a user can access.
 
 ** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
 
-* Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
+* Alternative 2: Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
 
 ** Pros: Easy to implement. Only require small modification in existing classes.
