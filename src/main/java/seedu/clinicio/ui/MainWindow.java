@@ -57,6 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AnalyticsDisplay analyticsDisplay;
+    private AppointmentDisplay appointmentDisplay;
 
     @FXML
     private StackPane browserPlaceholder;

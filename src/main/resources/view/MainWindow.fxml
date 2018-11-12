@@ -84,6 +84,7 @@
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10" />
                         </padding>
+                        <VBox fx:id="appointmentDisplay" VBox.vgrow="ALWAYS"/>
                     </StackPane>
                 </SplitPane>
 
