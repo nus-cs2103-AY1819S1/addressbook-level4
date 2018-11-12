@@ -69,7 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
      * @param person the User to be set as the current user.
      */
     public void setCurrentUser(Person person) {
-        
+        assert person != null;
         this.currentUser = person;
         indicateUserLoginStatusChanged();
     }

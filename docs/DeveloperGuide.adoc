@@ -1387,6 +1387,7 @@ Use case ends.
 Steps 2a1 – 2a2 are repeated until the current user and the user profile that will be deleted matches.
 +
 Use case resumes from step 3.
+// end::UC[]
 
 [discrete]
 === Use case: U04 – Create new event
@@ -1616,7 +1617,6 @@ highest votes.
 +
 Use case resumes from step 12.
 ////
-// end::UC[]
 
 [appendix]
 == Non Functional Requirements
