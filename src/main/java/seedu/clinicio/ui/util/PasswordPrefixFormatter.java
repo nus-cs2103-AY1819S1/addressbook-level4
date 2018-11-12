@@ -11,8 +11,15 @@ public class PasswordPrefixFormatter {
 
     private StringBuilder tempPassword;
 
+    private int passwordPrefixIndex;
+    private int spaceAfterPasswordIndex;
+    private String prefixesBeforePasswordPrefix;
+
     public PasswordPrefixFormatter() {
         tempPassword = new StringBuilder();
+        passwordPrefixIndex = -1;
+        spaceAfterPasswordIndex = -1;
+        prefixesBeforePasswordPrefix = "";
     }
 
     /**
@@ -30,12 +37,7 @@ public class PasswordPrefixFormatter {
             return commandTextValue;
         }
 
-        int passwordPrefixIndex = commandTextValue.indexOf(PREFIX_PASSWORD.getPrefix());
-        int spaceAfterPasswordIndex = commandTextValue.indexOf(' ', passwordPrefixIndex);
-
-        String prefixesBeforePasswordPrefix = commandTextValue.substring(0, passwordPrefixIndex);
-        String password = findPassword(commandTextValue, passwordPrefixIndex, spaceAfterPasswordIndex);
-
+        String password = findPassword(commandTextValue);
         StringBuilder maskedPassword = appendMaskedPassword(isHistory, isBackspace, password, spaceAfterPasswordIndex);
 
         return prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix()
@@ -50,12 +52,7 @@ public class PasswordPrefixFormatter {
             return commandTextValue;
         }
 
-        int passwordPrefixIndex = commandTextValue.indexOf("pass/");
-        int spaceAfterPasswordIndex = commandTextValue.indexOf(' ', passwordPrefixIndex);
-
-        String prefixesBeforePasswordPrefix = commandTextValue.substring(0, passwordPrefixIndex);
-        String password = findPassword(commandTextValue, passwordPrefixIndex, spaceAfterPasswordIndex);
-
+        String password = findPassword(commandTextValue);
         String commandText = prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix();
         commandText = comparePasswordWithTempPassword(password, commandText)
                 + getPrefixesAfterPasswordPrefix(commandTextValue, spaceAfterPasswordIndex);
@@ -63,6 +60,26 @@ public class PasswordPrefixFormatter {
         resetTempPassword();
 
         return commandText;
+    }
+
+
+    /**
+     * Find password from the command text field
+     * as password can be entered in any order.
+     * @param commandTextValue The text from {@code CommandBox}
+     * @return The password entered by user.
+     */
+    public String findPassword(String commandTextValue) {
+
+        passwordPrefixIndex = commandTextValue.indexOf(PREFIX_PASSWORD.getPrefix());
+        spaceAfterPasswordIndex = commandTextValue.indexOf(' ', passwordPrefixIndex);
+        prefixesBeforePasswordPrefix = commandTextValue.substring(0, passwordPrefixIndex);
+
+        if (spaceAfterPasswordIndex > 0) {
+            return commandTextValue
+                    .substring(passwordPrefixIndex + 5, spaceAfterPasswordIndex);
+        }
+        return commandTextValue.substring(passwordPrefixIndex + 5);
     }
 
     /**
@@ -104,21 +121,6 @@ public class PasswordPrefixFormatter {
             commandText += tempPassword.toString() + password.substring(tempPassword.length());
         }
         return commandText;
-    }
-
-    /**
-     * Find password from the command text field
-     * as password can be entered in any order.
-     * @param passwordPrefixIndex The index of the pass/ prefix
-     * @param spaceAfterPasswordIndex The index after password is entered.
-     * @return The password entered by user.
-     */
-    public String findPassword(String commandTextValue, int passwordPrefixIndex, int spaceAfterPasswordIndex) {
-        if (spaceAfterPasswordIndex > 0) {
-            return commandTextValue
-                    .substring(passwordPrefixIndex + 5, spaceAfterPasswordIndex);
-        }
-        return commandTextValue.substring(passwordPrefixIndex + 5);
     }
 
     /**

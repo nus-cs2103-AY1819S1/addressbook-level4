@@ -1,4 +1,4 @@
-package seedu.clinicio.ui.analytics;
+package seedu.clinicio.ui;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,6 @@ import seedu.clinicio.model.analytics.data.CircularList;
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
-import seedu.clinicio.ui.UiPart;
 
 //@@author arsalanc-v2
 
@@ -24,7 +23,7 @@ import seedu.clinicio.ui.UiPart;
  */
 public class AnalyticsDisplayPanel extends UiPart<Region> {
 
-    private static final String FXML = "Analytics.fxml";
+    private static final String FXML = "AnalyticsDisplayPanel.fxml";
 
     @FXML
     private Label summaryBar;
