@@ -2211,3 +2211,4 @@ testers to work on; testers are expected to do more *exploratory* testing.
 .. Type several commands into the command box
 .. Type into the command box a `history` command +
    Expected: The command box now shows a list of the past commands that you previously entered.
+   
