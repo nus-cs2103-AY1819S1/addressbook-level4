@@ -372,7 +372,7 @@ fields.
 
 The figure below shows how the find command is processed through the logic of TheTracker:
 
-image::FindCommandLogicDiagram.png[width="800"]
+image::FindCommandLogicDiagram.png[width="500"]
 
 ==== Current Implementation
 As the `findperson`, `findmodule`, and `findoccasion` commands' logic are similar to one another,
@@ -785,11 +785,11 @@ The parser `DeletePersonCommandParser` will identify by the index of the person 
 deleted.The `deleteperson` command calls Model#getFilteredPersonList(), Model#deletePerson()
 and `Model#commitAddressBook()`, and causes modified address book state to be saved into the `addressBookStateList`
 
-image::DeleteDeleteCommandStateListDiagram.png[width="800"]
+image::DeleteDeleteCommandStateListDiagram.png[width="500"]
 
 The following sequence diagram shows how the delete operation works:
 
-image::DeleteSequenceDiagram.png[width="800"]
+image::DeleteSequenceDiagram.png[width="500"]
 
 ==== Design Considerations
 ===== Aspect: How delete executes

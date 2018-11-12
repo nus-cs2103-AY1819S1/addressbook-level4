@@ -79,7 +79,7 @@ include::../UserGuide.adoc[tag=find]
 |===
 
 include::../DeveloperGuide.adoc[tag=add]
-
 include::../DeveloperGuide.adoc[tag=delete]
+include::../DeveloperGuide.adoc[tag=find]
 
 
