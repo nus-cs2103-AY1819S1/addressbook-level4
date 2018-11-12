@@ -25,15 +25,11 @@ needed, rather than requiring the users to input all the attributes at the first
 * *Minor enhancement*:
 extended FindCommand to *FindPersonCommand, FindModuleCommand, FindOccasionCommand*
 ** What it does: allows the user to finds Person by name, phone, or email, address, modules they are taking, and
-occasions they are involved in; similarly, it allows finding Modules by module code, module name, academic year or
-semester; finding occasions by occasion name, occasion date, or occasion location.
+occasions they are involved in; similarly, it allows finding Modules and Occasions by respective attributes.
 ** Justification: These features largely improve the convenience for finding a specific Person, Module or Occasion. For
 instance, a Person now can be found by his or her name, phone, email, address, module code of the module he is taking,
 and occasion name of the occasion he is involved in. Multiple steps of findperson command
 can be used to find a person by more than one kind of conditions.
-** Highlights: The finding is based on the prefixes entered by the user when he or she adds a Person, Module
-or Occasion. It is compatible with the Add Command, such that Person, Module and Occasion will only be found by the
-attributes that have been entered by the user.
 * *Minor enhancement*: built tests for Occasion related classes, and unit and system tests for the above-mentioned
 commands.
 
@@ -52,12 +48,11 @@ https://github.com/CS2103-AY1819S1-W10-1/main/pull/111[#111])
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/98[#98],
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/115[#115])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W10-1/main/pull/88[#88],
+*** Did cosmetic tweaks to existing contents of the User Guide:
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/202[#202]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
-https://github.com/CS2103-AY1819S1-W10-1/main/pull/121[#121], https://github.com/CS2103-AY1819S1-W10-1/main/pull/171[#171],
-https://github.com/CS2103-AY1819S1-W10-1/main/pull/188[#188]
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/121[#121],
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com/CS2103-AY1819S1-W10-1/main/pull/125[125])
 
 == Contributions to the User Guide
@@ -80,6 +75,5 @@ include::../UserGuide.adoc[tag=find]
 
 include::../DeveloperGuide.adoc[tag=add]
 include::../DeveloperGuide.adoc[tag=delete]
-include::../DeveloperGuide.adoc[tag=find]
 
 
