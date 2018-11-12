@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_HUSBA
 
 import org.junit.Test;
 
-import seedu.address.model.person.PersonDescriptor;
 import seedu.address.testutil.PersonDescriptorBuilder;
 
 public class PersonDescriptorTest {
@@ -56,3 +55,4 @@ public class PersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
+

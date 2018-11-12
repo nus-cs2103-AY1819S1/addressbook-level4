@@ -57,5 +57,7 @@ include::../UserGuide.adoc[tag=delete]
 |===
 
 include::../DeveloperGuide.adoc[tag=polymorphismdecision]
+
 include::../DeveloperGuide.adoc[tag=updatinglists]
+
 include::../DeveloperGuide.adoc[tag=delete]

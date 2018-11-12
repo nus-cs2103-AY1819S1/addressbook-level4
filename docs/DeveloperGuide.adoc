@@ -322,6 +322,26 @@ For example, a `Person` has 2 separate lists of Modules and Occasions respective
 but a `Module` or `Occasion` only contains a Person list.
 // end::polymorphismdecision[]
 
+// tag::duplicationoflists[]
+=== Duplication of Entities
+To facilitate the ease of implementation of the following features, two important methods were conceived off: `makeDeepDuplicate`
+and `makeShallowDuplicate`. These two helper methods allow a `Person`, `Module` and `Occasion` within `TheTracker` to be copied in
+a different manner. The following image is a depiction of how `makeDeepDuplicate` works when it is called on a `Person`:
+
+image::PersonMakeDeepDuplicate.png[widt="800"]
+
+As can be seen from the above image `makeDeepDuplicate` creates a replica of a `Person` such that the respective `Modules` within the `UniqueModuleList` and
+the `Occasions` within the `UniqueOccasionList` are also `DeepDuplicated`.
+
+The following image depicts how `makeShallowDuplicate` works when it is called on a `Person` within `TheTracker`:
+
+image::PersonMakeShallowDuplicate.png[width="800"]
+
+As can be seen from the above image `makeShallowDuplicate` creates a replica of a `Person` such that the respective `UniqueModuleList` and `UniqueOccasionList`
+are empty.
+
+// end::duplicationoflists[]
+
 // tag::updatinglists[]
 [[Updating-Lists]]
 === Updating of Lists
@@ -461,7 +481,7 @@ fields.
 
 The figure below shows how the find command is processed through the logic of TheTracker:
 
-image::FindCommandLogicDiagram.png[width="800"]
+image::FindCommandLogicDiagram.png[width="500"]
 
 ==== Current Implementation
 As the `findperson`, `findmodule`, and `findoccasion` commands' logic are similar to one another,
@@ -528,23 +548,26 @@ The following sequence diagram shows how the `editperson` operation works:
 `editperson 6 p/91234567 e/johndoe@example.com`
 
 image::EditPersonSequenceDiagram.png[width="500"]
- `editmodule` and `editoccasion` works in a similar way as `editperson`
+
+`editmodule` and `editoccasion` works in a similar way as `editperson`
+
+The mechanism for modifying `edit` commands to fit `insert` commands is similiar to and explained in `delete` command
 
 ==== Design Considerations
 ===== Aspect: How editperson/editmodule/editoccasion executes
-* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are totally irrelevant to each other
-**Pros:
+* **Alternative 1 (Current Implementation):** `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand` are three separate classes
+** Pros:
 *** Implementation is easy to understand
-**Cons:
+*** Easy to manage the three entity lists
+** Cons:
 *** Lack of the essence of polymorphism, which is a key feature in OOP
 * **Alternative 2 :** Let `EditPersonCommand`, `EditModuleCommand` and `EditOccasionCommand`
 inherits from `EditCommand`, then use `TypeUtil` to detect the kind of entity that is going to be edited
 ** Pros:
 *** A good utilisation of polymorphism
 ** Cons:
-*** `Person`, `Module`, `Occasion` are three relatively independent entity, it could be hard to handle when using
+*** `Person`, `Module`, `Occasion` are three relatively independent entities, it could be hard to handle when using
 polymorphism and put everything together
-
 // end::edit[]
 
 // tag::insertperson[]
@@ -583,14 +606,8 @@ Why it is non-trivial:
 
 * For the feature to work coherently with `undo`/`redo` as well as `edit` an entire new replica of state
 of `TheTracker` must be created with the relevant entities bi-directionally inserted after this command has been executed.
-In accordance with this logic, two such methods were introduced to facilitate this feature's functionality. The first is
-the method `makeDeepDuplicate`, the following class diagram shows how the method works in relation to calling `makeDeepDuplicate`
-on a person:
 
-image::PersonMakeDeepDuplicate.png[width="800"]
-
-The method merely makes an entirely new copy of a `Person`/`Module`/`Occasion` by copying by `value` all of its predecessor's
-attributes. We cannot, however, make do with only `makeDeepDuplicate` in order to implement the `InsertPerson` feature.
+We cannot, however, make do with only `makeDeepDuplicate` in order to implement the `InsertPerson` feature.
 The following scenario illustrates why:
 
 * Insertion of `Person` `x` into `Occasion` `y` would cause `x's` occasion list to be populated by `y` and `y's` person list
@@ -600,16 +617,123 @@ to be populated by `x`. But if we insert a deep copy of `x` into `z` this would 
 us replicating the person list of `y` and, thus, `x` and so the program will halt in an infinite regress until a
 `StackOverFlow` is thrown.
 
-To counter this, we have implemented a `makeShallowDuplicate` which replicates an entity, but with an empty list. For example,
-calling `makeShallowDuplicate` on a `Person` would have the following effect:
-
-image::PersonMakeShallowDuplicate.png[width="800"]
-
-Upon insertion of a `Module` into a `Person` the respective `Module's` `ShallowDuplicate` is inserted to avoid this
-error.
-
+To avoid the above error, upon insertion of a `Module` into a `Person` the respective `Module's` `ShallowDuplicate` is inserted.
 
 // end::insertperson[]
+
+// tag::removeperson[]
+=== RemovePerson Feature
+The `removeperson` command is a complementary feature to the `insertperson` command. It enables the
+removal of a `Person` from either a `Module` students list or an `Occasion` attendance list. This thus
+means that the module or occasion will be removed from the respective list that the `Person` carries.
+The activity diagram below illustrates what happens when `removeperson` is called:
+
+image::RemovePersonActivityDiagram.png[width="800"]
+
+====  Current Implementation
+Currently, removeperson creates a whole new copy of the `Person`, and a whole new copy of the `Module` to replace.
+The difference with the copy and the original is that their internal elements contain one less element,
+and the new copy is populated with shallow duplicates.
+
+A shallow duplicate is a copy but with an empty internal list.
+For example, a shallow duplicate of Person contains an empty module list and empty occasion list.
+A shallow duplicate of Module contains an empty students list.
+
+The reason why this is done will be explained in the design considerations below.
+
+==== Design Considerations
+For this feature to be possible, it has to be possible to somehow remove the link between said `Person`
+and `Module`/`Occasion`.
+The link (or pointer) to the objects can be best illustrated in the class diagram below:
+
+image::PersonModuleOccasionClassDiagram.png[width="800"]
+
+As seen, the `Person` class is associated with the `Module` class and the `Occasion` class as `Person`
+stores a list of modules and occasions. A person can thus have associations with multiple modules and
+occasions. This relationship is bidirectional as a `Module` can have associations with multiple persons.
+This is the same for occasions with persons. There is no association between `Module` and occasion.
+Thus, the relationships between `Person` and module, & `Person` and occasion are bidirectional.
+
+Let us take an example of a `Person` associated with many modules, and vice versa. A possible implementation
+of the removeperson feature may be to remove the pointers between said `Person` and the corresponding
+`Module` in mind. However, this is not feasible in TheTracker due to our implementation of `VersionedAddressBook`.
+TheTracker keeps various states of itself and its components after every command which changes an object.
+Below is a simple state list diagram of the `VersionedAddressBook`:
+
+image::VersionedABStateListDiagram.png[width="800"]
+
+When the user first opens up TheTracker, an instance of the `VersionedAddressBook` is opened and the
+`currentStatePointer` points to instance 1 as shown in the diagram. When the user changes the person object,
+an entirely new copy of the state of `TheTracker` is created and inserted as a new `VersionedAddressBook` with
+currentStatePointer being updated.
+
+As removing a pointer from an object does not entail changing an attribute inside the object, a brand
+new object has to be created for every instance when `removeperson` is called. This would enable the
+`removeperson` command to be compatible with `undo` and `redo` which use the different `VersionedAddressBook`
+to complete the job.
+
+This new object would have to be fundamentally almost an exact replica of the old object, with the only
+difference being the internal lists of modules `Person` keeps or internal lists of persons `Module` keeps.
+However, let us take an example `Person` who is linked to several Modules. If this `Person` severs links with
+a `Module`, and a new list is created (only without said `Module`), this means that the list will try to add
+the other Modules into itself. These other Modules already contain an old instance of this `Person`, but
+their lists will also have to be updated with the new `Person`, which is adding these Modules in the first
+place! This creates an infinite recursive loop.
+
+To mitigate this problem, we had to make a shallow duplicate of the `Person` / `Module` / `Occasion` (with an empty
+list to prevent infinite recursion), and put in a complete duplicate (we named it deep duplicate) when
+repopulating the internal list of `Person` / `Module` / `Occasion`.
+// end::removeperson[]
+
+// tag::list[]
+=== List feature
+The list feature acts as a switching between the lists of `Person`, `Module`, `Occasion`.
+In essence, it acts as a context switch between the 3.
+
+==== Current Implementation
+Currently, the list command will raise a context switch event, a `ShowPersonRequestEvent`
+if the `listperson` command is called. This then tells the MainWindow to update with
+the correct list of persons in its list panel, and to change the browser panel to
+show the lists of `Module` and `Occasion` that `Person` may have.
+
+[source, java]
+----
+private void handlePerson() {
+    getBrowserPlaceholder().getChildren().clear();
+    getEntityListPanelPlaceholder().getChildren().clear();
+    personListPanel.clearSelection();
+
+    personListPanel.updatePanel(logic.getFilteredPersonList());
+    getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+    getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+    logic.setActiveType(PERSON);
+    AttendanceListUtil.postClearEvent();
+}
+----
+
+The above code shows how the `MainWindow` deals with the context switch, which includes the
+setting of the active type (the context of the current window), so that contextual commands
+such as `delete` and `select` are able to function properly with correct indices.
+
+The following sequence diagram shows how the `listperson` operation works:
+
+image::ListPersonSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+We had to examine whether it was better to:
+Alternative 1:
+Be able to make all commands contextual, and commands cannot be used out of context.
+This means that the `list` will set the context to limit other commands.
+
+Alternative 2:
+Leave it possible for other commands to be called even if the context is not correct.
+
+In the end, we chose alternative 1 so that users have the freedom to call specific commands
+without even looking at the specific list of choice, and to have more freedom to play around
+in the application.
+
+// end::list[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -738,16 +862,21 @@ image::HistoryCommandSequenceDiagram.png[width="400"]
 // end::history[]
 
 // tag::autocomplete[]
-=== [Proposed] Autocomplete
+=== Autocomplete
+The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's
+command line inputs. The parser will enable the autocomplete to check the user's input against a list
+of commands which are final and known by the address book. The autocomplete parser will be checking
+after every input in the command line, making it a real time feature.
 
-The autocomplete feature is facilitated by a stored list of commands and its own parser on the user's command line inputs.
+==== Current Implementation
+Currently, the feature calls on ControlsFX API to enable the autocomplete feature.
+It uses TextFields to have an autocomplete binding on the command box created which takes in the
+user input for commands. The list is populated by an inbuilt base commands list where all possible
+known commands are stored.
 
-The parser will enable the autocomplete to check the user's input against a list of commands which are final and known by the address book.
-
-The autocomplete parser will be checking after every input in the command line, making it a real time feature.
-
-While checking, the feature will try to give a regex match of the command and also provide suggestions on correct arguments based on current entities stored in TheTracker's address book.
-
+==== Proposed Improvements (Coming in v2.0)
+While checking, the feature will try to give a regex match of the command and also provide suggestions
+on correct arguments based on current entities stored in TheTracker's address book.
 // end::autocomplete[]
 
 // tag::export[]
@@ -758,11 +887,9 @@ TheTracker (v1.4) supports exporting user data to xml file and txt file.
 ==== Current Implementation
 `ExportXmlCommand` and `ExportTxtCommand` are both inherited from `ExportCommand`, which inherits from `Command` class
 
-In order to a direct access to the `Storage` component, the method `setStorage(Storage storage)` is added to `Command` +
+In order to gain a direct access to the `Storage` component, the method `setStorage(Storage storage)` is added to `Command` +
 In order to reduce redundant code in commands that are not directly dependent on `Storage`, `setStorage(Storage storage)` is
 designed to be a non-abstract method. Only `ExportCommand` overrides this method.
-
-Both `ExportXmlCommand` and `ExportTxtCommand` inherits from `ExportCommand`.
 
 ===== For ExportXmlCommand
 The following sequence diagram shows how the `ExportXmlCommand` works.
@@ -770,10 +897,10 @@ The following sequence diagram shows how the `ExportXmlCommand` works.
 image::ExportXmlCommandSequenceDiagram.png[width="500"]
 
 ===== For ExportTxtCommand
-`ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`. +
-This interaction of `ExportTxtCommand` and `Storage` component works in the same way of `ExportXmlCommand`. +
-The difference is: `ExportTxtCommand` first stored the exported xml file `temp.xml`;
-then, the method `parse()` of `XmlToTxtUtil` will parse the xml file to a txt file with defaulted style and layout
+`ExportTxtCommand` can be regarded as an extension of `ExportXmlCommand`.
+
+This interaction of `ExportTxtCommand` and `Storage` component works in the same way of `ExportXmlCommand`. The difference is: `ExportTxtCommand` first stored the exported xml file `temp.xml`;
+then, the method `XmlToTxtUtil.parse()` will parse the xml file to a txt file with defaulted style and layout
 and stored in the `exportedFilePath` specified by the user.
 
 ==== Design Considerations
@@ -784,14 +911,14 @@ and stored in the `exportedFilePath` specified by the user.
 *** Can utilise polymorphism
 *** Can avoid unnecessary repetition of code
 ** Cons:
-*** Not consistent with the format of other command (command + parameterPrefix + parameter)
+*** Not consistent with the format of other commands (command + parameterPrefix + parameter)
 
 * **As a part of command :**
 ** Format: `exportxml fp/[FILEPATH]` and `exporttxt fp/[FILEPATH]`
 ** Pros:
 *** Can keep consistent with the format of other command (command + parameterPrefix + parameter)
 ** Cons:
-*** `ExportXmlCommand` and `ExportTxtCommand` have to be two independent command, which does not utilise polymorphism
+*** `ExportXmlCommand` and `ExportTxtCommand` have to be two independent commands, which does not utilise polymorphism
 *** Have unnecessary repetition of code
 
 ===== Aspect: The Location of valid filepath check
@@ -848,8 +975,8 @@ image::DeletePersonSdForLogic.png[width="800"]
 
 However, the current implementation also allows for 2 useful functionalities in this feature:
 
-* Inferred Deletion: The deletion will only be applied to the currently active list.
-* Deep Deletion: All references to this entry can be removed (i.e. from other entries' lists).
+* Inferred Deletion: As we maintain the active type, the deletion will be applied to the currently active list.
+* Deep Deletion: By updating the associated lists, all references to this entry can be removed (i.e. from other entries' lists).
 
 The following activity diagram gives a broad overview of the deletion process:
 
@@ -857,12 +984,16 @@ image::DeleteActivityDiagram.png[width="800"]
 
 In performing deep deletion, almost all "related" objects are copied. +
 
+image::DeleteDeleteCommandStateListDiagram.png[width="500"]
+=======
 For example, suppose TheTracker is initialised in the following manner:
 
 * 2 Persons `p1`, `p2` and 2 Modules `m1`, `m2` are created
 * `p1` is inserted into `m1`, `m2`
 * `p2` is inserted into `m1`
 
+image::DeleteSequenceDiagram.png[width="500"]
+=======
 The current object diagram can be drawn as follows (unnecessary fields omitted):
 
 image::DeepDeletionObjectDiagramBefore.png[width="500"]

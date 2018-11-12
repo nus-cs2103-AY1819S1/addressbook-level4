@@ -16,11 +16,6 @@ The Tracker is optimized for those who prefer to work with a Command Line Interf
 the benefits of a Graphical User Interface (GUI). It is designed for programmers who are used to CLI
 applications and are good at typing.
 
-TheTracker is implemented for applying CS2103 learning outcomes and show understanding of the software design.
-It is implemented by our CS2103 Project group. My key contribution is edit commands.
-TheTracker is written in Java and JavaFX, and is morphed from AddressBook-level4,
-the application used for teaching Software Engineering principles.
-
 == Summary of contributions
 
 * *Major enhancement*: Create edit features for `Module` and `Occasion` and do enhancement to the existing edit person command
@@ -54,7 +49,8 @@ similar way of how he edits a contact.
 (Pull requests
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/121[#121],
-https://github.com/CS2103-AY1819S1-W10-1/main/pull/189[#189])
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/189[#189],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/208[#208])
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
@@ -74,11 +70,10 @@ https://github.com/CS2103-AY1819S1-W10-1/main/pull/183[#183]
 |===
 
 include::../UserGuide.adoc[tag=edit]
+
 include::../UserGuide.adoc[tag=export]
+
 include::../UserGuide.adoc[tag=import]
-
-
-
 == Contributions to the Developer Guide
 
 |===
@@ -86,16 +81,7 @@ include::../UserGuide.adoc[tag=import]
 |===
 
 include::../DeveloperGuide.adoc[tag=personcd]
+
 include::../DeveloperGuide.adoc[tag=edit]
+
 include::../DeveloperGuide.adoc[tag=export]
-
-
-== PROJECT: ORBITAL 2018
-
-|===
-|_Project Description
-|===
-
-In this Orbital Project, we designed a 2D-pixel-style music-adventure Unity game. It is played on iOS platform.
-
-
