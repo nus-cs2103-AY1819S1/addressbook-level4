@@ -50,7 +50,7 @@ image::alistairong.png[width="150", align="left"]
 Role: Team Member +
 Responsibility: Deliverables and deadlines; Code quality +
 Major Enhancement: `removeperson` +
-Minor Enhancement: `history`
+Minor Enhancement: Autocomplete
 
 '''
 
