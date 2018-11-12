@@ -7,7 +7,7 @@
 
 ---
 
-== Overview
+== 1) Overview
 
 The purpose of this portfolio is to document the contributions I have done to the project and provide an overview of
 what the project is about.
@@ -23,7 +23,7 @@ To use Hallper, the user keys in specific commands to create emails, calendar ev
 budget -- all of the main concerns of the JCRC addressed on a single platform.
 
 
-== Summary of contributions
+== 2) Summary of contributions
 These are my personal contributions to the project:
 
 * *Major enhancement 1*: added *the budget feature*
@@ -51,8 +51,6 @@ together. It is challenging as it requires interaction with the main window.
 window.
 
 * *Code contributed*:
-[ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/main/java/seedu/address[Functional code] ]
-[ https://github.com/CS2103-AY1819S1-W16-1/main/tree/master/src/test/java[Test code] ]
 [ https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ericyjw[RepoSense] ]
 
 * *Other contributions*:
@@ -71,20 +69,22 @@ window.
 *** Increase the code coverage from 68% to 81%: (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/162[#162])
 
 
-== Contributions to the User Guide
+== 3) Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=create]
 include::../UserGuide.adoc[tag=budget]
 
-== Contributions to the Developer Guide
+== 4) Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=create]
 include::../DeveloperGuide.adoc[tag=budget]
 
