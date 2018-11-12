@@ -91,7 +91,7 @@ public class TypicalPatientsAndDoctorsWithAppt {
             .withAddress("michegan ave")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("", "")
+            .withMedicalHistory("Paracetamol", "")
             .withAppointment(FIFTH).build();
     public static final Doctor FIONA_DOCTOR_APPT = new DoctorBuilder()
             .withName("Fiona Kunz")

@@ -42,7 +42,7 @@ public class AddPrescriptionCommandTest {
 
     @Test
     public void execute_allFieldsSpecified_success() {
-        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(4);
         Prescription toAdd = new PrescriptionBuilder()
                 .withAppointmentId(firstAppointment.getAppointmentId())
                 .withMedicineName(VALID_MEDICINE_NAME_VICODIN).build();
@@ -90,7 +90,7 @@ public class AddPrescriptionCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedWithoutCaseSensitivity_success() {
-        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(4);
         Prescription toAdd = new PrescriptionBuilder()
                 .withAppointmentId(firstAppointment.getAppointmentId())
                 .withMedicineName(VALID_MEDICINE_NAME_VICODIN.toUpperCase()).build();
@@ -138,7 +138,7 @@ public class AddPrescriptionCommandTest {
 
     @Test
     public void execute_duplicatePrescriptionUnfilteredList_failure() {
-        Appointment appointmentInList = model.getAddressBook().getAppointmentList().get(0);
+        Appointment appointmentInList = model.getAddressBook().getAppointmentList().get(4);
         Prescription toAdd = new PrescriptionBuilder()
                 .withAppointmentId(appointmentInList.getAppointmentId())
                 .withMedicineName(appointmentInList.getPrescriptions().get(0).getMedicineName().toString()).build();
@@ -162,7 +162,7 @@ public class AddPrescriptionCommandTest {
 
     @Test
     public void execute_patientAllergicToMedicine_failure() {
-        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(4);
         Prescription prescriptionToAdd = new PrescriptionBuilder()
                 .withAppointmentId(firstAppointment.getAppointmentId()).build();
         AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(firstAppointment.getAppointmentId(),
