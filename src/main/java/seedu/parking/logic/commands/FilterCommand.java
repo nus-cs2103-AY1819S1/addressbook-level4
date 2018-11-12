@@ -2,6 +2,7 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -33,14 +34,13 @@ public class FilterCommand extends Command {
     public static final String SYSTEMTYPE_ARG = "SY_TYPE";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Filters the list of car parks returned by the previous find command with the use of flags. "
-            + "Multiple flags can be used and in any order.\n"
-            + "Note: User must first find a list of car parks using the find command.\n"
+            + ": Filters the list of car parks returned by the previous find command with the use of flags.\n"
+            + "Multiple flags can be used in any order.\n"
             + "Valid flags:\n"
             + "> Available: a/ \n"
             + "> Night Parking: n/ \n"
             + "> Short-term Parking: st/ \n"
-            + "> Free Parking: f/ [day] [start time] [end time]     Example: filter f/ SUN 7.30AM 8.30PM\n"
+            + "> Free Parking: f/ [day] [start time] [end time]     Example: filter f/ sun 7.30am 8.30pm\n"
             + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n"
             + "> Parking System Type: ps/ [parking system type]     Example: filter ps/ coupon\n";
 
@@ -87,8 +87,41 @@ public class FilterCommand extends Command {
     // Please fix the last line, it will give NULLPOINTEREXCEPTION because predicate is initialized as null value.
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || other instanceof FilterCommand; // instanceof handles nulls
-                //&& predicate.equals(((FilterCommand) other).predicate)); // state check
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof FilterCommand)) {
+            return false;
+        }
+
+        FilterCommand otherFilterCommand = (FilterCommand) other;
+
+        Collections.sort(flagList);
+        Collections.sort(otherFilterCommand.flagList);
+        boolean checkFlagList = flagList.equals(otherFilterCommand.flagList); // flagList is always present
+
+        boolean checkPredicate = ((predicate == null && otherFilterCommand.predicate == null)
+                || predicate.equals(otherFilterCommand.predicate));
+
+        boolean checkFreeParkingParameter = (freeParkingParameter == null
+                && otherFilterCommand.freeParkingParameter == null)
+                || (freeParkingParameter.getDay().equals(otherFilterCommand.freeParkingParameter.getDay())
+                && freeParkingParameter.getStartTime().equals(otherFilterCommand.freeParkingParameter.getStartTime())
+                && freeParkingParameter.getEndTime().equals(otherFilterCommand.freeParkingParameter.getEndTime()));
+
+        boolean checkCarparkTypeParameter = (carparkTypeParameter == null
+                && otherFilterCommand.carparkTypeParameter == null)
+                || carparkTypeParameter.getCarparkType()
+                .equals(otherFilterCommand.carparkTypeParameter.getCarparkType());
+
+        boolean checkParkingSystemTypeParameter = (parkingSystemTypeParameter == null
+                && otherFilterCommand.parkingSystemTypeParameter == null)
+                || parkingSystemTypeParameter.getParkingSystemType()
+                .equals(otherFilterCommand.parkingSystemTypeParameter.getParkingSystemType());
+
+        return checkFlagList && checkPredicate && checkFreeParkingParameter && checkCarparkTypeParameter
+                && checkParkingSystemTypeParameter;
     }
 }
