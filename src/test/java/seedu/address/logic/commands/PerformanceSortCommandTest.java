@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
-//import static seedu.address.testutil.TypicalDecks.DECK_A;
-//import static seedu.address.testutil.TypicalDecks.DECK_B;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class PerformanceSortCommandTest {
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_sortCardList() throws Exception {
+    public void execute_rankCardList() throws Exception {
         Deck expectedDeck = getTypicalDeck();
         expectedDeck.getCards().perfsort();
         List<Card> expectedCardList = expectedDeck.getCards().asUnmodifiableObservableList();
