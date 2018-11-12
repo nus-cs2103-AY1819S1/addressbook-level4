@@ -39,8 +39,8 @@ import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.model.calendarevent.TagsPredicate;
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.CalendarEventBuilder;
+import seedu.address.testutil.CalendarEventUtil;
 import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
-import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.ToDoListEventBuilder;
 import seedu.address.testutil.ToDoListEventUtil;
 
@@ -52,14 +52,15 @@ public class SchedulerParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         CalendarEvent calendarEvent = new CalendarEventBuilder().build();
-        AddEventCommand command = (AddEventCommand) parser.parseCommand(PersonUtil.getAddCommand(calendarEvent));
+        AddEventCommand command = (AddEventCommand) parser.parseCommand(CalendarEventUtil.getAddCommand(calendarEvent));
         assertEquals(new AddEventCommand(calendarEvent), command);
     }
 
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD) instanceof ClearCalendarCommand);
-        assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD + " 3") instanceof ClearCalendarCommand);
+        assertTrue(parser.parseCommand(ClearCalendarCommand.COMMAND_WORD + " 3")
+                instanceof ClearCalendarCommand);
     }
 
     @Test
@@ -74,7 +75,8 @@ public class SchedulerParserTest {
         CalendarEvent calendarEvent = new CalendarEventBuilder().build();
         EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder(calendarEvent).build();
         EditEventCommand command = (EditEventCommand) parser.parseCommand(EditEventCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_ELEMENT.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+            + INDEX_FIRST_ELEMENT.getOneBased()
+            + " " + CalendarEventUtil.getEditCalendarEventDescriptorDetails(descriptor));
         assertEquals(new EditEventCommand(INDEX_FIRST_ELEMENT, descriptor), command);
     }
 
