@@ -108,10 +108,3 @@ documentation and the technical depth of my contributions to the project._
 include::../DeveloperGuide.adoc[tag=autoCompletion]
 
 include::../DeveloperGuide.adoc[tag=commandAliasing]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
