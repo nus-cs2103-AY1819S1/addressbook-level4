@@ -40,6 +40,7 @@ public class DiscountItemCommand extends Command {
 
     public static final String MESSAGE_DISCOUNT_ITEM_SUCCESS = "Discounted %1$d items";
     public static final String MESSAGE_REVERT_ITEM_SUCCESS = "Reverted %1$d items";
+    public static final String MESSAGE_NO_ITEM = "Menu is empty";
 
     private Index index;
     private Index endingIndex;
@@ -66,8 +67,12 @@ public class DiscountItemCommand extends Command {
         List<Item> lastShownList = model.getFilteredItemList();
 
         if (isAll) {
-            index = Index.fromZeroBased(0);
-            endingIndex = Index.fromOneBased(lastShownList.size());
+            try {
+                index = Index.fromZeroBased(0);
+                endingIndex = Index.fromOneBased(lastShownList.size());
+            } catch (IndexOutOfBoundsException iooe) {
+                throw new CommandException(MESSAGE_NO_ITEM);
+            }
         }
 
         if (endingIndex.getZeroBased() >= lastShownList.size()) {
