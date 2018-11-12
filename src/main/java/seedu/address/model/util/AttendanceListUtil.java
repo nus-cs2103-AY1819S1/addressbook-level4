@@ -50,15 +50,10 @@ public class AttendanceListUtil {
     /**
      * Posts correct event for clearing current browser.
      */
-    public static void postClearEvent(Model model) {
-        TypeUtil currType = model.getActiveType();
-        if (currType == TypeUtil.PERSON) {
+    public static void postClearEvent() {
             EventsCenter.getInstance().post(new PersonBrowserChangeEvent(new Person(new PersonDescriptor())));
-        } else if (currType == TypeUtil.MODULE) {
             EventsCenter.getInstance().post(new ModuleBrowserChangeEvent(new Module(new ModuleDescriptor())));
-        } else {
             EventsCenter.getInstance().post(new OccasionBrowserChangeEvent(new Occasion(new OccasionDescriptor())));
-        }
     }
 
     //@@author waytan
