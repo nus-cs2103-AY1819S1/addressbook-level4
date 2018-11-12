@@ -25,6 +25,8 @@ adding an appointment for a patient and predicting a disease from a set of sympt
 
 == 2. Summary of Contributions
 
+This section provides an overview of `Zhou Zegang`’s contributions to project `PatientBook`.
+
 * *Code contributed*: Code From Dashboard [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zzg229&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[Code]]
 
 * *Major enhancement*: added *diagnosis model which supports add disease, find disease, list disease and predict
@@ -58,6 +60,10 @@ string message so that it can be clearly displayed in the application.
 
 
 == 3. Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
 
 === Add a disease : `add disease`
 

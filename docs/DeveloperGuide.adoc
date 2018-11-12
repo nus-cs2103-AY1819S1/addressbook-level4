@@ -1393,7 +1393,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `list disease` +
    Expected: This displays the list of diseases which have been stored in alphabetic order.
 
-=== find
+=== Find
 . finding diseases
 
 .. Test case: `find disease hIV` +
@@ -1403,7 +1403,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `find disease sad` +
    Expected: No list of symptoms is displayed. The error message will be shown in the CommandResult box.
 
-=== predict
+=== Predict
 . predicting diseases
 
 .. Test case: `predict s/fever s/blackout` +
