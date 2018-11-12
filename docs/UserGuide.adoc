@@ -62,7 +62,7 @@ Shorthand: `h`
 === Adding a person: `add`
 
 Adds a person to InsuRen. Tags should not be `edit` or `delete` (case-insensitive). +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Shorthand: `a`
 
@@ -72,9 +72,12 @@ A person can have one name, phone, email and address, and any number of tags (in
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Abigail`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street block 123 #01-01` +
+Adds a `Person` with name John Doe, phone number 98765432, email johnd@example.com, and address John street block 123 #01-01, to InsuRen, provided that he does not already exist in InsuRen.
+* `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal` +
+Adds a `Person` with name Betsy Crowe, phone number 1234567, email betsycrowe@example.com, address Newgate Prison, and tags friend and criminal to InsuRen, provided that she does not already exist in InsuRen.
+* `add n/Abigail` +
+Adds a `Person` with name Abigail to InsuRen.
 
 === Listing all persons : `list`
 
@@ -107,11 +110,12 @@ Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit John Doe p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of John Doe to be ​91234567​ and
-johndoe@example.com​ respectively.
+Edits the phone number and email address of John Doe to be ​91234567​ and johndoe@example.com​ respectively, if John Doe can be uniquely identified by name in InsuRen.
+* `e Johnny n/Betsy Crower` +
+Edits the name of Johnny to be `Betsy Crower` if Johnny can be uniquely identified by name in InsuRen.
 // end::editByName[]
 
 === Locating persons by name: `find`
@@ -136,6 +140,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+// tag::deleteByName[]
 === Deleting a person : `delete`
 
 Deletes the specified person from InsuRen by the displayed list's index or by an existing name. +
@@ -159,11 +164,13 @@ Examples:
 `delete 2` +
 Deletes the 2nd person in InsuRen.
 * `find Betsy` +
-`delete 1` +
+`d 1` +
 Deletes the 1st person in the results of the `find` command.
 * `delete John` +
-Deletes John if John uniquely identifies a single person in InsuRen.
-
+Deletes John if John can be uniquely identified by name in InsuRen.
+* `d Abel Lee` +
+Deletes Abel Lee if Abel Lee can be uniquely identified by name in InsuRen.
+// end::deleteByName[]
 
 === Selecting a person : `select`
 
