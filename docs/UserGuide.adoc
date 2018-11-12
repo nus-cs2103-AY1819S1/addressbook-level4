@@ -294,7 +294,7 @@ Example (user does not provide a file path):
 * `import`
 * A file browser will pop up as shown below:
 +
-image::import.png[width="550"]
+image::import.png[width="400"]
 
 Example (user provides a file path):
 
@@ -309,12 +309,11 @@ Example (user provides a file path):
 * All fields are optional, except for Name. Contacts with no Address, Phone etc. must have those fields left BLANK. Ie. the
 corresponding Excel cell MUST have nothing in it.
 * Any invalid entries (contacts with no name) will be ignored.
-* Examples of properly formatted csv files are shown below.
+* Examples of properly formatted csv files are shown below. (Can be both csv or txt)
 
 +
-image::import-acceptable-csv.png[width="550"]
-+
-image::import-acceptable-csv2.png[width="550"]
+image::import-acceptable-csv3.png[width="400"]
+
 // end::import[]
 
 // tag::export[]
@@ -336,7 +335,7 @@ Example:
 * `export 28Nov.csv` +
 InsuRen contacts are exported to `28Nov.csv`
 +
-image::exportedCsv.png[width="550"]
+image::exportedCsv.png[width="400"]
 // end::export[]
 
 // tag::schedule[]

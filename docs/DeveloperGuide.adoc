@@ -518,22 +518,22 @@ Step 1. The user launches an application and there is either a list of existing 
 Step 2. The user executes import command (i for shorthand). If the user ONLY types import, a file browser wlil pop up.
 If the user includes a file path, InsuRen will attempt to retrieve the file from the given path.
 
-image::import.png[width="550"]
+image::import.png[width="400"]
 
-image::import_user_input.png[width="550"]
+image::import_user_input.png[width="400"]
 
 Step 3. If no such file exists, InsuRen will report an error.
 
-image::import_user_input_fail.png[width="550"]
+image::import_user_input_fail.png[width="400"]
 
 Step 4. If the file is successfully loaded (regardless of method), InsuRen checks for duplicates and incomplete contacts.
 Insuren compiles a list of contacts and runs the `add` Command on all of them, adding them to the list of existing contacts.
 
 Step 5. A relevant message will be displayed, depending on whether there were successful imports, duplicate contacts etc.
 
-image::import_success.png[width="550"]
+image::import_success.png[width="400"]
 
-image::import_duplicates.png[width="550"]
+image::import_duplicates.png[width="400"]
 
 The following activity diagram summarizes what happens when a user executes the `Import` Command:
 
@@ -542,7 +542,7 @@ image::importActivityDiagram.png[width="400"]
 The following sequence diagram shows what happens when a user executes the `Import` Command (user input mode only,
 file browser mode omitted):
 
-image::ImportSequenceDiagram.png[width="800"]
+image::ImportSequenceDiagram2.png[width="400"]
 
 ==== Design Considerations
 
@@ -585,7 +585,7 @@ image::ExportActivityDiagram.png[width="400"]
 
 The following sequence diagram shows what happens when a user executes the `Export` Command:
 
-image::ExportSequenceDiagram.png[width="800"]
+image::ExportSequenceDiagram2.png[width="400"]
 
 ==== Design Considerations
 
@@ -1472,7 +1472,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: rename, delete, or move the image file `/Users/John/Downloads/Insuren/images/petertan.jpg` such that there is no `petertan.jpg` file in the `images` folder. +
    Expected: The default placeholder picture will be used.
 
-// tag::import[]
+// tag::manualTestingImport[]
 === Importing contacts
 
 . Importing a fresh list of contacts into an empty InsuRen.
@@ -1495,9 +1495,9 @@ successfully imported contacts from asdf.csv.
 .. Prerequisites: Clear InsuRen like in (1) above, then deliberately corrupt some of the entries in asdf.csv by removing names or giving invalid phone numbers, meetings etc.
 .. Test case: `import l/asdf.csv` +
    Expected: Valid contacts will be imported into InsuRen. Additionally, an error will be displayed, stating that InsuRen has found invalid contacts.
-// end::import[]
+// end::manualTestingImport[]
 
-// tag::export[]
+// tag::manualTestingExport[]
 === Exporting contacts
 
 . Exporting InsuRen's current contacts into a new csv file.
@@ -1511,7 +1511,7 @@ successfully imported contacts from asdf.csv.
 .. Prerequisites: Ensure that InsuRen has at least 1 contact.
 .. Test case: `export asdf` +
    Expected: Error message will be thrown by InsuRen, stating that an incorrect export file name has been provided.
-// end::export[]
+// end::manualTestingExport[]
 
 // tag::testingpicture[]
 === Adding picture
