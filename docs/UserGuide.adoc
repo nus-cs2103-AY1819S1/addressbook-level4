@@ -206,17 +206,17 @@ regardless of whether a PASSWORD has been provided
 ====
 //end::security1[]
 //tag::security2[]
-=== Setting a password for the current user : `setpassword`
+=== Setting a password for the current user : `setPassword`
 Sets a new password for the user which is currently logged in.
 
-Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
+Format: `setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
 
 ****
 *Examples:*
 
-*  `setpassword n/pass123` +
+*  `setPassword n/pass123` +
  Sets the current user's password as "pass123", provided that there is no previously set password
-*  `setpassword n/pass123 o/password1` +
+*  `setPassword n/pass123 o/password1` +
  Sets the current user's password as "pass123", provided that the current password is "password1"
 ****
 
@@ -749,8 +749,8 @@ This is a summary of the commands available in Expense Tracker:
 e.g. `signup username123`
 * *Login* : `login u/USERNAME [p/PASSWORD]` +
 e.g. `login u/username123 p/password1`
-* *Set Password* : `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
-e.g. `setpassword n/pass1 o/passold`
+* *Set Password* : `setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
+e.g. `setPassword n/pass1 o/passold`
 * *Help* : `help`
 * *Add* `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]…​` +
 e.g. `add n/Lunch e/4 c/Food`
@@ -785,7 +785,7 @@ This is a list of mappings of commands to their command shorthands in Expense Tr
 
 * `signup`: `su`
 * `login`: `li`
-* `setpassword`: `sp`
+* `setPassword`: `sp`
 * `help`: `h`
 * `add`: `a`
 * `edit`: `e`
