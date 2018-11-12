@@ -19,7 +19,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ryantanwk[RepoSense]]
 * *Major enhancement*: added the *Notification/Favourite feature*
-** What it does: Allows the user to enable/disable a welcome notification upon application startup. 
+** What it does: Allows the user to enable/disable a welcome notification upon application startup.
 Moreoever, users can favourite an event so that the welcome message will display details of the event.
 ** Justification: Busy users should have a convenient means to remind themselves of an upcoming event.
 ** Highlights: If a favourite event is deleted, and notification is enabled,
@@ -52,8 +52,8 @@ the welcome notification will display a default welcome message instead of the e
   https://github.com/CS2103-AY1819S1-W13-2/main/pull/194[#194],
 
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W17-3/main/issues/101[1], 
-  https://github.com/CS2103-AY1819S1-W16-1/main/issues/103[2], 
+*** Reported bugs and suggestions for other teams in the class (https://github.com/CS2103-AY1819S1-W17-3/main/issues/101[1],
+  https://github.com/CS2103-AY1819S1-W16-1/main/issues/103[2],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/105[3],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/112[4],
   https://github.com/CS2103-AY1819S1-W17-3/main/issues/118[5],
