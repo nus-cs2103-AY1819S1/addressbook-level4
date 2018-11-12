@@ -1795,6 +1795,112 @@ Use case resumes at step 2.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Add new assignment
+
+*MSS*
+
+.  User login to the system
+.  Oasis shows home page
+.  User enters assignment name, author and description
+.  Oasis displays confirmation message
+.  User enters confirm
+.  Oasis sends the application to the manager
+.  Oasi shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 3a. The format is invalid
++
+** 3a1. OASIS shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The user chooses to cancel
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List assignments
+Precondition: user is logged in
+
+*MSS*
+
+.  User enterscommand to view list of assignments
+.  OASIS lists all the assignments in the system
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format is invalid
+** 1a1. OASIS shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete assignment
+
+*MSS*
+
+.  User login to the system
+.  User <<Use case: List assignments, lists assignments (Use case: List assignments)>>
+.  Employee executes delete command on selected assignment
+.  Oasis deletes the assignment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. Employee does not have the required permissions
+** 3a1. Oasis shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit assignment
+
+*MSS*
+
+.  Employee login to the system
+.  User <<Use case: List assignments, lists assignments (Use case: List assignments)>>
+.  Emplyee executes edit command on selected assignment
+.  OASIS edits the assignment
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The credentials are invalid
++
+Use case ends.
+
+* 2a. The list is empty
++
+Use case ends.
+
+* 3a. Employee does not have the required permissions
+** 3a1. Oasis shows an error message
++
+Use case ends.
+
 _{More to be added}_
 
 [appendix]
