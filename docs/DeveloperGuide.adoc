@@ -564,7 +564,7 @@ image::command_exportcert_sd_1.png[exportcert SD, 800]
 The next sequence diagram below looks at the ExportCertCommand's execution in detail, including it's interaction with the model.
 
 .Detailed sequence diagram for ExportCertCommand execution
-image::command_exportcert_sd_2.png[exportcert SD, 800]
+image::command_exportcert_sd_2.png[exportcert SD, 650]
 
 ===== Design Considerations
 
