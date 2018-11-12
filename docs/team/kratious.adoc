@@ -39,11 +39,11 @@ This enhancement is one of the major building blocks of the system and affects m
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Applied upstream bug fix: link:{pullURL}/78/[#78]
 ** Enhancements to existing features:
-*** Updated the user interface aesthetics and behaviour: link:{pullURL}/68/[#68], link:{pullURL}/92/[#92], link:{pullURL}/158/[#158], link:{pullURL}/243/[#243]
+*** Updated the user interface aesthetics and behaviour: link:{pullURL}/92/[#92], link:{pullURL}/158/[#158], link:{pullURL}/243/[#243]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the Developer Guide: link:{pullURL}/118/[#118], link:{pullURL}/123/[#123], link:{pullURL}/128/[#128]
+*** Did cosmetic tweaks to existing contents of the Developer Guide: link:{pullURL}/118/[#118], link:{pullURL}/128/[#128]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): link:{pullURL}/58/[#58], link:{pullURL}/72/[#72], link:{pullURL}/121/[#121] link:{pullURL}/232/[#232]
+*** PRs reviewed (with non-trivial review comments): link:{pullURL}/58/[#58], link:{pullURL}/72/[#72], link:{pullURL}/232/[#232]
 *** Enquired about and resolved a team issue on the forum: https://github.com/nus-cs2103-AY1819S1/forum/issues/134[#134]
 ** Tools:
 *** Integrated a new Github plugin (Coveralls) to the team repository
