@@ -96,7 +96,7 @@ image::tutorial/step 6.png[width:2000]
 . Now we can begin to use some of the more advanced features in Piconso! We add some noise to the image with `apply raw +noise gaussian`.
 . Feel free to repeat the step 15 a few times to get the desired amount of noise! We did it five times to be sure. If you ever go overboard, use the `undo` command to ... undo the previous command. But face it, you're going to `redo` it anyway.
 
-.Noisy indeed.
+.Turn down for what?
 image::tutorial/step 7.png[width:2000]
 
 [start=17]
@@ -125,10 +125,10 @@ You can use the `apply rotate [degree]` command to spice the meme up a bit. If y
 image::tutorial/step 9.png[width:2000]
 
 [start=21]
-. Save the image again (`save lit_meme.png`) and we're ready to upload our image!
+. Save the image again (`save lit_meme.png`) and we're ready to upload it!
 . Login with the aptly named `login` command. Don't worry, Piconso will never store your password in any shape or form!
 . Upload the file with `g ul <lit_meme.png>`. You should see a confirmation message when the upload is complete.
-. `logout` when you're done! Congrats, you have just went from to a Piconso-certified meme hero!
+. `logout` when you're done! Congrats, you have just went from zero to a Piconso-certified meme hero!
 
 Before we let you go, wonder how we made the very first image you saw? Try this before you go!
 
