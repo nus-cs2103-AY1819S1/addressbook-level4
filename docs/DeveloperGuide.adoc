@@ -884,9 +884,9 @@ The `logout` command post a `LogoutClinicIoEvent` to notify the UI that you want
 the `EventCenter` to communicate between components without requiring the components to register with
 each other explicitly.
 
-Here is a step-by-step on how `LogoutCommand` notify `MainWindow` that you want to log out of ClinicIo: +
+Here is a step-by-step on how `logout` command notify `MainWindow` that you want to log out of ClinicIo: +
 
-Step 1: The `LogoutCommand` post a new `LogoutClinicIoEvent` to the `EventsCenter`.
+Step 1: The `logout` command post a new `LogoutClinicIoEvent` to the `EventsCenter`.
 
 Step 2: The `eventBus` post the newly created `LogoutClinicIoEvent` (from Step 1) to make the event available to any listeners in `EventBus`.
 
@@ -929,7 +929,7 @@ to ClinicIO.
 === Patient Management feature
 
 ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
-This patient management is the equivalent of <<crud, Create, Read, Update and Delete (CRUD)>>.
+This patient management is the equivalent of Create, Read, Update and Delete (CRUD).
 
 ==== Current Implementation
 
@@ -951,6 +951,24 @@ The `addpatient` command behaves similarly to the `add`. The command takes in pa
 The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
 Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
 that the `preferredDoctor` exists inside the staff records.
+
+Here is a step-by-step on how `addpatient` command execute: +
+
+Step 1: The user executes the `addpatient` command. +
+
+Step 2: The `addpatient` command calls `UserSession#isLoginAsReceptionist()` to ensure that user is logged in as a receptionist. +
+
+Step 3: Once the verfication has been made, the `addpatient` command call `Model#hasPatient()` to avoid duplicate patient being added. +
+
+Step 4: Once the verfication has been made, the `addpatient` command call `Model#hasStaff()` and `preferredDoctor.getRole().equals(DOCTOR)` to check if the preferred doctor is a doctor in ClinicIO. +
+
+Step 5: Once the verfication has been made, the `addpatient` command call `Model#addPatient` to add patient to the patient record.
+
+Step 6: The `addpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+Step 7: The `addpatient` command call `Model#commitClinicIo()` to finalise the changes made to the patient record.
+
+Step 8: The `addpatient` command provide the success message to indicate that patient has been added to ClinicIO.
 
 The following code snippet shows how `addpatient` Command is executed:
 [source,java]
@@ -997,11 +1015,64 @@ The following code snippet shows how `addpatient` Command is executed:
 
 The `listpatient` Command retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
 
+Here is a step-by-step on how `listpatient` command execute: +
+
+Step 1: The user executes the `listpatient` command. +
+
+Step 2: The `listpatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `listpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList`. +
+
+Step 4: The `listpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
 ===== `findpatient` Command
 
-The `findpatient`
+The `findpatient` Command find patient with the name as keywords using `PatientNameContainsKeywordsPredicate`.
+
+Here is a step-by-step on how `findpatient` command execute: +
+
+Step 1: The user executes the `findpatient` command by specifying all the names to search. +
+
+Step 2: The `findPatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `findpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList` containing keywords in `PatientNameContainsKeywordsPredicate`. +
+
+Step 4: The `findpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+The following sequence diagram shows how `findpatient` command works:
+
+**Logic**
+
+.Sequence Diagram for the `findpatient` Command for the logic component.
+image::FindPatientLogicSequenceDiagram.png[width="1080"]
+{sp} +
+**Model**
+
+.Sequence Diagram for the `findpatient` Command for the model component.
+image::FindPatientModelSequenceDiagram.png[width="1080"]
+{sp} +
+**Commons**
+
+.Sequence Diagram for the `findpatient` Command for the commons component.
+image::FindPatientCommonsSequenceDiagram.png[width="1080"]
+{sp} +
 
 ==== Design Considerations
+
+===== Aspect: Manipulate the list
+
+There are various places to execute command. Here are some options:
+
+* *Alternative 1 (current choice)*: Handle at the model component
+
+** Pros : Prevent logic from being heavy of data manipulaiton.
+** Cons : Too challenging to ensure all necessary methods are at the model.
+
+* *Alternative 2*: Handle at the logic component
+
+** Pros: Easy to implement by retrieving the `UniquePatientList` to do manipulation of data
+** Cons: Loses the purpose of having model and logic components. The logic will be
+loaded with codes while model will be light on codes.
 
 // end::patientManagement[]
 
@@ -1812,7 +1883,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-. Initial launch
+You are launch the program initially
+
+Instructions:
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
@@ -1824,26 +1897,41 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a patient
 
-=== Deleting a patient
+You are adding a new patient to ClinicIO
 
-. Deleting a patient while all patients are listed
+**Prerequisites: You must be login as a receptionist.**
 
-.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Instructions:
 
-_{ more test cases ... }_
+.. Test case: `addpatient n/Steve Rogers ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust` +
+   Expected: Patient record is added to ClinicIO. The list will update immediately after adding patient.
+.. Test case: `addpatient n/Steve Johnson ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust preDr/Dr Lee` +
+   Expected: No patient is added and a error message will show "The preferred doctor is not found." +
 
-=== Saving data
+=== Login as a receptionist
 
-. Dealing with missing/corrupted data files
+You are login to ClinicIO as a receptionist.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+**Prerequisites: None.**
 
-_{ more test cases ... }_
+Instructions:
+
+.. Test case: `login r/receptionist n/Mary Jane pass/reception3` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/receptionist n/Mary Jane pass/reception151` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
+
+=== Login as a doctor
+
+You are login to ClinicIO as a doctor.
+
+**Prerequisites: None.**
+
+Instructions:
+
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1241` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
