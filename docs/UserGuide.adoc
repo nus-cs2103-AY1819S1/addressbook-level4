@@ -137,19 +137,6 @@ Example:
 * `addTime n/John Doe ts/mon 1300 1500` +
 Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
-=== Edit certain class time of certain student: `editTime`
-
-Edit certain class time of certain student +
-Format: `editTime n/NAME ts/OLD_TIME_SLOT ts/NEW_TIME_SLOT`
-
-****
-* filter result: list the person's name who takes class at given time.
-****
-
-[NOTE]
-====
-If no one is qualified then shows cannot find.
-====
 
 === Edit certain class time of certain student: `exchangeTime`
 

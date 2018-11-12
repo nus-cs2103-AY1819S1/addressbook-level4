@@ -10,7 +10,6 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -18,9 +17,6 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 
 public class SuggestionCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
 
 
     @Test
@@ -51,7 +47,7 @@ public class SuggestionCommandTest {
         assertFalse(suggestionFirstCommand.equals(1));
     }
 
-    
+
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
