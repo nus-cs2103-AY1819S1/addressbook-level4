@@ -453,6 +453,10 @@ quirks as opposed to commonly recognised _Alternative 2_
 // end::design-considerations-main[]
 
 === Model Rollback feature
+
+This section and its subsections are written with reference to commit:
+9ddb0ffddf5d769d357e28fbd5337011614e7b14
+
 ==== Current Implementation
 
 Allows for any uncommitted changes to be discarded.
