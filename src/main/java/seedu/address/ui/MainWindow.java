@@ -383,21 +383,4 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
-
-    @Subscribe
-    private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.getNewSelection() == 2) {
-            personListPanel = new PersonListPanel(logic.getArchivedPersonList(), 2);
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        }
-        if (event.getNewSelection() == 1) {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), 1);
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        }
-        if (event.getNewSelection() == 3) {
-            assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
-            personListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
-        }
-    }
 }

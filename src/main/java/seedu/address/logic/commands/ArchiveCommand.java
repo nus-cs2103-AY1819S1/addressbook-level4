@@ -25,4 +25,5 @@ public class ArchiveCommand extends Command {
         EventsCenter.getInstance().post(new ArchiveListEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
 }
