@@ -55,6 +55,26 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PRIORITY_VALUE`, `p/PRIORITY_VALUE n/NAME` is also acceptable.
 * `+Example` indicates positive example while `-Example` indicates negative example.
 ====
+
+// tag::task-fields[]
+=== Note on Task fields
+A task has various fields. Some of these fields can be edited directly, while the rest are _derived_ from the fields
+that can be edited.
+
+==== Editable fields
+* Name: the name of a task
+* Due Date: the date and time when a task is due
+* Priority: the priority value that a task has
+* Description: additional description regarding the task
+* Labels: a list of labels that can be used to classify/identify the task
+
+==== Derived fields
+* Remaining time: the time remaining, from the current time, until the Due Date of the task.
+* Status: the current status of the task, depending on whether it has been completed or not.
+It is denoted by either "IN PROGRESS", "COMPLETED" or "OVERDUE".
+* Effective Due Date: the earliest due date among all tasks directly or indirectly dependent on the task
+
+// end::task-fields[]
 === System Commands
 ==== Viewing help: `help`
 
