@@ -26,12 +26,14 @@ import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
 import seedu.clinicio.commons.events.ui.AppointmentPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
+import seedu.clinicio.commons.events.ui.MedicinePanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
@@ -53,6 +55,7 @@ public class MainWindow extends UiPart<Stage> {
     private PatientListPanel patientListPanel;
     private AppointmentListPanel appointmentListPanel;
     private QueuePanel queuePanel;
+    private MedicineListPanel medicineListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -76,6 +79,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane queuePanelPlaceholder;
 
+    private StackPane medicineListPanelPlaceholder;
+
     @FXML
     private StackPane resultDisplayPlaceholder;
 
@@ -93,6 +98,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab appointmentTab;
+
+    @FXML
+    private Tab medicineTab;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -190,7 +198,10 @@ public class MainWindow extends UiPart<Stage> {
         queueTab.setContent(queuePanelPlaceholder);
         queueTab.setClosable(false);
 
-        tabLists = new TabPane(patientTab, appointmentTab, queueTab);
+        medicineTab.setContent(medicineListPanelPlaceholder);
+        medicineTab.setClosable(false);
+
+        tabLists = new TabPane(patientTab, appointmentTab, queueTab, medicineTab);
     }
 
     /**
@@ -205,6 +216,9 @@ public class MainWindow extends UiPart<Stage> {
 
         queuePanel = new QueuePanel(logic.getAllPatientsInQueue());
         queuePanelPlaceholder.getChildren().add(queuePanel.getRoot());
+
+        medicineListPanel = new MedicineListPanel(logic.getFilteredMedicineList());
+        medicineListPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
     }
 
     //@@author iamjackslayer
