@@ -518,7 +518,7 @@ link:http://jfxtras.org/doc/8.0/jfxtras-agenda/index.html[here].
 
 `CalendarEvent` extends `Agenda.AppointmentImplLocal`,
 so as to streamline the process
-of displaying CalendarEvents.
+of displaying `CalendarEvent` s.
 
 The `CalendarDisplay` class acts as a wrapper around `Agenda`.
 `CalendarDisplay` will:
