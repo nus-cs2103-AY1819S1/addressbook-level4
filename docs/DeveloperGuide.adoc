@@ -945,7 +945,7 @@ A leave application is represented by a `LeaveApplication` model object, as foll
 .Structure of a leave application
 image::LeaveApplicationModelDiagram.png[width="300"]
 *API*: link:https://github.com/CS2103-AY1819S1-F10-1/main/blob/master/src/main/java/seedu/address/model/leaveapplication/LeaveApplication.java[`LeaveApplication.java`]
-A leave applications contains a description, status (`PENDING`, `APPROVED`, or `REJECTED`), and one of more dates.
+A leave applications contains a description, status (`PENDING`, `APPROVED`, or `REJECTED`), and one or more dates.
 
 [NOTE]
 The `LeaveApplication` constructor removes duplicates, and orders all dates in ascending order.
