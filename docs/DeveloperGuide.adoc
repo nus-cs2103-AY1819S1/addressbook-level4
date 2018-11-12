@@ -188,6 +188,7 @@ They are handled by the same parser, with the model determining the appropriate 
 // end::explanationofpolymorphism[]
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -205,6 +206,8 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -388,7 +391,7 @@ polymorphism and put everything together
 
 // end::edit[]
 
-// tag:insertperson[]
+// tag::insertperson[]
 === InsertPerson feature
 The `InsertPerson` command is an advanced feature for TheTracker. It enables a bi-directional insert of a Person into
 either one of a `module` or an `occasion`.
