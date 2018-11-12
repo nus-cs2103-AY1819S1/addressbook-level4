@@ -1128,6 +1128,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
+// tag::import[]
 === Use Case: Mass import contacts into InsuRen
 
 *MSS*
@@ -1145,8 +1146,10 @@ Use case ends.
 ** 1a1. InsuRen shows an error message.
 +
 Use case resumes at step 1.
+// end::import[]
 
 [discrete]
+// tag::export[]
 === Use Case: Export contact list from InsuRen
 
 *MSS*
@@ -1164,6 +1167,7 @@ Use case ends.
 ** 1a1. InsuRen shows an error message.
 +
 Use case resumes at step 1.
+// end::export[]
 
 [discrete]
 === Use Case: Edit Clients by Name
@@ -1374,6 +1378,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+// tag::import[]
 === Importing contacts
 
 . Importing a fresh list of contacts into an empty InsuRen.
@@ -1396,7 +1401,9 @@ successfully imported contacts from asdf.csv.
 .. Prerequisites: Clear InsuRen like in (1) above, then deliberately corrupt some of the entries in asdf.csv by removing names or giving invalid phone numbers, meetings etc.
 .. Test case: `import l/asdf.csv` +
    Expected: Valid contacts will be imported into InsuRen. Additionally, an error will be displayed, stating that InsuRen has found invalid contacts.
+// end::import[]
 
+// tag::export[]
 === Exporting contacts
 
 . Exporting InsuRen's current contacts into a new csv file.
@@ -1410,3 +1417,4 @@ successfully imported contacts from asdf.csv.
 .. Prerequisites: Ensure that InsuRen has at least 1 contact.
 .. Test case: `export asdf` +
    Expected: Error message will be thrown by InsuRen, stating that an incorrect export file name has been provided.
+// end::export[]
