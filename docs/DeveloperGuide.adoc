@@ -354,7 +354,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 //tag::compose[]
 === Email feature
-Written below is the implementation of the Email feature and considerations in its design.
+Written below is the implementation of the Email feature, and considerations in its design.
 
 ==== Current Implementation
 
