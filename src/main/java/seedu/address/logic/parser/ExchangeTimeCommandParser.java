@@ -32,7 +32,8 @@ public class ExchangeTimeCommandParser implements Parser<ExchangeTimeCommand> {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
             if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
             }
 
             String nameA = argMultimap.getAllValues(PREFIX_NAME).get(0);
