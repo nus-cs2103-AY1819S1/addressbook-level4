@@ -109,6 +109,19 @@
                                 <StackPane fx:id="appointmentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
+                        <Tab fx:id="medicineTab">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/images/medicines.png" />
+                                </ImageView>
+                            </graphic>
+                            <VBox fx:id="medicineList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10" />
+                                </padding>
+                                <StackPane fx:id="medicineListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
                     </TabPane>
 
                     <StackPane fx:id="displayPanelPlaceholder" prefWidth="340">
