@@ -43,7 +43,6 @@ import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.PatientBuilder;
-import seedu.clinicio.ui.Ui;
 
 public class AddPatientCommandTest {
 
@@ -139,11 +138,6 @@ public class AddPatientCommandTest {
 
         @Override
         public ObservableList<Patient> getAllPatientsInQueue() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addUi(Ui ui) {
             throw new AssertionError("This method should not be called.");
         }
 

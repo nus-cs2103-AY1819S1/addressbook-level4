@@ -140,11 +140,6 @@ public class AddApptCommandTest {
         }
 
         @Override
-        public void addUi(Ui ui) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void switchTab(int index) {
             throw new AssertionError("This method should not be called.");
         }

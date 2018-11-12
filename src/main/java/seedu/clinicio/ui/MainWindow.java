@@ -32,7 +32,6 @@ import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
 import seedu.clinicio.commons.events.ui.MedicinePanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.PatientPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
-
 import seedu.clinicio.commons.events.ui.SwitchTabEvent;
 import seedu.clinicio.logic.Logic;
 
