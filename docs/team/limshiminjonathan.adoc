@@ -16,7 +16,8 @@ life in the kitchen. +
 Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
 == Summary of contributions
-
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=limshiminjonathan[Functional
+code]]
 * *Major enhancement*: added *favourites* feature.
 ** What it does: allows the user to save their favourite recipes to a separate list.
 ** Justification: This feature improves the product significantly because a user can have quick access to all of their
