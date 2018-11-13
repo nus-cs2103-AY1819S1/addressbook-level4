@@ -30,7 +30,7 @@ in the transcript and updated on the UI.
 * *Minor enhancement*:
 ** Added `adjust` and `goal` command in Logic
 
-* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremiah_ang
+* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremiah-ang
 
 * *Other contributions*:
 
