@@ -10,6 +10,7 @@ import seedu.address.logic.commands.ViewGroupRankedAvailableTimeslotCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 
+//@@author nigelngyy
 /**
  * Parses input arguments and creates a new ViewGroupRankedAvailableTimeSlotCommand object
  */

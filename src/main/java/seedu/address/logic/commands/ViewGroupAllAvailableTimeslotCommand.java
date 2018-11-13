@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Name;
 
+//@@author nigelngyy
 /**
  * Lists all time slots at which everyone is available
  */
