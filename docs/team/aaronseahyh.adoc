@@ -58,6 +58,12 @@ clinic's medicine inventory
 medicines to a patient, or restocking medicines for future prescriptions.
 ** Highlights: This enhancement adds new commands to the existing software.
 
+==== Code contributed:
+
+__The link below displays all the code I have contributed to the ClinicIO project.__
+
+__https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=aaronseahyh__
+
 ==== Other contributions:
 
 ** Documentation:
