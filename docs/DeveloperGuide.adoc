@@ -682,7 +682,6 @@ set age, current weight and also their current height. this will then tell them 
 eat per day to hit their target.
 
 ==== Class Diagram
-
 image::healthPlanClassDiagram.png[width="800"]
 
 ==== Current implementation

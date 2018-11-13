@@ -55,6 +55,15 @@ public class FindCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
+     * and returns an FindCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public FindCommand<Recipe> parseFavourite(Model<Recipe> model, String args) throws ParseException {
+        return new FindCommand<>(model,
+                new RecipeContainsKeywordsPredicate(parse(model, args, MESSAGE_FIND_RECIPE_USAGE)));
+    }
+    /**
+     * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an List to be passed to predicates.
      * @throws ParseException if the user input does not conform the expected format
      */

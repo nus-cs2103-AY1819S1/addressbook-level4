@@ -11,7 +11,6 @@ import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.logic.parser.AppContentParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ModelSet;
-import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
@@ -71,7 +70,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Favourites> getFilteredFavouritesList() {
+    public ObservableList<Recipe> getFilteredFavouritesList() {
         return modelSet.getFavouriteModel().getFilteredList();
     }
 

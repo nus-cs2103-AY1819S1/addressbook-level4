@@ -10,7 +10,9 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLA
 
 import java.util.List;
 
+import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.commons.events.model.RecipeDeletedEvent;
 import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -115,6 +117,31 @@ public class DeleteCommandParser {
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_MEALPLANNER_USAGE), pe);
+        }
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * and returns an DeleteCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteCommand<Recipe> parseFavourite(Model<Recipe> model, String args) throws ParseException {
+        try {
+            Index targetIndex = ParserUtil.parseIndex(args);
+            requireNonNull(model);
+            List<Recipe> lastShownList = model.getFilteredList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+            }
+            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
+            EventsCenter.getInstance().post(new RecipeDeletedEvent(toDelete));
+
+            return new DeleteCommand<>(model, toDelete);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_RECIPE_USAGE), pe);
         }
     }
 }

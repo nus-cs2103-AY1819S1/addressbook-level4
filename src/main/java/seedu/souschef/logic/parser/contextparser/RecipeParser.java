@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.AddCommand;
-import seedu.souschef.logic.commands.AddFavouriteCommand;
 import seedu.souschef.logic.commands.BuildRecipeInstructionCommand;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.CreateRecipeBuildCommand;
@@ -68,9 +67,6 @@ public class RecipeParser {
         case AddCommand.COMMAND_WORD_END:
             validateBuildingRecipe(history);
             return new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel, history);
-
-        case AddFavouriteCommand.COMMAND_WORD:
-            return new AddFavouriteCommand<Recipe>(recipeModel, arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parseRecipe(recipeModel, arguments);

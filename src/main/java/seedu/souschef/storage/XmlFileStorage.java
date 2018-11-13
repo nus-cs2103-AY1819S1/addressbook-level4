@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBException;
 import seedu.souschef.commons.exceptions.DataConversionException;
 import seedu.souschef.commons.util.XmlUtil;
 import seedu.souschef.logic.parser.Context;
+import seedu.souschef.storage.favourite.XmlSerializableFavourite;
 import seedu.souschef.storage.healthplan.XmlSerializableHealthPlan;
 import seedu.souschef.storage.ingredient.XmlSerializableIngredient;
 import seedu.souschef.storage.mealplanner.XmlSerializableMealPlan;
@@ -44,6 +45,8 @@ public class XmlFileStorage {
                 return XmlUtil.getDataFromFile(file, XmlSerializableHealthPlan.class);
             } else if (Context.MEAL_PLAN.equals(context)) {
                 return XmlUtil.getDataFromFile(file, XmlSerializableMealPlan.class);
+            } else if (Context.FAVOURITES.equals(context)) {
+                return XmlUtil.getDataFromFile(file, XmlSerializableFavourite.class);
             }
 
         } catch (JAXBException e) {

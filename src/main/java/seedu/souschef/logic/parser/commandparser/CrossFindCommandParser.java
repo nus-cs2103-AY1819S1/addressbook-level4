@@ -24,7 +24,7 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new CrossFindCommand object
  */
 public class CrossFindCommandParser {
-    private static final String DUPLICATE_INGREDIENT = "Ingredients should not be duplicated between include and "
+    private static final String DUPLICATE_INGREDIENT = "Ingredient should not be duplicated between include and "
             + "prioritize.";
     private static final String INCLUDE = "include";
     private static final String PRIORITIZE = "prioritize";
@@ -111,7 +111,7 @@ public class CrossFindCommandParser {
             }
         }
 
-        if (!tokens[index].equals(INCLUDE) && !tokens[index].equals(PRIORITIZE)) {
+        if (index < tokens.length && !tokens[index].equals(INCLUDE) && !tokens[index].equals(PRIORITIZE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
         }
 

@@ -75,7 +75,7 @@ public class XmlAdaptedMealPlan {
             String sourceName = sourceRecipe.getName().fullName;
             String sourceDifficulty = sourceRecipe.getDifficulty().toString();
             String sourceCookTime = sourceRecipe.getCookTime().toString();
-            lunch = new XmlAdaptedLiteRecipe(sourceName, sourceDifficulty, sourceCookTime);
+            dinner = new XmlAdaptedLiteRecipe(sourceName, sourceDifficulty, sourceCookTime);
         } else {
             dinner = null;
         }

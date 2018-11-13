@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.ui.CrossRecipePanelSelectionChangedEvent;
+import seedu.souschef.commons.events.ui.FavouritesPanelSelectionChangedEvent;
 import seedu.souschef.commons.events.ui.RecipePanelSelectionChangedEvent;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 import seedu.souschef.model.ingredient.IngredientPortion;
@@ -164,6 +165,13 @@ public class DetailPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCrossDetail(event.getNewSelection());
     }
+
+    @Subscribe
+    private void handleFavouritePanelSelectionChangedEvent(FavouritesPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadRecipeDetail(event.getNewSelection());
+    }
+
 
     @Override
     public boolean equals(Object other) {
