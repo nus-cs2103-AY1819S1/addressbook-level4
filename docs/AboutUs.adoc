@@ -36,7 +36,7 @@ image::dioptrique.png[width="150", align="left"]
 {empty}[http://github.com/dioptrique[github]] [<<dioptrique#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Testing, Integration, IntelliJ Expert
+Responsibilities: Testing, Integration
 
 '''
 
