@@ -271,10 +271,7 @@ Format: +
 // tag::favouriteCommand[]
 <<<<<<< HEAD
 ==== Add recipe to favourite: `favourite`
-=======
-==== Add recipe to 
-: `favourite`
->>>>>>> bed0cb3e0237a36efd67f24e63f168f95344f3c3
+
 Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
