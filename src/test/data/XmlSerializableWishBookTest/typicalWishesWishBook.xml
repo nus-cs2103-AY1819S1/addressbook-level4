@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- WishBook save file which contains the same Wish values as in TypicalWishes#getTypicalWishBook() -->
+<wishbook>
+    <wishes>
+        <name>Alice Pauline</name>
+        <price>94.35</price>
+        <savedAmount>0.00</savedAmount>
+        <date>4/09/2020</date>
+        <url>https://www.lazada.sg/products/ps4-092-hori-real-arcade-pron-hayabusaps4ps3pc-i223784444-s340908955.html</url>
+        <tagged>friends</tagged>
+        <remark></remark>
+        <id>bf557b11-6b8d-4aa0-83cb-b730253bb6e2</id>
+    </wishes>
+    <wishes>
+        <name>Benson Meier</name>
+        <price>98.76</price>
+        <savedAmount>0.00</savedAmount>
+        <date>21/09/2020</date>
+        <url>https://www.amazon.com/Apple-iPhone-Fully-Unlocked-32GB/dp/B0731HBTZ7</url>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+        <remark></remark>
+        <id>b38ceb7a-2cd3-48c9-860c-3918155e4fd6</id>
+    </wishes>
+    <wishes>
+        <name>Carl Kurz</name>
+        <price>98.76</price>
+        <savedAmount>0.00</savedAmount>
+        <date>21/09/2020</date>
+        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+        <remark></remark>
+        <id>a758eec0-6056-4737-9c05-d3bf60f6f67d</id>
+    </wishes>
+    <wishes>
+        <name>Daniel Meier</name>
+        <price>87.65</price>
+        <savedAmount>0.00</savedAmount>
+        <date>21/11/2023</date>
+        <url>https://www.amazon.com/Logitech-Mechanical-Keyboard-Romer-Switches/dp/B071VHYZ62</url>
+        <tagged>friends</tagged>
+        <remark></remark>
+        <id>a2dde843-9cde-4417-946d-40bc465462cf</id>
+    </wishes>
+    <wishes>
+        <name>Elle Meyer</name>
+        <price>94.82</price>
+        <savedAmount>0.00</savedAmount>
+        <date>19/07/2020</date>
+        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+        <remark></remark>
+        <id>6387ec7d-da35-4569-a549-a8332e650429</id>
+    </wishes>
+    <wishes>
+        <name>Fiona Kunz</name>
+        <price>94.82</price>
+        <savedAmount>0.00</savedAmount>
+        <date>24/09/2010</date>
+        <url>https://www.lazada.sg/products/nintendo-switch-neon-console-1-year-local-warranty-best-seller-i180040203-s230048296.html</url>
+        <remark></remark>
+        <id>dcb605d6-af12-444d-a2ee-44b5fccfe137</id>
+    </wishes>
+    <wishes>
+        <name>George Best</name>
+        <price>94.82</price>
+        <savedAmount>0.00</savedAmount>
+        <date>24/09/2019</date>
+        <url>https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+        <remark></remark>
+        <id>32ea1ae8-f1da-435c-a6a8-ca501a9650c1</id>
+    </wishes>
+</wishbook>

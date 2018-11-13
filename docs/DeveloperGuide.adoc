@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= WishBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T16-1/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -24,7 +24,8 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 . *JDK `9`* or later
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a
+https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
@@ -37,7 +38,8 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project
+dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
 .. Click `New...` and find the directory of the JDK
@@ -45,16 +47,23 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
+It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/url/storage/XmlAdaptedWish.java[`XmlAdaptedWish.java`] and
+link:{repoURL}/src/main/java/seedu/url/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of
+IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER],
+and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well
+(e.g. check link:{repoURL}/src/test/java/seedu/url/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
+and link:{repoURL}/src/test/java/seedu/url/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so,
+resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.url.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -74,9 +83,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `CS2103-AY1819S1-T16-1/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-T16-1/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -116,7 +125,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/url/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -149,15 +158,15 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteWish.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `WishBookChangedEvent` when the Wish Book data is changed, instead of asking the `Storage` to save the updates to the hard disk. This event also triggers the save of wish histories to disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteWishEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -170,11 +179,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/url/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `WishListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/url/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -190,11 +199,11 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/url/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `WishBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a wish) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -208,17 +217,20 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/url/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Wish Book data.
+* stores the data of wish histories.
+* exposes an unmodifiable `ObservableList<Wish>` that can be 'observed' e.g. the UI can be bound to this list so that
+the UI automatically updates when the data in the list change. The elements of the `ObservableList<Wish>` can also
+be filtered and sorted to suit the needs of specific commands.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Wish Book`, which `Wish` can reference. This would allow `Wish Book` to only require one `Tag` object per unique `Tag`, instead of each `Wish` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -228,74 +240,124 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/url/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Wish Book data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.WishBook.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::implementationmodel[]
+
+=== Model
+==== Wish Model
+A wish is uniquely identified by its Universal Unique Identifier (UUID) which is generated randomly only once for a
+particular wish, upon its creation through the `AddCommand`. A wish stores the following primary attributes:
+
+* Name
+* Price
+* Date
+* Saved Amount
+* Url
+* Remark
+* Tags
+* UUID
+
+[NOTE]
+It is impossible for the user to create a duplicate wish as it is impossible to modify a wish's UUID.
+
+==== Wish Priority
+A wish needs to be prioritised in a specific order such that the wishes with the highest priority will be visible
+on the top of the list. In WishBook, the priority is determined primarily by the due date of the wish which is
+stored in every wish's `Date` attribute. Ties are broken by `Name`. Further ties are broken by `UUID` as it is possible
+for the `Date` and `Name` of two wishes to be identical.
+
+The sorting of the displayed results is done by the `filteredSortedWishes` list. The sorting order is specified by
+`WishComparator`.
+
+==== Design Considerations
+===== Aspect: Uniqueness of a Wish
+* **Alternative 1(current choice):** Identify a `Wish` by a randomly generated UUID.
+** Pros: Extremely low probability of collision.
+** Pros: No extra maintenance required upon generation as every `Wish` is unique.
+** Cons: UUID does not map to any real world entity and it is used strictly for identification.
+** Cons: It is more difficult to system test the `AddCommand` with the current group of methods for system tests as
+UUID is randomly generated each time.
+
+* **Alternative 2:** Identify a wish by `Name`, `Price`, `Date`, `Url`, `Tags`. Wishes with identical values for
+these attributes will be represented by a single `WishCard`. The `WishCard` will be augmented with a `Multiplicity` to
+indicate the number of identical wishes.
+** Pros: WishBook will be more compact and every attribute stored in a `Wish` maps to a real entity.
+** Cons: Additional attribute `Multiplicity` may have to be frequently edited as it is another
+attribute that is affected by multiple commands.
+
+* **Alternative 3:** Identify a wish by a new attribute `CreatedTime`, which is derived from the system time
+when the wish is created.
+** Pros: The attribute maps to a real entity. It can be an additional information presented to the user about a wish.
+** Cons: There might be collisions in `CreatedTime` if the the system time is incorrect.
+// end::implementationmodel[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedWishBook`.
+It extends `WishBook` with an undo/redo history, stored internally as an `WishBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedWishBook#commit()` -- Saves the current wish book state in its history.
+* `VersionedWishBook#undo()` -- Restores the previous wish book state from its history.
+* `VersionedWishBook#redo()` -- Restores a previously undone wish book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitWishBook()`, `Model#undoWishBook()` and `Model#redoWishBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedWishBook` will be initialized with the initial wish book state, and the `currentStatePointer` pointing to that single url book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th wish in the wish book. The `delete` command calls `Model#commitWishBook()`, causing the modified state of the url book after the `delete 5` command executes to be saved in the `WishBookStateList`, and the `currentStatePointer` is shifted to the newly inserted url book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new wish. The `add` command also calls `Model#commitWishBook()`, causing another modified wish book state to be saved into the `WishBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitWishBook()`, so the wish book state will not be saved into the `WishBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the wish was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoWishBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous wish book state, and restores the url book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial wish book state, then there are no previous url book states to restore. The `undo` command uses `Model#canUndoWishBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoWishBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the wish book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `WishBookStateList.size() - 1`, pointing to the latest wish book state, then there are no undone url book states to restore. The `redo` command uses `Model#canRedoWishBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the wish book, such as `list`, will usually not call `Model#commitWishBook()`, `Model#undoWishBook()` or `Model#redoWishBook()`. Thus, the `WishBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitWishBook()`. Since the `currentStatePointer` is not pointing at the end of the `WishBookStateList`, all wish book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,29 +369,490 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire wish book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the wish being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of wish book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedWishBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::savingsHistory[]
+=== Savings History feature
+==== Capturing the state of `WishTransaction`
 
-_{Explain here how the data encryption feature will be implemented}_
+The current state of the savings history of the `WishBook` is captured by `VersionedWishTransaction`.
+`VersionedWishTransaction` extends `WishTransaction` and has an undo/redo history, similar to the implementation of the Undo/Redo feature, and is stored internally as a `wishStateList` and `currentStatePointer`. Additionally, it implements `VersionedModel` and so contains the implementation of the following operations:
 
-// end::dataencryption[]
+* `VersionedWishTransaction#commit()` -- Saves the current wish transaction state in its history.
+* `VersionedWishTransaction#undo()` -- Restores the previous wish transaction state from its history.
+* `VersionedWishTransaction#redo()` -- Restores a previously undone wish transaction state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitWishBook()`, `Model#undoWishBook()` and `Model#redoWishBook()` respectively.
+
+==== Capturing the state of each `Wish`
+
+`WishTransaction` keeps track of the state of all wishes in `WishBook` via a `wishMap` which maps the unique ID of a `Wish` to a list of `Wish` states. `WishTransaction` implements `ActionCommandListener` such that any state changing command performed to a `Wish` or the `WishBook` such as `AddCommand()`, `EditCommand()`, `SaveCommand()`, etc will result in the `WishMap` being updated accordingly in `WishTransaction`.
+
+==== Persistent storage
+
+`VersionedWishTransaction`, `WishTransaction` can be easily converted to and from xml using  `XmlWishTransactions`. `XmlWishTransactions` is saved as an xml file when the user explicitly closes the window, thereby invoking `MainApp#stop()` which saves the current state of `VersionedWishTransaction` in the `wishStateList` to hard disk.
+
+If the user's command triggers a change in the state of the `WishBook`, a `WishBookChangedEvent` will be raised, causing the subscribed `StorageManager` to respond by saving both the current state of the `WishBook` and `WishTransaction` to disk.
+
+Given below is an example usage scenario and how the savings history mechanism behaves at each step.
+
+Step 1. The user launches the application. The default file path storing the previous state of the `WishTransaction` will be retrieved, unless otherwise specified by the user, and the contents from the xml file will be parsed and converted into a `WishTransaction` object via the `XmlWishTransactions` object. If the file at the specified location is behind the current state of the `WishBook`, content of the `WishTransaction` will be overwritten by the `WishBook`.
+
+[NOTE]
+The `wishStateList` starts off with the initial state of the `WishTransaction` as the first item in the list.
+
+Step 2. The user executes `add n/iPhone ...` to add a new wish. The `add` command calls `Model#commitWishBook()`, causing the current state of the modified wish transaction state to be saved into `wishStateList`. As this is a command that changes the state of the `WishBook`, `Model#addWish()` will call `VersionedWishTransaction#addWish()` to add a new wish to the `WishMap`.
+
+[NOTE]
+* If a command fails its execution, it will not call `Model#commitWishBook()`, so the wish transaction state will not be saved into the `wishStateList`.
+* If the `WishMap` contains an identical wish (such is identified by `Wish#isSameWish()`), then the call to add this wish will fail. As such, the wish will not be added to the `WishMap` or the `WishBook`.
+
+Step 3. The user now decides that adding the wish was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoWishBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous wish transaction state, and restores the wish transaction to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial wish transaction state, then there are no previous wish transaction states to restore. The `undo` command uses `Model#canUndoWishBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The `redo` command does the opposite -- it calls `Model#redoWishBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the wish transaction to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `wishStateList.size() - 1`, pointing to the latest wish transaction state, then there are no undone wish transaction states to restore. The `redo` command uses `Model#canRedoWishBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 4. The user then decides to execute the command `list`. Commands that do not modify the state of the `WishBook`, such as `list`, will usually not call `Model#commitWishBook()`, `Model#undoWishBook()` or `Model#redoWishBook()`. Thus, the `WishBookStateList` remains unchanged.
+
+Step 5. The user finally exits the app by clicking on the close button. The most recent state of the `WishTransaction` will be converted into xml format via the the `XmlWishTransactions` object and be saved into the same file path it was first retrieved from.
+
+[NOTE]
+If there was some error saving the current state of the `WishTransaction` to the specified file path in hard disk, an exception will be thrown and a warning will be shown to the user. The current state of the `WishTransaction` object will not be saved to hard disk.
+// end::savingsHistory[]
+
+// tag::wish[]
+=== Add Wish feature
+
+==== Current Implementation
+
+The Add Wish feature is executed through an `AddCommand` by the user, which after parsing,
+is facilitated mainly by the `ModelManager` which implements `Model`.
+It also affects `versionedWishBook` and `versionedWishTransaction` by adding the
+resultant wish to both of their respective data structures.
+After adding a `Wish`, the `filteredSortedWishes` is also updated to reflect the
+latest version of WishBook.
+The UI is also prompted to refresh through a `WishBookChangedEvent`.
+
+`AddCommandParser` parses the user's input for parameters using prefixes,
+and checks them against their respective regular expressions (regex), specified
+in their respective classes.
+
+====
+
+The following prefix/parameter pairs are **compulsory**, where a user's input will be
+rejected if they are not provided:
+
+* `n/`: Name
+* `p/`: Price
+* One of the following Date parameters:
+** `d/`: Exact expiry date
+** `a/`: duration (or lifetime) from time when command is entered
+
+The following prefix/parameter pairs are **optional**, where a user's input will
+be successful even if they are not provided:
+
+* `t/`: tags (more than one allowed)
+* `u/`: product's URL (product page)
+
+====
+
+[NOTE]
+====
+**Regarding Duration (`a/`) vs Date (`d/`)**
+
+* If `d/` is used, a valid Date should be used.
+** Date comes in the format of `dd/mm/yyyy`,
+`dd` being days, `mm` being months, `yyyy` being the year, and the
+** Specified date should also be a valid date in the future.
+* If `a/` is used, a valid Duration should be used.
+** length instead of `dd/mm/yyyy` format, the format should be `<years>y<months>m<days>d`.
+* In any command, only `Duration` or `Date` can be used. Never both.
+* If an invalid string for date or duration is provided, a warning will be
+displayed to prompt the user to enter a valid date or duration.
+
+====
+
+Given below is an example usage scenario and how an AddCommand is carried out.
+
+Step 1. The user types in a valid `AddCommand`, `add n/1 TB Toshiba SSD p/158 a/200d`, and the current date is 2nd October 2017 (2/10/2017).
+
+The `AddCommandParser` will employ `ParserUtil` to parse the attributes specified after each prefix. The parsing of the
+`Duration` attribute which follows `a/` in the command will be discussed below.
+
+Since `Duration` prefix is used, the computation of a wish's expiry date is handled
+internally in the `ParserUtil` class, which `ParserUtil#parseDate()` parses and converts
+the input string into a `Period` object (if input is valid),
+and adds the resultant `Period` to the current `Date` to get the desired
+`Date` of the `Wish`.
+
+The resultant `Wish` will have the following properties:
+
+* id: `a randomly-generated UUID`
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 0.00
+* Price: 158.00
+* Date: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Fulfilled: `false`
+* Expired: `false`
+
+The resultant wish is pass into `VersionedWishBook#addWish` and `VersionedWishTransaction#addWish`,
+which tracks the history of the `WishBook` and `Wish` respectively. The list of wishes shown on the UI is also updated to show all wishes again,
+as `filteredSortedWishes` is updated to have all wishes in `WishBook` and a `WishBookChangedEvent` is fired.
+
+The following sequence diagram shows how an `AddCommand` is processed in WB:
+
+image::AddWishSequenceDiagram.png[width="800"]
+
+Step 2. Some time later, the user decides that she wants the exact same wish,
+but duplicated, and enters the exact same command, but with an exact `Date`
+instead of `Duration`, so the command entered is
+`add n/1 TB Toshiba SSD p/158 d/20/4/2018`.
+
+Since `Date` prefix is used, the `ParserUtil` parses the string into a `Date` object,
+and the resultant object is used directly for the resultant `Wish`.
+
+Similar to in Step 1, the command will be parsed successfully and a second `Wish`
+will be added, albeit with a different (hidden) id generated.
+
+The resultant `Wish` will have the following properties:
+
+* id: `another randomly-generated UUID`
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 0.00
+* Price: 158.00
+* Date: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Fulfilled: `false`
+* Expired: `false`
+
+==== Design Considerations
+* **Alternative 1 (current choice)**: Different prefixes for `Duration` and `Date`.
+** Pros: More focused user experience.
+User get more specific feedback depending on their preferred way of inputting date if a wrong input was made.
+If user uses `a/` and enters an incorrect `Duration`, the user will not receive an error message about the correct format
+for an exact `Date`, and will only be notified of the correct format of a `Duration`.
+** Pros: Easier to implement and handle isolate errors related to respective input parameters.
+** Cons: More prefixes for user to remember.
+
+* **Alternative 2**: Have `Duration` and `Date` use the same prefix.
+** Pros: More natural usage of one prefix to determine `Wish` 's desired expiry date.
+** Cons: Conflating implementation of `Duration` and `Date`, hence harder to debug.
+** Cons: Tricky to implement, as we are parsing one input for two different desired formats.
+
+// end::wish[]
+
+// tag::save[]
+=== Save Amount feature
+
+==== Current Implementation
+
+The Save Amount feature is executed through a `SaveCommand` by the user, which after parsing,
+is facilitated mainly by the `ModelManager` which implements `Model`.
+Wish stores the `price` and `savedAmount` of `Wish`, helping to track the progress of the savings towards the `price`.
+Meanwhile, WishBook stores an `unusedFunds`, which is an unallocated pool of funds that can be used in the future.
+After adding a saving, the `filteredSortedWishes` in `ModelManager` is updated to reflect the latest observable WishBook.
+
+Given below is an example usage scenario and how the SaveCommand behaves at each step:
+
+Step 1. The user executes `save 1 10`, to save $10 into an existing wish with `Index` 1 and `Price` $15. The $10 is
+wrapped in an `Amount` and a `SaveCommand` instance is created with the `Amount`. `Amount` is then used to make an updated
+instance of the `Wish` at index 1 whose `SavedAmount` will be updated. `Model#updateWish` is then called to update this
+wish with the old one in `WishBook`.
+
+[NOTE]
+The `Index` of each `Wish` is labelled at the side of the app.
+
+The resultant wish will have the following properties:
+
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 10.00
+* Price: 15.00
+* Date: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Fulfilled: `false`
+* Expired: `false`
+
+[NOTE]
+`Amount` to be saved can be a negative value where it would mean a withdrawal of money from a particular wish.
+
+[NOTE]
+`SavedAmount` of a wish cannot be negative. This means that an `Amount` cannot be negative enough to cause `SavedAmount`
+to be negative.
+
+Step 2. The user decides to execute `save 1 10` again. However, SaveCommand checks that `savedAmount` > `price`.
+SaveCommand#execute creates a new updated `Wish` with `savedAmount = wish.getPrice()`.
+
+The resultant wish will have the following properties:
+
+* Name: _1TB Toshiba SSD_
+* SavedAmount: 15.00
+* Price: 15.00
+* Date: 20/4/2018 (20th April 2018)
+* URL: `empty string`
+* Remark: `empty string`
+* Tags: `none`
+* Fulfilled: `true`
+* Expired: `false`
+
+Step 3. The excess amount of $5 is stored in a new `Amount` variable `excess`.
+SaveCommand#execute then calls Model#updateUnusedFunds(excess) to update the `unusedFunds` in WishBook.
+
+In WishBook, the result would be:
+
+* unusedFunds: 5.00
+
+Step 4. The user tries to execute `save 1 10` again. However, since the value for Wish#isFulfilled is true, the amount
+will not be saved. SaveCommand#execute will throw a CommandException, with the message "Wish has already been fulfilled!".
+
+The following sequence diagram shows how the save operation works:
+
+image::SaveCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Data structure to support the unusedFunds feature
+
+* **Alternative 1 (current choice):** Store it in a `SavedAmount` variable in `WishBook`.
+** Pros: Easy to implement.
+** Cons: More methods needed when needing to move funds from `unusedFunds` to other wishes.
+* **Alternative 2:** Store it as a pseudo wish with index 0.
+** Pros: It can be treated as another `wish`, hence existing methods can be used without needing to create much
+more new ones.
+** Cons: Requires dealing with an extra wish that has to be hidden on the `WishListPanel` and displayed separately
+on the UI.
+We must remember to skip this wish in methods that involve displaying the WishList.
+
+// end::save[]
+
+// tag::find[]
+=== Find Wish Feature
+
+==== Current Implementation
+
+The find mechanism is supported by `FindCommandParser`. It implements `Parser` that implements the following operation:
+
+* `FindCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is
+found. It then splits the arguments using `ArgumentTokenizer#tokenize()` and returns an `ArgumentMultimap`. Keywords of
+the same prefix are then grouped using `ArgumentMultimap#getAllValues()`.
+
+The find mechanism is also facilitated by `FindCommand`. It extends `Command` and implements the
+following operation:
+
+* `FindCommand#execute()` -- Executes the command by updating the current `FilteredSortedWishList` with the
+`WishContainsKeywordPredicate`.
+
+The predicate `WishContainsKeywordsPredicate`, takes in three lists of the keywords for the following attributes:
+
+* Name
+* Tags
+* Remark
+
+and also the `isExactMatch` argument. The result of the predicate is determined by checking
+whether a `Wish` contains the given keywords at their corresponding attributes. The match threshold
+is dictated by the value of `isExactMatch`.
+
+==== Example
+
+Given below is an example usage scenario and how the Find mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+
+Step 2. The user executes `find n/wat n/apple t/impor` command to get all wishes whose name contains the
+keywords 'iphone' or 'tablet'.
+
+Step 3. The `FindCommandParser#parse()` is called and the `WishContainsKeywordPredicate` is constructed with
+the arguments of the find command.
+
+Step 4. `FindCommand#execute()` is then called.
+
+Step 5. The entire list of wishes is filtered by the predicate `WishContainsKeywordsPredicate`.
+
+Step 6. The filtered list of wishes is returned to the GUI.
+
+image::FindCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Argument format
+
+* **Alternative 1 (Current choice):** Require the user to prepend every keyword argument with the appropriate
+Wish attribute prefix.
+** Pros: Easier to implement as it easier to match keyword against a Wish if the attribute to match against is known.
+** Pros: User has more control over the results returned.
+** Cons: User is required to type slightly more.
+
+* **Alternative 2:** No prefixes are required in the arguments. Keywords can match with any one of the
+following chosen wish attributes: `Name`, `Tags` or `Remark`.
+** Pros: Less typing required from user.
+** Cons: Command might be slightly slower as every keyword has to be checked against all chosen attributes of the
+wish.
+** Cons: User has less control over the results returned.
+
+==== Aspect: Default threshold for match without the exact match flag
+* **Alternative 1 (Current choice):** Keywords appended to different prefixes are grouped with a logical AND and
+keywords appended to the same prefixes are grouped with a logical OR when being matched against a `Wish`.
+** Pros: A more intuitive way to find wishes.
+** Cons: Can be restrictive in some situations.
+
+* **Alternative 2:** Keywords appended to different prefixes are grouped with a logical OR and
+keywords appended to the same prefixes are grouped with a logical OR when being matched against a `Wish`.
+** Pros: Search results will be more inclusive.
+** Cons: Very slim chance for such a use case.
+// end::find[]
+
+// tag::list[]
+=== List feature
+
+The `list -c and list -u` command allows the user to view the list of all wishes, completed and ongoing, respectively.
+A wish is completed if the savedAmount is greater or equal to the price of the wish.
+
+==== Current Implementation
+
+
+Given below is an example usage scenario and how the list overdue mechanism behaves at each step:
+
+.  The user executes the command `list -c`.
+.  `model.updateFilteredWishList()` will update the wish list with `WishCompletedPredicate` as the parameter (boolean). `wish.isFulfilled()` is called to check whether the wish is completed or not.
+.  The updated wish list would be reflected on the UI to be displayed to the user.
+
+The following sequence diagram shows how the Wish Detail Panel displays its updated content:
+
+image::ListCompletedSequenceDiagram.png[width="790"]
+// end::list[]
+
+// tag::redesign[]
+=== Redesign of User Interface
+
+The UI has been redesigned to implement the following UI components required for WishBook:
+
+* Command Box
+* Wish List Panel
+* Wish Detail Panel
+
+
+==== Wish List Panel
+
+The Wish List Panel consists of a list of Wish Card which contains 4 UI elements:
+
+* `WishCard#nameLabel` - A `Text` element that displays the wish’s name.
+* `WishCard#progressLabel` - A `Text` element that displays the wish’s saving progress in percentage format.
+* `WishCard#tags` - A `FlowPane` element that contains a `Text` element which displays the wish’s assigned tags.
+* `WishCard#progressBar` - A `progressBar` element that visually presents the percentage of the wish’s current saving progress.
+
+Whenever the user adds a new wish or edits an existing wish, a new WishCard containing the wish will be added to the Wish List Panel or the content in the existing WishCard will be updated respectively.
+
+The user will be able to view the wish’s current saving progress both in terms of text on the progressLabel (e.g. ’80%’) and the progressBar. Also, the user will be able to see all the tags he/she assigned to categorize the wish.
+
+===== Problem with the old design
+
+The UI (MainWindow) constructs the `WishListPanel` by obtaining an `ObservableList` of wish cards from `Model`, this list is assigned when UI starts, and will never be re-assigned.
+The UI "observes" the list and updates when it is modified.
+
+This approach works well for the `WishListPanel` because WishBook contains only 1 list of wish cards.
+However, the saving history list in the `WishDetailPanel` can not be updated in the same manner because Model component will change its card list’s reference when a user adds a new wish or updates the content of the wish.
+
+In this case, the `WishDetailPanel` in UI will not be updated because the card list of which UI has reference to is actually not changed.
+
+===== Design considerations
+
+* **Alternative 1 (current choice)**: Have a wishList in `Model` and keep it updated with the current list of cards
+** Explanation: The UI needs only 1 reference to this `wishList`, each time user executes any changes, `wishList` is cleared and the new list of cards is copy to the `wishList`.
+** Pros: The structure of `Model` and UI component needs not be changed
+** Cons: Need to keep a copy of the current card list, copying the whole list of cards for each command operation has bad effect on performance .
+
+* **Alternative 2**: Model component raises an event when its current card list’s reference is changed
+** Explanation: When user adds a new wish or executes save, `Model` will raise an event (`WishPanelUpdatedEvent`), which is subscribed by UI, then UI can re-assign its list of cards and update the cards panel accordingly.
+** Pros: Better performance
+** Cons: Need to re-design `Model` and UI components 
+
+==== Wish Detail Panel
+
+The Wish Detail Panel consists of 3 UI sub-components:
+
+* `WishDetailSavingAmount` that contains `Text` elements to display price and the saving progress of the wish
+* `WishDetailSavingHistory` that contains a `List` of history of saving inputs of the wish
+* `WishBrowserPanel` that displays `WebView` of the URL of the wish.
+
+Whenever the user adds a new wish or edits an existing wish, the content of the wish in Wish Detail Panel will be updated.
+The user will be able to view the wish’s current saving progress and the history of his/her saving inputs of the wish in the list format.
+Also, the user will be able to browse through the wish’s product page via its assigned URL.
+
+===== Current Implementation
+
+Every time a new Wish is added or an existing wish is updated by the commands such as save, it raises a `WishDataUpdatedEvent`.
+The UI will then handle that event and update the `WishDetailPanel` with the new version of wish.
+
+Given below is an example usage scenario and how the WishBook behaves and `WishDetailPanel` is updated at each step:
+
+.  The user executes the command `save 1 1000`.
+
+[NOTE]
+If a command fails its execution, WishDataUpdatedEvent will not be posted.
+
+.  The save command updates the model with the new wish and raises a new `WishDataUpdatedEvent`.
+.  `WishDetailSavingAmount` and `WishDetailSavingHistory` responds to the `WishDataUpdatedEvent` with `WishListPanel#handleWishUpdatedEvent()`.
+.  The `WishDetailSavingAmount` updates the wish’s current saving progress when `WishDetailSavingAmount#loadWishDetails` is called.
+.  The progress is calculated from when `Wish#getProgress` is called. The value is saveAmount / price. Then the progress label for the wish is set to that fraction.
+.  The `WishDetailSavingHistory` updates the wish’s saving history list when `WishDetailSavingHistory#loadWishDetails` is called.
+.  The saving history list is cleared.
+.  The new set of history entry is retrieved from `wishTransaction#getWishMap` and the saved amount is calculated from subtracting previous saving amount from the next one.
+.  The saving history list is now filled with the new list of updated saving history.
+
+The following sequence diagram shows how the Wish Detail Panel displays its updated content:
+
+image::WishDetailPanelSequenceDiagram.png[width="790"]
+
+===== Design Considerations
+
+**Aspect: How to update the progress and saving history on UI**
+
+* **Alternative 1 (current choice)**: Clear all the sub components and add new sub components accordingly
+** Pros: No matter which progress or history is changed, or what type of change (ie. delete, add, or edit), this change can be handled by the same method each time.
+** Cons: It is redundant to clear everything and replace them with new sub components.
+
+* **Alternative 2**: Handle different kinds of changes to the progress or history lists.
+** Pros: It is a lot faster to only change the sub component that is affected.
+** Cons: There are too many cases for how the lists can be changed. (ie. a different change is needed for each of these cases: wish is deleted/edited/created/cleared, or a `wishTransaction` is deleted/added)
+
+// end::redesign[]
+
+// tag::savingsNotifications[]
+=== [Proposed] Savings Notifications
+==== Justification
+Some users may have many wishes, all of which have a different targeted date of completion and different price.
+It may thus be difficult for users to keep track of how much they need to consistently save to fulfil their various
+wishes on time.
+This Savings Notification feature will allow users to opt for daily/weekly/monthly notifications for each specific wish,
+reminding them of the amount that they need to save at the beginning of the chosen time period.
+This will help users to consistently save towards their wishes.
+
+// end::savingsNotifications[]
 
 === Logging
 
@@ -489,14 +1012,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.url.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.url.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.url.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.url.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -526,307 +1049,29 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/url/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Wish Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage savings for a significant number of items to buy
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage savings faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -838,33 +1083,82 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new wish |keep track of the things I want to purchase
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add savings to selected wishes | make faster progress towards certain wishes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a wish |remove items that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a wish by name |locate details of a wish without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |view all fulfilled wishes | so I can keep track of items I have bought
+
+|`* * *` |user |view all past savings for my wishes | have a better idea of my saving habits in general
+
+|`* * *` |user |view all my wishes | monitor the progress I have made in all my wishes
+
+|`* * *` |user |undo past commands | reverse wrong commands
+
+|`* *` |user |distribute a saving to a few wishes | make equal progress to a few of my wishes
+
+|`* *` |user |rank my wishes | prioritise certain wishes over others so that money can be allocated accordingly
+
+|`* *` |user |transfer money from one wish to another | progress towards other wishes faster
+
+|`* *` |user |withdraw from savings | spend the money if need be
+
+|`* *` |user |reorder the priority of a wish | fulfil the specified wish faster
+
+|`* *` |user |save money without a wish | allocate my savings to a wish later
+
+|`*` |user |receive email reminders about wishes that are due |be more mindful of my savings to fulfil wishes
+
+|`*` |user |view all past savings for a particular wish |have a better idea of my saving habits for a wish
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `WishBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add wish
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  *Actor* enters a wish with Name, Date, Price.
+2.  *System* adds wish to the wish list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. *Actor* fails to specify any of the compulsory fields (Name, Price, and Date/Duration).
++
+[none]
+** 2a1. *System* shows a correct Add command usage with example.
++
+Use case ends.
+
+* 2b. *Actor* enters incorrectly formatted arguments.
++
+[none]
+** 2b1. *System* shows Add command usage.
+** 2b2. *Actor* is prompted to enter a valid argument in a specific format shown.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete wish
+
+*MSS*
+
+1.  *Actor* requests to list wishes.
+2.  *System* shows a list of wishes.
+3.  *Actor* requests to delete a specific wish in the list.
+4.  *System* deletes the wish.
 +
 Use case ends.
 
@@ -878,46 +1172,338 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. *System* shows an error message.
++
+Use case resumes at step 2.
+** 3b1. Wish requested to be deleted has a non-zero savings amount.
+** 3b2. *System* displays warning to user that wish to be deleted has a non-zero savings amount.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Edit wish
+
+*MSS*
+
+1.  *Actor* requests to edit wish.
+2.  *System* updates wish and shows updated wish to *Actor*.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments
++
+[none]
+** 1b1. *System* shows Edit command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find wishes
+
+*MSS*
+
+1.  *Actor* specifies the search predicate.
+2.  *System* shows all wishes matching the given search predicate.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. *System* shows dialog notifying *Actor* that no relevant results can be found.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments
++
+[none]
+** 1b1. *System* shows Find command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1c. *System* unable to find any matching wishes.
++
+[none]
+** 1c1. *System* shows dialog notifying *Actor* that no relevant results can be found.
++
+Use case ends.
+
+* 1d. *Actor* enters empty prefixes for arguments.
++
+[none]
+** 1c1. *System* shows all wishes in the WishBook.
++
+Use case ends.
+
+[discrete]
+=== Use case: Move amount between wishes
+
+*MSS*
+
+1.  *Actor* specifies the origin wish index, the destination wish index, and amount to move.
+2.  *System* moves specified amount from origin wish to destination wish.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *Actor* enters invalid arguments.
++
+[none]
+** 1b1. *System* shows Move command usage.
+** 1b2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1c. *Actor* enters the same index for origin wish and destination wish.
++
+[none]
+** 1c1. *System* shows Move command usage.
+** 1c2. *Actor* is prompted to enter a valid argument.
++
+Use case ends.
+
+* 1d. The amount to move is greater than the existing saved amount in the origin wish.
++
+[none]
+** 1d1. *System* reports that saved amount of wish cannot become negative.
++
+Use case ends.
+
+* 1e. The amount moved to destination wish exceeds the amount needed to fulfil the wish.
++
+[none]
+** 1e1. *System* moves to destination wish the required amount needed to fulfil it.
+** 1e2. *System* moves the excess amount to unused funds.
++
+Use case ends.
+
+* 1f. *Actor* specifies unused funds as the origin wish.
++
+[none]
+** 1f1. *System* moves amount from unused funds to the destination wish.
++
+Use case ends.
+
+* 1g. *Actor* specifies unused funds as the destination wish.
++
+[none]
+** 1g1. *System* moves amount from origin wish to unused funds.
++
+Use case ends.
+
+[discrete]
+=== Use case: Save money for a wish
+
+*MSS*
+
+1.  *Actor* enters [underline]#X# amount of money to be saved.
+2.  *System* transfers [underline]#X# to the wish with the specified index.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *Actor* specifies to allocate the money to unused funds.
++
+[none]
+** 1a1. *System* adds [underline]#X# to unused funds.
++
+Use case ends.
+
+* 1b. *System* has no recorded wishes.
++
+[none]
+** 1b1. *Actor* is prompted to add a wish.
++
+Use case ends.
+
+* 1c. *Actor* enters an invalid value of money to be saved.
++
+[none]
+** 1c1. *Actor* is prompted to enter a valid value.
++
+Use case ends.
+
+* 1d. *Actor* enters an amount of money that causes the wish's saved amount to exceed the amount needed to fulfil the wish.
++
+[none]
+** 1d1. *System* adds the required amount to fulfil the saved amount of the wish at the specified index.
+** 1d2. *System* adds the excess amount to unused funds.
++
+Use case ends.
+
+* 1e. *Actor* enters an amount that causes the wish's resulting saved amount to become negative.
++
+[none]
+** 1e1. *Actor* is prompted to enter a valid value.
++
+Use case ends.
+
+[discrete]
+=== Use case: View all wishes
+
+*MSS*
+
+1.  *Actor* requests to view all wishes.
+2.  *System* shows all wishes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded wishes.
++
+[none]
+** 1a1. User is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *System* has no recorded wishes.
++
+[none]
+** 1b1. *System* shows dialog notifying *Actor* that there are no such wishes.
++
+Use case ends.
+
+[discrete]
+=== Use case: View uncompleted wishes
+
+*MSS*
+
+1.  *Actor* requests to view uncompleted wishes.
+2.  *System* shows all uncompleted wishes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded uncompleted wishes.
++
+[none]
+** 1a1. User is prompted to add a wish.
++
+Use case ends.
+
+* 1b. *System* has no recorded uncompleted wishes.
++
+[none]
+** 1b1. *System* shows dialog notifying *Actor* that there are no such wishes.
++
+Use case ends.
+
+[discrete]
+=== Use case: View completed wish list
+
+*MSS*
+
+1.  *Actor* requests to list completed wishes.
+2.  *System* shows a list of completed wishes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: View command history
+
+*MSS*
+
+1.  *Actor* requests to view history of commands entered.
+2.  *System* shows all commands entered.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded commands.
++
+[none]
+** 1a1. User is prompted to enter a command.
++
+Use case ends.
+
+[discrete]
+=== Use case: View savings history
+
+*MSS*
+
+1.  *Actor* requests to view history of savings entered.
+2.  *System* shows all savings entered, from newest to oldest.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. *System* has no recorded savings.
++
+[none]
+** 1a1. User is prompted to enter a saving.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 wishes without user experiencing a drop in application performance.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. User data can be transferred across different machines (of different platforms).
+. The software should not use a DBMS (Database Management System) to store data.
+. User data is stored locally.
+. User data is human readable and can be edited.
+. Friendly towards color-blind users.
+. Command Line Interface (CLI) is the primary mode of input. GUI is used mainly for visual feedback rather than to collect input. Usage of mouse should be minimized.
+. The software should follow the Object-Oriented Paradigm.
+. The software should work without requiring an installer.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[index]] Index::
+Order of priority of a wish.
 
-[appendix]
-== Product Survey
+[[wish]] Wish::
+Something the user wants to save up money for.
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[wishlist]] Wishlist::
+A record of all wishes added by the user.
 
 [appendix]
 == Instructions for Manual Testing
@@ -941,26 +1527,131 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a wish
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.  Deleting a wish while all wishes are listed
+.. Prerequisites: List all wishes using the list command. Multiple wishes in the list. Wish at index 1 should be fulfilled.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: First wish is deleted from the list. Details of the deleted wish shown in the status message. Unused funds will not be updated as the product has already been bought. Deleted wish details and amount in unused funds shown in status message. Timestamp in the status bar is updated.
+.. Test case: `delete 2` +
+   Expected: Second wish is deleted. Money in the wish will be transferred to unused funds. Deleted wish details and amount in unused funds shown in status message. Timestamp in the status bar is updated.
+.. Test Case: `delete` +
+   Expected: Error. Invalid command format message shown in unused funds.
+.. Test Case: `delete -1` +
+   Expected: Error. Invalid command format message shown in unused funds.
+.. Other incorrect delete commands to try: `delete x` (where x is larger than the list size) +
+   Expected: Error. Invalid wish provided message in message status.
+
+
+=== Saving to a wish
+
+. Saving to a wish
+.. Prerequisites: Add a new wish with the add command with a date earlier than the earliest wish in the WishBook. If the current date is past the earliest wish’s date, delete the first wish until this is no longer true and then add a new wish earlier than the earliest wish in the WishBook.
+.. Test case: `save 1 0` +
+   Expected: 0.00 saved to first wish. Details of saved amount and the remaining amount left for completion shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `save 1 0.01` +
+   Expected: 0.01 saved to first wish. Details of saved amount and the remaining amount left for completion shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `save 1 -0.01` +
+   Expected: 0.01 removed from first wish. Details of removed amount and the remaining amount left for completion shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `save 1 [VALUE LARGER THAN WISH PRICE]` +
+   Expected: Wish will be 100% and fulfilled. Details of the excess amount saved and the unused funds value shown in status message.
+.. Test case: `save 1 5` +
+   Expected: Unable to save to wish. Wish already fulfilled message shown in status message. Timestamp in status bar is updated.
+.. Other incorrect delete commands to try: `save 2 0.001`, `save 2 12.`, `save 2 12@` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Moving funds between wishes
+.  Moving funds between 2 wishes:
+.. Prerequisites: Wish at index 1 should be fulfilled. If it is not, `save` until it is. The other wishes used in the subsequent commands should not be fulfilled.
+.. Test case: `move 1 2 50` +
+   Expected: No money moved from wish 1 to 2. Wish already fulfilled status message shown.
+.. Test case: `move 2 3 [AMOUNT SMALLER THAN SAVED AMOUNT AT FROM_INDEX]` +
+   Expected: Specified amount moved from wish 2 to wish 3. Moved message shown in status message. Timestamp in status bar is updated.
+.. Test case: `move 2 3 [AMOUNT LARGER THAN SAVED AMOUNT AT FROM_INDEX]` +
+   Expected: No money moved from wish 1 to 2. `FROM_INDEX` does not contain the specified amount shown in status message.
+.. Test case: `move 2 3 [AMOUNT LARGER THAN SAVED AMOUNT AT TO_INDEX]` +
+   Expected: Money moved from wish 2 to 3. Wish 3 is fulfilled. Excess money goes to unused funds(index 0).  Moved amount, excess and updated unused funds shown in status message. Timestamp in status bar is updated.
+   ed. Incorrect move commands to try: `move 2 3 -50`, `move 2 3 0.0001`
+   Expected: No money will be moved. Appropriate error message shown in status message.
+
+
+=== Adding a wish
+
+. Adding to a wish
+
+. Positive test cases
+..   Prerequisites: None. Duplicate Wishes can exist and have the same user-defined properties.
+..   Test case: `add n/PS4 Golden Pro d/25/12/2018 p/499.99` +
+   Expected: A new Wish named “PS4 Golden Pro”, priced at $499.99, and expiry date set to 25th December 2018, default URL of “www.amazon.com” will be added to the list of Wishes. Status message shows the details of the newly added Wish.
+.. Test case:  `add n/PS4 Golden Pro d/25/12/2018 p/499.99 t/technology` +
+   Expected: A new Wish named “PS4 Golden Pro”, priced at $499.99, and expiry date set to 25th December 2018, default URL of “www.amazon.com”, with a tag named “technology”, will be added to the list of Wishes. Status message shows the details of the newly added Wish. Selecting on the newly added Wish will also bring up the Amazon’s homepage on the right side of the Detail Panel.
+.. Test case: `add n/PS4 Golden Pro a/60d p/499.99` +
+   Expected: A new Wish named “PS4 Golden Pro”, priced at $499.99, and expiry date set to your current date plus 60 days, default URL of “www.amazon.com” will be added to the list of Wishes. Status message shows the details of the newly added Wish. Selecting on the newly added Wish will also bring up the Amazon’s homepage on the right side of the Detail Panel.
+.. Test case: `add n/PS4 Golden Pro a/2y p/499.99 u/www.google.com` +
+   Expected: A new Wish named “PS4 Golden Pro”, priced at $499.99, and expiry date set to your current date plus 2 years, default URL of “www.amazon.com” will be added to the list of Wishes. Status message shows the details of the newly added Wish. Selecting on the newly added Wish will also bring up the Google search engine webpage on the right side of the Detail Panel.
+
+.  Negative test cases
+.. Prerequisites: None.
+.. Test case: `add n/PS’4 Golden Pro a/30d p/499.99` +
+   Expected: Status message shows that a Wish’s name can only contain alphanumeric numbers and spaces, and should not be blank.
+.. Test case: `add n/ a/30d p/499.99` +
+   Expected: Status message shows that a Wish’s name can only contain alphanumeric numbers and spaces, and should not be blank.
+.. Test case: `add n/PS4 Golden Pro a/30d3y p/499.99` +
+   Expected: Status message shows the given time format is invalid, and also shows the user’s time input.
+.. Test case: `add n/PS4 Golden Pro d/30.30.9999 p/499.99` +
+   Expected: Status message shows that the time should be of format: dd/mm/yy.
+.. Test case: `add n/PS4 Golden Pro a/3d p/499.9999999` +
+   Expected: Status message states that price value should only contain numbers, and at most two numbers after the decimal point.
+.. Test case: `add n/PS4 Golden Pro a/3d p/abc.de` +
+   Expected: Status message states that price value should only contain numbers, and at most two numbers after the decimal point.
+.. Test case: `add n/PS4 Golden Pro a/-1d p/22.22` +
+   Expected: Status message states that the given expiry date should be after the current date.
+.. Test case: `add n/PS4 Golden Pro d/25/12/1111 p/22.22` +
+   Expected: Status message states that the given expiry date should be after the current date.
+.. Test case: `add n/PS4 Golden Pro a/1d` +
+   Expected: Status message states that this is an invalid command format, and shows the correct usage of add command.
+.. Test case: `add n/PS4 Golden Pro d/25/12/2018 p/22.22 u/abc def.com` +
+   Expected: Status message states that URLs cannot have whitespaces.
+
+=== Listing out wishes
+
+. Listing out wishes in the list
+.  Prerequisites: Have both completed (amount saved more than price) and uncompleted wishes.
+.. Test case: `list` +
+   Expected: All wishes in WishBook is listed.
+.. Test case: `list -c` +
+   Expected: Only wishes that are completed will be shown on the list.
+.. Test case: `list -u` +
+   Expected: Only wishes that are uncompleted will be shown on the list.
+
+=== Finding wishes
+
+. Finding a wish by name, tags or remark:
+
+. Prerequisites: None
+.. Test case: `find r/Alice` +
+Expected: Returns all the wishes whose remark contains “Alice” case insensitive. Number of wishes found is listed in status message. Only matched wishes visible in WishList.
+.. Test case: `find t/neigh t/paren` +
+Expected: Returns all the wishes whose tags contain the keywords “neigh” or “paren”. Number of wishes found is listed in status message. Only matched wishes visible in WishList.
+.. Test case: `find n/EVG t/PS` +
+Expected: Returns all wishes whose name contains “EVG” and whose tag contains “PS” case insensitve. Number of wishes found is listed in status message. Only matched wishes visible in WishList.
+.. Test case: `find n/EVG n/PS t/neigh t/paren` +
+Expected: Returns all wishes whose name contains (“EVG” or “PS”) and  (“neigh” or “paren”). Number of wishes found is listed in status message. Only matched wishes visible in WishList.
+.. Test case: `find`  +
+Expected: Invalid command. Invalid command format message shown in status message.
+.. Other incorrect delete commands to try: `find test`, `find d/22/10/1996`. +
+Expected: Similar to previous.
+
 
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: content of WishBook.xml and wishTransaction.xml files will be used to load data for a new session of WishBook. If data is missing from any of these files, data will be lost from subsequent sessions of WishBook unless the xml file data is restored and in proper format.
+.. Test case (gracefully exiting app assuming that WishBook contains more than 1 wish): `save 1 10` and then `exit` +
+Expected: when a new session is started, WishBook should contain all wishes from the previous session. Wish in which the save command is performed for should have its saving history and save amount updated.
+.. Test case (WishBook data and wishTransaction data should be backed up everytime the state of WishBook changes): `save 1 10` +
+Expected: assuming WishBook contains more than 1 wish, the execution of the save command should cause the WishBook.xml and wishTransaction.xml files to be updated with a new save amount.
+.. Test case (empty WishBook to simulate missing data) Copy the contents of the empty xml file after executing the clear command to simulate missing file data into WishBook.xml at the file path specified in the save location (which is specified in the preferences.json file) +
+Expected: When the WishBook is loaded, all wish data should be absent.
+.. Test case (corrupted data): delete data for 1 wish currently in WishBook by editing the WishBook.xml file. +
+Expected: assuming that the data format of the xml file is valid, WishBook should load the content of the WishBook based on the data present in WishBook.xml file (without the deleted wish data). If the data format of the xml file is invalid the WishBook will not load properly and an error message should appear.

@@ -2,18 +2,24 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Date;
+import seedu.address.model.wish.Name;
+import seedu.address.model.wish.Price;
+import seedu.address.model.wish.Remark;
+import seedu.address.model.wish.Url;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -51,48 +57,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code price} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new Price(trimmedPrice);
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String url} into an {@code Url}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code url} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+    public static Url parseUrl(String url) throws ParseException {
+        requireNonNull(url);
+        String trimmedUrl = url.trim();
+        if (!Url.isValidUrl(trimmedUrl)) {
+            throw new ParseException(Url.MESSAGE_URL_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
+        return new Url(trimmedUrl);
     }
 
     /**
@@ -120,5 +111,66 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     */
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        try {
+            if (!Date.isFutureDate(trimmedDate)) {
+                throw new ParseException(Date.MESSAGE_DATE_OUTDATED);
+            }
+        } catch (java.text.ParseException pe) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String period} into a {@code Period}.
+     */
+    public static Period parsePeriod(String period) throws ParseException {
+        requireNonNull(period);
+        String trimmedPeriod = period.trim();
+        try {
+            Period.parse("P" + trimmedPeriod);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, period));
+        }
+
+        return Period.parse("P" + trimmedPeriod);
+    }
+
+
+    /**
+     * Returns the {@code Date}, offset by an input {@code Period} from now.
+     * @param periodString
+     * @return
+     * @throws ParseException
+     */
+    public static Date getPeriodOffsetFromNow(String periodString) throws ParseException {
+        Period period = parsePeriod(periodString);
+        java.util.Date now = new java.util.Date();
+        LocalDate localNow = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate finalDate = localNow.plus(period);
+        return ParserUtil.parseDate(String.format("%02d/%02d/%d", finalDate.getDayOfMonth(),
+                finalDate.getMonth().getValue(),
+                finalDate.getYear()));
     }
 }

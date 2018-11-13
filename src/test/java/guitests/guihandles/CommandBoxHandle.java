@@ -28,7 +28,8 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
     public void run(String command) {
         click();
         guiRobot.interact(() -> getRootNode().setText(command));
-        guiRobot.pauseForHuman();
+        //guiRobot.pauseForHuman();
+
 
         guiRobot.type(KeyCode.ENTER);
     }

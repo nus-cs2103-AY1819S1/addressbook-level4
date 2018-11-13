@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wishbook>
+    <!-- Wish with invalid email field -->
+    <wishes>
+        <name>Hans Muster</name>
+        <price isPrivate="false">9482424</price>
+        <savedAmount>0.00</savedAmount>
+        <date>24/09/2020</date>
+        <url isPrivate="false">https://www.amazon.com/EVGA-GeForce-Gaming-GDDR5X-Technology/dp/B0762Q49NV</url>
+        <remark></remark>
+    </wishes>
+</wishbook>

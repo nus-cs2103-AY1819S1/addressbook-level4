@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= WishBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T16-1/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+**WishBook** (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping
+ track of their disposable income. Not only does WB keep records of your savings, it also allows you to set items
+  as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have
+   material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so
+    that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and
+     start saving!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `wishbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your WishBook app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +37,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : Lists all the items you have set as wishes (sorted by due date).
+* **`add`**`n/uPhoneXX p/1000 a/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
+* *`help`*: displays list of command with usage.
+* *`clear`*: clears view
 * *`exit`* : exits the app
+
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,133 +52,306 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which
+can be used as add iPhone.
+* Items in square brackets are optional e.g. in `list [FILTER]`, `FILTER` is an optional parameter, since the list
+command can be used as `list` to display all wishes in WishBook.
+** An exception to this is `TIME_GIVEN` and `END_DATE`, whereby only one of the two can be used in any command.
+** The `add` command requires either `TIME_GIVEN` and `END_DATE`.
+** The `edit` command can take either or none of them.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
+(i.e. 0 times), `t/broke`, `t/needs` etc.
+* The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in
+`add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE`
+and `END_DATE` parameters.
+
 ====
 
 === Viewing help : `help`
-
+Displays a popup window showing all the commands a user can use in `WishBook`. +
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Add a new wish: `add`
+Add a new wish to the wish list. +
+Format: `add n/WISH_NAME p/PRICE [a/PERIOD_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+* `[END_DATE]`: Specified in _dd/mm/yyyy_ format.
+* `[TIME_GIVEN]`: Specified in terms of years, months, weeks, and days, suffixes (coming after the value)
+marking such time periods are _‘y’_, _‘m’_, _‘w’_, and _‘d’_ respectively.
+
+The order of `[TIME_GIVEN]` must be from the biggest unit of time to the smallest unit of time, meaning that the
+suffix _`y`_ cannot come after any of the other three suffixes, and _'w'_ cannot come after _'d'_, but can come
+after _'y'_ and _'m'_.
+
+[NOTE]
+====
+If you enter an invalid date, a warning message will be displayed to prompt the user to reenter a valid date.
+Until all fields provided are valid, the wish will not be added to `WishBook`.
+====
+
+[NOTE]
+====
+The expiry date you enter must be after current date.
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/XBoxTwo p/999 a/1y`
+* `add n/kfcBook 13inch p/2300 a/6m3w r/For dad t/family t/computing`
+* `add n/prinkles p/1.95 d/24/04/2020`
+* `add n/prinkles p/1.95 d/24/04/2020 u/www.amazon.com/prinkles t/high`
 
-=== Listing all persons : `list`
+=== Edit a wish : `edit`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing wish in the wish list. +
+Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
+* `INDEX` is labelled at the side of each wish.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the wish will be removed i.e. adding of tags is not cumulative.
+* You can remove all tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 n/Macbook Pro t/Broke wishes` +
+Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Broke wishes respectively
 
-=== Locating persons by name: `find`
+* `edit 2 p/22 a/22w` +
+Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== List wishes : `list`
+
+Shows a list of all the wishes you have set, sorted by date by default, based on the given filter.
+If no filter is specified, all wishes in the WishBook will be listed. +
+Format: `list [FILTER]`
+
+* `list` +
+Lists all the wishes in the WishBook.
+
+* `list -c` +
+Lists all the completed wishes in the WishBook.
+
+* `list -u` +
+Lists all the uncompleted wishes in the WishBook.
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only wishes in the current state of the wishbook will be listed.
+* Deleted wishes will not be displayed.
+****
+
+=== List history of entered commands : `history -c`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history -c`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
+box.
+====
+
+// tag::savingsHistory[]
+=== View your saving history: `history -s`
+
+Shows a history of savings you have allocated, from newest to oldest. +
+Format: `history -s`
+
+[NOTE]
+====
+Only history of wishes which currently exist in the `WishBook` will be stored. (i.e. wishes that have been deleted will
+no longer be tracked.)
+====
+// end::savingsHistory[]
+
+// tag::find[]
+=== Locate your wish with speed and precision: `find`
+
+Find wishes which match the given search keywords. +
+Format: `find [-e] [n/NAME_KEYWORD]... [t/TAG_KEYWORD]... [r/REMARK_KEYWORD]...`
+
+****
+* At least one keyword must be provided.
+* Searching multiple keywords of the *same prefix* will return wishes whose
+attribute corresponding to the prefix contain *any* one of the keywords.
+* Searching with keywords of *different prefixes* will return only wishes that
+match will *all* the keywords of the different prefixes.
+* Using the exact match flag, `-e` returns wishes whose corresponding attributes contain *all*
+the keywords.
+* The search is case insensitive. e.g. watch will match Watch.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find n/wat` +
+Returns any wish whose name contains the _wat_.
 
-=== Deleting a person : `delete`
+* `find n/wat n/balloon n/appl` +
+Returns wishes whose names which contain at least any one of _wat_, _balloon_ or _appl_.
 
-Deletes the specified person from the address book. +
+* `find -e n/wat n/balloon n/appl` +
+Returns only wishes whose names that contain all of _wat_, _balloon_ and _appl_.
+
+* `find n/watch t/important` +
+Returns any wish whose name contains _watch_, and whose tags contains _broke wishes_.
+
+* `find n/wat n/balloon t/important` +
+Returns any wish whose name contains _wat_ or _balloon_, and whose tags contains
+_important_.
+// end::find[]
+
+=== Delete a wish : `delete`
+
+Deletes the specified wish from the list and moves any funds in that wish to `unusedFunds`. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` must be a positive integer 1, 2, 3...
+* If the wish at `INDEX` is not yet fulfilled, the saved amount in that wish will be channelled to `unusedFunds`.
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd wish in the list.
+
+* `find watch` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st wish in the results of the find command (if any).
 
-=== Selecting a person : `select`
+=== Select a wish : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the wish identified by the index number used in the displayed wish list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Selects the wish and displays content relevant to that wish in the view.
+* Webpage at the `url` specific to that wish at the specified `INDEX` will be loaded in the view.
+* If there is no internet connection, the webpage will not be loaded.
+* Savings history view will also reflect the savings history for the selected wish, if the selected wish is valid.
+* `INDEX` refers to the index number shown in the displayed wish list.
+* `INDEX` *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
+Selects the 2nd wish in the wish list.
+
+* `find price` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st wish in the results of the `find` command.
 
-=== Listing entered commands : `history`
+// tag::save[]
+=== Save money for a particular wish: `save`
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Channel a specified amount of money to savings for a specified wish. +
+Format: `save INDEX AMOUNT`
+
+****
+* `INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes.
+* If `INDEX` is 0, `AMOUNT` will be channelled directly to `unusedFunds`.
+* If `AMOUNT` saved to `INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled
+to `unusedFunds`.
+* If `AMOUNT` is negative, money will be removed from amount saved for that wish. +
+* `AMOUNT` will not be accepted if:
+** `AMOUNT` brings the savings value for that wish to below 0.
+** The wish at `INDEX` is already fulfilled.
+****
+
+Examples: +
+
+* `save 1 1000` +
+Attempt to save $1000 for the wish at index 1.
+
+* `save 1 -100.50` +
+Attempt to remove $100.50 from the savings for the wish at index 1.
+
+* `save 0 100.50` +
+Attempt save $100.50 to `unusedFunds`.
+
+// end::save[]
+
+// tag::move[]
+=== Move money between wishes: `move`
+
+Moves funds from one wish to another. +
+Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
+
+****
+* `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
+* If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from `unusedFunds` to `TO_WISH_INDEX`.
+* If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to `unusedFunds`.
+* `AMOUNT` from `unusedFunds` will only be successfully channelled if the exact amount requested is present in `unusedFunds`.
+* If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
+* If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
+* `AMOUNT` will not be accepted if:
+** `AMOUNT` is negative.
+** `AMOUNT` brings the savings amount of wish at `FROM_WISH_INDEX` to below 0.
+** Either wish at `FROM_WISH_INDEX` or `TO_WISH_INDEX` is already fulfilled.
+****
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Index 0 is specially allocated for `unused funds`. Excess funds when user attempts to save to a wish will be
+automatically allocated to `unusedFunds`.
+The user can also choose to channel funds from `unusedFunds` to a valid wish.
 ====
+
+Examples: +
+
+* `move 1 2 10` +
+Attempt to move $10 from the wish at index 1 to the wish at index 2.
+
+* `move 0 1 10` +
+Attempt to move $10 from `unusedFunds` to the wish at index 1.
+
+* `move 1 0 10` +
+Attempt to move $10 from the wish at index 1 to `unusedFunds`.
+
+// end::move[]
+
+=== Edit a remark for a wish : `remark`
+
+Edits the remark for a wish specified in the index. +
+Format: `remark INDEX r/[REMARK]`
+
+****
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` must be a positive integer 1, 2, 3...
+****
+
+Examples:
+
+* `list` +
+`remark 1 r/Buying this for dad.` +
+Edits the remark for the first wish to `Buying this for dad.`
+
+* `list` +
+`remark 1 r/` +
+Removes the remark for the first wish (if any).
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undo previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores WishBook to the state before the previous undoable command was executed. +
 Format: `undo`
+
+****
+* If no undoable commands exist or the state of the wishbook is already in its original state, the undo command will
+fail and the state of the wishbook will remain unchanged.
+****
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: commands that modify WishBook content (`add, delete, edit, save`).
 ====
 
 Examples:
@@ -191,7 +370,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redo the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -216,7 +395,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from WishBook. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,35 +405,39 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+WishBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous WishBook folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add*  `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]...` +
+e.g. `add n/Sega Genesis p/2300 a/6m3w`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
+e.g. `edit 1 n/Macbook Pro t/technology`
+* *Find* : `find [-e] [n/NAME_KEYWORD]... [t/TAG_KEYWORD]... [r/REMARK_KEYWORD]...` +
+e.g. `find n/Vacuum Cleaner t/family`
 * *List* : `list`
+* *List completed* : `list -c`
+* *List uncompleted* : `list -u`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *History* : `history`
+* *Save* : `save INDEX AMOUNT` +
+e.g. `save 1 1000`
+* *Move* : `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT` +
+e.g. `move 1 2 10`
+* *Command History* : `history -c`
+* *Savings History* : `history -s`
+* *Remark* : `remark INDEX r/[REMARK]`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Exit* : `exit`
