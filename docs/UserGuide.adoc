@@ -269,7 +269,6 @@ Format: +
 // end::recipeCommand[]
 
 // tag::favouriteCommand[]
-<<<<<<< HEAD
 ==== Add recipe to favourite: `favourite`
 
 Add a recipe to their favourites list. +
