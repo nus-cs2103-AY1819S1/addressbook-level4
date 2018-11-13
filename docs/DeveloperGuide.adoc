@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Sous Chef - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W10-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-4`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -36,7 +36,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repo, and then clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -47,14 +47,19 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/souschef/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and
+link:{repoURL}/src/main/java/seedu/souschef/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check
+link:{repoURL}/src/test/java/seedu/souschef/commons/util/XmlUtilTest
+.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/souschef/ui/HelpWindowTest.java[`HelpWindowTest.java`]
+for
+code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.souschef.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -71,16 +76,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -116,7 +111,8 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/souschef/MainApp.java[`MainApp`]. It is responsible
+for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -130,7 +126,7 @@ The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`ModelSet`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -152,7 +148,8 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AppContentChangedEvent` when the Sous Chef data are changed, instead of asking
+the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -166,21 +163,79 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
-
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/souschef/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `GenericListPanel`, `StatusBarFooter`, `DetailPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/souschef/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+// tag::uimodularisation[]
+
+==== Modularisation
+*List Panel*
+
+_Brief overview_:
+Many of the features (such as MealPlanner, HealPlan, IngredientManager, Recipes, Favourites)
+need to use the list panel section to display their own UniqueType classes. Therefore, this
+has been abstracted and modularised for easier implementation of usage and for any future
+implementation of new components which may need to use the list panel. This is done by inserting
+generic classes into the hierarchy.
+
+_Old Hierarchy_:
+
+image::UiPanelOldHierarchy.png[width="800"]
+
+_New Hierachy_:
+
+image::UiPanelNewHierarchy.png[width="800"]
+
+[NOTE]
+Not all the components are shown, only MealPlanner and Recipe components are shown
+in the diagram as an example. Notice how the new generic abstract classes are simply inserted
+between the superclass and subclass of the old hierarchy to give the new hierarchy.
+
+_Explanation_:
+
+With the *GenericListPanel*, *GenericCard* and *GenericPanelSelectionChangedEvent* classes,
+new features which wish to use the UI list panel simply have to have their respective
+classes extend these three abstract classes and implement their methods accordingly.
+Then the respective fxml files for [feature]ListPanel and [feature]Card have to be
+created.
+
+_MainWindow.java and ListPanelSwitchEvent.java_:
+
+*ListPanelSwitchEvent* encapsulates an event where the list panel needs to change context.
+It extends *BaseEvent* and contains a *Context* attribute to store information on which context
+the list panel needs to switch to. +
+To switch between different list panels for different features, switchTo[feature]ListPanel()
+methods have to be implemented in MainWindow. This method gets the respective filteredList
+from the model within modelSet within logic and uses it to change the generalListPanel.
+The handleListPanelSwitchEvent() method is invoked when a *ListPanelSwitchEvent* is posted
+to the *EventsCenter*, and the method then checks the context attribute of the *ListPanelSwitchEvent*
+object to determine which context the list panel needs to switch to, and then calls the correct method.
+
+
+_Usage_:
+
+Now in order to switch between the different feature list panels, the developer just has to
+create their handler method, instantiating a *ListPanelSwitchEvent* with their desired context
+and then raising the event by posting it to the *EventsCenter*.
+
+// end::uimodularisation[]
+
+// tag::logicComponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -190,146 +245,476 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/souschef/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `AppContentParser` class to parse the user command.
+.  `AppContentParser` passes necessary model to each feature parser such as `IngredientParser` according to the context.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding an ingredient) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add onion 100
+gram 10-23-2018")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the adding an ingredient
+image::LogicSequenceDiagram.png[width="800"]
+
+// end::logicComponent[]
+
+// tag::modelComponent[]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponent.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/souschef/model/ModelSet.java[`ModelSet.java`],
+link:{repoURL}/src/main/java/seedu/souschef/model/Model.java[`Model.java`]
+
+The `ModelSet`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Sous Chef application data.
+** Contains multiple `Model` each in-charge of a feature's data.
+* shares a single instance of VersionedAppContent to ensure single version of truth.
+* does not depend on any of the other three components.
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* each represents a feature-unique data.
+** ensures data abstraction for each feature.
+* is reusable as model is now generic.
+* exposes an unmodifiable `ObservableList<T extends UniqueType>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+// end::modelComponent[]
 
+
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+.Structure of the Storage Component (The given diagram only shows the extensions of 2 functions.)
+image::StorageClassDiagramRevamp.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/souschef/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the various xml files from each of the different functions. Namely recipe.xml, ingredients.xml and healthplan.xml
+* can do a context switch for storing information into the correct xml file for the function.
+* generalized in its implementation for easy extension
+* controls information by passing a single appContent unit around the system.
+* With the new implementation of the storage component, calls at the upper layers are generalized and all components shares
+common calls for load and saving.
+* The new storage component introduces a new abstract parent (XmlFeatureStorage) and also a new interface
+(XmlSerializableGeneric) to make all the calls of load and save to be generic to allow easy functional implementation
+without much creation of new methods at the storage level. Just by calling the context switch and also the save and load
+calls the intended result will be achieved.
+
+// end::storage[]
+
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.souschef.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::ingredientManager[]
+=== Ingredient Manager
+==== Total management of ingredients that user currently have
+
+Ingredient Manager is an address book of ingredients, with some basic functions similar to that of a normal address
+book such as
+add, edit, delete and list. Additionally, Ingredient Manager has some useful functions specific for management of
+ingredients. +
+Firstly, serving units can be converted to a common serving unit with reference to the serving unit dictionary.
+Conversion to a common serving unit is necessary to enable arithmetic calculation between amounts. Also, it is easier to
+compare
+between ingredients when the amounts are shown in common serving units. Secondly, when you apply the list command,
+ingredients are sorted by date. Since ingredients have to be consumed in a limited period, it keeps user be reminded of
+ old ingredients.
+
+===== Current implementation of serving units dictionary
+Ingredient Manager uses `gram` for the common serving unit. Serving unit dictionary is implemented with `static
+HashMap` in
+`IngredientServingUnit` class, which
+contains
+ names of a serving unit as a key and a IngredientServingUnitDefinition object as a value.
+ `IngredientServingUnitDefinition` has three fields, which are a serving unit to be converted, a common serving unit,
+  and
+ a constant to be multiplied for conversion. When conversion is to be done, you find the value in the HashMap with an
+ input serving unit as a key. Then, you multiply the amount of ingredient with the constant and replace the current
+ unit with a
+  common unit. This process is wrapped in a method called `convertToCommonUnit()` in ingredient models which contains
+  amount field.
+
+===== Alternative Implementation of serving units dictionary
+In the current implementation, a serving unit to be converted exists both as a key and in a value
+ of
+the HashMap. This duplication can be removed by transforming the form of the value in the HashMap from a definition
+object to an array
+containing the other two fields of the object. However, creating a separate class to wrap three fields is more
+desired
+for
+abstraction.
+In the current version of the application, definition object is only used for conversion to a common serving
+unit. But in later version, conversion can be done the other way around for the purpose of display. Also, in a more
+complete version of the
+dictionary, definition should be expanded to cover information related to validity of combination between specific
+serving
+unit and ingredient, and its conversion value. Also, using HashMap brings huge convenience in further implementation of
+ functions which include searching of value in the dictionary,
+cancelling
+out the cost of duplication.
+
+==== View recipes according to ingredients, and check shop amount
+This command works on separate context called cross, because the result of command manipulates list of recipes, not
+ingredients. The command
+filters(include) and sorts(prioritize) recipes based on ingredients given in the command, and makes use of
+information stored in Ingredient Manager in two ways. Firstly, you can provide all ingredients in
+Ingredient
+ Manager as parameter for filtering or sorting. This might be useful when a user wants to find recipe that maximizes
+  the use of existing ingredients. Secondly, for the recipes that are on the list as a result
+ of filtering and sorting, additional amount of ingredients that need to be prepared for a recipe is calculated.
+ Because
+ ingredients in
+ Ingredient Manager are considered as stock that the user currently have, their amounts are subtracted from the
+ desired amount, calculated considering the number of servings. After cooking,
+ she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
+
+===== Current implementation of cross recipe model
+Although it looks similar, models used for recipe context and cross context are different. `crossRecipe` class extends
+Recipe class with one more additional field, a Map named neededIngredients. This has `IngredientDefinition` object as a
+key,
+ and `IngredientPortion` object as a value. It is to store information of needed amount of an ingredient to amount field of IngredientPortion object after calculation is done.
+
+===== Current implementation of ingredient models
+image::IngredientModelDiagram.png[width="1000"]
+
+There are three ingredient related models, namely `IngredientDefinition`, `IngredientPortion`, and
+`Ingredient`.
+IngredientDefinition is a wrapper class for ingredient name. IngredientPortion inherits IngredientDefinition and
+additionally includes amount
+field. Ingredient again inherits IngredientPortion, and it is the most complete version of ingredient with date
+information, used by Ingredient Manager.
+Reason for hierarchical implementation is that there exists different needs for ingredient related fields
+across features or functions. For example, ingredient in recipe uses IngredientPortion, and ingredient in Ingredient
+ Manager uses Ingredient. IngredientDefinition is used as a key of a HashMap in implementing 'view recipes
+ according to ingredients' function. It can be used to construct ingredient dictionary or to expand unit dictionary in
+ the future version of the application.
+// end::ingredientManager[]
+
+// tag::mealplannerimplementation[]
+=== Meal Planner feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+===== Model
+The Meal Planner feature is supported by the classes *Meal* and *Day*.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+****
+Supporting classes:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* *Day*: encapsulates a *LocalDate* _date_  and an *ObservableList<Meal>* _mealList_
+containing 3 meals (breakfast, lunch, dinner). *Day* objects are always instantiated
+with 3 empty *Meal* objects in the _mealList_.
+** An empty *Day* is defined as having 3 empty meals in its _mealList_.
+** 2 *Day* objects are defined as same (through overriding equals() method) as long
+as they have the same *LocalDate* _date_. This is to ensure no duplication of dates
+within the Meal Planner.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* *Meal*: abstract class which encapsulates a *Optional<Recipe>* _recipe_, an *int* _index_
+indicating which meal index each *Meal* object is (0 for breakfast, 1 for lunch, 2 for dinner),
+and a *String* _slot_ containing its corresponding name.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+** *Breakfast*: inherits from *Meal* class and represents the breakfast meal slot of the day.
+Contains a predefined integer index of 0 and a predefined String slot name of "breakfast".
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+** *Lunch*: inherits from *Meal* class and represents the lunch meal slot of the day.
+Contains a predefined integer index of 1 and a predefined String slot name of "lunch".
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+** *Dinner*: inherits from *Meal* class and represents the dinner meal slot of the day.
+Contains a predefined integer index of 2 and a predefined String slot name of "dinner".
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+** An empty *Meal* is defined as having no recipe, i.e. empty *Optional*.
+****
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Class diagram:
 
+image::MealPlannerClassDiagram.png[width="800"]
+
+Brief explanation:
+
+Meal Planner is currently implemented as a list of non-empty *Day* objects. This is
+ensured as *Day* objects are only instantiated when recipes are added to a certain
+_date_, with that _date_ being assigned to its *Day* object. When all the recipes
+are deleted from a certain *Day*, the *Day* object is removed from the Meal Planner.
+*Day* objects in the Meal Planner list panel are sorted in chronological order according
+to their dates. This is done by sorting the list when instantiated and when *Day* objects
+are added or removed.
+
+===== Logic
+For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
+via the command `-mealplanner` (except for the case of the `plan` command for adding recipes
+to the Meal Planner, which has to be done in the recipe context since the user needs to be able
+to see the recipes). From there, the Meal Planner commands can be used and
+*AppContentParser* will redirect the different commands to their respective CommandParser.
+
+====== _Plan Command_: `plan`
+The plan command adds a recipe from the _recipeModel_ to the _mealPlannerModel_. Therefore
+both models have to be passed to *PlanMealCommandParser*.
+
+Within *PlanMealCommandParser*, it parses the target _date_ from a *String* into a *LocalDate*.
+Only dates from the present or future are allowed to be entered.
+This *LocalDate* object is then used to find out whether _mealPlannerModel_ currently
+contains a *Day* with the target _date_. If such a *Day* object already exists, it is
+taken from _mealPlannerModel_ to be used in *PlanMealCommand*. Else, a new *Day* object is
+instantiated with the target *LocalDate* _date_. The target _meal_ is then taken from
+the *Day* object. _mealPlannerModel_, target _day_ target _recipe_ and target _meal_ are then passed
+to *PlanMealCommand*.
+
+Within the execute method of *PlanMealCommand*, target _recipe_ is then added the target _meal_ and
+target _day_ is then added to mealPlannerModel.
+
+Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
+
+====== _Select Command_: `select`
+The select command selects a recipe of a specified meal of a specified day and displays the details
+of the recipe (ingredients, instructions, etc) in the DetailPanel. +
+*MealPlannerParser* invokes the parseMealRecipe() command of *SelectCommandParser*. The desired
+index and meal index are parsed from the user input and used to extract the _recipe_ from the
+specified day's desired meal index. Using this _recipe_, the _recipeModel_ is searched and the
+index of the matching recipe is returned. +
+The index and the _recipeModel_ are then passed to
+a *SelectCommand* which executes the displaying of the recipe details in the same manner as
+in the recipe context.
+
+====== _Clear Command_: `clear`
+The clear command simply clears the Meal Planner of all days. +
+This is done by setting (i.e. replacing) the existing UniqueList of _mealPlannerModel_
+with a new empty UniqueList.
+
+====== _Delete Command_: `delete`
+The delete command deletes a specified *Day* from the _mealPlannerModel_ along with all its _meals_.
+The *Day* is specified by its index as seen on the list panel. +
+*MealPlannerParser* invokes the parseMealPlan() method of *DeleteCommandParser*. The user input
+is then parsed to get the index of the *Day* to be deleted. The *Day* object at the given index
+of the _mealPlannerModel_ list is then deleted.
+
+====== Alternative implementation
+Earlier MealPlanner implementation used a ObservableHashMap with LocalDate and Day as the key and value
+pairs, each LocalDate being the key for the Day with the same LocalDate. Theoretically, this
+would work as well. However, this was scrapped as a simple ObservableList of Days would work
+equally well. In addition, since AB4 already has an implemented UniqueList, using a simple
+List makes it easier to integrate the Meal Planner into the existing infrastructure. +
+HashMaps are mainly used as they give a time complexity advantage, having an O(1) time complexity.
+However, that advantage is not present here since our Lists usually access elements by index,
+and thus also have a time complexity of O(1).
+
+// end::mealplannerimplementation[]
+
+// tag::favouritesimplementation[]
+=== Favourites list
+
+This feature allows users to have a quick reference to all of their favourite recipes. Users are able to add recipes
+that they like a lot, or that they cook often to the favourites list. Users are also able to search, display details,
+and remove any entry within the favourites list.
+
+===== Model
+The model is simply a UniqueList of Recipes.
+
+===== Logic
+To access favourite context commands, context has to be switched to "Favourites" via the command `-favourite`. From
+there, the Favourite commands can be used and *AppContentParser* will redirect the different commands to their
+respective CommandParsers.`favourite` command for adding recipes to the Favourites list is done in recipe context.
+
+==== Adding to Favourites
+While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
+execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
+list in the favourites model.
+
+==== Selecting a Favourite Recipe
+While browsing the favourite recipes in the favourite context, if the user wishes to view the details of the recipe,
+they can execute the `select INDEX` command. From the array list in the favourites model, the 1 based index will be
+accessed, and its details will be displayed in the panel.
+
+==== Finding a Favourite Recipe
+The user can also browse and search favourite recipes by tag. Similar implementation as 'find' command in recipe
+context.
+
+==== Deleting a Favourites Recipe
+While browsing the recipes in the recipe context, and when a user wants to remove a recipe at a particular `INDEX`,
+they can execute the `delete INDEX` command. From the array list in the favourites model, the index will be accessed,
+and the recipe will be deleted form the favourites model.
+
+==== Clearing Favourites
+The clear command clears the Favourites List of all Recipes. +
+The command replaces the existing UniqueList of _favouriteModel_
+with a new empty UniqueList.
+// end::favouritesimplementation[]
+
+// tag::recipeManagement[]
+=== Recipe Management
+==== Multi-line Recipe Adding
+===== Current Implementation
+As the adding of recipes deal with lengthy input parameters from the basic details such as name to a list of
+instructions, single-line add command proves to be inefficient and often providing an inconvenient user experience.
+To allow flexibility, adding of recipes have been implemented as a multi-line command fitting into this CLI application.
+
+Multi-line add function consists of 3 main commands: `add` `cont` `end`. The `add` command requires user input of the
+recipe basic information such as `Name`, `Difficulty`, `CookTime` and the optional `Tag`. The `cont` command requires
+ user input of the recipe `Instruction`. Each `cont` command allows only 1 `Instruction`. Again this is to
+ break down the lengthy input parameter of `Instruction`.  Lastly, with the `end` command the `Recipe` is being
+ recognised and is added to the `Model`. +
+
+The following is the sequence diagram of the `add` command:
+
+image::recipe_add_add.png[width="1000"]
+Once user's input is being parsed, a `RecipeBuilder` is created instead of a `Recipe` instance. This `RecipeBuilder`
+will be stored in `History` when the command is being executed.
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+====
+Repeating use of `add` will replace existing `RecipeBuilder` rendering the previous data unsaved until user complete
+the add recipe command.
+====
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The following is the sequence diagram of the `cont` command:
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+image::recipe_add_cont.png[width="1000"]
+Upon parsing the user's input that contains `Instruction`, a `Instruction` instance will be created. This
+`Instruction` is to be passed to the command for execution. The execution process once again make use of the `History`
+to append the `Instruction` into `RecipeBuilder`.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The following is the sequence diagram of the `end` command:
 
-The following sequence diagram shows how the undo operation works:
+image::recipe_add_end.png[width="1000"]
+Upon receiving the `end` command, `Recipe` will be built from the `RecipeBuilder`. The parsing process checks to
+ensure that the `Recipe` built contains at least a single `Instruction` to prevent adding of `Recipe` without
+`Instruction`. With a valid `Recipe`, a `AddCommand` will be created and the `RecipeBuilder` in `History` will be
+cleared (i.e. set to null). This `AddCommand` when executed will add the `Recipe` into `Model`.
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+===== Why it is implemented that way:
+Due to the nature of a multi-line add command where the `Recipe` is incomplete together with the inability to execute
+ the add
+ function immediately, 2 mechanisms namely, a builder and a historical storage, have to be put
+  in place. The builder works effectively in managing the data of a partial `Recipe` while allowing continuous
+  modification. The historical storage, `History` in this context, ensures that lossless partial
+  `Recipe` data. Moreover, since `History` interaction with commands has already been well establish in Logic
+  component and a partial `Recipe` is indeed a representation the historical commands, storing in `History`
+  becomes a dominant choice.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+===== Alternatives:
+[disc]
+* Adding of incomplete recipe to the model and edit that recipe with the subsequent commands. +
+** Pros - Make use of existing add and edit command without the need of additional implementation. +
+** Cons - Model contains incomplete recipe that violates the validity of recipe data. This might be exploited and in the
+ process the application can be filled with incomplete recipes.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+==== All-field Recipe Search
+The all-field recipe search matches keywords with details of `Recipe`.
+Each keyword goes through the matching process against the `Name`, `Tag`, `Difficulty`, `CookTime` and even
+`IngredientPortion` from each `Instruction` of every recipe.
+Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+===== Current Implementation
+The following recipe class diagram shows the data structure of `Recipe` to support searching:
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+image::recipe_class_diagram.png[width="1000"]
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+Other than the basic `Recipe` details accessible via the `getters()`, nested attribute such as `IngredientPortion`
+can post difficulty for the search function since `Recipe` and `IngredientPortion` is not associated initially. To
+allow direct access to all `IngredientPortion` of that recipe, a `tabulateIngredients()` method is added. This method
+stores all
+`IngredientPortion` in the `HashMap` of `ingredients`
+ attribute by searching through all `Instruction`. As `Recipe` is immutable, the generating of the `ingredients` is
+ done in the constructor of `Recipe` (i.e. `tabulateIngredients()` is called in the constructor). This allow the
+ direct accessing all attributes required for the search to completed.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in a predicate to
+filter away recipes that does not meet the requirement.
 
-image::UndoRedoActivityDiagram.png[width="650"]
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream`. Each keyword is checked
+against a recipe `Name` for any matching word, `Difficult` for exact matching value, `Tag` for any matching
+word, and `Ingredient` for any matching `IngredientDefinition`. All keywords must return true (i.e. matching at least
+ one attribute of the recipe) before the recipe is deemed fit to be kept in the `FilteredList`.
 
-==== Design Considerations
+The following code snippet shows how the predict determines each recipe: +
 
-===== Aspect: How undo & redo executes
+include::../src/main/java/seedu/souschef/model/recipe/RecipeContainsKeywordsPredicate.java[lines=19..33]
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
 
-===== Aspect: Data structure to support the undo/redo commands
+image::recipe_search_seq.png[width="1000"]
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+===== Why it is implemented that way:
+Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
+to use its getter and perform matching with its keywords. Hence, a filter via predicate testing is deemed fit.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+===== Alternatives:
+[disc]
+* Tag saving recipes that uses it. +
+** Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
+** Cons - Bi-directional association, increase difficulty in maintaining data integrity +
 
-_{Explain here how the data encryption feature will be implemented}_
+* Saving IngredientPortion directly in recipe instead of individual instruction. +
+** Pros - Remove the need to search through the initial every instruction to gather the ingredients for every new
+instance of recipe. Speed up the recipe add and read process. +
+** Cons - Since ingredients are aggregated from instruction, by allowing IngredientPortion to be a direct attribute of
+recipe imply a possibility of mismatch between the ingredients in the instruction and the ingredients in the recipe.
+(e.g. User entering ingredients that are not used by any instruction)
+// end::recipeManagement[]
 
-// end::dataencryption[]
+
+// tag::healthplan[]
+=== Health Plan
+
+This is a feature that users can access to have health plans to manage their diet and health due to dietary
+needs of their choice. Users are able to add a health list to based on their specifications:
+whether they intend to gain/lose/maintain weight from their
+set age, current weight and also their current height. this will then tell them what is the required calories to
+eat per day to hit their target.
+
+==== Class Diagram
+image::healthPlanClassDiagram.png[width="800"]
+
+==== Current implementation
+
+* Users are able to add to the list based on their personal settings: name, age, height, weight, target weight,
+ duration, scheme (gain/loss/maintain)
+* Users are able to delete entries that they do not want to keep anymore.
+* Users are aso able to edit entries which information is incorrect.
+* Users are able to add days of the meal planner segment into chosen health plan
+* Users are able to display all days of the meal planner segment concurrently with the health plan lists
+* Users are able to display the details of a health plan to see the days stored and also other information
+* Users are able to remove days of the health plan they added.
+* Users are now able to view the calories count from the meals they included into the healthplan and when the details of
+the health plan is shown the target to hit will be shown to the user, in value and also bar chart. Along with such info,
+there is also a percentage met to show how much of the target is already achieved.
+
+==== Ongoing implementation (Implementing plan comparisons)
+
+This new implementation of this feature will allow the users to select 2 plans of their choice and compare
+with a side by side comparison of the calories consumed. This information will be displayed to the user much like the show
+details command that is available with slight tweaks. There will not be a percentage met but instead the feature will
+try to cover breakdown of the calories intake by day using the set duration of the targetted plans.
+This will provided clarity of the day by day consumption of calories of the user across 2 plans.
+The information will be in calculated values and then displayed in a series of bar graphs for quick understanding of the
+information by just looking at the graphs.
+
+
+==== Ongoing implementation (Expiry of health plans)
+
+The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
+ against the duration set by the user.
+
+// end::healthplan[]
 
 === Logging
 
@@ -489,14 +874,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.souschef.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.souschef.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.souschef.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.souschef.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -526,307 +911,28 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/souschef/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+A project often depends on third-party libraries. For example, Sous Chef depends on the http://wiki.fasterxml
+.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* prefer home-cooked meals and has a need to manage meal preparation schedule
+* interested to explore different recipes and receive suggestions on the next meal
+* requires a kitchen-helper providing step-by-step instructions
+* like to keep track of nutrition and calories intake
+* has needs for a shopping list based on the meals planned
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Plan and guide health-conscious occupied working adults in preparing home-cooked meals
 
 [appendix]
 == User Stories
@@ -834,90 +940,490 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+=== Ingredient Management
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |limit the search result of recipes to what I have in my inventory |cook a meal without buying additional ingredients
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |Be informed of the name/amount of ingredients that I am lacking |so that I can buy the shortfall
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user with ingredient near expiry |I can refer to the purchase date on ingredient manager and search for recipes that include those ingredients |use up my ingredients near expiry
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |see recipes that can use the most number of ingredients in the ingredient manager |cook with the maximum utilization of my ingredients
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user who wants to cook more than one serving of dishes |get the accordingly calculated missing amount of ingredients |-
+|=======================================================================
+// tag::mealplanner[]
+=== Meal Planner
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|`* * *` |user |plan my meals for breakfast, lunch and dinner |I can remember my meals for each day
+
+|`* * *` |fickle-minded user |edit my meal plans |I can add different recipes if I change my mind
+
+|`* * *` |efficient user |clear the meal planner immediately at the end of the week |I can save time
+
+|`* *` |health-conscious user |view the nutritional value of each recipe |I can choose recipes according to my nutritional needs
+
+|`*` |meticulous user |view the time taken for each recipe |I can plan ahead for meal preparations to fit my schedule
+|=======================================================================
+// end::mealplanner[]
+=== User Profiling
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|`* * *`|undecided user |get random recipe suggestions |get new ideas on what to cook
+
+|`* * *` |user |get suggestions to cook based on my viewing and cooking history |learn to cook similar dishes that I may like
+
+|`* * *` |user |favourite a recipe that I really like | save them into my favourites for easy reference
+
+|`* * *` |user |remove a recipe from my favourites |remove a recipe that I no longer like
+
+|`* * *` |user |list out all my favourite recipes|view all of my favourite recipes at a glance
+|=======================================================================
+=== Recipes Management and cook-mode
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|`* * *` |indian |search for recipes of Indian dishes	|prepare a wholesome meal for my family
+
+|`* * *` |vegetarian |search for vegan option |prepare self-make food for my dietary requirements
+
+|`* * *` |mum |search for kids-friendly recipes |prepare food that is to my kids liking
+
+|`* *` |amateur cook |follow through the step-by-step cooking instructions explicitly |my cooking process is guided
+
+|`*` |user |provide suggestions to a recipe |improve on the recipe to value-add the community
+
+|`*` |picky user |search for recipes with good reviews |prepare tasty food that is worth the calories
+
+|`*` |user |“like/dislike” reviews on a recipe made by other users	 |credit/discredit valid/invalid reviews
 |=======================================================================
 
-_{More to be added}_
+
+=== Health Plan
+|========================================================================
+|Priority | As a... |I want to ... | So that I can...
+
+|`* * *`|new user| be able to easily use the interface without hassle | easily learn the interface without difficulty
+
+|`* *`|health-conscious user| be able to view the nutritional breakdown| Know what food to cut down or replace
+
+|`* *`|fickle user | be able to change plans or make new plans on the go | make changes when errors are made
+
+|`* *`|user trying to be more healthy | be recommended healthy recipes by the system | save the effort needed to
+search online
+
+|`*`|experimental user| be able to have many plans | try out different plans on the go
+|========================================================================
+
+
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Sous Chef` and the *Actor* is the `user`, unless specified otherwise)
 
+=== Ingredient Management
 [discrete]
-=== Use case: Delete person
+=== Use case: UC11 – List Ingredient
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list ingredients.
+2. System shows list of ingredients.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC12 – Add Ingredient
+
+*MSS*
+
+1. User requests to add an ingredient.
+2. System adds the ingredient at the rear of the list and shows the list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. System prompt insufficient/invalid contents.
++
+[none]
+** 1a1. System show the message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC13 – Edit Ingredient
+
+*MSS*
+
+1. User requests to edit an ingredient.
+2. System reflects the change to the list and show the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System prompt insufficient/invalid contents.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. System show the message.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: UC14 – Delete Ingredient
+
+*MSS*
+
+1. User requests to delete an ingredient.
+2. System deletes the ingredient and shows the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The ingredient does not exist in the ingredient manager.
++
+[none]
+** 1a1. System show the message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC15 – Find Ingredient
+
+*MSS*
+
+1. User requests to find ingredients.
+2. System show the list of ingredients that contains the keywords.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC16 – Search recipes according to ingredients
+
+*MSS*
+
+1. User selects both mandatory and desirable ingredients for the search.
+2. System shows the filtered and sorted list of recipes.
+3. User selects a recipe.
+4. System shows recipe specifying missing ingredients and its amount, calculated according to the number of servings.
++
+Use case ends.
+
+=== Meal Planner
+[discrete]
+=== Use case: UC21 – Add recipe to meal planner
+
+*MSS*
+
+1. User requests to list available recipes.
+2. System shows list of available recipes.
+3. User selects desired recipe and adds it to the desired meal index.
+4. System shows the recipe listed under the indicated meal index.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC22 – Delete recipe from meal planner
+
+*MSS*
+
+1. User requests to view current meal plan.
+2. System shows current meal plan.
+3. User requests to delete unwanted recipe.
+4. System shows specified meal index as empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC23 – View meal plan
+
+*MSS*
+
+1. User requests to view current meal plan.
+2. System shows current full meal plan.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC24 – View meal recipe
+
+*MSS*
+
+1. User requests to view recipe for a specific meal index.
+2. System shows the full recipe of the specified meal index.
++
+Use case ends.
+
+=== User Profiling
+[discrete]
+=== Use case: UC31 - Request surprise recipe
+
+*MSS*
+
+1. User requests to wants to cook something new, but has no idea what they want to try.
+2. User request for surprise recipe
+3. System displays random recipe
++
+Use case ends.
+
+[discrete]
+=== Use case: UC32 – Favourite recipe
+
+*MSS*
+
+1. User lists a selection of recipes (Based on his search parameters).
+2. User selects a recipe to view.
+3. User likes that recipe, and adds it to their "Favourite Recipe" list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC33 – Suggest recipe
+
+*MSS*
+
+1. User wants to try a new recipe.
+2. A list of 3 new recipes (That the user hasn't cooked before, and based on their preferences, viewing and cooking history) will be displayed to the user.
++
+Use case ends.
+
+=== Recipes Management and cook-mode
+[discrete]
+==== Use case: UC41 – Search for Recipe
+*MSS*
+
+1.	User chooses to search for recipe.
+2.	System requests for details.
+3.	User enters keywords.
+4.	System displays recipes.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC42 – View Recipe
+*MSS*
+
+1.	User +++<u>searches for recipe (UC41)</u>+++.
+2.	User chooses a recipe.
+3.	System displays recipe details.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC44 – Navigate Recipe [Coming up in V2.0]
+*MSS*
+
+1.	User +++<u>views recipe (UC42)</u>+++.
+2.	User chooses to enter navigation mode.
+3.	System displays instruction.
+4.	User chooses next instruction.
++
+Steps 3 – 4 are repeated until end of recipe’s instruction or user chooses to end navigation.
++
+Use case ends.
+
+
+*Extensions*
+[none]
+* 3a. 	System displays timer for duration specific instruction.
+* 3b. 	User chooses to start timer.
+* 3c. 	System displays countdown.
+* 3d. 	System displays alert when timer ends.
++
+Use case resumes at step 3.
+
+* *c. 	At any time, user chooses to end timer.
+[none]
+** c1. 	System ends timer.
++
+Use case resumes at step 3.
+
+[discrete]
+==== Use case: UC45 – Add Recipe
+*MSS*
+
+1.	User chooses to add recipe.
+2.	System requests for details.
+3.	User enters details.
+4.	User chooses to save.
+5.	System displays saved recipe.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. 	System detects missing field(s).
+* 4a1. 	System requests for input of missing field(s).
+* 4a2. 	User enters details.
+* Steps 4a1 – 4a2 are repeated until the data entered are correct.
+* Use case resumes at step 5.
+
+=== Health planner
+[discrete]
+==== Use case: UC51 – Create plan
+
+*MSS*
+
+1. User requests to create a plan.
+2. User enters details for the plan.
+3. System creates the plan.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User enters invalid details.
++
+[none]
+** 2a1. System shows error message.
++
+Use case resumes at 2.
+
+[discrete]
+==== Use case: UC52 – Edit plan
+
+*MSS*
+
+1. User requests to edit a plan.
+2. System retrieves the list of plans by user.
+3. User select the plan to edit.
+4. User enters the new details to the plan.
+5. System updates the details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No prior plan.
++
+Use case ends.
+
+[none]
+* 4a. Invalid details.
++
+[none]
+** 4a1. System shows an error message.
++
+Use case returns to 4.
+
+[discrete]
+==== Use case: UC53 – Delete plan
+
+*MSS*
+
+1. User requests to delete plan.
+2. System shows list of plans.
+3. User selects plan to delete.
+4. System deletes the selected plan.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No pre-existing plan.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC54 – Enter dietary intakes for the day
+
+*MSS*
+
+1. User request to enter intake.
+2. System shows list of plans.
+3. User selects plan from list.
+4. System shows list of recipes to select.
+5. User selects recipe to add into list.
+6. System adds the recipe to list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No existent plan.
++
+Use case ends.
+
+[none]
+* 4a. No recipe to show.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC55 – Remove an recipe from the dietary intakes for the day
+
+*MSS*
+
+1. User request to remove recipe from intake list.
+2. System shows list of recipes.
+3. User selects recipe from the list.
+4. System removes the selected recipe from the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No prior ingredient.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC56 – View nutritional Intake
+
+*MSS*
+
+1. User requests to view nutritional intake entered.
+2. System retrieves the list of intakes to show the user.
+3. System retrieves the nutritional facts based on the recipes in the list to show the user.
+
+*Extensions*
+
+[none]
+* 2a. No data entered previously.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC57 – Compare actual intake against target
+
+*MSS*
+
+1. User requests to compare the entered data against set target.
+2. System shows Target set by User.
+3. System calculates and shows the actual intake by user.
+4. System calculates the difference in the 2 scores and shows the user the percentage difference(positive or negative)
+from set target.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 recipes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -933,7 +1439,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample recipes. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -941,26 +1447,52 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding of recipe
+. Adding of a non-duplicate recipe
+.. Prerequisites: Switched to `-recipe` context and recipe to be added is not in SousChef.
+.. Test case: `add n/Chicken Rice d/3 c/20M` `cont i/Remove skin from #chicken 500 gram.` `cont i/Boil chicken in
+#water 700 ml for 20m c/20M` `end` +
+Expected: Recipe added to the end of recipes list. Details of the added recipe shown in the status message. Timestamp
+ in the status bar is updated.
+ .. Test case: `add n/Tuna Roll d/3 c/10M` `end` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+ . Adding of a duplicate recipe
+ .. Prerequisites: Switched to `-recipe` context.
+ .. Test case: `add n/Egg Roll d/2 c/10M` `cont i/Spread #rice 100 gram on the mat.` `cont i/Put #egg 1 piece on top
+ of the rice.` `cont i/Roll the rice.` `end` `add n/Egg Roll d/2 c/10M` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
 
-=== Deleting a person
+=== Editing a recipe
+. Editing a recipe while all recipes are listed
 
-. Deleting a person while all persons are listed
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
+... Test case: `edit 1 n/Chicken Burger` +
+Expected: First recipe is updated with a new name. Details of the edited recipe shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit 1` +
+Expected: No recipe is edited. Error details shown in the status message. Status bar remains the same.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Deleting a recipe
+
+. Deleting a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First recipe is deleted from the list. Details of the deleted recipe shown in the status message.
+   Timestamp
+   in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Finding a recipe
+. Finding a recipe while all recipes are listed
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+lsit.
+.. Test case: `find vegetarian noodles 1 20M` +
+Expected: Recipes meeting all the keywords is listed. Number of listed recipes shown in the status message. Status bar remains the same.
+.. Test case: `find` +
+Expected: No recipe listed. Error details shown in the status message. Status bar remains the same.

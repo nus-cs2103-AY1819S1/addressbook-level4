@@ -1,0 +1,74 @@
+= Lim Shi Min - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Souschef
+
+---
+
+== Overview
+
+Souschef is a desktop smart cooking sidekick, offering personalised guidance every step of the way. From recipe
+recommendations just for you, to meal planning and inventory management, SousChef has everything you need to improve
+life in the kitchen. +
+
+Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
+
+== Summary of contributions
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=limshiminjonathan[Functional
+code]]
+* *Major enhancement*: added *favourites* feature.
+** What it does: allows the user to save their favourite recipes to a separate list.
+** Justification: This feature improves the product significantly because a user can have quick access to all of their
+favourite recipes
+** Highlights: This enhancement was originally unsupported by the AB4 code; it is a completely new component feature.
+* *Code contributed*: https://github.com/CS2103-AY1819S1-W10-4/main/pull/255
+
+* *Minor enhancement*: added a surprise command that surprises the user with a random recipe.
+* *Code contributed*: https://github.com/CS2103-AY1819S1-W10-4/main/pull/181
+
+* *Other contributions*:
+
+** Documentation:
+*** Documented and explained implementation of favourites.
+*** Documented and explained how to use favourites and surprise in user guide.
+** Community:
+*** PRs reviewed:
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/82[#82],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/92[#92],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/171[#171],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/209[#209]
+
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/CS2103-AY1819S1-T10-1/main/issues/103[#103],
+https://github.com/CS2103-AY1819S1-T10-1/main/issues/105[#105],
+https://github.com/CS2103-AY1819S1-T10-1/main/issues/108[#108],
+https://github.com/CS2103-AY1819S1-T10-1/main/issues/109[#109]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Explanation of Surprise command
+include::../UserGuide.adoc[tag=surpriseCommand]
+
+=== Explanation of Favourite command
+include::../UserGuide.adoc[tag=favouriteCommand]
+
+=== Explanation of Favourite commands
+include::../UserGuide.adoc[tag=favourite]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Explanation of the implementation of favourites
+include::../DeveloperGuide.adoc[tag=favouritesimplementation]
+
+---

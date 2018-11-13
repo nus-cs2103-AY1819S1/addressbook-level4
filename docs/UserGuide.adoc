@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Sous Chef - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,249 +12,723 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W10-4`      Since: `SEP 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Souschef is your *smart cooking sidekick*, offering personalised guidance every step of the way.
+From recipe recommendations just for you, to meal planning and inventory management,
+Sous Chef has everything you need to improve life in the kitchen.
+The application works with a *Command Line Interface (CLI) for speedy*
+provision of recipe choices, management of your cooking plan while guiding you through
+the preparation process.
+With a few commands, this kitchen helper will be
+there to keep cooking as simple as ABC. Get started with <<Quick Start>> and
+experience the fun from cooking meals.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `souschef.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Some example commands you can try:
+* *`find KEYWORD...`* : search for recipes related and excluded from the keywords (only within recipe context)
+* *`-mealplanner`* : Switch to meal planner context and display personal meal schedule
+* *`-exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::features[]
+
 [[Features]]
 == Features
+In Sous Chef, there are 2 types of command: universal commands and context-unique commands. +
+ +
+The universal commands can be used throughout the application and perform application-wide action. You can identify a
+ universal command from its "-" convention followed by a keyword (e.g. -exit). +
+ +
+ The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands (Only applicable in recipe context)>> can only be
+ used in -recipe context). These commands contains only a action key word followed by the required parameters, if any. (e.g. select INDEX)
 
 ====
-*Command Format*
+*Command Format Convention*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME c/COOKTIME d/DIFFICULTY [t/TAG]`,
+`NAME`, `COOKTIME` and `DIFFICULTY` and `TAG` are parameters are to be replaced: `add n/Fried Chicken d/2 c/20M
+t/Fastfood`.
+* Items in square brackets are optional (i.e. can be omitted).
+* Items with `…`​ after them can be used multiple times e.g. `[t/TAG]...` can be used 1 or more: `t/Japanese`, `t/Halal t/Seafood` etc. With `[]` it can also be omitted totally too.
+
 ====
+// end::features[]
 
-=== Viewing help : `help`
+// tag::universalCommand[]
+=== Universal Commands
+==== View help: `-help`
+To view the help menu containing all the universal commands. +
+Format: +
+`-help`
 
-Format: `help`
+==== View history: `-history`
+To view previous commands entered. +
+Format: +
+`-history`
 
-=== Adding a person: `add`
+==== Switch to recipe context: `-recipe`
+Switch to recipe context and display recipes. +
+See <<Recipes Commands (Only applicable in recipe context)>> to view commands for recipe context. +
+Format: +
+`-recipe`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Switch to ingredient manager context: `-ingredient`
+Switch to ingredient manager context and display ingredient manager, which helps stock
+tracking of ingredient that the user currently have. +
+See <<Ingredient Manager Commands (Only applicable in ingredient context)>> to view commands for ingredient manager
+context. +
+Format: +
+`-ingredient`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Switch to favourites context: `-favourite`
+Switch to favourites context and display favourites list, which keeps a list of all
+the users' favourite recipes. +
+See <<Favourite Recipe Commands (Only applicable in favourites context)>> to view commands for favourites context. +
+Format: +
+`-favourite`
 
-Examples:
+==== Switch to ingredient-recipe query context: `-cross`
+Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients
+included and get information of needed amounts of ingredients. +
+See <<Ingredient-Recipe Query Commands (Only applicable in cross context)>> to view commands for ingredient-recipe
+query context. +
+Format: +
+`-cross`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+==== Switch to meal planner context: `-mealplanner`
+Switch to meal planner context and display the planned meals for breakfast, lunch and dinner for previously planned days. +
+See <<Meal Planner Commands (Only applicable in meal planner context)>> to view commands for meal planner context. +
+Format: +
+`-mealplanner`
 
-=== Listing all persons : `list`
+==== Switch to health plan context: `-healthplan`
+Switch to health plan context and display health plan set by the user and the days added into the plan which is tied
+ to meal plans. +
+See <<Health Plan Commands (Only applicable in health plan context)>> to view commands for health plan context. +
+Format: +
+`-healthplan`
 
-Shows a list of all persons in the address book. +
-Format: `list`
 
-=== Editing a person : `edit`
+==== Exit application: `-exit`
+Format: +
+`-exit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+// end::universalCommand[]
+// tag::recipeCommand[]
+
+=== Recipes Commands (Only applicable in recipe context)
+
+==== List recipes: `list`
+Show all recipes. +
+Format: +
+`list`
+
+==== Add a recipe: `add` `cont` `end`
+Add new recipe. +
+Format: +
+`add n/NAME c/COOKTIME d/DIFFICULTY [t/TAG]... +
+cont i/INSTRUCTION... [c/COOKTIME] +
+cont... +
+end` +
+ +
+INSTRUCTION: +
+`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+[NOTE]
+====
+Full set of commands `add` `cont` `end` must be performed for the adding of recipe to be completed.
+====
+****
+* This is a multi-line command. (i.e. `add`, `cont` and `end` must be in a seperate command entry)
+* Command starts with `add` and should include name, cook time and difficulty. Tags can be added as required.
+** NAME should come with any alphanumeric characters.
+** COOKTIME should have a integer value each with a postfix of H/M/S. A mixture of up to 2 postfixes are allowed i.e. H
+& M or M & S. Valid examples: 1H15M, 30M20S, 35M.
+** DIFFICULTY should range from 1 to 5.
+** TAG should come with any alphanumberic character.
+* Subsequence lines must start with `cont` and should only include details on one instructional step each.
+** Details
+ to be included are instruction text, instruction exclusive cook time (optional) and ingredients (optional).
+** Instruction will be saved in the same sequence as it is inputted.
+** Ingredients can be embedded into instruction text via `#INGREDIENT_NAME AMOUNT SERVING_UNIT`.
+*** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
+*** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
+*** SERVING_UNIT should be single-worded. e.g. gram, g, ml.
+* User can perform other commands and continue adding instructions as required. `cont` command need not be continuous.
+* To overwrite existing recipe that has yet been added (i.e. `end` command not used), simply use the `add` command
+and enter a new recipe details as desired.
+* The `end` command record and save the recipe.
+
+[NOTE]
+====
+Recipes containing the same name, difficulty and cooktime are considered as duplicates and is not be allowed.
+====
+****
+Examples: +
+[disc]
+* `add n/Chicken Rice d/2 c/45M` +
+`cont i/Clean and cut #chicken 1.2 kg.` +
+`cont i/Put the chicken in #boiled water 900 ml for 10 mins. c/10M` +
+`cont i/Remove the chicken and put #soy sauce 100 ml.` +
+`cont i/Cook for another 20 mins. c/20M` +
+`end` +
+
+==== Edit a recipe: `edit`
+Edit new recipe. +
+Format: +
+`edit INDEX [n/NAME] [c/COOKTIME] [d/DIFFICULTY] [t/TAG]...` +
+or +
+`edit INDEX s/STEP i/INSTRUCTION [c/COOKTIME]` +
+ +
+INSTRUCTION: +
+`TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+****
+* Attributes included are to be edited on a replacement basis (not concatenation e.g. tags are being replaced and not
+ added)
+* INDEX should be the index number of the recipe displayed.
+* There are 2 types of edit command.
+** First: Used to edit recipe generic information namely name, cook time, difficulty
+and tags.
+*** NAME should come with any alphanumeric characters.
+*** COOKTIME should have a integer value each with a postfix of H/M/S. A mixture of up to 2 postfixes are allowed i.e. H
+ & M or M & S. Valid examples: 1H15M, 30M20S, 35M.
+*** DIFFICULTY should range from 1 to 5.
+*** TAG should come with any alphanumberic character.
+** Second: Used to edit/add a single instruction of/to that recipe.
+*** STEP refers to the instruction number of the recipe. It should be existing instruction to replace the instruction or a number higher than highest existing STEP to add. (e.g. 6 existing instruction steps, use `s/7` to add instead of replace)
+*** INSTRUCTION must be included and should come with any alphanumeric characters. Ingredients can be added using `#INGREDIENT_NAME AMOUNT SERVING_UNIT` as required.
+*** COOKTIME should have a integer value each with a postfix of H/M/S. A mixture of up to 2
+postfixes are allowed i.e. H & M or M & S. Valid examples: 1H15M, 30M20S, 35M.
+****
+Examples: +
+[disc]
+* `edit 1 c/20M t/Asian t/Staple` +
+* `edit 1 s/2 i/Pour #water 300 ml into the mix.` +
+
+
+==== Display recipe details: `select`
+View a recipe and its details from the list. +
+Format: +
+`select INDEX`
+****
+* INDEX should be the index number of the recipe displayed.
+* All serving unit will be converted (approximately) to our common serving unit "gram" for display.
+****
+
+==== Search recipes: `find`
+Show recipes related to the keyword(s).
+Keywords include but not limited to cuisines (Indian, Japanese),
+dietary types (Vegetarian, Halal),
+ingredients (egg, broccoli),
+preparation time (30M, 1H40M)
+and difficulty (1, 2, ..., 5). +
+Format: +
+`find KEYWORD...`
+****
+* `KEYWORD` is case insensitive.
+* The order of keywords does not matter.
+****
+Examples: +
+[disc]
+* `find rice asian 3` +
+* `find korean kimchi staple` +
+
+==== Delete recipe: `delete`
+Delete a recipe and its details from the list. +
+Format: +
+`delete INDEX`
+****
+* INDEX should be the index number of the recipe displayed.
+****
+
+
+==== Activate cook-mode [coming in V2.0]: `cook`
+A cook mode that provides step-by-step guidance to aid real-time cooking. +
+Format: +
+`cook INDEX`
+****
+* INDEX should be the index number of the recipe displayed.
+****
+
+// end::recipeCommand[]
+
+// tag::favouriteCommand[]
+==== Add recipe to favourite: `favourite`
+
+Add a recipe to their favourites list. +
+Format: +
+`favourite INDEX`
+****
+* INDEX should be the index number of the recipe displayed.
+****
+// end::favouriteCommand[]
+// tag::surpriseCommand[]
+==== Surprise: `surprise`
+Displays a random recipe for the user. If you cannot make up your mind,
+why not key this in for a surprise? +
+Format: +
+`surprise`
+// end::surpriseCommand[]
+==== Add to meal plan: `plan`
+Add a specified recipe to meal plan. +
+Format: +
+`plan INDEX DATE MEAL`
+****
+* INDEX should be the index number of the recipe displayed.
+* DATE should be entered in the format *yyyy-mm-dd*.
+* MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*.
+****
+
+==== Add to review [coming in V2.0]: `review`
+Add comment and rating to current recipe. +
+Format: +
+`review [COMMENT] RATING`
+****
+* Local command on recipe page.
+* Rating must be between *1 to 5*.
+****
+
+// tag::ingredient[]
+=== Ingredient Manager Commands (Only applicable in ingredient context)
+
+==== Add an ingredient: `add`
+
+Adds an ingredient to the ingredient manager. +
+Format: +
+`add NAME AMOUNT SERVING_UNIT DATE`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* For compound word, ‘_’ is used to separate words.
+* Serving units are pre-defined in the serving unit dictionary. Those undefined in the dictionary are not available.
+* Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
+teaspoon and cup.
+* Amounts are converted with common serving unit(e.g. gram).
+* Format for date should be MONTH-DAY-YEAR.
+* Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
+expiry date.
+* It is not allowed to add ingredients with same name and same date. To add in more amount, edit function should be
+used instead.
+****
+==== Sort and list all ingredients: `list`
+
+Shows a list of ingredients in ingredient manager. Ingredients are sorted by date, so that the ingredients with
+earlier date
+are placed high in order. +
+Format: +
+`list`
+
+==== Edit ingredient info: `edit`
+
+Edit an existing ingredient in ingredient manager. +
+Format: +
+`edit INDEX FIELD_NAME NEW_VALUE [MORE FIELD_NAME NEW_VALUE]...`
+****
+* Field name is either name, amount, or date.
+* Restrictions for respective field's input are same as in add command(3.3.1.).
 ****
 
-Examples:
+==== Find ingredient: `find`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Find ingredients in ingredient manager whose name contains any of the given keywords. +
+Format: +
+`find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Match by full words.
 ****
 
-Examples:
+==== Delete ingredient: `delete`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Delete ingredient in ingredient manager according to its index in the last shown list. +
+Format: +
+`delete INDEX`
 
-=== Deleting a person : `delete`
+==== Clear all ingredients: `clear`
 
-Deletes the specified person from the address book. +
+Clears all ingredients in ingredient manager. +
+Format: +
+`clear`
+// end::ingredient[]
+
+// tag::favourite[]
+=== Favourite Recipe Commands (Only applicable in favourites context)
+
+==== List favourite recipes: `list`
+Show all favourite recipes. +
+Format: +
+`list`
+
+==== Display favourite recipe details: `select`
+
+View a favourite recipe and its details from the list. +
+Format: +
+`select INDEX`
+****
+* `INDEX` should be as displayed in the list.
+* All serving unit will be converted (approximately) to our common serving unit "gram" for display.
+****
+
+==== Find favourite recipe: `find`
+
+Show favourite recipes related to the keyword(s).
+Keywords include but not limited to cuisines (Indian, Japanese),
+dietary types (Vegetarian, Halal),
+ingredients (egg, broccoli),
+preparation time (30M, 1H40M)
+and difficulty (1, 2, ..., 5). +
+Format: +
+`find KEYWORD...`
+****
+* `KEYWORD` is case insensitive.
+* The order of keywords does not matter.
+****
+Examples: +
+[disc]
+* `find rice asian 3` +
+* `find korean kimchi staple` +
+
+==== Delete favourite recipe: `delete`
+
+Delete favourite recipe in favourites according to its index in the last shown list. +
+Format: +
+`delete INDEX`
+
+==== Clear all favourite recipes: `clear`
+
+Clears all favourite recipes in favourites. +
+Format: +
+`clear`
+// end::favourite[]
+
+// tag::cross[]
+=== Ingredient-Recipe Query Commands (Only applicable in cross context)
+
+==== View Recipes based on Ingredients `view`
+By default, the page show the recipe list that is same with the recipe list shown in recipe context at the point of
+initiation of the
+application. User can
+filter or sort the recipes
+based on ingredients contained in recipes. Also, needed amounts of ingredients are calculated by considering the number
+ of
+serving units and ingredients stored in ingredient manager, so
+that
+user can take a look by applying select command later. +
+Format: +
+`view NUMBER_OF_SERVINGS [include [inventory] KEYWORD [MORE_KEYWORDS]...] [prioritize [inventory] KEYWORD
+[MORE_KEYWORDS]...]` +
+****
+* Number of servings can be a floating point value.
+* Names of ingredients are used as keywords. If the keyword is a compound word, '_' is used to separate between the
+words.
+(For example,
+spring_onion)
+* "include" keyword filters the list, only leaving the recipes that includes all of following ingredients in the list. +
+* "prioritize" keyword sorts the recipes based on number of the following ingredients contained. Recipes containing
+ the
+most number of following ingredients would be placed high in order. +
+* "include" part and "prioritize" part is optional. It is possible that only one of either part is provided. (For
+example, "view 1 prioritize onion") If both are not provided(For
+                                                             example, "view 4"), recipe list remains the same and
+                                                             only the number of
+servings are considered for calculation of needed amounts ingredients.
+* "inventory" keyword provides all the ingredients in Ingredient
+Manager
+as parameter to the keyword it follows. +
+* It is not allowed to provide same ingredient as a parameter for both "include" and "prioritize" part. This is also
+applicable for "inventory" parameter becasues it is also a set of ingredients.
+****
+
+==== View needed amounts of ingredients for a Recipe `select`
+For a recipe in the list shown as a result of above command(3.4.1.), user can view amounts of respective ingredient
+in the recipe
+that
+needs to be additionally prepared. It reflects number of serving units and
+refers to Ingredient Manager to get the amount of ingredients the user currently have. +
+Format: +
+`select INDEX` +
+****
+* Amounts of necessary ingredients are calculated based on the information in Ingredient Manager. +
+e.g. If positive, (Number of Servings ×
+ Total Amount of an ingredient for a Recipe - Amount of an ingredient stored in ingredient manager). Otherwise, 0.
+****
+==== List all recipes and undo calculation: `list`
+Shows a list of recipes. It restores the default state of the list, undoing the calculation resulting from 'view
+recipes based on ingredients'
+command(3.4.1.). +
+Format: +
+`list`
+// end::cross[]
+
+// tag::mealplanner[]
+=== Meal Planner Commands (Only applicable in meal planner context)
+
+****
+* DATE should be entered in the format *yyyy-mm-dd*
+* MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
+****
+
+==== Delete recipe: `delete`
+
+After displaying the meal planner, deletes the specified day.
+
 Format: `delete INDEX`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
 
-Examples:
+Clears all the meal slots of the meal planner.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Select recipe: `select`
 
-Exits the program. +
-Format: `exit`
+Selects and views the details of a recipe at a specified meal slot of a specified day.
 
-=== Saving the data
+Format: `select INDEX MEAL`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Find recipe: `find`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Finds the Day with the specified date.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `find DATE`
+
+==== List all recipes: `list`
+
+Lists all the currently planned Days in the Meal Planner.
+
+Format: `list`
+
+// end::mealplanner[]
+
+// tag::healthplan[]
+=== Health Plan Commands (Only applicable in health plan context)
+
+==== Add plan: `add`
+
+Adds a health plan under the user. +
+Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
+TARGET WEIGHT, AND DURATION +
+
+Format: +
+`add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
+
+****
+* Height is numeric and input is of centimetre units
+* Current weight is numeric and input is of Kilogram units
+* Target Weight is numeric and input is of Kilogram units
+* AGE must be numeric
+* DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
+****
+
+==== Delete plan: `delete`
+
+After listing the list of health plans by user. +
+Deletes the plan selected by user. +
+Format: +
+`delete INDEX`
+****
+* INDEX has to be numeric and more than 0
+****
+
+==== Edit plan: `edit`
+
+After listing the list of health plans by User. +
+Prompts for edit on the plan selected by the user. +
+Format : +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]`
+
+****
+* INDEX specifies the entry to edit, has to be numeric and more than 0
+* Height is numeric, be more than 0 and input is of centimetre units
+* Current weight is numeric, be more than 0 and input is of Kilogram units
+* Target Weight is numeric, be more than 0 and input is of Kilogram units
+* AGE must be numeric and more than 0
+* DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
+****
+
+==== Add current intake item: `addDay`
+
+After being shown the meal planner list by the system +
+User selects to add to intake List +
+Format: +
+`addDay p/PLAN_INDEX d/DAY_INDEX`
+
+****
+* Plan Index specifies the plan to add to, has to be more than 0 and be a valid index on the list
+* Day index specifies the day to add into the specified plan, has to be more than 0 and be a valid index on the list
+****
+
+==== Remove current intake item: `deleteDay`
+
+After being shown the list of days from intake list +
+User selects day to remove and also the plan to remove from +
+Format: +
+`deleteDay p/PLAN_INDEX d/DAY_INDEX`
+
+****
+* Plan Index specifies the plan to delete from, has to be more than 0 and be a valid index on the list
+* Day index specifies the day to delete from the specified plan, has to be more than 0 and be a valid index on the list
+****
+
+==== Show Meal Planner list beside Health Plan List : `showMeal`
+
+User enters command to view the full list of meals beside the health plan list
+Format: +
+`showMeal`
+
+==== Hide view on the right : `hideMeal`
+
+User enters command to hide any view that is currently displayed on the right
+Format: +
+`hideMeal`
+
+==== View plan details : `showDetails`
+
+After shown the list of health plans by the system +
+User enters command to see the details of the plan specified +
+Format: +
+`showDetails INDEX`
+
+****
+* INDEX is the target plan to view details, needs to be numeric more than 0 and be a valid index found on the list
+****
+
+==== Compare overall intake against : `compareIntake` [coming in V2.0]
+
+After being shown list of health plans +
+User enters command to compare against set health plan. +
+Format: +
+`compareIntake PLAN_ID`
+
+// end::healthplan[]
+
+=== Cook-Mode Commands [coming in V2.0]
+==== Next Instruction
+Proceed to next instruction. +
+Format: +
+Hit kbd:[Enter] key
+
+==== Previous Instruction: `b`
+Revert to previous instruction. +
+Format: +
+`b`/`back`
+
+==== Start timer: `s`
+Begin countdown timer. +
+Format: +
+`s`/`start`
+
+==== Pause timer: `p`
+Pause countdown timer. +
+Format: +
+`p`/`pause`
+
+==== Reset timer: `r`
+End/Reset countdown timer. +
+Format: +
+`r`/`reset`
+
+==== End cook-mode: `end`
+To end step-by-step instruction of cook-mode. +
+Format: +
+`end`
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Souschef folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+*Universal Commands*
+
+* View help: `-help`
+* View history: `-history`
+* Switch to recipe context: `-recipe`
+* Switch to ingredient manager context: `-ingredient`
+* Switch to ingredient-recipe query context: `-cross`
+* Switch to meal planner context: `-mealplanner`
+* Switch to health plan context: `-healthplan`
+* Exit application: `-exit`
+
+*Recipes Commands (Only applicable in recipe context)*
+
+* List recipes: `list` +
+* Add a recipe: `add n/NAME c/COOKTIME d/DIFFICULTY [t/TAG]... +
+cont i/INSTRUCTION [c/COOKTIME] +
+cont... +
+end`
+** INSTRUCTION: `[TEXT]... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+* Edit a recipe: +
+`edit INDEX [n/NAME] [c/COOKTIME] [d/DIFFICULTY] [t/TAG]...` +
+or +
+`edit INDEX s/STEP i/INSTRUCTION [c/COOKTIME]` +
+ ** INSTRUCTION: `TEXT... [#INGREDIENT_NAME AMOUNT SERVING_UNIT]...`
+* Display recipe details: `select INDEX`
+* Search recipes: `find KEYWORD...`
+* Delete recipe details: `delete INDEX`
+* Activate cook-mode [coming in V2.0]: `cook INDEX`
+* Add recipe to favourite: `favourite`
+* Add to meal plan: `plan INDEX DATE MEAL`
+* Add to review [Coming in V2.0]: `review [COMMENT] RATING`
+
+*Ingredient Manager Commands (Only applicable in ingredient context)*
+
+* Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
+* Sort and list all ingredients: `list`
+* Edit ingredient info: `edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
+* Find ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
+* Delete ingredient: `delete INDEX`
+* Clear all ingredients: `clear`
+
+*Recipe-Ingredient Query Commands (Only applicable in cross context)*
+
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS [include [inventory] KEYWORD [MORE_KEYWORDS]…​]
+[prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​]`
+* View needed amount of ingredients for a Recipe: `select INDEX`
+* List all recipes and undo calculation: `list`
+
+
+*Meal Planner Commands (Only applicable in meal planner context)*
+
+* Delete day: `delete INDEX`
+* Clear planner: `clear`
+* View recipe details: `select INDEX MEAL`
+* Find recipe by date: `find DATE`
+* List all recipes: `list`
+
+*Health Plan Commands*
+
+* Add health plan: `add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
+* Delete health plan `delete INDEX`
+* Edit health plan: `edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]`
+* Show all current meals planned in system: `showMeal`
+* Hide panels on the right: `hideMeal`
+* Show details of a health plan: `showDetails INDEX`
+* Add a day from meal planner into a health plan: `addDay p/PLAN_INDEX d/DAY_INDEX`
+* Remove a day from the list of meals in health plan: `deleteDay p/PLAN_INDEX d/DAY_INDEX`
+
+
+*Cook-Mode Commands [coming in V2.0]*
+
+* Next Instruction: Hit kbd:[Enter] key
+* Previous Instruction: `b`
+* Start timer: `s`
+* Pause timer: `p`
+* Reset timer: `r`
+* End cook-mode: `end`

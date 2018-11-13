@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recipe>
+    <name>Chicken Pizza</name>
+    <difficulty>5</difficulty>
+    <cooktime>23M</cooktime>
+    <tagged>asian</tagged>
+    <instructions>
+        <instruction>Preheat oven.</instruction>
+    </instructions>
+</recipe>

@@ -4,11 +4,11 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.souschef.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.souschef.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.souschef.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.souschef.ui.UiPart.FXML_FILE_FOLDER;
+import static seedu.souschef.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,25 +27,26 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.RecipeListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.MainApp;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.BrowserPanel;
-import seedu.address.ui.CommandBox;
+import seedu.souschef.MainApp;
+import seedu.souschef.TestApp;
+import seedu.souschef.commons.core.EventsCenter;
+import seedu.souschef.commons.core.index.Index;
+import seedu.souschef.logic.commands.ClearCommand;
+import seedu.souschef.logic.commands.FindCommand;
+import seedu.souschef.logic.commands.ListCommand;
+import seedu.souschef.logic.commands.SelectCommand;
+import seedu.souschef.model.AppContent;
+import seedu.souschef.model.Model;
+import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.testutil.TypicalRecipes;
+import seedu.souschef.ui.BrowserPanel;
+import seedu.souschef.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for AppContent, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
 public abstract class AddressBookSystemTest {
@@ -84,8 +85,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+    protected AppContent getInitialData() {
+        return TypicalRecipes.getTypicalAddressBook();
     }
 
     /**
@@ -103,8 +104,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public RecipeListPanelHandle getRecipeListPanel() {
+        return mainWindowHandle.getRecipeListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -139,52 +140,52 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all recipes in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllRecipes() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getAppContent().getObservableRecipeList().size(), getModel().getFilteredList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all recipes with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showRecipesWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredList().size() < getModel().getAppContent().getObservableRecipeList().size());
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the recipe at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectRecipe(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getRecipeListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all recipes in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllRecipes() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        assertEquals(0, getModel().getAppContent().getObservableRecipeList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same recipe objects as {@code expectedModel}
+     * and the recipe list panel displays the recipes in the recipeModel correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(new AppContent(expectedModel.getAppContent()), testApp.readStorageAddressBook());
+        assertListMatching(getRecipeListPanel(), expectedModel.getFilteredList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code RecipeListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -192,28 +193,28 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getRecipeListPanel().rememberSelectedRecipeCard();
     }
 
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
-     * of the previously selected person.
+     * of the previously selected recipe.
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getRecipeListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * Asserts that the browser's url is changed to display the details of the recipe in the recipe list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see RecipeListPanelHandle#isSelectedRecipeCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        getRecipeListPanel().navigateToCard(getRecipeListPanel().getSelectedCardIndex());
+        String selectedCardName = getRecipeListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
@@ -222,17 +223,17 @@ public abstract class AddressBookSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getRecipeListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the recipe list panel remain unchanged.
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see RecipeListPanelHandle#isSelectedRecipeCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getRecipeListPanel().isSelectedRecipeCardChanged());
     }
 
     /**
@@ -260,7 +261,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * {@code ClockRule#getInjectedClock()}, while the saveAppContent location remains the same.
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
@@ -276,7 +277,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getRecipeListPanel(), getModel().getFilteredList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
@@ -284,9 +285,9 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns a defensive copy of the current model.
+     * Returns a defensive copy of the current recipeModel.
      */
-    protected Model getModel() {
+    protected Model<Recipe> getModel() {
         return testApp.getModel();
     }
 }

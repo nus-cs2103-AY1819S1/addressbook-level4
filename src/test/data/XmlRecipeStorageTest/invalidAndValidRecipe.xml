@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<souschef>
+    <!-- Valid Recipe -->
+    <recipes>
+        <name>Black Pepper Chicken</name>
+        <difficulty>2</difficulty>
+        <cooktime>20M</cooktime>
+        <instructions>
+            <instruction>Slice and clean up the inner of the chicken 1.2 kg.</instruction>
+            <ingredients>
+                <name>chicken</name>
+                <amount>1.2</amount>
+                <unit>kg</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Heat up the pan with old 2 tablespoon.</instruction>
+            <ingredients>
+                <name>oil</name>
+                <amount>2.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Add oyster sauce 3 tablespoon, black pepper 20 g and water 50 ml.</instruction>
+            <ingredients>
+                <name>oyster sauce</name>
+                <amount>3.0</amount>
+                <unit>tablespoon</unit>
+            </ingredients>
+        </instructions>
+        <instructions>
+            <instruction>Stir-fry for 10 mins.</instruction>
+            <cooktime>10M</cooktime>
+        </instructions>
+        <tagged>Spicy</tagged>
+        <tagged>Poultry</tagged>
+        <tagged>Asian</tagged>
+    </recipes>
+    <!-- Invalid Recipe without instruction -->
+    <recipes>
+        <name>Chicken Rice</name>
+        <difficulty>3</difficulty>
+        <cooktime>20M</cooktime>
+        <tagged>Staple</tagged>
+        <tagged>Asian</tagged>
+    </recipes>
+</addressbook>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+<ScrollPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <StackPane>
+      <children>
+         <FlowPane prefHeight="200.0" prefWidth="200.0" prefWrapLength="600.0">
+            <children>
+               <Label fx:id="name" prefWidth="800.0" styleClass="details-title" text="\$name">
+                  <FlowPane.margin>
+                     <Insets bottom="20.0" />
+                  </FlowPane.margin>
+               </Label>
+               <Label fx:id="ingredientLabel" prefWidth="800.0" styleClass="details-label" text="Ingredient:">
+                  <FlowPane.margin>
+                     <Insets bottom="10.0" />
+                  </FlowPane.margin>
+               </Label>
+               <Label fx:id="ingredients" prefWidth="800.0" styleClass="details-text" text="\$ingredient" wrapText="true">
+                  <FlowPane.margin>
+                     <Insets bottom="15.0" />
+                  </FlowPane.margin>
+               </Label>
+               <Label fx:id="ingredientToShopLabel" prefWidth="800.0" styleClass="shop-label"
+                      text="Ingredient to shop:">
+                  <FlowPane.margin>
+                     <Insets bottom="10.0" />
+                  </FlowPane.margin>
+               </Label>
+               <Label fx:id="ingredientsToShop" prefWidth="800.0" styleClass="shop-text" text="\$ingredient"
+                      wrapText="true">
+                  <FlowPane.margin>
+                     <Insets bottom="15.0" />
+                  </FlowPane.margin>
+               </Label>
+               <Label fx:id="instructionLabel" prefWidth="800.0" styleClass="details-label" text="Instructions:">
+                  <FlowPane.margin>
+                     <Insets bottom="10.0" />
+                  </FlowPane.margin>
+               </Label>
+               <Label fx:id="instructions" prefWidth="800.0" styleClass="details-text" text="\$instructions" wrapText="true" />
+            </children>
+         </FlowPane>
+      </children>
+   </StackPane>
+</ScrollPane>

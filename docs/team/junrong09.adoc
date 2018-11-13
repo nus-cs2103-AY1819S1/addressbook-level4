@@ -1,0 +1,90 @@
+= Yuen Jun Rong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Souschef
+
+---
+
+== Overview
+Souschef is a desktop smart cooking sidekick, offering personalised guidance every step of the way. From recipe
+recommendations just for you, to meal planning and inventory management, SousChef has everything you need to improve
+life in the kitchen. +
+
+Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
+
+== Summary of contributions
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junrong09[Functional
+code]]
+
+* *Major enhancement*: added *the ability to manage and manipulate recipes*
+** Multi-line Add Recipe Functionality
+*** What it does: Allow users to add a recipe in progression using multi-line command .
+
+*** Justification: The multi-line add recipe command improves the product by providing a intuitive yet convenient way
+ to create a recipe entry as opposite to forcing users to input a lengthy recipe entry containing a number of instructions into a single command.
+
+*** Highlights: This enhancement requires the handling of a incomplete recipe data when the add is being executed in
+progression by the user. The challenges faced include morphing address book into a nested recipe data structure that
+stores instructions which stores ingredients. Secondly, the analysis and design to create a in-progress recipe
+instance that allows the appending of more recipe details when the user contributes to the incomplete recipe. Thirdly,
+the retention and accessing of this incomplete recipe in order to appending the details and ultimately create an
+actual recipe instance to be stored in the model.
+
+** All-field Recipe Search
+*** What it does: Retrieve recipes with name, difficulty, cooktime or ingredients that matches the keywords by the user.
+
+*** Justification: This feature improves the application because users can now narrow down their wanted recipes based other parameters such as difficulty, cooktime and ingredients rather than restricting their search to just the name of
+ the recipe.
+
+*** Highlights: Ingredients are being stored in each instructions of a recipe, as such to support the search of
+ingredients, the design of a recipe data to provide ease of access to all ingredients is required.
+** Other Associated Functionality implemented: Edit Recipe
+
+* *Project management*:
+** Setting up of GitHub, Travis, AppVeyor, coveralls, codacy
+** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Maintaining of Github issue tracker (allocate assignee, labels) and milestones
+* *General/Team Enhancements*:
+*** Morphing the AB4 into a SousChef (Pull requests
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/28[#28], https://github.com/CS2103-AY1819S1-W10-4/main/pull/29[#29],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/31[#31])
+*** Revamp model component to allow extension (Pull requests
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/46[#46],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/55[#55])
+* *Documentation*:
+** Updating README, AboutUs and user docs that are not specific to a feature:
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/6[#6], https://github.com/CS2103-AY1819S1-W10-4/main/pull/26[#26]
+* *Community*:
+** PRs reviewed (with non-trivial review comments and suggestions):
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/52[#52],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/64[#64],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/139[#139]
+** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/CS2103-AY1819S1-T16-3/main/issues/133[1], https://github.com/CS2103-AY1819S1-T16-3/main/issues/134[2],
+https://github.com/CS2103-AY1819S1-T16-3/main/issues/135[3])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+include::../UserGuide.adoc[tag=features]
+
+include::../UserGuide.adoc[tag=universalCommand]
+
+include::../UserGuide.adoc[tag=recipeCommand]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=modelComponent]
+
+include::../DeveloperGuide.adoc[tag=recipeManagement]
