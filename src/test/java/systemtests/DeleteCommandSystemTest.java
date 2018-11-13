@@ -15,12 +15,10 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-public class DeleteCommandSystemTest extends AddressBookSystemTest {
+public class DeleteCommandSystemTest extends HealthBaseSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -41,34 +39,23 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
         assertCommandSuccess(lastPersonIndex);
 
-        /* Case: undo deleting the last person in the list -> last person restored */
-        command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
-
-        /* Case: redo deleting the last person in the list -> last person deleted again */
-        command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
-
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(getModel());
         assertCommandSuccess(middlePersonIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
+        /* Case: filtered person list, delete index within bounds of HealthBase and person list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+        /* Case: filtered person list, delete index within bounds of HealthBase but out of bounds of person list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getHealthBase().getPersonList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -97,7 +84,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPersonList().size() + 1);
+                getModel().getHealthBase().getPersonList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -112,7 +99,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Person} at the specified {@code index} in {@code model}'s HealthBase.
      * @return the removed person
      */
     private Person removePerson(Model model, Index index) {
@@ -143,8 +130,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
+     * @see HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -154,7 +141,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see HealthBaseSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -178,8 +165,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see HealthBaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

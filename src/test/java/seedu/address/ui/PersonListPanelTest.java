@@ -22,7 +22,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.person.Person;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableHealthBase;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -81,9 +81,9 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        XmlSerializableHealthBase xmlHealthBase =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableHealthBase.class);
+        return FXCollections.observableArrayList(xmlHealthBase.toModelType().getPersonList());
     }
 
     /**
@@ -92,16 +92,17 @@ public class PersonListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<healthbase>\n");
         for (int i = 0; i < personCount; i++) {
             builder.append("<persons>\n");
+            builder.append("<nric>").append(generateNricString(i)).append("</nric>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
             builder.append("</persons>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</healthbase>\n");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);
@@ -110,6 +111,18 @@ public class PersonListPanelTest extends GuiUnitTest {
         return manyPersonsFile;
     }
 
+    //@@author snajef
+    /**
+     * Generates an NRIC-formatted String given a number.
+     *
+     * @param i The number to use to generate the "NRIC".
+     * @return A NRIC-formatted string.
+     */
+    private String generateNricString(int i) {
+        return "S" + String.format("%07d", i) + Character.toString((char) (i % (90 - 65 + 1) + 65));
+    }
+
+    //@@author
     /**
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.

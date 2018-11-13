@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in HealthBase.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_TAG_CONSTRAINTS = "Drug names should be alphabetical";
+    public static final String TAG_VALIDATION_REGEX = "\\p{Alpha}+";
 
     public final String tagName;
 

@@ -1,0 +1,88 @@
+= Jefferson Sie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: HealthBase
+
+== 1. Overview
+
+|===
+|HealthBase is an application that evolved from a brown-field project, AddressBook,
+  which consisted of 10KLOC. Over the course of 3 months, my team has gradually morphed the AddressBook into
+  HealthBase by fortnightly meeting milestones that we set in the infancy stages of the project.
+|===
+
+This page encompasses my contributions to HealthBase. This includes the implementation of features, refactoring
+and documentation.
+
+HealthBase is a desktop application designed to aid in the management of a hospital. It provides patient data
+input and management capabilities through a command-line interface for input and a graphical user interface for data display.
+Its main features (among others) include:
+
+* Patient registration into the HealthBase system
+* Patient dietary restriction(s) data entry and retrieval
+* Patient medication data entry and retrieval
+* Patient medical history data entry and retrieval
+* Patient visitor history data entry and retrieval
+* Real-time management of the number of visitors any given patient has
+* Patient appointment management for nurses
+* Patient discharge from the hospital
+* Patient check in for subsequent visits
+
+== 2. Summary of contributions
+
+* *Major enhancement*: Added `addappt` command
+** What it does: adds an appointment for a given patient. Each appointment includes the following information: type of procedure, procedure name, date and time of appointment and the Doctor-in-charge
+** Justification: this command provides a core functionality of the HealthBase (appointment data entry and retrieval).
+** Highlights: This feature currently allows for nurses to add and view upcoming appointments for patients. In V2.0 of
+HealtBase, doctors will be able to view the appointments they have with different patients.
+* *Minor enhancement*: Incorporate `appt` with the `view` command
+
+* *Code contributed*:
+
+** [https://github.com/CS2103-AY1819S1-W14-3/main/commits?author=jeffypie369[commits]]
+** [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeffypie369[code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Bug Tester
+** Enhancements to existing features:
+*** Refactored `add` command to `register` command (Pull request: https://github.com/CS2103-AY1819S1-W14-3/main/pull/33[#33])
+*** Refactored AddressBook to HealthBase (Pull request: https://github.com/CS2103-AY1819S1-W14-3/main/pull/218[#218])
+** Documentation:
+*** Added sequence diagram for `addappt`: https://github.com/CS2103-AY1819S1-W14-3/main/pull/215[#215]
+*** Added activity diagram for `addappt`: https://github.com/CS2103-AY1819S1-W14-3/main/pull/215[#215]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W14-3/main/pull/177[#177],
+https://github.com/CS2103-AY1819S1-W14-3/main/pull/183[#183],
+
+== 3. Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addappt]
+
+include::../UserGuide.adoc[tag=register]
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addappt]
+
+== 5. PROJECT: Accuride SG
+
+An Android offline MRT app where you can get the fastest duration and the least transfers duration from one station to another.
+
+Other features include:
+
+* Last train timings
+* Link to LTA's Twitter page for updates on breakdowns/early closures (requires the Internet)
+
+

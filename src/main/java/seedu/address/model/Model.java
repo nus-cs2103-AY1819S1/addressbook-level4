@@ -13,66 +13,61 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyHealthBase newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the HealthBase */
+    ReadOnlyHealthBase getHealthBase();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in HealthBase.
      */
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same identity as {@code person} exists in the list of checked out patients.
+     */
+    boolean hasCheckedOutPerson(Person person);
+
+    /**
+     * Checkout the given person.
+     * The person must exist in person list of HealthBase.
+     */
+    void checkOutPerson(Person person);
+
+    /**
+     * Re-checkin the given person.
+     * The person must exist in the checkedOutPerson list of HealthBase.
+     */
+    void reCheckInPerson(Person person);
+
+    /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in HealthBase.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in HealthBase.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in HealthBase.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in HealthBase.
      */
     void updatePerson(Person target, Person editedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered checked out person list */
+    ObservableList<Person> getFilteredCheckedOutPersonList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
 }

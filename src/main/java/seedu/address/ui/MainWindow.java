@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -10,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -17,7 +20,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SortPanelViewEvent;
+import seedu.address.commons.events.ui.SwapPanelViewEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.SortCommand.SortOrder;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,7 +31,6 @@ import seedu.address.model.UserPrefs;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -33,15 +38,28 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    // A HashMap of panel names to their corresponding swappable objects.
+    private HashMap<SwappablePanelName, Swappable> panels = new HashMap<>();
+
+    // The current panel to display in the Ui container.
+    private Swappable currentPanel;
+
+    // Swappable panels
+    private BlankPanel blankPanel;
+    private MedicationView medicationView;
+    private HistoryView historyView;
+    private DietView dietView;
+    private AppointmentView appointmentView;
+    private VisitorView visitorView;
+
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane panelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -116,23 +134,82 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Initalises the members of the MainWindow and the HashMap of swappable panels.
+     */
+    void init() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+
+        // Construct swappables
+        blankPanel = new BlankPanel();
+        medicationView = new MedicationView(logic.getFilteredPersonList());
+        historyView = new HistoryView(logic.getFilteredPersonList());
+        dietView = new DietView(logic.getFilteredPersonList());
+        appointmentView = new AppointmentView(logic.getFilteredPersonList());
+        visitorView = new VisitorView(logic.getFilteredPersonList());
+
+        // Set up the HashMap of Swappable panels
+        panels.put(SwappablePanelName.BLANK, blankPanel);
+        panels.put(SwappablePanelName.MEDICATION, medicationView);
+        panels.put(SwappablePanelName.HISTORY, historyView);
+        panels.put(SwappablePanelName.DIET, dietView);
+        panels.put(SwappablePanelName.APPOINTMENT, appointmentView);
+        panels.put(SwappablePanelName.VISITOR, visitorView);
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        setCurrentPanel(SwappablePanelName.BLANK);
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getHealthBaseFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    void setCurrentPanel(SwappablePanelName panelName) {
+        Swappable panel = panels.get(panelName);
+
+        if (panel == null) {
+            return;
+        }
+
+        if (currentPanel != null) {
+            // Reminder that all Swappable* implementations should extend UiPart<Region>
+            panelPlaceholder.getChildren().remove(((UiPart<Region>) currentPanel).getRoot());
+        }
+
+        panelPlaceholder.getChildren().add(((UiPart<Region>) panel).getRoot());
+
+        currentPanel = panel;
+        currentPanel.refreshView();
+    }
+
+    /**
+     * Sorts the current panel given a sorting order.
+     */
+    void sortCurrentPanel(SortOrder order, int[] colIdx) {
+        Objects.requireNonNull(order);
+        Objects.requireNonNull(colIdx);
+
+        if (currentPanel == null) {
+            return;
+        }
+
+        if (!(currentPanel instanceof Sortable)) {
+            // TODO: Make it fail non-silently?
+            return;
+        }
+
+        Sortable sortablePanel = (Sortable) currentPanel;
+        sortablePanel.sortView(order, colIdx);
     }
 
     void hide() {
@@ -160,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     /**
@@ -192,12 +269,26 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
     }
+
+    //==================== Event Handling Code ===============================================================
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+
+    @Subscribe
+    private void handleSwapPanelViewEvent(SwapPanelViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setCurrentPanel(event.getSwappablePanelName());
+    }
+
+    @Subscribe
+    private void handleSortPanelViewEvent(SortPanelViewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        sortCurrentPanel(event.getOrder(), event.getColIdx());
     }
 }
