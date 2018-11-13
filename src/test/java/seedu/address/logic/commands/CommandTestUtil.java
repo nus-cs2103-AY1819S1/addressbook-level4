@@ -15,8 +15,9 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.Transcript;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -75,13 +76,14 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel,
+            CommandHistory actualCommandHistory, String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
-            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedModel.getTranscript().getModuleList(),
+                    actualModel.getTranscript().getModuleList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -92,15 +94,15 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the address book and the filtered transcript list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        Transcript expectedTranscript = new Transcript(actualModel.getTranscript());
+        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -109,8 +111,8 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedTranscript, actualModel.getTranscript());
+            assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -138,4 +140,12 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Deletes the first module in {@code model}'s filtered list from {@code model}'s transcript.
+     */
+    public static void deleteFirstModule(Model model) {
+        Module firstModule = model.getFilteredModuleList().get(0);
+        model.deleteModule(firstModule);
+        model.commitTranscript();
+    }
 }

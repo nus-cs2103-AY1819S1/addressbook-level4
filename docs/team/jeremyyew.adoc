@@ -1,0 +1,65 @@
+= Jeremy Yew - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CAPTracker
+
+---
+
+== Overview
+
+CapTracker is a desktop application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Transcript file storage feature.
+** What it does: Automatically saves and updates all of user's transcript data into a file, and loads this file.
+** Justification: Users should be able to access previously created modules when opening the app again, otherwise they would have to re-enter all their modules again. They can also load their data in another computer or share it with other users if desired, simply by sharing the file itself.
+** Highlights:
+*** By using the `Jackson` library to store the Transcript data as a JSON file instead of an XML file, we avoid having to write `XMLSerializableTranscript` and `XMLAdaptedModule` classes.
+* *Minor enhancement*: Display and updating of current CAP and CAP Goal.
+** What it does: Displays current CAP, immediately updates whenever completed modules are edited. Displays CAP Goal if set, else displays NIL; immediately updates whenever incomplete modules are changed or adjusted.
+** Justification: Users should be able to view their current CAP and CAP Goal as they are updated, without having to request for them through a command.
+
+* *Code contributed*:  https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremyyew
+
+* *Other contributions*:
+** Project management:
+*** Guided planning of early project timeline and milestone setting.
+*** Managed release `v1.1` (1 release) on GitHub.
+** Enhancements to existing features:
+*** Enabled app to load initial sample module data (See PR #27).
+*** Set up initial GUI layout (See PR #52).
+** Documentation:
+*** Updated existing content of the Storage Section of Developer Guide.
+*** Added feature overview and updated "Saving your module data" section of User Guide.
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): #23, #37, #121
+
+== Contributions to the User Guide
+Note: Since my main feature is non-interactive, there are less things I could write for the user guide.
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=featureoverview]
+include::../UserGuide.adoc[tag=savingdata]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=transcriptstorageimplementation]
+
+include::../DeveloperGuide.adoc[tag=designstorage]
+
+=== Instructions for Manual Testing
+
+include::../DeveloperGuide.adoc[tag=manualteststorage]
+
+

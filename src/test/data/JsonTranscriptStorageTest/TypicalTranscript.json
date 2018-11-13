@@ -1,0 +1,68 @@
+{
+  "capGoal": {
+    "value": 4.0,
+    "isSet": true,
+    "isImpossible": false
+  },
+  "modules": {
+    "internalList": [
+      {
+        "code": {
+          "value": "CS1231"
+        },
+        "year": {
+          "value": 1
+        },
+        "semester": {
+          "value": "1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "A+",
+          "state": "ADJUST"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS2030"
+        },
+        "year": {
+          "value": 2
+        },
+        "semester": {
+          "value": "2"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "B+",
+          "state": "TARGET"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS2040"
+        },
+        "year": {
+          "value": 3
+        },
+        "semester": {
+          "value": "s1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "F",
+          "state": "COMPLETE"
+        },
+        "completed": true
+      }
+    ]
+  }
+}

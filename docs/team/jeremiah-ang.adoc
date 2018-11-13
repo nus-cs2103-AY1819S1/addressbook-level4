@@ -1,0 +1,60 @@
+= Jeremiah Ang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CAPTracker
+
+---
+
+== Overview
+
+CapTracker is a desktop application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented the *CAP & Target Grade Calculation* feature in Model.
+
+** What it does: Calculates the current CAP of the user and also calculate the target grades the user have to achieve
+in order to achieve their CAP Goal.
+
+** Justification: This is one of the *must-have* User Story of the application,
+to allow users to verify if they are able to graduate with their desired CAP Goal
+
+** Highlights:
+*** Calculation of target grades are triggered when changes are made to the list of modules
+in the transcript and updated on the UI.
+*** Users may further adjust the target grade and obtain a updated list of target grades
+
+
+* *Minor enhancement*:
+** Added `adjust` and `goal` command in Logic
+
+* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremiah-ang
+
+* *Other contributions*:
+
+** Project management:
+*** Maintained issue tracker, milestones and review/merger of pull requests.
+** Documentation:
+*** Updated existing content of the Model Section of Developer Guide
+*** Updated Use Cases to follow the proper format
+*** Added Sequence Diagrams for Target Grade and CAP Calculations
+*** Added Activity Diagram for Target Grade Calculations
+*** Updated User Guide for `goal` and `adjust` commands
+*** Added Manual Testing Guide for Target Grade and CAP Calculations
+** Community:
+*** PRs reviewed (with non-trivial review comments): #76, #78, #102, #133, #135, #190, #216
+
+
+== Contributions to the User Guide
+
+include::../UserGuide.adoc[tag=commandgoal]
+include::../UserGuide.adoc[tag=commandadjust]
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=designmodel]
+include::../DeveloperGuide.adoc[tag=captargetcalculation]
+include::../DeveloperGuide.adoc[tag=usecase]
+
