@@ -22,7 +22,7 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 ** What it does: Displays current CAP, immediately updates whenever completed modules are edited. Displays CAP Goal if set, else displays NIL; immediately updates whenever incomplete modules are changed or adjusted.
 ** Justification: Users should be able to view their current CAP and CAP Goal as they are updated, without having to request for them through a command.
 
-* *Code contributed*:  https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremy_yew
+* *Code contributed*:  https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremyyew
 
 * *Other contributions*:
 ** Project management:
