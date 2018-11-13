@@ -526,10 +526,37 @@ This feature allows users to have a quick reference to all of their favourite re
 that they like a lot, or that they cook often to the favourites list. Users are also able to search, display details,
 and remove any entry within the favourites list.
 
+===== Model
+The model is simply a UniqueList of Recipes.
+
+===== Logic
+To access favourite context commands, context has to be switched to "Favourites" via the command `-favourite`. From
+there, the Favourite commands can be used and *AppContentParser* will redirect the different commands to their
+respective CommandParsers.`favourite` command for adding recipes to the Favourites list is done in recipe context.
+
 ==== Adding to Favourites
 While browsing the recipes in the recipe context, and when a user likes a recipe at a particular `INDEX`, they can
 execute the `favourite INDEX` command. The recipe selected would be copied from the recipe model, and added to an array
 list in the favourites model.
+
+==== Selecting a Favourite Recipe
+While browsing the favourite recipes in the favourite context, if the user wishes to view the details of the recipe,
+they can execute the `select INDEX` command. From the array list in the favourites model, the 1 based index will be
+accessed, and its details will be displayed in the panel.
+
+==== Finding a Favourite Recipe
+The user can also browse and search favourite recipes by tag. Similar implementation as 'find' command in recipe
+context.
+
+==== Deleting a Favourites Recipe
+While browsing the recipes in the recipe context, and when a user wants to remove a recipe at a particular `INDEX`,
+they can execute the `delete INDEX` command. From the array list in the favourites model, the index will be accessed,
+and the recipe will be deleted form the favourites model.
+
+==== Clearing Favourites
+The clear command clears the Favourites List of all Recipes. +
+The command replaces the existing UniqueList of _favouriteModel_
+with a new empty UniqueList.
 // end::favouritesimplementation[]
 
 // tag::recipeManagement[]

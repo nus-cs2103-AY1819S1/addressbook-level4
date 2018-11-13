@@ -97,6 +97,13 @@ context. +
 Format: +
 `-ingredient`
 
+==== Switch to favourites context: `-favourite`
+Switch to favourites context and display favourites list, which keeps a list of all
+the users' favourite recipes. +
+See <<Favourite Recipe Commands (Only applicable in favourites context)>> to view commands for favourites context. +
+Format: +
+`-favourite`
+
 ==== Switch to ingredient-recipe query context: `-cross`
 Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients
 included and get information of needed amounts of ingredients. +
@@ -261,14 +268,23 @@ Format: +
 
 // end::recipeCommand[]
 
-==== Add recipe to favourite [coming in V2.0]: `favourite`
+// tag::favouriteCommand[]
+==== Add recipe to favourite: `favourite`
+
 Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
 ****
 * INDEX should be the index number of the recipe displayed.
 ****
-
+// end::favouriteCommand[]
+// tag::surpriseCommand[]
+==== Surprise: `surprise`
+Displays a random recipe for the user. If you cannot make up your mind,
+why not key this in for a surprise? +
+Format: +
+`surprise`
+// end::surpriseCommand[]
 ==== Add to meal plan: `plan`
 Add a specified recipe to meal plan. +
 Format: +
@@ -350,6 +366,56 @@ Clears all ingredients in ingredient manager. +
 Format: +
 `clear`
 // end::ingredient[]
+
+// tag::favourite[]
+=== Favourite Recipe Commands (Only applicable in favourites context)
+
+==== List favourite recipes: `list`
+Show all favourite recipes. +
+Format: +
+`list`
+
+==== Display favourite recipe details: `select`
+
+View a favourite recipe and its details from the list. +
+Format: +
+`select INDEX`
+****
+* `INDEX` should be as displayed in the list.
+* All serving unit will be converted (approximately) to our common serving unit "gram" for display.
+****
+
+==== Find favourite recipe: `find`
+
+Show favourite recipes related to the keyword(s).
+Keywords include but not limited to cuisines (Indian, Japanese),
+dietary types (Vegetarian, Halal),
+ingredients (egg, broccoli),
+preparation time (30M, 1H40M)
+and difficulty (1, 2, ..., 5). +
+Format: +
+`find KEYWORD...`
+****
+* `KEYWORD` is case insensitive.
+* The order of keywords does not matter.
+****
+Examples: +
+[disc]
+* `find rice asian 3` +
+* `find korean kimchi staple` +
+
+==== Delete favourite recipe: `delete`
+
+Delete favourite recipe in favourites according to its index in the last shown list. +
+Format: +
+`delete INDEX`
+
+==== Clear all favourite recipes: `clear`
+
+Clears all favourite recipes in favourites. +
+Format: +
+`clear`
+// end::favourite[]
 
 // tag::cross[]
 === Ingredient-Recipe Query Commands (Only applicable in cross context)
@@ -617,7 +683,7 @@ or +
 * Search recipes: `find KEYWORD...`
 * Delete recipe details: `delete INDEX`
 * Activate cook-mode [coming in V2.0]: `cook INDEX`
-* Add recipe to favourite [coming in V2.0]: `favourite`
+* Add recipe to favourite: `favourite`
 * Add to meal plan: `plan INDEX DATE MEAL`
 * Add to review [Coming in V2.0]: `review [COMMENT] RATING`
 
