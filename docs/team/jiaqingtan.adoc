@@ -1,0 +1,59 @@
+= Tan Jiaqing - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Concierge
+
+---
+
+== Overview
+
+Concierge is a desktop application simulating a hotel management system used by hotel owners and receptionists. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiaqingtan[Code Contributed]]
+
+* *Major enhancements*:
+
+** *Expanding on the existing `list` function:*
+*** *What it does:* It allows the user to list between seeing a list of all guests, list of checked-in guests, or a list of all the rooms in the hotel.
+*** *Justification:* This feature is essential to a proper, working hotel management system. The listing of information on guests and rooms is needed for receptionists to perform follow-up tasks, be it in person or within the app.
+*** *Highlights:* The listing function was made with the intention of listing guests and rooms separately under the same column by modifying JAVAFX and FXML files.
+*** *Credits:* Additional credit should also be given to my groupmate *Adam Chew (adamwth)*, who added the functionality of list checked-in guests with the `list -cg` command.
+
+** *Expanding on the existing `find` function:*
+*** *What it does:* It allows the user to search for all guests, checked-in guests, or rooms based on a particular set of conditions/predicates related to the attributes of the guest/room.
+*** *Justification:* This feature is essential to a proper, working hotel management system. The find function can be used in a multitude of scenarios, such as when a quick search of rooms of an exact capacity is needed, or when a checked-in guest needs to be located immediately, in the event of an emergency.
+*** *Highlights:* The prefixes of the find function can be chained in any order, and in any quantity, as the predicates are all combined at the end. Each filter is has an "and" relationship with one another.
+*** *Credits:* The modification of the find function was dependent on its own initial code, and the style of coding and arriving at the solution was closely followed.
+
+* *Other contributions*:
+
+** *Replacing the HTML panel with a focused/detailed panel* - https://github.com/CS2103-AY1819S1-F11-2/main/pull/145[#145]
+
+** *Modifying the FXML files to list guest and rooms under the same UI column/panel* - https://github.com/CS2103-AY1819S1-F11-2/main/pull/145[#145]
+
+** *Creation of the Concierge Icon and Logo* - https://github.com/CS2103-AY1819S1-F11-2/main/pull/46[#46]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=list]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=find]
+
+include::../DeveloperGuide.adoc[tag=list]
+

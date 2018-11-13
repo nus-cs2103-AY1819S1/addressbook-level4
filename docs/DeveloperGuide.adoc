@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Concierge(TM) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Concierge(TM)`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -105,6 +105,8 @@ When you are ready to start coding,
 
 == Design
 
+[NOTE] The diagrams in this section are intended to be updated only in v.1.5.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -152,7 +154,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `ConciergeChangedEvent` when Concierge data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -187,14 +189,14 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::NewLogicComponentClassDiagram.png[width="960"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ConciergeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a guest) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -213,12 +215,12 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores Concierge data.
+* exposes an unmodifiable `ObservableList<Guest>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Concierge`, which `Guest` can reference. This would allow `Concierge` to only require one `Tag` object per unique `Tag`, instead of each `Guest` needing their own `Tag` object. An example of how such a model may look like is given below. Only UniqueGuestList is shown for simplicity. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -233,7 +235,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save Concierge data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -246,56 +248,59 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+
+[NOTE]
+Diagrammatic references to "AddressBook" are intended to be removed in v.1.5.
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedConcierge`.
+It extends `Concierge` with an undo/redo history, stored internally as an `conciergeStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedConcierge#commit()` -- Saves the current Concierge state in its history.
+* `VersionedConcierge#undo()` -- Restores the previous Concierge state from its history.
+* `VersionedConcierge#redo()` -- Restores a previously undone Concierge state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitConcierge()`, `Model#undoConcierge()` and `Model#redoConcierge()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedConcierge` will be initialized with the initial Concierge state, and the `currentStatePointer` pointing to that single Concierge state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th guest in Concierge. The `delete` command calls `Model#commitConcierge()`, causing the modified state of Concierge after the `delete 5` command executes to be saved in the `conciergeStateList`, and the `currentStatePointer` is shifted to the newly inserted Concierge state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new guest. The `add` command also calls `Model#commitConcierge()`, causing another modified Concierge state to be saved into the `conciergeStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitConcierge()`, so Concierge state will not be saved into the `conciergeStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the guest was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoConcierge()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous Concierge state, and restores Concierge to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial Concierge state, then there are no previous Concierge states to restore. The `undo` command uses `Model#canUndoConcierge()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoConcierge()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores Concierge to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `conciergeStateList.size() - 1`, pointing to the latest Concierge state, then there are no undone Concierge states to restore. The `redo` command uses `Model#canRedoConcierge()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify Concierge, such as `list`, will usually not call `Model#commitConcierge()`, `Model#undoConcierge()` or `Model#redoConcierge()`. Thus, the `conciergeStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitConcierge()`. Since the `currentStatePointer` is not pointing at the end of the `conciergeStateList`, all Concierge states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,28 +312,823 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire Concierge.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the guest being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of Concierge states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedConcierge`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::add[]
+=== Adding a Booking
+
+The `add` command is used by the receptionist to add the guest to the hotel,
+and assign him a room.
+
+==== Current Implementation
+We currently accept a `Guest`, `RoomNumber` and `BookingPeriod`
+as parameters for the `AddCommand` constructor. An example of its usage:
+`add n/Madith p/83141592 e/madith@themyth.com r/041 from/29/11/2018 to/ 03/12/2018`
+
+The parsing of the `AddCommand` is very similar to what was already
+implemented in AddressBook4. More parameters were added, namely the
+`RoomNumber` and `BookingPeriod`. These are parsed to create the respective
+objects - `Guest`, `RoomNumber` and `BookingPeriod`.
+
+* In v2.0, users can enter a start date and duration to specify their booking
+period.
+
+As in AddressBook4, the `Logic` component parses the `AddCommand`, and the
+`Model` handles its execution.
+
+* In the `Model`, the `Guest` is _no longer_ added to Concierge. It was
+previously the case in AddressBook4.
+* A new `Booking` object is created with the `Guest` and `BookingPeriod` as
+its parameters.
+* This `Booking` is then added to the `Room` with the `RoomNumber` specified. Every `Room` maintains a `SortedSet<Booking>` which is encapsulated in the
+ `Bookings` (plural) class.
+
+An Activity Diagram for the execution of `AddCommand#execute` is shown below.
+
+image::AddCommand-activity-diagram.png[width="400"]
+
+[NOTE]
+The `AddCommandParser` already checks that `ROOM_NUMBER` is a valid
+string from `001` to `100`, and the initialisation of Concierge checks that
+there are 100 rooms. The `RoomNotFoundException` is not expected to occur
+for any user input, but is left there as a defensive measure.
+
+==== Design Considerations
+===== Aspect: Check for outdated bookings
+
+Outdated bookings are those which have a start date before today. Concierge
+disallows users to `add` outdated bookings.
+
+* **Alternative 1 (current choice):** Do the check in `AddCommand#execute`
+** Pros: Very easy to implement. A parameter check in the `execute` method will
+suffice. Will only affect the `AddCommandSystemTest`.
+** Cons: The actual `Model#addBooking` does not do any check on the
+`BookingPeriod` being outdated, opening the possibly of outdated `Booking` s
+being added from via other commands.
+
+* **Alternative 2:** Do the check in `Room#addBooking`
+** Pros: Centralises exceptions thrown related to bookings in the
+`Booking` class. Increases the cohesiveness of this class.
+** Cons: All the existing tests and sample data calling the `addBooking`
+method with outdated bookings have to be changed. It also becomes difficult
+to do unit tests on checking in bookings which are outdated but not expired,
+since these bookings can no longer be added to the model.
+
+===== Aspect: Reduce coupling between `Room` and `Guest`
+
+Semantically, we can observe a strong coupling and dependency between `Room`
+and `Guest`. A `Room` contains a `Guest`, and a `Guest` also has a `Room`.
+Maintaining this coupling allows for very quick lookup both ways, either
+given a `Guest` (which is common at the reception desk) or given a `Room`
+(which is common for housekeeping).
+
+* **Alternative 1 (current choice):** Add `Guest` as a field in `Room`
+** Pros: An efficient way for managing bookings. Receptionist can quickly
+determine if the `Room` is free to book. Lookup time for `Guest` not
+expected to increase greatly, since `Room` s are not expected to have a large
+ number of advanced bookings made.
+** Cons: Difficult to find the `Room` given the `Guest`. When a `Guest` has made
+an advanced booking and wishes to cancel it, we have to search through all
+the `Room` s. Nevertheless, we expect most guests to be aware of their rooms.
+
+* **Alternative 2:** Add `Room` as a field in `Guest`
+** Pros: Very customer-centric design. Centralises all the information about
+the `Guest`, including `Booking` s made and `Expense` s incurred.
+** Cons: Making a new `Booking` with a `Guest` is highly inefficient.
+`Booking` information is now scattered across individual `Guest` s.
+*** [v1.4] On top of the list of rooms, we maintain a separate list of
+checked-in guests. This list does not retain any booking information, as it
+ is meant to for a quick lookup of the guests' particulars.
+// end::add[]
+
+// tag::list[]
+=== Rooms List Feature
+The rooms list feature builds upon, and reuses functions from the ;originally implemented ListCommand.
+
+The Activity UML Diagram for the current implementation of ListCommand is as follows:
+
+image::ListCommandUml.png[width="400"]
+
+==== Current Implementation
+The list function is facilitated by a modified `ListCommand` class, of which the input from the CommandBox is parsed by a `ListCommandParser` class.
+
+The list function now requires a flag after the 'list' command. Below are the two allowed list commands:
+
+* `list -g` - Lists all guests.
+* `list -cg` - Lists all checked-in guests.
+* `list -r` - Lists all rooms.
+
+A `ListCommandParser` class was created to obtain and compare the flags from inputs, which required a different approach to the rest of the commands. The input string is simply split using a String function, obtaining an array of strings, of which the flags will be at index 1.
+
+Modification of existing FXML files, and creation of new FXML files was done to achieve separate listing of guests and rooms, and the browser panel was replaced with a panel to focus on, and display more detailed information on the selected guest/room.
+
+In order to stack the UI elements on top of one another to reuse and display the separate lists under the same column, modifications were made to the `MainWindow.fxml` file.
+The GuestListPanel and RoomListPanel each has a "VBox" element encapsulating them, which visibility is toggled and the element itself enabled or disabled based on the flag that was obtained from the parser. This feature extends to the GuestDetailedPanel and RoomDetailedPanel and is achieved in the same way.
+
+==== Design Considerations
+===== Aspect: How to display each list
+* **Alternative 1 :** Maintain two columns on the MainWindow UI to display both rooms and guests
+** Pros: Easier to modify UI by adding on instead of modifying and replacing, and modifications in the future will not be too tedious.
+** Cons: UI looks cluttered with an empty column when not displaying the other, not an efficient use of screen space.
+
+* **Alternative 2 (current choice):** Separately display the two lists within the same MainWindow UI space/column.
+** Pros: Cleaner looking, fully utilises empty spaces. Better visual feedback from commands as inputs.
+** Cons: Requires heavy modification of MainWindow UI files, future features must stick with the restriction of having a list of either guests or rooms.
+// end::list[]
+
+// tag::find[]
+=== Find Feature
+The Find feature expands upon the originally implemented FindCommand, allowing for the searching of both rooms and guests, with several filters.
+
+The Activity UML Diagram for the current implementation of FindCommand is as follows:
+
+image::FindCommandUml.png[width="400"]
+
+==== Current Implementation
+The find function is facilitated by a modified `FindCommand` class, of which the input from the CommandBox is parsed by a `FindCommandParser` class.
+
+The find function now has the ability to find either guests or rooms. The starting commands for the find function with flags are as follows:
+
+* `find -g` - Find guests.
+* `find -cg` - Find checked-in guests.
+* `find -r` - Find rooms.
+
+The above command must be followed up by at least 1 filter, and they are as follows:
+
+Guest Filters (-g):
+
+* `n/ - Name`
+* `p/ - Phone Number`
+* `e/ - Email Address`
+* `t/ - Tags`
+
+Room Filters (-r):
+
+* `r/ - Room Number`
+* `c/ - Capacity`
+* `t/ - Room Tags`
+* `n/ - Name of guest with bookings`
+
+The following are filters for room bookings. The flags cannot be mixed.
+The flags can be used independently, or with a from/to specified date.
+Input dates must be in DD/MM/YY format.
+
+* `-hb - Has Bookings Flag`
+* `-nb - No Bookings Flag`
+* `from/ - Booking Start Date`
+* `to/ - Booking End Date`
+
+The FindCommandParser uses a tokenizer to obtain the individual arguments/filters, whether the filter is present or not. If a filter is present, the input that precedes the filter prefix will be used to create the individual predicate class.
+
+These predicate classes are collected into a list of predicates before they are combined and merged in the FindCommand class. The combined final predicate is then passed to the Model Manager to filter the guest/room list, and a listingChangedEvent is called to update the UI elements.
+
+
+==== Design Considerations
+
+===== Aspect: OR/AND Searching
+When searching, a few things have to be considered. Does the filter specified have an OR relationship with one another, or an AND relationship.
+An example is this: find -g n/Alex t/VIP, this can be interpreted in two ways. Finding guests with name as "Alex" AND with tag "VIP", or name "Alex" or tag "VIP.
+// end::find[]
+
+// tag::checkin[]
+=== Room Check-in/Checkout feature
+==== Current Implementation
+
+The room check-in and checkout features makes use of `UniqueRoomList`.
+The logic that supports the check-in and checkout operations mainly reside in the `Concierge` and `Room` classes.
+
+* `UniqueRoomList#checkin(RoomNumber)` -- Checks in the first booking of the room identified by the given room number
+* `UniqueRoomList#checkout(RoomNumber)` -- Checks out the first booking of the room identified by the given room number
+* `UniqueRoomList#checkout(RoomNumber, LocalDate)` -- Checks out the room's booking whose start date matches the given date
+
+[NOTE]
+Active booking refers to a booking that includes today's date. +
+First booking refers to the earliest (i.e. first in chronological order).
+[NOTE]
+A room can be checked out regardless of its checked-in status. Thus, `checkout` doubles as a command to delete bookings.
+
+These operations are exposed in the `Model` interface as `Model#checkInRoom` and `Model#checkoutRoom` respectively.
+
+Given below is an example usage scenario and the flow of the check-in feature.
+
+Assuming there is a booking already added to room 001,
+
+* The user executes `checkin r/001` when the guest arrives.
+. The `checkin` command takes in a `RoomNumber` argument and calls `Model#checkInRoom` as such: `Model.checkInRoom(roomNumber)`
+. `ModelManager#checkInRoom` (which implements Model) will call `VersionedConcierge#checkInRoom`
+. `VersionedConcierge#checkInRoom` will call `UniqueRoomList#getRoom` to get the room using its RoomNumber
+. `VersionedConcierge#checkInRoom` will call `Room#checkIn`
+. `Room#checkIn` will
+.. throw `NoBookingException` if the room has no bookings
+.. throw `ExpiredBookingException` if the room's first booking is expired
+.. throw `InactiveBookingCheckInException` if the room's first booking is not active
+.. throw `BookingAlreadyCheckedInException` if the room's first booking is already checked in
+.. update the first booking as checked-in if no exceptions were thrown, and replace the room with its updated version that has the first booking checked-in
+. `VersionedConcierge#checkinRoom` will call `VersionedConcierge#addCheckedInGuestIfNotPresent`
+. `VersionedConcierge#addCheckedInGuestIfNotPresent` will add the guest of the checked-in booking to the checked-in guest list
+ if he/she is not already in it
+
+The following sequence diagram shows how `CheckInCommand#execute` works, from the Logic up to the Model:
+
+._The sequence diagram of `CheckInCommand#execute`._
+image::CheckinCommandSequenceDiagram.png[width="1280"]
+
+Since the Model simply calls `VersionedConcierge#checkInRoom`, the following activity diagram will illustrate how
+`Concierge#checkInRoom` works:
+
+._The activity diagram of checking-in a room when `Concierge#checkInRoom` is executed._
+image::check-in-activity-diagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Immutability of check-in command
+
+* **Alternative 1 (current choice):** `checkIn` a room by creating a new copy of the room
+ with the `isCheckedIn` flag of the first booking set to true.
+** Pros: Debugging is easy. Consistent with the rest of the application.
+** Cons: `checkIn` method becomes unintuitive, since a new room is returned from the operation,
+ instead of a void method simply setting the instance property.
+* **Alternative 2:** `checkIn` a room by setting the `isCheckedIn` flag of the first booking to true.
+** Pros: Check-in method is intuitive, and does not return a new room.
+** Cons: Harder to debug. Tests also become troublesome since changes are made to the same referenced room.
+
+===== Aspect: Deletion of bookings
+
+* **Alternative 1 (current choice):** Use `checkout` to delete any booking.
+** Pros: `checkout` doubles as a delete booking feature, so no need for a `deletebooking` command.
+** Cons: Not very natural, as `checkout` implies checking out a checked-in booking.
+* **Alternative 2:** Use `checkout` to delete only active booking, and create new command `deletebooking` to delete expired and upcoming bookings.
+** Pros: More natural, `checkout` can only do what its name implies.
+** Cons: Need to implement new command and more methods, to support the same deletion operation but with a different name.
+
+// end::checkin[]
+
+// tag::expenses[]
+=== Expense, Expenses and ExpenseType
+In Concierge, users will be given the feature of tracking the expenditure of each individual
+guest, in order to facilitate checkout charges. Hence, the three classes, `Expenses`, `Expense`
+and `ExpenseType` have been created for this purpose. In addition, the hotel also has a
+`Menu` of goods and services available.
+
+==== Current Implementation
+`ExpenseType` objects are essentially immutable objects that represent a single item or service
+being sold at the hotel. An `ExpenseType` object contains information about its menu number,
+usual price, and description. The main purpose of this class is for convenience; users may
+charge a customer by simply providing the menu number of the item and the cost and description
+of the item will be able to be referenced. `ExpenseType` information is stored in a `Menu`
+object, which is then stored on the hard disk, since users should have the ability to modify
+the menu manually. The `Menu` object is internally represented with a `HashMap<String, ExpenseType>`,
+with the menu number as keys and the `ExpenseType` objects as values.
+
+* **Alternative 1: Use a List<ExpenseType> to store the menu.** While there may be negligible
+differences for a small menu, searching for an `ExpenseType` object still takes linear time
+and there may be significant performance drops for a large menu.
+
+An `Expense` object contains information about one individual expenditure by a guest. An
+`Expense` object encapsulates the cost, `ExpenseType` of the item bought, and the date and time
+of expenditure.
+
+The `Expenses` object is essentially a `List<Expense>`. Every room contains an `Expenses`
+object, to represent the collection of all the expenses of the guests in the room.
+
+* **Alternative 1: Use a `List<Expense>` object**: Defining the `Expenses` class allows us
+to restrict access to the collection, and only allow certain methods such as adding an
+`Expense` or displaying on screen.
+* **Alternative 2: Use a `Set<Expense>` object**: Having the expenses ordered (e.g.
+chronologically) will be useful for generating a nice view of all the expenses incurred.
+
+Here is a simple UML describing the roles of these classes.
+
+image::expense_uml.png[width="600"]
+
+==== Design Considerations
+
+===== Aspect: Immutability of Menu
+While it is conceivable that the items sold may change from time to time,
+for various reasons such as unpopularity or seasonal products, giving users
+the ability to add and remove items from the menu may result in more
+problems than benefits. We expect that alterations to the menu will not be
+performed frequently, and that the majority of our users, receptionists,
+will not be required to add and remove items to the menu. The menu also does
+not have to be altered during operational hours. Hence, by making
+`Menu` immutable, we eliminate the possibility of making accidental or
+unwarranted changes to the menu. The only method to modify `Menu` would
+thus be through the XML file, which we believe is suitable for these
+purposes.
+
+===== Aspect: Immutability of ExpenseType
+The `ExpenseType` object is meant to hold the default values of the name and
+price of each item. In other words, since an `Expense` object references an
+`ExpenseType` object, the `Expense` object is allowed to have a cost that
+is different from the cost in the corresponding `ExpenseType` object, to
+account for cases such as the guest having a personalised discount due to
+the usage of vouchers or certain credit cards. Thus, ExpenseType does not
+need to be modified by users in the application. Nonetheless, it is still
+possible to modify the default information through editing the XML file.
+
+===== Aspect: Assignment of the Expenses object
+* **Alternative 1 (current choice):** Assign `expenses` to each `Room`.
+** Pros: Suitable for current architecture. Each `Booking` only has one `Guest`,
+   and each `Guest` will only stay in one `Room`. Makes more sense to assign to
+   `Room` such that it represents the expenditure of the entire `Room` and not
+   one `Guest`, since the occupants of the `Room` can only contribute to one single
+   `Expenses` object. `Room` is a more natural choice over `Booking` as `Booking`
+   is meant to encapsulate booking information such as timing and `Room`.
+   Not much difference in implementation no matter which one of the three classes
+   it is assigned to.
+** Cons: May be confusing to implement. Need to ensure that there are no expenses
+   for rooms that have no guests.
+* **Alternative 2:** Assign `expenses` to each `Guest`.
+** Pros: Can track `expenses` of each `Guest`, can find out who are the heavy
+   spenders. Can use this information for promotional activities such as vouchers
+   or membership.
+** Cons: Not all guests that will stay in the hotel are registered in the guest
+   list, since each `Booking` only requires the name of one `Guest`, regardless of
+   the `Room`. Will require a major refactoring of the `add` command. Complications
+   may also arise if a `Guest` has multiple bookings simultaneously and there is a
+   need to track the `Expenses` over different rooms.
+* **Alternative 3:** Assign `expenses` to each `Booking`.
+** Pros: Can allow tracking of the booker's expenditure, less confusing to implement
+   than `Room`, can allow for expenses to be recorded before the guest checks in.
+** Cons: May violate SRP, since `Booking` should ideally only deal with booking
+   information.
+// end::expenses[]
+
+// tag::money[]
+=== Money
+
+==== Current Implementation
+`Money` is a class used to store monetary values. This class was created to
+enforce the restriction that monetary values should always have at most two
+decimal places, which could be inconvenient if using Java data types such
+as `double` or `BigDecimal`. `Money` objects can be created by the user
+through the `service` command (details in the next section).
+
+The `Money` class contains two main attributes, `dollars` and `cents`, both
+of which are `int`s, since it is unlikely that the cost of any one item will
+exceed `Integer.MAX_VALUE` dollars.
+
+The main method of creating `Money` objects is through the `service` command,
+with the `Money` class parsing a string to convert into a `Money` object.
+The method `isValidMoneyFormat()` handles the checking of the string format,
+and the list of requirements are as follows:
+
+* Can be negative.
+* Format of the string should be {1 to 10 digits}.{2 digits}, e.g. `12.34`.
+  `123`, `.50`, `12.9`, `12345612345.00` are not allowed.
+* The `dollars` section can be 0 but cannot have leading 0, i.e. 0.12 is allowed
+  but 01.23 is not allowed.
+* The `dollars` section should not exceed `Integer.MAX_VALUE`.
+* Cannot have characters that are not digits or `.` or `-`.
+
+==== Design Considerations
+
+===== Aspect: Immutability of Money
+`Money` does not have to be mutable. Adjustment of `Expenses` are to be done
+through the `service` command. `Money` is simply a data type, much like
+`Double` and `Integer`.
+// end::money[]
+
+// tag::service[]
+=== ServiceCommand
+
+==== Current Implementation
+The `service` command is used for charging expenses to rooms. This
+functionality is the main reason that the classes Expenses, Expense,
+ExpenseType, Menu and Money were implemented. The format for the `service`
+command is as such:
+
+`service r/ROOM_NUMBER no/ITEM_NUMBER [c/COST]`
+
+The cost is made optional for the convenience of the user. We expect that
+most of the time, the cost of items are more or less fixed. Instead of
+having the user type in the same cost all of the time, the field is made
+optional. This functionality is enabled by the use of `ExpenseType` and
+`Menu`, which stores the default cost of items. If the cost is not specified,
+the default cost of the item will be used.
+
+As in AddressBook4, the ConciergeParser (aka AddressBookParser) will parse
+the user input and create a `ServiceCommandParser` object to parse a `service`
+command. The `ServiceCommandParser` is responsible for checking that the
+`RoomNumber` and cost (a `Money` object) are in the correct format. Note that
+the item number is not checked here, since the `Menu` object of `Concierge`
+has to be available in order to check that the given item number is a valid
+item. Hence, any string will be accepted by the parser. Since `ServiceCommand`
+has access to the `Model` and thus the `Menu`, the checking is given to
+`ServiceCommand` instead. A successful parse will then return a
+`ServiceCommand(RoomNumber roomNumber, String itemNumber, Optional<Money> itemCost)`
+object.
+
+The following flowchart describes what happens when the `execute` method
+of a `ServiceCommand` is called.
+
+image::ServiceCommand-flowchart.png[width="600"]
+
+The `model.addExpense()` method call was not illustrated in detail in the flowchart,
+thus it is illustrated in this sequence diagram.
+
+image::AddExpenseSequenceDiagram.png[width="900"]
+
+==== Design Considerations
+
+===== Aspect: Deleting and editing Expenses
+* **Alternative 1 (current choice):** Use `service` to edit `Expense`s.
+** Pros: Simply keying in `Expense`s with negative values is easy to implement,
+   and does not stray far from real-life implementations, e.g. receipts often
+   contain cost subtractions for discounts and promotions.
+** Cons: May not be elegant, `Expenses` may become cluttered if there's too many
+   corrections.
+* **Alternative 2:** Create new commands to edit and delete `Expense`s.
+** Pros: The `Expenses` will contain all the `Expense`s at their correct prices.
+** Cons: More effort to implement, difficult to implement, e.g. may need to implement
+   listing out all `Expense`s of a `Room` with the `list` command in order to select
+   the `Expense` to delete or edit. Information on discounts and corrections will
+   also be lost.
+
+// end::service[]
+
+// tag::loginlogout[]
+=== Login and Logout
+
+The `login` feature allows hotel managers to control which receptionists
+have full access to Concierge. When paired with the CommandArchive feature,
+they can also create a blame history to trace rogue commands.
+
+==== Current Implementation
+
+Currently, `login` is implemented as a
+<<Aspect: Accessing features of Concierge with/ without login, dynamic feature>>,
+so users are not prompted to sign in upon starting Concierge. Instead, they
+only have to sign in when executing commands which would mutate the data,
+such as `add`, `checkin`, `checkout`, `reassign`, `service` and `clear`.
+
+===== Logic
+
+Given the nature of the `login` command being dynamic (can be entered at any
+point in time, between any commands), it is then natural to implement it like
+a normal command, extending the abstract `Command` class. The `logout` command
+ is also implemented in this way.
+
+===== Model
+
+The model handles the signing-in, using its attribute `LogInManager`.
+ The Class Diagram of the login module is shown below.
+
+image::LogInCommand-LogInManager-classdiagram.png[width=700]
+
+`LogInManager` uses an optional `username` to keep track of whether
+the user is currently signed in. The `passwordReferenceList` provides an
+immutable key-value lookup for usernames and passwords. +
+
+`LogInManager` implements the following operations.
+
+* `LogInManager#isSignedIn()` - checks if the user is currently signed in.
+* `LogInManager#signIn(String, String)` - attempts to sign in with the given
+username and hashed password. This is handled by the `PasswordHashList`. A
+case-insensitive comparison is used on the hash.
+* `LogInManager#signOut()` - signs out of Concierge.
+
+A new method `resetUndoRedoHistory` was added to the
+`VersionedConcierge` (used for the Undo/ Redo feature). This is used to clear
+the command history upon a `logout` command, so users cannot undo important
+commands or redo accidental bad commands after signing out.
+
+====== Login
+
+Shown below is the Sequence Diagram for executing a valid `login` command.
+The diagram also illustrates how the `LogicManager` checks for the sign-in
+requirement of commands.
+
+image::LogInCommand-sequencediagram.png[width=1000]
+
+===== Storage
+
+The `passwords.json` file is read when Concierge is first opened (i.e. in
+`MainApp#init`), and is never written to again. The storage function is
+managed by the `JsonPasswordsStorage` class. Intuitively, passwords are stored as
+<<Aspect: Storage of Passwords, key-value pairs>> for quick look-up.
+
+A SHA-256 hash was used in building this feature. In future, this hashing
+algorithm can be changed to a HMAC hash, which adds a username salt. Then,
+different users will not know if they have chosen the same passwords.
+
+===== Check for sign-in requirement of commands
+
+`LogicManager` does the
+<<Aspect: Check for sign-in requirement of commands, checks for whether a command requires a sign in>>,
+ and whether the model is signed in.
+
+The `Command` class exposes a new `requiresSignIn()` method that returns
+false by default. To make new command require signing-in, one only has to
+overwrite this method in that command.
+
+==== Design Considerations
+
+===== Aspect: Accessing features of Concierge with/ without login
+
+* **Alternative 1 (current choice):** Login is needed only for some features
+** Pros: Manager can implement some level of access control within Concierge,
+ especially since some of the more commonly used Concierge features (`list`,
+ `find`) are read-only features. This is quicker than mandating a sign-in at
+ the start and creating different user views based on the account privilege (admin vs normal).
+** Cons: Not very intuitive to users. They have to enter commands before being
+told they need to sign in. The `requiresSignIn()` check takes place after the
+parsing of the command, so a user can is told they cannot execute the command
+without a sign-in after their command is parsed correctly.
+
+* **Alternative 2:** Login is needed for all features
+** Pros: Very easy to check login validity. This only occurs when Concierge is
+first loaded. Subsequent commands can be executed without additional checks
+on the sign-in requirement.
+
+===== Aspect: Check for sign-in requirement of commands
+
+Given that sign-in is only required for some commands, the priority in
+designing this aspect is the ability to easily mandate/ disable compulsory
+the login requirement for current and future commands.
+
+* **Alternative 1 (current choice):** Do the check in `LogInManager#execute`
+** Pros: Ensures that commands are checked before any execution. Users will not
+inadvertently change the model before doing the sign-in checks.
+** Cons: Unable to implement commands that can do some actions without
+sign-in. For example, a future developer may want to make the `add` command
+such that when the user is not signed-in, the booking is still added but a tag
+ is added to the `Guest`, reminding the manager to verify the booking.
+*** Violates the Single Responsibility Principle. The job of `LogicManager`
+is to parse and execute commands.
+
+* **Alternative 2:** Do the check in `Command#execute`
+** Pros: Increases cohesiveness of `Command` class. The compulsory sign-in is
+ an attribute of a `Command`, so these checks can be done internally.
+ `Command` can implement a method `checkSignIn(Model)`, and commands which
+ require sign-ins can call this method in their respective `execute` methods.
+** Cons: While increasing cohesion, this implementation makes less semantic sense.
+ The logical misstep comes because one is executing the method, then checking
+  if the method can be executed, then "reversing" the execution.
+
+===== Aspect: Storage of Passwords
+
+The password file is currently read at `MainApp#init`, and saved once.
+Unlike the Concierge data, this file is no longer referred to when Concierge
+is in use.
+
+* **Alternative 1 (current choice):** Store passwords in JSON file
+** Pros: JSON is very easy to work with.
+*** Able to utilise existing `JsonUtil` methods used by the `UserPrefs` and
+`Config` classes.
+*** Easily parse data into key-value pairs, which semantically matches our needs.
+** Cons: `JsonUtil` file is not completely suitable for a data type that has
+potentially an unlimited number of entries, since this utility serialises the
+ data to match the class attributes.
+* **Alternative 2:** Store passwords in same XML file as all other
+Concierge data
+** Pros: Centralises data storage in Concierge. There is only one single
+source of truth for all data.
+** Cons: The XML file is too complicated for the needs of password storage.
+*** Concierge does not need to write the the passwords file when in use.
+`concierge.xml` is constantly being written to, which is an unnecessary and
+possibly unsafe feature for the passwords component.
+*** Creating a new password entry is difficult since once has to add all
+the layers of XML tags involved. Nevertheless, users are not expected to be
+adding new accounts on a regular basis.
+// end::loginlogout[]
+
+// tag::autocomplete[]
+=== Autocomplete: kbd:[Ctrl], kbd:[Alt]
+
+==== Overview
+
+The Autocomplete feature allows the user to seamlessly type in the
+full command and prefixes without having to worry if he/she missed
+out on any prefix. This feature helps the user by prompting the correct
+format. This is useful as some of the commands require several inputs
+from the user and hence this will save time and commands can be
+executed faster.
+
+A quick-clear has also been added as part of this feature, so that
+the user can again, save time.Press kbd:[Alt] to quick-clear the
+`CommandBox` (saves time for user when he wants to clear the box).
+
+The command box before kbd:[Alt] is pressed:
+
+image::servicepreclear.png[width="419"]
+
+The command box aft kbd:[Alt] is pressed:
+
+image::servicepostclear.png[width="371"]
+
+==== Example of how feature works
+
+**Step 1**: Launch application
+
+**Step 2**: User enters `a` in `CommandBox` then presses kbd:[Ctrl].
+`AutoCompleteManager()` compares `input` through the list of
+`initCommandKeyWords`and proceeds to display the command in the
+`CommandBox` because `a` is an applicable `COMMAND_WORD`.
+
+image::add.png[width="579"]
+
+After kbd:[Ctrl] has been pressed, it automatically inserts the
+first prefix `PREFIX_NAME` in the command line.
+
+image::addPREFIX_NAME.png[width="581"]
+
+**Step 3**: After the user fills up the `PREFIX_NAME` field, he can press
+kbd:[Space] to move on to the next prefix. After pressing kbd:[Space], then
+he can press kbd:[Ctrl]. At this point, `AutoCompleteManager()` is
+called again but this time instead of calling the `getAutoCompleteCommands()`
+it calls `getAutoCompleteNextMissingParameter` since it will detect
+the presence of the `PREFIX_NAME` parameter.
+
+This is the expected outcome before pressing kbd:[Ctrl]
+
+image::anthonyspace.png[width="581"]
+
+This is the expected outcome after pressing kbd:[Ctrl]
+
+image::afteranthonyspace.png[width="581"]
+
+**Step 4**: The user repeats Step 3 until all parameters are input by the user
+and then presses kbd:[Enter] to execute the command.
+Note: For `AddCommand`, the final parameter `PREFIX_TAG` is optional, so
+the user can just delete it if he chooses not to add a tag.
+
+This is the expected outcome after all the parameters are filled.
+
+image::fulladdautocomplete.png[width="953"]
+
+Press kbd:[Enter] to execute the command.
+
+Given below is the activity diagram for the Autocomplete feature.
+
+**Activity Diagram :**
+
+image::AutocompleteActivityDiagram.png[width="331"]
+
+Activity Diagram demonstrates what happens when user presses kbd:[Ctrl]
+
+==== Current Implementation
+
+The Autocomplete mechanism is facilitated by `AutoCompleteManager`, which
+can be found in `LogicManager`. It supports the auto completion of incomplete
+commands by providing a list of auto completed commands from a given incomplete
+command.
+
+An underlying `Trie` data structure is used to facilitate the `AutocompleteManager`.
+`Trie` only supports autocompletion of commands that are provided by the
+`AutocompleteManager`. The `CommandParameterSyntaxHandler` that is found in
+`AutocompleteManager` supports the autocompletion of parameters for commands.
+
+Given below is the class diagram for the Autocomplete feature.
+
+**Autocomplete Class Diagram :**
+
+image::AutocompleteClassDiagram.png[width="719"]
+
+The `CommandBox` interacts with the `AutocompleteManager` using `LogicManager`.
+When the user presses kbd:[Ctrl] in the command box, the `CommandBox` will
+handle the Ctrl key press event and will execute the `AutoCompleteUserInput()`
+method.
+
+Given below is the sequence diagram for the Autocomplete feature.
+
+**Autocomplete Sequence Diagram :**
+
+image::AutocompleteSequenceDiagram.png[width="926"]
+
+==== Design Considerations
+
+===== Aspect: Implementation of Autocomplete
+
+* **Alternative 1 (current choice): ** Use a manager (`AutoCompleteManager`)
+to handle the autocomplete helper methods.
+
+** Pros:
+Allows for better usability and more code abstraction.
+** Cons:
+The amount of time taken for a new developer to to understand all the
+interaction between methods will be longer.
+
+* **Alternative 2: ** Iterate through all possible commands to find match prefix.
+
+** Pros:
+Implementation of this alternative would be easier.
+** Cons:
+If there are too many commands being input consecutively, the application
+might start to lag due to possible loss of performance.
+
+===== Aspect: Implementation of Algorithm
+
+* **Alternative 1 (current choice): ** Trie Data Structure
+
+** Pros:
+Performance of application will be better.
+** Cons:
+The complexity of implementation is higher.
+
+* **Alternative 2: ** Iterate through all possible commands to find
+match prefix.
+
+** Pros:
+Implementation of this alternative would be easier.
+** Cons:
+If there are too many commands being input consecutively, the application
+might start to lag due to possible loss of performance.
+
+// end::autocomplete[]
+
+// tag::archive[]
+=== [Proposed] Command Archive feature
+Given below is the UML diagram for the `CommandArchive` Class:
+
+image::CommandArchive_class.png[width="280"]
+
+Given below is the UML diagram for the `CommandHistory` Class:
+
+image::CommandHistory_class.png[width="345"]
+
+==== Current Implementation
+
+The Command Archive mechanism is facilitated by `CommandArchive`.
+It utilises the `userInputHistory` to extract the latest command that the user
+has input and passes the `inputString`to `stringToFile` method in `CommandArchive`
+class. The `inputString` is then appended to the `CommandFile.txt` file.
+Additionally, it implements the following operations:
+
+* `StringBuilder()` -- The main operations of the `StringBuilder` are the `append`
+and `insert` methods which can be overloaded to accept data of any type. The `append`
+method always adds these characters at the end of the builder.This operation
+can be found in `CommandHistory`.
+
+* `toString()` -- Converts the StringBuilder object into a string named
+`inputString` so it can be passed to the `CommandArchive` class. This operation
+can be found in `CommandHistory`.* `getLogger()` -- Creates `LOGGER` so that it
+can log any `IOExceptions` that are caught in the catch blocks of the methods
+found in `stringToFile` method of `CommandArchive`.
+
+* `substring()` -- Extracts the latest command from the `userInputHistory`.
+This is required because the `userInputHistory` appends all the older commands
+into the LinkedList as well. This is done by looking for the first newLine character
+occurrence of the `inputString`. The substring is then extracted as
+`latestUserCommand`. This operation can be found in `CommandArchive`.
+
+ * `simpleDateFormat()` -- Creates a `timeStamp` in DD/MM/YYY format that can later
+ be appended to `latestUserCommand`. This operation can be found in `CommandArchive`.
+
+ * `fileWriter` -- Writes the stream of characters (which is `latestUserCommand`)
+to `commandHistory` file. This will eventually be the output that is written into
+`commandFile.txt` via `PrintWriter`. The `PrintWriter` also appends `timeStamp`
+to the latest entry (which is eventually `timeStamp` + `latestUserCommand`). This
+operation can be found in CommandArchive`.
+
+ This command requires a login.
+
+==== Design Considerations
+
+===== Aspect: How to extract userInputHistory
+
+* **Alternative 1 (current choice):** `userInputHistory` is first put into a
+`stringBuilder` and then converted to string to then pass to `CommandArchive`.
+
+** Pros:
+1. Easy to implement because `StringBuilder` can utilise `append` and `insert`
+methods, which can be overloaded to accept any data.
+2. Faster than `StringBuffer` under most implementations.
+3. StringBuilder is mutable while String is immutable.
+** Cons: String is more optimised especially if you don't need the extra features
+of `StringBuilder`
+* **Alternative 2:** Create a KeyLogger class that implements KeyListener
+to capture userInput.
+** Pros: It is more secure and can only be accessed for audits and other
+administrative access purposes and is hidden from the user.
+** Cons:
+1. If implemented wrongly, it will become a global KeyLogger that captures
+userInput outside of application.
+
+2. Does not utilise the existing infrastructure
+and data found in the base level program class `CommandHistory` and hence
+would require more effort to implement.
+// end::archive[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
-
 // end::dataencryption[]
 
 === Logging
@@ -533,287 +1333,9 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Concierge depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
@@ -836,51 +1358,200 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |receptionist |retrieve the room number of a guest |provide any kind of services to the guest in his/her room
 
-|`* * *` |user |add a new person |
+|`* * *` |receptionist |view the prices of different room types |inform the guests of the prices of different rooms
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |receptionist |mark rooms in need of maintenance or cleaning |prevent guests from staying in those rooms
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |hotel manager |know which rooms' guests are checking out on a certain day |assign cleaning staff to those rooms
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |receptionist |look at the available rooms of a certain type in a certain time |designate rooms for guests
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |receptionist / hotel manager |know the room services called by a guest |charge the guest accordingly
+
+|`* * *` |receptionist |keep track of the particulars of guests such as home address, phone number, room number |contact them in the event of emergencies before, during or after their stay
+
+|`* * *` |receptionist |be informed of the guests that checked out late |charge them with a late check-out fee
+
+|`* * *` |receptionist |swap rooms for guests |allow guests to change rooms if they report any damages
+
+|`* * *` |receptionist |manually reduce / extend the stay of a guest (including late check-out requests) |allow guests to change their check-out timing
+
+|`* * *` |receptionist |modify a guest's particulars |correct errors without rewriting the entry
+
+|`* * *` |receptionist / hotel manager |remove a guest's entry |facilitate the check-out procedure
+
+|`* * *` |receptionist |reserve rooms for guests |allow guests to place bookings
+
+|`* * *` |receptionist |cancel bookings on request |let other guests occupy the room
+
+|`* * *` |hotel manager |export the guests' profiles |keep an archive
+
+|`* * *` |hotel manager |look at all financial transactions made between guests and the hotel |facilitate the monthly audit
+
+|`* * *` |receptionist / hotel manager |red flag problematic guests and write descriptions on them |warn the staff of problematic guests
+
+|`* * *` |receptionist |filter rooms by type, occupancy status, number of guests, etc. |understand the current state of occupancy
+
+|`* *` |hotel manager |know the usage statistics of facilities |plan for budget and staff allocation
+
+|`* *` |hotel manager |adjust the room rates |take advantage of seasonal pricing
+
+|`* *` |hotel manager |send my guests a "Thank You" note upon check-out |maintain good relations with them
+
+|`* *` |hotel manager |backup my data |prepare for data corruption accidents
+
+|`* *` |receptionists |convert room rates to common global currencies |help guests better understand the pricing
+
+|`*` |hotel manager |know the average amount spent by guests who checked out in the current month |evaluate the effectiveness of short-term events
+
+|`*` |hotel manager |look at which receptionist last edited a reservation or stay |hold the receptionists accountable if mistakes were made
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
-=== Use case: Delete person
+=== UC1.1: Check-in a Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.	Receptionist checks the room rates for all room types
+2. 	Receptionist checks available rooms (not occupied or reserved) of the type guest wants
+3.	Receptionist ensures that room has all necessary maintenance completed
+4. 	Receptionist assigns room to Guest
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. System indicates that there are no rooms available
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 4a. There are multiple Guests to be checked-in
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 4a1. Receptionist adds all Guests to System
 +
-Use case resumes at step 2.
+Use case resumes at step 4.
+
+[discrete]
+=== UC1.2: Retrieve room number of a Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist searches room number using Guest’s particulars (e.g. Name, ID, Phone Number, etc.)
+2. 	System returns room number
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System indicates that the Guest is not staying in the hotel.
++
+Use case ends.
+
+[discrete]
+=== UC1.3: Send room service to a Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist retrieves room number of Guest (UC1.2)
+2. 	Receptionist specifies what type of room service to send to Guest
+3. 	System confirms room service sent to guest, with an ETA
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. System indicates that there are no available hotel attendants at the moment
++
+[none]
+** 3a1. Receptionist puts Guest on a waiting queue
++
+Use case ends.
+
+[discrete]
+=== UC1.4: Swap Guest's room
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist views listing of available rooms (UC1.2)
+2. 	Receptionist swaps guest’s room
+3. 	System prompts to mark the vacated room for housekeeping
+4. 	Receptionist sends for housekeeping service in vacated room
++
+Use case ends.
+
+[discrete]
+=== UC1.5: Edit Guest's personal particulars
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist identifies Guest using personal particulars (e.g. name, ID, phone number)
+2. 	Receptionist updates Guest details
++
+Use case ends.
+
+[discrete]
+=== UC1.6: Reserve a room for Guest
+
+*System*: `Concierge`, *Actor*: `Receptionist`
+
+*MSS*
+
+1. 	Receptionist views listing of available rooms (UC1.2)
+2.	Receptionist specifies reservation dates
++
+Use case ends.
+
+[discrete]
+=== UC2.1: Edit room rates
+
+*System*: `Concierge`, *Actor*: `Hotel Manager`
+
+*MSS*
+
+1.	Hotel Manager checks the room rates for all room types
+2.	Hotel Manager specifies new room rate for a particular room type
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Hotel Manager specifies an invalid room rate (has to be non-negative integer)
++
+[none]
+**	2a1. System displays an error message that no changes have been made
++
+Use case ends.
+
+[discrete]
+=== UC2.2: Check statistics
+
+*System*: `Concierge`, *Actor*: `Hotel Manager`
+
+*MSS*
+
+1.	Hotel Manager specifies periodicity of earnings to checked-in
++
+Use case ends.
 
 _{More to be added}_
 
@@ -888,8 +1559,15 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 guests without a noticeable sluggishness in performance for typical usage.
+.  Command Line Interface is the primary mode of input. There is a preference for typing over mouse actions or key combinations. One-shot commands are preferred over multi-step commands.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Incremental development: a reasonably consistent delivery rate is expected.
+.  The data should be stored locally and should be in a human editable text file, so that advanced users can manipulate the data by editing the file.
+.  The software should follow the Object-oriented paradigm.
+.  The project will not use a DBMS.
+.  The software should be platform-independent.
+.  The software should work without requiring an installer.
 
 _{More to be added}_
 
@@ -902,30 +1580,320 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[guest]] Guest:;
+A guest staying in the hotel
+
+[[receptionist]] Receptionist::
+Staff at the counter, in-charge of check-in and check-out procedures. They occasionally receive calls from potential guests
+
+[[hotel-manager]] Hotel Manager::
+The one guest in-charge of the entire hotel. Manages staff, guests and facilities
+
+[[housekeeping]] Housekeeping::
+Staff in-charge of cleaning rooms and restoring them to the default configuration for a new Guest to stay
+
+[[facilities]] Facilities::
+Facilities: Any form of services provided within the hotel. These include the spa, gym, game room, casino, laundry, bar, restaurants, etc
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*Cloudbeds*
 
-Author: ...
+* Easy to use: staff are able to learn how to operate the system with minimal training
+* Access to leading travel channels (e.g. booking.com)
+* Custom payment options
+* Group analytics
+* Global currency support
 
-Pros:
+*eZee Frontdesk*
 
-* ...
-* ...
+* Booking Engine, Channel Manager and Restaurant POS in one system
+* Rate management to maximise revenue through seasonal stay rates
 
-Cons:
+*Frontdesk Anywhere*
 
-* ...
-* ...
+* Export guest profiles
+* Data encryption and privilege control for users
+* Sends "Thank You" letters to guests after their stay
+
+*Hotelogix*
+
+* Multi-device booking engine
+
+*MSI CloudPM*
+
+* Automatic back-up on the cloud
+* Access to archived night audit reports
+
+*roomMaster*
+
+* Complete audit trail for all financial transactions
+* Guest history available
+
+[appendix]
+== Market Survey
+
+*Hotel Rendezvous*
+
+* Interviewed via phone about hotel operations
+* For instance, using Hotel Rendezvous as reference, we discovered that hotels only require 1 guest of a booking to provide
+identifications details, thus the responsibility of the guest(s) under that booking falls to him/her.
 
 [appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
+=== Autocomplete
+
+Enter `a` in the command box and press kbd:[Ctrl] +
+Add command word is autocompleted with n/ prefix.
+
+Fill in a name, press kbd:[Space] and kbd:[Ctrl] +
+You will be prompted with the next parameter.
+
+Optional parameters (e.g. [t/TAG] in `add`) are at the back, and are up to you
+ to include.
+
+Press kbd:[Alt] to clear your command box.
+
+Enter `c` in the command box and press kbd:[Ctrl] +
+No autocompletion is in place because there is no unique command that starts
+with `c`. `checkin` and `checkout` are both possible options.
+
+=== Adding a Booking
+
+`add n/Pikachu p/81726354 e/pi@ka.chu t/wheelchair r/047 from/20/11/2018 to/23/11/2018` +
+Unable to execute command because you have not signed-in to Concierge.
+
+`login user/admin pw/passw0rd` +
+Successfully signed-in to Concierge. The previous booking can be successfully
+ made.
+
+`add n/Pikachu p/81726354 e/pi@ka.chu r/049 from/20/11/2018 to/23/11/2018` +
+Pikachu can make a new (inactive)** booking in the same time period but a
+different room.
+
+`add n/Pikachu p/81726354 e/pi@ka.chu r/049 from/16/11/2018 to/20/11/2018` +
+Pikachu can make a new (active)** booking.
+
+`add n/Pikachu p/81726354 e/pi@ka.chu r/049 from/19/11/2018 to/21/11/2018` +
+Unable to make booking because it overlaps with the previous booking.
+
+`add n/Pikachu p/81726354 e/pi@ka.chu r/047 from/14/11/2018 to/17/11/2018` +
+Unable to make booking because it is outdated.
+
+** As of CS2103 Practical Exam which is expected to be on 16 November 2018.
+
+=== Check-in
+
+First, ensure that you have signed in by doing `login user/admin pw/passw0rd`.
+
+* Checking in a room that has an active first booking (i.e. booking period includes today's date)
+** Prerequisites: There is a booking in the room you want to check in. Add an active booking to an empty room by doing: +
+`add n/Pikachu p/81726354 e/pika@chu r/010 from/16/11/2018 to/20/11/2018`
+** Test case: `checkin r/010` +
+Expected: Checks-in the guest Pikachu's booking and adds him to the checked-in guest list.
+
+* Checking in a room that has an expired first booking (i.e. ends before today's date)
+** Prerequisites: There is a booking in the room you want to check in. Room 006 has a preloaded expired booking for you to test.
+** Test case: `checkin r/006` +
+Expected: Cannot check-in room 006 as first booking is already expired.
+
+* Checking in a room that has a upcoming first booking (i.e. starts after today's date)
+** Prerequisites: There is a booking in the room you want to check in. Add an upcoming booking to an empty room by doing: +
+`add n/Pikachu p/81726354 e/pika@chu r/011 from/01/12/2018 to/02/12/2018`
+** Test case: `checkin r/011` +
+Expected: Cannot check-in room 011 as first booking is not active.
+
+* Refer to the user guide to test more edge cases
+
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Checkout
+
+First, ensure that you have signed in by doing `login user/admin pw/passw0rd`.
+
+* Checking out first booking of a room that is not checked-in
+** Prerequisites: There is a booking in the room you want to check out. Add a booking to an empty room by doing: +
+`add n/Pikachu p/81726354 e/pika@chu r/020 from/16/11/2018 to/20/11/2018`
+** Test case: `checkout r/020` +
+Expected: First booking is deleted. Guest of booking is not added into checked-in guest list nor archived guest list.
+
+* Checking out first booking of a room that is checked-in
+** Prerequisites: There is a booking in the room you want to check out. Add an active booking to an empty room by doing: +
+`add n/Raichu p/81726354 e/pika@chu r/021 from/16/11/2018 to/20/11/2018` and check-in by doing `checkin r/021`
+** Test case: `checkout r/021` +
+Expected: First booking is deleted. Guest Raichu is removed from the checked-in guest list as he does not have any other checked-in bookings,
+and is added to the archived guest list.
+
+* Checking out specified booking of a room that is not checked-in
+** Prerequisites: There is a booking in the room you want to check out. Add a booking to an empty room by doing: +
+`add n/Pichu p/81726354 e/pika@chu r/022 from/16/11/2018 to/20/11/2018`
+** Test case: `checkout r/022 from/16/11/18` +
+Expected: Booking is deleted. Guest Pichu is not added into checked-in guest list nor archived guest list.
+
+* Refer to the user guide to test more edge cases
+
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Reassign
+
+First, ensure that you have signed in by doing `login user/admin pw/passw0rd`.
+
+* Reassigning a booking to another room
+** Prerequisites: There is a booking in the room you want to reassign. Room 001 with its preloaded bookings and expenses is a good example to test this.
+** Test case: `reassign r/001 from/16/11/18 nr/030` +
+Expected: Booking in room 001 that starts from 16/11/18 is reassigned to room 030 (which has no bookings prior). Expenses from room 001 are
+also ported over.
+
+* Incorrect commands to try:
+** `reassign r/001 from/32/11/18 nr/002` (invalid command, no such date)
+** `reassign r/005 from/12/11/18 nr/101` (invalid command, no such new room)
+** `reassign r/006 from/1/1/18 nr/007` (room 006 has no such booking)
+** `reassign r/006 from/9/11/18 nr/007` (cannot reassign booking, because room 006 booking is expired)
+
+* Refer to the user guide to test more edge cases
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Login/ logout
+
+`clear` +
+Unable to clear because user is not signed in.
+
+`login user/peanuts pw/peanut0` +
+Invalid login account.
+
+`login user/admin pw/passw0rD` +
+Invalid password. Password is case-sensitive.
+
+`login user/admin pw/passw0rd` +
+Successful login.
+
+`clear` +
+Able to clear Concierge.
+
+`logout` +
+Sign out of Concierge.
+
+`clear` +
+Unable to clear because user is not signed in.
+
+`undo` +
+Unable to undo because the revision history was erased.
+
+=== List
+
+`list -cg` +
+This is the list of guests currently checked-in.
+
+`login user/admin pw/passw0rd` +
+Sign in to Concierge.
+
+`add n/Pikachu p/81726354 e/pi@ka.chu r/059 from/16/11/2018 to/20/11/2018` +
+Add a booking to Concierge.
+
+`checkin r/059` +
+Checks in Pikachu to Concierge.
+
+`list -cg` +
+Pikachu is added to the list of checked-in guests.
+
+`list -r` +
+This is the list of rooms and bookings. The room view is the default view of
+Concierge(TM).
+
+`list -g` +
+This is the view of archived guests. It contains people who have ever checked
+ out of Concierge.
+
+`checkout r/059` +
+Checks out Pikachu from Concierge.
+
+`list -g` +
+Pikachu is added to the list of archived guests.
+
+=== Find
+
+`find -g n/Alex Yu` +
+Find guest(s) with "Alex" or "Yu" or both in their names.
+
+`find -g n/Alex t/VIP` +
+Find guest(s) named Alex with tag "VIP".
+
+`find -cg p/81027115` +
+Find checked-in guest(s) with phone number "81027115".
+
+`find -cg t/VIP` +
+Find checked-in guest(s) with tag "VIP".
+
+`find -r r/085` +
+Find room 085
+
+`find -r c/2` +
+Find all rooms with a capacity of 2.
+
+`find -r c/5 -nb from/ 01/11/2018 to/ 05/11/2018` +
+Find all rooms with a capacity of 5, without any bookings from the date range 01/11/2018 to 05/11/2018.
+
+`find -r -hb` +
+Find all rooms with bookings.
+
+`find -r -hb t/RoomService` +
+Find all rooms with bookings with tag "RoomService".
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Service
+This section assumes that the default `Concierge` is being used.
+
+`select 1` +
+The room details panel should be displayed on the right.
+
+`service r/001 no/RS01` +
+Unable to execute as user is not signed in (assuming user did not already sign in).
+
+`login user/admin pw/passw0rd` +
+Successful login.
+
+`service r/001 no/RS01` +
+Expense was successfully added to the room. Notice that the right panel shows the
+updated expenses.
+
+`undo` +
+Previously added expense was removed, as seen in the right panel.
+
+`redo` +
+Expense is added back.
+
+`service r/001 no/RS02 c/123.45` +
+Expense was successfully added to the room. Note that the cost is 123.45.
+
+`service r/001 no/XX01 c/-5.00` +
+Expense was successfully added to the room. Note that the total cost decreased.
+
+`service r/001 no/abcde` +
+No such item in the menu, command cannot be executed.
+
+`service r/001 no/RS03 c/123` +
+Money not in correct format, command cannot be executed. There are many different
+failing conditions for the money format, they will not all be listed here.
+
+`service r/002 no/RS01` +
+No guests in room 002, command cannot be executed.
+
+`service r/999 no/RS01` +
+Invalid room number, command cannot be executed.
+
+`checkout r/001` +
+Expenses are deleted in the right panel.
 
 === Launch and Shutdown
 
@@ -940,20 +1908,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
 _{ more test cases ... }_
 

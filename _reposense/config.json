@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "adamwth",
+      "displayName": "CHEW ... SOON",
+      "authorNames": ["adamwth", "Adam"]
+    },
+    {
+      "githubId": "pikulet",
+      "displayName": "JOYCE...HUHUI",
+      "authorNames": ["pikulet", "Joyce"]
+    },
+    {
+      "githubId": "neilish3re",
+      "displayName": "NEIL ...MEHTA",
+      "authorNames": ["neilish3re", "Neil Mehta", "Neil"]
+    },
+    {
+      "githubId": "JiaqingTan",
+      "displayName": "TAN J...AQING",
+      "authorNames": ["JiaqingTan"]
+    },
+    {
+      "githubId": "teowz46",
+      "displayName": "TEO W...ZHENG",
+      "authorNames": ["teowz46"]
+    }
+  ]
+}

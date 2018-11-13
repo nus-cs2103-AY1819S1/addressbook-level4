@@ -1,5 +1,8 @@
 package seedu.address;
 
+import static seedu.address.testutil.LogInUtil.VALID_PASSWORD;
+import static seedu.address.testutil.LogInUtil.VALID_USERNAME;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -11,13 +14,15 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Concierge;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyConcierge;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.login.PasswordHashList;
+import seedu.address.storage.Storage;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableConcierge;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -27,26 +32,31 @@ import systemtests.ModelHelper;
  */
 public class TestApp extends MainApp {
 
-    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path CONCIERGE_LOCATION_FOR_TESTING =
+            TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path PASSWORD_LOCATION_FOR_TESTING =
+            TestUtil.getFilePathInSandboxFolder("pass_testing.json");
+
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
-    protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Supplier<ReadOnlyConcierge> initialDataSupplier = () -> null;
+    protected Path conciergeFileLocation = CONCIERGE_LOCATION_FOR_TESTING;
+    protected Path passwordFileLocation = PASSWORD_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyConcierge> initialDataSupplier, Path conciergeFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
-        this.saveFileLocation = saveFileLocation;
+        this.conciergeFileLocation = conciergeFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
+            createDataFileWithData(new XmlSerializableConcierge(this.initialDataSupplier.get()),
+                    this.conciergeFileLocation);
         }
     }
 
@@ -64,18 +74,25 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setConciergeFilePath(conciergeFileLocation);
+        userPrefs.setPasswordsFilePath(passwordFileLocation);
         return userPrefs;
     }
 
+    @Override
+    protected PasswordHashList initPasswordStorage(Storage storage) {
+        return new PasswordHashList()
+                .addEntry(VALID_USERNAME, VALID_PASSWORD);
+    }
+
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of Concierge data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public Concierge readStorageConcierge() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new Concierge(storage.readConcierge().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the Concierge format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -85,15 +102,16 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getConciergeFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager((model.getConcierge()), new UserPrefs());
+        ModelHelper.setFilteredGuestList(copy, model.getFilteredGuestList());
+        ModelHelper.setFilteredRoomList(copy, model.getFilteredRoomList());
         return copy;
     }
 

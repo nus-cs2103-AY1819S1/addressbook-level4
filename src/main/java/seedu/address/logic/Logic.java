@@ -1,10 +1,13 @@
 package seedu.address.logic;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
+import seedu.address.model.guest.Guest;
+import seedu.address.model.room.Room;
 
 /**
  * API of the Logic component
@@ -19,9 +22,27 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of guests */
+    ObservableList<Guest> getFilteredGuestList();
+
+    /** Returns an unmodifiable view of the filtered list of checked-in guests */
+    public ObservableList<Guest> getFilteredCheckedInGuestList();
+
+    /** Returns an unmodifiable view of the filtered list of rooms */
+    ObservableList<Room> getFilteredRoomList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /**
+     * Returns the sorted list of autocomplete commands with given prefix string, encapsulated in a String list
+     * object
+     */
+    List<String> getAutoCompleteCommands(String prefix);
+
+    /**
+     * Returns the next missing parameter with given input text, or an empty string if there is no next prefix
+     */
+    String getAutoCompleteNextParameter(String inputText);
 }

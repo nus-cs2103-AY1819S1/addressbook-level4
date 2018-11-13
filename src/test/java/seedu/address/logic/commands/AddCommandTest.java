@@ -1,77 +1,114 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalBookingPeriods.TODAY_TOMORROW;
+import static seedu.address.testutil.TypicalGuests.ALICE;
+import static seedu.address.testutil.TypicalRoomNumbers.ROOM_NUMBER_002;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.guest.Guest;
+import seedu.address.model.room.RoomNumber;
+import seedu.address.model.room.booking.Booking;
+import seedu.address.model.room.booking.BookingPeriod;
+import seedu.address.testutil.GuestBuilder;
+import seedu.address.testutil.TypicalConcierge;
 
+/**
+ * Refactored to use actual Model, removed ModelStubs
+ */
 public class AddCommandTest {
-
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Model model = new ModelManager(TypicalConcierge.getTypicalConcierge(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullGuest_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        RoomNumber validRoomNumber = ROOM_NUMBER_002;
+        BookingPeriod validBookingPeriod = TODAY_TOMORROW;
+
+        new AddCommand(null, validRoomNumber, validBookingPeriod);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    public void constructor_nullRoomNumber_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        Guest validGuest = ALICE;
+        BookingPeriod validBookingPeriod = TODAY_TOMORROW;
+        new AddCommand(validGuest, null, validBookingPeriod);
+    }
+    @Test
+    public void constructor_nullBookingPeriod_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        Guest validGuest = ALICE;
+        RoomNumber validRoomNumber = ROOM_NUMBER_002;
+        new AddCommand(validGuest, validRoomNumber, null);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_bookingAcceptedByModel_addSuccessful() {
+        Guest validGuest = new GuestBuilder().build();
+        RoomNumber validRoomNumber = ROOM_NUMBER_002;
+        BookingPeriod validBookingPeriod = TODAY_TOMORROW;
+        Booking validBooking = new Booking(validGuest, validBookingPeriod);
+        AddCommand addCommand = new AddCommand(validGuest, validRoomNumber, validBookingPeriod);
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        String expectedMessage =
+            String.format(AddCommand.MESSAGE_SUCCESS, validGuest, validRoomNumber, validBookingPeriod);
+
+        Model expectedModel = new ModelManager(model.getConcierge(), new UserPrefs());
+        expectedModel.addBooking(validRoomNumber, validBooking);
+        expectedModel.commitConcierge();
+
+        assertCommandSuccess(addCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_overlappingBooking_throwsCommandException() {
+        Guest validGuest = new GuestBuilder().build();
+        RoomNumber validRoomNumber = ROOM_NUMBER_002;
+        BookingPeriod validBookingPeriod = TODAY_TOMORROW;
+        Booking validBooking = new Booking(validGuest, validBookingPeriod);
+
+        String expectedMessage = String.format(AddCommand.MESSAGE_OVERLAPPING_BOOKING, validRoomNumber);
+
+        // add first time -> valid
+        model.addBooking(validRoomNumber, validBooking);
+
+        // add second time with same booking period -> throw overlapping booking exception
+        assertCommandFailure(new AddCommand(validGuest, validRoomNumber, validBookingPeriod),
+            model, commandHistory,
+            expectedMessage);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Guest alice = new GuestBuilder().withName("Alice").build();
+        Guest bob = new GuestBuilder().withName("Bob").build();
+        RoomNumber validRoomNumber = ROOM_NUMBER_002;
+        BookingPeriod validBookingPeriod = TODAY_TOMORROW;
+
+        AddCommand addAliceCommand = new AddCommand(alice, validRoomNumber, validBookingPeriod);
+        AddCommand addBobCommand = new AddCommand(bob, validRoomNumber, validBookingPeriod);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddCommand addAliceCommandCopy = new AddCommand(alice, validRoomNumber, validBookingPeriod);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -80,125 +117,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different guest -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }

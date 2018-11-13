@@ -1,5 +1,8 @@
 package seedu.address;
 
+import static seedu.address.model.util.SampleDataUtil.getDefaultPasswordHashList;
+import static seedu.address.model.util.SampleDataUtil.getSampleConcierge;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -20,18 +23,20 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyConcierge;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.login.PasswordHashList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.ConciergeStorage;
+import seedu.address.storage.JsonPasswordsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PasswordsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlConciergeStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -40,7 +45,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -54,7 +59,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Concierge ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -62,8 +67,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ConciergeStorage conciergeStorage = new XmlConciergeStorage(userPrefs.getConciergeFilePath());
+        PasswordsStorage passwordsStorage = new JsonPasswordsStorage(userPrefs.getPasswordsFilePath());
+        storage = new StorageManager(conciergeStorage, userPrefsStorage, passwordsStorage);
 
         initLogging(config);
 
@@ -77,28 +83,33 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s Concierge and {@code userPrefs}. <br>
+     * The data from the sample Concierge will be used instead if {@code storage}'s Concierge is not found,
+     * or an empty Concierge will be used instead if errors occur when reading {@code storage}'s Concierge.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyConcierge> conciergeOptional;
+        ReadOnlyConcierge initialData;
+        PasswordHashList passwordRef = initPasswordStorage(storage);
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            conciergeOptional = storage.readConcierge();
+            if (!conciergeOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Concierge");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData =
+                    conciergeOptional.orElseGet(SampleDataUtil::getSampleConcierge);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with a sample Concierge");
+            initialData = getSampleConcierge();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with a sample Concierge");
+            initialData = getSampleConcierge();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, passwordRef);
     }
 
     private void initLogging(Config config) {
@@ -159,7 +170,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Concierge");
             initializedPrefs = new UserPrefs();
         }
 
@@ -173,19 +184,56 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+    /**
+     * Returns a {@code PasswordHashList} using the storage data.
+     * If there is an invalid or missing passwords.json file, then an empty
+     * one with the default data will be created.
+     */
+    protected PasswordHashList initPasswordStorage(Storage storage) {
+        PasswordHashList passwords;
+
+        try {
+            Optional<PasswordHashList> passwordsOptional = storage.readPasswordRef();
+            if (!passwordsOptional.isPresent()) {
+                logger.info("Password file not found. "
+                        + "Will be starting with a sample login account.");
+            }
+
+            passwords =
+                    passwordsOptional.orElseGet(SampleDataUtil::getDefaultPasswordHashList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. "
+                    + "Will be starting with a sample login account.");
+            passwords = getDefaultPasswordHashList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. "
+                    + "Will be starting with a sample login account.");
+            passwords = getDefaultPasswordHashList();
+        }
+
+        // Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.savePasswordRef(passwords);
+        } catch (IOException e) {
+            logger.warning("Failed to save password file : " + StringUtil.getDetails(e));
+        }
+
+        return passwords;
+    }
+
     private void initEventsCenter() {
         EventsCenter.getInstance().registerHandler(this);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Concierge " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Concierge ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

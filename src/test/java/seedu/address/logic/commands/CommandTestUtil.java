@@ -2,12 +2,21 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_ROOM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.PasswordHashUtil.hash;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,59 +24,95 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Concierge;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.guest.Guest;
+import seedu.address.model.guest.GuestNameContainsKeywordsPredicate;
+import seedu.address.model.guest.Name;
+import seedu.address.model.room.Room;
+import seedu.address.model.room.RoomNumberExactPredicate;
+import seedu.address.model.room.booking.BookingPeriod;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
+    // Utility strings
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_HANDICAP = "handicap";
+    public static final String VALID_ROOM_NUMBER_AMY = "080";
+    public static final String VALID_ROOM_NUMBER_BOB = "081";
+    public static final String VALID_DATE_START_AMY =
+            LocalDate.now().format(BookingPeriod.DATE_TO_STRING_FORMAT);
+    public static final String VALID_DATE_END_AMY =
+            LocalDate.now().plusDays(3).format(BookingPeriod.DATE_TO_STRING_FORMAT);
+    public static final String VALID_DATE_START_BOB =
+            LocalDate.now().format(BookingPeriod.DATE_TO_STRING_FORMAT);
+    public static final String VALID_DATE_END_BOB =
+            LocalDate.now().plusWeeks(1).format(BookingPeriod.DATE_TO_STRING_FORMAT);
+    public static final String VALID_ITEM_NUMBER_RS01 = "RS01";
+    public static final String VALID_ITEM_NUMBER_RS02 = "RS02";
+    public static final String VALID_COST_1 = "123.45";
+    public static final String VALID_COST_2 = "678.90";
+    public static final String VALID_USERNAME_1 = "user1";
+    public static final String VALID_USERNAME_2 = "USER!@2";
+    public static final String VALID_PASSWORD_1 = "%%%%";
+    public static final String HASHED_PASSWORD_1 = hash(VALID_PASSWORD_1);
+    public static final String VALID_PASSWORD_2 = "^@!*&#^*&@!SADSA";
+    public static final String HASHED_PASSWORD_2 = hash(VALID_PASSWORD_2);
 
+    // Identifier strings
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String GUEST_DESC_AMY = " " + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+    public static final String GUEST_DESC_BOB = " " + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String ROOM_DESC_AMY = " " + PREFIX_ROOM + VALID_ROOM_NUMBER_AMY;
+    public static final String ROOM_DESC_BOB = " " + PREFIX_ROOM + VALID_ROOM_NUMBER_BOB;
+    public static final String DATE_START_DESC_AMY = " " + PREFIX_DATE_START + " " + VALID_DATE_START_AMY;
+    public static final String DATE_END_DESC_AMY = " " + PREFIX_DATE_END + " " + VALID_DATE_END_AMY;
+    public static final String DATE_START_DESC_BOB = " " + PREFIX_DATE_START + " " + VALID_DATE_START_BOB;
+    public static final String DATE_END_DESC_BOB = " " + PREFIX_DATE_END + " " + VALID_DATE_END_BOB;
+    public static final String ITEM_NUMBER_DESC_RS01 = " " + PREFIX_ITEM_NUMBER + VALID_ITEM_NUMBER_RS01;
+    public static final String ITEM_NUMBER_DESC_RS02 = " " + PREFIX_ITEM_NUMBER + VALID_ITEM_NUMBER_RS02;
+    public static final String COST_DESC_1 = " " + PREFIX_COST + VALID_COST_1;
+    public static final String COST_DESC_2 = " " + PREFIX_COST + VALID_COST_2;
+    public static final String USERNAME_DESC_1 = " " + PREFIX_USERNAME + VALID_USERNAME_1;
+    public static final String USERNAME_DESC_2 = " " + PREFIX_USERNAME + VALID_USERNAME_2;
+    public static final String PASSWORD_DESC_1 = " " + PREFIX_PASSWORD + VALID_USERNAME_1;
+    public static final String PASSWORD_DESC_2 = " " + PREFIX_PASSWORD + VALID_PASSWORD_2;
 
+    // New value strings
+    public static final String NEW_ROOM_DESC_AMY = " " + PREFIX_NEW_ROOM + " " + VALID_ROOM_NUMBER_AMY;
+    public static final String NEW_ROOM_DESC_BOB = " " + PREFIX_NEW_ROOM + " " + VALID_ROOM_NUMBER_BOB;
+
+    // Invalid strings
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_ROOM_DESC = " " + PREFIX_ROOM + "101"; // rooms only valid from 001 to 100.
+    public static final String INVALID_DATE_START_DESC =
+            " " + PREFIX_DATE_START + "138213"; // date has to be in dd/MM/yyyy format
+    public static final String INVALID_DATE_END_DESC =
+            " " + PREFIX_DATE_END + "33/33/3333"; // invalid month format
+    public static final String INVALID_COST_DESC = " " + PREFIX_COST + "123"; // must have both dollars and cents
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -84,7 +129,7 @@ public class CommandTestUtil {
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
+            throw new AssertionError("Execution of command should not fail. Failure reason: " + ce.getMessage(), ce);
         }
     }
 
@@ -92,15 +137,15 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - Concierge and the filtered guest list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        Concierge expectedConcierge = new Concierge(actualModel.getConcierge());
+        List<Guest> expectedFilteredList = new ArrayList<>(actualModel.getFilteredGuestList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -109,33 +154,62 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedConcierge, actualModel.getConcierge());
+            assertEquals(expectedFilteredList, actualModel.getFilteredGuestList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the guest at the given {@code targetIndex} in the
+     * {@code model}'s Concierge.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showGuestAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredGuestList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Guest guest = model.getFilteredGuestList().get(targetIndex.getZeroBased());
+        final String[] splitName = guest.getName().fullName.split("\\s+");
+        model.updateFilteredGuestList(new GuestNameContainsKeywordsPredicate(Arrays.asList(new Name(splitName[0]))));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredGuestList().size());
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the checked-in guest at the given {@code targetIndex} in the
+     * {@code model}'s Concierge.
      */
-    public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
-        model.commitAddressBook();
+    public static void showCheckedInGuestAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCheckedInGuestList().size());
+
+        Guest guest = model.getFilteredCheckedInGuestList().get(targetIndex.getZeroBased());
+        final String[] splitName = guest.getName().fullName.split("\\s+");
+        List<Name> nameList = new ArrayList<>();
+        nameList.add(new Name(splitName[0]));
+        model.updateFilteredCheckedInGuestList(new GuestNameContainsKeywordsPredicate(nameList));
+
+        assertEquals(1, model.getFilteredCheckedInGuestList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the room at the given {@code targetIndex} in the
+     * {@code model}'s Concierge.
+     */
+    public static void showRoomAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredRoomList().size());
+
+        Room room = model.getFilteredRoomList().get(targetIndex.getZeroBased());
+        model.updateFilteredRoomList(new RoomNumberExactPredicate(room.getRoomNumber()));
+
+        assertEquals(1, model.getFilteredRoomList().size());
+    }
+
+    /**
+     * Deletes the first guest in {@code model}'s filtered list from {@code model}'s Concierge.
+     */
+    public static void deleteFirstGuest(Model model) {
+        Guest firstGuest = model.getFilteredGuestList().get(0);
+        model.deleteGuest(firstGuest);
+        model.commitConcierge();
     }
 
 }

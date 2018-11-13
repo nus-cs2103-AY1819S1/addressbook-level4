@@ -1,0 +1,112 @@
+= Joyce Yeo Shuhui - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: image:ConciergeFinal.png[width="200"]
+
+---
+
+== Overview
+
+https://github.com/CS2103-AY1819S1-F11-2/main[Concierge(TM)] is a desktop
+hotel management application for receptionists to handle potential bookings
+and current guests. The user interacts with it using a CLI, and it has a GUI
+created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+[TIP]
+Access my contributed code
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=pikulet[here].
+
+*Major enhancement*: added *the ability to login/logout* of the system. +
+
+* What it does: Allows users to login to Concierge and access restricted
+commands which mutate the data.
+* Significance:  With this feature, hotel managers can implement some level
+of access control. Some features more commonly used (`find`, `list`) can
+still be accessed without signing in. By combining this with the ability
+ to export the command history, the auditing process for rogue commands is
+ expedited.
+* Highlights:
+** The login/logout feature is dynamic - the users are not prompted to sign in
+upon starting Concierge, and users can logout and log back in within the same
+ session. This means that there is a very close integration with the existing
+  commands to verify the sign-in status and whether the commands require
+  signing-in.
+** This feature is complete - I worked with the different architectural
+components of Concierge, from command parsing (`Logic`) to login verification
+ (`Model`) and even password storage (`Storage`).
+** The feature attempts to achieve some level of security with SHA-256
+hashing.
+* Credits: The password hash algorithm was taken from https://www.baeldung.com/sha-256-hashing-java[Baeldung].
+* These features were mainly achieved in
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/168[#168] and
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/226[#226].
+
+*Minor enhancements/ code contributed*:
+
+* https://github.com/CS2103-AY1819S1-F11-2/main/pull/133[Renamed]
+ the existing classes and methods from `Person` to `Guest`
+* Removed https://github.com/CS2103-AY1819S1-F11-2/main/pull/143[`Address`]
+ as a field in `Person`, removed the
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/233[edit] and
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/139[delete] commands
+* Modified the https://github.com/CS2103-AY1819S1-F11-2/main/pull/104[`add`]
+command to take in room and date details. Room and Booking package by others.
+* Modified the https://github.com/CS2103-AY1819S1-F11-2/main/pull/162[`clear`]
+ command to maintain empty hotel rooms
+* Added function for
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/162[GUI verification of rooms]
+* Added most of the
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/42[Appendices] in the
+Developer Guide
+
+*Project Management*:
+
+* Managed the team's issue tracker
+* Encouraged team to use clean PRs, TODO and Codacy
+* Set up https://github.com/CS2103-AY1819S1-F11-2/main/pull/159[RepoSense] for
+ the team
+* Community
+** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/157[#157],
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/71[#71],
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/156[#156],
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/111[#111],
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/100[#100],
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/222[#222],
+https://github.com/CS2103-AY1819S1-F11-2/main/pull/219[#219]
+** Reported bugs and suggestions for other teams in the class
+*** https://github.com/CS2103-AY1819S1-W14-3/main/issues/161[Discovered impersistence in data],
+https://github.com/CS2103-AY1819S1-W14-3/main/issues/148[discovered hidden bug by rearranging command],
+https://github.com/CS2103-AY1819S1-W14-3/main/issues/157[made suggestion on bounds checking]
+
+== Contributions to the User Guide
+
+|===
+|_My contributions to the User Guide below showcase my ability to write
+documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=loginlogout]
+
+== Contributions to the Developer Guide
+
+|===
+|_My contributions to the Developer Guide below showcase my ability to write
+technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=add]
+
+include::../DeveloperGuide.adoc[tag=loginlogout]
+
+== End Note
+
+I am grateful to have had the opportunity to work on this project with
+amazing team members who each contributed with their own strengths. Thank
+you, @adamwth @teowz46 @JiaqingTan @neilish3re.

@@ -6,34 +6,57 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.guest.Guest;
+import seedu.address.model.room.Room;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
  */
 public class ModelHelper {
-    private static final Predicate<Person> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+
+    private static final Predicate<Guest> PREDICATE_MATCHING_NO_GUESTS = unused -> false;
+    private static final Predicate<Room> PREDICATE_MATCHING_NO_ROOMS = unused -> false;
 
     /**
-     * Updates {@code model}'s filtered list to display only {@code toDisplay}.
+     * Updates {@code model}'s filtered guest list to display only {@code
+     * toDisplay}.
      */
-    public static void setFilteredList(Model model, List<Person> toDisplay) {
-        Optional<Predicate<Person>> predicate =
-                toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
-        model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+    public static void setFilteredGuestList(Model model, List<Guest> toDisplay) {
+        Optional<Predicate<Guest>> predicate =
+                toDisplay.stream().map(ModelHelper::getPredicateMatchingGuest).reduce(Predicate::or);
+        model.updateFilteredGuestList(predicate.orElse(PREDICATE_MATCHING_NO_GUESTS));
     }
 
     /**
-     * @see ModelHelper#setFilteredList(Model, List)
+     * @see ModelHelper#setFilteredGuestList(Model, List)
      */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
+    public static void setFilteredGuestList(Model model, Guest... toDisplay) {
+        setFilteredGuestList(model, Arrays.asList(toDisplay));
     }
 
     /**
-     * Returns a predicate that evaluates to true if this {@code Person} equals to {@code other}.
+     * Returns a predicate that evaluates to true if this {@code Guest} equals to {@code other}.
      */
-    private static Predicate<Person> getPredicateMatching(Person other) {
-        return person -> person.equals(other);
+    private static Predicate<Guest> getPredicateMatchingGuest(Guest other) {
+        return guest -> guest.equals(other);
+    }
+
+    /**
+     * Updates {@code model}'s filtered room list to display only
+     * {@code roomsToDisplay}.
+     */
+    public static void setFilteredRoomList(Model model,
+                                           List<Room> roomsToDisplay) {
+        Optional<Predicate<Room>> predicate =
+                roomsToDisplay.stream().map(ModelHelper::getPredicateMatchingRoom).reduce(Predicate::or);
+        model.updateFilteredRoomList(predicate.orElse(PREDICATE_MATCHING_NO_ROOMS));
+    }
+
+    /**
+     * Returns a predicate that evaluates to true if this {@code Room} equals to
+     * {@code other}.
+     */
+    private static Predicate<Room> getPredicateMatchingRoom(Room other) {
+        return room -> room.equals(other);
     }
 }

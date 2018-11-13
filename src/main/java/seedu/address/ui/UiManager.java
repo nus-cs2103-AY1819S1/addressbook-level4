@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.FLAG_CHECKED_IN_GUEST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_GUEST;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ROOM;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -14,6 +18,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.DeselectGuestListEvent;
+import seedu.address.commons.events.ui.ListingChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -30,7 +36,7 @@ public class UiManager extends ComponentManager implements Ui {
     public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/concierge_icon.png";
 
     private Logic logic;
     private Config config;
@@ -66,7 +72,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -116,5 +121,58 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait(FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE, FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE,
                 event.exception);
+    }
+
+    @Subscribe
+    private void handleListingChangeEvent(ListingChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        if (event.getFlag().equals(FLAG_GUEST)) {
+            setDisplayGuestList();
+            showGuestList();
+            showGuestDetailedPanel();
+            mainWindow.clearGuestSelection();
+        } else if (event.getFlag().equals(FLAG_ROOM)) {
+            showRoomList();
+            showRoomDetailedPanel();
+            mainWindow.clearRoomSelection();
+        } else if (event.getFlag().equals(FLAG_CHECKED_IN_GUEST)) {
+            setDisplayCheckedInGuestList();
+            showGuestList();
+            showGuestDetailedPanel();
+            mainWindow.clearGuestSelection();
+        }
+    }
+
+    @Subscribe
+    private void handleDeselectGuestListEvent(DeselectGuestListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.clearGuestSelection();
+    }
+
+    //==================== UI Visibility Functions ============================================================
+
+    private void showGuestList() {
+        mainWindow.showGuestList();
+    }
+
+    private void setDisplayCheckedInGuestList() {
+        mainWindow.setGuestListPanelDisplayCheckedInGuestList();
+    }
+
+    private void setDisplayGuestList() {
+        mainWindow.setGuestListPanelDisplayGuestList();
+    }
+
+    private void showRoomList() {
+        mainWindow.showRoomList();
+    }
+
+    private void showGuestDetailedPanel() {
+        mainWindow.showGuestDetailedPanel();
+    }
+
+    private void showRoomDetailedPanel() {
+        mainWindow.showRoomDetailedPanel();
     }
 }

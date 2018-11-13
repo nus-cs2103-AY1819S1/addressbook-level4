@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -34,14 +35,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private GuestListPanel guestListPanel;
+    private RoomListPanel roomListPanel;
+    private GuestDetailedPanel guestDetailedPanel;
+    private RoomDetailedPanel roomDetailedPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,13 +50,35 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane guestListPanelPlaceholder;
+
+    @FXML
+    private StackPane roomListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox guestListBox;
+
+    @FXML
+    private VBox roomListBox;
+
+    @FXML
+    private StackPane guestDetailedPanelPlaceholder;
+
+    @FXML
+    private StackPane roomDetailedPanelPlaceholder;
+
+    @FXML
+    private VBox guestDetailedBox;
+
+    @FXML
+    private VBox roomDetailedBox;
+
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -117,22 +139,32 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Fills up all the placeholders of this window.
+     * Initial state only displays guest list and detailed guest panel.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        guestListPanel = new GuestListPanel(logic.getFilteredGuestList());
+        guestListPanelPlaceholder.getChildren().add(guestListPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        roomListPanel = new RoomListPanel(logic.getFilteredRoomList());
+        roomListPanelPlaceholder.getChildren().add(roomListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getConciergeFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        guestDetailedPanel = new GuestDetailedPanel();
+        guestDetailedPanelPlaceholder.getChildren().add(guestDetailedPanel.getRoot());
+
+        roomDetailedPanel = new RoomDetailedPanel();
+        roomDetailedPanelPlaceholder.getChildren().add(roomDetailedPanel.getRoot());
+
+        this.showRoomList();
+        this.showRoomDetailedPanel();
     }
 
     void hide() {
@@ -169,6 +201,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
+            helpWindow = new HelpWindow();
             helpWindow.show();
         } else {
             helpWindow.focus();
@@ -187,17 +220,91 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * UI Visibility Function - Enables guest-related list, disables room-related list UI elements
+     */
+    public void showGuestList() {
+        roomListBox.setDisable(true);
+        roomListBox.setVisible(false);
+        guestListBox.setDisable(false);
+        guestListBox.setVisible(true);
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
+    /**
+     * UI Visibility Functions - Enables room-related list, disables guest-related list UI elements
+     */
+    public void showRoomList() {
+        roomListBox.setDisable(false);
+        roomListBox.setVisible(true);
+        guestListBox.setDisable(true);
+        guestListBox.setVisible(false);
+    }
+
+    /**
+     * UI Visibility Functions -  Enables guest-related detailed list, disables room-related detailed list UI elements
+     */
+    public void showGuestDetailedPanel() {
+        guestDetailedBox.setDisable(false);
+        guestDetailedBox.setVisible(true);
+        roomDetailedBox.setDisable(true);
+        roomDetailedBox.setVisible(false);
+    }
+
+    /**
+     * UI Visibility Functions - Enables room-related detailed list, disables guest-related detailed list UI elements
+     */
+    public void showRoomDetailedPanel() {
+        guestDetailedBox.setDisable(true);
+        guestDetailedBox.setVisible(false);
+        roomDetailedBox.setDisable(false);
+        roomDetailedBox.setVisible(true);
+    }
+
+    /**
+     * Sets the observable list of the guest list panel to be the list of checked-in guests
+     */
+    public void setGuestListPanelDisplayCheckedInGuestList() {
+        guestListPanel = new GuestListPanel(logic.getFilteredCheckedInGuestList());
+        guestListPanelPlaceholder.getChildren().add(guestListPanel.getRoot());
+    }
+
+    /**
+     * Sets the observable list of the guest list panel to be the list of archived guests
+     */
+    public void setGuestListPanelDisplayGuestList() {
+        guestListPanel = new GuestListPanel(logic.getFilteredGuestList());
+        guestListPanelPlaceholder.getChildren().add(guestListPanel.getRoot());
+    }
+
+    public GuestListPanel getGuestListPanel() {
+        return guestListPanel;
+    }
+
+    public boolean isGuestListVisible() {
+        return guestListBox.isVisible();
+    }
+
+    public boolean isRoomListVisible() {
+        return roomListBox.isVisible();
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    /**
+     * Clears the guest detailed panel
+     */
+    public void clearGuestSelection() {
+        guestDetailedPanel.clearSelection();
+    }
+
+    /**
+     * Clears the room detailed panel
+     */
+    public void clearRoomSelection() {
+        roomDetailedPanel.clearSelection();
     }
 }

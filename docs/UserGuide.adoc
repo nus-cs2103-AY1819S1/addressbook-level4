@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Concierge(TM) v1.4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,22 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F11-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Concierge(TM)`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Concierge(TM) is created for *hotel managers and receptionists* of small hotels looking for a simple application to *assist
+the user in hotel management*. More importantly, Concierge(TM) is *optimized for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Concierge(TM) can get your
+hotel management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `concierge.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Concierge(TM).
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,12 +36,71 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list -r`* : lists all rooms
+* **`checkin`**`r/001` : checks in the first booking of room 001
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+
+[[Terminology]]
+//tag::terminology[]
+== Terminology
+Some important things that you should know before using Concierge(TM)
+
+====
+
+* Room numbers must be a *3-digit number from 001 to 100*. For example,
+** 001, 050, 074, 100 are valid
+** 000, 01, 99, 101 are invalid
+
+* The format used for dates is *d/M/y*, whereby
+** *d* - Day can be 1 or 2 digits
+** *M* - Month can be 1 or 2 digits
+** *y* - Year can be 2 or 4 digits (if 2 digits, date is assumed to be in the current century)
+
+* A *Booking* ...
+** is *Active* if the period between its start and end date includes today's date, inclusively.
+** is *Upcoming* if its start date is strictly after today's date.
+** is *Expired* if its end date is strictly before today's date.
+** is *Outdated* if its start date is strictly before today's date.
+** is *Overlapping* with another booking if its start date is strictly before the other's end date AND the other's start date is strictly before its end date
+** can be uniquely identified by its start date.
+
+* Two *guests* are...
+** *different* if they have different names
+** *different* if they have the same name AND both their phone numbers and emails are different
+** *same* if they have the same name AND either their phone number or email, or both, are the same
+
+* There are 2 guest lists:
+** *Checked-in guest list* contains all the guests who are currently checked-in.
+** *Archived guest list* contains all guests who have ever stayed in the hotel before.
+** Therefore, it is possible for a guest who has made a booking to be in
+*** neither lists - guest has yet to check-in and has never stayed in the hotel before
+*** checked-in guest list only - guest has checked-in and has never stayed in the hotel before
+*** archived guest list only - guest has not checked-in and has stayed in the hotel before
+*** both lists - guest has checked-in and has stayed in the hotel before
+
+====
+
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-key.png[Login requirement,45,45,pdfwidth=50%,scaledwidth=50%]
+|This is a `login` icon. If a command requires login before execution, this icon will be located on its right in its title.
+|===
+
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[Important info]
+|This is a *important* icon. You should read the information in these before executing the command, as it will likely
+affect what you can or cannot do.
+|===
+
+[TIP]
+This is a *tip* icon. You may want to read this if you are new to Concierge(TM).
+
+//end::terminology[]
+
 
 [[Features]]
 == Features
@@ -52,144 +114,396 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+//tag::add[]
+=== Adding a booking: `add` image:icon-key.png[width="32"]
 
-Format: `help`
+Adds a booking associated with a guest, room and booking period. +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG] r/ROOM_NUMBER from/START_DATE to/END_DATE`
 
-=== Adding a person: `add`
+[NOTE]
+A valid booking cannot clash with an existing booking. It must also have a
+  start date from today onwards (i.e. not outdated).
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+****
+* A guest can have any number of tags (including 0)
+* A guest can make an unlimited number of bookings with the hotel.
+* When adding a booking, the guest will *not* be added to the archived guest list or checked-in guest list.
+Their personal information will be stored under their booking in the room.
+****
+
+Example: `add n/John Smith p/98765432 e/johnsmith@gmail.com t/VIP r/085
+from/17/12/18 to/19/12/18`
+
+Add a guest "John Smith" to room 085 for the period of stay from 17/12/18 to
+19/12/18.
+
+Adding an inactive booking: you can view the booking by selecting the
+relevant room, under "All other bookings". Only active bookings (i.e. start
+date is today) can be seen on the left room pane.
+
+image::AddCommand-userguide-notactive.png[width="800"]
+// end::add[]
+
+//tag::checkin[]
+=== Check-in room: `checkin` image:icon-key.png[width="32"]
+
+Checks in the first booking of a room. The guest who made the booking will be added to
+the checked-in guest list.
+
+****
+* If the guest's name is not found in any of the entries in the checked-in guest list, then a new entry will be created.
+* Suppose there is already an entry with the same name as the guest in the checked-in guest list.
+** If both the guest's phone number and email are the same as the ones found in the entry, or only one of them is different,
+then he/she is *treated as the same guest as the one in the entry, and thus the entry will not be updated*.
+** If both the guest's phone number and email are different from the ones found in the entry,
+then he/she is *treated as a different guest from the one in the entry, and a new entry will be created*.
+****
+
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[Important info]
+|Expired and upcoming bookings *cannot* be checked-in.
+|===
+
+Format: `checkin r/ROOM_NUMBER`
+
+
+Examples:
+
+* `checkin r/085` +
+Checks in room 085, marks room 085's current booking as checked-in, and adds the guest who made the booking
+to the checked-in guest list.
+//end::checkin[]
+
+//tag::checkout[]
+=== Checkout room: `checkout` image:icon-key.png[width="32"]
+
+Checks out the room's first (i.e. earliest) booking, or its booking with the specified start date.
+Also updates the checked-in guest list and archived guest list with the guest who made the booking.
+
+****
+* If the guest does not have any other checked-in bookings, then he/she will be removed from the checked-in
+guest list. Otherwise, he/she will *not* be removed from the checked-in guest list.
+* If the guest has checked-in, he/she will be added to the archived guest list.
+** If the guest's name is not found in any of the entries in the archived guest list, then a new entry will be created.
+** Suppose there is already an entry with the same name as the guest in the archived guest list.
+*** If both the guest's phone number and email are the same as the ones found in the entry, or only one of them is different,
+then he/she is *treated as the same guest as the one in the entry, and thus the entry will not be updated*.
+*** If both the guest's phone number and email are different from the ones found in the entry,
+then he/she is *treated as a different guest from the one in the entry, and a new entry will be created*.
+****
 
 [TIP]
-A person can have any number of tags (including 0)
+`checkout` 's intended use is the deletion of any booking.
+ This means that you can delete a non-checked-in booking using `checkout`.
+
+Format: `checkout r/ROOM_NUMBER [from/START_DATE]`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `checkout r/085` +
+Checks out room 085 and the room's first booking.
+* `checkout r/085 from/01/11/18`
+Checks out the booking with start date 01/11/18 from room 085.
+//end::checkout[]
 
-=== Listing all persons : `list`
+//tag::reassign[]
+=== Reassigning a guest to another room : `reassign` image:icon-key.png[width="32"]
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Reassigns a booking from one room to another. The room's expenses will also be ported over to the new room.
 
-=== Editing a person : `edit`
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[role="center"]
+| You can reassign a booking only if:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* The new room is different from the original.
+* Neither the booking nor any of the new room's bookings are expired.
+* The booking does not overlap with any of the new room's bookings.
+* If the booking ends the same day that the new room's first booking starts, the new room's first booking cannot be checked-in.
+* If the booking starts the same day that the new room's first booking ends, the booking cannot be checked-in.
+|===
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+
+Format: `reassign r/ROOM_NUMBER from/START_DATE nr/NEW_ROOM_NUMBER`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `reassign r/085 from/01/11/18 nr/086` +
+Reassigns the booking with start date 01/11/18 in room 085 to room 086.
+//end::reassign[]
 
-=== Locating persons by name: `find`
+//tag::find[]
+=== Locating guests and rooms : `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds guests or rooms, depending on the input flag and the keyword filters.
+
+Format: `find FLAG FILTER [MOREFILTERS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Guests names and tags matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Any number of filters can be chained and used together
 ****
+
+Filters for Guest / Checked-in Guests (-g/-cg):
+
+* `n/` - Name
+* `p/` - Phone Number
+* `e/` - Email Address
+* `t/` - Tags
+
+Filters for Rooms (-r):
+
+* `r/` - Room Number
+* `c/` - Capacity
+* `t/` - Room Tags
+* `n/` - Guest name within bookings
+
+* `-hb` - Has Bookings Flag*
+* `-nb` - No Bookings Flag*
+* `from/` - Booking Start Date^
+* `to/` - Booking End Date^
+
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[Important info]
+|
+Flags marked with * cannot be used together in the same command. +
+These flags can be used independently, or with flags marked with ^ .
+|===
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+=======
+* `find -g n/Alex Yu` +
+Find guest(s) with "Alex" or "Yu" or both in their names.
+* `find -g n/Alex t/VIP` +
+Find guest(s) named Alex with tag "VIP".
+* `find -cg p/81027115` +
+Find checked-in guest(s) with phone number "81027115".
+* `find -cg t/VIP` +
+Find checked-in guest(s) with tag "VIP".
+* `find -r r/085` +
+Find room 085
+* `find -r c/2` +
+Find all rooms with a capacity of 2.
+* `find -r c/5 -nb from/ 01/11/2018 to/ 05/11/2018` +
+Find all rooms with a capacity of 5, without any bookings from the date range 01/11/2018 to 05/11/2018.
+* `find -r -hb` +
+Find all rooms with bookings.
+* `find -r -hb t/RoomService` +
+Find all rooms with bookings with tag "RoomService".
+=======
 
-=== Deleting a person : `delete`
+//end::find[]
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+// tag::list[]
+=== Listing all guests : `list`
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Shows the entire list of rooms, checked-in guests, or archived guests, depending on the input flag +
+Format: `list FLAG`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `list -r` +
+List all rooms
+* `list -g` +
+List all archived guests
+* `list -cg` +
+List all checked-in guests
+// end::list[]
 
-=== Selecting a person : `select`
+// tag::loginlogout[]
+=== Login : `login`
 
-Selects the person identified by the index number used in the displayed person list. +
+Logs in to the Concierge(TM) application. +
+Format: `login user/USERNAME pw/PASSWORD`
+
+Note: The username and password are both case-sensitive.
+
+[TIP]
+The default account can be accessed with `login user/admin pw/passw0rd`
+
+A login allows the user to access the commands which can affect the
+bookings. +
+Commands which require login: `add`, `checkin`, `checkout`,
+`reassign`, `service` and `clear`.
+
+Example: `login user/admin pw/passw0rd`
+
+`clear` +
+`"This command requires you to sign in."` +
+Attempting to clear Concierge(TM) without a login is not allowed.
+
+`login user/admin pw/passw0rd` +
+`"Successfully signed in as: admin"` +
+Login with a valid account, such as the default one provided.
+
+After signing in, the `clear` command can now be executed.
+
+==== Adding a new account
+
+ Currently, Concierge(TM) does not have a feature for users to add an account via the app. Nevertheless, for the adventurous users who want to do so, this sub-section will be useful.
+
+Step 1: Concierge(TM) uses SHA-256 password hashing. This hash for your
+*password* can be generated using this
+https://passwordsgenerator.net/sha256-hash-generator/[tool].
+
+[NOTE]
+ Concierge(TM) is designed to work for alphanumeric usernames and passwords in
+ mind. Do not enter symbols (!, @, %...). Do not begin or end your passwords
+ with whitespaces.
+
+Step 2: Add the entry to the `passwords.json` file. This should be in the
+same location as `concierge.jar`. Note that entries are separated with a
+comma. +
+Format: `"username" : "hashedPassword"`
+
+In the image below, a new account with username "newUser" and password
+"mySecurePassw0rd" has been added.
+
+image::LogInCommand-addpasswordentry.png[width="900"]
+
+Step 3: Close and reload the Concierge(TM) application, and your new account
+will be recognised.
+
+[NOTE]
+ The parsing of the `passwords.json` file is delicate. Currently, if you
+ enter a valid json file format but an incorrect password reference list
+ format, you will end up with no default account. To resolve this, delete the
+  `passwords.json` file and re-run Concierge(TM).
+
+=== Logout : `logout`
+
+Logs out of the Concierge(TM) application. +
+Format: `logout`
+
+* The special classes of commands (as documented in <<Login : `login`,
+login>>) can no longer be executed.
+* The `logout` command will erase the command history, so users cannot undo/
+redo commands executed before the logout.
+** Even if you login again, you cannot
+ undo your previous actions.
+** This achieves the same effect as closing and re-opening Concierge(TM)
+after a logout.
+
+Example: `logout`
+
+// end::loginlogout[]
+
+=== Selecting a guest : `select`
+
+Selects the guest or room identified by the index number used in the displayed list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Selects the guest or room and displays its information in the detailed panel on the right.
+* The index refers to the index number shown in the displayed list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
-* `list` +
+* `list -g` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 2nd guest in the displayed list.
+* `list -r` +
+`select 100` +
+Selects the 100th room in the displayed list.
+
+// tag::service[]
+=== Provide Room Service: `service` image:icon-key.png[width="32"]
+
+Charges a room service to a room  +
+Format: `service r/ROOM_NUMBER no/ITEM_NUMBER [c/COST]`
+
+`ITEM_NUMBER` refers to the number in the menu given to each type of service offered by the hotel.
+The default Menu that comes with Concierge(TM) consists of the following items:
+
+* *RS01* -- Room service: Red wine -- $50.00
+* *RS02* -- Room service: Beef steak -- $70.00
+* *RS03* -- Room service: Thai massage -- $100.00
+* *MB01* -- Minibar: Coca cola -- $3.00
+* *MB02* -- Minibar: Sprite -- $3.00
+* *MB03* -- Minibar: Tiger beer -- $6.00
+* *MB04* -- Minibar: Mineral water -- $3.00
+* *SP01* -- Swimming pool: Entry -- $5.00
+* *XX01* -- Adjustment: Discount -- $0.00
+* *XX02* -- Adjustment: Typo -- $0.00
+
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[role="center"]
+|
+* The cost can be specified if the guest is to be charged an amount that is
+  different from the cost in the menu. Note that the cost has to follow a strict format
+  such as 100.00, i.e. with two decimal places. The dollar part of the cost should also
+  not exceed `Integer.MAX_VALUE`.
+* Only occupied rooms (i.e. rooms with checked-in guests) can have expenses charged to it.
+* Items in the Menu may be modified, added, or removed through `concierge.xml`.
+  Only item numbers from the Menu (case-sensitive) may be used in the `service` command.
+  Future versions will allow displaying of the Menu on the main app.
+|===
+
+[TIP]
+Negative values can be used in `service` command. This can be used in cases such as when
+a guest uses a voucher, hence allowing the total expenses to be reduced. Negative
+values can also be charged if the user wants to remove or edit an existing expense.
+The two expense types, XX01 and XX02, were thus created for the purpose of adjustments.
+
+Examples:
+
+* `service r/085 no/RS01` +
+Adds an expenditure of the item *RS01* to the room's expenses.
+
+* `service r/096 no/RS03 c/12.34` +
+Adds an expenditure of the item *RS03* to the room's expenses and charge $12.34 for it.
+// end::service[]
 
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[Important info]
+|Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous
+and next input respectively in the command box.
+|===
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the Concierge(TM) application to the state before the previous
+_undoable_ command was executed. +
 Format: `undo`
 
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+[cols="^.^1,<.^11a", frame=none]
+|===
+|image:icon-important.png[Important info]
+|Undoable commands: those commands that modify Concierge(TM)'s content
+(`add`, `checkin`, `checkout`, `reassign`, `service` and `clear`).
+|===
 
 Examples:
 
-* `delete 1` +
+* `checkin r/001` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `checkin r/001` command) +
 
 * `select 1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `checkin r/001` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `checkin r/001` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -198,26 +512,98 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `checkin r/001` +
+`undo` (reverses the `checkin r/001` command) +
+`redo` (reapplies the `checkin r/001` command) +
 
-* `delete 1` +
+* `checkin r/001` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `checkin r/001` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `checkin r/001` command) +
+`redo` (reapplies the `checkin r/001` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+// tag::clear[]
+=== Clearing all entries : `clear` image:icon-key.png[width="32"]
 
-Clears all entries from the address book. +
+Clears all entries from the application. +
 Format: `clear`
+
+The rooms are maintained - only all their current and future bookings are
+cleared. I.e. all maintenance requests and faults will still be recorded.
+
+Example: `clear`
+
+image::ClearCommand-success.png[width="400"]
+// end::clear[]
+
+// tag::autocomplete[]
+=== Autocomplete: kbd:[Ctrl], kbd:[Alt]
+
+Auto-completes a partially typed in command by a user.
+
+**Function** Press kbd:[Alt] to quick-clear the `CommandBox` (saves time
+             for user when he wants to clear the box).
+
+The command box before kbd:[Alt] is pressed:
+
+image::servicepreclear.png[width="419"]
+
+The command box aft kbd:[Alt] is pressed:
+
+image::servicepostclear.png[width="371"]
+
+**Format**: Enter `COMMAND_WORD`, followed by kbd:[Ctrl] key.
+
+**Function**: Press kbd:[Ctrl] key again to proceed to the next prefix.
+
+Example: +
+**Step 1**: User enters `a` in `CommandBox`.
+
+image::add.png[width="579"]
+
+**Step 2**: After kbd:[Ctrl] has been pressed, it automatically inserts the
+        command and the first parameter `PREFIX_NAME` in the command line.
+
+image::addPREFIX_NAME.png[width="581"]
+
+**Step 3**: After filling up the name field, e.g. with Anthony, then press
+        kbd:[Space]. Finally, to insert the next parameter `PREFIX_PHONE`
+        press kbd:[Ctrl].
+
+image::afteranthonyspace.png[width="581"]
+
+**Step 4**: Repeat Step 3 until all the parameters are input, then press
+        kbd:[Enter] to execute the command.
+
+image::fulladdautocomplete.png[width="953"]
+
+**Note(s)**:
+
+* For finishing entering a prefix field e.g. 'n/John Doe', user
+has to insert kbd:[Space] on his/her own before pressing kbd:[Ctrl]
+again, to autocomplete the next prefix. +
+
+* For commands such as `checkin` and `checkout`, user has to specify
+up till at least `checki` or `checko` because the application
+is unable to distinguish from the two commands without sufficient
+information. The subsequent prefixes will follow suit accordingly.
+// end::autocomplete[]
+
+=== Viewing help : `help`
+
+Format: `help`
+
+****
+* Only one help session can be in place at each time.
+* Your help session resets each time you close the window.
+* Your help session is retained if the window is not closed.
+****
 
 === Exiting the program : `exit`
 
@@ -226,35 +612,54 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Concierge(TM) data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+== Command Summary
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* *Add a Guest and assign a Room* : `add n/NAME p/PHONE_NUMBER e/EMAIL
+t/TAG r/ROOM_NUMBER from/START_DATE to/END_DATE`
+* *Checkin* : `checkin r/ROOM_NUMBER`
+* *Checkout* : `checkout r/ROOM_NUMBER [from/START_DATE]`
+* *Reassign* : `reassign r/ROOM_NUMBER from/START_DATE nr/NEW_ROOM_NUMBER`
+* *Find* : `find FLAG FILTER [MOREFILTERS]`
+* *List* : `list FLAG`
+* *Login* : `login user/USERNAME pw/PASSWORD`
+* *Logout* : `logout`
+* *Select* : `select INDEX`
+* *Room Service* : `service r/ROOM_NUMBER no/ITEM_NUMBER [c/COST]`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Clear* : `clear`
+* *Help* : `help`
+* *Exit* : `exit`
+
+== Features planned for v2.0
+* Commands
+** `addx` - Add a guest to the archived guest list without needing to add a booking
+** `menu` - Display the default Concierge(TM) menu
+** `maintenance` - Tag a room as under maintenance
+** `export` - Export the logs of the current session to a text-editable file
+// tag::archive[]
+** `archive` - Opens the log where all user input is captured and saved. All keystrokes are
+captured, including invalid/mistyped and login commands.
+// end::archive[]
+
+* Other features
+** Displaying the checked-in guest's room's information when selecting the checked-in guests
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Concierge(TM) folder.
 
-== Command Summary
+*Q*: What platform is this application available on? +
+*A*: This application is cross-platform, and can be used on both Windows and Mac OS.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+*Q*: Where can I go to purchase this application? +
+*A*: This application is 100% free-of-charge, and is open-source for any and all to contribute to make it better.
+
+*Q*: I've found a bug in the application! How can I report it? +
+*A*: Please open an issue in the issue section and we will see to it as soon as possible. Bug reports only serve to
+make our application better, so do not hesitate to report them to us!
