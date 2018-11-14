@@ -1,0 +1,78 @@
+= Henry Jayakusuma - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EazyTutors
+
+---
+
+== Overview
+
+=== Purpose
+* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was responsible for creating `Assignment` related commands and the data structures supporting it.
+
+=== The Team
+* My team comprises of students from the National University of Singapore and we decided on creating this application after observing the hassle tutors have to deal with when marking attendance.
+
+=== The Application
+* EazyTutors is a desktop statistics recording application used for managing classes of students. It was created with NUS tutors in mind, but can be extended to tutors or teachers from other organizations as well. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+=== Features
+* Mark students' attendance
+* Record students' assignment scores
+* Calculate assignment statistics
+* Calculate class performance
+* Add students' photos
+* Record notes about students
+
+== Summary of contributions
+
+=== Preface
+This section serves to inform you of the improvements I made to the project, including code, documentation and administrative tasks.
+
+=== Enhancements
+
+* *Major enhancement*: added *the ability to add/delete/edit an assignment*
+** What it does: allows the user to add, delete or edit assignment information globally, and add assignment mark specific to each student.
+** Justification: This feature will help tutors keep track on student's grade so tutors can put attention towards struggling students.
+** Highlights: Added assignment can be sorted by deadline.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=HenryJk[Project Code
+                      Dashboard]]
+* *Other contributions*:
+** Documentation:
+*** Added implementation details of `Assignment` data structure to Developer Guide.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Features
+
+include::../UserGuide.adoc[tag=assignment]
+
+---
+
+=== Proposed Enhancement for v2.0
+* Add a section to show users how to use the new and improved GUI that we intend to add in v2.0
+* Show step-by-step examples on how to use the application features using the GUI, using screenshots of the application and text.
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=classDiagram]
+
+include::../DeveloperGuide.adoc[tag=assignment]
+
+include::../DeveloperGuide.adoc[tag=editAssignmentCommand]
+
+=== Proposed Enhancement for v2.0
+* Adding more UML diagrams as an aid to show readers exactly how the application is built
+* Add more features to the `Implementation` section to tell readers how our features were implemented and what alternative designs we considered

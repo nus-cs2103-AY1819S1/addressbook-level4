@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "zzsmao",
+      "displayName": "CHUA ...N HAO",
+      "authorNames": ["zzsmao"]
+    },
+    {
+      "githubId": "HenryJk",
+      "displayName": "HENRY...USUMA",
+      "authorNames": ["HenryJk"]
+    },
+    {
+      "githubId": "spencertan96",
+      "displayName": "SPENC...N HAO",
+      "authorNames": ["spencertan96", "Spencer", "Spencer Tan"]
+    },
+    {
+      "githubId": "Zackkh95",
+      "displayName": "TAN K...CHARY",
+      "authorNames": ["Zackkh95","Zachary Tan"]
+    },
+    {
+      "githubId": "robertvictoreen",
+      "displayName": "VICTO...LLIOT",
+      "authorNames": ["robertvictoreen", "Robert Victoreen"]
+    }
+  ]
+}

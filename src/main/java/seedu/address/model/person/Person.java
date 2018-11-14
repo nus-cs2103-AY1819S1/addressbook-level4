@@ -1,12 +1,17 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.common.Mark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,10 +27,59 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private ProfilePhoto photo;
     private final Set<Tag> tags = new HashSet<>();
+    private final Map<String, Mark> marks = new HashMap<>();
+    private final Map<String, Mark> attendance = new HashMap<>();
+    private Note note = new Note();
 
     /**
-     * Every field must be present and not null.
+     * Default constructor, sets default pic and note, every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks) {
+        this(name, phone, email, address, tags);
+        requireNonNull(marks);
+        this.marks.putAll(marks);
+
+        // default initialization
+        this.photo = new ProfilePhoto();
+    }
+
+    /**
+     * Has note, no pic, calls default constructor for setting defaults.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Map<String, Mark> marks,
+                  Note note) {
+        this(name, phone, email, address, tags, marks);
+        requireNonNull(note);
+        this.note = note;
+    }
+
+    /**
+     * No note, has pic, calls default constructor for setting defaults.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
+                  Map<String, Mark> marks) {
+        this(name, phone, email, address, tags, marks);
+        requireNonNull(photo);
+        this.photo = photo;
+    }
+
+    /**
+     * Constructor for EditPersonDescriptor
+     * Has both note and pic, calls default constructor for setting defaults before overwriting.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, ProfilePhoto photo, Set<Tag> tags,
+                  Map<String, Mark> marks, Map<String, Mark> attendance, Note note) {
+        this(name, phone, email, address, tags, marks);
+        requireAllNonNull(photo, attendance, note);
+        this.attendance.putAll(attendance);
+        this.photo = photo;
+        this.note = note;
+    }
+
+    /**
+     * Constructor for when there are no marks given.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -34,6 +88,17 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+        // default initialization
+        this.photo = new ProfilePhoto();
+    }
+
+    /**
+     * Copy constructor.
+     */
+    public Person(Person source) {
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getProfilePhoto(),
+            source.getTags(), source.getMarks(), source.getAttendance(), source.getNote());
     }
 
     public Name getName() {
@@ -52,12 +117,58 @@ public class Person {
         return address;
     }
 
+    public ProfilePhoto getProfilePhoto() {
+        return photo;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    /**
+     * Delete the current photo and set up a default photo.
+     */
+    public void deleteProfilePhoto() {
+        this.photo = new ProfilePhoto();
+    }
+
+    /**
+     * Set profile photo to that in path
+     */
+    public void setProfilePhoto(String path) throws IllegalValueException {
+
+        ProfilePhoto oldPhoto = this.photo;
+        try {
+            int fileName = this.hashCode();
+            this.photo = new ProfilePhoto(path, String.valueOf(fileName));
+        } catch (Exception e) {
+            this.photo = oldPhoto; //changes photo back to default
+            throw new IllegalValueException(ProfilePhoto.MESSAGE_PHOTO_CONSTRAINTS);
+        }
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable mark map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, Mark> getMarks() {
+        return Collections.unmodifiableMap(marks);
+    }
+
+    /**
+     * Returns an immutable attendance map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Map<String, Mark> getAttendance() {
+        return Collections.unmodifiableMap(attendance);
     }
 
     /**
@@ -93,13 +204,17 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getProfilePhoto().equals(getProfilePhoto())
+                && otherPerson.getMarks().equals(getMarks())
+                && otherPerson.getAttendance().equals(getAttendance())
+                && otherPerson.getNote().equals(getNote());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, marks, attendance);
     }
 
     @Override
@@ -114,7 +229,15 @@ public class Person {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Note: ")
+               .append(getNote());
         return builder.toString();
     }
 
+    /**
+     * Returns true if current note has been edited, false if is default.
+     */
+    public boolean hasNote() {
+        return note.hasChanged();
+    }
 }

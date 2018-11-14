@@ -21,14 +21,16 @@ import seedu.address.model.person.Person;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private MoreDetailsPanel detailsPanel;
 
     @FXML
     private ListView<Person> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Person> personList, MoreDetailsPanel panel) {
         super(FXML);
         setConnections(personList);
         registerAsAnEventHandler(this);
+        detailsPanel = panel;
     }
 
     private void setConnections(ObservableList<Person> personList) {
@@ -58,9 +60,10 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
+        detailsPanel.display(event.targetIndex, event); // display student's details in details panel
     }
 
     /**

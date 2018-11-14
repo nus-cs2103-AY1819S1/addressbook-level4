@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= EazyTutors - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W12-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W12-4`      Since: `September 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -172,7 +172,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `MoreDetailsPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -324,12 +324,325 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::sort[]
+=== Sort mechanism
 
-_{Explain here how the data encryption feature will be implemented}_
+The sort mechanism is reliant on the logic component.
+The primary sorting algorithm is contained in the 'UniquePersonList' class. It is implemented easily by using a 'Person' comparator.
 
-// end::dataencryption[]
+The 'indicateAddressBookChanged' event is raised by 'Model' after the sorting is done to show that the Address Book has been modified.
+
+The sequence diagram below illustrates how the sort mechanism works:
+
+image::SortUMLSequenceDiagram.png[width="800"]
+
+    1. User executes the `sort` command which is then parsed through `AddressBookParser`.
+    2. A new `sort` command is created and it then executes the `sort` method in `ModelManager`.
+    3. `ModelManager` calls the internal sorting function in the `UniquePersonList` class and the person list is sorted.
+    4. Lastly, the `updateFilteredPersonList()` method in `ModelManager` is called and it then returns the result.
+
+==== Design Considerations
+
+===== Aspect: Implementation of `SortCommand`
+
+* **Alternative 1 (current choice):** Only sorts by names of persons in the Address Book.
+** Pros: Easy to implement and more intuitive for the user.
+** Cons: Functionality is limited and may not satisfy the demands of the user.
+
+* **Alternative 2:** Sorts persons in the Address Book by any field (e.g. sorting by email or tag), which is given as an input by the user.
+** Pros: More flexibility for the user since he has the option to sort contacts using more fields.
+** Cons: Harder to implement and constant updating of code is required every time a new field in the `Person` class is introduced.
+// end::sort[]
+
+// tag::addphoto[]
+
+=== Add Profile Photo feature
+
+==== Current Implementation
+The student's Profile Photo can be viewed at the right side of the student's profile card.
+
+The following sequence diagram shows how the `addphoto` command works.
+
+image::AddProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user inputs the `addphoto INDEX f/FILENAME` command, with parameters `INDEX` and `FILENAME`
+    2. The `AddressBookParser` class parses the command to create a new `AddProfilePhotoCommand` class.
+    3. The `AddProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the image referenced by `FILENAME`
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`
+    6. The new profile photo is displayed
+
+==== Design Considerations
+
+**Aspect:** Implementation of `AddProfilePhotoCommand`
+
+* **Alternative 1 (current choice):** Store the images in a local folder. For Windows, it will be in the AppData folder, for Mac/Linux, in the home folder.
+** Pros: After a profile photo is set, it will continue showing even if the image source is deleted.
+** Cons: It requires space to store the photos, some images may be too large and consume a lot of memory.
+
+* **Alternative 2:** Not store the image.
+** Pros: No space requirement to store the images locally.
+** Cons: Need to ensure that the images is not deleted, or it won't show.
+
+* **Alternative 1 (current choice):** Set a restriction of 5MB for each photo.
+** Pros: Prevents a user from crashing the app by putting an image that's too large in size.
+** Cons: Some photos may be larger than 5MB. They can use image compression services to compress it in order to fulfill the limit.
+
+* **Alternative 2:** Not put a specified restriction to the size of profile photo.
+** Pros: User can upload image of any size.
+** Cons: Performance of the app might be unstable if it contains too many large images.
+
+// end::addphoto[]
+
+// tag::deleteProfilePhoto[]
+=== Delete Profile Photo feature
+
+==== Current Implementation
+This is a feature which allows a user to delete the profile photo and changes it back to default.
+
+The following sequence diagram shows how the `deleteProfilePhoto` command works
+
+image::DeleteProfilePhotoUMLSequenceDiagram.png[width="800"]
+
+    1. The user executes the `deleteProfilePhoto INDEX` command, with parameters `INDEX`
+    2. The `AddressBookParser` class parses the command to create a new `DeleteProfilePhotoCommand` class.
+    3. The `DeleteProfilePhotoCommand` command is executed and handled by the `ModelManager` class.
+    4. A new `ProfilePhoto` object is created, containing the default image.
+    5. The new `ProfilePhoto` is attached to the `Person` at `INDEX`.
+    6. The default profile photo will now show and the person's image would be deleted.
+
+==== Design Considerations
+
+**Aspect:** Implementation of `DeleteProfilePhotoCommand`
+
+* **Alternative 1 (current choice):** Create a new ProfilePhoto object.
+** Pros: Easier if developer decides to change the path of the default photo, or the properties of the ProfilePhotoclass.
+** Cons: Creating a new object each time might be highly memory-consuming, but probably insignificant on a modern PC.
+
+// end::deleteProfilePhoto[]
+
+// tag::classDiagram[]
+=== Assignment and Attendance data structure
+image::ModelClassDiagram.png[width="800"]
+// end::classDiagram[]
+
+// tag::assignment[]
+==== Assignment data structure
+
+Global information about assignment is stored in addressbook level and
+each assignment have a uniqueId that will not change when the assignment is edited.
+Also every student store a map with assignment uniqueId as key and mark obtained as value.
+
+===== Design Considerations
+
+====== Aspect: Data Structure to support assignment operations
+* **Alternative 1 (current choice):** Use a hashmap of uniqueId to mark to store assignment score of each student.
+** Pros: Flexibility to edit assignment without having to do any operation on each student.
+** Cons: Any functionality that needs to iterate through all assignment score for a student must first iterate through
+UniqueAssignmentList to know which score belongs to which assignment.
+* **Alternative 2:** Store all assignment information on each student.
+** Pros: Easy to implement. All method that wants to read a student assignment information including score only need to read 1 student.
+** Cons: Requires more memory since every assignment is stored in every student. Harder to edit assignment since we must
+edit assignment information in every single student.
+// end::assignment[]
+
+// tag::attendance[]
+==== Attendance data structure
+
+Provides a representation of an attendance session for a particular date.
+This enables a mapping between each student and multiple attendance sessions
+with a record of attendance/absence for that session.
+
+.Structure of the Model Component including the Attendance data structure
+
+
+===== Design Considerations
+
+====== Aspect: Data Structure to support attendance operations
+* **Alternative 1 (current choice):** Adaptation of Assignment model, using a HashMap for each student to record the attendance/absence
+with the uniqueId of the Attendance session. AttendanceMark is a subclass of the Mark class from the Assignment model, limited to a value of 1 or 0.
+The Attendance session date is represented with the Deadline class from the Assignment model.
+** Pros: Limited code duplication, consistent model implementation, prevents inconsistent attendance records across the class.
+** Cons: Calculating attendance requires iterating and mapping.
+* **Alternative 2:** Store a list of attendance marks for each student.
+** Pros: Higher cohesion with attendance data represented together with student.
+** Cons: Attendance session data is distributed across all students which increases complexity of operations affecting all students.
+// end::attendance[]
+
+// tag::editAssignmentCommand[]
+=== Edit Assignment Feature
+
+This is a feature to let user edit an assignment name, weight, maximum mark, and deadline.
+
+The following sequence diagram shows how the `editAssignment` command works
+
+image::EditAssignmentCommandSequenceDiagram.png[width="800"]
+
+    1. The user executes the `editAssignment INDEX [n/ASSIGNMENTNAME] [w/WEIGTH] [d/DEADLINE] [m/MAXMARK]` command, with
+     parameters `INDEX` and optional parameters `ASSIGNMENTNAME`, `WEIGHT`, `DEADLINE`, `MAXMARK`.
+    2. The `AddressBookParser` class parses the command to create a new `EditAssignmentCommand` class.
+    3. The `getFilteredAssignmentList` command is executed and handled by the `ModelManager` class.
+    4. A new `Assignment` object is created by `createEditedAssignment` command, using information parsed from parser.
+    5. The new `Assignment` is attached to the `Model` at `INDEX`.
+    6. The new assignment information will now stored.
+
+// end::editAssignmentCommand[]
+
+// tag::studentDetails[]
+=== UI-Model binding of student details
+
+==== Current Implementation
+The data `MoreDetailsPanel` binds itself to are `filteredPersons` and `filteredAssignments` in the `Model` class.
+
+* `filteredPersons` -- Current students (filtered by `find` command) stored in the database.
+* `filteredAssignments` -- The names of all the assignments that the students have in the database.
+
+`MoreDetailsPanel` will be notified by any changes in the data when a related event is raised, such as
+`PersonPanelSelectionChangedEvent`. It will then retrieve the new student's marks and note using `filteredPersons`
+ and display them with reference to their names in `filteredAssignments`.
+// end::studentDetails[]
+
+// tag::note[]
+=== Note data structure
+
+==== Current Implementation
+A `Note` stores a String `text` (content of the note). `text` is final and never changed once initialized. When a
+`note` or `editnote` command is executed, a new `Note` is created with the final `text`. The methods in the `Note` class
+return a new `Note` object with the new `text`.
+
+==== Design considerations
+
+===== Aspect: Note auto-punctuation
+* **Alternative 1(current choice):** `Note` texts are automatically ended with a full stop (`.`) if it is not added by
+the user, unless the user ends the text with `!` or `?`. When a `note` or `editnote` command is executed on a `Note`
+that already has text, the previous text's punctuation is changed to a comma (`,`) instead before being added to the
+final `text`.
++
+The workflow for this algorithm is shown below. *Text* refers to the text being added, *noteText* refers to the existing
+text in the `Note` and *newText* refers to the final text in the newly created `Note`.
++
+.Activity Diagram for Text Addition
+image::NoteTextAdditionActivityDiagram.png[width="800"]
+
+** Pros: +
+*** `Note` text is standardized without the user having to bother about doing so in their input.
+** Cons: +
+*** If the user wishes to end their notes with other punctuation such as `!` or `?`, the user has to add it into their
+input.
+*** Other special characters used to end sentences will not be detected and a full stop will be added to them.
+*** Developers have to manually add special characters to be checked for.
+
+* **Alternative 2:** No editing of `Note` text, `text` will be whatever the user inputs.
+** Pros: +
+*** Easy to implement, there is no need to check text input.
+*** User flexibility in what they want their text to end with.
+** Cons: +
+*** User has to take more care in adding `Note` text in their input.
+
+===== Aspect: Edit note implementation
+* **Alternative 1 (current choice):** Delete the note, before adding it using `note` command. As deleting the note is
+similar in both `delnote` and `editnote`, they implement the `NoteDeleter` interface with has a default method
+`copyWithoutNote` to reduce repeated code.
++
+.Structure of Note commands (only classes closely related to EditNoteCommand shown)
+image::EditNoteFeatureClassDiagram.png[width="800"]
++
+An example of how the `editnote` command would work is depicted in the sequence diagram below. `NoteCommand` is
+minimally represented for brevity.
++
+.Sequence Diagram of EditNoteCommand executing (only relevant methods are shown)
+image::EditNoteCommandSequenceDiagram.png[width="800"]
+
+** Pros: +
+*** Easier to implement.
+*** Adapts with any changes to the `NoteCommand` without needing to update.
+** Cons: +
+*** Some overhead accrued due to `NoteCommand` object creation.
+*** Dependency between `EditNoteCommand` and `NoteCommand`.
+
+//
+* **Alternative 2:** Implement a separate edit note command.
+** Pros: +
+*** Command will be able to work on its own.
+** Cons: +
+*** Some repeated code with `NoteCommand`.
+// end::note[]
+
+// tag::assignmentStats[]
+=== Assignment Statistics feature
+==== Current Implementation
+
+The `Mark` objects associated with the `Assignment` are obtained by filtering the `Mark` HashMap
+using the assignment unique id as the key, for each `Person` in the addressbook.
+The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
+The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the `Mark` values.
+
+.Sequence diagram of the Assignment Statistics feature
+image::AssignmentStatsSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Specification of the Assignment Model
+
+* **Alternative 1 (current choice):** Use a stream to filter the `Mark` objects associated with the `Assignment`.
+** Pros: Implementation follows specification of the Assignment Model.
+** Cons: `Mark` objects are associated with `Person` objects, thus requiring several linear operations to obtain
+all `Mark` objects associated with one `Assignment`.
+* **Alternative 2:** Create a new mapping between `Mark` objects and each `Assignment`.
+** Pros: `Mark` objects can be aggregated over time, eliminating the need to filter each time.
+** Cons: Major changes to the specification of the Assignment Model.
+// end::assignmentStats[]
+
+// tag::classStats[]
+=== Class Statistics feature
+==== Current Implementation
+
+For each `Person` in the addressbook, the associated `Mark` objects are cross-referenced using the
+unique id for each `Assignment` to calculate the grade of each assignment to obtain the
+weighted overall grade of each student.
+The maximum, minimum, and average marks are calculated by the `DoubleSummaryStatistics` object.
+The median, 25th, and 75th percentiles are calculated by indexing a sorted array of the overall grades.
+
+.Sequence diagram of the Class Statistics feature
+image::ClassStatsSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Specification of the Assignment Model
+
+* **Alternative 1 (current choice):** Use a stream to group the `Mark` objects by association
+with each `Person` and calculate the overall grade using the relevant `Assignment` objects for each `Mark`.
+** Pros: Implementation follows specification of the Assignment Model.
+** Cons: Several linear operations must be performed to
+bridge the association between each `Mark`, `Assignment`, and `Person`.
+* **Alternative 2:** Create a class data structure to record the data for the entire class.
+** Pros: Calculations may be performed within the data structure.
+** Cons: Increased operations for each change in data due to high coupling between `Mark`, `Assignment`, and `Person`.
+// end::classStats[]
+
+// tag::gradeDisplay[]
+=== Grade Display feature
+==== Current Implementation
+
+The information for each `Assignment` object in the addressbook is listed,
+including the the index number, name, deadline, weight, mark, and maximum mark. +
+The mark is obtained from the `Mark` associated with the selected `Person` object. +
+The total grade for the student is calculated as a weighted sum of the marks for all the assignments and listed below.
+
+.Grade Display
+image::grade_display.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Evaluation of total grade for the student
+
+* **Alternative 1 (current choice):** Calculate the total grade on demand.
+** Pros: Implementation does not require additional models.
+** Cons: The calculation is linear and must bbe performed every time the student is selected.
+* **Alternative 2:** Create a new model to aggregate the total grade.
+** Pros: The total grade is readily available and may be used elsewhere in the application.
+** Cons: Increased operations for each change in data to update the total grade.
+// end::gradeDisplay[]
 
 === Logging
 
@@ -820,13 +1133,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Tutors or teachers
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Our application helps lecturers/tutors manage simple administrative tasks such as:
+
+** Tracking student’s attendance
+** Tracking student’s academic performance
+** Tracking student’s participation in lessons
+** Tracking student’s profile
+
 
 [appendix]
 == User Stories
@@ -836,51 +1153,97 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |tutor |monitor the attendance level of each student |allocate attendance marks accordingly
 
-|`* * *` |user |add a new person |
+|`* * *` |busy tutor |mark attendance using this app |forgo manually marking on a copy of the class list
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |tutor |monitor the assignment submissions of each student |keep track of who has submitted and who has not
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |concerned tutor |monitor the test scores of all my students taking the module |identify the weaker students who need more help
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |tutor |input student assignment scores |keep track of them
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |tutor |record participation marks of each student in tutorial |effectively keep track without tedious manual documentation
+
+|`* *` |tutor |review student’s feedback of me |improve my lessons
+
+|`* *` |tutor |quickly sort and identify which student needs help |customise my teaching to each student
+
+|`*` |tutor |view my students’ images |identify them during class
+
+|`*` |tutor |send automatic reminders to students who have not submitted their assignments |ensure they will not miss out on learning
+
+|`*` |tutor |calculate the average, median, and 25/75 percentile marks |know how the cohort performed
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `EazyTutors` and the *Tutor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Check Attendance
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+Precondition: Home page
+
+1.  Tutor chooses to check attendance
+2.  EazyTutors requests for details of which tutorial session
+3.  Tutor enters the requested details.
+4.  EazyTutors displays the list of students who attended the tutorial session
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 3a. EazyTutor detects error in the entered data.
+** 3a1. EazyTutors requests for correct data.
+** 3a2. User enters new data.
+** 3a3. Goes to step 4 with new details.
+
+{nbsp}
+[discrete]
+=== Use case: Assignment Submission
+
+*MSS*
+
+1. Tutor chooses to check for Assignment Submission
+2. EazyTutors requests for details of which assignment
+3. Tutor enters the requested details.
+4. EazyTutors displays the list of students who submitted assignment.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+* 1a. No assignment has been registered in EazyTutors yet.
+** 1a1. EazyTutors shows an error window informing user that there are no assignments to view.
 +
-[none]
-** 3a1. AddressBook shows an error message.
+Use case ends.
+* 3a. EazyTutors detects error in the entered data.
+** 3a1. EazyTutors requests for correct data.
+** 3a2. User enters new data.
+** 3a3. Goes to step 4 with new details.
+
+{nbsp}
+[discrete]
+=== Use case: Assignment Grading
+
+*MSS*
+
+Precondition: Home page
+
+1. Tutor navigates to student list
+2. EazyTutors shows list of students
+3. Tutor selects the student
+4. EazyTutors shows assignments that the student has submitted
+5. Tutor chooses assignment to grade
+6. EazyTutors shows current assignment score if any
+7. Tutor inputs student’s new/updated score
+8. EazyTutors shows the updated score
 +
-Use case resumes at step 2.
+Use case ends.
 
 _{More to be added}_
 
@@ -889,7 +1252,8 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse, if they choose to use the Command Line Interface.
+.  Users should be able to use basic functions of the application with the UI without referring to the user guide.
 
 _{More to be added}_
 
@@ -899,25 +1263,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+EazyTutors::
+The name of our application
 
-[appendix]
-== Product Survey
+Tutorial::
+Small group lessons in which there is more interaction between tutors and students compared to in lectures
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+Participation::
+Marks that students get based on how much they participate during tutorials
 
 [appendix]
 == Instructions for Manual Testing
@@ -941,26 +1294,189 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+   Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete -1`
+   (where index should not be negative) +
    Expected: Similar to previous.
 
+// tag::spencerTestInstructions[]
+=== Adding a person
+
+. Adding a person to the current list
+
+.. Prerequisites: No student already exists in the student list with the same name. If there is an index specified, it
+   must be a positive integer lesser than the current size of the student list + 1.
+.. Test case: `add n/John Doe p/67891234 e/johnd@gmail.com a/Parliament House t/friend s/2` +
+   Expected: Student with name "John Doe" added to 2nd index of list. Details of the added student shown in the status
+   message. Timestamp in the status bar is updated.
+.. Test case: `add n/John Doe` +
+   Expected: Student with name "John Doe" added to bottom of list, all other details are empty. Details of the added
+   student shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `add n/John Doe s/1` +
+   Expected: Similar to previous, except the student is now added to the top of the list.
+.. Test case: `add n/ p/98765432 e/test@example.com` +
+   Expected: No person is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `add n/John Doe p/99`, `add n/John Doe t/good friend, `add n/John Doe e/test`
+   (commands where the parameters used are invalid)
+
+=== Adding a note
+
+. Adding a note to a student
+
+.. Prerequisites: There must be a student at the index specified. The index must be a positive integer.
+.. Test case: `note 1 test` +
+   Expected: If the first student had no note, his note as displayed at the bottom right is now `test.`, else, `test.`
+   is added to back of his existing note, with the full-stop of existing note changed to a comma. Details of student
+   to whom the note was added is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `note 2 great!` +
+   Expected: Similar to previous, except the note ends with an exclamation mark instead.
+.. Test case: `note 1  test2` +
+   Expected: No note is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect note commands to try: `note 1test`, `note  1 test` (where the format is incorrect)
+   Expected: Similar to previous.
+
+=== Deleting a note
+
+. Deleting a note of a student
+
+.. Prerequisites: Student at specified index must have an existing note.
+.. Test case: `delnote 1` +
+   Expected: Note of first student is deleted. Details of the student whose note was deleted shown in the status
+   message. Timestamp in the status bar is updated.
+.. Test case: `delnote 0` +
+   Expected: No note is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delnote`, `delnote x` (where x is larger than the list size), `delnote -1`
+   (where index should not be negative) +
+   Expected: Similar to previous.
+
+=== Editing a note
+
+. Editing a student's note
+
+.. Prerequisites: Student at specified index must have an existing note.
+.. Test case: `editnote 1 test?` +
+   Expected: New note `test?` displayed on bottom right of window. Details of student whose note was edited shown in the
+   status message. Timestamp in the status bar is updated.
+.. Test case: `editnote 2 might need more help on recursion.` +
+   Expected: Similar to previous, except the note ends with a full-stop instead.
+.. Test case: `editnote 1  test2` +
+   Expected: No change to the note. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect note commands to try: `editnote 2inquisitive`, `note  1 consult at 2pm` (where the format is
+   incorrect) +
+   Expected: Similar to previous.
+// end::spencerTestInstructions[]
+
+// tag::henryInstructions[]
+=== Testing Assignment Manipulation
+Optional Prerequisite: There is at least 1 person recorded in the application to view assignments in the gui.
+
+. Adding an assignment to the application
+
+.. Prerequisites: Application currently do not have an assignment with the same name.
+.. Test case: `addAssignment n/Assignment1 w/15 d/31/12/2019 m/100` +
+   Expected: New assignment called "Assignment1" is added to the application, if you select a student,
+   Assignment1 will appear on the MoreDetailsPanel on the right of student list.
+.. Test case: `addAssignment n/Assignment2 w/a d/31/12/2019 m/100` +
+   Expected: Error message appear: weight must be a real number.
+
+. Deleting an assignment
+
+.. Prerequisites: There is at least 1 assignment stored in the application.
+.. Test case: `deleteAssignment 1` +
+   Expected: The first assignment on the assignment list will be deleted.
+.. Test case: `deleteAssignment asdf` +
+   Expected: `Invalid command format` error.
+
+. Editing an assignment
+
+.. Prerequisites: There is at least 1 assignment stored in the application. There is no assignment with the name
+   "Assignment2"
+.. Test case: `editAssignment 1 n/Assignment2 w/30` +
+   Expected: the first assignment's name in the assignment list changed to "Assignment2" and its weight changed to 30.
+
+. Marking a person
+
+.. Prerequisites: There is at least 2 person and 1 assignment stored.
+
+.. Test case: `markAssignment 2 id/1 m/30` +
+   Expected: second person in the list have his/her mark stored for first assignment. He/She got 30 marks for it.
+
+. Sorting assignments
+
+.. Prerequisites: There is at least 2 assignment and not ordered from oldest to latest by deadline.
+
+.. Test case: `sortAssignment` +
+   Expected: the assignments are all sorted by deadline and if they have same deadline, then by name.
+// tag::henryInstructions[]
+
+// tag::robertInstructions[]
+=== Testing Assignment Statistics
+
+. Statistics of assignment with no marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with no marks entered for any student.
+.. Test case: `assignmentStats 1` +
+   Expected: Statistics data is all 0.
+
+. Statistics of assignment after student with marks deleted
+
+.. Prerequisites: Students list contains 1 student with marks for an assignment.
+.. Test case: `delete 1` `assignmentStats 1` +
+   Expected: Statistics data is all 0 because marks are deleted along with the student.
+
+. Statistics of deleted assignment
+
+.. Prerequisites: Assignment list contains an assignment to be deleted.
+.. Test case: `deleteAssignment 1` `assignmentStats 1` +
+   Expected: Assignment is no longer accessible, invalid index or index refers to other assignment.
+
+. Statistics of assignment with marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains an assignment with marks entered for any student.
+.. Test case: `assignmentStats 1` +
+   Expected: Statistics data is accurate according to the marks.
+
+=== Testing Class Statistics
+
+. Statistics of class with no students and no assignments
+
+.. Prerequisites: Students list and assignment list is empty.
+.. Test case: `classStats` +
+   Expected: Statistics data is all 0.
+
+. Statistics of class with students but no assignments
+
+.. Prerequisites: Students list contains students but no assignments.
+.. Test case: `classStats` +
+   Expected: Statistics shows the number of students, other data is all 0.
+
+. Statistics of class with students and assignments but no marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with no marks entered for any student.
+.. Test case: `classStats` +
+   Expected: Statistics shows the number of students and the maximum grade is the total weight of the assignments, other data is all 0.
+
+. Statistics of class with students and assignments with marks entered
+
+.. Prerequisites: Students list not empty. Assignment list contains assignments with marks entered for students.
+.. Test case: `classStats` +
+   Expected: Statistics data is accurate according to the total marks of the students.
+// end::robertInstructions[]
+
 _{ more test cases ... }_
 
-=== Saving data
+=== Add Profile Photo
 
-. Dealing with missing/corrupted data files
+.  Prerequisites: The Profile Photo should not exceed 5MB.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Advantage: Restricts user from uploading large image files as this may affect performance of the application.
 
-_{ more test cases ... }_
