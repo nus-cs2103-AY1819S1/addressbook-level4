@@ -8,7 +8,7 @@ https://coveralls.io/github/CS2103-AY1819S1-W16-4/main?branch=master[image:https
 //https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/UIActual.png[width="1000"]
+image::docs/images/Ui.png[width="1000"]
 endif::[]
 
 * This is a desktop Clinic Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
