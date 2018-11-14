@@ -1,0 +1,69 @@
+= Alistair Ong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TheTracker
+== Overview
+
+TheTracker (v1.4) is a desktop application to help students track and plan different events and modules.
+
+== Summary of contributions
+
+* *Major enhancements*: added *removeperson*, *list*.
+
+* `removeperson`
+
+** What it does: allows the user to remove a person who was recently inserted into a module or occasion.
+** Justification: This feature helps the user, when a student is not in a module or occasion anymore,
+to remove the person from the said module or occasion.
+
+* `list`
+
+** What it does: allows the user to switch between contexts, the different contexts of *PERSON*,
+*MODULE*, and *OCCASION*.
+** Justification: This feature helps users contextualize.
+
+* *Minor enhancement*: added an *autocomplete* feature.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=alistairong[Functional code & Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+
+** Enhancements to existing features:
+*** Updated the GUI color scheme
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/184[#184],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/167[#167])
+*** Module, XML, UI Module Tests
+(Pull request https://github.com/CS2103-AY1819S1-W10-1/main/pull/103/files[#103],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/87/files[#87],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/51/files[#51])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=removeperson]
+
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=autocomplete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=removeperson]
+
+include::../DeveloperGuide.adoc[tag=list]
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
+

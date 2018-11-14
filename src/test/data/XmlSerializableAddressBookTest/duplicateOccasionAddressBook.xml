@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+
+    <occasions>
+        <occasionName>Final Project Submission</occasionName>
+        <occasionDateTime>2018-11-13</occasionDateTime>
+        <location>NIL</location>
+        <tagMap>Important</tagMap>
+    </occasions>
+
+    <!-- Occasion with same identity as Final Project Submission -->
+    <occasions>
+        <occasionName>Final Project Submission</occasionName>
+        <occasionDateTime>2018-11-13</occasionDateTime>
+        <location>NIL</location>
+        <tagMap>Important</tagMap>
+    </occasions>
+
+</addressbook>

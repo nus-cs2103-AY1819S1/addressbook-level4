@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -13,21 +15,55 @@ import seedu.address.model.person.Person;
  */
 public class ModelHelper {
     private static final Predicate<Person> PREDICATE_MATCHING_NO_PERSONS = unused -> false;
+    private static final Predicate<Module> PREDICATE_MATCHING_NO_MODULES = unused -> false;
+    private static final Predicate<Occasion> PREDICATE_MATCHING_NO_OCCASIONS = unused -> false;
 
     /**
-     * Updates {@code model}'s filtered list to display only {@code toDisplay}.
+     * Updates {@code model}'s filtered personlist to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<Person> toDisplay) {
+    public static void setFilteredPersonList(Model model, List<Person> toDisplay) {
         Optional<Predicate<Person>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
     }
 
     /**
-     * @see ModelHelper#setFilteredList(Model, List)
+     * @see ModelHelper#setFilteredPersonList(Model, List)
      */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
+    public static void setFilteredPersonList(Model model, Person... toDisplay) {
+        setFilteredPersonList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
+     * Updates {@code model}'s filtered module list to display only {@code toDisplay}.
+     */
+    public static void setFilteredModuleList(Model model, List<Module> toDisplay) {
+        Optional<Predicate<Module>> predicate =
+                toDisplay.stream().map(ModelHelper::getModulePredicateMatching).reduce(Predicate::or);
+        model.updateFilteredModuleList(predicate.orElse(PREDICATE_MATCHING_NO_MODULES));
+    }
+
+    /**
+     * @see ModelHelper#setFilteredPersonList(Model, List)
+     */
+    public static void setFilteredModuleList(Model model, Module... toDisplay) {
+        setFilteredModuleList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
+     * Updates {@code model}'s filtered occasion list to display only {@code toDisplay}.
+     */
+    public static void setFilteredOccasionList(Model model, List<Occasion> toDisplay) {
+        Optional<Predicate<Occasion>> predicate =
+                toDisplay.stream().map(ModelHelper::getOccasionPredicateMatching).reduce(Predicate::or);
+        model.updateFilteredOccasionList(predicate.orElse(PREDICATE_MATCHING_NO_OCCASIONS));
+    }
+
+    /**
+     * @see ModelHelper#setFilteredPersonList(Model, List)
+     */
+    public static void setFilteredOccasionList(Model model, Occasion... toDisplay) {
+        setFilteredOccasionList(model, Arrays.asList(toDisplay));
     }
 
     /**
@@ -36,4 +72,19 @@ public class ModelHelper {
     private static Predicate<Person> getPredicateMatching(Person other) {
         return person -> person.equals(other);
     }
+
+    /**
+     * Returns a predicate that evaluates to true if this {@code Module} equals to {@code other}.
+     */
+    private static Predicate<Module> getModulePredicateMatching(Module other) {
+        return module -> module.equals(other);
+    }
+
+    /**
+     * Returns a predicate that evaluates to true if this {@code Occasion} equals to {@code other}.
+     */
+    private static Predicate<Occasion> getOccasionPredicateMatching(Occasion other) {
+        return occasion -> occasion.equals(other);
+    }
+
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains the same Module values as in TypicalModules#getTypicalAddressBook() -->
+<addressbook>
+    <modules>
+        <moduleCode>CS1101S</moduleCode>
+        <moduleTitle>Programming Methodology I</moduleTitle>
+        <academicYear>1819</academicYear>
+        <semester>1</semester>
+    </modules>
+    <modules>
+        <moduleCode>CS1231</moduleCode>
+        <moduleTitle>Discrete Structures</moduleTitle>
+        <academicYear>1819</academicYear>
+        <semester>1</semester>
+        <tagged>proving</tagged>
+    </modules>
+    <modules>
+        <moduleCode>CS2103T</moduleCode>
+        <moduleTitle>Software Engineering</moduleTitle>
+        <academicYear>1819</academicYear>
+        <semester>1</semester>
+        <tagged>project</tagged>
+    </modules>
+    <modules>
+        <moduleCode>CS3233</moduleCode>
+        <moduleTitle>Competitive Programming</moduleTitle>
+        <academicYear>1920</academicYear>
+        <semester>2</semester>
+        <tagged>difficult</tagged>
+    </modules>
+    <modules>
+        <moduleCode>MA1101R</moduleCode>
+        <moduleTitle>Linear Algebra I</moduleTitle>
+        <academicYear>1718</academicYear>
+        <semester>1</semester>
+        <tagged>matrices</tagged>
+    </modules>
+    <modules>
+        <moduleCode>GER1000</moduleCode>
+        <moduleTitle>Quantitative Reasoning</moduleTitle>
+        <academicYear>1516</academicYear>
+        <semester>2</semester>
+        <tagged>Statistics</tagged>
+    </modules>
+</addressbook>

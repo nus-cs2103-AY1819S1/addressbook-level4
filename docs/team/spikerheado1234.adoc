@@ -1,0 +1,57 @@
+= Ahan Gupta - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TheTracker
+
+---
+
+== Overview
+
+TheTracker is an application specifically built for NUS students. Allowing a student to keep track of his/her own occasions, modules and keep up to date with his/her friends.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented *the insertperson feature*
+** What it does: Allows the user to build an association between a person and a module, or a person and an occasion.
+** Justification: This feature improves the product significantly as the user can now conveniently register his/her associated persons with modules and occasions. This makes TheTracker more of a holistic and useful product.
+** Highlights: This enhancement affects the existing delete and edit commands as now an edit to an entity must edit all the entities associated with it as well.
+** Credits: _{All abstractions, logic was conceived of solely by me}_
+
+* *Minor enhancement*: Added the new UI panels to display the contents of modules and occasions.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=spikerheado1234&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[Contributed Code]]
+
+* *Other contributions*:
+
+** Project management:
+
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub and
+managed Pull Request to upstream CS2103 Main Repo for assessment by tutors.
+** Tools:
+*** Integrated Travis CI into the repo.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=insertperson]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=personmoduleoccasionclassdiagram]
+
+include::../DeveloperGuide.adoc[tag=uicomponent]
+
+include::../DeveloperGuide.adoc[tag=duplicationoflists]
+
+include::../DeveloperGuide.adoc[tag=insertperson]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]

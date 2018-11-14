@@ -21,6 +21,13 @@ public class Name {
     public final String fullName;
 
     /**
+     * Empty constructor.
+     */
+    public Name() {
+        fullName = "";
+    }
+
+    /**
      * Constructs a {@code Name}.
      *
      * @param name A valid name.
@@ -38,6 +45,13 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    /**
+     * Makes an identical deep copy of this Name.
+     */
+    public Name makeCopy() {
+        Name newName = new Name(new String(this.fullName));
+        return newName;
+    }
 
     @Override
     public String toString() {

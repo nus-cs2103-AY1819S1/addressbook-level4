@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -51,5 +53,19 @@ public class TestUtil {
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the module in the {@code model}'s module list at {@code index}.
+     */
+    public static Module getModule(Model model, Index index) {
+        return model.getFilteredModuleList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the occasion in the {@code model}'s occasion list at {@code index}.
+     */
+    public static Occasion getOccasion(Model model, Index index) {
+        return model.getFilteredOccasionList().get(index.getZeroBased());
     }
 }

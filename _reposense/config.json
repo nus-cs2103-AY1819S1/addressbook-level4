@@ -1,0 +1,30 @@
+{
+    "authors":
+    [
+      {
+        "githubId": "spikerheado1234",
+        "displayName": "AHAN ...GUPTA",
+        "authorNames": ["spikerheado1234", "Ahan Gupta"]
+      },
+      {
+        "githubId": "alistairong",
+        "displayName": "ALIST... HIAN",
+        "authorNames": ["alistairong"]
+      },
+      {
+        "githubId": "KongZijin",
+        "displayName": "KONG ...ZIJIN",
+        "authorNames": ["KongZijin"]
+      },
+      {
+        "githubId": "xueyantian",
+        "displayName": "TIAN ...UEYAN",
+        "authorNames": ["xueyantian", "Tian Xueyan"]
+      },
+      {
+        "githubId": "waytan",
+        "displayName": "WAY...TAN",
+        "authorNames": ["waytan", "fiboway"]
+      }
+    ]
+  }

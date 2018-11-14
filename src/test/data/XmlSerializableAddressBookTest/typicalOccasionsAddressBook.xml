@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains the same Occasion values as in TypicalOccasions#getTypicalAddressBook() -->
+<addressbook>
+    <occasions>
+        <occasionName>Project Meeting</occasionName>
+        <occasionDateTime>2018-10-29</occasionDateTime>
+        <location>UTown</location>
+        <tagMap>Needs Prep</tagMap>
+    </occasions>
+    <occasions>
+        <occasionName>Next CS2103 Tutorial</occasionName>
+        <occasionDateTime>2018-10-31</occasionDateTime>
+        <location>Active Learning Room</location>
+        <tagMap>Work Due</tagMap>
+    </occasions>
+    <occasions>
+        <occasionName>Final Project Submission</occasionName>
+        <occasionDateTime>2018-11-13</occasionDateTime>
+        <location>NIL</location>
+        <tagMap>Important</tagMap>
+    </occasions>
+    <occasions>
+        <occasionName>Christmas Day</occasionName>
+        <occasionDateTime>2018-12-25</occasionDateTime>
+        <location>NIL</location>
+        <tagMap>Holiday</tagMap>
+        <tagMap>With Family</tagMap>
+    </occasions>
+    <occasions>
+        <occasionName>Hiking Trip</occasionName>
+        <occasionDateTime>2019-01-03</occasionDateTime>
+        <location>Mongolia</location>
+    </occasions>
+    <occasions>
+        <occasionName>Combined Birthday Celebration</occasionName>
+        <occasionDateTime>2019-01-10</occasionDateTime>
+        <location>TBC</location>
+        <tagMap>School Friends</tagMap>
+    </occasions>
+</addressbook>

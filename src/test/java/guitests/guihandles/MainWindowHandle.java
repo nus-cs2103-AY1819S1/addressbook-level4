@@ -8,11 +8,15 @@ import javafx.stage.Stage;
 public class MainWindowHandle extends StageHandle {
 
     private final PersonListPanelHandle personListPanel;
+    private ModuleListPanelHandle moduleListPanel;
+    private OccasionListPanelHandle occasionListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
+    private final PersonBrowserPanelHandle personBrowserPanel;
+    private OccasionBrowserPanelHandle occasionBrowserPanel;
+    private ModuleBrowserPanelHandle moduleBrowserPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -22,11 +26,24 @@ public class MainWindowHandle extends StageHandle {
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        personBrowserPanel = new PersonBrowserPanelHandle(getChildNode(PersonBrowserPanelHandle.BROWSER_ID));
     }
 
     public PersonListPanelHandle getPersonListPanel() {
+        // Switch to person list first.
         return personListPanel;
+    }
+
+    public ModuleListPanelHandle getModuleListPanel() {
+        // Switch to module list first.
+        moduleListPanel = new ModuleListPanelHandle(getChildNode(ModuleListPanelHandle.MODULE_LIST_VIEW_ID));
+        return moduleListPanel;
+    }
+
+    public OccasionListPanelHandle getOccasionListPanel() {
+        // Switch to occasion list first.
+        occasionListPanel = new OccasionListPanelHandle(getChildNode(OccasionListPanelHandle.OCCASION_LIST_VIEW_ID));
+        return occasionListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -45,7 +62,20 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
+    public PersonBrowserPanelHandle getPersonBrowserPanel() {
+        // Switch to person list.
+        return personBrowserPanel;
+    }
+
+    public ModuleBrowserPanelHandle getModuleBrowserPanel() {
+        // Switch to module list.
+        moduleBrowserPanel = new ModuleBrowserPanelHandle(getChildNode(ModuleBrowserPanelHandle.BROWSER_ID));
+        return moduleBrowserPanel;
+    }
+
+    public OccasionBrowserPanelHandle getOccasionBrowserPanel() {
+        // Switch to occasion list.
+        occasionBrowserPanel = new OccasionBrowserPanelHandle(getChildNode(OccasionBrowserPanelHandle.BROWSER_ID));
+        return occasionBrowserPanel;
     }
 }

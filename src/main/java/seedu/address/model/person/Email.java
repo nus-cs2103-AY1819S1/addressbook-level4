@@ -30,6 +30,13 @@ public class Email {
     public final String value;
 
     /**
+     * Empty constructor.
+     */
+    public Email() {
+        value = "";
+    }
+
+    /**
      * Constructs an {@code Email}.
      *
      * @param email A valid email address.
@@ -38,6 +45,17 @@ public class Email {
         requireNonNull(email);
         checkArgument(isValidEmail(email), MESSAGE_EMAIL_CONSTRAINTS);
         value = email;
+    }
+
+    /**
+     * Makes an identical deep copy of this Email.
+     */
+    public Email makeCopy() {
+        if (this.value.equals("")) {
+            return new Email();
+        }
+        Email newEmail = new Email(new String(value));
+        return newEmail;
     }
 
     /**

@@ -1,9 +1,12 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +25,24 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered list of modules */
+    ObservableList<Module> getFilteredModuleList();
+
+    /** Returns an unmodifiable view of the filtered list of occasions */
+    ObservableList<Occasion> getFilteredOccasionList();
+
+    /** Returns the type of active list */
+    TypeUtil getActiveType();
+
+    /** Sets the type of active list */
+    void setActiveType(TypeUtil newActiveType);
+
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /**
+     * Returns a string array of suggestions for the user for the autocomplete function
+     * @return string array of suggestions
+     */
+    String[] getAutoCompleteList();
 }

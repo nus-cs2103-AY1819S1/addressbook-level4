@@ -4,53 +4,63 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+TheTracker was developed by a team of students as part of the CS2103 Software Engineering module.
+It was modified from the AddressBook - Level 4 program developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Ahan Gupta
+image::spikerheado1234.png[width="150", align="left"]
+{empty}[http://www.ahangupta.com[homepage]] [https://github.com/spikerheado1234[github]] [<<spikerheado1234#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibility: Scheduling and tracking +
+Major Enhancement: `insertperson` +
+Minor Enhancement: UI panels
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+=== Way Tan
+image::waytan.png[width="150", align="left"]
+{empty}[http://github.com/waytan[github]] [<<waytan#, portfolio>>]
+Role: Team Member +
+Responsibility: Integration; Code quality +
+Major Enhancement: `delete` +
+Minor Enhancement: `select`
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Kong Zijin
+image::kongzijin.png[width="150", align="left"]
+{empty}[http://github.com/KongZijin[github]] [<<kongzijin#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Team Member +
+Responsibility: Documentation; Testing +
+Major Enhancement: `editperson`, `editmodule`, `editoccasion` +
+Minor Enhancement: `export`
+
+'''
+
+=== Alistair Ong
+image::alistairong.png[width="150", align="left"]
+{empty}[http://github.com/alistairong[github]] [<<alistairong#, portfolio>>]
+
+Role: Team Member +
+Responsibility: Deliverables and deadlines; Code quality +
+Major Enhancement: `removeperson` +
+Minor Enhancement: Autocomplete
+
+'''
+
+=== Tian Xueyan
+image::xueyantian.png[width="150", align="left"]
+{empty}[http://github.com/xueyantian[github]] [<<xueyantian#, portfolio>>]
+
+Role: Team Member +
+Responsibility: Deliverables and deadlines; Testing +
+Major Enhancement: `addperson`, `addmodule`, `addoccasion` +
+Minor Enhancement: `findperson`, `findmodule`, `findoccasion`
 
 '''

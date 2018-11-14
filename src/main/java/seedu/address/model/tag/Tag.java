@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tag {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String TAG_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String tagName;
 
@@ -23,6 +23,14 @@ public class Tag {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_TAG_CONSTRAINTS);
         this.tagName = tagName;
+    }
+
+    /**
+     * Makes an identical deep copy of this Tag.
+     */
+    public Tag makeCopy() {
+        Tag newTag = new Tag(new String(tagName));
+        return newTag;
     }
 
     /**

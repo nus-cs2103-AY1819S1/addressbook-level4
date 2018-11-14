@@ -1,0 +1,80 @@
+= Tian Xueyan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TheTracker (v1.4)
+
+---
+
+== Overview
+
+TheTracker is a desktop address book application that helps NUS students to monitor contacts, modules and events.
+
+== Summary of contributions
+
+* *Major enhancement*: extended AddCommand to *AddPersonCommand, AddModuleCommand, AddOccasionCommand*
+** What it does: allows the user to adds Person, Module, and Occasion to their own TheTracker. Any Persons, Modules and
+Occasions added by users in the command line will show in separate windows. It also allows users to input only one
+compulsory attribute to add one Person, Module or Occasion.
+** Justification: These features are the basics of the product such that a user can track his or her contacts, modules
+and occasions happening in the school. It is more convenient for the users to input any number of optional attributes
+when they are adding the Person, Module and Occasion, and to update these optional attributes at any time they feel
+needed, rather than requiring the users to input all the attributes at the first place.
+
+* *Minor enhancement*:
+extended FindCommand to *FindPersonCommand, FindModuleCommand, FindOccasionCommand*
+** What it does: allows the user to finds Person by name, phone, or email, address, modules they are taking, and
+occasions they are involved in; similarly, it allows finding Modules and Occasions by respective attributes.
+** Justification: These features largely improve the convenience for finding a specific Person, Module or Occasion. For
+instance, a Person now can be found by his or her name, phone, email, address, module code of the module he is taking,
+and occasion name of the occasion he is involved in. Multiple steps of findperson command
+can be used to find a person by more than one kind of conditions.
+* *Minor enhancement*: built tests for Occasion related classes, and unit and system tests for the above-mentioned
+commands.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=xueyantian&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[Code]]
+
+
+* *Other contributions*: wrote skeleton for Occasion related UI.
+
+** Project management:
+*** Set milestones for `v1.2` - `v1.4` on GitHub
+*** Opened issues for `v1.2` - `v1.4` on GitHub
+** Enhancements to existing features:
+*** Updated Add and Find related Commands (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/94[#94],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/111[#111])
+*** Wrote additional tests for existing features to increase coverage(Pull requests
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/98[#98],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/115[#115])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/202[#202]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108],
+https://github.com/CS2103-AY1819S1-W10-1/main/pull/121[#121],
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com/CS2103-AY1819S1-W10-1/main/pull/125[125])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=find]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=add]
+include::../DeveloperGuide.adoc[tag=find]
+include::../DeveloperGuide.adoc[tag=modulecd]
+include::../DeveloperGuide.adoc[tag=occasioncd]
+

@@ -11,14 +11,17 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
+import seedu.address.commons.events.ui.PersonBrowserChangeEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RefreshPersonBrowserEvent;
 import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.
  */
 public class PersonListPanel extends UiPart<Region> {
+
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
@@ -28,7 +31,26 @@ public class PersonListPanel extends UiPart<Region> {
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
         setConnections(personList);
+
         registerAsAnEventHandler(this);
+    }
+
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            personListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param personList updated list.
+     */
+    public void updatePanel(ObservableList<Person> personList) {
+        personListView.setItems(personList);
+        personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     private void setConnections(ObservableList<Person> personList) {
@@ -47,6 +69,22 @@ public class PersonListPanel extends UiPart<Region> {
                 });
     }
 
+    private boolean isListSelected() {
+        return personListView.getSelectionModel().getSelectedIndex() > -1;
+    }
+
+    @Subscribe
+    private void handleRefreshBrowserEvent(RefreshPersonBrowserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (isListSelected()) {
+            int index = personListView.getSelectionModel().getSelectedIndex();
+            personListView.getSelectionModel().clearSelection();
+            personListView.getSelectionModel().clearAndSelect(index);
+            Person currPerson = personListView.getSelectionModel().getSelectedItem();
+            raise(new PersonBrowserChangeEvent(currPerson));
+        }
+    }
+
     /**
      * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
      */
@@ -58,7 +96,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToPersonListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }

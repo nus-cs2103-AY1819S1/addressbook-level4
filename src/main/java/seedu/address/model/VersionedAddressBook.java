@@ -29,9 +29,11 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer++;
     }
 
+
     private void removeStatesAfterCurrentPointer() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
+
 
     /**
      * Restores the address book to its previous state.
@@ -43,6 +45,7 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer--;
         resetData(addressBookStateList.get(currentStatePointer));
     }
+
 
     /**
      * Restores the address book to its previously undone state.
@@ -97,6 +100,7 @@ public class VersionedAddressBook extends AddressBook {
             super("Current state pointer at start of addressBookState list, unable to undo.");
         }
     }
+
 
     /**
      * Thrown when trying to {@code redo()} but can't.

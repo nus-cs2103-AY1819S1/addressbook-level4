@@ -1,12 +1,21 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,21 +32,58 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private UniqueOccasionList occasionList;
+    private UniqueModuleList moduleList;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  UniqueModuleList moduleList, UniqueOccasionList occasionList) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.occasionList = occasionList;
+        this.moduleList = moduleList;
     }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  List<Occasion> occasionList, List<Module> moduleList) {
+        requireAllNonNull(name, phone, email, address, tags, occasionList, moduleList);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.occasionList = new UniqueOccasionList(occasionList);
+        this.moduleList = new UniqueModuleList(moduleList);
+    }
+
+    /**
+     * Create a person from a personDescriptor
+     * @param personDescriptor
+     */
+    public Person(PersonDescriptor personDescriptor) {
+        requireNonNull(personDescriptor);
+        this.name = personDescriptor.getName().orElse(new Name());
+        this.phone = personDescriptor.getPhone().orElse(new Phone());
+        this.email = personDescriptor.getEmail().orElse(new Email());
+        this.address = personDescriptor.getAddress().orElse(new Address());
+        this.occasionList = personDescriptor.getOccasionList().orElse(new UniqueOccasionList());
+        this.moduleList = personDescriptor.getModuleList().orElse(new UniqueModuleList());
+        this.tags.addAll(personDescriptor.getTags().orElse(new HashSet<Tag>()));
+    }
+
 
     public Name getName() {
         return name;
+    }
+
+    public Property fullNameProperty() {
+        return new SimpleStringProperty(name.fullName);
     }
 
     public Phone getPhone() {
@@ -61,6 +107,20 @@ public class Person {
     }
 
     /**
+     * Returns the occasions this person is involved in.
+     */
+    public UniqueOccasionList getOccasionList() {
+        return occasionList;
+    }
+
+    /**
+     * Returns the modules this person is involved in.
+     */
+    public UniqueModuleList getModuleList() {
+        return moduleList;
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
@@ -72,6 +132,59 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    /**
+     * Makes an identical deep copy of this person.
+     */
+    public Person makeDeepDuplicate() {
+        Name newName = this.name.makeCopy();
+        Phone newPhone = this.phone.makeCopy();
+        Email newEmail = this.email.makeCopy();
+        Address newAddress = this.address.makeCopy();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeCopy()).collect(Collectors.toSet());
+        UniqueOccasionList newUniqueOccasionList = this.occasionList.makeDeepDuplicate();
+        UniqueModuleList newUniqueModuleList = this.moduleList.makeDeepDuplicate();
+        return new Person(newName, newPhone, newEmail, newAddress, newTag,
+                            newUniqueOccasionList.asUnmodifiableObservableList(),
+                                newUniqueModuleList.asUnmodifiableObservableList());
+    }
+
+    /**
+     * Makes an identical copy of this person with empty module and occasion lists.
+     */
+    public Person makeShallowDuplicate() {
+        Name newName = this.name.makeCopy();
+        Phone newPhone = this.phone.makeCopy();
+        Email newEmail = this.email.makeCopy();
+        Address newAddress = this.address.makeCopy();
+        Set<Tag> newTag = this.tags.stream().map((value) -> value.makeCopy()).collect(Collectors.toSet());
+        UniqueOccasionList newUniqueOccasionList = new UniqueOccasionList();
+        UniqueModuleList newUniqueModuleList = new UniqueModuleList();
+        return new Person(newName, newPhone, newEmail, newAddress, newTag,
+                newUniqueOccasionList.asUnmodifiableObservableList(),
+                newUniqueModuleList.asUnmodifiableObservableList());
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editedPersonDescriptor}.
+     */
+    public static Person createEditedPerson(Person personToEdit, PersonDescriptor editedPersonDescriptor) {
+        assert personToEdit != null;
+
+        Name updatedName = editedPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editedPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editedPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editedPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        UniqueModuleList updatedModuleList = editedPersonDescriptor
+                .getModuleList().orElse(personToEdit.getModuleList());
+        UniqueOccasionList updatedOccasionList = editedPersonDescriptor
+                .getOccasionList().orElse(personToEdit.getOccasionList());
+        Set<Tag> updatedTags = editedPersonDescriptor.getTags().orElse(personToEdit.getTags());
+
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedModuleList, updatedOccasionList);
     }
 
     /**

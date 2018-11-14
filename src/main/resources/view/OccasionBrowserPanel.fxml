@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane fx:id="occasionBrowserPanel">
+        <TableView fx:id="personTableView">
+            <columns>
+                <TableColumn text="Attendance" fx:id="nameStringTableColumn" prefWidth="1000"/>
+            </columns>
+            <columnResizePolicy>
+                <!--- Fill up if need be -->
+            </columnResizePolicy>
+        </TableView>
+    </StackPane>
+</StackPane>

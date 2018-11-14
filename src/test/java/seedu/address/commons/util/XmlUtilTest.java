@@ -45,6 +45,8 @@ public class XmlUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    // TODO: Add XmlUtilTest for Module and Occasion
+
     @Test
     public void getDataFromFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);

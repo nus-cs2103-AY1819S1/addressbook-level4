@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +25,54 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class UniquePersonList implements Iterable<Person> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Person> internalList;
+
+    {
+        internalList = FXCollections.observableArrayList();
+    }
+
+    public UniquePersonList() {}
+
+    /**
+     * Creates a person list using the Persons in the {@code toBeCopied}
+     */
+    public UniquePersonList(ObservableList<Person> toBeCopied) {
+        this();
+        setPersons(toBeCopied);
+    }
+
+    public UniquePersonList(List<Person> otherList) {
+        requireNonNull(otherList);
+        if (personsAreUnique(otherList)) {
+            internalList.addAll(otherList);
+        }
+    }
+
+    /**
+     * Makes an identical deep copy of this UniquePersonList.
+     */
+    public UniquePersonList makeDeepDuplicate() {
+        List<Person> newList = this.internalList.stream()
+                                    .map((value) -> value.makeDeepDuplicate()).collect(Collectors.toList());
+        return new UniquePersonList(newList);
+    }
+
+    /**
+     * Makes a copy of this UniquePersonList with shallow copies of the persons inside.
+     */
+    public UniquePersonList makeShallowDuplicate() {
+        List<Person> newList = this.internalList.stream()
+                .map((value) -> value.makeShallowDuplicate()).collect(Collectors.toList());
+        return new UniquePersonList(newList);
+    }
+
+    /**
+     * Reset the data in personList to a set of new data.
+     */
+    public void resetData(ObservableList<Person> newData) {
+        requireNonNull(newData);
+        setPersons(newData);
+    }
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -100,6 +148,17 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    /**
+     * Returns the backing list as a normal modifiable list {@code List}.
+     */
+    public List<Person> asNormalList() {
+        return internalList.stream().collect(Collectors.toList());
+    }
+
+    public int getSize() {
+        return internalList.size();
     }
 
     @Override

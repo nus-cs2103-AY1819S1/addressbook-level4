@@ -1,5 +1,11 @@
 package seedu.address.ui;
 
+//import java.net.URL;
+
+import static seedu.address.commons.util.TypeUtil.MODULE;
+import static seedu.address.commons.util.TypeUtil.OCCASION;
+import static seedu.address.commons.util.TypeUtil.PERSON;
+
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -17,28 +23,43 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowModuleRequestEvent;
+import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
+import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.UniqueOccasionList;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.util.AttendanceListUtil;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The MainWindow parent class from which children entity windows are spawned from.
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
-
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
+    public final Logger logger = LogsCenter.getLogger(getClass());
+    private UserPrefs prefs;
     private Stage primaryStage;
+    private HelpWindow helpWindow;
+
+    private PersonBrowserPanel personBrowserPanel;
+    private OccasionBrowserPanel occasionBrowserPanel;
+    private ModuleBrowserPanel moduleBrowserPanel;
+    private PersonListPanel personListPanel;
+    private ModuleListPanel moduleListPanel;
+    private OccasionListPanel occasionListPanel;
+    private Config config;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
-    private Config config;
-    private UserPrefs prefs;
-    private HelpWindow helpWindow;
+    @FXML
+    private StackPane entityListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -50,22 +71,25 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private MenuItem personMenuItem;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private MenuItem moduleMenuItem;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private MenuItem occasionMenuItem;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        super(FXML, primaryStage);
+    MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        this("MainWindow.fxml", primaryStage, config, prefs, logic);
+    }
 
-        // Set dependencies
+    MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        super(fxml, primaryStage);
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        helpWindow = new HelpWindow();
         this.config = config;
         this.prefs = prefs;
+        this.logic = logic;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -73,15 +97,25 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
         registerAsAnEventHandler(this);
+    }
 
-        helpWindow = new HelpWindow();
+    private void setTitle(String appTitle) {
+        primaryStage.setTitle(appTitle);
+    }
+
+    void hide() {
+        primaryStage.hide();
+    }
+
+    void show() {
+        primaryStage.show();
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    private void setAccelerators() {
+    void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
@@ -116,51 +150,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
-     */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    void hide() {
-        primaryStage.hide();
-    }
-
-    private void setTitle(String appTitle) {
-        primaryStage.setTitle(appTitle);
-    }
-
-    /**
-     * Sets the default size based on user preferences.
-     */
-    private void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
-        }
-    }
-
-    /**
      * Returns the current size and the position of the main Window.
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        raise(new ExitAppRequestEvent());
     }
 
     /**
@@ -175,29 +177,136 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens up the module window on this primaryStage.
+     */
+    @FXML
+    private void handleModule() {
+        getBrowserPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().clear();
+        moduleListPanel.clearSelection();
+
+        moduleListPanel.updatePanel(logic.getFilteredModuleList());
+        getBrowserPlaceholder().getChildren().add(moduleBrowserPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
+
+        logic.setActiveType(MODULE);
+        AttendanceListUtil.postClearEvent();
     }
 
     /**
-     * Closes the application.
+     * Opens up the persons window on this primaryStage.
      */
     @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
+    private void handlePerson() {
+        getBrowserPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().clear();
+        personListPanel.clearSelection();
+
+        personListPanel.updatePanel(logic.getFilteredPersonList());
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+        logic.setActiveType(PERSON);
+        AttendanceListUtil.postClearEvent();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Opens up the occasions window on this primaryStage.
+     */
+    @FXML
+    private void handleOccasion() {
+        getBrowserPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().clear();
+        occasionListPanel.clearSelection();
+
+        occasionListPanel.updatePanel(logic.getFilteredOccasionList());
+        getBrowserPlaceholder().getChildren().add(occasionBrowserPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
+
+        logic.setActiveType(OCCASION);
+        AttendanceListUtil.postClearEvent();
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerParts() {
+        personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
+                new UniqueOccasionList().asUnmodifiableObservableList());
+        moduleBrowserPanel = new ModuleBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        occasionBrowserPanel = new OccasionBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
+        getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        getResultDisplayPlaceholder().getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        getStatusbarPlaceholder().getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(logic);
+        getCommandBoxPlaceholder().getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Sets the default size based on user preferences.
+     */
+    protected void setWindowDefaultSize(UserPrefs prefs) {
+        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
+        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
+            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
+            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+        }
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowModuleEvent(ShowModuleRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleModule();
+    }
+
+    @Subscribe
+    private void handleShowPersonEvent(ShowPersonRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handlePerson();
+    }
+
+    @Subscribe
+    private void handleShowOccasionEvent(ShowOccasionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleOccasion();
+    }
+
+    public StackPane getEntityListPanelPlaceholder() {
+        return entityListPanelPlaceholder;
+    }
+
+    public StackPane getResultDisplayPlaceholder() {
+        return resultDisplayPlaceholder;
+    }
+
+    public StackPane getStatusbarPlaceholder() {
+        return statusbarPlaceholder;
+    }
+
+    public StackPane getBrowserPlaceholder() {
+        return browserPlaceholder;
+    }
+
+    public StackPane getCommandBoxPlaceholder() {
+        return commandBoxPlaceholder;
     }
 }

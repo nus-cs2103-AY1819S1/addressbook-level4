@@ -16,6 +16,13 @@ public class Phone {
     public final String value;
 
     /**
+     * Empty constructor.
+     */
+    public Phone() {
+        value = "";
+    }
+
+    /**
      * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.
@@ -24,6 +31,17 @@ public class Phone {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
         value = phone;
+    }
+
+    /**
+     * Makes an identical deep copy of this Phone.
+     */
+    public Phone makeCopy() {
+        if (this.value.equals("")) {
+            return new Phone();
+        }
+        Phone newPhone = new Phone(new String(this.value));
+        return newPhone;
     }
 
     /**

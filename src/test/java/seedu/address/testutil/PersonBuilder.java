@@ -1,8 +1,13 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -25,6 +30,8 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private UniqueModuleList moduleList;
+    private UniqueOccasionList occasionList;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -33,6 +40,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        moduleList = new UniqueModuleList();
+        occasionList = new UniqueOccasionList();
     }
 
     /**
@@ -44,6 +53,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        moduleList = personToCopy.getModuleList();
+        occasionList = personToCopy.getOccasionList();
     }
 
     /**
@@ -86,8 +97,74 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the module list using {@code moduleList}.
+     */
+    public PersonBuilder withModuleList(List<Module> moduleList) {
+        this.moduleList = new UniqueModuleList();
+        for (Module module : moduleList) {
+            this.moduleList.add(module);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the module list using {@code moduleList}.
+     */
+    public PersonBuilder withModuleList(UniqueModuleList moduleList) {
+        this.moduleList = moduleList;
+        return this;
+    }
+
+    /**
+     * Sets the occasion list using {@code occasionList}.
+     */
+    public PersonBuilder withOccasionList(List<Occasion> occasionList) {
+        this.occasionList = new UniqueOccasionList();
+        for (Occasion occasion : occasionList) {
+            this.occasionList.add(occasion);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the occasion list using {@code occasionList}.
+     */
+    public PersonBuilder withOccasionList(UniqueOccasionList occasionList) {
+        this.occasionList = occasionList;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} as having no {@code Email}.
+     */
+    public PersonBuilder withoutEmail() {
+        this.email = new Email();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} as having no {@code Address}.
+     */
+    public PersonBuilder withoutAddress() {
+        this.address = new Address();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} as having no {@code Phone}.
+     */
+    public PersonBuilder withoutPhone() {
+        this.phone = new Phone();
+        return this;
+    }
+
+    /**
+     * Builds a new person.
+     * @return person which has been built.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, moduleList, occasionList);
     }
 
 }

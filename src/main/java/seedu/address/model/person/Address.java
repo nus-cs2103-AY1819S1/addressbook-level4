@@ -21,6 +21,13 @@ public class Address {
     public final String value;
 
     /**
+     * Empty constructor.
+     */
+    public Address() {
+        value = "";
+    }
+
+    /**
      * Constructs an {@code Address}.
      *
      * @param address A valid address.
@@ -29,6 +36,17 @@ public class Address {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
         value = address;
+    }
+
+    /**
+     * Makes an identical deep copy of this Address.
+     */
+    public Address makeCopy() {
+        if (this.value.equals("")) {
+            return new Address();
+        }
+        Address newAddress = new Address(new String(value));
+        return newAddress;
     }
 
     /**

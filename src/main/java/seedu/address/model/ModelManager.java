@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.TypeUtil.PERSON;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,6 +13,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.util.TypeUtil;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Occasion> filteredOccasions;
+    private final FilteredList<Module> filteredModules;
+    private TypeUtil activeType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +41,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
+        filteredOccasions = new FilteredList<>(versionedAddressBook.getOccasionList());
+        activeType = PERSON;
     }
 
     public ModelManager() {
@@ -57,21 +67,52 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public TypeUtil getActiveType() {
+        return activeType;
+    }
+
+    @Override
+    public void setActiveType(TypeUtil newActiveType) {
+        activeType = newActiveType;
+    }
+
+    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return versionedAddressBook.hasModule(module);
     }
+
+    @Override
+    public boolean hasOccasion(Occasion occasion) {
+        requireNonNull(occasion);
+        return versionedAddressBook.hasOccasion(occasion);
+    }
+
 
     @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addOccasion(Occasion occasion) {
+        versionedAddressBook.addOccasion(occasion);
+        updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addModule(Module module) {
+        versionedAddressBook.addModule(module);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         indicateAddressBookChanged();
     }
 
@@ -83,7 +124,61 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //@@author waytan
+    @Override
+    public void updateModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        versionedAddressBook.updateModule(target, editedModule);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateOccasion(Occasion target, Occasion editedOccasion) {
+        requireAllNonNull(target, editedOccasion);
+
+        versionedAddressBook.updateOccasion(target, editedOccasion);
+        indicateAddressBookChanged();
+    }
+
+    //@@author
+    @Override
+    public void deletePerson(Person target) {
+        versionedAddressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    //@@author waytan
+    @Override
+    public void deleteModule(Module target) {
+        versionedAddressBook.removeModule(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteOccasion(Occasion target) {
+        versionedAddressBook.removeOccasion(target);
+        indicateAddressBookChanged();
+    }
+
+    //@@author
+    @Override
+    public void insertPerson(Person personToInsertDeep, Module moduleToInsertDeep, Person personToInsertShallow,
+                                    Module moduleToInsertShallow, Person personToReplace, Module moduleToReplace) {
+        versionedAddressBook.insertPerson(personToInsertDeep, moduleToInsertDeep,
+                                            personToInsertShallow, moduleToInsertShallow,
+                                            personToReplace, moduleToReplace);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void insertPerson(Person personToInsertDeep, Occasion occasionToInsertDeep, Person personToInsertShallow,
+                                    Occasion occasionToInsertShallow, Person personToReplace,
+                                            Occasion occasionToReplace) {
+        versionedAddressBook.insertPerson(personToInsertDeep, occasionToInsertDeep, personToInsertShallow,
+                                            occasionToInsertShallow, personToReplace, occasionToReplace);
+        indicateAddressBookChanged();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -98,6 +193,44 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Module List Accessors =============================================================
+
+    //@@author waytan
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return FXCollections.unmodifiableObservableList(filteredModules);
+    }
+
+    //@@author
+    @Override
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
+        requireNonNull(predicate);
+        filteredModules.setPredicate(predicate);
+    }
+
+    //=========== Filtered Occasion List Accessors =============================================================
+
+    //@@author waytan
+    /**
+     * Returns an unmodifiable view of the list of {@code Occasion} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Occasion> getFilteredOccasionList() {
+        return FXCollections.unmodifiableObservableList(filteredOccasions);
+    }
+
+    //@@author
+    @Override
+    public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
+        requireNonNull(predicate);
+        filteredOccasions.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -129,6 +262,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -144,7 +278,9 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredModules.equals(other.filteredModules)
+                && filteredOccasions.equals(other.filteredOccasions);
     }
 
 }

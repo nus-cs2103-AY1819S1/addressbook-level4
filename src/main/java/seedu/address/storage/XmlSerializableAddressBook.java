@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,9 +21,16 @@ import seedu.address.model.person.Person;
 public class XmlSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_OCCASION = "Occasions list contains duplicate occasion(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+    @XmlElement
+    private List<XmlAdaptedModule> modules;
+    @XmlElement
+    private List<XmlAdaptedOccasion> occasions;
+
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -29,6 +38,8 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        modules = new ArrayList<>();
+        occasions = new ArrayList<>();
     }
 
     /**
@@ -37,6 +48,8 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        modules.addAll(src.getModuleList().stream().map(XmlAdaptedModule::new).collect(Collectors.toList()));
+        occasions.addAll(src.getOccasionList().stream().map(XmlAdaptedOccasion::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +67,20 @@ public class XmlSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+        for (XmlAdaptedModule m : modules) {
+            Module module = m.toModelType();
+            if (addressBook.hasModule(module)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
+            }
+            addressBook.addModule(module);
+        }
+        for (XmlAdaptedOccasion o : occasions) {
+            Occasion occasion = o.toModelType();
+            if (addressBook.hasOccasion(occasion)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_OCCASION);
+            }
+            addressBook.addOccasion(occasion);
+        }
         return addressBook;
     }
 
@@ -66,6 +93,9 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableAddressBook) other).persons);
+        XmlSerializableAddressBook otherBook = (XmlSerializableAddressBook) other;
+        return persons.equals(otherBook.persons)
+                && modules.equals(otherBook.modules)
+                && occasions.equals(otherBook.occasions);
     }
 }
