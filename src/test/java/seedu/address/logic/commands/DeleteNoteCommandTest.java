@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteNoteCommand}.
@@ -58,13 +59,15 @@ public class DeleteNoteCommandTest {
 
     @Test
     public void execute_deleteNote_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        String expectedMessage = String.format(MESSAGE_SUCCESS, personToDelete);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.commitAddressBook();
 
         // add note to person first before deleting
+        Person personToDelete = TestUtil.getPerson(model, INDEX_FIRST_PERSON);
         updatePersonInModelWithNote(personToDelete, model, VALID_NOTE_TEXT_WITH_FULL_STOP);
+
+        Person personWithNote = TestUtil.getPerson(model, INDEX_FIRST_PERSON);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, personWithNote);
         Command command = new DeleteNoteCommand(INDEX_FIRST_PERSON);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 

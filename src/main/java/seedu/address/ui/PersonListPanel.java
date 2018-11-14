@@ -63,7 +63,7 @@ public class PersonListPanel extends UiPart<Region> {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
-        detailsPanel.display(event.targetIndex); // display student's details in details panel
+        detailsPanel.display(event.targetIndex, event); // display student's details in details panel
     }
 
     /**

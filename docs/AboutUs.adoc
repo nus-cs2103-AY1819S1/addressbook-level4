@@ -41,6 +41,7 @@ Responsibilities: UI
 
 === Henry Jayakusuma
 
+<<<<<<< HEAD
 image::henryjk.png[width="150", align="left"]
 {empty}[http://github.com/HenryJk[github]] [<<henryjk#, portfolio>>]
 

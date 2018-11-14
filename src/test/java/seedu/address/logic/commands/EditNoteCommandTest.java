@@ -26,6 +26,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code EditNoteCommand}.
@@ -72,7 +73,7 @@ public class EditNoteCommandTest {
     @Test
     public void execute_editExistingNote_success() {
         model = createNewModelWithExistingNote();
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person firstPerson = TestUtil.getPerson(model, INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         updatePersonInModelWithNote(firstPerson, expectedModel, VALID_NOTE_TEXT_TWO_WITH_FULL_STOP);
         String expectedMessage = String.format(MESSAGE_SUCCESS, firstPerson);

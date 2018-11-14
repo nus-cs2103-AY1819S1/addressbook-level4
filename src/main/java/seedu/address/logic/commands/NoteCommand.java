@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.person.Note.MESSAGE_NOTE_CONSTRAINTS;
-import static seedu.address.model.person.Note.isValid;
+import static seedu.address.logic.commands.ValidatorUtil.checkIfIndexValid;
+import static seedu.address.logic.commands.ValidatorUtil.checkIfTextValid;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -49,35 +48,45 @@ public class NoteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        int index = studentIndex.getZeroBased();
+        assert(index >= 0);
+
         List<Person> lastShownList = model.getFilteredPersonList();
+        checkIfIndexValid(index, lastShownList);
+        checkIfTextValid(textToAdd);
 
-        // Checks if index is valid, not more than list size
-        int zeroBasedIndex = studentIndex.getZeroBased();
-        assert(zeroBasedIndex >= 0);
+        Person studentToReplace = lastShownList.get(index);
+        textToAdd = addSpaceIfTextExisting(textToAdd, studentToReplace);
 
-        if (zeroBasedIndex >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
+        addNoteToStudentAtIndexInModel(studentToReplace, model);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studentToReplace));
+    }
 
-        // Checks if text is valid
-        if (!isValid(textToAdd)) {
-            throw new CommandException(MESSAGE_NOTE_CONSTRAINTS);
-        }
-
-        Person studentToReplace = lastShownList.get(zeroBasedIndex);
+    /**
+     * Replaces student at index with copied student with new note.
+     * @param studentToReplace removed from {@code model} and replaced with new Student object.
+     */
+    private void addNoteToStudentAtIndexInModel(Person studentToReplace, Model model) {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
-
-        // add whitespace in front of text if appending to existing text
-        if (studentToReplace.hasNote()) {
-            textToAdd = " " + textToAdd;
-        }
-
         Note updatedNote = studentToReplace.getNote().add(textToAdd);
         descriptor.setNote(updatedNote);
         Person newStudent = descriptor.createEditedPerson(studentToReplace);
         model.updatePerson(studentToReplace, newStudent);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, studentToReplace));
+    }
+
+    /**
+     * Adds whitespace in front of text if student has an existing note.
+     * @param textToAdd to be edited if needed.
+     * @param student to be checked.
+     * @return new String that could either be the same or have a whitespace at front.
+     */
+    private String addSpaceIfTextExisting(String textToAdd, Person student) {
+        if (student.hasNote()) {
+            return " " + textToAdd;
+        }
+        return textToAdd;
     }
 
     /**

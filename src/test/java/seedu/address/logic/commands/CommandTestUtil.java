@@ -29,6 +29,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TestUtil;
 
 /**
  * Contains helper methods for testing commands.
@@ -195,7 +196,7 @@ public class CommandTestUtil {
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Person person = TestUtil.getPerson(model, targetIndex);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
@@ -206,7 +207,7 @@ public class CommandTestUtil {
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredPersonList().get(0);
+        Person firstPerson = TestUtil.getPerson(model, Index.fromZeroBased(0));
         model.deletePerson(firstPerson);
         model.commitAddressBook();
     }

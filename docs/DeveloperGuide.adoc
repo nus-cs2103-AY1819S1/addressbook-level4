@@ -1471,3 +1471,12 @@ Optional Prerequisite: There is at least 1 person recorded in the application to
 .. Test case: `classStats` +
    Expected: Statistics data is accurate according to the total marks of the students.
 // end::robertInstructions[]
+
+_{ more test cases ... }_
+
+=== Add Profile Photo
+
+.  Prerequisites: The Profile Photo should not exceed 5MB.
+
+.. Advantage: Restricts user from uploading large image files as this may affect performance of the application.
+
