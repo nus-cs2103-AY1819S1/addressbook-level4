@@ -3,54 +3,83 @@
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: default.css
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are T09-4, a team based in
+the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
+
+This Java application is developed for CS2103T Software Engineering.
 
 == Project Team
 
-=== John Doe
+=== Damith C. Rajapakse
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]]
+
+Role: Project Advisor
+
+'''
+=== Eugene Peh
+image::eugenepeh.png[width="150", align="left"]
+{empty}[https://github.com/eugenepeh[github]]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Fong Zhi Zhong
+image::lexzt.png[width="150", align="left"]
+{empty}[https://github.com/lexzt[github]] [<<lexzt#, portfolio>>] [https://www.linkedin.com/in/fong-keith[linkedin]] [https://lexzt.github.io[website]]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Leader +
+Responsibilities:
+
+* Find
+* Postal code data
+* Google Maps UI & Javascript
+* Code quality
+* Integration
+* Scheduling and tracking
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Yeo Zhuan Yu
+image::zhuanyu.png[width="150", align="left"]
+{empty}[https://github.com/ZhuanYu[github]] [<<zhuanyu#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities:
+
+* Query data
+* Notify
+* Threading
+* UI
+* Deliverables and deadlines
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Tang Yurou
+image::yuroutang.png[width="150", align="left"]
+{empty}[https://github.com/YurouTang[github]] [<<yuroutang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities:
+
+* Filter
+* Calculate
+* Commands
+* Documentation
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Xiao Delong
+image::dlworldpeace.png[width="150", align="left"]
+{empty}[https://github.com/dlworldpeace[github]] [<<dlworldpeace#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities:
 
-'''
+* Abbreviations
+* Autocomplete
+* Testing
+* UX Enhancement

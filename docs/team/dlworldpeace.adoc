@@ -1,0 +1,509 @@
+= Xiao Delong - Project Portfolio
+:sectnums:
+:site-section: AboutUs
+:toc: macro
+:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
+:stylesDir: ../stylesheets
+:stylesheet: delong.css
+
+toc::[]
+
+---
+
+image::dlworldpeace.png[width="150", align="left"]
+{empty}[https://github.com/dlworldpeace[github]]
+
+== Introduction
+
+Hi there! I am Delong, currently a second year student at National University of Singapore major in Computer Science.  +
+
+I like building things from scratch. Since young, I like building LEGO. And ever
+after starting to programme, I fell in love with it and enjoy creating my own web
+app, phone app and software.
+
+This project is part of a Software Engineering module (CS2103T) that I have taken.
+Together with my teammates, Keith, Zhuanyu, Yurou and Alvin, I would like to present
+_Car park Finder_ to you.
+
+== Project Overview: `Car park Finder`
+
+Car park finder is a desktop address book application to find HDB (Housing Development Board) car parks in Singapore.
+It allows you to work with a *Command Line Interface (CLI)* to display a list of car parks with the convenience of simply typing.
+If you *use the computer frequently* and *commute by driving*, you would find our application useful in helping you obtain various information about car parks.
+
+.Sample display of the application
+image::find_location.png[width="700"]
+
+== Summary of contributions
+
+Here is the list of my contributions to this project, ranging from adding features to documentations:
+
+* *Major enhancement*: Add auto-complete feature to commands that require parameters.
+** What it does: It prompts the user the full format of a command.
+** Justification: It improves the product significantly because some of our commands can have up to three parameters. Memorising the full format is time-consuming.
+** Highlights: This enhancement allows the user to highlight the next parameter placeholder after one placeholder is filled up.
+
+* *Minor enhancement*: Add command abbreviation feature to most frequently used commands.
+** What it does: It allows the user to type less for the same functionality.
+** Justification: It improves the product significantly because command words can be long and typed wrongly easily.
+** Highlights: This enhancement is very intuitive and thus easy to use.
+
+* *Code contributed*:
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/ui/CommandBox.java[Command Box]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/logic/parser/CliSyntax.java[Client Syntax]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/logic/parser/CarparkFinderParser.java[Carpark Finder Parser]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/test/java/seedu/parking/logic/parser/CarparkFinderParserTest.java[Carpark Finder Parser Test]].
+
+
+* *Other contributions*:
+** Setting Up Group Repository for Grading
+https://github.com/nus-cs2103-AY1819S1/addressbook-level4/pull/46[AB4#46]
+
+** Setting Up Travis CI for Auto Testing and Auto Publishing of Docs
+https://github.com/CS2103-AY1819S1-T09-4/main/commit/4897f64e36915ef9e8f4192b3003a82a780fa069[#0],
+
+** Documentation:
+*** Make UG and DG more reader-friendly:
+(Pull requests:
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/35[#35],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/63[#63],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/65[#65],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/84[#84],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/87[#87])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+(Pull requests by teammates:
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/28[#28],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/34[#34],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/36[#36],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/64[#64],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/80[#80])
+
+== Contributions to the User Guide
+
+Here is the list of my contributions to the User Guide. They showcase my ability
+to write documentation for end-users to understand easily. We are targeting car
+owners, e.g. taxi drivers.
+
+
+=== Abbreviation: abbrev.
+
+If you find the command words too long to type. Guess what? We have executable short form
+for each command in our command list.
+
+You can find abbreviations of each command in the table that we provide to each section from 3.1 to 3.19.
+
+[NOTE]
+However, there are ambiguous abbreviations that are not distinguishable between multiple commands.
+Thus, you *CANNOT* use them: `c`, `f`, `fi`, `h`.
+
+To see how useful it can be, please take a look at the examples below.
+
+==== Example: Calculate Command
+
+Step 1. Instead of entering `calculate` into the _Command Box_, you can enter `ca` instead.
+
+Step 2. complete the rest of the fields with `TJ39 SUN 7.00AM 9.00PM`, followed by pressing Enter to execute.
+
+
+=== Autocomplete: Tab
+
+If you forgotten how to type a command, do not worry! By typing in the first letter of the command in the
+_Command Box_ and pressing the Tab key, it will display the full format of the command.
+
+[NOTE]
+====
+Only available for the following commands: +
+[underline]#<<Features-Select, `select`>># | [underline]#<<Features-Find, `find`>># | [underline]#<<Features-Filter, `filter`>># |
+[underline]#<<Features-Notify, `notify`>># | [underline]#<<Features-Calculate, `calculate`>>#
+====
+
+To see how useful it can be, please take a look at the examples below.
+
+==== Example: Select Command
+
+Step 1. Enter `s` into the _Command Box_, followed by pressing Tab.
+Your `select` command will be completed.
+
+Step 2. Substitute the selected field `INDEX` with `1`, followed by pressing Enter to execute.
+
+==== Example: Filter Command
+
+Step 1. Enter `fil` into the _Command Box_, followed by pressing Tab.
+Your `filter` command will be completed.
+
+Step 2. Substitute the selected field `DAY` with `SUN`, followed by pressing Tab to move to the next field.
+
+Step 3. Repeat step 2 until you substitute all the fields with actual value. (You can remove those fields you
+choose not to use). Then press Enter to execute.
+
+[appendix]
+== Command Summary
+This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
+Refer to [underline]#<<generaltable>># for general commands and [underline]#<<managetable>># for car park management.
+For more details on what each command does, please refer to [underline]#<<Features>>#.
+
+.General Commands
+[[generaltable]]
+[cols="^.^2,^.^2,^.^2", width=50%, options="header"]
+|===
+|Command |Format |Example
+
+|*Help*
+|help
+|he
+
+|*List*
+|list
+|l
+
+|*Undo*
+|undo
+|u
+
+|*Redo*
+|redo
+|r
+
+|*Clear*
+|clear
+|cl
+
+|*History*
+|history
+|hi
+
+|*Exit*
+|exit
+|e
+|===
+
+.Car Park Management
+[[managetable]]
+[cols="^.^1,^.^4,^.^2"]
+|===
+|Command |Format |Example
+
+|*Query*
+|query
+|q
+
+|*Select*
+|select INDEX
+|s 2
+
+|*Find*
+|find KEYWORD [MORE_KEYWORDS]
+|fin punggol
+
+|*Filter*
+|filter FLAG/ PARAMETER [MORE_FLAG/ PARAMETER]
+|fil f/ SUN 7.30AM 5.30PM ct/ SURFACE
+
+|*Calculate*
+|calculate DAY START_TIME END_TIME
+|cal SUN 3.30PM 6.30PM
+
+|*Notify*
+|notify TIME_SECONDS
+|n 60
+|===
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Architecture overview
+
+This section explains the design architecture used by the entire system.
+
+[TIP]
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_architecture diagram_* given above explains the high-level design of the App,
+ which contains 6 <<Architecture-Components,*`architecture components`*>> and
+ adopts an <<Architecture-design,*`events-driven nature`*>>.
+
+[[Architecture-Components]]
+=== Architecture components
+
+This section will briefly introduce the function of each architecture components
+as well as common behaviours.
+
+.Architecture Components
+|===
+|Component |Main Function
+
+|<<Design-Main,*`Main`*>>
+|the starting point of the system, which encapsulates the other components.
+
+|<<Design-Commons,*`Commons`*>>
+|represents a collection of classes used by multiple components.
+
+|<<Design-Ui,*`User Interface`*>>
+|contains the user interface classes used by the application.
+
+|<<Design-Logic,*`Logic`*>>
+|execute user commands, also known as the command executor.
+
+|<<Design-Model,*`Model`*>>
+|holds the data of the application in-memory.
+
+|<<Design-Storage,*`Storage`*>>
+|which allows reading and writing of data to the hard disk.
+|===
+
+[NOTE]
+Each of the User Interface, Logic, Model, Storage Components also:
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the *_class diagram_* given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+
+[[Design-Main]]
+=== Main component
+
+The `Main` component consists of only one class, link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
+
+* At app launch: initializes the components in the correct sequence, and connects them with one another.
+* At shut down: shuts down the components and invokes cleanup methods where necessary.
+
+[[Design-Commons]]
+=== Commons component
+
+The `Commons` component consists of classes used by multiple other components. Two of these classes play important roles at the architectural level.
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+[NOTE]
+Classes used by multiple components are put in the seedu.carparkfinder.commons package.
+
+[[Design-Ui]]
+=== User interface component
+
+The `User Interface` (`UI`) component consists of a `MainWindow` that is made up of different parts.
+The base class
+link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] uses _JavaFx UI_ framework.
+
+Please refer to the *_class diagram_* below for more details on how they are connected.
+
+.Structure of the User Interface component
+image::UiClassDiagram.png[width="800"]
+
+In general, this is the workflow of the `UI` component:
+
+. Execute user commands using the `Logic` component.
+. Bind itself to some data in the `Model` so that the `UI` components can auto-update when data in the `Model` change.
+. Respond to events raised from various parts of the App and updates the `UI` components accordingly.
+
+All `UI` parts, including the `MainWindow`, inherit from the abstract `UiPart` class. The layout for each
+component is defined in matching `.fxml` files and can be found in the `src/main/resources/view` folder.
+
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`]
+is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+[[Design-Logic]]
+
+
+[[Design-Model]]
+=== Model component
+
+The `Model` component is managed by the `ModelManager` that stores the data of Car Park Finder.
+It does not depend on any of the three other components.
+link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`] is the base class.
+
+
+Please refer to the *_class diagram_* below for more details.
+
+.Structure of the Model Component
+
+image::ModelClassDiagram.png[width="800"]
+
+
+In general, this is the structure of the `Model` Component:
+
+* The `ModelManager` extends the `Model` Interface.
+
+* It stores a `VersionedCarparkFinder` and a `UserPref` object.
+** The `UserPref` object represents the user's preferences.
+** The `VersionedCarparkFinder` contains a `carparkFinderStateList` which is used to store multiple `Carpark` objects.
+
+
+* The `ModelManager` also manages a filtered list of `Carpark` objects filtered from the `carparkFinderStateList`.
+
+* The `Model component` exposes an unmodifiable `ObservableList<Carpark>` that can be 'observed'
+e.g. the UI can be bound to this list so that it automatically updates when data in the list changes.
+
+
+[NOTE]
+As a OOP model, we can store a `Tag` list in Car Park Finder, which `Carpark` can reference.
+This would allow Car Park Finder to only require one `Tag` object per unique `Tag`, instead of
+each `Carpark` needing their own `Tag` object. An example of how such a model may look like is given below.
+ +
+
+.Use of Tag object
+image::ModelClassBetterOopDiagram.png[width="800"]
+
+
+
+[[Design-Storage]]
+=== Storage component
+
+The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
+link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`] is the base class.
+
+Please refer to the *_class diagram_* below for more details on how they are connected.
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+[[localcopy]]
+The `Storage` component can perform the following functions:
+
+* save `UserPref` objects in json format and read it back.
+* save the Car Park Finder data in xml format and read it back.
+
+=== Abbreviation
+
+The abbreviation feature reduces the amount of characters needed to type.
+
+==== Overview
+
+The abbreviation mechanism is facilitated by `CarparkFinderParser`. It extends the cases
+to allow command abbreviations to be parsed through `parseCommand` as well.
+
+==== Example
+
+Given below is an example usage scenario and how the abbreviation mechanism behaves at
+each step.
+
+Step 1. The user launches the application for the first time. The `LogicManager`
+is initialized with an `CarparkFinderParser`.
+
+Step 2. The user executes `c` command instead of `calculate`. The `Matcher` object in
+`CarparkFinderParser` splits the command text into _command word_ and
+_arguments_, in which the _command word_ is checked. Because it is an ambiguous abbrevation
+(we do not know if it stands for `clear` or `calculate`), it is rejected by throwing a `ParseException`
+
+Step 2. The user now tries `s` command instead of `select`. The `Matcher` object in
+`CarparkFinderParser` again splits the command text into _command word_ and
+_arguments_, in which the _command word_ is checked. This time, it is checked that the input string
+is contained in one of the command words that is `calculate`. Therefore, it proceeds as if a
+`select` command is given.
+
+.Flow chart of command abbreviation usage.
+image::ActivityDiagram-abbreviation.png[width="880", align="left"]
+
+The _Activity Diagram_ above explains what happens when a user executes a `f`
+command.
+
+==== Design Considerations
+
+===== Aspect: How abbreviation executes
+
+* *Alternative 1 (current choice):* use input string to check if it is contained in any
+command word string
++
+[cols="1,10"]
+|===
+|Pros| Extra logic needed
+|Cons| Very short command words that contains ambiguous abbreviation is marginalised in this case.
+For example, the shortest form of `find` is `fin`, which makes not much of a difference.
+|===
++
+
+* *Alternative 2:* (previous choice):* declare `COMMAND_ABBREVIATION` with a string value
+in each Command file.
++
+[cols="1,10"]
+|===
+|Pros| Easy to implement
+|Cons| Have to decide on each abbreviation subjectively which brings down performance
+if there are a lot of commands
+|===
+
+=== Autocomplete
+
+The autocomplete feature simplifies overcomplicated commands by prompting correct format.
+
+==== Overview
+
+The autocomplete mechanism is facilitated by `CommandBox`. It calls `autocomplete()`
+to `displayFormat()` if applicable command word is entered or to highlight the next
+parameter if full format is already provided in the command box.
+
+==== Example
+
+Given below is an example usage scenario and how the autocomplete mechanism behaves at
+each step.
+
+Step 1. The user launches the application for the first time.
+
+Step 2. The user enters `fi` in command box and then presses Tab . `autoComplete()`
+compares `input` through the list of applicable command words and abbreviations, and
+proceeds to `displayFormat()` because `fi` is an ambiguous COMMAND, it fails with an exception.
+
+Step 3. User tries with `fil` again. It passes as part of the autocomplete command `filter`
+thus moves on to highlight its first placeholder, `DAY`, in the command line. As seen
+from the following diagrams.
+
+.After `fil` is entered.
+image::screenshot-fi.png[width="800", align="left"]
+
+.After Tab is pressed for the first time.
+image::screenshot-fiFirstArgSelected.png[width="800", align="left"]
+
+Step 3. The user replaces `DAY` with an actual value, `SUN`, and presses 'Tab'
+key again. `autoComplete()` is called again, but because this time it checks that `input`
+`isFilterCommandFormat`, the next placeholder, `START_TIME`, is highlighted. Result
+is shown in the following diagram.
+
+.After Tab is pressed for the second time.
+image::screenshot-fiSecondArgSelected.png[width="800", align="left"]
+
+Step 4. The user continues step 3 until all placeholders are filled up with actual
+values and then presses Enter to execute this command.
+
+.Activity Diagram for Auto Completion Mechanism.
+image::ActivityDiagram-autocompletion.png[width="880", align="left"]
+
+The _Activity Diagram_ above explains what happens when user presses Tab.
+
+==== Design Considerations
+
+===== Aspect: TextInput
+
+* *Alternative 1:* (current choice): Continue to use the original TextField
++
+[cols="1,10"]
+|===
+|Pros| External library enables bindAutocompletion for TextField (the drop down
+list of suggested commands that appears and updates itself as user types).
+External library enables bindAutocompletion for TextField (the drop down list of
+ suggested commands that appears and updates itself as user types).
+|Cons| Text formatting is limited. All text in the TextField must have the same format.
+|===
+
+* *Alternative 2:* Create additional TextField as user request on additional fields
++
+[cols="1,10"]
+|===
+|Pros| Allows for different formatting for different fields (Commands can have a
+ different colour from the fields)
+|Cons|Original structure will be disrupted. Command box will no longer be single
+line text input, which have consequences such as the user cannot backspace or
+select through the entire line.
+|===

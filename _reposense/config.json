@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "Alvinnyk",
+      "displayName": "ALVIN...N KIT",
+      "authorNames": ["Alvinnyk", "AeroSpectr3"]
+    },
+    {
+      "githubId": "Lexzt",
+      "displayName": "FONG ...ZHONG",
+      "authorNames": ["Lexzt", "Keith Fong"]
+    },
+    {
+      "githubId": "YurouTang",
+      "displayName": "TANG ...YUROU",
+      "authorNames": ["YurouTang", "Tang Yurou"]
+    },
+    {
+      "githubId": "dlworldpeace",
+      "displayName": "XIAO ...ELONG",
+      "authorNames": ["dlworldpeace"]
+    },
+    {
+      "githubId": "ZhuanYu",
+      "displayName": "YEO Z...AN YU",
+      "authorNames": ["ZhuanYu", "Zhuan Yu", "Yeo Zhuan Yu"]
+    }
+  ]
+}

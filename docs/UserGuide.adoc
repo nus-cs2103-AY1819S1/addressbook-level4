@@ -1,260 +1,1027 @@
-= AddressBook Level 4 - User Guide
+= Car Park Finder - User Guide
 :site-section: UserGuide
 :toc:
-:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: full
+:stylesheet: default.css
+:sourceDir: https://cs2103-ay1819s1-t09-4.github.io/main
+:xrefstyle: short
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T09-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T09-4`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the User Guide for _Car Park Finder_!
+
+_Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
+Housing & Development Board (HDB) car parks in Singapore. +
+
+Our application allows you to view vital information such as parking lots availability for each car park, so that you can
+plan ahead of your trip.
+
+If you use the computer frequently and commute by driving, why not give it a try. No installation is required and getting
+started is as simple as typing out a text message.
+
+Interested? Read the next section on how to get started. If you already have _Car Park Finder_ up and running then
+head on over to [underline]#<<Features>>#.
 
 == Quick Start
+To get _Car Park Finder_ up and running, just follow these simple steps.
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+=== Setup
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+. Check that you have https://www.oracle.com/technetwork/java/javase/downloads/index.html[Java version 9] or
+later installed in your Computer.
+. Download the latest `carparkfinder.jar` https://github.com/CS2103-AY1819S1-T09-4/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for _Car Park Finder_.
+. Double-click the file to start the application. The _Graphical User Interface_ (GUI) should appear in a
+few seconds.
 
-.  Refer to <<Features>> for details of each command.
+.Home page of Car Park Finder
+[[first_load]]
+image::first_load.png[width="700"]
+
+If everything goes well, _Car Park Finder_ should launch immediately without any installation. Please refer
+to [underline]#<<first_load>># and check if it displays the same thing for you.
+
+=== Graphical User Interface (GUI)
+
+.The six regions of the GUI
+[[GUI]]
+image::GUI.png[width="700"]
+
+The GUI for _Car Park Finder_ as shown in [underline]#<<GUI>># consist of six regions:
+
+[1] _Menu Bar_ {nbsp} {nbsp} {nbsp} {nbsp} {nbsp} [2] _Result Panel_ {nbsp} {nbsp} {nbsp} {nbsp} {nbsp} [3] _Google Map_ +
+[4] _Message Box_ {nbsp} {nbsp} [5] _Command Box_{nbsp} {nbsp} {nbsp} [6] _Status Bar_
+
+[IMPORTANT]
+====
+Please remember the naming convention as from now on they will be used to explain how _Car Park Finder_ works.
+====
+
+.Display of markers
+[[markers]]
+image::markers.png[width="700"]
+
+There are two types of markers that is being used in _Car Park Finder_, as shown in [underline]#<<markers>>#.
+You can click on a marker cluster to zoom in on the map, or click on a individual marker to view the car park details.
+
+=== Enter a command
+
+Type a command into the Command Box and then press kbd:[Enter] to execute it.
+A message will appear in the Message Box.
+
+[TIP]
+*Some commands you can try:* +
+[underline]#<<Features-Query, `query`>>#: Get the latest update from _data.gov.sg_ +
+[underline]#<<Features-Help, `help`>>#: show the User Guide (this document) +
+[underline]#<<Features-List, `list`>>#: display all the car parks
+
+Congratulations, you have successfully executed your first command!
+
+If you want to try out more, please refer to the next section or [underline]#<<Command Summary>>#.
 
 [[Features]]
 == Features
+Welcome to the Features section. This is where you will be learning how to use every single feature in
+_Car Park Finder_. You will also learn the different types of errors that can happen and how to prevent them.
 
+[IMPORTANT]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* For example, in `find LOCATION`, `LOCATION` is a parameter which can be used as `find serangoon`.
+* Parameters in square brackets are optional, and can be in any order.
 ====
 
+If you find manually scrolling down to be a hassle, you can go back up to the table of contents and click on the individual features to go straight to
+them.
+
+[[Features-Help]]
 === Viewing help : `help`
 
-Format: `help`
+This command opens up the User Guide in a separate window and shows all the available commands. It also teaches you
+how to use them effectively. +
 
-=== Adding a person: `add`
+If it is your first time reading this, then good job on opening the User Guide!
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+[cols="^.^3,^.^4", width="30%", options="header"]
+|===
+| Format | Abbreviation
+| help | he / hel
+|===
 
-[TIP]
-A person can have any number of tags (including 0)
+// tag::query[]
+[[Features-Query]]
+=== Querying data: `query`
 
-Examples:
+On your first time running _Car Park Finder_, you will see nothing on your screen. Do not panic! By type `query` into
+the _Command Box_, it will start to fill the application with all the available HDB car parks.
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+[cols="^.^2,^.^4", width="40%", options="header"]
+|===
+| Format | Abbreviation
+| query | q / qu / que / quer
+|===
 
-=== Listing all persons : `list`
+* If you wish to update all the car parks at a later date, just type this command again.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+* Remember that _Car Park Finder_ does not automatically execute this command at the start.
 
-=== Editing a person : `edit`
+'''
+==== Example: Let's get some car parks!
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+It might be your first time using _Car Park Finder_, or you decided to
+{sourceDir}/UserGuide.html#Features-Clear[clear] out all the car parks. Whatever the case, its time to get
+some car parks into the application.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
 
-Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+[caption="Message: "]
+.Turning on notification
+|===
+| Loading... please wait...
+|===
 
-=== Locating persons by name: `find`
+Step 1. Type `query` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+typed in correctly. Take note that you cannot type anything else once you press kbd:[Enter].
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Step 2. Wait for _Car Park Finder_ to finish loading. It will only take awhile, so why not just sit back and relax?
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+._Car Park Finder_ with 2099 car parks
+[[zy_query]]
+image::zy_query.png[width="700"]
 
-Examples:
+[caption="Message: "]
+.Finished loading
+|===
+| 2099 car parks updated
+|===
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Step 3. Once it has finish loading, the message above should appear. Please refer to [underline]#<<zy_query>># to check if you are
+successful in getting the car parks.
 
-=== Deleting a person : `delete`
+==== Example: Query error(s)
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Encountered a query error? Take a look below to see what went wrong.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+[caption="Message: "]
+.Query unable to retrieve car parks
+|===
+| Unable to retrieve car parks from data.gov.sg +
+Please check your internet connection and try again
+|===
 
-Examples:
+This error occurs when there is a connection problem to _data.gov.sg_. Please check your
+internet connection and try again.
+// end::query[]
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+[[Features-Select]]
+=== Selecting a car park : `select`
 
-=== Selecting a person : `select`
+You can either use this command to select a car park in the _Display Panel_, or just use your mouse to click on it.
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+[NOTE]
+====
+* There must be car parks available for you to select something.
+* If you have forgotten how to get car parks, please {sourceDir}/UserGuide.html#Features-Query[click here].
+====
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+[[selectformat]]
+[cols="^.^3,^.^4,^.^1", width="60%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| select INDEX | s / se / sel / sele / selec | select 1 +
+ s 2
+|===
+
+* The index refers to the index number shown in the list of car parks in the _Display Panel_.
 * The index *must be a positive integer* `1, 2, 3, ...`
-****
+* Selecting any index will automatically cause the Google Maps to zoom in on the car park location.
 
-Examples:
+'''
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+==== Example: Selecting the 20th car park in the list
 
-=== Listing entered commands : `history`
+This example will show you how to select a car park displayed in the _Displayed Panel_ by using the command.
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+.Selecting the 20th car park
+[[selectafter]]
+image::select.png[width="300"]
+
+[caption="Message: "]
+.After selecting the 20th car park
+|===
+| Selected car park: 20
+|===
+
+Type `select 20` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+typed in correctly. The selection will turn blue, as shown in [underline]#<<selectafter>>#.
+
+==== Example: Select error(s)
+
+Encountered a select error? Take a look below to see what went wrong.
+
+[caption="Message: "]
+.Invalid command format
+|===
+| Invalid command format! +
+select: Selects the car park identified by the index number used in the displayed car park list. +
+Parameters: INDEX (must be a positive integer) +
+Example: select 1
+|===
+
+This error occurs when you type the command wrongly in the _Command Box_. Either try again or just copy the
+command [underline]#<<selectformat, here>>#.
+
+[[Features-List]]
+=== Listing all car parks : `list`
+
+Show a list of all the car parks in the _Display Panel_ with their various details. If there are no car parks to be
+displayed and you did not {sourceDir}/UserGuide.html#Features-Clear[clear] them, typing this command would
+bring it back.
+
+[cols="^.^3,^.^4", width="30%", options="header"]
+|===
+| Format | Abbreviation
+| list | l / li / lis
+|===
+
+'''
+
+==== Example: Listing all the car parks
+
+This example will show you know to list all the car parks again. It starts off with a smaller list containing only
+car parks in Hougang.
+
+.Previously filtered list, before using the `list` command.
+[[list_before]]
+image::list_before.png[width="700"]
+
+From [underline]#<<list_before>>#, the current list only contains the car parks found in Hougang.
+
+.Listed 2099 all car parks
+[[list_after]]
+image::list_after.png[width="700"]
+
+[caption="Message: "]
+.Invalid command format
+|===
+| Listed all 2099 car parks
+|===
+
+Type `list` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+typed in correctly. Refer to [underline]#<<list_after>># to see if the command executed succesfully. All the car parks should appear in the _Display Panel_ and the _Google Maps_ should zoom out
+to show all of them.
+
+[[Features-Find]]
+// tag::find[]
+=== Finding car parks : `find`
+
+With a list of car parks, you can narrow down to just the car parks near your destination by either typing in the
+location or the specific car park number.
+
+[[findformat]]
+[cols="^.^3,^.^1,^.^4", width="50%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| find KEYWORD | fin | find serangoon +
+fin HG83
+|===
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* Common words like `BLK` and `AVE` are ignored.
+* It does not matter whether the keywords are upper or lower case characters.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+'''
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+==== Example: How to find car parks by location
+
+For this example, we will be looking at how to find all the car parks in Punggol.
+
+.Found car parks in Punggol
+[[find_location]]
+image::find_location.png[width="700"]
+
+[caption="Message: "]
+.Found 53 car parks
+|===
+| 53 car park(s) found!
+|===
+
+Type `find punggol` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+typed in correctly. [underline]#<<find_location>># shows how it would look like, with the Google Maps zoomed in.
+
+==== Example: How to find car park by car park number
+
+.Found car parks in Punggol
+[[find_number]]
+image::find_number.png[width="700"]
+
+[caption="Message: "]
+.Found 1 car park
+|===
+| 1 car park(s) found!
+|===
+
+Type `find PP5` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+typed in correctly. [underline]#<<find_number>># shows how it would look like, with the Google Maps zoomed in.
+
+==== Example: Unable to find car park
+If _Car Park Finder_ is unable to find your location or car park number, it will display nothing.
+
+[caption="Message: "]
+.Found 0 car park
+|===
+| 0 car park(s) found!
+|===
+
+The message above will be shown, as well as an empty list in the _Display Panel_ and no markers in the _Google Maps_.
+
+// end::find[]
+
+// tag::filterug[]
+[[Features-Filter]]
+=== Filtering car parks : `filter`
+
+Filters the list of car parks returned by `FindCommand` by the following flags: +
+
+* Car park has available parking slots `a/`
+* Car park has short-term parking `s/`
+* Type of car park `ct/`
+* Car park has free parking between a specified time period `f/`
+* Car park has night parking `n/`
+* Type of parking system that the car park uses `ps/`
+
+`FilterCommand` can take in any number of flags, in any order.
+
+[[filterformat]]
+[cols="^.^3,^.^1,^.^4", width="95%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| filter FLAG&PARAMETER(S) [FLAG&PARAMETER(S)] ... | fil, filt, filte | filter f/ sun 7.30am 5.30pm ct/ surface +
+fil a/ ps/ coupon
+|===
+
+//[NOTE]
+//`FilterCommand` can take in any number of flags, in any order.
+
+List of valid flags:
+
+[[filterflags]]
+[cols="2,1,4,4,4", width="95%", options="header"]
+|===
+| Criteria | Flag| Parameter Structure | Valid Parameters | Example(s)
+| Car park has free parking | f/| DAY START_TIME END_TIME | DAY: e.g. sun +
+START_TIME: e.g. 7.30AM +
+END_TIME: e.g. 9.30PM | filter f/ sun 9.00am 5.30pm
+| Car park has night parking | n/ | - | - | filter n/
+| Type of car park | ct/ | CAR_PARK_TYPE | surface, multistorey, basement, mechanised, covered | filter ct/ covered
+| Car park has available parking slot | a/ | - | - | filter a/
+| Car park has short-term parking | s/ | - | - | filter s/
+| Type of parking system | ps/ | PARKING_SYSTEM_TYPE | coupon, electronic | filter ps/ coupon
+|===
+
+Take note that `FindCommand` must be used to find a list of carparks within the location first.
+
+Upper or lower case characters do not matter.
+//[NOTE]
+//====
+//* `FindCommand` must be used to find a list of carparks within the location first.
+//* Upper or lower case characters do not matter.
+//====
+
+.Filtering surface car parks that have available parking lots and night parking.
+image::filter_screenshot.png[width="880"]
+// end::filterug[]
+
+[[Features-Undo]]
+// tag::undo[]
+=== Undoing commands: `undo`
+Restores the list of car parks to the state before the previous undoable command was executed.
+
+[cols="^.^3,^.^4", width="30%", options="header"]
+|===
+| Format | Abbreviation
+| undo | u / un / und
+|===
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Only available for the following undoable commands: +
+[underline]#<<Features-Query, `query`>># | [underline]#<<Features-Find, `find`>># | [underline]#<<Features-Filter, `filter`>># |
+[underline]#<<Features-Notify, `notify`>># | [underline]#<<Features-Clear, `clear`>>#
+
+* This does not turn off notification as it only affects the list of car parks.
 ====
 
-Examples:
+'''
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+==== Example: Successful undo
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+If you accidentally type an undoable command and wish to undo it, here is how.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+[caption="Message: "]
+.Success in undoing
+|===
+| Undo success!
+|===
 
-=== Redoing the previously undone command : `redo`
+Type `undo` into the _Command Box_. The message above should appear in the `Message Box` as confirmation that you
+typed in correctly.
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+==== Example: Unable to undo
 
-Examples:
+Not all commands are undoable as there is a limit to the number of undo commands.
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+[caption="Message: "]
+.Success in undoing
+|===
+| No more commands to undo!
+|===
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+If you see the message above in the _Command Box_ it means there are no more undoable commands. You can also check
+the [underline]#<<Features-History, history>># to view what commands you have typed in so far.
+// end::undo[]
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+[[Features-Redo]]
+// tag::redo[]
+=== Redoing commands : `redo`
+Reverse the most recent [underline]#<<Features-Undo, `undo`>># command.
 
+[cols="^.^3,^.^4", width="30%", options="header"]
+|===
+| Format | Abbreviation
+| redo | r / re / red
+|===
+
+[NOTE]
+====
+You can only [underline]#<<Features-Redo, `redo`>># after an [underline]#<<Features-Undo, `undo`>># command.
+
+* Like undo, this does not turn off notification as it only affects the list of car parks.
+
+* Redoable commands are the same as undoable commands.
+====
+
+'''
+
+==== Example: Successful redo
+
+If you decided to [underline]#<<Features-Redo, `redo`>># the [underline]#<<Features-Undo, `undo`>># command, here is how.
+
+[caption="Message: "]
+.Success in redoing
+|===
+| Redo success!
+|===
+
+Type `redo` into the _Command Box_. The message above should appear in the Message Box as confirmation that you
+typed in correctly.
+
+==== Example: Unable to redo
+
+You reach the end of how far you can redo. Take note that not all commands are *undoable / redoable*.
+
+[caption="Message: "]
+.Success in redoing
+|===
+| No more commands to redo!
+|===
+
+If you see the message above in the _Command Box_ it means there are no more redoable commands. You can also check
+the [underline]#<<Features-History, history>># to view what commands you have typed in so far.
+// end::redo[]
+
+// tag::calculateug[]
+[[Features-Calculate]]
+=== Calculating the cost of parking : `calculate`
+
+Calculates the cost of parking at a selected car park between a specified time period.
+
+[[calculateformat]]
+[cols="^.^3,^.^1,^.^4", width="95%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| calculate CARPARK_NAME DAY START_TIME END_TIME | ca, cal, calc, calcu +
+calcul, calcula, calculat | calculate TJ39 sun 3.30am 6.30pm +
+ca TJ39 sun 3.30am 6.30pm
+|===
+
+
+`CalculateCommand` takes into account the free parking times of car parks.
+It returns an error message if the car park has no short-term parking.
+//[NOTE]
+//====
+//`CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
+//====
+
+.Calculating the cost of parking at car park Y14 on Monday from 9.00am to 5.30pm
+image::calculate_screenshot.png[width="880"]
+
+// end::calculateug[]
+
+// tag::notify[]
+[[Features-Notify]]
+=== Enabling Notification : `notify`
+
+[IMPORTANT]
+====
+
+
+* Enabling notification requires you to have already {sourceDir}/UserGuide.html#Features-Select[selected a car park].
+* If you have not done so, please look at how to {sourceDir}/UserGuide.html#Features-Find[find car parks by location]
+and {sourceDir}/UserGuide.html#Features-Filter[filter them through the use of flags].
+* Also, {sourceDir}/UserGuide.html#Features-Query[click here] if you have forgotten how to
+use the `query` command to get a list of car parks.
+====
+
+After selecting a car park, you can choose to receive notifications on how many parking lots are still available.
+It sends an update periodically, so once it is enabled you do not need to type the command again into the _Command Box_.
+
+[[notifyformat]]
+[cols="^.^3,^.^4,^.^1", width="60%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| notify TIME_SECONDS | n / no / not / noti / notif | notify 0 +
+notify 10
+|===
+
+* If you did not {sourceDir}/UserGuide.html#Features-Select[select] a car park beforehand, _Car Park Finder_ would not know
+which car park needs to be updated.
+* You can set within a range of _10 to 600 seconds_ (10 minutes). *Decimal values are not allowed.*
+* Typing `query` or `clear` will disable the notification.
+* As `notify` is based on the index of `select`, you can select another car park to receive notification while it is enabled.
+* This means if you type `find hougang` and the original car park is gone but the index is still valid, it will update that car park instead.
+
+'''
+
+==== Example: Receive notification every 10 seconds
+|===
+| This example assumes you have already decided on a car park. For more information on how you can choose a
+suitable car park in _Car Park Finder_, please [underline]#<<Features-Notify, click here>>#.
+|===
+
+It is time to head to your destination. Before you do so, why not check if the car park is full?
+
+.Selected Car Park AM18
+[[zy_select_notify]]
+image::zy_select_notify.png[width="700"]
+
+Step 1. Select your car park from the list. In this example, we will choose the 5th car park as shown in
+[underline]#<<zy_select_notify>>#.
+
+[caption="Message: "]
+.Turning on notification
+|===
+| Notification enabled for car park AM18 +
+Interval: every 10 seconds
+|===
+
+Step 2. Type `notify 10` into the _Command Box_. The message above should appear in the _Message Box_
+as confirmation that you typed in correctly.
+
+.Before and after receiving notification
+[[zy_notify_ba]]
+image::zy_notify_ba.png[width="700"]
+
+[caption="Message: "]
+[[notifynochange]]
+.Notification with no change in lot(s) available
+|===
+| Car park AM18 has 159 lot(s) available +
+Interval: every 10 seconds
+|===
+
+[caption="Message: "]
+.Notification with lot(s) freed
+|===
+| Car park AM18 has 167 lot(s) available +
+8 lot(s) freed since last check +
+Interval: every 10 seconds
+|===
+
+[caption="Message: "]
+.Notification with lot(s) taken
+|===
+| Car park AM18 has 152 lot(s) available +
+7 lot(s) taken since last check +
+Interval: every 10 seconds
+|===
+
+Step 3. Now that the notification is enabled, you do not have to do anything else. It will inform you whether there is
+a change in parking lots availability through visual updates like
+[underline]#<<notifynochange, these messages above>># and [underline]#<<zy_notify_ba>>#.
+
+==== Example: Turn off notification
+
+Now that you have gotten tired of the notification, it is time to disable it.
+
+[caption="Message: "]
+.Turning off notification
+|===
+| Notification disabled
+|===
+
+The message above will be displayed when you type `notify 0` into the _Command Box_. You can also
+{sourceDir}/UserGuide.html#Features-Exit[exit] _Car Park Finder_ to turn off notifications.
+
+[caption="Message: "]
+.Already disabled
+|===
+| Notification already disabled
+|===
+
+If you are unsure whether you have already disabled the notification, the message above will be shown if you have
+done so.
+
+==== Example: Notify error(s)
+
+Encountered a notify error? Take a look below to see what went wrong.
+
+[caption="Message: "]
+.Invalid command format
+|===
+| Invalid command format! +
+notify: Set when to receive notification about the lot availability of a car park. +
+Parameters: SECONDS +
+0 to disable, range is 10 to 600 seconds (decimals not allowed) +
+Example: notify 10
+|===
+
+This error occurs when you type the command wrongly in the _Command Box_. Either try again or just copy the
+command [underline]#<<notifyformat, here>>#.
+
+Remember that `notify 0` is how you disable the notification.
+
+[caption="Message: "]
+.Notification without selecting a car park first
+|===
+| Cannot notify without selecting a car park first
+|===
+
+This error occurs when you did not select a car park and tried to enable notification. Please
+[underline]#<<Features-Notify, click here>># for more information.
+
+[caption="Message: "]
+.No car park data found
+|===
+| Unable to retrieve car park information from data.gov.sg +
+Unfortunately, the data is not available. We apologise for any inconvenience caused
+|===
+
+This error occurs when the data is not available from _data.gov.sg_. Therefore, it is not possible to enable
+notification for that particular car park.
+
+[caption="Message: "]
+.Notification unable to retrieve car parks
+|===
+| Unable to retrieve car parks from data.gov.sg +
+Please check your internet connection and try again
+|===
+
+This error occurs when there is a connection problem to _data.gov.sg_. Please check your
+internet connection and try again.
+// end::notify[]
+
+[[Features-Clear]]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+If you want to clear out all the car parks in _Car Park Finder_, this is the command for you.
 
-=== Exiting the program : `exit`
+[cols="^.^3,^.^4", width="30%", options="header"]
+|===
+| Format | Abbreviation
+| clear | cl , cle, clea
+|===
 
-Exits the program. +
-Format: `exit`
+'''
 
-=== Saving the data
+==== Example: Clear all car parks
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[caption="Message: "]
+.Clear all car parks
+|===
+| All car park information has been cleared!
+|===
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Once all the car parks are cleared, the message above will be displayed in the _Message Box_.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Example: No car parks
 
+[caption="Message: "]
+.No car parks to be cleared
+|===
+| There is nothing to be cleared.
+|===
+
+If _Car Park Finder_ does not have any car parks, then it will show the above message.
+
+[[Features-History]]
+=== View past commands : `history`
+
+Show all the commands that you have entered in reverse chronological order.
+
+[cols="^.^2,^.^4", width="40%", options="header"]
+|===
+| Format | Abbreviation
+| history | hi , his , hist , histo , histor
+|===
+
+[NOTE]
+====
+* Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* Using the mouse is not considered a command, so clicking on a car park will not be recorded.
+====
+
+'''
+
+==== Example: Checking history
+
+After running several commands, you might have forgotten what you have type in previously into the _Command Box_.
+
+[caption="Message: "]
+.List of commands
+|===
+| Entered commands (from most recent to earliest): +
+s 19 +
+find punggol +
+q +
+clear +
+help +
+list +
+|===
+
+Type `history` into the _Command Box_. The message above is an example, but it should appear similar to the message in
+the _Message Box_ as confirmation that you typed in correctly.
+
+==== Example: No past commands
+
+If there are no previous commands, then they will be nothing to show. Remember that using the mouse to click is not
+considered as a command.
+
+[caption="Message: "]
+.No commands found
+|===
+| You have not entered any commands yet
+|===
+
+The message above will show when you run _Car Park Finder_ and type `history` into the _Command Box_, without typing
+any other commands first.
+
+=== Abbreviation: abbrev.
+
+If you find the command words too long to type. Guess what? We have executable short form
+for each command in our command list.
+
+You can find abbreviations of each command in the table that we provide to each section from 3.1 to 3.19.
+
+[NOTE]
+However, there are ambiguous abbreviations that are not distinguishable between multiple commands.
+Thus, you *CANNOT* use them: `c`, `f`, `fi`, `h`.
+
+To see how useful it can be, please take a look at the examples below.
+
+==== Example: Calculate Command
+
+Step 1. Instead of entering `calculate` into the _Command Box_, you can enter `ca` instead.
+
+Step 2. complete the rest of the fields with `TJ39 SUN 7.00AM 9.00PM`, followed by pressing kbd:[Enter] to execute.
+
+
+=== Autocomplete: kbd:[Tab]
+
+If you forgotten how to type a command, do not worry! By typing in the first letter of the command in the
+_Command Box_ and pressing the kbd:[Tab] key, it will display the full format of the command.
+
+[NOTE]
+====
+Only available for the following commands: +
+[underline]#<<Features-Select, `select`>># | [underline]#<<Features-Find, `find`>># | [underline]#<<Features-Filter, `filter`>># |
+[underline]#<<Features-Notify, `notify`>># | [underline]#<<Features-Calculate, `calculate`>>#
+====
+
+To see how useful it can be, please take a look at the examples below.
+
+==== Example: Select Command
+
+Step 1. Enter `s` into the _Command Box_, followed by pressing kbd:[Tab].
+Your `select` command will be completed.
+
+Step 2. Substitute the selected field `INDEX` with `1`, followed by pressing kbd:[Enter] to execute.
+
+==== Example: Filter Command
+
+Step 1. Enter `fil` into the _Command Box_, followed by pressing kbd:[Tab].
+Your `filter` command will be completed.
+
+Step 2. Substitute the selected field `DAY` with `SUN`, followed by pressing kbd:[Tab] to move to the next field.
+
+Step 3. Repeat step 2 until you substitute all the fields with actual value. (You can remove those fields you
+choose not to use). Then press kbd:[Enter] to execute.
+
+[[Features-Exit]]
+=== Exiting the application : `exit`
+
+When you are done with _Car Park Finder_, type this command to exit the application. You can also click on the
+close button above the menu bar to exit.
+
+[cols="^.^3,^.^4", width="30%", options="header"]
+|===
+| Format | Abbreviation
+| exit | e / ex / exi
+|===
+
+[NOTE]
+====
+* Before _Car Park Finder_ stops running, it saves a local copy of all the car parks in the list.
+* When you start the application again, it will load up the local copy.
+====
+
+[[Features-Add]]
+=== Adding to favorites list : `add` `[coming in v2.0]`
+
+Add a car park into your favorites list.
+
+[cols="^.^4,^.^2, ^.^2", width="60%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+|add c/CARPARK_NUMBER| a / ad | add c/SE12
+|===
+
+[[Features-Delete]]
+=== Removing from favorites list : `delete` `[coming in v2.0]`
+
+Remove the specified car park from your favorites list.
+
+[cols="^.^4,^.^4, ^.^2", width="80%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| delete c/CARPARK_NUMBER | d / de / del / dele / delet | delete c/SE12
+|===
+
+[[Features-Sort]]
+=== Sorting car parks : `sort` `[coming in v2.0]`
+
+Sort the list of car parks by distance or name.
+
+[IMPORTANT]
+====
+To sort all the car parks, you must `list` them first!
+====
+
+[cols="^.^2,^.^2, ^.^2", width="50%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| sort TYPE | so / sor | so NAME
+|===
+
+[[Features-Weather]]
+=== Weather forecast : `weather` `[coming in v2.0]`
+
+Include weather updates in the notifications by indicating on or off.
+
+[cols="^.^2,^.^4, ^.^2", width="80%", options="header"]
+|===
+| Format | Abbreviation | Example(s)
+| weather TOGGLE | w / we / wea / weat / weath / weathe | weather on +
+weather off
+|===
+
+[appendix]
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Car Park Finder folder.
 
+*Q*: If I do not know the postal code of the location, am I still able to find car parks through other means? +
+*A*: Yes, by typing keywords like street names.
+
+*Q*: How much do I need to pay for the application? +
+*A*: It is totally free! Head over to our releases page to try it out!
+
+*Q*: Does car park finder harm the environment? +
+*A*: No! It reduces the amount of cars on the road by reducing the waiting time for car parks!
+
+*Q*: How do you plan to earn money in the future? +
+*A*: We plan to serve you deals on the best deals based off your selected car park!
+
+*Q*: What future expansions do you see in the future? +
+*A*: We plan on listing hawker centers and have a real time CCTV feed of the entrance of the car park.
+
+[appendix]
+== Glossary
+
+Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
+
+.Technical Terms
+[[techtable]]
+[cols="2,5", options="header"]
+|===
+| Term | Explanation
+
+|*Autocomplete*
+|Provides suggestions while you type into the field.
+
+|*Favourites*
+|A custom list of car parks that is meant to be viewed easily.
+
+|*Flag*
+|Flag is a value that acts as a check for the filter feature.
+
+|*Google Maps*
+|It is a online map service provided by Google.
+
+|*Mainstream Operating System (OS)*
+|Windows, Linux, Unix and OS-X are operating systems used widely in the world.
+
+|*Marker*
+|This is should in the Google Maps to indicate the location of the car park. You can click on it to either zoom in or display more information.
+
+|*User Interface (UI)*
+|Allows the user to interact with the application through inputs and outputs of data.
+|===
+
+[appendix]
 == Command Summary
+This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
+Refer to [underline]#<<generaltable>># for general commands and [underline]#<<managetable>># for car park management.
+For more details on what each command does, please refer to [underline]#<<Features>>#.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+.General Commands
+[[generaltable]]
+[cols="^.^2,^.^2,^.^2", width=50%, options="header"]
+|===
+|Command |Format |Example
+
+|*Help*
+|help
+|he
+
+|*List*
+|list
+|l
+
+|*Undo*
+|undo
+|u
+
+|*Redo*
+|redo
+|r
+
+|*Clear*
+|clear
+|cl
+
+|*History*
+|history
+|hi
+
+|*Exit*
+|exit
+|e
+|===
+
+.Car Park Management
+[[managetable]]
+[cols="^.^1,^.^4,^.^2"]
+|===
+|Command |Format |Example
+
+|*Query*
+|query
+|q
+
+|*Select*
+|select INDEX
+|s 2
+
+|*Find*
+|find KEYWORD [MORE_KEYWORDS]
+|fin punggol
+
+|*Filter*
+|filter FLAG/ PARAMETER [MORE_FLAG/ PARAMETER]
+|fil f/ SUN 7.30AM 5.30PM ct/ SURFACE
+
+|*Calculate*
+|calculate DAY START_TIME END_TIME
+|cal SUN 3.30PM 6.30PM
+
+|*Notify*
+|notify TIME_SECONDS
+|n 60
+|===
