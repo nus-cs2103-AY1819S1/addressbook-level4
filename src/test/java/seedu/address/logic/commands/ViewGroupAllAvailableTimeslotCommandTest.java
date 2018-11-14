@@ -13,7 +13,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.group.Group;
 import seedu.address.testutil.GroupBuilder;
 
-//@@author nigelngyy
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ViewGroupAllAvailableTimeslotCommand.
  */

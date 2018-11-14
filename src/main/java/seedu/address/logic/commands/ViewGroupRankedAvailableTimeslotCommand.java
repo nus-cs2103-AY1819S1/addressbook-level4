@@ -11,7 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Name;
 
-//@@author nigelngyy
 /**
  * Lists all time slots in descending order in terms of availablility with a minimum number of people available
  * required
