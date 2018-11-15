@@ -30,13 +30,42 @@
 }
 
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-padding: 0 0 0 0;
 }
 
-.tab-pane .tab-header-area {
+.tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+}
+
+.tab-header-background {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab-label {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-text-fill: white;
+}
+
+.tab {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-border-top-width: 1px;
+}
+
+.tab:selected {
+     -fx-background-color: green;
+     -fx-border-color: green;
+}
+
+.tab:selected .focus-indicator {
+    -fx-border-color: green
+}
+
+.tab:selected .tab-label {
+     -fx-background-color: green;
+     -fx-border-color: green;
 }
 
 .table-view {
@@ -280,8 +309,17 @@
     -fx-text-fill: white;
 }
 
+.scroll-pane .viewport {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-control-inner-background: derive(#1d1d1d, 20%);
+}
+
 .scroll-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.scroll-bar:vertical {
+    -fx-border-color: derive(#1d1d1d, 20%);
 }
 
 .scroll-bar .thumb {
@@ -336,16 +374,55 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#preclusions, #prerequisites {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+#preclusions .label, #prerequisites .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#moduleDescription .label {
+    -fx-text-fill: white;
+}
+
+#moduleDescription .label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.moduleDescription_label_big {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.moduleDescription_label_small {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: #010504;
+}
+
+.moduleListPanel_title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: orange;
+    -fx-padding: 0 0 0 10;
+}
+
+.moduleListPanel_subTitle {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15px;
+    -fx-text-fill: #D3D3D3;
+    -fx-padding: 8 0 0 0;
 }

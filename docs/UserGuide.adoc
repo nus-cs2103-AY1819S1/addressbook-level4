@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Module Planner - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,51 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T16-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-4`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Module Planner is for National University of Singapore (NUS) Computer Science and Computer Engineering undergraduate students who *prefer to use a desktop app* to keep track of past modules and list possible future modules based on the academic requirements. More importantly, Module Planner is optimized for those who prefer to work with a *Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Module Planner can get your module planning tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java version `9` or later installed in your Computer.
+. Download the latest `moduleplanner.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for your Module Planner.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+. The first page you will see when Module Planner starts up.
 +
+.On start up
+image::onstartup.png[width="790"]
++
+
+// tag::labelledUi[]
+
+. The page is divided into several sections.
++
+.The labelled page
+image::UiLabelled.png[width="790"]
++
+.. Input Box: input commands here.
+.. Result Display: displays command results and other associated messages.
+.. Time Period: displays the year and semester you are currently viewing.
+.. Taken Modules Panel: lists modules that you put into the specified time period.
+.. Suggested Modules Panel: lists modules that suggested to you for that time period.
+.. Multipurpose Panel: displays results for the `Find` and `Status` commands.
+
+// end::labelledUi[]
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`setup`**`m/Computer Science` : set your major to be Computer Science in Module Planner to get tailored module suggestion for Computer Science student.
+* **`suggest`**`y/1 s/1` : suggest modules you can take in first year, semester 1.
+* **`add`**`y/1 s/1 c/CS1231 c/MA1521` : adds modules CS1231 and MA1521 to the year 1 semester 1 modules list.
+* **`delete`**`c/CS1231` : deletes module CS1231 from the Module Planner.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,150 +67,254 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters that you can supply, e.g. in `suggest y/YEAR s/SEMESTER`, `YEAR` and `SEMESTER` are parameters which can be used as `suggest y/1 s/1`.
+* Items in square brackets are optional e.g `setup ... [f/FOCUS_AREA]` can be used as `setup ... f/software engineering` or as `setup ...`.
+* Items with `...` after them can be used multiple times including zero times e.g. `MODULE_CODE...` can be used as `{nbsp}` (i.e. 0 times), `CS1231`, `CS1231 MA1521` etc.
+====
+
+====
+*Fields restrictions*
+[width="100%",cols="20%,<80%"]
+|=======================================================================
+
+|MAJOR | Supported majors are listed in <<Setting user profile : `setup`, `setup`>>
+
+|FOCUS_AREA | Supported focus areas are listed in <<Setting user profile : `setup`, `setup`>>
+
+|MODULE_CODE | Must be a valid NUS module code in Academic Year 18/19.
+
+|YEAR | Should only be integer from `1` to `4` inclusive.
+
+|SEMESTER | Should only be integer from `1` to `2` inclusive.
+
+|=======================================================================
 ====
 
 === Viewing help : `help`
 
+Open this user guide in a new window.
+
 Format: `help`
 
-=== Adding a person: `add`
+// tag::setup[]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Setting user profile : `setup`
+
+Initialises your profile with your major and optionally your focus areas so that Module Planner can
+give you module suggestions that are more relevant to you. +
+Format: `setup m/MAJOR [f/FOCUS_AREA]...`
+
+****
+* The major and focus areas should be spelt out in full.
+* The major and focus areas are case insensitive. e.g. `Computer Science` is the same as `cOmpUter scienCe`.
+* This feature currently only supports majors and focus areas listed below. Support for other majors and focus areas will come beyond v2.0.
+** Major:
+*** Computer Science
+*** Computer Engineering
+** Focus area:
+*** Algorithms and Theory
+*** Artificial Intelligence
+*** Software Engineering
+* Default user profile is set to `Computer Science` major with no focus area.
+****
+
+Examples:
+
+* `setup m/Computer Engineering`
+* `setup m/Computer Science f/Software Engineering`
+
+// end::setup[]
+
+// tag::add[]
+
+=== Adding modules: `add`
+
+Adds the specified modules to the list of modules that you have taken or want to take for the specified year and semester. +
+Format: `add y/YEAR s/SEMESTER c/MODULE_CODE...`
+
+Examples:
+
+* `add y/1 s/1 c/MA1101R`
+* `add y/1 s/1 c/CS1231 c/CS1101S`
+
+An observable change can be seen in the Taken Modules Panel after successfully adding a module, like shown below:
+
+Before:
+
+image::AddBefore.png[width="300"]
+
+After:
+
+image::AddAfter.png[width="300"]
+
+[NOTE]
+From the input list of modules, a subset of it which will be added to the planner are modules that does not fall under any of the following criterias: +
+1. Modules not offered by NUS +
+2. Modules not in the planner +
+3. Modules which one of its preclusions exist in the planner +
+4. Two or more modules equivalent (preclusions) to each other +
+5. Modules which prerequisites are not fulfilled in the previous semesters
+
+// end::add[]
+
+// tag::delete[]
+
+=== Deleting modules : `delete`
+
+Deletes the specified modules from list of current or future modules for the specified year and semester. +
+Format: `delete c/MODULE_CODE...`
+
+Examples:
+
+* `delete c/CS1010`
+* `delete c/CS1231 c/MA1521`
+
+Consider a module planner stocked with the modules CS1010 and CS1231 in year 1 semester 1, and the modules CS2030
+and CS2040 in year 1 semester 2. If `delete c/CS1010` is executed, CS1010 is removed, as well as the modules CS2030
+and CS2040 in year 1 semester 2 since they have CS1010 as a prerequisite.
+
+You can see the change in the Taken Modules Panel in the before and after images.
+
+[cols="^,^"]
+|====
+|*Before* | *After*
+| image:DeleteBefore.png[width="300"] | image:DeleteAfter.png[width="300"]
+|====
+
+// end::delete[]
+
+// tag::find[]
+=== Finding information on a module : `find`
+
+Retrieves the information of the specified module. +
+Format: `find c/MODULE_CODE`
+
+Example:
+
+* `find c/CS1010`
+
+You should see the module information for CS1010 in the Multipurpose Panel.
+
+image::find.png[width="790"]
+
+// end::find[]
+
+// tag::goto[]
+
+=== Going to a different year and semester : `goto`
+
+Changes the view to the specified year and semester. +
+Format: `goto y/YEAR s/SEMESTER`
+
+Example:
+
+* `goto y/1 s/1`
+
+The change can be seen in Taken Modules Panel in the before and after images.
+
+[cols="^,^"]
+|====
+|*Before* | *After*
+|image:GoToBefore.png[width="300"] | image:GoToAfter.png[width="300"]
+|====
+// end::goto[]
+
+// tag::list[]
+=== Listing modules : `list`
+
+If a valid year is supplied, shows a list of all modules that you have added to that year. If no year is supplied, shows a list of all modules that you have added to every year. +
+Format: `list [y/YEAR]`
 
 [TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+====
+* The list of modules will be automatically updated upon adding or deleting module(s).
+====
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* If a valid year is supplied but no modules have been added to the specified year, will show an empty list.
+* If no year is supplied and no modules have been added to any year, will show an empty list.
 ====
+
+Examples:
+
+* `list y/1` +
+Lists all modules taken in year 1, both semester 1 and 2 (if they exist).
+
+* `list` +
+Lists all modules taken in every year, from year 1 semester 1 to year 4 semester 2 (if they exist).
+// end::list[]
+
+// tag::status[]
+
+=== Getting status update : `status`
+
+Shows how many core and general education module credits that you have taken and how many credits that you need to take. +
+Format: `status`
+
+You could see the status displayed on MultiPurpose Panel as shown below:
+
+image::StatusIllustration.png[width="790"]
+// end::status[]
+
+// tag::suggest[]
+=== Suggesting modules : `suggest`
+
+If a valid year and semester are supplied, suggests a list of modules that you are available to take in the specified year and semester, based on modules that you have added. A module is available for you if:
+
+* You have fulfilled (added to ModulePlanner) all the prerequisites of the module in the semester(s) prior to the one you specified.
+* You have not fulfilled (added to ModulePlanner) any preclusions to the module in any semester (including semester(s) after the one you specified).
+* You have not fulfilled (added to ModulePlanner) the module in any semester (including semester(s) after the one you specified).
+
+The list of modules is sorted, with core modules being on top, followed by general education modules and unrestricted electives modules.
+
+Format: `suggest y/YEAR s/SEMESTER`
+
+[TIP]
+====
+* The list of suggested modules will be automatically updated upon adding or deleting module(s).
+====
+
+[NOTE]
+====
+* This feature currently only supports *Computer Science* major. If user profile is set to other major through <<Setting user profile : `setup`, `setup`>> command,
+this feature will only give you generic module suggestion sorted in a lexicographical order.
+* The list of suggested modules will not be automatically updated after changing major through `setup`. You have to re-execute `suggest` to update the list.
+* Support for other majors will come in v2.0.
+====
+
+Examples:
+
+* `suggest y/1 s/1`
+* `suggest y/4 s/2`
+// end::suggest[]
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores Module Planner to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the Module Planner's content (`add`, `delete`, and `clear`).
 ====
 
 Examples:
 
-* `delete 1` +
+* `delete c/CS1010` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete c/CS1010` command) +
 
-* `select 1` +
+* `goto y/1 s/1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `delete c/CS1010` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete c/CS1010` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -198,63 +323,74 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete c/CS1010` +
+`undo` (reverses the `delete c/CS1010` command) +
+`redo` (reapplies the `delete c/CS1010` command) +
 
-* `delete 1` +
+* `delete c/CS1010` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete c/CS1010` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete c/CS1010` command) +
+`redo` (reapplies the `delete c/CS1010` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all modules : `clear`
 
-Clears all entries from the address book. +
+Clears all modules added into Module Planner and the module suggestion. +
 Format: `clear`
 
 === Exiting the program : `exit`
 
-Exits the program. +
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Module Planner data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Module Planner folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add y/YEAR s/SEMESTER c/MODULE_CODE...` +
+e.g. `add y/1 s/1 c/CS1231 c/CS1101S`
+
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+
+* *Delete* : `delete c/MODULE_CODE...` +
+e.g. `delete c/CS1231 c/MA1521`
+
+* *Find* : `find c/MODULE_CODE` +
+e.g. `find c/CS1O10`
+
+* *Goto* : `goto y/YEAR s/SEMESTER` +
+e.g. `goto y/1 s/1`
+
+* *List* : `list [y/YEAR]` +
+e.g. `list y/1`
+
+* *Setup* : `setup m/MAJOR [f/FOCUS_AREA]` +
+e.g. `setup m/computer science f/machine learning`
+
+* *Status* : `status`
+
+* *Suggest* : `suggest y/YEAR s/SEMESTER` +
+e.g. `suggest y/1 s/1`
+
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+
 * *History* : `history`
+
 * *Undo* : `undo`
+
 * *Redo* : `redo`
+
+* *Exit* : `exit`

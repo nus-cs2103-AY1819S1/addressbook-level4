@@ -1,0 +1,135 @@
+= Gabriel Yik - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: ModulePlanner
+
+---
+
+== Overview
+This is a project portfolio about a team project that I have completed recently.
+The product born from this effort is called ModulePlanner.
+
+=== About Project
+ModulePlanner is an desktop application that helps Computer Science students in the
+National University of Singapore to plan their modules throughout their academic journey.
+It is built on top of an existing application.
+
+It has a graphical user interface but the user interacts with it mainly through the
+command line interface (keyboard only).
+
+The main features are the adding and deleting of modules, as well as the suggesting of
+new modules that the user can take based on their academic requirements.
+
+Over the next few sections, I will describe my role and contributions to the project.
+
+== Role
+* Developer
+* UI in-charge
+
+== Summary of Contributions
+=== Major Enhancement
+* *Enhance Delete Command*
+** The `delete` command allows the deletion of modules from ModulePlanner.
+** When modules are deleted, modules that have the former as one of their prerequisites are
+   deleted too. This continues until no more modules are deleted.
+** This enhanced command is better than a simple delete which only deletes modules specified
+   without any awareness of other modules that depend on them.
+** The automatic removal of invalid modules in ModulePlanner assures the user that whatever
+   they see in ModulePlanner is up-to-date.
+** The user too does not have to manually look through modules that have their prerequisites
+   violated, hence saving them time and effort.
+
+=== Minor Enhancements
+* *Setup Command*
+** Co-authored the `setup` command.
+** `setup` asks the user to input to their major and optionally their focus areas.
+   This gives ModulePlanner the necessary information to tailor the modules suggested to the user.
+
+* *Find and Goto Commands*
+** The `find` command allows retrieval of module information.
+** The `goto` command allows switching between the different year-semester user interface (ui) views.
+
+* *UI and Associated Behaviours*
+** Added a column to display suggested modules and another to display
+   results of the `find` and `status` commands.
+** Updated the application icon to fit ModulePlanner.
+
+=== Other Contributions
+* *README*
+** Updated to reflect what ModulePlanner is and how it can solve the user's problems
+   in planning their modules.
+
+* *User Guide*
+** Updated with information on how to use the `delete`, `find` and `goto` commands.
+** Ordered some of the commands in the User Guide alphabetically to make it easier
+   for the user to find the command they are looking for. The other commands are
+   ordered based on when they are meant to be used (placed by my teammate Rong Jie).
+
+* *Developer Guide*
+** Updated with descriptions on how the `delete` command is implemented, why it was
+   so, and any alternative implementations considered.
+** Updated the PowerPoints of the diagrams (except for the ones that fall under
+   my teammates' features) in the Developer Guide to reflect the structure and behaviour
+   of ModulePlanner.
+
+* *Pull Requests Reviews*
+** Reviewed the pull requests of my teammates.
+** Areas checked include: coding style, index errors, possible regressions to other
+   components and the pros and cons of adding new classes and structure.
+** Examples with non-trivial comments:
+   https://github.com/CS2103-AY1819S1-T16-4/main/pull/114[[1]]
+   https://github.com/CS2103-AY1819S1-T16-4/main/pull/174[[2]]
+   https://github.com/CS2103-AY1819S1-T16-4/main/pull/189[[3]]
+   https://github.com/CS2103-AY1819S1-T16-4/main/pull/190[[4]]
+   https://github.com/CS2103-AY1819S1-T16-4/main/pull/199[[5]]
+
+* *Github Issue Tracker*
+** Added new issues that arose from offline team discussions and bug discoveries.
+** Assigned teammates to the corresponding bug reports from other teams.
+
+* *Github Projects Board*
+** Managed frequently during the earlier parts of the project when lots of ideas and
+   changes were happening.
+** Added in important notes like the team coding standard, the team workflow and to-dos.
+
+* *Github Releases*
+** Managed the releases of `v1.2` and `v1.3`
+
+* *Report Bugs and Offered Suggestions for Others*
+** Found and reported bugs for another team working on the same project.
+** Suggestions were also offered to improve their application.
+
+== Contributions to Code
+|===
+|_The link below brings you to my code contribution dashboard. +
+  They showcase my ability to write code that is readable and maintainable._
+|===
+
+include::https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=gabrielyik[Code Contributions]
+
+== Contributions to the User Guide
+|===
+|_Given below are some sections I contributed to the User Guide. +
+  They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=labelledUi]
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=goto]
+
+== Contributions to the Developer Guide
+|===
+|_Given below are some sections I contributed to the Developer Guide. +
+  They showcase my ability to write technical documentation and the
+  technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=delete]
+
+include::../DeveloperGuide.adoc[tag=find]
+
+include::../DeveloperGuide.adoc[tag=goto]

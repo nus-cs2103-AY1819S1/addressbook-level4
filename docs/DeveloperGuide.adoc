@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= Module Planner - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T16-4/main/blob/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-4`      Since: `Sep 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -54,7 +54,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.planner.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the T16-4 branding and refer to the `CS2103-AY1818S1-T16-4/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1818S1-T16-4/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -98,10 +98,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, you can get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -116,7 +113,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/planner/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -138,7 +135,8 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines it's API
+in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -146,21 +144,26 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete c/CS1010`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
-
-[NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
-
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+.Component interactions for `delete c/CS1010` command (part 1)
+image::DeleteModuleSequenceDiagram.png[width="800"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+Note how the `Model` simply raises a `ModulePlannerChangedEvent` when the Module Planner data are changed,
+instead of asking the `Storage` to save the updates to the hard disk.
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results
+in the updates being saved to the hard disk and the status bar of the UI being updated to reflect
+the 'Last Updated' time.
+
+.Component interactions for `delete c/CS1010` command (part 2)
+image::DeleteModuleEventHandlingSequenceDiagram.png[width="800"]
+
+[NOTE]
+Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model`
+having to be coupled to either of them. This is an example of how this Event Driven approach helps us
+reduce direct coupling between components.
 
 The sections below give more details of each component.
 
@@ -170,11 +173,16 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`,
+`ResultDisplay`, `ModuleListPanel`, `StatusBarFooter`, `FindModulePanel` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching
+`.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -190,14 +198,14 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/planner/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ModulePlannerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a module) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete c/CS1010")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
@@ -208,19 +216,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Module Planner data.
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed'
+e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+// tag::storage[]
 
 [[Design-Storage]]
 === Storage component
@@ -228,74 +234,737 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/planner/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save `ReadOnlyModulePlanner` object in JSON format and read it back.
+
+.Interactions inside the Storage component for whenever `ModulePlannerChangedEvent` is fired.
+image::StorageSequenceDiagram.png[width="800"]
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.planner.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::moduleinfo[]
+=== Module and Academic Major Information
+
+Information about modules and academic majors supports almost all the features in Module Planner.
+
+Information of a module such as module code, module credit and prerequisite modules are stored in `ModuleInfo` class.
+This class is made to be immutable to avoid accidental changes to the class.
+
+==== Current Implementation
+===== Overview of components
+
+Internally, `ModuleInfo` is an immutable class that holds all the information of a module that is universal to
+all students from any faculty. `MajorDescription` is an immutable class that holds information about the
+requirements of an academic major.
+
+.Class diagram for `ModuleInfo`.
+image::ModuleInfoClassDiagram.png[width="450"]
+
+.Class diagram for `MajorDescription`.
+image::MajorDescriptionClassDiagram.png[width="700"]
+
+==== Simplifications
+
+The real information about NUS modules are very complicated. Here we list down some simplifications we made in order
+to create this proof of concept of our application.
+
+===== Prerequisites and preclusion
+
+IVLE provides the prerequisites and preclusions of a module in normal English sentence (e.g. "CS1010 or its equivalents"
+and "Departmental approval"). Extracting the real module prerequisite and preclusion relationship would
+be infeasible due to the potential long list of exceptions we need to handle. To simplify this, we use
+regular expression to extract the module codes.
+
+Here is how prerequisite and preclusion checking is implemented:
+
+* If user wants to take Module A, all prerequisites of Module A must already have been taken.
+* If Module B's preclusions has at least one module that user has already taken, user cannot take Module B.
+
+This gives us a reasonable approximation of prerequisite and preclusion relationship for most modules.
+
+===== Corequisites
+
+Corequisite is used to describe which modules must be taken together. We choose to ignore this entirely
+as it will complicate the implementation of `add` and `delete` commands significantly.
+
+===== Old modules that have been phased out
+
+NUS sometimes creates new modules to replace outdated modules every academic year. Information about
+outdated modules are not given by IVLE, but other modules might still list these module codes in their prerequisites
+and preclusion. We assume that all module codes referenced in our processed data must have a `ModuleInfo`
+object. To do that, all references of module codes that do not have its own module information entry
+are removed.
+
+==== Data sanitizing script
+
+The python script that downloads the list of NUS modules from https://nusmods.com[NUSMods] server and does the data
+transformation detailed above can be found at (link:{repoURL}/tools/moduleConverter.py[`moduleConverter.py`]).
+
+==== Design Consideration
+
+===== Aspect: Representation of academic major and focus area
+
+* **Alternative 1 (current choice)**: Use enum to represent academic major and focus area.
+** Pros: Stronger type checking.
+** Cons: Need to explicitly list down all the possible values of enums (there are more than hundreds of focus areas
+in all NUS academic majors). Special JSON serialization and deserialization is needed for enum types.
+* **Alternative 2**: Use `String` to represent academic major and focus area.
+** Pros: No need to convert academic major and focus area inputted by user into another type.
+** Cons: If academic major/focus area is passed into a function as a parameter, the function cannot assume that
+the it is a valid academic major/focus area. This leads to a lot of redundant checking.
+
+===== Aspect: Storing of module and academic major information
+
+To avoid having to download the module and academic major information from the Internet in first start up, we package
+the data directly into final `.jar` file as a resource file.
+
+* **Alternative 1 (current choice)**: Store data in as a JSON resource file and deserialize data into Java types
+at runtime.
+** Pros: JSON format is easy to learn and can be manipulated easily with other (interpreted) programming languages.
+** Cons: JSON format can only hold simple primitive types such as `String`, number, array and hash table. Need to
+design a way to flatten the module dependency graph into something that can be represented in JSON and reconstruct
+the graph after deserialization.
+* **Alternative 2**: Generate Java code during build time. The data will be directly stored as a static constant Java object.
+** Pros: Better performance in runtime as the deserialization is no longer needed. Less moving parts when testing the data itself.
+** Cons: More complex build procedures. Teammates will need to install extra tools to build the project.
+
+===== Aspect: Class representation of module related information
+
+* **Alternative 1 (current choice)**: Use `ModuleInfo` class to represent module information that is transparent to user's academic major
+and `ModuleDescription` class to represent module information that is specific to the requirements of an academic major.
+** Pros: Clear separation of concern. Commands that does not depend on `UserProfile` only needs to
+interact with `ModuleInfo` and not affected by changes to `ModuleDescription`.
+** Cons: Commands that need module information specific to an academic major (e.g. `suggest` and `status`) still need
+to depend on `ModuleInfo`.
+* **Alternative 2**: Use one class to hold all types of module information.
+** Pros: Less classes to reason about.
+** Cons: Commands that use `ModuleInfo` but do not uses `UserProfile` directly will still be affected by changes
+in `UserProfile`. The JSON form of the data will be more complex.
+
+// end::moduleinfo[]
+
+// tag::setup[]
+
+=== Setup feature
+==== Current Implementation
+
+The `setup` command allows users to save their academic major and optionally their focus areas in Module Planner.
+The information is stored in `UserProfile` and is later used by `suggest` and `status` commands.
+
+The following sequence diagram shows the sequence when `setup` command is executed.
+
+.Sequence diagram for `setup` command.
+image::SetupSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Argument leniency
+* **Alternative 1**: Entirely reject all focus areas even if only one of them is invalid. Focus areas must have the exact same letter casing as
+listed in User Guide.
+** Pros: Implementation would be simpler.
+** Cons: Not user friendly. It is too easy for user to input focus areas in the wrong letter casing, causing many retries.
+* **Alternative 2 (current choice)**: Accept the valid focus areas even if one of them is invalid. Focus areas inputted is case-insensitive.
+** Pros: More user friendly. User is able to update the user profile and gets positive result even if there are some minor syntax errors.
+** Cons: Need to implement filtering of valid focus areas from inputted focus areas. As `f/Computer Science` and `f/cOmpUter SciEnce` are now
+both valid inputs and can be inputted at the same time, we also need to filter out duplicates.
+
+===== Aspect: Error handling
+* **Alternative 1**: Execute syntax format checkings one by one and immediately throw command exception in first failure.
+** Pros: Implementation would be simpler. Less possible of negative test cases to test.
+** Cons: Not user friendly. User only sees one syntax error at one time. If there are many syntax errors in user's first try, it will take
+several retries for user to figure all the syntax errors.
+* **Alternative 2 (current choice)**: Always execute all syntax format checkings. If there are more than one error, concatenate their error
+message before throwing command exception.
+** Pros: More user friendly. User will be able to see all syntax errors in first try and attempt to fix them.
+** Cons: Need to create many negative test cases to test each error individually and all together. More
+complicated to test the expected error messages.
+
+// end::setup[]
+
+// tag::add[]
+=== Add feature
+==== Current Implementation
+
+The add mechanism is facilitated by `ModulePlanner`. `ModulePlanner` stores a list of `Semester` objects. A `Semester` stores a list containing modules that the user has taken or is planning to take on that semester.
+
+Add mechanism is also facilitated by the posting and handling of events. The `AddCommand#execute(...)` is the event poster and
+the `MainWindow#handleAddEvent(...)` is the event handler.
+
+The implementation is as follows:
+
+* `ModulePlanner#addModules(List<Module> modules, int index)` -- Add the list of `modules` into the semester specified by `index`.
+
+The operation above is exposed in the `Model` interface as `Model#addModules(List<Module> modules, int index)`
+
+The following sequence diagram shows how the add operation works:
+
+image::AddSequenceDiagram.png[width="1000"]
+
+In executing the add operation, the AddCommand will apply several filters on the input list of modules.
+
+Consider the following case:
+
+ModulePlanner contains only `CS1010` in year 1 semester 1 and the user tries to add the following list of modules : `CS0000`,
+`CS1010`, `CS1010E`, `CS1231`, `MA1100`, `CS2030`, `GER1000` to year 1 semester 1. The filterings, sequentially,
+are as follows:
+
+===== (1) Filter out module(s) not offered by the education institute
+Module `CS0000` is not offered. It will be filtered out from the list and the user will be informed that it is not an offered module.
+
+===== (2) Filter out module(s) that already exist in the planner
+Module `CS1010` is already in the planner. It will be filtered out from the list and the user will be informed that it exists in the planner.
+
+===== (3) Filter out module(s) which some of its preclusion is in the planner
+Module `CS1010E` has `CS1010` as its preclusion. It will be filtered out from the list and the user will be informed that this module
+has some of its preclusion in the planner.
+
+===== (4) Filter out equivalent modules
+Modules `CS1231` and `MA1100` are equivalent. These modules will be filtered out from the list, then grouped by equivalence and
+the user will be told that these modules are equivalence.
+
+===== (5) Filter out module(s) which some of its prerequisites has not been fulfilled.
+Module `CS2030` has `CS1010` as its prerequisite. To be able to add it to the planner, `CS1010` must exist in previous semesters,
+which in this case is not possible since the semester to be added is the the earliest semester possible. Thus the module will be
+filtered out from the list and the user will be informed that the prerequisites for this module is not fulfilled yet.
+
+===== (6) Add the filtered list of module(s) to the planner
+At this point, the list to be added has been finalized. The `Model#addModules(List<Module> modules, int index)` is then called
+to add this list of module(s) (in this case only `GER1000`) to the planner.
+
+[NOTE]
+(1) The messages for each filtering will be collected and displayed simultaneously to the user. +
+(2) If the final filtered list is empty, the command box will not be emptied so the user do not need to type all over again.
+
+==== Design Considerations
+
+===== Aspect: Different semester start
+The current implementation allows users to explore possible scenarios of study plan that they can make. Assuming a user is already
+in the middle of his study, let's say he is in second year already, he can still modify his first year's modules to see other
+possible study plans. Implementing a way to initialize ModulePlanner based on the user's past modules (which they can't modify after initializing)
+would be a good idea for the following reasons:
+
+1. To mirror the real world - it is impossible for a student to void a module that has already been taken.
+
+2. To prevent undefined behaviour - omitting a module already taken might make all future modules not yet taken to be inaccurately planned.
+Also, all currently suggested modules to the user might too be inaccurate.
+
+Below are the summary of pros and cons of the current implementation and the alternative design:
+
+* Current implementation: Able to plan for every semester
+** Pros: Allow users to explore various study plans
+** Cons: Doesn't enforce users to deal with their real progress
+
+* Alternative design: Only able to plan for future semester, with some initialization
+** Pros: Allow users to commit on their real progress
+** Cons: Harder implementation
+
+// end::add[]
+
+// tag::delete[]
+=== Delete feature
+
+==== Current Implementation
+===== About
+The current delete mechanism is facilitated by `ModulePlanner`.
+`ModulePlanner` stores a list of all the semesters the user has taken and will take.
+In turn, `Semester` stores a list of the modules the user has taken, is currently taking or will be taking.
+
+===== Process
+When a module is deleted, `ModulePlanner` will go through every module added after the semester which the
+module is deleted from and checks if those modules now have prerequisites that are not fulfilled. If there
+are now prerequisites not fulfilled for the modules checked, they too are deleted and the process repeats for them.
+This process is the same for when multiple modules are deleted. For better addressing, this process will be defined
+as _Iterative Deletion_.
+
+The following activity diagram shows how Iterative Deletion works:
+
+image::IterativeDeletionActivityDiagram.png[width="500"]
+
+===== Input
+The arguments given to the mechanism are modules, which can be a mix of valid and invalid modules.
+A valid module is defined as one that has the correct module code format and has been taken, is currently
+being taken or will be taken by the user (is stored in the module planner). An invalid module is defined as the opposite.
+
+===== Result
+Out of all these arguments, only the valid modules will be deleted from the module planner. The invalid modules
+are collected and made known to the user through the Result Display. The modules that are not found in the module planner
+are shown to the user in the Result Display. Modules with invalid module code formats are already filtered out by the
+`DeleteCommandParser` and hence do not appear as part of the message shown in the Result Display.
+
+`ModulePlanner` uses the following operation to implement the delete mechanism:
+
+* `ModulePlanner#deleteModules(List<Module> modules)` -- Deletes the modules from whatever semester it is in.
+
+The above operation is exposed in the `Model` interface as `Model#deleteModules(List<Module> modules)`
+
+The following sequence diagram shows how the `delete` operation works:
+
+image::DeleteSequenceDiagram.png[width="650"]
+
+Below are some usage scenarios.
+For convenience, let's define some valid modules: CS1010, CS2030 and CS2040
+and an invalid module CS0000. CS1010 is one of the prerequisites for CS2030 and CS2040.
+Let's also initialise a module planner with those valid modules: +
+
+[cols="^,^", width=50%]
+.Module Planner Initial State
+|===
+| Y1S1 | Y1S2
+
+|CS1010
+|CS2030
+
+|
+|CS2040
+|===
+
+===== A Valid Module
+The user executes `delete c/CS1010` command to delete the valid module CS1010.
+The `delete` command calls `Model#deleteModules(...)`, which removes the module from the semester where it is found.
+Iterative Deletion is then applied. Since CS2030 and CS2040 have CS1010 as a prerequisite, if CS1010 is
+deleted, CS2030 and CS2040 will be deleted too.
+
+The module planner now has this state: +
+[cols="^,^", width=50%]
+.Module Planner Current State
+|===
+| Y1S1 | Y1S2
+
+|empty
+|empty
+
+|===
+
+[NOTE]
+This applies to when more than one valid module is supplied.
+
+===== An Invalid Module
+The user executes `delete c/CS0000` command. However, since that module is not found in the module planner,
+the command fails and `Model#deleteModules(...)` will not be called. The user will be informed of the invalid module.
+
+The module planner now has this state: +
+[cols="^,^", width=50%]
+.Module Planner Current State
+|===
+| Y1S1 | Y1S2
+
+|CS1010
+|CS2030
+
+|
+|CS2040
+|===
+
+[NOTE]
+This applies to where more than one invalid module is supplied.
+
+===== Mix of Valid and Invalid Modules
+The user executes `delete c/CS2030 c/CS0000`. However, only the module CS2030 is valid.
+In this case, `Model#deleteModules(...)` is still called, but only the valid module CS2030 will be deleted.
+The user will be informed of the invalid module.
+
+[NOTE]
+This applies to where more than one valid and invalid modules are supplied.
+
+The module planner now has this state: +
+[cols="^,^", width=50%]
+.Module Planner Current State
+|===
+| Y1S1 | Y1S2
+
+|`CS1010`
+|`CS2040`
+|===
+
+===== No Modules
+The user executes `delete`. As the command has no supplied arguments, the command will fail
+and the user will be informed to input arguments.
+
+==== Design Considerations
+===== Aspect: Argument leniency
+* Alternative 1: Entirely reject modules even if one is invalid.
+** Pros: Simple logic and requires minimal code.
+** Cons: Not user friendly. The user now has to expend additional effort to edit the modules inputted.
+
+* Alternative 2 (current choice): Accept the valid modules even if one is invalid.
+** Pros: User friendly. The user gets to delete the valid modules and is notified of which modules are invalid and why.
+** Cons: More complex. Requires filtering logic.
+
+===== Aspect: Iterative Deletion
+* Alternative 1 (current choice): Iterate through the modules in each semester for all years. For each semester, the modules
+that do not have their prerequisite(s) fulfilled are marked as invalid and are deleted.
+** Pros: Simple logic and requires minimal code.
+** Cons: Although the number of modules in the module planner is weakly limited by NUS (students are only
+   required to take about 40 modules to earn a degree), the algorithm is slow.
+
+* Alternative 2: Construct a direct acyclic graph for all the modules in the module planner
+** Pros: Fast and efficient. There is no need to iterative through several semesters to mark modules as invalid and then
+   deleting them.
+** Cons: More complex. Due to time constraints during the project, this approach was not taken.
+
+// end::delete[]
+
+// tag::find[]
+
+=== Find feature
+==== Current Implementation
+===== About
+The find mechanism is facilitated by the posting and handling of events. The `FindCommand#execute(...)` is the event poster
+and the `MainWindow#handleFindEvent(...)` is the event handler. `find` allows the user to retrieve more information about
+a specified module.
+
+===== Input
+The argument given to the mechanism is a module, which has to be offered by NUS. If a module is not offered,
+the command fails.
+
+===== Result
+The information about the module is retrieved and displayed in the Multipurpose Panel.
+
+The following sequence diagram shows how the `find` operation works:
+
+image::FindSequenceDiagram.png[width="650"]
+
+Below are some usage scenarios.
+
+==== Module is Offered
+The user executes `find c/CS1010`. The Multipurpose Panel displays the retrieved module information.
+
+==== Module is Not Offered
+The user executes `find c/CS0000`. The Multipurpose Panel does not display anything.
+
+// end::find[]
+
+// tag::goto[]
+
+=== Goto feature
+==== Current Implementation
+===== About
+The goto mechanism is facilitated by the posting and handling of events. The `GoToCommand#execute(...)` is the event poster
+and the `MainWindow#handleGoToEvent(...)` is the event handler. `goto` allows the user to switch between time periods in the ui.
+A time period is defined as a year-semester pair. e.g. Year 1 semester 1
+
+===== Input
+The argument given to the mechanism is a year-semester pair. The year has to be between 1 and 4, and the semester has to be
+between 1 and 2.
+
+===== Result
+The ui switches time periods to the specified. The modules taken in the time period is displayed too.
+
+The following sequence diagram shows how the `goto` operation works:
+
+image::GoToSequenceDiagram.png[width="650"]
+
+Below are some usage scenarios.
+
+===== Valid Year and Semester
+The user executes `goto y/1 s/1`. Since both the year and semester are valid, the ui changes accordingly.
+
+===== Invalid Year and Valid Semester
+The user executes `goto y/5 s/1`. Since only the semester is valid, command fails and the ui does not change.
+
+[NOTE]
+This applies to when the year is valid but the semester is invalid.
+
+[NOTE]
+It is possible that some users take a 5th year and beyond in their education institute. However, as of now, Module Planner does not
+support years beyond the 4th.
+
+// end::goto[]
+
+// tag::list[]
+=== List feature
+==== Current Implementation
+
+The list mechanism displays either a list of modules that the user has added to a specified year or a list of all modules that the user has added to every year.
+
+This mechanism is facilitated by `ModulePlanner`. The `ModulePlanner` stores a list of all `Semester`-s and each `Semester` stores a list `modulesTaken` containing modules that the user has added to that `Semester`.
+It implements the following operation:
+
+* `ModulePlanner#getTakenModules()` -- Retrieves the list `takenModules`.
+* `ModulePlanner#listTakenModulesAll()` -- Updates `takenModules` to contain a list of modules retrieved from the list `modulesTaken` in every `Semester`.
+* `ModulePlanner#listTakenModulesForYear(int year)` -- Updates `takenModules` to contain a list of modules retrieved from the list `modulesTaken` in the `Semester`-s that belong to the specified year.
+
+The operations are exposed in `Model` interface as `Model#getTakenModules()`, `Model#listTakenModulesAll()`, and `Model#listTakenModulesForYear(int year)`.
+
+If a valid year is specified by the user, the `list` command will call `Model#listTakenModulesForYear(year)`, where `year` is the argument supplied by user. If no year is specified, the `list` command will call `Model#listTakenModulesAll()`.
+
+[NOTE]
+A valid year should be an integer between 1 to 4 inclusive.
+
+*Below is an example usage scenario and how the list mechanism works.*
+
+Step 1. User launches the application. `ModulePlanner` is initialised with 8 `Semester` objects in a list `semesters`.
+
+Step 2. User executes `add y/1 s/1 c/CS1231`. The `add` command inserts `Module` CS1231 to the list `modulesTaken` for `Semester` object with index 0.
+
+Step 3. User executes `add y/2 s/1 c/CS1010`. The `add` command inserts `Module` CS1010 to the list `modulesTaken` for `Semester` object with index 2.
+
+Step 4. User wants to see the list of modules taken for year 1 by executing `list y/1`. The `list` command updates `takenModules` to contain list of modules taken in year 1 and retrieves it.
+A list containing CS1231 will be displayed to the user.
+
+Step 5. User wants to see the list of modules taken for all years by executing `list`. The `list` command updates `takenModules` to contain list of modules taken in all years and retrieves it.
+A list containing CS1231 and CS1010 will be displayed to the user.
+
+The following sequence diagram shows how the list operation when a valid year is specified:
+
+image::ListSequenceDiagram_1.png[width="800"]
+
+The following sequence diagram shows how the list operation when no year is specified:
+
+image::ListSequenceDiagram_2.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How list of modules taken is retrieved for list command
+* **Alternative 1 (current choice):** Updates list of modules taken whenever it is modified by a command (e.g. `add`) and immediately retrieves the list upon `list` command.
+** Pros: Easy to implement.
+** Cons: May have performance issue in terms of running time if commands that modify the list are called frequently.
+* **Alternative 2:** Saves all commands that modify list of modules taken without applying it and updates the list based on the commands only when it is retrieved upon `list` command.
+** Pros: May be more effective in terms of running time because it only modifies the list when needed.
+** Cons: Implementation will be more complicated as it required storing all commands that modify the list.
+// end::list[]
+
+// tag::status[]
+=== Status feature
+==== Current Implementation
+
+Status feature allows the user to keep track of their credit progress for different requirements. It is tracked in the `ModulePlanner` in form of a map and will
+be updated every time the user use the add or delete feature and when they set up their profile. This map will then later posted
+by `StatusCommand#execute(...)` in an event. Finally `MainWindow#handleStatusEvent(...)` will handle this event and convert the
+map to a string for display.
+
+The implementation is as follows:
+
+*`ModulePlanner#getStatus()`-Updates and retrieves the status of credit progress in the `ModulePlanner`
+
+The operation above is exposed in `Model` as `Model#getStatus()`.
+
+Below shows the sequence diagram which describe how the status feature works:
+
+image::StatusSequenceDiagram.png[width="1000"]
+
+Initially, status feature will display progress for degree requirements which does not include unrestricted electives and focus area requirements.
+When the user sets up their focus area, additional field(s) of `Focus_Area_Requirement` will be added to the status. The additional field(s) are named
+"Focus Area Requirement 1", "Focus Area Requirement 2" and so on, with the number of additional fields is equal to the number of focus area that the
+user has.
+
+As an illustration, consider the following case:
+
+Initially, the ModulePlanner is empty and the user does not have any focus area. Using the status feature will display the following strings:
+
+University Level Requirement: 0/20 +
+Foundation: 0/36 +
+Mathematics: 0/12 +
+Science: 0/4 +
+IT Professionalism: 0/12 +
+Industrial Experience Requirement: 0/12 +
+Team Project: 0/8
+
+Now the user wants to set up Software Engineering and Artificial Intelligence as their focus area. +
+The status will now display additional strings as follows:
+
+Focus Area Requirement 1: 0/12 +
+Focus Area Requirement 2: 0/12
+
+==== Design Considerations
+===== Aspect: Inclusion of Unrestricted Elective requirement
+Currently the status doesn't keep track of Unrestricted Elective requirement because of the complexity of how it is counted. Credits
+from modules with more than 4 credit count may or may not have its extra credits transferred to UE requirement. For that, a possible alternative
+would be to list down all modules with more than 4 credit count that transfer its extra credits to UE credits and taking them into consideration.
+
+Below are the summary of pros and cons of the current implementation and the alternative design
+
+* Current Implementation: Doesn't include Unrestricted Electives
+** Pros: Straightforward implementation by just counting for each module
+** Cons: Doesn't include all possible degree requirements, hence not real progress
+
+* Alternative Design: Includes Unrestricted Electives
+** Pros: Able to track real progress
+** Cons: Much more tedious to implement
+
+// end::status[]
+
+// tag::suggest[]
+=== Suggest feature
+==== Current Implementation
+
+The suggest mechanism displays a list of modules available in the specified index to the user, where index represents the year and semester that the user is asking suggestions for.
+
+This mechanism is supported by an internal list `availableModules` in `ModulePlanner`, which is regenerated after every successful execution of commands that modify `ModulePlanner` (`add`, `delete`, `clear`, etc.) and `suggest` command.
+The list `availableModules` can be retrieved through `Model#getAvailableList()` using `suggest` command, which (`suggest` command) takes in two arguments: a valid year and a valid semester.
+
+[NOTE]
+====
+* A valid year should be an integer between 1 to 4 inclusive.
+* A valid semester should be wither 1 or 2.
+====
+
+*Below is an example usage scenario and how the suggest mechanism works.*
+
+*Step 1.* User launches the application and `ModulePlanner` is initialized.
+
+*Step 2.* User executes `suggest y/1 s/1`. The `suggest` command parser converts year 1 and semester 1 to index 0.
+The `suggest` command updates `availableModules` to a newly generated list of available modules for index 0 and stores index 0 as `availableIndex` in `ModulePlanner`. It then retrieves `availableModules` and displays it to user.
+
+*Step 3.* User executes `add y/1 s/2 c/CS1010`. The `add` command performs adding a module and updates `availableModules` to a newly generated list of available modules for the stored index 0. The suggested modules list shows an updated list of available modules in year 1 semester 1 to the user.
+Only `suggest` command will change the index (year and semester) to be displayed by the suggested modules list, other commands will only show an updated list for the last index displayed by `suggest`.
+
+*Step 4.* User executes `suggest y/1 s/2`. The `suggest` command parser converts year 1 and semester 2 to index 1. The `suggest` command updates `availableModules` to a newly generated list of available modules for index 1 and stores index 1 as `availableIndex` in `ModulePlanner`. It then retrieves `availableModules` and displays list of available modules in year 1 semester 2 to user.
+
+*Below is an explanation on how the list of available modules is generated.*
+
+The method `ModulePlanner#generateAvailableModules(int index)` is called by `ModulePlanner#updateModulesAvailable()`, which sets the content of `availableModules` to the list of modules returned by `generateAvailableModules(index)`, with `index` being the stored `availableIndex`. The implementation of `ModulePlanner#generateAvailableModules(int index)` is given below:
+
+[source,java]
+----
+private List<Module> generateAvailableModules(int index) {
+    List<Module> modulesAvailable = new ArrayList<>();
+    List<Module> modulesTaken = getAllModulesTaken();
+    List<Module> modulesTakenBeforeIndex = getAllModulesTakenBeforeIndex(index);
+    List<Module> allModules = getAllModulesFromStorage();
+
+    for (Module m : allModules) {
+        if (ModuleUtil.isModuleAvailable(modulesTaken, modulesTakenBeforeIndex, m)) {
+            modulesAvailable.add(m);
+        }
+    }
+
+    sortAvailableModules(modulesAvailable, userProfile);
+
+    return modulesAvailable;
+}
+----
+
+The method `ModulePlanner#generateAvailableModules(int index)` retrieves all modules from the storage and performs availability checking on each of them. The available modules are put into a list which is then sorted:
+
+** in a lexicographical order if user has specified a major other than *Computer Science* through `setup` command, or
+** such that core modules for *Computer Science* major are put on top, followed by general education modules and unrestricted electives.
+
+The availability checking is done by the following method:
+
+[source,java]
+----
+public static boolean isModuleAvailable(List<Module> modulesTaken,
+                                        List<Module> modulesTakenBeforeIndex, Module module) {
+    return hasNotTakenModule(modulesTaken, module)
+            && hasFulfilledAllPrerequisites(modulesTakenBeforeIndex, module)
+            && hasNotFulfilledAnyPreclusions(modulesTaken, module);
+}
+----
+
+A sample scenario:
+
+Module CS2030 has a prerequisite CS1010 and a preclusion CS1020. User has taken CS1010 in year 1 semester 2 and has not taken CS1020 or CS2030.
+
+* Executing `suggest y/2 s/1` will display CS2030 as one of the available modules, as user has fulfilled all prerequisites of CS2030 before year 2 semester 1 and has not taken any preclusion or the module itself.
+* Executing `suggest y/1 s/1` will *not* display CS2030 in the list of available modules, as user has not fulfilled all the prerequisites before year 1 semester 1 (user has only fulfilled CS1010 in the semester after).
+
+The following sequence diagram shows how the suggest operation works:
+
+image::SuggestSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How list of available modules is regenerated
+* **Alternative 1 (current choice):** Regenerates list of available modules after every successful execution of commands that *may* modify the list of available modules.
+** Pros: Easy to implement.
+** Cons: May have performance issue in terms of running time because list is regenerated even if there is no change to the content.
+* **Alternative 2:** Regenerates list of available modules only if a command modifies the content of the list of available modules.
+** Pros: May be more effective in terms of running time because it only regenerates the list when needed.
+** Cons: Implementation will be more complicated as it requires additional checking on whether a command modifies the list.
+// end::suggest[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedModulePlanner`.
+It extends `ModulePlanner` with an undo/redo history, stored internally as an `modulePlannerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedModulePlanner#commit()` -- Saves the current module planner state in its history.
+* `VersionedModulePlanner#undo()` -- Restores the previous module planner state from its history.
+* `VersionedModulePlanner#redo()` -- Restores a previously undone module planner state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitModulePlanner()`, `Model#undoModulePlanner()` and `Model#redoModulePlanner()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time.
+The `VersionedModulePlanner` will be initialized with the initial module planner state,
+and the `currentStatePointer` pointing to that single module planner state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete c/GER1000` command to delete the module `GER1000` in the module planner.
+The `delete` command calls `Model#commitModulePlanner()`, causing the modified state of the module planner
+after the `delete c/CS1010` command executes to be saved in the `modulePlannerStateList`, and the `currentStatePointer`
+is shifted to the newly inserted module planner state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add y/1 s/1 c/CS1010` to add the module `CS1010 to the first year first semester.
+The `add` command also calls `Model#commitModulePlanner()`, causing another modified module planner state
+to be saved into the `modulePlannerStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitModulePlanner()`,
+so the module planner state will not be saved into the `modulePlannerStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the module was a mistake,
+and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undoModulePlanner()`, which will shift the `currentStatePointer` once to the left,
+pointing it to the previous module planner state, and restores the module planner to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial module planner state,
+then there are no previous module planner states to restore.
+The `undo` command uses `Model#canUndoModulePlanner()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoModulePlanner()`,
+which shifts the `currentStatePointer` once to the right, pointing to the previously undone state,
+and restores the module planner to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `modulePlannerStateList.size() - 1`,
+pointing to the latest module planner state, then there are no undone module planner states to restore.
+The `redo` command uses `Model#canRedoModulePlanner()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`.
+Commands that do not modify the module planner, such as `list`,
+will usually not call `Model#commitModulePlanner()`, `Model#undoModulePlanner()`
+or `Model#redoModulePlanner()`. Thus, the `modulePlannerStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitModulePlanner()`.
+Since the `currentStatePointer` is not pointing at the end of the `modulePlannerStateList`,
+all module planner states after the `currentStatePointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add y/1 s/1 c/CS1010` command.
+This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,29 +976,24 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire module planner.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the module being deleted,
+   as well as the year and semester it was in).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of module planner states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedModulePlanner`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -489,14 +1153,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.planner.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.planner.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.planner.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.planner.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -526,307 +1190,30 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/planner/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Module Planner depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+NUS Computer Science and Computer Engineering students who :
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+** need to manage their modules
+** is familiar with CLI apps
+** prefer typing over using mouse
+** prefer desktop apps over other types
+
+*Value proposition*: easily plan modules based on graduation requirements
 
 [appendix]
 == User Stories
@@ -836,88 +1223,161 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |CS student |specify my major, focus area and current semester |Get a list of modules I need to take to fulfill requirements
 
-|`* * *` |user |add a new person |
+|`* * *` |student |add modules that I have taken |know what other modules I can take next based on the module prerequisites
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |add modules that I want to take for future semesters |plan my modules for the future semesters
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student |delete modules from plan |remove modules that I choose not to take
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |see the list of modules |choose what modules I want to take for the next semester
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |student |get a summary of my current progress |get a better sense of what I need to do next
+
+|`* *` |student |look up a module |know which semester it is available in
+
+|`* *` |student |look up a module I want to take |get the list of prerequisites for it
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ModulePlanner`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Specify major/focus area
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to specify a major/focus area
+2.  System displays a list of modules related to the major/ focus area
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The given input is invalid.
++
+[none]
+** 2a1. System shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Add modules that have been taken
+
+*MSS*
+
+1.  User requests to add any number of module codes to the list of modules taken
+2.  System shows success message
+3.  User requests to see the list of available modules
+4.  System shows the list of modules that user can take based on the list of modules taken
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User inputs no module code
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. System shows error message
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+* 2b. User inputs invalid module code(s)
++
+[none]
+** 2b1. System shows error message
++
+Use case ends.
+
+* 4a. The list is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete modules
+
+*MSS*
+
+1.  User requests to see the module plan he/she has made for a specific semester
+2.  System shows module plan for the specified semester
+3.  User requests to delete any number of module codes from the plan
+4.  System shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The plan is empty
++
+Use case ends.
+
+* 2b. The semester is a past semester
++
+[none]
+** 2b1. User is told that old modules cannot be changed
++
+Use case ends.
+
+* 3a. User inputs no module code
++
+[none]
+** 3a1. System shows error message
+** 3a2. System prompts for module code(s)
++
+Use case ends.
+
+* 3b. User inputs invalid module code(s)
++
+[none]
+** 3b1. System shows error message
+** 3b2. System prompts for valid module code(s)
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should work on any mainstream OS as long as it has Java 9 or higher installed
+.  Should be able to handle at least 80 modules
+.  Should have good documentation
+.  Should be designed to allow for future extensibility
+.  Should be designed well to ease maintainability and be easily tested
+.  Should be scalable to cater to more modules if a second major, degree or the like is taken
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+Time Period::
+Year-Semester pair
+* year 1 semester 1
+* year 2 semester 2
 
-[appendix]
-== Product Survey
+Iterative Deletion::
+The process of removing modules, checking if their removal causes other modules to not fulfill
+some of their prerequisites, removing those modules that no longer have their prerequisites fulfilled,
+and repeating until no more modules are removed.
 
-*Product Name*
+Ui Components::
+The ui is divided into several sections.
 
-Author: ...
+.The labelled ui
+image::UiLabelled.png[width="790"]
 
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+* Input Box: input commands here.
+* Result Display: displays command results and other associated messages.
+* Time Period: displays the year and semester you are currently viewing.
+* Taken Modules Panel: lists modules that you put into the specified time period.
+* Suggested Modules Panel: lists modules that suggested to you for that time period.
+* Multipurpose Panel: displays results for the `Find` and `Status` commands.
 
 [appendix]
 == Instructions for Manual Testing
@@ -929,38 +1389,195 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
+
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with no modules. The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size. Move the window to a different location. Close the window..
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding modules
 
-=== Deleting a person
+In an empty module planner, do the following command: `add y/1 s/1 c/CS1010`
 
-. Deleting a person while all persons are listed
+The module planner will now have the module `CS1010`.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Next do the following command: `add y/1 s/1 c/CS0000 c/CS1010 c/CS1010E c/CS1231 c/MA1100 c/CS2030 c/GER1000`
 
-_{ more test cases ... }_
+The module planner will now have the module `GER1000` and the following message will be displayed:
+
+Added Module(s): GER1000 +
+Not offered module(s): CS0000 +
+Following module(s) already exist in the planner: CS1010 +
+Following module(s) have some of their preclusions not fulfilled in the planner: CS1010E +
+Following module(s) are equivalent: (CS1231 MA1100) +
+Following module(s) have their prerequisites not fulfilled in the planner: CS2030
+
+=== Getting status
+
+Type `status` in an empty planner, and the following should be displayed:
+
+University Level Requirement: 0/20 +
+Foundation: 0/36 +
+Mathematics: 0/12 +
+Science: 0/4 +
+IT Professionalism: 0/12 +
+Industrial Experience Requirement: 0/12 +
+Team Project: 0/8
+
+Now do the following command: `add y/1 s/1 c/CS1010 c/MA1521`
+
+The following fields will be now updated:
+Foundation: 4/36 +
+Mathematics: 4/12
+
+=== Deleting modules
+
+. Simple deletion
+
+.. Prerequisite: There needs to be at least one module in the module planner that is *not* a prerequisite
+   for other modules. These modules are usually level 1000 modules like CS1010 and GER1000. If no such
+   modules are in the module planner, add one or more (e.g. `add y/1 s/1 c/CS1010` and `add y/1 s/1 c/GER1000`).
+.. Test case: `delete c/CS1010`. +
+   Expected: The module is removed and the ui updates to show that.
+
+. Iterative Deletion
+
+.. Prerequisite: There needs to be at least one module in the module planner that is a prerequisite
+   for other modules. These modules are usually level 2000 modules and above like CS2030 and CS2040.
+   If no such modules are in the module planner, add one or more (e.g. `add y/1 s/2 c/CS2030` and
+   `add y/1 s/2 c/CS2040`).
+.. Test case: `delete c/CS1010`. +
+   Expected: The module is removed and the ui updates to show that. The modules that depend on CS1010 like
+   CS2030 and CS2040 will be removed too.
+
+[TIP]
+To observe iterative deletion better, use the `list` command to list out all the modules before performing this test case.
+
+[NOTE]
+====
+
+*Potential Confusion* +
+An input like `add y/1 s/2 c/CS2030` does not work. +
+
+*Solution* +
+Check if the prerequisites of CS2030 have been fulfilled. In this case, the prerequisites of
+CS2030 are CS1010 and CS1231. Add the latter two modules before adding CS2030 into at least a
+semester after.
+
+====
+
+=== Finding a module
+
+. Finding a valid module
+
+.. Prerequisite: None.
+.. Test case: `find c/CS1010` +
+   Expected: The Multipurpose Panel displays the information of `CS1010`.
+
+=== Switching between time periods
+
+. Switching to a different time period
+
+.. Prerequisite: None, but the time period that you `goto` has to be different from your current.
+.. Test case: `goto y/<a> s/<b>`, where a and b refer to any valid values. +
+   Expected: The time period in the Taken Modules Panel will change from where you were to `Year a | Semester b`.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Double-click the jar file. This will generate some supporting files like preferences.json and config.json.
+.. To simulate missing data files, remove any of the generated files. Close the window.
+.. Double click the jar file again. +
+   Expected: The jar file will automatically generate the relevant files removed.
+   These files contain default values and not custom values set by the user.
 
-_{ more test cases ... }_
+.. To simulate corrupted data files, edit any of the generated files to break the format.
+   The files are in json format and are easily editable. One example edit is to add "BobBuilder" like in the image below.
+.. Expected: The jar file will automatically regenerate the corrupted files.
+   These files contain default values and not custom values set by the user.
+
+image::CorruptedDataFile.png[width="300"]
+
+=== Suggesting modules
+
+. Suggesting modules for a specific year and semester
+.. Test case: `suggest y/1 s/1` +
+   Expected: The panel for *Modules Suggested* is updated to show *Year 1 | Semester 1* and list of suggested modules for year 1 semester 1. A success message is shown in the status message.
+.. Test case: `suggest` +
+   Expected: The panel for *Modules Suggested* remained the same as before executing the command. Error message is shown in the status message.
+.. Other incorrect suggest commands to try: `suggest y/a s/b` (where a is not an integer between 1 to 4 inclusive or b is neither 1 or 2) +
+   Expected: Similar to previous.
+
+=== Listing modules
+
+. Listing modules for all years
+.. Prerequisites: Add some modules to ModulePlanner using `add` command.
+.. Test case: `list` +
+   Expected: The panel for *Modules Taken* is updated to show *All years* and list of all modules that have been added. A success message is shown in the status message.
+.. Test case: `list 1` +
+   Expected: The panel for *Modules Taken* remained the same as before executing the command. Error message is shown in the status message.
+
+. Listing modules for a year
+.. Prerequisites: Add some modules to year 1 using `add` command.
+.. Test case: `list y/1` +
+   Expected: The panel for *Modules Taken* is updated to show *Year 1* and all modules that have been added to year 1. A success message is shown in the status message.
+.. Test case: `list y/0` +
+   Expected: The panel for *Modules Taken* remained the same as before executing the command. Error message is shown in the status message.
+.. Other incorrect list commands to try: `list y/a` (where a is not an integer between 1 to 4) +
+   Expected: Similar to previous.
+
+=== Set up user profile
+
+. Set up user profile
+
+.. Test case: Valid major with exact letter casing, no focus area
+*** Command: `setup m/Computer Science`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and no focus area.
+
+.. Test case: Valid major with different letter casing, no focus area
+*** Command: `setup m/cOMputEr sCiEnce`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and no focus area.
+
+.. Test case: Invalid major, no focus area
+*** Command: `setup m/Information Security`
+*** Expected: Fail to set up user profile with error message `Invalid major (Information Security)`.
+
+.. Test case: Valid major, one valid focus area with exact letter casing
+*** Command: `setup m/Computer Science f/Software Engineering`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and "Software Engineering" as focus area.
+
+.. Test case: Valid major, one valid focus area in different letter casing
+*** Command: `setup m/Computer Science f/softWARE EnginEErInG`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and "Software Engineering" as focus area.
+
+.. Test case: Valid major, multiple different valid focus areas with exact letter casing
+*** Command: `setup m/Computer Science f/Software Engineering f/Artificial Intelligence`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and "Software Engineering"
+and "Artificial Intelligence" as focus areas.
+
+.. Test case: Valid major, multiple strings with different letter casing of the same valid focus area
+*** Command: `setup m/Computer Science f/Software Engineering f/soFTware EnginEErinG`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and "Software Engineering" as focus area.
+"Software Engineering" only appears once.
+
+.. Test case: Valid major, one valid focus area with exact letter casing and one invalid focus area
+*** Command: `setup m/Computer Science f/Software Engineering f/Computer Graphics`
+*** Expected: Sucessfully set up user profile with "Computer Science" as major and "Software Engineering" as focus area.
+
+.. Test case: Valid major, one invalid focus area
+*** Command: `setup m/Computer Science f/Computer Graphics`
+*** Expected: Fail to set up user profile with error message `All focus area(s) are invalid`.
+
+.. Test case: Invalid major, one invalid focus area
+*** Command: `setup m/Information Security f/Computer Graphics`
+*** Expected: Fail to set up user profile with error messages `Invalid major (Information Security)`
+and `All focus area(s) are invalid`.
+
