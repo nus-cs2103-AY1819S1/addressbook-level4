@@ -1,4 +1,4 @@
-//@@theJrLinguist
+//@@author theJrLinguist
 package seedu.address.logic.parser.eventparser;
 
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
