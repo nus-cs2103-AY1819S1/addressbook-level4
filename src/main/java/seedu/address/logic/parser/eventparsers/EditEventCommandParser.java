@@ -1,3 +1,4 @@
+//@@author theJrLinguist
 package seedu.address.logic.parser.eventparsers;
 
 import static java.util.Objects.requireNonNull;
