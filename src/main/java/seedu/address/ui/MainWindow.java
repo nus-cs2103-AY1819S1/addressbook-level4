@@ -148,9 +148,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        //@@author kaitingpeck
         tabPanel = new TabPanel(logic.getFilteredEventListByDate(), logic.getUnfilteredPersonList(),
                 logic.getEventTagList());
         tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+        //@@author
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -195,11 +197,13 @@ public class MainWindow extends UiPart<Stage> {
                 model.getFavourite());
     }
 
+    //@@author kaitingpeck
     private void refreshTabPanel() {
         tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
                 logic.getUnfilteredPersonList(), logic.getEventTagList());
         tabsPlaceholder.getChildren().add(tabPanel.getRoot());
     }
+    //@@author
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -239,10 +243,12 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    //@@author kaitingpeck
     @Subscribe
     private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         refreshTabPanel();
     }
+    //@@author
 }

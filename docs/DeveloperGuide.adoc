@@ -252,6 +252,7 @@ ToggleCommand is not compatible with undo/redo since there is no writing of data
 ** Cons: Increases coupling.
 // end::toggle[]
 
+//@@author ryantanwk
 //tag::favourite[]
 === Select an existing event to be detailed in the notification if notification is enabled.
 ==== Current Implementation
@@ -341,6 +342,7 @@ The notification command will update the notification preference regardless of w
 ** Pros: Efficient.
 ** Cons: Code becomes more complicated because additional check required
 // end::notification[]
+//@@author
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -422,6 +424,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//@@author kaitingpeck
 [[AddDeleteEvents]]
 //tag::addEventsHeader[]
 
@@ -762,6 +765,7 @@ Hence, all the tabs and their methods are contained in this class.
 ** *Pros:* Less code needed, especially if some tabs have similar or overlapping methods.
 ** *Cons:* Does not abide by SoC and SRP principle, since this one class would have to change for many reasons.
 // end::tab[]
+//@@author
 
 // tag::importContacts[]
 === Import Contacts
