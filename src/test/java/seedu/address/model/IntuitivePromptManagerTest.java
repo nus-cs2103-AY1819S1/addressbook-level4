@@ -259,14 +259,14 @@ public class IntuitivePromptManagerTest {
     public void retrieveArguments_updateMedicalRecord_successfulRetrieval() throws Exception {
         intuitivePromptManager.addArgument(UpdateCommand.COMMAND_WORD);
         intuitivePromptManager.addArgument("3");
-        intuitivePromptManager.addArgument("12.11.2018");
+        intuitivePromptManager.addArgument("12.11.9999");
         intuitivePromptManager.addArgument("runny nose");
         intuitivePromptManager.addArgument("loratadine");
         intuitivePromptManager.addArgument("mc given for 2 days");
 
         assertFalse(intuitivePromptManager.isIntuitiveMode());
         String retrieveArguments = intuitivePromptManager.retrieveArguments();
-        assertEquals(retrieveArguments, "update 3 d/12.11.2018 dg/runny nose tr/loratadine c/mc given for 2 days");
+        assertEquals(retrieveArguments, "update 3 d/12.11.9999 dg/runny nose tr/loratadine c/mc given for 2 days");
         assertFalse(intuitivePromptManager.areArgsAvailable());
     }
 
