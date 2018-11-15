@@ -283,7 +283,6 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.setVisible(true);
     }
 
-    //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
      * @param index The index position of the tab
@@ -348,7 +347,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
-    //@@author jjlee050
     /**
      * Set full screen in exclusive mode.
      */
