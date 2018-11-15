@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "blewjy",
+      "displayName": "BRYAN LEW JU YU",
+      "authorNames": ["blewjy", "Bryan Lew"]
+    },
+    {
+      "githubId": "clawyq",
+      "displayName": "LAW YONG QIANG CLINTON",
+      "authorNames": ["clawyq", "LAPTOP-E3JOI16D\\clint"]
+    },
+    {
+      "githubId": "99percentile",
+      "displayName": "LEE YU CONG",
+      "authorNames": ["99percentile","DESKTOP-NSV5A3C\\Lee Yu Cong", "Lee Yu Cong" ]
+    },
+    {
+      "githubId": "syahiranrafi",
+      "displayName": "SYAHIRAN RAFI",
+      "authorNames": ["syahiranrafi", "Syahiran Rafi"]
+    },
+    {
+      "githubId": "ChesterSng",
+      "displayName": "SNG YU FENG CHESTER",
+      "authorNames": ["ChesterSng", "Chester Sng"]
+    }
+  ]
+}

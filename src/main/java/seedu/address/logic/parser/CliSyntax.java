@@ -7,9 +7,28 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_ICNUMBER = new Prefix("ic/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
+    public static final Prefix PREFIX_BLOODTYPE = new Prefix("b/");
+    public static final Prefix PREFIX_DISEASE = new Prefix("d/");
+    public static final Prefix PREFIX_DRUGALLERGY = new Prefix("da/");
+    public static final Prefix PREFIX_NOTE = new Prefix("m/");
+
+    public static final Prefix PREFIX_MEDICINE_NAME = new Prefix("mn/");
+    public static final Prefix PREFIX_MINIMUM_STOCK_QUANTITY = new Prefix("msq/");
+    public static final Prefix PREFIX_PRICE_PER_UNIT = new Prefix("ppu/");
+    public static final Prefix PREFIX_STOCK = new Prefix("s/");
+    public static final Prefix PREFIX_SERIAL_NUMBER = new Prefix("sn/");
+
+    public static final Prefix PREFIX_NOTE_CONTENT = new Prefix("n/");
+    public static final Prefix PREFIX_MC_CONTENT = new Prefix("mc/");
+    public static final Prefix PREFIX_REFERRAL_CONTENT = new Prefix("r/");
+    public static final Prefix PREFIX_AMOUNT_TO_DISPENSE = new Prefix("amt/");
+    public static final Prefix PREFIX_AMOUNT_TO_RESTOCK = new Prefix("amt/");
+
+    public static final Prefix PREFIX_POSITION = new Prefix("p/");
 }

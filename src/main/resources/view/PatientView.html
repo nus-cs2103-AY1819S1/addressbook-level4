@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient View</title>
+    <link rel="stylesheet" type="text/css" href="PatientView.css">
+    <script type="text/javascript">
+        function loadPatientDetails(name, ic, address, phone, email, blood, diseases, drugs, notes) {
+            document.getElementById("name").innerHTML=name;
+            document.getElementById("ic").innerHTML=ic;
+            document.getElementById("address").innerHTML=address;
+            document.getElementById("phone").innerHTML=phone;
+            document.getElementById("email").innerHTML=email;
+            document.getElementById("blood").innerHTML=blood;
+            document.getElementById("diseases").innerHTML=diseases;
+            document.getElementById("drugs").innerHTML=drugs;
+            document.getElementById("notes").innerHTML=notes;
+        }
+    </script>
+</head>
+<body>
+<div class="container-personal-details">
+    <div class="table-title">Personal Details</div>
+    <table class="blue-alt-cols">
+        <tr>
+            <td class="col-personal-details">Name</td>
+            <td><span id="name"></span></td>
+        </tr>
+        <tr>
+            <td class="col-personal-details">IC Number</td>
+            <td><span id="ic"></span></td>
+        </tr>
+        <tr>
+            <td class="col-personal-details">Address</td>
+            <td><span id="address"></span></td>
+        </tr>
+        <tr>
+            <td class="col-personal-details">HP Number</td>
+            <td><span id="phone"></span></td>
+        </tr>
+        <tr>
+            <td class="col-personal-details">Email</td>
+            <td><span id="email"></span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="container-medical-records">
+    <div class="table-title">Medical Records</div>
+    <table class="blue-alt-cols">
+        <tr>
+            <td class="col-medical-records">Blood Type</td>
+            <td><span id="blood"></span></td>
+        </tr>
+        <tr>
+            <td class="col-medical-records">Disease History</td>
+            <td><span id="diseases"></span></td>
+        </tr>
+        <tr>
+            <td class="col-medical-records">Drug Allergies</td>
+            <td><span id="drugs"></span></td>
+        </tr>
+        <tr>
+            <td class="col-medical-records">Notes</td>
+            <td><span id="notes"></span></td>
+        </tr>
+    </table>
+</div>
+
+
+
+</body>
+</html>

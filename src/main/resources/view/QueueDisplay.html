@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="DarkTheme.css">
+    <link rel="stylesheet" href="QueueDisplay.css">
+    <script type="text/javascript">
+        function loadQueueDisplay(q1, q2, q3, q4, q5, q6, current, s1, s2, s3, s4, s5, s6) {
+            document.getElementById("queue1").innerHTML = "#1<br>" + q1;
+            if (q1 !== "empty") {
+                document.getElementById("qdot1").classList.remove("hide");
+            }
+
+            document.getElementById("queue2").innerHTML = "#2<br>" + q2;
+            if (q2 !== "empty") {
+                document.getElementById("qdot2").classList.remove("hide");
+            }
+
+            document.getElementById("queue3").innerHTML = "#3<br>" + q3;
+            if (q3 !== "empty") {
+                document.getElementById("qdot3").classList.remove("hide");
+            }
+
+            document.getElementById("queue4").innerHTML = "#4<br>" + q4;
+            if (q4 !== "empty") {
+                document.getElementById("qdot4").classList.remove("hide");
+            }
+
+            document.getElementById("queue5").innerHTML = "#5<br>" + q5;
+            if (q5 !== "empty") {
+                document.getElementById("qdot5").classList.remove("hide");
+            }
+
+            document.getElementById("queue6").innerHTML = "#6<br>" + q6;
+            if (q6 !== "empty") {
+                document.getElementById("qdot6").classList.remove("hide");
+            }
+
+            document.getElementById("current").innerHTML = current;
+            if (current !== "empty") {
+                document.getElementById("cdot").classList.remove("hide");
+            }
+
+            document.getElementById("served1").innerHTML = "#1<br>" + s1;
+            if (s1 !== "empty") {
+                document.getElementById("sdot1").classList.remove("hide");
+            }
+
+            document.getElementById("served2").innerHTML = "#2<br>" + s2;
+            if (s2 !== "empty") {
+                document.getElementById("sdot2").classList.remove("hide");
+            }
+
+            document.getElementById("served3").innerHTML = "#3<br>" + s3;
+            if (s3 !== "empty") {
+                document.getElementById("sdot3").classList.remove("hide");
+            }
+
+            document.getElementById("served4").innerHTML = "#4<br>" + s4;
+            if (s4 !== "empty") {
+                document.getElementById("sdot4").classList.remove("hide");
+            }
+
+            document.getElementById("served5").innerHTML = "#5<br>" + s5;
+            if (s5 !== "empty") {
+                document.getElementById("sdot5").classList.remove("hide");
+            }
+
+            document.getElementById("served6").innerHTML = "#6<br>" + s6;
+            if (s6 !== "empty") {
+                document.getElementById("sdot6").classList.remove("hide");
+            }
+        }
+    </script>
+</head>
+<body>
+<table style="width: 100%">
+    <tr>
+        <th style="width: 45%" align="center">Waiting:</th>
+        <th style="width: 10%" align="center">Current Patient:</th>
+        <th style="width: 45%" align="center">Served:</th>
+    </tr>
+    <tr>
+        <td style="width: 45%" align="center" valign="center">
+            <div class="circles">
+                <div class="dot hide" id="qdot6"><span id="queue6"></span></div>
+                <div class="dot hide" id="qdot5"><span id="queue5"></span></div>
+                <div class="dot hide" id="qdot4"><span id="queue4"></span></div>
+                <div class="dot hide" id="qdot3"><span id="queue3"></span></div>
+                <div class="dot hide" id="qdot2"><span id="queue2"></span></div>
+                <div class="dot hide" id="qdot1"><span id="queue1"></span></div>
+            </div>
+        </td>
+        <td style="width: 10%" align="center" valign="center">
+            <div class="circles">
+                <div class="dot hide" id="cdot"><span id="current"></span></div>
+            </div>
+        </td>
+        <td style="width: 45%" align="center" valign="center">
+            <div class="circles">
+                <div class="dot hide" id="sdot6"><span id="served6"></span></div>
+                <div class="dot hide" id="sdot5"><span id="served5"></span></div>
+                <div class="dot hide" id="sdot4"><span id="served4"></span></div>
+                <div class="dot hide" id="sdot3"><span id="served3"></span></div>
+                <div class="dot hide" id="sdot2"><span id="served2"></span></div>
+                <div class="dot hide" id="sdot1"><span id="served1"></span></div>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

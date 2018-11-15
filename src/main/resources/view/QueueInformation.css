@@ -1,0 +1,57 @@
+html {
+    background-color: #404040;
+}
+
+h2 {
+    padding: 10px;
+    text-decoration: underline;
+}
+
+.table-title {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-family: "Arial";
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+}
+
+table {
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid #383838;
+    border-collapse: collapse;
+}
+
+tr {
+    height: 40px;
+}
+
+.container {
+    float: left;
+    width: 250px;
+    padding: 15px;
+}
+
+.blue-alt-cols td {
+    padding: 5px 10px;
+}
+
+.blue-alt-cols tbody td {
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.blue-alt-cols td:nth-child(odd) {
+    background: #767676;
+}
+
+.blue-alt-cols td:nth-child(even) {
+    background: #398AA4;
+}

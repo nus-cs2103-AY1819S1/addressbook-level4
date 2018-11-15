@@ -1,0 +1,70 @@
+= Syahiran Rafi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CLInic
+
+---
+
+== Overview
+
+Hello, I am Syahiran. As part of my undergraduate study of Computer Science (CS) at the National University of Singapore (NUS), I undertook a Software Engineering module (CS2103T) in my third year.
+Together with four other students from CS, we modified and improved the given https://github.com/nus-cs2103-AY1819S1/addressbook-level4[address book application] into a database management system called CLInic. This project portfolio serves to document my contributions to this project.
+
+CLInic is a desktop application, which means it can run on a computer’s operating system without the need for a web browser. It is designed specifically for clinics, and helps to reduce the manual labour of daily administrative tasks like:
+
+* Maintaining a database of patients and their medical records
+* Checking and updating medicine inventory
+* Generating receipts, medical certificates and referral letters for patients
+
+CLI is an acronym for "Command Line Interface", as CLInic works by typing commands directly into the application through the CLI. Together with CLInic’s clean Graphical User Interface (GUI), the application allows for an easy and intuitive experience for both technical and non-technical users alike.
+
+== Summary of Contributions
+
+|===
+|_This section summarises my contributions to the project, and provides links to my code and pull requests._
+|===
+
+* *Major enhancement*: I supported the implementation of the `*Document*` class, along with its accompanying
+                       extending classes `MedicalCertificate` and `ReferralLetter`.
+** What it does: This feature allows for the doctor to input information, like the duration of medical leave and referred location, to easily generate medical certificate and referral letter documents in the form of HTML files.
+** Justification: This feature takes in the relevant information that has been keyed in and structures them in a way that is *presentable and professional*. This can help to *reduce the incidences of error* that arise due to illegible handwriting.
+** Highlights: This feature is intended to *decrease the need for pen and paper documentation*. Most people can type significantly faster than they can write. Also, legibility of handwriting may affect comprehension. In the case of referral letters, where *vital medical information* may be conveyed, we want the information to be presented as clearly as possible.
+
+* *Minor enhancement*: I added *shorthand codes* for most of the commands in CLInic to reduce the amount of typing necessary when using the CLI.
+** Justification: Some commands like `dispenseMedicine` and `MedicalCertificate` are really long, so it can be troublesome for the user to type the whole command in order to execute the command. Instead, users can type `dm` and `mc` to execute the same respective commands.
+
+* *Code contributed*: View my code for the project https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=&sort=displayName&since=2018-09-12&until=2018-11-08&timeframe=day&reverse=false&repoSort=true[here]!
+
+* *Other contributions*:
+
+** Documentation:
+*** Edited the language and style of the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/126[#126]
+*** Added a Command Summary table to the User Guide: https://github.com/CS2103-AY1819S1-W16-4/main/pull/129[#129]
+** Community:
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/115[#115]
+** Enhancements to existing features:
+*** Attempted to implement a discount feature for patients under health assistance schemes, but this shall be pushed to v2.0: https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
+
+== Contributions to the User Guide
+
+|===
+|_Provided below are excerpts of my contributions to the User Guide. This section showcases my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=mc]
+
+include::../UserGuide.adoc[tag=refer]
+
+include::../UserGuide.adoc[tag=table]
+
+== Contributions to the Developer Guide
+
+|===
+|_Provided below are excerpts of my contributions to the Developer Guide. This section showcases my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=mc]
+
+include::../DeveloperGuide.adoc[tag=referralletter]

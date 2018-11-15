@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queue Info</title>
+    <link rel="stylesheet" type="text/css" href="QueueInformation.css">
+    <script>
+        function loadQueueInformation(queueString, current, servedString) {
+            var queueTable = document.getElementById("queueTable");
+            var queueArray = queueString.split("_");
+
+            var index = 1;
+            if (queueString !== "empty") {
+                queueArray.forEach(function(patient) {
+                    var row = queueTable.insertRow();
+                    row.insertCell(0).innerHTML = patient;
+                    row.insertCell(0).innerHTML = index++ + ".";
+                });
+            } else {
+                queueTable.insertRow().insertCell(0).innerHTML = "Queue is empty!";
+            }
+
+            document.getElementById("current").innerHTML=current;
+
+            var servedTable = document.getElementById("servedTable");
+            var servedArray = servedString.split("_");
+
+            index = 1;
+            if (servedString !== "empty") {
+                servedArray.forEach(function (patient) {
+                    var row = servedTable.insertRow();
+                    row.insertCell(0).innerHTML = patient;
+                    row.insertCell(0).innerHTML = index++ + ".";
+                });
+            } else {
+                servedTable.insertRow().insertCell(0).innerHTML = "Served List is empty!";
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="table-title">Queue</div>
+    <table class="blue-alt-cols" id="queueTable"></table>
+</div>
+<div class="container">
+    <div class="table-title">Current Patient</div>
+    <table class="blue-alt-cols">
+        <tr>
+            <td><span id="current"></span></td>
+        </tr>
+    </table>
+</div>
+<div class="container">
+    <div class="table-title">Served List</div>
+    <table class="blue-alt-cols" id="servedTable"></table>
+</div>
+</body>
+</html>
