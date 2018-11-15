@@ -55,6 +55,7 @@ public class ModelManagerTest {
         modelManager.hasStaff(null);
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -67,6 +68,7 @@ public class ModelManagerTest {
         modelManager.hasAppointmentClash(null);
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_nullMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -88,6 +90,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasStaff(ADAM));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
@@ -104,6 +107,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasAppointmentClash(appt));
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_medicineNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasMedicine(ORACORT));
@@ -127,6 +131,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasStaff(ADAM));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
@@ -145,6 +150,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasAppointmentClash(appt));
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_medicineInClinicIo_returnsTrue() {
         modelManager.addMedicine(ORACORT);
@@ -177,12 +183,14 @@ public class ModelManagerTest {
         modelManager.getFilteredStaffList().remove(0);
     }
 
+    //@@author gingivitiss
     @Test
     public void getFilteredAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredAppointmentList().remove(0);
     }
 
+    //@@author aaronseahyh
     @Test
     public void getFilteredMedicineList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

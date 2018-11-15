@@ -136,6 +136,7 @@ public class ClinicIoTest {
         clinicIo.resetData(newData);
     }
 
+    //@@author gingivitiss
     @Test
     public void resetData_withDuplicateAppointments_throwsDuplicateAppointmentException() {
         //Two appointments with the same identity fields
@@ -165,6 +166,7 @@ public class ClinicIoTest {
         clinicIo.resetData(newData);
     }
 
+    //@@author aaronseahyh
     @Test
     public void resetData_withDuplicateMedicines_throwsDuplicateMedicineException() {
         //Two medicines with the same identity fields
@@ -198,12 +200,14 @@ public class ClinicIoTest {
         clinicIo.hasStaff(null);
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         clinicIo.hasAppointment(null);
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_nullMedicine_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -231,11 +235,13 @@ public class ClinicIoTest {
         assertFalse(clinicIo.hasStaff(ADAM));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasAppointment(ALEX_APPT));
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_medicineNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasMedicine(ORACORT));
@@ -261,12 +267,14 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasStaff(ADAM));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         clinicIo.addAppointment(ALEX_APPT);
         assertTrue(clinicIo.hasAppointment(ALEX_APPT));
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_medicineInClinicIo_returnsTrue() {
         clinicIo.addMedicine(PARACETAMOL);
@@ -299,6 +307,7 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasStaff(editedAdam));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentWithSameIdentityFieldsInAddressBook_returnsTrue() {
         clinicIo.addAppointment(ALEX_APPT);
@@ -320,6 +329,7 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasAppointmentClash(newAppt));
     }
 
+    //@@author aaronseahyh
     @Test
     public void hasMedicine_medicineWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addMedicine(PARACETAMOL);
@@ -330,6 +340,7 @@ public class ClinicIoTest {
 
     // TODO: Add consultation test case
 
+    //@@author jjlee050
     @Test
     public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -375,12 +386,14 @@ public class ClinicIoTest {
         clinicIo.getStaffList().remove(0);
     }
 
+    //@@author gingivitiss
     @Test
     public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         clinicIo.getAppointmentList().remove(0);
     }
 
+    //@@author aaronseahyh
     @Test
     public void getMedicineList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);

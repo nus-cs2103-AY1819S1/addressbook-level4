@@ -52,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
     private final Analytics analytics;
+    //@@author iamjackslayer
     private UiManager uiManager = null;
 
     /**
@@ -64,15 +65,19 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with ClinicIO: " + clinicIo + " and user prefs " + userPrefs);
 
         versionedClinicIo = new VersionedClinicIo(clinicIo);
+        //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
         filteredPatients = new FilteredList<>(versionedClinicIo.getPatientList());
         filteredStaffs = new FilteredList<>(versionedClinicIo.getStaffList());
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
         filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
+        //@@author aaronseahyh
         filteredMedicines = new FilteredList<>(versionedClinicIo.getMedicineList());
+        //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
         allPatientsInQueue = new FilteredList<>(versionedClinicIo.getQueue());
+        //@@author arsalanc-v2
         analytics = new Analytics();
     }
 
@@ -98,6 +103,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //========== Ui changes ======================================================================
 
+    //@@author iamjackslayer
     /**
      * Switches the current tab to the tab of given index.
      * @param index the index of the tab
@@ -124,12 +130,14 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasPatient(patient);
     }
 
+    //@@author jjlee050
     @Override
     public boolean hasStaff(Staff staff) {
         requireNonNull(staff);
         return versionedClinicIo.hasStaff(staff);
     }
 
+    //@@author iamjackslayer
     @Override
     public boolean hasPatientInMainQueue() {
         return mainQueue.hasPatient();
@@ -146,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
         return hasPatient;
     }
 
+    //@@author gingivitiss
     @Override
     public boolean hasAppointment(Appointment appt) {
         requireNonNull(appt);
@@ -158,12 +167,14 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasAppointmentClash(appt);
     }
 
+    //@@author arsalanc-v2
     @Override
     public boolean hasConsultation(Consultation consultation) {
         requireNonNull(consultation);
         return versionedClinicIo.hasConsultation(consultation);
     }
 
+    //@@author aaronseahyh
     @Override
     public boolean hasMedicine(Medicine medicine) {
         requireNonNull(medicine);
@@ -184,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author gingivitiss
     @Override
     public void deleteAppointment(Appointment target) {
         versionedClinicIo.removeAppointment(target);
@@ -198,11 +210,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author arsalanc-v2
     @Override
     public void deleteConsultation(Consultation target) {
         versionedClinicIo.removeConsultation(target);
     }
 
+    //@@author aaronseahyh
     @Override
     public void deleteMedicine(Medicine target) {
         versionedClinicIo.removeMedicine(target);
@@ -232,6 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author gingivitiss
     @Override
     public void addAppointment(Appointment appt) {
         versionedClinicIo.addAppointment(appt);
@@ -239,12 +254,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@author arsalanc-v2
     @Override
     public void addConsultation(Consultation consultation) {
         versionedClinicIo.addConsultation(consultation);
         updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
     }
 
+    //@@author aaronseahyh
     @Override
     public void addMedicine(Medicine newMedicine) {
         versionedClinicIo.addMedicine(newMedicine);
@@ -254,6 +271,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //========== Update ======================================================================================
 
+    //@@author iamjackslayer
     @Override
     public void enqueue(Patient patient) throws CommandException {
         if (patient.isQueuing()) {
@@ -279,6 +297,7 @@ public class ModelManager extends ComponentManager implements Model {
         patient.setIsQueuing();
     }
 
+    //@@author iamjackslayer
     @Override
     public void dequeue(Patient patient) throws CommandException {
         if (!patient.isQueuing()) {
@@ -318,6 +337,7 @@ public class ModelManager extends ComponentManager implements Model {
         mainQueue.add((Patient) patient);
     }
 
+    //@@author iamjackslayer
     /**
      * Enqueues patient who is consulting a particular staff into the 'special' queue.
      * @param patient
@@ -334,6 +354,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author gingivitiss
     @Override
     public void updateAppointment(Appointment target, Appointment editedAppt) {
         requireAllNonNull(target, editedAppt);
@@ -341,12 +362,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author arsalanc-v2
     @Override
     public void updateConsultation(Consultation target, Consultation editedConsultation) {
         requireAllNonNull(target, editedConsultation);
         versionedClinicIo.updateConsultation(target, editedConsultation);
     }
 
+    //@@author aaronseahyh
     @Override
     public void updateMedicineQuantity(Medicine target, MedicineQuantity newQuantity) {
         requireAllNonNull(target, newQuantity);
@@ -371,12 +394,14 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //@@author iamjackslayer
     @Override
     public void updateQueue(Predicate<Patient> predicate) {
         requireAllNonNull(predicate);
         allPatientsInQueue.setPredicate(predicate);
     }
 
+    //@@author iamjackslayer
     @Override
     public ObservableList<Patient> getAllPatientsInQueue() {
         allPatientsInQueue.clear();
@@ -388,6 +413,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //=========== Filtered Patient List Accessors =============================================================
 
+    //@@author jjlee050
     /**
      * Returns an unmodifiable view of the list of {@code Patient} backed by the internal list of
      * {@code versionedClinicIo}
@@ -397,6 +423,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredPatients);
     }
 
+    //@@author jjlee050
     @Override
     public void updateFilteredPatientList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
@@ -405,6 +432,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Staff List Accessors =============================================================
 
+    //@@author jjlee050
     /**
      * Returns an unmodifiable view of the list of {@code Staff} backed by the internal list of
      * {@code versionedClinicIo}
@@ -414,12 +442,14 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredStaffs);
     }
 
+    //@@author jjlee050
     @Override
     public void updateFilteredStaffList(Predicate<Staff> predicate) {
         requireNonNull(predicate);
         filteredStaffs.setPredicate(predicate);
     }
 
+    //@@author jjlee050
     @Override
     public boolean checkStaffCredentials(Staff staff) {
         requireNonNull(staff);
@@ -428,6 +458,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Appointment List Accessors ========================================================
 
+    //@@author gingivitiss
     /**
      * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
      * {@code versionedClinicIo}
@@ -437,6 +468,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredAppointments);
     }
 
+    //@@author gingivitiss
     @Override
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
@@ -445,6 +477,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Consultation List Accessors ========================================================
 
+    //@@author arsalanc-v2
     /**
      * Returns an unmodifiable view of the list of {@code Consultation} backed by the internal list of
      * {@code versionedAddressBook}
@@ -454,6 +487,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredConsultations);
     }
 
+    //@@author arsalanc-v2
     @Override
     public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
         requireNonNull(predicate);
@@ -462,6 +496,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Medicine Inventory Accessors ========================================================
 
+    //@@author aaronseahyh
     /**
      * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
      * {@code versionedMedicineInventory}
@@ -471,6 +506,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredMedicines);
     }
 
+    //@@author aaronseahyh
     @Override
     public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
         requireNonNull(predicate);
@@ -479,6 +515,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Export ==================================================================================
 
+    //@@author arsalanc-v2
 
     /**
      * Exports all patients' personal information.
@@ -537,6 +574,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Analytics ==================================================================================
+    //@@author arsalanc-v2
 
     /**
      * Creates an event to display a particular class of analytics.
@@ -593,7 +631,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-
+        //@@author jjlee050
         return versionedClinicIo.equals(other.versionedClinicIo)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredStaffs.equals(other.filteredStaffs)
