@@ -1,13 +1,19 @@
 package seedu.address.testutil;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.address.model.UniqueList;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.timetable.Timetable;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,18 +26,42 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-
+    public static final String DEFAULT_STORED_LOCATION = Paths
+        .get("src", "test", "data", "timetable").toAbsolutePath().toString();
+    public static final String DEFAULT_STORED_INVALID_TIMETABLE_LOCATION = Paths
+        .get("src", "test", "data", "wrongTimetable").toAbsolutePath().toString();
+    public static final String DEFAULT_TIMETABLE_STRING = null;
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private String format;
+    private String storedLocation;
+    private String timetableString;
+    private Timetable timetable;
     private Set<Tag> tags;
+    private UniqueList<Group> groups;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        groups = new UniqueList<>();
+        storedLocation = DEFAULT_STORED_LOCATION + "/"
+            + String.valueOf(this.hashCode()) + " timetable.csv";
+        File testDirectory = new File(DEFAULT_STORED_LOCATION);
+        if (!testDirectory.exists()) {
+            testDirectory.mkdirs();
+        }
+        File wrongTimetableDirectory = new File(DEFAULT_STORED_INVALID_TIMETABLE_LOCATION);
+        if (!wrongTimetableDirectory.exists()) {
+            wrongTimetableDirectory.mkdirs();
+        }
+        timetable = new Timetable(storedLocation, DEFAULT_TIMETABLE_STRING,
+            1, null, null,
+            null);
+        timetableString = timetable.getTimetableDataString();
         tags = new HashSet<>();
     }
 
@@ -43,6 +73,11 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        groups = new UniqueList<>();
+        groups.setElements(personToCopy.getGroups());
+        storedLocation = personToCopy.getStoredLocation();
+        timetable = personToCopy.getTimetable();
+        timetableString = personToCopy.getTimetable().getTimetableDataString();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -55,9 +90,27 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Sets the {@code format} of the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withformat(String format) {
+        this.format = format;
+        return this;
+    }
+
+    /**
+     * Sets the {@code storedLocation} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStoredLocation(String storedLocation) {
+        this.storedLocation = storedLocation + "/"
+            + String.valueOf(this.hashCode()) + " timetable.csv";
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are
+     * building.
+     */
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -71,10 +124,26 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Address} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withoutAddress() {
+        this.address = new Address("<no input>");
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Address} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withoutPhone() {
+        this.phone = new Phone("<no input>");
         return this;
     }
 
@@ -86,8 +155,29 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withoutEmail() {
+        this.email = new Email("<no input>");
+        return this;
+    }
+
+    /**
+     * Sets the list of groups of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGroups(List<Group> groupList) {
+        this.groups = new UniqueList<>();
+        groups.setElements(groupList);
+        return this;
+    }
+
+    /**
+     * @return a person
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, storedLocation,
+            timetableString);
     }
 
 }

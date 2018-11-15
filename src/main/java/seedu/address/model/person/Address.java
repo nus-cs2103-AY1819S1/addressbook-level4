@@ -31,13 +31,15 @@ public class Address {
         value = address;
     }
 
+    //@@author ZhiWei94
     /**
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(ADDRESS_VALIDATION_REGEX) || ("<no input>".equals(test));
     }
 
+    //@@author
     @Override
     public String toString() {
         return value;

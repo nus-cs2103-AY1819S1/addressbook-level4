@@ -3,7 +3,9 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
+
 
 /**
  * The API of the Model component.
@@ -12,6 +14,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Group> PREDICATE_SHOW_ALL_GROUPS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -19,28 +24,28 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Deletes the given Entity which must exist in the address book.
+     * Uses Polymorphism to determine which method to call
      */
-    boolean hasPerson(Person person);
+    public void delete(Entity target);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Adds the given Entity which must not have existed in the address book.
+     * Uses Polymorphism to determine which method to call
      */
-    void deletePerson(Person target);
+    public void add(Entity target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Return true if an Entity as the same identity exists in the address book.
+     * Uses Polymorphism to determine which method to call
      */
-    void addPerson(Person person);
+    public boolean has(Entity target);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Updates the given Entity which must exist in the address book.
+     * Uses Polymorphism to determine which method to call
      */
-    void updatePerson(Person target, Person editedPerson);
+    public void update(Entity target, Entity edited);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -50,6 +55,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered group list */
+    ObservableList<Group> getFilteredGroupList();
+
+    /**
+     * Updates the filter of the filtered group list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredGroupList(Predicate<Group> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

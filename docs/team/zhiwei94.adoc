@@ -1,0 +1,53 @@
+= Tan Zhi Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUS Hangs
+
+---
+
+== Overview
+
+NUS Hangs is a desktop Schedule Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is a Java application written by developers of F11-4, to target small/mid-size interest/study groups in NUS.
+
+== Summary of contributions
+
+* *Major enhancement*: Enhance person features to fit requirements of NUS Hangs:
+** `add`: Add a person to NUS Hangs with optional inputs. +
+This feature improves the product accessibility because the user has the option to leave out certain inputs.
+
+** `find`: Find all persons in NUS Hangs, provided by prefix(es). +
+This feature allows users to find any persons in Nus Hangs, with improved prefix search to widen/narrow search results.
+
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zhiwei94[Functional and Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Documentation:
+*** Updated README.adoc: https://github.com/CS2103-AY1819S1-F11-4/main/pull/3[#3]
+*** Updated `Add` and `Find` Command in User Guide: https://github.com/CS2103-AY1819S1-F11-4/main/pull/201[#201]
+*** Updated `Add` and `Find` Command in Developer Guide, with Sequence & Activity Diagram: https://github.com/CS2103-AY1819S1-F11-4/main/pull/125[#125], https://github.com/CS2103-AY1819S1-F11-4/main/pull/125[#227], https://github.com/CS2103-AY1819S1-F11-4/main/pull/221[#221], https://github.com/CS2103-AY1819S1-F11-4/main/pull/224[#224]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=person-add]
+
+include::../UserGuide.adoc[tag=person-find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=person-feature]

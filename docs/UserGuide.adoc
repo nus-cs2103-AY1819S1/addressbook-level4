@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= NUS Hangs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,59 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-F11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NUS Hangs is for those who *Wants to find a convenient time slot for the people who are joining his/her event*. More importantly, NUS Hangs is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast,NUS Hangs can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `nus.Hangs.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for Nus Hangs.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+// tag::quick-start[]
+
+.  The application launch in a state which grant *read-only rights* to the user. Some of the commands that are available in this state includes:
+
+- <<help>>
+- <<list>>
+- <<find>>
+- <<select>>
+- <<find_group>>
+- <<view_group>>
+- <<view_slots_all>>
+- <<view_slots_ranked>>
+
+
+.  To make use of functions that add or edit information, the application requires the user to create and login to an account.
+
++
+[NOTE]
+The default username is "*admin*" and the default password is "*adminPassword*". +
+To prevent unauthorized users from creating an account, `create` *can only be executed when a user is logged on*. +
+An example in the context of an interest group: Only committee members should be allowed to make changes to the data while members are restricted to viewing rights.
++
+
+- <<create>>
+- <<login>>
+
+// end::quick-start[]
+
+.  Some example commands you can try:
+* *`list`* : lists all person
+* *`add_group`*: `add_group n/Family d/This is a family group description` : adds a group named "Family" with the following description.
+* *`delete_group`*: `delete_group n/Family` : deletes the Family group from NUS Hang.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,20 +75,88 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `n/NAME_OF_FRIEND`, `NAME_OF_FRIEND` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [i/INDEX]` can be used as `n/John Doe i/1` or as `n/John Doe`.
+* Parameters can be in any order e.g. if the command specifies `n/NAME INDEX`, `INDEX n/NAME` is also acceptable.
 ====
 
+== Common
+
+[[help]]
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Exiting the program : `exit`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+NUS Hangs data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+// tag::security-mechanism[]
+== Security (Leslie)
+
+[[create]]
+=== Create an account: `create`
+
+Create an account in the system. The password is case sensitive. +
+Format: `create u/USERNAME pw/PASSWORD`
+
+(Coming in v2.0: Stores account details after closing and reopening app.)
+
+
+[NOTE]
+At this stage, the user is required to create a new account each time they restart the application +
+To prevent unauthorized users from creating an account, only admin or other logged in users can create account +
+Admin Username: *admin*, Admin Password: *adminPassword*
+
+
+Examples:
+
+* `create u/sampleUser pw/dontUseWeakPassword`
+
+[[login]]
+=== Login to an account : `login`
+Login into the system. +
+Users are required to login to execute most commands of the NUS Hangs
+
+Format: `login u/USERNAME pw/PASSWORD`
+
+Examples:
+
+* `login u/username pw/dontUseWeakPassword`
+
+===	Encrypt password
+
+Encrypts password so that it will not be stored as plain text.
+This function runs when dealing with user's password.
+
+=== Changing password: `update_pw` [coming in v2.0]
+
+Change the user password, requires user to be logged in first. +
+Format: `update_pw c/CURRENT_PASSWORD n/NEW_PASSWORD`
+
+Examples:
+
+* `update_pw c/password n/newpass`
+
+// end::security-mechanism[]
+
+// tag::person-add[]
+== Person
+[[add]]
+=== Adding a person: `add` (ZhiWei)
+
+Short form/Alias: `a`
+
+Adds a person to NUS Hangs +
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+* Inputs in square brackets are optional
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -68,16 +165,49 @@ Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Nancy t/friend t/neighbour`
+* `add n/James t/friend e/james@example.com t/classmates`
+* `a n/Joji t/Singer`
 
+// end::person-add[]
+
+[[list]]
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Short form/Alias: `l`
+
+Shows a list of all persons in the NUS Hangs. +
 Format: `list`
+
+// tag::list[]
+
+=== Listing all groups a person is in : `list` (Melodies)
+
+Short form/Alias: `l`
+
+Shows a list of all groups the person specified by his PERSON_INDEX is in. +
+Format: `list PERSON_INDEX`
+
+(Remember to `list` first)
+
+****
+* List the groups that the person at the specified `INDEX` is currently in. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `list 1`
+
+(lists all the groups that the person at index 1 is added to previously)
+// end::list[]
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Short form/Alias: `e`
+
+Edits an existing person in the NUS Hangs. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+[fl/STORED_LOCATION] [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -85,6 +215,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+*
 ****
 
 Examples:
@@ -93,47 +224,67 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 fl/C:\Users\admin\Downloads\cs2103\tiredAndSadness` +
+Edits the stored location of the 1st person to be `C:/Users/admin/Downloads/cs2103/tiredAndSadness/` respectively.
 
-=== Locating persons by name: `find`
+// tag::person-find[]
+[[find]]
+=== Finding a person : `find` (ZhiWei)
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Short form/Alias: `f`
+
+Finds all persons in NusHangs, whose contain keywords provided by prefix(es). +
+Format: `find [n/NAME...] [p/PHONE_NUMBER...] [e/EMAIL...] [a/ADDRESS...] [t/TAG...]`
+
+[TIP]
+Inputs in square brackets are optional
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The order of the keywords and the prefix does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* All information of a person will be searched, provided by the prefix
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). +
+e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `find n/alex` +
+Returns any person having names with `alex`
+* `find n/Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+* `find n/alex bernice t/friends` +
+Returns any person having `alex` and `bernice` in name and `friends` in tags
+* `find a/tampines p/12345678 87654321` +
+Returns any person having `Tampines` in address and `12345678` & `87654321` in phone
+
+// end::person-find[]
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Short form/Alias: `ds`
+
+Deletes the specified person from the NUS Hangs. +
 Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* The timetable of the person will be deleted from the stored folder of the person.
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the NUS Hangs.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+[[select]]
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
@@ -149,7 +300,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd person in NUS Hangs.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
@@ -167,12 +318,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the NUS Hangs to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the NUS Hangs's content (`add`, `delete`, `edit` and `clear`).
+undo (`delete`) will not undo the delete of the timetable file at the stored location.
 ====
 
 Examples:
@@ -216,45 +368,313 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the NUS Hangs. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+****
+* `clear` does not delete timetable in the stored folder of the person.
+****
 
-Exits the program. +
-Format: `exit`
+// tag::timetable[]
+== Timetable(Wen Kai)
 
-=== Saving the data
+=== Adding a timetable: `add_timetable`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Short form/Alias: `at`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+User to download timetable template first before using download_timetable INDEX and change csv at the location. +
+Reload page by clicking on another person and then click on the person again +
+Or right click on timetable and select the reload page option(Not working).
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `add_timetable INDEX [fl/FILE_LOCATION]`
+
+****
+* Existing values will be updated to the input values.
+* timings are start time of the event. Eg. if timetable shows 0800, it means the event is from 0800 to 0900.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Time zone used is Singapore (GMT+8)
+****
+
+Example (user does not provide a file path):
+
+* `add_timetable 1`
+* add_timetable will add timetable from the given csv file from the person specified by the `INDEX` from file location if file location is present. If not, NUSHangs will throw an error message if the file cannot be found from the given (typed) file path
+* Will not be able to add if timetable is not present in the stored location of person specified by `INDEX`
+
+Example (user provides a file path):
+
+* `add_timetable 1 fl/C:\Users\timetable\timetable.csv`
+
+* WINDOWS:
+** `add_timetable fl/C:\Users\timetable\timetable.csv` (absolute pathing)
+** `add_timetable fl/timetable.csv` (relative pathing: when the csv file is in the same directory as the jar file).
+* MAC:
+** `add_timetable 1 fl//FILEPATH` (absolute pathing: note the double slashes)
+** `add_timetable 1 fl/timetable.csv` (relative pathing).
+* add_timetable will add timetable from the given csv file.
+* the first row and first column should be left alone.
+* the top left corner entry can be edited (the blank space at the top of Monday in the first column).
+* can only edit in given rows and columns of the timetable.
+* any invalid timetable will be ignored.
+* example of correctly formatted timetable is given below
+
+image::add_timetable_fl.png[width="700"]
+
+=== Editing a timetable: `edit_timetable`
+
+Short form/Alias: `et`
+
+Edits a timetable timeslot of the timetable from the person specified by the `INDEX`. +
+Format: `edit_timetable INDEX day/DAY timing/TIMING [m/DETAILS]`
+
+****
+* timings are in 24h format from 0800 to 2300.
+* timings are start time of the event. Eg. if timetable shows 0800, it means the event is from 0800 to 0900.
+* Existing values will be overwritten by the input details.
+* days are days of a week in *full name(case insensitive)* from Monday to Friday.
+* edit the timetable at the specified `INDEX`.
+* can only edit 1 hour timeslot at a time.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Time zone used is Singapore (GMT+8)
+* DETAILS cannot be empty.
+* If no DETAILS is inputted, the value will be deleted at the timeslot
+****
+
+Example:
+
+* `edit_timetable 1 day/wednesday timing/0900 m/do cs2103`
+
+Example(User clear event at timeslot):
+
+* `edit_timetable 1 day/wednesday timing/0900`
+
+
+
+=== Download timetable : `download_timetable`
+
+Short form/Alias: `dlt`
+
+Download a timetable from the person specified by the `INDEX` to the stored folder from the person specified by the `INDEX` as a csv file.  +
+Format: `download_timetable INDEX `
+
+****
+* Download the timetable at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Will not download if there is a file with same filename in the folder as the filename of the timetable from the person specified by the `INDEX`.
+* Will not download if there is no such folder to download the timetable csv file given by the file location from the person specified by the `INDEX`.
+****
+
+Examples:
+
+* `download_timetable 1` +
+
+=== Deleting a timetable : `delete_timetable`
+
+Short form/Alias: `dt`
+
+delete csv file of the timetable from stored location from the person specified by the `INDEX` and adds a default timetable to the person specified by the `INDEX`.Resets the timetable of the person to the default timetable if there is no timetable in the stored location from the person specified by the `INDEX`. +
+Format: `delete_timetable INDEX`
+
+****
+* Deletes the timetable at the specified `INDEX`.
+* The index refers to the index number shown in the displayed timetable list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list_timetable` +
+`delete_timetable 2` +
+Deletes the 2nd timetable in NUS Hangs.
+* `find Betsy` +
+`delete_timetable 1` +
+Deletes the 1st timetable in the results of the `find` command.
+// end::timetable[]
+
+// tag::groups[]
+== Groups (Melodies)
+=== Adding a group: `add_group` (Short form/Alias: `ag`)
+
+Add a group to the System +
+Format: `add_group n/GROUPNAME [d/GROUPDESCRIPTION]`
+
+Examples:
+
+* `add_group n/happyfriends d/a group of happy friends`
+* `add_group n/Bestfriends
+
+=== Editing a group : `edit_group` (Short form/Alias: `eg`)
+
+Edit a group's details. OLDGROUPNAME must be entered. There must be at least 1 field non-empty. If field is empty, system assumes that the field remains unedited.
+
+Format: `edit_group OLDGROUPNAME [n/NEWGROUPNAME] [d/NEWGROUPDESCRIPTION]`
+
+Examples:
+
+* `add_group n/happyfriends d/a group of happy friends`
+* `edit_group happyfriends n/sadfriends d/sad because of cs2103`
+(Changes the name of group from "happyfriends" to "sadfriends" and description)
+
+* `edit_group sadfriends d/very very miserable` (Changes only description.)
+
+[[find_group]]
+=== Locating group by name: `find_group` (Short form/Alias: `fg`)
+
+Find groups whose names contain any of the given keywords +
+Format: `find_group KEYWORD [MORE_KEYWORDS]`
+
+* Only the group name is searched.
+* Only full words will be matched e.g. `Family` will not match `Families`
+
+Examples:
+
+* `find_group John` +
+Returns `john family` and `John House`
+* `find_group Betsy Tim John` +
+Returns any group having names `Betsy`, `Tim`, or `John`
+
+=== Deleting a group : `delete_group` (Short form/Alias: `dg`)
+
+Delete a group in the system by name +
+Format: `delete_group n/GROUPNAME`
+
+Examples:
+
+* `delete_group n/happyfriends`
+
+=== Add a person to group : `register` (Short form/Alias: `r`)
+
+Adds a person using the person index to a group if group exists +
+Format: `register PERSON_INDEX n/GROUP_NAME`
+
+* *Remember to `list` before using register command.*
+
+Examples: (Adds the first person in the displayed person panel to the group happyfriends)
+
+`list` +
+`register 1 n/happyfriends`
+
+[[view_group]]
+=== List all persons of a group : `view_group` (Short form/Alias: `vg`)
+
+Displays a list of all persons in a group +
+Format: `view_group n/GROUP_NAME`
+
+Examples: (lists the persons added to group happyfriends in the displayed person list)
+
+* ` view_group n/happyfriends`
+
+=== Delete a person from group : `delete_member` (Short form/Alias: `dm`)
+
+Delete a person from a group using person index displayed with `view_group`. +
+Format: `delete_member PERSON_INDEX n/GROUP_NAME`
+
+* *Remember to `view_group` before using register command.*
+* The PERSON_INDEX is the index of the displayed person list AFTER `view_group` command is performed.
+
+Examples: (deletes the 1st person displayed in `view_group` command.)
+
+* `view_group n/happyfriends`
+* `delete_member 1 n/happyfriends`
+// end::groups[]
+
+// tag::timeslot[]
+== Time slots (Nigel)
+[[view_slots_all]]
+=== List all time slots at which everyone of a group is available : `view_slots_all`
+Short form/Alias: `va`
+
+List all of the time slots at which everyone in the group is available +
+Format: `view_slots_all n/GROUP_NAME `
+
+****
+* List all time slots at which all persons in a group is available, for the group with specified`GROUP_NAME`
+* Will indicate accordingly if the input is invalid, if there are no members in the groups and if there are no time slots at which everyone is available.
+****
+
+Examples:
+
+* `view_slots_all n/happyfriends`
+
+[[view_slots_ranked]]
+=== List all time slots in order in terms of number of people available within the group: `view_slots_ranked`
+
+Short form/Alias: `vr`
+
+List all time slots of a group in descending order in terms of the number of people available, and then in ascending order in terms of timing. The additional parameter specifies the required minimum number of people available +
+Format: `view_slots_ranked n/GROUP_NAME num/NUM_REQ`
+
+****
+* List all time slots of a group in descending order of availability, for the group with specified `GROUP_NAME`, and with a specified 'NUM_REQ' of people available.
+* `NUM_REQ` has to be an unsigned positive integer, but can be larger than the number of members in the group
+* Will indicate accordingly if the input is invalid, if there are no members in the groups and if there are no time slots with at least the required number of people available
+****
+
+Examples:
+
+* `view_slots_ranked n/happyfriends num/4`
+// end::timeslot[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NUS Hangs folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *help* : `help`
+* *login* : `login u/USERNAME pw/PASSWORD` +
+e.g. `login u/admin pw/adminPassword` +
+(*remember to login using admin account in above example before being able to create new accounts/perform other functions!*)
+* *create* : `create u/USERNAME pw/PASSWORD` +
+e.g. `create u/user pw/strongpass`
+* *add*: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…` *Inputs in square brackets are optional* +
+e.g. `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* *edit*: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [fl/STORED_LOCATION] [t/TAG]…` +
+e.g. `edit 1 p/91234567 e/johndoe@example.com`
+* *find*: `find [n/NAME…] [p/PHONE_NUMBER…] [e/EMAIL…] [a/ADDRESS…] [t/TAG…]` +
+e.g. `find a/tampines p/12345678 87654321`
+* *delete*: `delete INDEX` +
+e.g. `delete 1`
+* *list*: Listing all persons +
+eg. `list`
+* *list PERSON_INDEX*: List all the groups the person is in +
+e.g. `list 1`
+* *undo*
+* *redo*
+* *history*: Lists all the commands that you have entered in reverse chronological order.
+* *add_timetable*: `add_timetable INDEX [fl/FILE_LOCATION]` +
+e.g. `add_timetable 1 fl/C:\Users\timetable\timetable.csv`
+* *edit_timetable*: `edit_timetable INDEX day/DAY timing/TIMING [m/DETAILS]` +
+e.g. `edit_timetable 1 day/wednesday timing/1800 m/do cs2103`
+* *download_timetable* : `download_timetable INDEX` +
+e.g. `download_timetable 1`
+* *delete_timetable* : `delete_timetable INDEX` +
+e.g. `delete_timetable 3`
+* *add_group*: `add_group n/GROUPNAME [d/GROUPDESCRIPTION]`` +
+e.g. `add_group n/happyfriends d/a group of happy friends`
+* *edit_group* : `edit_group OLDGROUPNAME [n/NEWGROUPNAME] [d/NEWGROUPDESCRIPTION]` +
+e.g. `edit_group happyfriends n/sadfriends d/sad because of cs2103`
+* *find_group* : `find_group KEYWORD [MORE_KEYWORDS]` +
+e.g. `find_group Family Friends`
+* *delete_group* : `delete n/GROUPNAMR` +
+e.g. `delete_group n/Family`
+* *view_group* : View a group's members `view_group n/GROUPNAME`+
+e.g. `view_group n/Family`
+* *register* `register PERSON_INDEX n/GROUP_NAME` +
+e.g. `register 1 n/Family`
+* *delete_member*: Always use view_group before doing delete_member +
+`delete_member PERSON_INDEX n/GROUP_NAME` +
+e.g. `view_group n/Family` +
+`delete_member 1 n/Family`
+* *view_slots_all*: View all common time slots between everyone in the group +
+`view_slots_all n/GROUP_NAME` +
+e.g. `view_slots_all n/Family` +
+shows all the time slots where every person in Family group is free.
+* *view_slots_ranked*: View time slots ranked with at least`NUM_REQ` people free on these time slots +
+`view_slots_ranked n/GROUP_NAME num/NUM_REQ` +
+e.g. `view_slots_ranked n/Family num/2` +
+shows all the time slots where at least 2 persons in the Family group are free.

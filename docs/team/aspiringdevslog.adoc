@@ -1,0 +1,61 @@
+= Tang Wee Jie Leslie (aspiringdevslog) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUS Hangs
+
+---
+
+== Overview
+
+NUS Hangs is a desktop Schedule Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is a Java application written by developers of F11-4, to target small/mid-size interest/study groups in NUS.
+
+== Summary of contributions
+
+* *Major enhancement*: implemented security mechanism
+** What it does: manages command execution rights to two main stakeholders
+*** Guest users (users without account): can only execute read-only commands
+*** Admins (users with account): can execute all commands accessible by guest users. On top of that, is able to execute commands related to add and editing of data.
+** Justification: This feature secures the information stored in the application by restricting write and modification rights to admins (typically committee members of an interest group), while allowing all users to reading rights to the data.
+
+
+* *Minor enhancement*: *added an encrypt function*
+** What it does: encrypts password before storage to prevent compromising of password information.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=aspiringdevslog[Functional and Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up issues tracker on Github:
+**** Created labels
+**** Created project board
+**** Set up milestones and deadlines
+**** Set up branch protection
+*** Trial release for .jar in v1.2.1 [Pull Request: https://github.com/CS2103-AY1819S1-F11-4/main/pull/145[#145]]
+** Documentation:
+*** Created initial UI mockup [https://github.com/CS2103-AY1819S1-F11-4/main/pull/1[#1]]
+*** Updated Quick Start portion in User Guide [https://github.com/CS2103-AY1819S1-F11-4/main/pull/209/commits/c2ac0183c643fd9621d6e77a781e0d53039444ab[#209]]
+*** Updated Manual Testing portion in Developer Guide [https://github.com/CS2103-AY1819S1-F11-4/main/pull/225[#225]]
+** Community
+*** Created Initial Personal Portfolio Pages for all members [https://github.com/CS2103-AY1819S1-F11-4/main/pull/197[#197]]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=security-mechanism]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=security-mechanism]
+include::../DeveloperGuide.adoc[tag=manual-test-highlights]
+

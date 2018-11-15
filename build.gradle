@@ -66,6 +66,9 @@ dependencies {
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+	implementation group: 'com.opencsv', name: 'opencsv' ,version: '4.3.2'
+	implementation group: 'org.jsoup', name: 'jsoup' ,version: '1.11.3'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.6'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
@@ -82,7 +85,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'nus Hangs.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,8 +210,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
+        'site-name': 'NUS Hangs',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-F11-4/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
@@ -236,10 +239,12 @@ task deployOfflineDocs(type: Copy) {
     }
 }
 
-task copyDummySearchPage(type: Copy) {
-    from 'docs/DummySearchPage.html'
+task copyTimetablePage(type: Copy) {
+    from 'docs/onlineTimetable.html'
     into "${buildDir}/docs/html5"
 }
+
+
 
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs

@@ -11,14 +11,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
@@ -27,6 +28,12 @@ public class LogicManager extends ComponentManager implements Logic {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+    }
+
+    public LogicManager(Model model, boolean setLoginStatus) {
+        this.model = model;
+        history = new CommandHistory();
+        addressBookParser = new AddressBookParser(setLoginStatus);
     }
 
     @Override
@@ -43,6 +50,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return model.getFilteredGroupList();
     }
 
     @Override

@@ -4,8 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,11 +25,16 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
+
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_TIMING = "10006";
+    private static final String INVALID_DAY = "firday";
+    private static final String INVALID_LOCATION = "something.s";
+    private static final String INVALID_DETAILS = "";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -36,8 +42,14 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TIMING = "1000";
+    private static final String VALID_DAY = "friday";
+    private static final String VALID_LOCATION = "something.csv";
+    private static final String VALID_DETAILS = "something";
+
 
     private static final String WHITESPACE = " \t\r\n";
+
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -58,10 +70,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -112,7 +124,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        Assert
+            .assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
     }
 
     @Test
@@ -201,8 +214,56 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<Tag>(
+            Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseTimingSuccess() throws Exception {
+        String expectedTiming = VALID_TIMING;
+        assertEquals(expectedTiming, ParserUtil.parseTiming(VALID_TIMING));
+    }
+
+    @Test
+    public void parseTimingFailure() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTiming(INVALID_TIMING));
+    }
+
+    @Test
+    public void parseDaySuccess() throws Exception {
+        String expectedDay = VALID_DAY;
+        assertEquals(expectedDay, ParserUtil.parseDay(VALID_DAY));
+    }
+
+    @Test
+    public void parseDayFailure() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDay(INVALID_DAY));
+    }
+
+    @Test
+    public void parseLocationSuccess() throws Exception {
+        File location = new File(VALID_LOCATION);
+        assertEquals(location.getAbsolutePath().replace("\\", "/"),
+            ParserUtil.parseLocation(VALID_LOCATION));
+    }
+
+    @Test
+    public void parseDetailsFailure() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseLocation(INVALID_LOCATION));
+    }
+
+    @Test
+    public void parseDetailsSuccess() throws Exception {
+        String expectedDetails = VALID_DETAILS;
+        assertEquals(expectedDetails, ParserUtil.parseDetails(VALID_DETAILS));
+    }
+
+    @Test
+    public void parseLocationFailure() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDetails(INVALID_DETAILS));
+    }
+
+
 }

@@ -1,0 +1,54 @@
+= Ng Yuan Yun Nigel (nigelngyy) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: NUS Hangs
+
+---
+
+== Overview
+NUS Hangs is a desktop Schedule Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is a Java application written by developers of F11-4, to target small/mid-size interest/sttudy groups in NUS.k application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to find the time slots at which the members of a group are available at*
+** What it does: allows the user to easily find a suitable timing for a gathering or meeting with his or her group members in two intuitive methods.
+*** view_slots_all : finds all of the time slots at which every person in a group is available at.
+*** view_slots_ranked : ranks all of the time slots in terms of the number of people available, with a minimum required number of people.
+
+** Justification: This feature improves the product significantly because finding a suitable timing to organise meetings is the key aspect of the application.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of efficient algorithms. The implementation too was challenging as it required a comprehensive understanding of the implementation of both the timetable and group feature and integration between the two.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=nigelngyy[Functional and Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 83.5% to 87.5% (Pull requests https://github.com/CS2103-AY1819S1-F11-4/main/pull/231[#231])
+** Documentation:
+*** Edited the Developer Guide to include the implementation of the time slots methods: https://github.com/CS2103-AY1819S1-F11-4/main/pull/250[#250]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=timeslot]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=timeslot]
+
+
+
