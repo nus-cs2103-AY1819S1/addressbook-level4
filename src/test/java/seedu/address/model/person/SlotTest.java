@@ -1,3 +1,4 @@
+//@@author adjscent
 package seedu.address.model.person;
 
 import static org.junit.Assert.assertTrue;

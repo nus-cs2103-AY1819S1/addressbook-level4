@@ -1,3 +1,4 @@
+//@@author adjscent
 package seedu.address.model.person;
 
 import seedu.address.logic.parser.exceptions.ParseException;

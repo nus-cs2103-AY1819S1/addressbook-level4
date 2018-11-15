@@ -63,6 +63,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+        //@@author adjscent
         if (argMultimap.getValue(PREFIX_TIMETABLE).isPresent()) {
             String link = argMultimap.getValue(PREFIX_TIMETABLE).get();
             TimeTable tt = TimeTableUtil.parseUrl(link);
@@ -83,6 +84,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
             s.setTimeDay(slot, true);
             editPersonDescriptor.setUpdateSchedule(s);
         }
+        //@@author
 
 
         // This one is for schedule to schedule

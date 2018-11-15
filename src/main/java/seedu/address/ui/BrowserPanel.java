@@ -46,7 +46,7 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
-
+    //@@author adjscent
     /**
      * Load Person into browser panel
      *
@@ -98,7 +98,7 @@ public class BrowserPanel extends UiPart<Region> {
         }
         return sb.toString();
     }
-
+    //@@author
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */

@@ -49,6 +49,7 @@ public class SampleDataUtil {
         new Phone("92624417"), new Email("royb@example.com"),
         new Password("password"), new Address("Blk 45 Aljunied Street 85, #11-31"),
         getInterestSet("play"), getTagSet("Business"));
+    //@@author adjscent
     private static final Person Amony = new Person(new Name("Amony Richman"),
         new Phone("93628942"), new Email("amonr@example.com"),
         new Password("password"), new Address("Blk 452 Hougang Street 83, #21-31"),
@@ -265,7 +266,7 @@ public class SampleDataUtil {
         new Phone("99708498"), new Email("royh@example.com"),
         new Password("password"), new Address("National University of Singapore 21 Lower Kent Ridge Road"),
         getInterestSet("polestar"), getTagSet("NUH"));
-
+    //@@author
     public static Person[] getSamplePersons() {
         return new Person[] {ALEX, BERNICE, CHARLOTTE, DAVID, IRFAN, ROY, Amony, RICHARD, ROYCE,
             CHICKIN, NAKESHAS, ELFRIEDAT, YERL, ESTHERG, BLAIRP, NORBERTP, LIGIAP, GAYLEP, ROSALINEH,

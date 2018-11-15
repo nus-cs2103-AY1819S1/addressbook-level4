@@ -112,7 +112,9 @@ public class EditUserCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Interest> updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        //@@author adjscent
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
+        //@@author
         Set<Friend> updatedFriends = editPersonDescriptor.getFriends().orElse(personToEdit.getFriends());
         editPersonDescriptor.getUpdateSchedule().ifPresent((x)-> {
             updatedSchedule.xor(x);
