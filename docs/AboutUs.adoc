@@ -4,53 +4,62 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+One Life was developed by the
+https://github.com/CS2103-AY1819S1-W16-3[W16-3] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Joanne Ong
+image::joanneong.png[width="150", align="left"]
+{empty}[https://github.com/joanneong[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Supervisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Tan Thong Cai Nelvin
+image::nelvintan.png[width="150", align="left"]
+{empty}[https://github.com/nelvintan[github]] [<<nelvintan#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Deliverables & deadlines, Scheduling & tracking
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Triston Pang Erh Syen
+image::tristonpang.png[width="150", align="left"]
+{empty}[https://github.com/tristonpang[github]] [<<tristonpang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Integration
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Ng Kang Tze
+image::ngkangtze.png[width="150", align="left"]
+{empty}[https://github.com/ngkangtze[github]] [<<ngkangtze#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Code Quality, JavaFX expert
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Gary Goh Yi Peng
+image::garygohyp.png[width="150", align="left"]
+{empty}[https://github.com/garygohyp[github]] [<<garygohyp#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Documentation
+
+'''
+
+=== Kenneth Goh Jun Teck
+image::guestuser0123.png[width="150", align="left"]
+{empty}[https://github.com/guestuser0123[github]] [<<guestuser0123#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Testing
 
 '''
