@@ -28,6 +28,7 @@ public class ReferralLetter extends Document {
      * Formats all the relevant information of the referral letter in HTML for the served patient.
      * Other than the main bulk of the text that is for completeness, this information includes the location
      * the patient is being referred to, as well as the reason for the referral.
+     * @@syahiranrafi
      */
     public String formatInformation() {
         String referralContent = getReferralContent();
