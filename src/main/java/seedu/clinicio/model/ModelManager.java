@@ -71,6 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
         filteredPatients = new FilteredList<>(versionedClinicIo.getPatientList());
         filteredStaffs = new FilteredList<>(versionedClinicIo.getStaffList());
+        //@@author gingivitiss
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
         filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
         //@@author aaronseahyh
@@ -637,7 +638,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        //@@author jjlee050
+
         return versionedClinicIo.equals(other.versionedClinicIo)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredStaffs.equals(other.filteredStaffs)

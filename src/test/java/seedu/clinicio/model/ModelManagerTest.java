@@ -214,7 +214,6 @@ public class ModelManagerTest {
 
     //========================================================================================================
 
-    //@@author jjlee050
     @Test
     public void equals() {
         ClinicIo clinicIo = new ClinicIoBuilder().withPerson(ALICE).withPerson(BENSON)
