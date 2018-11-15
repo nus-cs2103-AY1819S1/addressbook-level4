@@ -6,45 +6,85 @@
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
+        <meeting>0000000000</meeting>
         <tagged>friends</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
+        <meeting>0000000000</meeting>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Carl Kurz</name>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Daniel Meier</name>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <address>10th street</address>
+        <meeting>0000000000</meeting>
         <tagged>friends</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Elle Meyer</name>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
+        <meeting>0000000000</meeting>
+        <tagged>owesMoney</tagged>
+        <tagged>DBS</tagged>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
     <persons>
         <name>George Best</name>
         <phone>9482442</phone>
         <email>anna@example.com</email>
         <address>4th street</address>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Henry Golding</name>
+        <phone>000000000000</phone>
+        <email>henry@example.com</email>
+        <address>Crazy Rich Street</address>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Ianna Cluse</name>
+        <phone>83848586</phone>
+        <email>NOEMAIL@NOEMAIL.NOEMAIL</email>
+        <address>24 Recluse Avenue</address>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
+    </persons>
+    <persons>
+        <name>Jenny Khiu</name>
+        <phone>91234523</phone>
+        <email>jenny@example.com</email>
+        <address>NO_ADDRESS</address>
+        <meeting>0000000000</meeting>
+        <picture>/images/placeholder_image.jpg</picture>
     </persons>
 </addressbook>

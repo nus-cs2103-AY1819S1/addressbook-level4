@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= InsuRen - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W13-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+InsuRen is for insurance salesmen who *prefer to use a desktop app for managing contacts*. It can help to *manage one’s network of clients in an organized, efficient and intuitive manner.* More importantly, InsuRen is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InsuRen can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `insuren.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for InsuRen.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the InsuRen.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -50,37 +50,60 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* All commands have a shorthand version for easy access. Simply replace the command word with the shorthand. All other syntax is identical.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
+Shorthand: `h`
+
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person to InsuRen. +
+Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+[NOTE]
+We recommend against (but do not forbid) using `edit` or `delete` (case-insensitive) as tags, as you may run into complications when using the `tag edit` and `tag delete` functionality.
+
+Shorthand: `a`
 
 [TIP]
-A person can have any number of tags (including 0)
+Only the Name field is compulsory, all other fields need not be included.
+A person can have one name, phone, email and address, and any number of tags (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street block 123 #01-01` +
+Adds a `Person` with name John Doe, phone number 98765432, email johnd@example.com, and address John street block 123 #01-01, to InsuRen, provided that he does not already exist in InsuRen.
+* `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal` +
+Adds a `Person` with name Betsy Crowe, phone number 1234567, email betsycrowe@example.com, address Newgate Prison, and tags friend and criminal to InsuRen, provided that she does not already exist in InsuRen.
+* `add n/Abigail` +
+Adds a `Person` with name Abigail to InsuRen.
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons in InsuRen. +
 Format: `list`
 
+Shorthand: `l`
+
+// tag::editByName[]
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing person in InsuRen by the displayed list's index or by an existing name. +
+Format: `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+[NOTE]
+We recommend against (but do not forbid) using `edit` or `delete` (case-insensitive) as tags, as you may run into complications when using the `tag edit` and `tag delete` functionality.
 
+Shorthand: `e`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* You can edit a person by *index* or by *name*.
+** For editing the person at the specified `INDEX`, the index refers to the index number shown in the displayed person list.
+*** The index *must be a positive integer* 1, 2, 3, ...
+** For editing the person with a name matching the EXISTING_NAME, the name *​must uniquely identify a person.*
+*** If nobody matches the EXISTING_NAME, or there are multiple contacts matching it, InsuRen will notify you and not carry out changes.
+*** You can be less specific or more specific in the existing name to identify a person, but in the case that two people have exactly the same name, you have to use the edit by index command.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -91,13 +114,20 @@ Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit John Doe p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of John Doe to be ​91234567​ and johndoe@example.com​ respectively, if John Doe can be uniquely identified by name in InsuRen.
+* `e Johnny n/Betsy Crower` +
+Edits the name of Johnny to be `Betsy Crower` if Johnny can be uniquely identified by name in InsuRen.
+// end::editByName[]
 
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
+
+Shorthand: `f`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -114,31 +144,44 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+// tag::deleteByName[]
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified person from InsuRen by the displayed list's index or by an existing name. +
+Format: `delete INDEX/EXISTING_NAME`
 
+Shorthand: `d`
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the person by *index* or by *name*.
+** For deleting by `INDEX`,
+*** The index refers to the index number shown in the displayed person list.
+*** The index *must be a positive integer* 1, 2, 3, ...
+** For deleting by `EXISTING_NAME`,
+*** The name *​must uniquely identify a person.*
+*** If nobody matches the EXISTING_NAME, or there are multiple contacts matching it, InsuRen will notify you and not carry out changes.
+*** You can be less specific or more specific in the existing name to identify a person, but in the case that two people have exactly the same name, you have to delete by `INDEX`.
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in InsuRen.
 * `find Betsy` +
-`delete 1` +
+`d 1` +
 Deletes the 1st person in the results of the `find` command.
+* `delete John` +
+Deletes John if John can be uniquely identified by name in InsuRen.
+* `d Abel Lee` +
+Deletes Abel Lee if Abel Lee can be uniquely identified by name in InsuRen.
+// end::deleteByName[]
 
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
 
+Shorthand: `s`
 ****
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -149,7 +192,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd person in InsuRen.
 * `find Betsy` +
 `select 1` +
 Selects the 1st person in the results of the `find` command.
@@ -159,20 +202,24 @@ Selects the 1st person in the results of the `find` command.
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+Shorthand: `hs`
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command
+box.
 ====
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores InsuRen to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
+Shorthand: `u`
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify InsuRen's content (`add`, `delete`, `edit`, `import`, `schedule`,
+ `pic` and `clear`).
 ====
 
 Examples:
@@ -196,6 +243,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 Reverses the most recent `undo` command. +
 Format: `redo`
 
+Shorthand: `r`
+
 Examples:
 
 * `delete 1` +
@@ -216,39 +265,278 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from InsuRen. +
 Format: `clear`
+
+Shorthand: `c`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
+Shorthand: `q`
+
+// tag::import[]
+=== Mass import contacts: `import`
+
+Import contacts from a csv file.
+If no file path is given, a file browser will open for users to navigate to their desired file (.txt and .csv only)
+If a file path is given, InsuRen will attempt to obtain and read the file specified by the given file path.
+Format: `import`
+
+Shorthand: `i`
+****
+* InsuRen will fetch the file from the given path.
+* InsuRen will throw an error message if the file cannot be found from the given (typed) file path
+* InsuRen will NOT throw an error message if the formatting of the file is incorrect.
+* Improperly formatted contacts and/or duplicate contacts will be ignored.
+****
+
+Example (user does not provide a file path):
+
+* `import`
+* A file browser will pop up as shown below:
++
+image::import.png[width="400"]
+
+Example (user provides a file path):
+
+* FOR WINDOWS:
+** `import l/D:/AddressbookCorrect.csv` (absolute pathing) or
+** `import l/AddressbookCorrect.csv` (relative pathing - if you save the .csv file in the same directory as the .jar file).
+* FOR MAC:
+** `import l//FILEPATH` (absolute pathing - note the double slashes) or
+** `import l/AddressbookCorrect.csv` (relative pathing).
+* Regardless which method is used, InsuRen will load contacts from the given csv file.
+* Each contact's Name, Phone, Email, Address, Meeting and Tag(s) fields must be keyed in the csv in that order.
+* All fields are optional, except for Name. Contacts with no Address, Phone etc. must have those fields left BLANK. Ie. the
+corresponding Excel cell MUST have nothing in it.
+* Any invalid entries (contacts with no name) will be ignored.
+* Examples of properly formatted csv files are shown below. (Can be both csv or txt)
+
++
+image::import-acceptable-csv3.png[width="600"]
+
+// end::import[]
+
+// tag::export[]
+=== Export contact list: `export`
+
+Exports the current contact list into a csv file whose name is given as the second argument. The export file
+ can be found in the root directory of the project/application. +
+Format: `export DESTINATION_FILE_NAME.csv`
+
+Shorthand: `x`
+
+****
+* InsuRen will copy all contacts and format them into a csv file, with each row representing a unique contact.
+* InsuRen will throw an error message if given file name is invalid (has no .csv suffix).
+****
+
+Example:
+
+* `export 28Nov.csv` +
+InsuRen contacts are exported to `28Nov.csv`
++
+image::exportedCsv.png[width="600"]
+// end::export[]
+
+// tag::schedule[]
+=== Add meeting time: `schedule`
+
+Add a meeting at the input date and time with a specified person. +
+Format: `schedule INDEX m/DD/MM/YY HHMM`
+
+Shorthand: `sch`
+
+****
+* InsuRen will add the meeting to your list of meetings, as well as mark the person with the meeting.
+* You may use any special characters such as '/' and '-', or whitespace to seperate the entries. As long as the relative order
+of the numbers is DDMMYYHHMM, InsuRen will save it.
+* Meetings can be scheduled on any valid date in the past (to keep a record) or in the future (as a reminder).
+* If the date is invalid (i.e. it is not a real date), an error will be thrown.
+* If there are any meetings scheduled at the same time, it will be flagged out.
+****
+
+Example:
+
+* `schedule 1 m/12/03/19 0930` +
+InsuRen will record that a meeting is scheduled on 12 March 2019, 0930 with the first entry.
+// end::schedule[]
+
+// tag::meetings[]
+=== View meeting timings: `meetings`
+
+Displays the details of the meeting at the input date and time. +
+Format: `meetings [DD/MM/YY]`
+
+shorthand: `m`
+****
+* If there are meetings scheduled on the queried date, the details of the clients the meetings are scheduled with
+are displayed.
+* If the query has no date, then all meetings scheduled in InsuRen are displayed.
+* If there is no meeting scheduled on the day, an empty list is displayed.
+****
+
+Example:
+
+* `meetings 23/02/18` +
+InsuRen displays meetings scheduled on 23rd February, 2018.
+// end::meetings[]
+
+// tag::notifs[]
+=== Notifications for expiring plans `[coming in v2.0]`
+
+InsuRen entries have an optional field for date of plan expiry. You will automatically be notified of clients
+with plans expiring within a month from the day when InsuRen is initialized. +
+No additional search queries are needed.
+// end::notifs[]
+
+// tag::picture[]
+=== Adding a picture to contact: `pic`
+
+Adds a picture to a person in InsuRen. +
+Format: `​pic INDEX l/FILE_LOCATION​`
+
+Shorthand: `p`
+
+****
+* InsuRen will add the image to the contact.
+* Only `.jpg` and `.png` files are accepted.
+* Supports file location for any <<DeveloperGuide.adoc#mainstream-os,mainstream OS>>.
+** Windows: `C:/Users/John/Downloads/InsuRen/images/petertan.jpg`
+** Mac: `/Users/John/Downloads/Insuren/images/petertan.jpg`
+* File location can be an absolute path (`/Users/John/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
+* If the picture gets deleted or renamed, InsuRen will show the default user picture.
+****
+
+Examples:
+
+* `pic 2 l/john.jpg` +
+The second person in the list will now have image `john.jpg` in his contact.
+* `pic 1 l//Users/John/Downloads/InsuRen/images/petertan.jpg` +
+The first person in the list will now have image `petertan.jpg` from the given path in his contact.
+* `p 3 l/C:/Users/John/Downloads/InsuRen/images/davidlee.png` +
+The third person in the list will now have image `davidlee.png` from the given path in his contact.
+
+// end::picture[]
+
+// tag::tag[]
+=== Using tags: `tag`
+
+==== View contacts by tag
+View all contacts in any existing tag. +
+Format: `tag TAG_NAME [MORE_TAG_NAMES]`
+
+Shorthand: `t`
+
+****
+* View all contacts that belong to the same tag.
+****
+
+Example:
+
+* `tag Work` +
+Returns all contacts with the `Work` tag.
+* `tag Work Important` +
+Returns all contacts with the `Work` or `Important` tags.
+
+==== Edit a tag
+Edit a tag, replacing all its occurrences with a new user-specified tag. +
+Format: `tag edit EXISTING_TAG_NAME NEW_TAG_NAME`
+[NOTE]
+We recommend against (but do not forbid) using `edit` or `delete` (case-insensitive) as tags, as you may run into complications when using the `tag edit` and `tag delete` functionality.
+
+****
+* All contacts tagged with `EXISTING_TAG_NAME` will have the tag replaced by `NEW_TAG_NAME`.
+****
+
+Example:
+
+* `tag edit Work Business` +
+All contacts that had the `Work` tag have the tag changed to `Business`.
+
+* `t EDIT Friends Buddies` +
+Usage of "edit" is **not** case-sensitive.
+
+==== Delete a tag
+Delete a tag, removing it from all contacts. +
+Format: `tag TAG_NAME [MORE_TAG_NAMES...] delete`
+
+****
+* All contacts in `TAG_NAME` will be removed from the tag. Contacts that were previously tagged are not deleted.
+****
+
+Example:
+
+* `tag Work delete` +
+All contacts that were previously tagged with `Work` have the `Work` tag removed. `Work` tag is deleted.
+
+* `t Work Important delete` +
+All contacts that were previously tagged with `Work` and `Important` have the aforementioned tags removed. `Work` and
+`Important` tags are deleted.
+// end::tag[]
+
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+InsuRen data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
+Encrypt all data in InsuRen behind a password. +
+Format: `encrypt PASSWORD`
 
-_{explain how the user can enable/disable data encryption}_
+****
+* The next time a user opens InsuRen, he will have to enter a password before the contact list populates.
+****
+
+Example:
+
+* `encrypt Pa$$w0rd` +
+All data will be encrypted. The next time the user opens InsuRen, InsuRen will prompt her for a password.
 // end::dataencryption[]
+
+// tag::picture-url[]
+=== Adding a picture from URL to contact `[coming in v2.0]`
+
+Adds a picture from a URL to a person in InsuRen. +
+Format: `​pic INDEX l/FILE_URL​`
+
+Shorthand: `p`
+
+****
+* InsuRen will add the image to the contact.
+* If the URL is broken after it is successfully added, InsuRen will show a picture indicating that the URL is broken.
+****
+
+Examples:
+
+* `pic 1 l/https://cs2103-ay1819s1-w13-1.github.io/main/images/denzelchung.png` +
+The first person in the list will now have image `denzelchung.png` from the `Github` webpage in his contact.
+
+// end::picture-url[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous InsuRen folder.
+
+Alternatively, use the export command to get your current contact list and save it in portable storage (email, thumbdrive). Install InsuRen on the other computer
+and import the abovementioned csv file into your new computer's copy of InsuRen.
 
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Delete* : `delete INDEX/EXISTING_NAME` +
+e.g. `delete 3` +
+or `delete John Doe Kah Wai`
+* *Edit* : `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com` +
+or `edit John Doe n/John Chan a/525 East 80th Street, New York`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
@@ -258,3 +546,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Import contacts* : `import` or `import l/FILE_PATH`
+* *Export contacts* : `export DESTINATION_DIRECTORY`
+* *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
+* *Meetings* : `meetings [DD/MM/YY]`
+* *Add picture* : `​pic INDEX l/FILE_LOCATION`
+* *View all contacts with a specified tag* : `tag TAG_NAME`
+* *Remove all contacts from a specified tag* : `tag TAG_NAME remove`

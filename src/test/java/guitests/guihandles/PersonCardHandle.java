@@ -7,8 +7,11 @@ import com.google.common.collect.ImmutableMultiset;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.ui.PersonCard;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -20,6 +23,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
+    private static final String PICTURE_FIELD_ID = "#picture";
 
     private final Label idLabel;
     private final Label nameLabel;
@@ -27,6 +31,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
+    private final ImageView picture;
 
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
@@ -36,6 +41,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
+        picture = getChildNode(PICTURE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -65,6 +71,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
+    public Image getPicture() {
+        return picture.getImage();
+    }
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -72,16 +82,31 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getTagStyleClasses(String tag) {
+        return tagLabels
+                .stream()
+                .filter(label -> label.getText().equals(tag))
+                .map(Label::getStyleClass)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No such tag."));
+    }
+
     /**
      * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Person person) {
         return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
+                && getAddress().equals(person.getAddress().isPresent()
+                        ? person.getAddress().get().value
+                        : PersonCard.NO_ADDRESS)
+                && getPhone().equals(person.getPhone().isPresent()
+                        ? person.getPhone().get().value
+                        : PersonCard.NO_PHONE)
+                && getEmail().equals(person.getEmail().isPresent()
+                        ? person.getEmail().get().value
+                        : PersonCard.NO_EMAIL)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                .map(tag -> tag.tagName)
+                .collect(Collectors.toList())));
     }
 }

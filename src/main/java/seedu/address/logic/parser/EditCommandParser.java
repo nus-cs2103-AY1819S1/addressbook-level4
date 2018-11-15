@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -14,6 +15,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.IndexParserUtil;
+import seedu.address.logic.commands.EditByNameCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,14 +38,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
-        }
-
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
@@ -61,7 +57,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        String preamble = argMultimap.getPreamble();
+
+        //@@author zioul123
+        // There must be either an index or string in the preamble
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+
+        Optional<Index> index = IndexParserUtil.getIndex(preamble);
+        // The command used an index and not a string, but the index was rejected.
+        if (!index.isPresent() && StringUtil.isInteger(preamble)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+
+        // Decide which command to use based on whether the user input was an index or a string
+        return index.map(idx -> new EditCommand(idx, editPersonDescriptor))
+                .orElseGet(() -> new EditByNameCommand(preamble, editPersonDescriptor));
+        //@@author
     }
 
     /**
@@ -78,5 +91,4 @@ public class EditCommandParser implements Parser<EditCommand> {
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
-
 }

@@ -82,7 +82,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'insuren.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -134,6 +134,7 @@ test {
 
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+        exceptionFormat "full"
 
         // Prints the currently running test's name in the CI's build log,
         // so that we can check if tests are being silently skipped or
@@ -207,9 +208,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'InsuRen',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W13-1/main',
     ]
 
     options['template_dirs'].each {
@@ -234,11 +234,6 @@ task deployOfflineDocs(type: Copy) {
         include 'images/*'
         include 'HelpWindow.html'
     }
-}
-
-task copyDummySearchPage(type: Copy) {
-    from 'docs/DummySearchPage.html'
-    into "${buildDir}/docs/html5"
 }
 
 deployOfflineDocs.dependsOn asciidoctor

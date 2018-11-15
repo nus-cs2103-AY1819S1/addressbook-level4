@@ -38,9 +38,9 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
-        // associated web page of a person
+        // associated web page of a person is not yet implemented, display the default webpage
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

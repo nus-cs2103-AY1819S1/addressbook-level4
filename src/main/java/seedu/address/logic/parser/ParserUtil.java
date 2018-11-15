@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,10 +11,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -95,6 +99,23 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    //@@author AyushChatto
+    /**
+     * Parses a {@code String meeting} into a {@code Meeting}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code value} is invalid.
+     */
+    public static Meeting parseMeeting(String meeting) throws ParseException {
+        requireNonNull(meeting);
+        String trimmedMeeting = meeting.trim();
+        trimmedMeeting = Meeting.formatMeeting(trimmedMeeting);
+        if (!Meeting.isValidMeeting(trimmedMeeting)) {
+            throw new ParseException(Meeting.MESSAGE_MEETING_CONSTRAINTS);
+        }
+        return new Meeting(trimmedMeeting);
+    }
+
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
@@ -120,5 +141,42 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String fileLocation} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fileLocation} is invalid.
+     */
+    public static Picture parseFileLocation(String fileLocation) throws ParseException {
+        requireNonNull(fileLocation);
+        String trimmedFileLocation = fileLocation.trim();
+
+        if (trimmedFileLocation.equals(Picture.DEFAULT_PICTURE_URL.getPath())) {
+            return new Picture(trimmedFileLocation);
+        }
+
+        if (!Picture.isValidPicture(trimmedFileLocation)) {
+            if (Picture.isValidPictureInDirectory(trimmedFileLocation)) {
+                return new Picture(Picture.getDirectoryPath(trimmedFileLocation));
+            }
+            // not valid and not in directory
+            throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
+        }
+        return new Picture(Picture.getPath(trimmedFileLocation));
+    }
+
+    /**
+     * Parses a {@code String csvFileLocation} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fileLocation} is invalid.
+     */
+    public static Path parseCsv(String fileLocation) throws ParseException {
+        requireNonNull(fileLocation);
+        String trimmedFileLocation = fileLocation.trim();
+        Path path = Paths.get(trimmedFileLocation);
+        return path;
     }
 }

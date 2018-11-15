@@ -7,10 +7,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.StatusBarFooter.TOTAL_NUMBER_STATUS;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -192,6 +192,7 @@ public abstract class AddressBookSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
+        statusBarFooterHandle.rememberTotalNumberStatus();
         getPersonListPanel().rememberSelectedPersonCard();
     }
 
@@ -206,8 +207,8 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * Asserts that the browser's url displays the default page, and only the card at {@code expectedSelectedCardIndex}
+     * is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
@@ -215,11 +216,8 @@ public abstract class AddressBookSystemTest {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
+        expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + BrowserPanel.DEFAULT_PAGE);
+
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
@@ -256,18 +254,21 @@ public abstract class AddressBookSystemTest {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
         assertFalse(handle.isSyncStatusChanged());
+        assertFalse(handle.isTotalNumberStatusChanged());
     }
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
      * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
      */
-    protected void assertStatusBarUnchangedExceptSyncStatus() {
+    protected void assertStatusBarChangedExceptLocation() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
+        assertEquals(handle.getTotalNumberStatus(),
+                String.format(TOTAL_NUMBER_STATUS, testApp.getModel().getAddressBook().getPersonList().size()));
     }
 
     /**
