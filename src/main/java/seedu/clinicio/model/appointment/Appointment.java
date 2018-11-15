@@ -55,7 +55,6 @@ public class Appointment {
         return patient;
     }
 
-    //@@author arsalanc-v2
     public int getAppointmentType() {
         return appointmentType;
     }
