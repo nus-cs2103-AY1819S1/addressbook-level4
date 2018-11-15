@@ -89,6 +89,8 @@ public class VersionedAddressBook extends AddressBook {
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 
+
+
     /**
      * Thrown when trying to {@code undo()} but can't.
      */

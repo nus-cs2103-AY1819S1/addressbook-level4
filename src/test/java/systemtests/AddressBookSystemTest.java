@@ -4,13 +4,14 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +26,7 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.EventListPanelHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
@@ -34,14 +36,14 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
+import seedu.address.logic.commands.personcommands.ClearUserCommand;
+import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListUserCommand;
+import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.BrowserPanel;
+import seedu.address.testutil.TypicalEvents;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -85,7 +87,8 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        //return TypicalPersons.getTypicalAddressBook();
+        return TypicalEvents.getAddressBookWithPersonAndEvents();
     }
 
     /**
@@ -107,6 +110,10 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getPersonListPanel();
     }
 
+    public EventListPanelHandle getEventListPanel() {
+        return mainWindowHandle.getEventListPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
@@ -124,8 +131,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} in the application's {@code CommandBox}.
-     * Method returns after UI components have been updated.
+     * Executes {@code command} in the application updated.
      */
     protected void executeCommand(String command) {
         rememberStates();
@@ -135,6 +141,7 @@ public abstract class AddressBookSystemTest {
 
         mainWindowHandle.getCommandBox().run(command);
 
+
         waitUntilBrowserLoaded(getBrowserPanel());
     }
 
@@ -142,7 +149,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListUserCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
@@ -150,15 +157,23 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindUserCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    }
+
+    /**
+     * Displays all events with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showEventsWithName(String keyword) {
+        executeCommand(FindEventCommand.COMMAND_WORD + " " + PREFIX_EVENT_NAME + keyword);
+        assertTrue(getModel().getFilteredEventList().size() < getModel().getAddressBook().getEventList().size());
     }
 
     /**
      * Selects the person at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        executeCommand(SelectUserCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
@@ -166,7 +181,7 @@ public abstract class AddressBookSystemTest {
      * Deletes all persons in the address book.
      */
     protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearUserCommand.COMMAND_WORD);
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
@@ -215,11 +230,8 @@ public abstract class AddressBookSystemTest {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
+        expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());

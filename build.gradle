@@ -8,6 +8,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
+    id 'pmd'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -40,6 +41,29 @@ repositories {
 
 checkstyle {
     toolVersion = '8.1'
+}
+
+
+pmd {
+    ignoreFailures = true
+    pmdTest.enabled=false
+    ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            'java-codesize',
+            'java-comments',
+            'java-controversial',
+            'java-design',
+            'java-empty',
+            'java-finalizers',
+            'java-imports',
+            'java-optimizations',
+            'java-strictexception',
+            'java-strings',
+            'java-typeresolution',
+            'java-unnecessary'
+    ]
 }
 
 jacocoTestReport {
@@ -82,7 +106,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'eventorganiser.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,9 +231,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'EventOrganiser',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W10-3/main'
     ]
 
     options['template_dirs'].each {
@@ -244,4 +267,4 @@ task copyDummySearchPage(type: Copy) {
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'headless','pmdMain', 'check', 'checkstyleTest', 'allTests', 'coverage', 'asciidoctor'

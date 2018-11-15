@@ -6,19 +6,53 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
+import seedu.address.logic.commands.MaxScheduleCommand;
+import seedu.address.logic.commands.eventcommands.AddEventCommand;
+import seedu.address.logic.commands.eventcommands.AddPollCommand;
+import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
+import seedu.address.logic.commands.eventcommands.AddTimePollCommand;
+import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
+import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.EditEventCommand;
+import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
+import seedu.address.logic.commands.eventcommands.JoinEventCommand;
+import seedu.address.logic.commands.eventcommands.ListEventCommand;
+import seedu.address.logic.commands.eventcommands.SelectEventCommand;
+import seedu.address.logic.commands.eventcommands.SetDateCommand;
+import seedu.address.logic.commands.eventcommands.SetTimeCommand;
+import seedu.address.logic.commands.eventcommands.VoteCommand;
+import seedu.address.logic.commands.personcommands.AddFriendCommand;
+import seedu.address.logic.commands.personcommands.AddUserCommand;
+import seedu.address.logic.commands.personcommands.ClearUserCommand;
+import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
+import seedu.address.logic.commands.personcommands.DeleteUserCommand;
+import seedu.address.logic.commands.personcommands.EditUserCommand;
+import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
+import seedu.address.logic.commands.personcommands.ListUserCommand;
+import seedu.address.logic.commands.personcommands.SelectUserCommand;
+import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
+import seedu.address.logic.parser.eventparsers.AddEventCommandParser;
+import seedu.address.logic.parser.eventparsers.AddPollCommandParser;
+import seedu.address.logic.parser.eventparsers.AddPollOptionCommandParser;
+import seedu.address.logic.parser.eventparsers.AddTimePollCommandParser;
+import seedu.address.logic.parser.eventparsers.DeleteEventCommandParser;
+import seedu.address.logic.parser.eventparsers.DisplayPollCommandParser;
+import seedu.address.logic.parser.eventparsers.EditEventCommandParser;
+import seedu.address.logic.parser.eventparsers.FindEventByTimeCommandParser;
+import seedu.address.logic.parser.eventparsers.FindEventCommandParser;
+import seedu.address.logic.parser.eventparsers.JoinEventCommandParser;
+import seedu.address.logic.parser.eventparsers.SelectEventCommandParser;
+import seedu.address.logic.parser.eventparsers.SetDateCommandParser;
+import seedu.address.logic.parser.eventparsers.SetTimeCommandParser;
+import seedu.address.logic.parser.eventparsers.VoteCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -47,27 +81,89 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case AddEventCommand.COMMAND_WORD:
+            return new AddEventCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+        case AddUserCommand.COMMAND_WORD:
+            return new AddUserCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteUserCommand.COMMAND_WORD:
+            return new DeleteUserCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case AddFriendCommand.COMMAND_WORD:
+            return new AddFriendCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case DeleteFriendCommand.COMMAND_WORD:
+            return new DeleteFriendCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
+
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventCommandParser().parse(arguments);
+
+        case SelectEventCommand.COMMAND_WORD:
+            return new SelectEventCommandParser().parse(arguments);
+
+        case SetDateCommand.COMMAND_WORD:
+            return new SetDateCommandParser().parse(arguments);
+
+        case SetTimeCommand.COMMAND_WORD:
+            return new SetTimeCommandParser().parse(arguments);
+
+        case JoinEventCommand.COMMAND_WORD:
+            return new JoinEventCommandParser().parse(arguments);
+
+        case AddPollCommand.COMMAND_WORD:
+            return new AddPollCommandParser().parse(arguments);
+
+        case AddTimePollCommand.COMMAND_WORD:
+            return new AddTimePollCommandParser().parse(arguments);
+
+        case AddPollOptionCommand.COMMAND_WORD:
+            return new AddPollOptionCommandParser().parse(arguments);
+
+        case ListEventCommand.COMMAND_WORD:
+            return new ListEventCommand();
+
+        case ClearUserCommand.COMMAND_WORD:
+            return new ClearUserCommand();
+
+        case DisplayPollCommand.COMMAND_WORD:
+            return new DisplayPollCommandParser().parse(arguments);
+
+        case VoteCommand.COMMAND_WORD:
+            return new VoteCommandParser().parse(arguments);
+
+        case FindEventCommand.COMMAND_WORD:
+            return new FindEventCommandParser().parse(arguments);
+
+        case FindEventByTimeCommand.COMMAND_WORD:
+            return new FindEventByTimeCommandParser().parse(arguments);
+
+        case EditUserCommand.COMMAND_WORD:
+            return new EditUserCommandParser().parse(arguments);
+
+        case SelectUserCommand.COMMAND_WORD:
+            return new SelectUserCommandParser().parse(arguments);
+
+        case FindUserCommand.COMMAND_WORD:
+            return new FindUserCommandParser().parse(arguments);
+
+        case SuggestFriendsByInterestsCommand.COMMAND_WORD:
+            return new SuggestFriendsByInterestsCommandParser().parse(arguments);
+
+        case ListFriendsCommand.COMMAND_WORD:
+            return new ListFriendsCommandParser().parse(arguments);
+
+        case ListUserCommand.COMMAND_WORD:
+            return new ListUserCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
@@ -78,11 +174,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        case MaxScheduleCommand.COMMAND_WORD:
+            return new MaxScheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -38,6 +38,8 @@ import seedu.address.ui.UiManager;
 /**
  * The main entry point to the application.
  */
+
+// Testing Travis CI
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
@@ -50,11 +52,12 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    protected Stage primaryStage;
 
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing EventOrganiser ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -98,7 +101,8 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        Model model = new ModelManager(initialData, userPrefs);
+        return model;
     }
 
     private void initLogging(Config config) {
@@ -179,13 +183,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting EventOrganiser " + MainApp.VERSION);
+        this.primaryStage = primaryStage;
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping EventOrganiser Book ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

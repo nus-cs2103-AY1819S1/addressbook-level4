@@ -4,35 +4,65 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INTEREST_DESC_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.eventcommands.AddPollCommand;
+import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
+import seedu.address.logic.commands.eventcommands.DeleteEventCommand;
+import seedu.address.logic.commands.eventcommands.DisplayPollCommand;
+import seedu.address.logic.commands.eventcommands.FindEventByTimeCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommand;
+import seedu.address.logic.commands.eventcommands.FindEventCommandTest;
+import seedu.address.logic.commands.eventcommands.JoinEventCommand;
+import seedu.address.logic.commands.eventcommands.SelectEventCommand;
+import seedu.address.logic.commands.eventcommands.SetDateCommand;
+import seedu.address.logic.commands.eventcommands.SetTimeCommand;
+import seedu.address.logic.commands.eventcommands.VoteCommand;
+import seedu.address.logic.commands.personcommands.AddFriendCommand;
+import seedu.address.logic.commands.personcommands.AddUserCommand;
+import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
+import seedu.address.logic.commands.personcommands.DeleteUserCommand;
+import seedu.address.logic.commands.personcommands.FindUserCommand;
+import seedu.address.logic.commands.personcommands.ListFriendsCommand;
+import seedu.address.logic.commands.personcommands.ListUserCommand;
+import seedu.address.logic.commands.personcommands.SelectUserCommand;
+import seedu.address.logic.commands.personcommands.SuggestFriendsByInterestsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.event.EventAttributesPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.person.UserContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.StubUserBuilder;
 
 public class AddressBookParserTest {
     @Rule
@@ -41,32 +71,123 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+    public void parseCommand_login() throws Exception {
+        Person person = new StubUserBuilder().build();
+        LoginCommand command = (LoginCommand) parser.parseCommand(PersonUtil.getLoginCommand(person));
+        assertEquals(new LoginCommand(person), command);
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    public void parseCommand_deleteEvent() throws Exception {
+        DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
+                DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteEventCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_addPoll() throws Exception {
+        AddPollCommand command = (AddPollCommand) parser.parseCommand(
+                AddPollCommand.COMMAND_WORD + " " + "n/Date poll");
+        assertEquals(new AddPollCommand("Date poll"), command);
+    }
+
+    @Test
+    public void parseCommand_addPollOption() throws Exception {
+        AddPollOptionCommand command = (AddPollOptionCommand) parser.parseCommand(
+                AddPollOptionCommand.COMMAND_WORD + " " + "i/1 o/12 August");
+        assertEquals(new AddPollOptionCommand(INDEX_FIRST, "12 August"), command);
+    }
+
+    @Test
+    public void parseCommand_joinEvent() throws Exception {
+        JoinEventCommand command = (JoinEventCommand) parser.parseCommand(
+                JoinEventCommand.COMMAND_WORD + " " + "1");
+        assertEquals(new JoinEventCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_selectEvent() throws Exception {
+        SelectEventCommand command = (SelectEventCommand) parser.parseCommand(
+                SelectEventCommand.COMMAND_WORD + " " + "1");
+        assertEquals(new SelectEventCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_setDate() throws Exception {
+        SetDateCommand command = (SetDateCommand) parser.parseCommand(
+                SetDateCommand.COMMAND_WORD + " " + "d/02-03-2018");
+        LocalDate date = LocalDate.of(2018, 3, 2);
+        assertEquals(new SetDateCommand(date), command);
+    }
+
+    @Test
+    public void parseCommand_setTime() throws Exception {
+        SetTimeCommand command = (SetTimeCommand) parser.parseCommand(
+                SetTimeCommand.COMMAND_WORD + " " + "t1/12:00 t2/13:30");
+        LocalTime startTime = LocalTime.of(12, 00);
+        LocalTime endTime = LocalTime.of(13, 30);
+        assertEquals(new SetTimeCommand(startTime, endTime), command);
+    }
+
+    @Test
+    public void parseCommand_vote() throws Exception {
+        VoteCommand command = (VoteCommand) parser.parseCommand(
+                VoteCommand.COMMAND_WORD + " " + "i/1 o/12 August");
+        assertEquals(new VoteCommand(INDEX_FIRST, "12 August"), command);
+    }
+
+    @Test
+    public void parseCommand_joinOption() throws Exception {
+        DisplayPollCommand command = (DisplayPollCommand) parser.parseCommand(
+                DisplayPollCommand.COMMAND_WORD + " " + "1");
+        assertEquals(new DisplayPollCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_findEventByTime() throws Exception {
+        FindEventByTimeCommand command = (FindEventByTimeCommand) parser.parseCommand(
+                FindEventByTimeCommand.COMMAND_WORD + " " + "d/12-12-2018 t1/12:30 t2/13:30");
+        LocalDate date = LocalDate.of(2018, 12, 12);
+        LocalTime startTime = LocalTime.of(12, 30);
+        LocalTime endTime = LocalTime.of(13, 30);
+        assertEquals(new FindEventByTimeCommand(date, startTime, endTime), command);
+    }
+
+    @Test
+    public void parseCommand_findEvent() throws Exception {
+        String userInput = FindEventCommand.COMMAND_WORD + " " + NAME_DESC_MEETING + ADDRESS_DESC_BOB;
+        FindEventCommand command = (FindEventCommand) parser.parseCommand(
+                userInput);
+        EventAttributesPredicate predicate = FindEventCommandTest.makeEventsAttributesPredicate(userInput);
+        assertEquals(new FindEventCommand(predicate), command);
+    }
+
+    @Test
+    public void parseCommand_add() throws Exception {
+        Person person = new PersonBuilder().build();
+        AddUserCommand command = (AddUserCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new AddUserCommand(person), command);
+    }
+
+    @Test
+    public void parseCommandAddFriend() throws Exception {
+        AddFriendCommand command = (AddFriendCommand) parser.parseCommand(
+                AddFriendCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new AddFriendCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
+    }
+
+    @Test
+    public void parseCommandDeleteFriend() throws Exception {
+        DeleteFriendCommand command = (DeleteFriendCommand) parser.parseCommand(
+                DeleteFriendCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new DeleteFriendCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        DeleteUserCommand command = (DeleteUserCommand) parser.parseCommand(
+                DeleteUserCommand.COMMAND_WORD);
+        assertEquals(new DeleteUserCommand(), command);
     }
 
     @Test
@@ -76,11 +197,21 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    public void parseCommand_findUser() throws Exception {
+        List<String> nameKeywordList = Arrays.asList(VALID_NAME_BOB.split(" "));
+        List<String> phoneKeywordList = Collections.singletonList(VALID_PHONE_BOB);
+        List<String> addressKeywordList = Arrays.asList(VALID_ADDRESS_BOB.split(" "));
+        List<String> emailKeywordList = Collections.singletonList(VALID_EMAIL_BOB);
+        List<String> interestsKeywordList = Collections.singletonList(VALID_INTEREST_STUDY);
+        List<String> tagsKeywordList = Collections.singletonList(VALID_TAG_FRIEND);
+        UserContainsKeywordsPredicate predicate =
+                new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, addressKeywordList,
+                        emailKeywordList, interestsKeywordList, tagsKeywordList);
+
+        FindUserCommand command = (FindUserCommand) parser.parseCommand(
+                FindUserCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND);
+        assertEquals(new FindUserCommand(predicate), command);
     }
 
     @Test
@@ -103,28 +234,30 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommandSuggestFriendsByInterests() throws Exception {
+        SuggestFriendsByInterestsCommand command = (SuggestFriendsByInterestsCommand) parser.parseCommand(
+                SuggestFriendsByInterestsCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new SuggestFriendsByInterestsCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
+    }
+
+    @Test
+    public void parseCommandListFriends() throws Exception {
+        ListFriendsCommand command = (ListFriendsCommand) parser.parseCommand(
+                ListFriendsCommand.COMMAND_WORD + " " + INDEX_SECOND.getOneBased());
+        assertEquals(new ListFriendsCommand(Index.fromOneBased(INDEX_SECOND.getOneBased())), command);
+    }
+
+    @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListUserCommand.COMMAND_WORD) instanceof ListUserCommand);
+        assertTrue(parser.parseCommand(ListUserCommand.COMMAND_WORD + " 3") instanceof ListUserCommand);
     }
 
     @Test
     public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
-    }
-
-    @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+        SelectUserCommand command = (SelectUserCommand) parser.parseCommand(
+                SelectUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectUserCommand(INDEX_FIRST), command);
     }
 
     @Test

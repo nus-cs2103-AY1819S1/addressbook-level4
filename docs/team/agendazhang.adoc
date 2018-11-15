@@ -1,0 +1,57 @@
+= Zhang Cheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EventOrganiser
+
+---
+
+== Overview
+
+EventOrganiser is an application for managing and organising events built for NUS students. It is optimized for those
+who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+== Summary of
+
+* *Major enhancement*: Added the ability to specify friendships among users
+** What it does: Allows the users to add or delete users from their friend lists and have their friend lists displayed
+** Justification: This feature allows users to keep a list of friends where they can be updated of their details and the events that they join, similar to following someone on Instagram. For example, a user can look through the displayed profile of the users in their friend list to see what are the current events that they are in. Also, this feature allows users to search for friends with common interests and add them into their friend lists.
+
+* *Minor enhancement*: Added a new attribute Interest for a user
+** Justification: The original tag attribute allows users to specify the groups that they are associated with (eg faculty and tutorial class names). This new Interest attribute allows users to specify the things that they are interested in (eg hobbies). This improves the connectivity among users in the Event Organiser as they can now find friends through common interests.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=agendazhang[Functional code]]
+
+* *Other contributions*:
+
+** Project management
+** Enhancements to existing features:
+*** Updated the GUI browser display to divide the sections regarding user attributes (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123 [#123])
+*** Wrote additional tests for existing features to increase coverage (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163 [#163], https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
+** Documentation:
+*** Updated the original user commands (from Address Book Level 4) in the developer guide (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/189 [#189])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/164 [#164], https://github.com/CS2103-AY1819S1-W10-3/main/pull/165 [#165]
+*** Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=addDeleteFriend]
+
+include::../UserGuide.adoc[tag=suggestFriends]
+
+include::../UserGuide.adoc[tag=listFriends]
+
+include::../UserGuide.adoc[tag=agendazhang(commandsummary)]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=addDeleteFriend]

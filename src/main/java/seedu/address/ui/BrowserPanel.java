@@ -1,18 +1,22 @@
 package seedu.address.ui;
 
-import java.net.URL;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.PersonToEventPopulateEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,8 +25,10 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
+    public static final String PERSON_PAGE = "browsePerson.html";
+    public static final String EVENT_PAGE = "browseEvent.html";
     public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+        "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -40,21 +46,70 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
         registerAsAnEventHandler(this);
     }
+    //@@author adjscent
+    /**
+     * Load Person into browser panel
+     *
+     * @param person
+     */
+    private void loadPersonPage(Person person, ObservableList<seedu.address.model.event.Event> events) {
+        String resourceHtml = readResourceHtml(PERSON_PAGE);
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        // replace the template with person stuff
+        Object[] params = new Object[] {
+            person.getName(),
+            person.getPhone(),
+            person.getEmail(),
+            person.getTags().stream().map(u -> u.tagName).collect(Collectors.joining(", ")),
+            person.getAddress(),
+            person.getInterests().stream().map(u -> u.interestName).collect(Collectors.joining(", ")),
+            person.getFriends().stream()
+                .map(u -> u.toString()).collect(Collectors.joining(" ", "<p>", "</p>")),
+            events.filtered((i) -> i.getParticipantList().contains(person))
+                .stream().map(u -> u.getName().value).collect(Collectors.joining(", ")),
+            person.getSchedule().prettyPrint(),
+        };
+        String html = MessageFormat.format(resourceHtml, params);
+
+        Platform.runLater(() -> {
+                browser.getEngine().loadContent(html);
+            }
+        );
     }
 
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+    /**
+     * Reads resource html inside the jar
+     * @param filename
+     * @return
+     */
+    private String readResourceHtml(String filename) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            BufferedInputStream bin = new BufferedInputStream(
+                MainApp.class.getResourceAsStream(FXML_FILE_FOLDER + filename));
+            byte[] contents = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = bin.read(contents)) != -1) {
+                sb.append(new String(contents, 0, bytesRead));
+            }
+            bin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
-
+    //@@author
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
+
+        String resourceHtml = readResourceHtml(DEFAULT_PAGE);
+
+        Platform.runLater(() -> {
+                browser.getEngine().loadContent(resourceHtml);
+            }
+        );
     }
 
     /**
@@ -64,9 +119,16 @@ public class BrowserPanel extends UiPart<Region> {
         browser = null;
     }
 
+
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(PersonToEventPopulateEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        if (event.getNewSelection() == null) {
+            loadDefaultPage();
+        } else {
+            loadPersonPage(event.getNewSelection(), event.getEventModel());
+        }
+
     }
+
 }

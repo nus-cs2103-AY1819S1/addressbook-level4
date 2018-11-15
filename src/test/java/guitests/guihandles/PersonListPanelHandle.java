@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    private static final String CARD_PANE_ID = "#cardPane";
+    private static final String CARD_PANE_ID = "#personCardPane";
 
     private Optional<Person> lastRememberedSelectedPersonCard;
 

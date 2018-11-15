@@ -1,7 +1,9 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -40,6 +42,24 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasSetCurrentUser_currentUserHasBeenSet_returnsTrue() {
+        modelManager.setCurrentUser(ALICE);
+        assertTrue(modelManager.hasSetCurrentUser());
+    }
+
+    @Test
+    public void hasSetCurrentUser_currentUserHasNotBeenSet_returnsFalse() {
+        assertFalse(modelManager.hasSetCurrentUser());
+    }
+
+    @Test
+    public void getCurrentUser_currentUserHasBeenSet() {
+        modelManager.setCurrentUser(ALICE);
+        assertTrue(modelManager.hasSetCurrentUser());
+        assertEquals(ALICE, modelManager.getCurrentUser());
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
@@ -69,7 +89,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ALICE.getName().value.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
