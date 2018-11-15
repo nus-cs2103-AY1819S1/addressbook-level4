@@ -44,7 +44,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedClinicIo versionedClinicIo;
     private final FilteredList<Patient> allPatientsInQueue;
     private final FilteredList<Person> filteredPersons;
+    //@@author jjlee050
     private final FilteredList<Patient> filteredPatients;
+    //@@author jjlee050
     private final FilteredList<Staff> filteredStaffs;
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Consultation> filteredConsultations;
@@ -124,6 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasPerson(person);
     }
 
+    //@@author jjlee050
     @Override
     public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
@@ -189,6 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author jjlee050
     @Override
     public void deletePatient(Patient target) {
         versionedClinicIo.removePatient(target);
@@ -232,6 +236,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author jjlee050
     @Override
     public void addPatient(Patient patient) {
         versionedClinicIo.addPatient(patient);
@@ -239,6 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author jjlee050
     @Override
     public void addStaff(Staff staff) {
         versionedClinicIo.addStaff(staff);

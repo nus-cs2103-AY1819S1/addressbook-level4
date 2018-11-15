@@ -43,12 +43,14 @@ public class ModelManagerTest {
         modelManager.hasPerson(null);
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_nullPatient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasPatient(null);
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -80,11 +82,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_patientNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasPatient(ALEX));
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasStaff(ADAM));
@@ -119,12 +123,14 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_patientInClinicIo_returnsTrue() {
         modelManager.addPatient(ALEX);
         assertTrue(modelManager.hasPatient(ALEX));
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_staffInClinicIo_returnsTrue() {
         modelManager.addStaff(ADAM);
@@ -157,6 +163,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasMedicine(ORACORT));
     }
 
+    //@@author jjlee050
     @Test
     public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -171,12 +178,14 @@ public class ModelManagerTest {
         modelManager.getFilteredPersonList().remove(0);
     }
 
+    //@@author jjlee050
     @Test
     public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPatientList().remove(0);
     }
 
+    //@@author jjlee050
     @Test
     public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
@@ -205,6 +214,7 @@ public class ModelManagerTest {
 
     //========================================================================================================
 
+    //@@author jjlee050
     @Test
     public void equals() {
         ClinicIo clinicIo = new ClinicIoBuilder().withPerson(ALICE).withPerson(BENSON)

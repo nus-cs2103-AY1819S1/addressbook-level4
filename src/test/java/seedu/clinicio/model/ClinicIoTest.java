@@ -73,7 +73,9 @@ public class ClinicIoTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), clinicIo.getPersonList());
+        //@@author jjlee050
         assertEquals(Collections.emptyList(), clinicIo.getPatientList());
+        //@@author jjlee050
         assertEquals(Collections.emptyList(), clinicIo.getStaffList());
         assertEquals(Collections.emptyList(), clinicIo.getMedicineList());
         assertEquals(Collections.emptyList(), clinicIo.getAppointmentList());
@@ -108,6 +110,7 @@ public class ClinicIoTest {
         clinicIo.resetData(newData);
     }
 
+    //@@author jjlee050
     @Test
     public void resetData_withDuplicatePatients_throwsDuplicatePatientException() {
         // Two persons with the same identity fields
@@ -122,6 +125,7 @@ public class ClinicIoTest {
         clinicIo.resetData(newData);
     }
 
+    //@@author jjlee050
     @Test
     public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         // Two staff with the same identity fields
@@ -188,12 +192,14 @@ public class ClinicIoTest {
         clinicIo.hasPerson(null);
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_nullPatient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         clinicIo.hasPatient(null);
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -225,11 +231,13 @@ public class ClinicIoTest {
         assertFalse(clinicIo.hasPerson(ALICE));
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_patientNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasPatient(ALEX));
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasStaff(ADAM));
@@ -255,12 +263,14 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasPerson(ALICE));
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_patientInClinicIo_returnsTrue() {
         clinicIo.addPatient(ALEX);
         assertTrue(clinicIo.hasPatient(ALEX));
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_staffInClinicIo_returnsTrue() {
         clinicIo.addStaff(ADAM);
@@ -291,6 +301,7 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasPerson(editedAlice));
     }
 
+    //@@author jjlee050
     @Test
     public void hasPatient_patientWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addPatient(ALEX);
@@ -299,6 +310,7 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasPatient(editedAlex));
     }
 
+    //@@author jjlee050
     @Test
     public void hasStaff_staffWithSameIdentityFieldsInClinicIo_returnsTrue() {
         clinicIo.addStaff(ADAM);
@@ -347,6 +359,7 @@ public class ClinicIoTest {
         clinicIo.checkStaffCredentials(null);
     }
 
+    //@@author jjlee050
     @Test
     public void checkStaffCredentials_staffNotInClinicIo_throwStaffNotFoundException() {
         Staff staffToCheck = new Staff(DOCTOR, new Name(VALID_NAME_ADAM),
@@ -354,12 +367,14 @@ public class ClinicIoTest {
         assertThrows(StaffNotFoundException.class, () -> clinicIo.checkStaffCredentials(staffToCheck));
     }
 
+    //@@author jjlee050
     @Test
     public void checkStaffCredentials_invalidStaff_returnFalse() {
         clinicIo.addStaff(ADAM);
         assertFalse(clinicIo.checkStaffCredentials(ADAM));
     }
 
+    //@@author jjlee050
     @Test
     public void checkStaffCredentials_validStaff_returnTrue() {
         clinicIo.addStaff(ADAM);
@@ -374,12 +389,14 @@ public class ClinicIoTest {
         clinicIo.getPersonList().remove(0);
     }
 
+    //@@author jjlee050
     @Test
     public void getPatientList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         clinicIo.getPatientList().remove(0);
     }
 
+    //@@author jjlee050
     @Test
     public void getStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
