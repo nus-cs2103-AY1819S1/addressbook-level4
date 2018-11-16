@@ -598,6 +598,7 @@ Examples:
   Imports all contacts from root/Downloads/google.csv into application address book
 // end::importContacts[]
 
+//@@author ryantanwk
 // tag::notification[]
 === Notifications: `notification`, alias `n`
 
@@ -621,6 +622,7 @@ Examples:
 
 * `favourite d/2018-04-01 i/1`
 // end::favourite[]
+//@@author
 
 === Clearing all entries : `clear`, alias `cls`
 

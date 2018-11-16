@@ -104,8 +104,10 @@ public class TabPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
+        //@@author kaitingpeck
         // switch active tab
         selectionModel.select(webpageTab);
+        //@@author
     }
 
     @Subscribe
