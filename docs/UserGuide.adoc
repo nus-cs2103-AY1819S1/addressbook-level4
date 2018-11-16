@@ -267,6 +267,9 @@ As all the display image will be resized to fit the panel when displayed, the `r
 ** Value (-360 to 360): Degree to rotate the image by. Negative values rotate the image to the anti-clockwise.
 * _Example_: `apply rotate 90`
 
+[NOTE]
+The image will rotate about its top-left corner!
+
 ==== `sharpen`: Sharpens the currently opened image
 
 ** _Format_: `apply sharpen [RadiusxSigma]`
