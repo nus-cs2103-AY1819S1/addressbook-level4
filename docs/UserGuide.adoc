@@ -28,6 +28,8 @@ Even new users that are unfamiliar with CLI will be able to easily and quickly p
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The Graphical User Inteface (GUI) should appear in a few seconds.
 
+image::Ui-Clue.png[width="800"]
+
 // tag::getting_started1[]
 == Getting started
 
@@ -253,7 +255,7 @@ You may repeat the transformation again or use `sigmodial-contrast` instead if w
 
 ==== `resize`: Resizes the image
 * _Format_: `apply resize [percentage]`
-** Percentage (1%-300%): Percentage of resize relative to the original image.
+** Percentage (1%-399%): Percentage of resize relative to the original image.
 * _Example_: `apply resize 50%`
 
 [NOTE]
@@ -360,7 +362,10 @@ Example:
 
 // tag::canvas[]
 === Canvas operations : `canvas`
-
+[NOTE]
+====
+Canvas operations are not transfomations and unaffected by `undo/redo/undo-all/redo-all` commands!
+====
 ==== Changes the size of the canvas: `canvas size`
 Format: `canvas size (NEW_SIZE)` -> You can change the size of the canvas to with this command. Remember that the effects of `canvas auto-resize` takes precedence! +
 If `canvas auto-resize` is `off`, cropping might potentially occur.
@@ -413,7 +418,10 @@ Examples:
 
 // tag::layer[]
 === Layer operations : `layer`
-
+[NOTE]
+====
+Layer operations are not transfomations and unaffected by `undo/redo/undo-all/redo-all` commands!
+====
 ==== Adds a new layer: `layer add [INDEX] (LAYER_NAME)`
 Format : `layer add [INDEX] (LAYER_NAME)` -> You can select the image at the provided index and add it to the current canvas with this command.
 
@@ -426,8 +434,8 @@ Examples:
 
 * `layer add 4` - Adds the image at index 4 to the canvas.
 
-==== Removes a layer: `layer remove [INDEX]`
-Format : `layer remove [INDEX]` -> This command allows you to permanently removes a layer from canvas.
+==== Deletes a layer: `layer delete [INDEX]`
+Format : `layer delete [INDEX]` -> This command allows you to permanently deletes a layer from canvas.
 
 [WARNING]
 ====
@@ -452,6 +460,10 @@ Examples:
 ==== Positions a layer: `layer position [POSITION]`
 Format : `layer position [POSITION]` -> This command allows you to set the x and y co-ordinates of the current layer. (0,0) is defined to be the top left of the screen.
 
+[WARNING]
+====
+The provided x and y co-ordinates must be between –2147483648 and 2147483647!
+====
 Examples:
 
 * `layer position 50x100` - Sets the layer's top left corner to be at position (50, 100).
