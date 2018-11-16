@@ -29,7 +29,8 @@ public class GoogleUploadCommand extends GoogleCommand {
     public static final String MESSAGE_SUCCESS = "Successfully uploaded to Google Photos: \n%s" + ADVICE;
     public static final String MESSAGE_DUPLICATE = "Upload success. Some of the images in the selected folder are "
             + "duplicates, only the following were uploaded: \n%s" + ADVICE;
-    public static final String MESSAGE_FAILURE = "%s failed to upload. Remember to type a valid name in the right format!" + "\n\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE = "%s failed to upload."
+            + "Remember to type a valid name in the right format!" + "\n\n" + MESSAGE_USAGE;
 
     public GoogleUploadCommand(String parameter) {
         super(parameter);

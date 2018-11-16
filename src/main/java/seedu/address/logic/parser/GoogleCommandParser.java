@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.ENTIRE_GOOGLE_MESSAGE;
 import static seedu.address.commons.core.Messages.MESSAGE_GOOGLE_INVALID_FORMAT;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.google.GoogleCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;

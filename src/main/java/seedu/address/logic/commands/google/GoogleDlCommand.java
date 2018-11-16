@@ -18,7 +18,8 @@ import seedu.address.model.Model;
 public class GoogleDlCommand extends GoogleCommand {
 
     public static final String MESSAGE_SUCCESS = "%s downloaded into %s";
-    public static final String MESSAGE_FAILURE = "%s failed to download. Remember to type a valid name in the right format!";
+    public static final String MESSAGE_FAILURE = "%s failed to download."
+            + " Remember to type a valid name in the right format!";
     public static final String TYPE = "dl";
     public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google download (requires an internet connection): "
