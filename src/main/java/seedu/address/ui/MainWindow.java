@@ -20,6 +20,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -33,15 +34,15 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    /**
+     * Identifies logged in google account
+     */
+    private String user;
+
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
-    private Config config;
+    //private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-
-    @FXML
-    private StackPane browserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,22 +51,36 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    @FXML
+    private StackPane originalImagePlaceholder;
+
+    @FXML
+    private StackPane previewImagePlaceholder;
+
+    @FXML
+    private StackPane historyListPlaceholder;
+
+    @FXML
+    private StackPane filmReelPlaceholder;
+
+    @FXML
+    private StackPane layerListPlaceholder;
+
+
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, String user) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.config = config;
+        //this.config = config;
         this.prefs = prefs;
+        this.user = user;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -87,6 +102,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -118,24 +134,34 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    protected void fillInnerParts() {
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        ImagePanel originalImagePanel = new ImagePanel("original");
+        originalImagePlaceholder.getChildren().add(originalImagePanel.getRoot());
+
+        ImagePanel previewImagePanel = new ImagePanel("preview");
+        previewImagePlaceholder.getChildren().add(previewImagePanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(user, prefs.getCurrDirectory().toString());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(logic);
+        CommandBox commandBox = new CommandBox(logic, prefs);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        HistoryListPanel historyList = new HistoryListPanel();
+        historyListPlaceholder.getChildren().add(historyList.getRoot());
+
+        FilmReel filmList = new FilmReel();
+        filmReelPlaceholder.getChildren().add(filmList.getRoot());
+
+        LayerListPanel layerList = new LayerListPanel();
+        layerListPlaceholder.getChildren().add(layerList.getRoot());
     }
 
-    void hide() {
+    protected void hide() {
         primaryStage.hide();
     }
 
@@ -158,7 +184,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Returns the current size and the position of the main Window.
      */
-    GuiSettings getCurrentGuiSetting() {
+    protected GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
@@ -175,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    protected void show() {
         primaryStage.show();
     }
 
@@ -185,14 +211,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

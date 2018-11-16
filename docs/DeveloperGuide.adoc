@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Piconso - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-T09-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -46,11 +46,11 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+This will generate all resources required by the application and tests. +
+. Open MainWindow.java and other files to check for any code errors +
+.. Due to an ongoing issue with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully +
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press ALT+ENTER, and select Add '--add-modules=…​' to module compiler options for each error +
+. Repeat this for the test folder as well (e.g. check HelpWindowTest.java and other files for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -72,36 +72,9 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
-
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -138,89 +111,64 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines it’s API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
-
-[discrete]
-==== Events-Driven nature of the design
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
-
-[NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
-
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
-
-[NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+image::LogicClassDiagram1.png[width="800"]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
-
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram_Piconso.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
+`HistoryListPanel`, `FilmReel`, `ImagePanel` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Binds itself to some images in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
 === Logic component
-
-[[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram1.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PiconsoParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. converting an image) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the Logic component for the execute("cd") API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions inside the Logic Component for the `cd` command
+image::LogicComponentClassDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram_Piconso.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `Canvas` for the current image.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -233,123 +181,819 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
-
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::cd[]
+=== Change Directory (Cd) feature
+The Cd feature is implemented to allow users to access images in the different directories within their home system.
+This removes the restrictions of accessing only images from one particular folder.
+
+==== Current Implementation
+The Cd mechanism is facilitated by the `ModelManager`. It contains the operations `Model#getCurrDirectory()` and
+`Model#updateCurrDirectory(Path)`.
+
+The Model calls upon `UserPrefs` within the respective operations. The `UserPrefs` class contains the current directory
+the user's in, stored internally as `currDirectory` and implements the following operations:
+
+* `UserPrefs#getCurrDirectory()` - Returns the user's current directory.
+* `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
+
+Within the operation `UserPrefs#updateUserPrefs(Path)`, it also retrieves the list of images within the directory,
+which are stored internally as `imageList`. This would facilitate the `open` feature in our application
+(refer to 3.2).
+
+Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
+function to auto-complete the directory name if it exists.
+
+[NOTE]
+Pressing tab again will display the next directory with the given prefix.
+
+Given below is an example usage scenario and how the cd mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
+`Model#getCurrDirectory()` and appends `Desktop` to the end of the current directory. It then checks if the new Path is
+a directory and calls `Model#updateCurrDirectory(Path)` and updates the new Path in `UserPrefs` if the check returns true.
+
+The following sequence diagram shows how the cd command works:
+
+.Sequence Diagram for CdCommand
+image::CdSequenceDiagram.png[width=800]
+
+[NOTE]
+If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false, then there is no change in
+`currDirectory` state in `UserPrefs`. If so, it will return a failure message to the user rather than attempting to update
+`currDirectory`.
+
+==== Design Considerations
+This section contains the considerations and alternatives we had when implementing the cd command.
+
+===== Aspect: How cd executes
+
+* *Alternative 1 (current choice)*: Retrieves and updates current directory in `UserPrefs`.
+** Pros: Easy to implement and every command can access the current directory.
+** Cons: Appends and checks if path exists after every cd command entered.
+
+* *Alternative 2* : Stores path that exists in a HashSet.
+** Pros: Do not need to append and check, and just check if it exists in HashSet.
+** Cons: Does not update existing path if user deletes a directory.
+// end::cd[]
+
+// tag::open[]
+=== Open feature
+The Open Command allow users to open the images in a batch of 10 images within the directory for image-editing.
+This command is further facilitated by the Next/Prev Command.
+
+==== Current Implementation
+The implementation of the Open feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
+and contains the following operations:
+
+ * `Model#getDirectoryImageList()` - Retrieves the stored list of images in UserPrefs.
+ * `Model#updateCurrentOriginalImage(Image, Path)` - Updates the model with the current image opened.
+
+The `Model` calls upon `UserPrefs` to retrieve the `imageList` of the current
+batch. The `UserPrefs` class implements the following operation:
+
+* `UserPrefs#getCurrImageListBatch()` - Returns the current batch of images.
+
+The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the opened image and the
+`PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` within the `ModelManager`.
+Additionally, the operation also creates a canvas and a layer to facilitate the `transformation` feature. (refer to 3.5)
+
+Given below is an example usage scenario and how the open mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+the `imageList` with all the images within Desktop.
+
+image::SelectCommand1.png[width=800]
+
+Step 3. The user executes `open 1` command to open the first image in the first batch of 10 images. The open
+command calls `Model#getDirectoryImageList()` to retrieve the first batch of images within Desktop. The first image is
+then retrieved and displayed on the GUI.
+
+image::OpenCommand2.png[width=500]
+
+Step 4. The user then executes `open 5` command to open the fifth image in the batch of 10 images. The fifth image
+is then retrieved similarly and displayed on the GUI.
+
+image::OpenCommand3.png[width=450]
+
+The following sequence diagram shows how the open command works:
+
+.Sequence Diagram for OpenCommand
+image::OpenSequenceDiagram.png[width=800]
+
+==== Design Considerations
+This section contains the considerations and alternatives we had when implementing the open command.
+
+===== Aspect: How open executes
+
+* *Alternative 1 (current choice)*: Open images within the BATCH_SIZE.
+** Pros: Users work on a small size of images.
+** Cons: Limited to the batch size.
+
+* *Alternative 2* : Open images within the `imageList` size.
+** Pros: Easy to retrieve images anywhere in the list.
+** Cons: Can be very messy if the `imageList` size is too large.
+// end::open[]
+
+// tag::nextprev[]
+=== Next/Prev feature
+
+`NextCommand` retrieves the next 10 images in the image list (image list refers to images in the current directory).
+
+On the contrary, the `PrevCommand` retrieves the previous 10 images in the image list.
+
+==== Current Implementation
+The implementation of the Next/Previous feature is similar to the `CdCommand`. It is facilitated by the `ModelManager`
+and contains the operations: `Model#updateImageListNextBatch()` and `Model#updateImageListPrevBatch()`.
+
+The `Model` calls upon `UserPrefs` which stores and facilitates the retrieval of the current
+batch of images using the `currBatchPointer`. The `UserPrefs` class implements the following operation:
+
+* `UserPrefs#updateImageListNextBatch()` - Adds the `currBatchPointer` by 10.
+* `UserPrefs#updateImageListPrevBatch()` - Minus the `currBatchPointer` by 10.
+
+Given below is an example usage scenario and how the next/previous mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+the `imageList` with all the images within Desktop.
+
+image::SelectCommand1.png[width=800]
+
+Step 3. The user executes `next` command to retrieve the next 10 images within Desktop.
+
+image::NextPrevCommand2.png[width=800]
+
+Step 4. The user executes `prev` command to retrieve the previous 10 images within Desktop.
+
+image::NextPrevCommand3.png[width=800]
+// end::nextprev[]
+
+The following sequence diagram shows how the next command works:
+
+.Sequence Diagram for NextCommand
+image::NextSequenceDiagram.png[width=800]
+
+The following sequence diagram shows how the prev command works:
+
+.Sequence Diagram for PrevCommand
+image::PrevSequenceDiagram.png[width=800]
+
+// tag::nextprev[]
+==== Design Considerations
+This section contains the considerations and alternatives we had when implementing the next/prev command.
+
+===== Aspect: How next/previous executes
+* *Alternative 1 (current choice)*: Keeps track of current batch with a pointer.
+** Pros: Easy to access current batch images.
+** Cons: Efficiency might be lower for directories with many images.
+
+* *Alternative 2* : Store image batches in array.
+** Pros: Fast to access next/previous batches.
+** Cons: Harder to handle changes in a batch (e.g. image got deleted) within the array.
+// end::nextprev[]
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The `undo/redo` works on the `currentLayer` the user is working on. Each `Layer` contains a `PreviewImage` which facilitates the undo/redo mechanism.
+The mechanism works by caching the original image and transformed images in a temporary `cache` folder, and using `currentStatePointer` as a pointer together with `currentSize` as an indicator to manage the caching.
+Undoing and redoing will shift the `currentStatePointer` accordingly while each transformation commits the image by writing to the `cache` folder (purging redundant images if needed).
+
+[NOTE]
+To work with multiple layers, each `Layer` has a single `PreviewImage` which is initialized with a unique `LayerId`, so that the `PreviewImage` can cache its images safely without conflicting image names.
+
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `PreviewImage#commit()` - Writes the newly transformed `BufferedImage` into the `cache` folder (purge redundant images if needed).
+* `PreviewImage#getCurrentPath()` - Returns the current state's `Path` in the `cache` folder for ImageMagick to use.
+* `PreviewImage#undo()` - Shifts the `currentStatePointer` to the left, pointing to the previous state.
+* `PreviewImage#redo()` - Shifts the `currentStatePointer` to the right, pointing to a previously undone state.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#updateCurrentPreviewImage()`, `Model#undoPreviewImage()` and `Model#redoPreviewImage()`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Step 1. The user opens an image with the `open` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the opened image. The `currentStatePointer` is pointing to that state.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+.After opening an image
+image::undoRedo1.png[width="800"]
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+Step 2. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If a command fails its execution, it will not call `Model#updateCurrentPreviewImage()`, so nothing will be cached.
+
+.After executing transformations
+image::undoRedo2.png[width="800"]
+
+Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, that previously cached `BufferedImage` will be read and rendered to update the UI's preview image pane.
+
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+.After exucuting undo
+image::undoRedo3.png[width="800"]
+
+
+Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
+
+.After comitting and purging redundant states
+image::undoRedo4.png[width="800"]
+
+//Step 5. The user decides to undo several actions. The user uses the `undo` command followed by the number of actions to undo eg.`2`. The `currentStatePointer` derements accordingly. The model's `previewImage` is to the pointed state.
+//
+//image::undoRedo5.png[width="800"]
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+.Sequence Diagram for Undo/RedoCommand
+image::undoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The redo command does the opposite — it calls `Model#redoPreviewImage()`, which shifts the currentStatePointer once to the right, pointing to the previously undone state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `currentSize - 1`, pointing to the `PreviewImage's` last state, then there are no undone states to restore. The `redo` command uses `Model#canRedoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+The following activity diagram summarizes what happens when a user executes a new transformation:
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+.Activity Diagram for performing a new image transformation
+image::undoRedoActivityDiagram.png[width="800"]
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+The following activity diagram summarizes what happens when a user executes the undo command:
 
-The following activity diagram summarizes what happens when a user executes a new command:
+.Activity Diagram for using `undoCommand`
+image::undoRedoActivityDiagram2.png[width="800"]
 
-image::UndoRedoActivityDiagram.png[width="650"]
+The following activity diagram summarizes what happens when a user executes the redo command:
+
+.Activity Diagram for using `redoCommand`
+image::undoRedoActivityDiagram3.png[width="800"]
+
+==== Undo-all and Redo-all
+The commands `undo-all` and `redo-all` follow the same implementation as undo and redo. They provide a convenient way to quickly undo and redo all transformations to the current layer's `PreviewImage` for the user.
+
+* `undo-all` shifts the `PreviewImage's` pointer to 0, pointing at the original state.
+
+* `redo-all` shifts the `PreviewImage's` pointer to `currentSize - 1`, the state with all the applied transformations.
+
+==== HistoryListPanel
+
+The HistoryListPanel provides a view for the user to see the history of transformations applied.
+Whenever a transformation is done or when a undo/redo command is executed, the `Model#refreshHistoryList()` is executed which refreshes the `HistoryListPanel` with a `HistoryUpdateEvent` containing the current layer's `PreviewImage's` list of transformations.
+A view of the panel is shown below:
+
+.Image of HistoryListPanel
+image::historyPanel.png[width="200"]
+
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Saves each newly transformed image (including original).
+** Pros: Fast execution of undo/redo as only reading the cached file is needed. Easy to implement.
+** Cons: Uses the user’s storage space temporarily for caching.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 2:** Save only the command, and reverse/reapply transformation for each undo/redo.
+** Pros: Will not need to use user's data storage.
+** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like `blur` and `colorspace`.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::transformation[]
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Transformations and ImageMagick
+==== Current Implementation
 
-// end::dataencryption[]
+The transformation mechanism is facilitated by https://www.imagemagick.org/script/index.php[`ImageMagick`], an external API Library that helps process the target image by the specified commands given.
+The transformation feature mainly consists of:
 
-=== Logging
+* `ImageMagicUtil`: A class which will check, create, and run the imageMagick executable file
+* `applyCommand`: Applies the specified transformation to the image
+* `createApplyCommand`: Allows users to define their own custom transformation set.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+The following describes main operations and processes contained in the classes above.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+==== ImageMagickUtil:
 
-*Logging Levels*
+This class is used to provide utility methods to facilitate interoperability with ImageMagick such as:
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `copyOutside()` -- Copies the OS-specific payload for ImageMagick.
+* `parseOperationArguments()` -- Parse the build in arguments and customised operations, return a list of String passed into process builder.
+* `processImage()` -- Converts user input to a valid ImageMagick command.
+* `runProcessBuilder()` -- Given a valid ImageMagick command, runs the command and retrieves the output.
 
-[[Implementation-Configuration]]
-=== Configuration
+This class is separated from the model and acts as a Util for image editing, whenever editing the image,
+a transformation will be passed to the processImage, and it will be parses basing on the command templates
+stored in the app, then a list of arguments will be parsed from the transformation and a new process builder will be created
+and call the ImageMagick executable file to handle the image processing.
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+When starting the app, methods in ImageMagickUtil will be called to check the environment and prepare the ImageMagick package.
+
+.Activity Diagram for Transformation feature with ImageMagick
+image::TransformationActivityDiagram.png[width="800"]
+
+===== Design Considerations:
+As ImageMagick is an independent portable package and it differs from system to system, in order to make sure that
+piconso will be able to work on multiple operating system, it needs to check the current system, choose the correct package
+and prepare the suitable environment for using ImageMagick.
+
+
+==== ApplyCommand:
+
+This command validates a transformation provided by the user and attempts to add it to the current `PreviewImage`++'s++ `TransformationSet`.
+
+Given below is an example usage scenario and how the command should behave at each step.
+
+Step 1. Upon first running the app, the corresponding zip package containing ImageMagick will be copied out of the jar and unzipped. A temporary folder for ImageMagick output is also created.
+
+Step 2. The user opens an image with the `open` command. The method `model.getPreviewImage()` will be called to read the appropriate `BufferedImage` from disk.
+
+Step 3. The user enters the command (e.g. `apply blur 0x8`). The entered command is parsed and the corresponding transformation is created.
+
+[NOTE]
+If an invalid transformation is provided, a reminder of how to use the command will be given to the user and no ImageMagick command will be run.
+
+Step 4. Call `ImageMagick#processImage` which is a quasi-factory method that creates an instance of `ProcessBuilder` which contains the all the necessary information for ImageMagick to apply a transformation to the image,
+executes the `ProcessBuilder` and reads the output back from the temporary folder.
+[NOTE]
+While normal `apply` commands will show a useful help message after a failure, an `apply raw` command cannot provide the same granularity and will return a generic error message.
+
+Step 5. If successful, the transformation that is just executed will be added to the `PreviewImage`++'s++ `TransformationSet`.
+
+Step 6. The command will then request the UI to update its components, namely the `HistoryListPanel` and `ImagePanel` if any transformation was applied.
+
+===== Design Considerations
+
+ - As the ImageMagick executable file is only able to handle command line input and requires the path of the image to modify,
+ intermediate images have to be stored in a temp folder first.
+
+ - For senior users, or users who are familiar with ImageMagick, `apply raw` will provide more flexibility and enable them to do further image editting.
+
+.Sequence Diagram for Apply Command
+image::ApplyCommandSequenceDiagram.png[width="800"]
+
+
+==== CreateApplyCommand:
+
+This command allows users to create a named set of commands and store in the disk. All transformation sets will first be validated by `ImageMagickUtil#parseCustomiseCommand`.
+
+Given below is an example usage scenario and how the transformation should behave at each step.
+
+Step 1. The user sequentially enters the transformations he wants to store, in the form of `create [command name] (command|argument)`. For example,
+`create blurgray blur|0x8 colorspace|GRAY` will create a new command named 'blurgray'.
+
+Step 2. The specified transformations are parsed and checked by the templates stored in the app.
+[NOTE]
+If any of the specified transformations have an invalid name or argument, an error will be thrown.
+
+Step 3. The validated new command will be stored in the json for in the PiconsoCommands folder create when first time run the app.
+
+.Activity Diagram for CreateApply Command
+image::CreateTransformationActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+ - Combination of the transformations are commonly needed in our daily lives. When users design a serious of operations and
+ plan to apply them to multiple images, or store them for future use, this feature will make the image editing more efficient
+ and flexible, thus we implemented the create command.
+
+// end::transformation[]
+
+// tag::save[]
+
+=== Save feature
+==== Current Implementation
+The save command saves the current preview image to the same location it was opened in the local drive,
+User enters the name of the image and the format of the name will be validated.
+
+* `isFormatValid()` is to validate the format of the filename user enters
+
+Given is an example of how to use the command
+
+Step 1. Parse the argument entered, if no argument, store to original image.
+
+Step 2. If there is an argument, parse the image name user enters, get the name and the format of the filename.
+
+Step 3. Check the format of the image as well as the filename entered. If the format is not supported or the filename is already in use,
+a reminder will be shown to user and the image will not be saved.
+
+==== Design Considerations
+- as there is already an option for user to save to original image, when user specifies a filename, in order to avoid
+unintended overwritten of other images, using existing filename is forbidden.
+
+.Sequence Diagram for Save Command
+image::SaveCommandSequenceDiagram.png[width="800"]
+
+// end::save[]
+// tag::canvas[]
+
+== Implementation: Canvas and Layer features
+
+=== General overview
+The `Canvas` and `Layer` classes serve as a layer of encapsulation for handling one or more instances of `PreviewImage`.
+This is in line with good defensive coding practices and separation of concerns.
+
+=== Canvas (canvas) command
+There are a set of overloaded command types inheriting from `CanvasCommand`, namely:
+
+* `bgcolor` - Sets the background colour of the canvas.
+* `size` - Sets the height and the width of the canvas.
+* `auto-resize` - Toggles the auto-resize property of the canvas.
+
+==== Current implementation
+Canvas manages various properties made accessible through the `ModelManager` class.
+Layer order is preserved as it important for image composition.
+
+Canvas implements the following accessors and utility functions:
+
+* `getLayers()` - Returns an ordered list of layers which is guaranteed to be neither `null` or empty.
+* `getLayerNames()` - Returns a list of layer names in order.
+* `addLayer(PreviewImage, String)` - Adds a given `PreviewImage` into the canvas on its own layer.
+* `getCurrentLayer()` - Returns the current instance of the layer that is being operated on.
+* `getCurrentLayerIndex()` - Returns the index of the current instance of the layer that is being operated on.
+* `setCurrentLayer(Index)` - Sets the layer to be operated on.
+* `removeLayer(Index)` - Removes a layer at a given index. The current layer and the last remaining layer in a canvas cannot be removed.
+
+All of these functions are exposed through the `Model` interface.
+Implementations in `ModelManager` usually include a call to the corresponding accessor along with utility functions to manage the state of the UI.
+
+Beneath the hood, `Canvas` manipulation is powered by ImageMagick.
+All of the properties represented in `Canvas` are transformed into their respective flags or arguments in ImageMagick.
+For example, the `isCanvasAuto` property is transformed into the flag `-flatten` if false and `-layers merge` if true.
+
+The `processCanvas` is a factory method that handles this transformation, returning an instance of a `ProcessBuilder`.
+The `ProcessBuilder` is then passed to `ImageMagickUtils#runProcessBuilder` which executes the process and stores the output in a BufferedImage.
+
+.Sequence Diagram for Canvas Command
+image::CanvasSequenceDiagram.png[width="2000"]
+
+The above diagram illustrates the process of parsing and executing `canvas` commands.
+
+. The user executes any command beginning with `canvas`.
+
+. The command is first parsed by `PiconsoParser` which picks up the `canvas` keyword and passes any remaining arguments to `CanvasCommandParser`.
+
+. `CanvasCommandParser` determines the appropriate sub-command being executed and performs the requested operation on the canvas.
+
+==== Design considerations
+
+**Manipulation of the `ProcessBuilder`**
+
+[.underline]#Alternatives#
+
+Storing arguments directly in a `List<T>` where T is a custom type that implements `Comparable<T>` to ensure that arguments are in the correct order. A helper function will then map the `T` to a `String` and the resultant `List<String>` will be used to construct the necessary `ProcessBuilder`.
+
+[.underline]#Evaluation#
+
+While insertion of new layers and properties will be extremely easy, modifying or removal of existing properties will involve searching through the entire list. As a result, this method is extremely hard to grok and performs poorly upon update or deletion of existing properties.
+// end::canvas[]
+
+// tag::layer[]
+=== Layer (layer) commands
+
+The `layer` command follows a similar pattern as the `canvas` command.
+The following sub-commands inherit from `LayerCommand`:
+
+* `add` - Adds a layer from the `Canvas` and generates a layer name.
+* `delete` - Removes a layer from the `Canvas`. The current layer and the last remaining layer cannot be removed.
+* `select` - Selects a layer to work on.
+* `swap` - Swaps the order of two distinct layers.
+
+==== Current implementation
+
+`Layer` implements a few key accessors and utility functions. Some of them include:
+
+* `addTranformation(Transformation)` - Adds a given transformation into its `PreviewImage`++'s++ `TransformationSet`.
+* `getName()` - Gets the name of the layer.
+* `setHeight(int)` - Sets the height of the layer.
+* `setWidth(int)` - Sets the width of the layer.
+* `setPosition(int, int)` - Sets the x and y coordinates of the layer.
+
+The following image illustrates the coordinate system adopted in Piconso.
+
+image::coords.png[width="300"]
+
+The default anchor point is the top-left corner, this means that a `layer position -10x-10` command will set that layer's top left corner at `(-10, -10)`.
+It is possible to have negative co-ordinates although clipping will occur unless the canvas is set to auto-resize.
+
+.Sequence Diagram for Layer Command
+image::LayerSequenceDiagram.png[width="2000"]
+
+The above diagram illustrates the process of parsing and executing of `canvas` commands.
+
+.  The user executes any command beginning with `layer`.
+
+.  The command is first parsed by `PiconsoParser` which picks up the `layer` keyword and passes any remaining arguments to `LayerCommandParser`.
+
+.  `LayerCommandParser` determines the appropriate sub-command being executed and performs the requested operation on the canvas and current layer.
+
+==== Design Considerations
+
+**Further manipulation of the `ProcessBuilder`**
+
+_Alternatives_
+
+It is actually possible to nest `ImageMagick` commands which means that it is possible to keep separate `List<T>`++s++ and conjugate them when the canvas needs to be rendered.
+The resultant ImageMagick command will take the form :
+
+ magick [overall canvas flags] {[canvas flag] (individual layer flags)} [overall canvas flags]
+
+Where blocks enclosed by `{ }` need to be repeated per layer.
+
+_Evaluation_
+
+This solution is the most straight-forward and results in no intermediate files which is usually desirable.
+
+However, the resultant ImageMagick command will short circuit and cause the entire expression to fail if any of flags are incompatible or incorrect. Caching is also impossible, causing the whole canvas and all of its layers to be composed again from scratch.
+This results in a poor user experience and hence we have decided against it.
+
+=== Canvas and Layers in action
+
+As the `canvas` and `layer` commands compliment each other, let's walk through a typical user's session in Piconso from start to finish.
+
+. The user executes a valid `open` command:
+A `Canvas` is constructed holding exactly one `Layer`
+with the default height and width being that of the image selected.
+
+. The user adds a new layer to the canvas:
+`Canvas#addLayer` is executed and the helper functions in `ModelManager` refreshes the UI.
+
+. The user swaps the order of the two layers to such that the original image is back on top:
+`Canvas#swapLayer` swaps the two entries in the list of layers.
+
+. While still on the original layer, the user moves it to the top left: `Layer#setPosition` moves the first layer out of the way.
+
+. The user decides to work on the second layer and enters `layer select 2`:
+`Canvas#setCurrentLayer` changes the current layer to the given index and internally keeps track of the index as well.
+
+. A transformation is applied by the user to the current layer: `Canvas#addTransformation` appends the new Transformation to the current Layer.
+Note that no image processing occurs until a new render is requested.
+
+. After a `canvas size 80x60`command: The new `Canvas#setSize` is applied upon the next render and it crops the image to a fraction of what it used to be.
+Remember that resizing and scaling is accomplished with the `apply resize` command.
+
+. Realising his mistake, the user sets the canvas to fit his all of his layers: `Canvas#setCanvasAuto` toggles a boolean.
+
+. The user fills in the default transparent background with a `canvas bgcolor ++#++707070` : a hex color code is accepted by `Canvas#setBackgroundColor`.
+
+.Results of various commands in sequence. The black bounding rectangle indicates the canvas size.
+image::CanvasLayersDemo.png[width="2000"]
+
+// end::layer[]
+
+// tag::google[]
+
+== Implementation: Google features
+=== Overall Introduction
+The Google commands allow for access to https://developers.google.com/photos/library/guides/get-started-java[Google Photos] through a logged-in instance of the user, and are held up by two main components.
+
+* `PhotosLibraryClientFactory` - Initiates and carries out the login process. Produces a `PhotoHandler` instance, which handles matters related to Google commands.
+* `PhotoHandler` - Mainly consists of a `PhotoLibraryClient` instance, the user's logged in state, and 3 maps for storing images, albums, and specific images from an album. Performs all explicit calls to Google Photos through the `PhotosLibraryClient` instance and parses results.
+** The `PhotoHandler` instance is later accessed through `Model#getPhotoHandler()` and `Model#setPhotoHandler()``.
+
+There are 6 main google-related commands. The first two commands login/logout a user, and the latter 4 are mostly overloaded command types with `GoogleCommand` as the abstract parent class.
+
+* `LoginCommand` - Logs in user to their Google Account.
+* `LogoutCommand` - Logs a user out of their Google Account.
+* `GoogleLsCommand` - Lists files in Google Photos.
+* `GoogleRefreshCommand` - Refreshes the displayed list from Google Photos.
+* `GoogleDlCommand` - Downloads the specified image(s) from Google Photos to the user's currently opened local directory.
+* `GoogleUploadCommand` - Uploads the specified image(s) from the user's currently opened local directory to Google Photos.
+
+We have connected and generated `client_credentials.json` via our own Google Account to enable usage of Google Photos API in Piconso. It is recommended that you https://developers.google.com/photos/library/guides/get-started-java[configure] Piconso to use Google Photos Library API with your own account rather than the provided. +
+
+If you are not familiar with how Google Photos works, it would be advisable to first try out Google Photos as a consumer before proceeding.
+
+=== Login (login) Command
+
+==== Current Implementation
+The Login command currently authenticates a user via Google OAuth. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]. As the workings of Google OAuth are rather complicated, it is suggested that you first go through the examples/documentations in those links. +
+
+The following static methods of `PhotosLibraryClientFactory` will be involved:
+
+* `createClient()` - Creates a PhotoLibrary instance, contains calls to Google OAuth related methods.
+* `createPhotosLibraryClient(Credentials)` - Creates an instance of Google's PhotosLibraryClient using the provided credentials.
+* `getUserEmail(Credential)` - Retrieves the user's email from Google+.
+* `loginUserIfPossible()` - Logs in a user if a valid credential file can be found during start up.
+* `logoutUserIfPossible()` - Logs a user out if a credential file can be found.
+* `checkUserLogin()` - Checks if any users are currently logged in.
+
+Below are some examples on how the login command will work.
+
+[NOTE]
+If connection to the internet is lost at any point during authentication with Google's server, login will fail and an error message will be sent to user as feedback.
+
+==== Scenario 1: Explicit `login` command executed, user not logged in yet.
+
+. The user executes a `login` command.
+
+. The login command calls `Model#getPhotoHandler()` and checks if a PhotoHandler instance already exists. If not, it calls static method `PhotoLibraryClientFactory#createClient()` to set up the requirements for log in and redirects the user to the browser.
+
+This occurs asynchronously, and a user can close the redirect window and proceed as usual with the application if they have changed their mind.
+
+. User logs in through redirect window and a refresh token is returned and stored. PhotoLibraryClientFactory class then calls `PhotoLibraryClientFactory#createPhotosLibraryClient()` and `PhotoLibraryClientFactory#getUserEmail()` to instantiate a `PhotoHandler` instance
+
+. The `PhotoHandler` instance is set by model as `Model#photoLibrary`, and confirmation of login is sent to user.
+
+The following sequence diagram illustrates how the above steps work:
+
+.Sequence Diagram for LoginCommand
+image::LoginSequenceDiagram.png[width="1000"]
+
+==== Scenario 2: Implicit login, where Piconso auto logs in user upon re-launch
+
+. Upon Piconso start up, `PhotoLibraryClientFactory#loginUserIfPossible()` is run by `ModelManager` +
+
+. The method checks for stored credentials (refresh token), and logs in user via `PhotoLibraryClientFactory#createClient()` if possible, else the log in process is skipped.
+
+In both scenarios, whenever a valid refresh token is found stored the user is logged in without having to face browser re-direct again. At no point in time will we be storing a user's actual credentials, but only a refresh token that allows us to keep a user logged in, actual credentials are handled by Google OAuth +
+
+==== Design Considerations
+*Asynchronous Login*: By default, as long as a user has not logged in after `login` command is launched, Piconso freezes and waits for user input.
+
+** _Current Solution_: An asynchronous approach has been implemented instead such that Piconso continues working as usual even if the user has not logged in. Once a user is logged in, Piconso will simply show feedback.
+** _Cons_: Google allows max 3 login requests to be made in an interval, hence the `login` command will stop redirecting after 3 consecutive logins made in a short period of time. While it is unlikely this will pose a problem for users, it would be advisable to display the redirect URL in the Piconso CLI during future development.
+
+==== Logout (logout) Command
+The logout command deletes the stored credential file (and any other login-related files) if it exists, and does nothing if it does not. Upon deleting the file, the user will no longer have a refresh token to stay logged in, and thus is effectively logged out.
+
+=== GoogleLsCommand (ls)
+
+[NOTE]
+For all Google-related Commands (excluding login and logout), their command word is appended with a g (i.e `g ls`). Thus all children of `GoogleCommand` are first passed through a `GoogleCommandParser` to determine its type.
+
+==== Current Implementation
+The `GoogleLsCommand` allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
+
+`g ls` -> Lists all photos in user's Google Photos, takes a longer amount of time depending on the number of images stored. +
+`g ls /a` -> Lists all albums in user's Google Photos. +
+`g ls <ALBUM_NAME>` -> Lists all photos in specified album from Google Photos.
+
+As such, parsing will be done twice. Once by `GoogleCommandParser`, and another within `GoogleLsCommand` itself.
+
+The following methods and components of `PhotoHandler` will be involved:
+
+* `imageMap` - Map<String, MediaItem> that contains the list of images retrieved from Google API call. Uses image names as keys.
+* `albumMap` - Map<String, Album> that contains the list of albums retrieved from Google API call. Uses album names as keys.
+* `specificAlbumMap` - Map<String, MediaItem> that contains the list of images from a specific album retrieved from Google API call. Uses image names as keys.
+
+* `getUniqueName(Map, String, String)` - Checks for existence of a name in the map. If it exists, append a sutiable index at the end of the name.
+* `refreshLists()` - Re-retrieves all images and albums from Google Photos and updates `imageMap` and `albumMap`
+* `returnAllAlbumsList()` - Calls `retrieveAllAlbumsFromGoogle()` and returns a `List` of Album names for easy display
+* `retrieveAllAlbumsFromGoogle()` - Makes a Google API call and retrieves all albums stored in Google Photos, storing it in `albumMap`.
+    ** Similar methods for other variants exist, but only methods used for the example below will be listed.
+
+==== Example: First call for `g ls /a`, where user wants to list all albums in Google Photos.
+
+. The user executes a `g ls /a` command.
+
+. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleLsCommand. It is determined to be for listing albums, and `model.getPhotoHandler().returnAllAlbumsList()` is called.
+
+. Within that method, it makes a request to Google Photos, retrieves a `List<Album>`, and stores them in a `Map<String, Album>` within the PhotoHandler instance, with each key being the album name, any duplicate names are renamed.
+
+. The entire list is converted into a String, and returned to the `CommandBox` UI as feedback to the user
+
+The following activity diagram illustrates how the above steps work:
+
+.Activity Diagram for GoogleLsCommand
+image::GoogleLsActivityDiagram.png[width="1000"]
+
+The process is similar for the other 2 variants, except images or images from a specific album are retrieved instead. All retrieved results are always stored in their respective maps.
+
+==== Design Considerations
+*Performance Issues*: The larger the amount of pictures stored in Google Photos, the longer amount of time a `g ls` command takes.
+
+* _Alternative 1_: Re-retrieve the list of photos/albums upon every `ls` call
+** Pro: Displayed list of images/albums is always up-to-date.
+** Con: Each Google Photos API call takes a notable amount of time to execute. Constantly re-retrieving the list of images/albums causes multiples API calls and incurs heavy waiting time for users.
+
+* _Alternative 2 (Current)_: Adding a refresh command. As it is not likely that the set of photos in Google Photos will constantly change, the list of images/albums is retrieved and stored upon first `g ls` call and is only refreshed upon `g refresh`.
+** Pro: Shortens the waiting time for user on every `g ls` call
+** Con: More work on user's behalf to remember to refresh.
+
+*Duplicated Naming*: Google Photos allows for multiples images and albums to be stored with the same name, making it difficult to list item names as names might overlap.
+
+** _Alternative 1 (Current)_: Upon a retrieval of images/albums from Google, image/album names are checked for duplicates. Every duplicate will have a suitable index appended at the end of its original name to ensures that unique naming occurs.
+*** Con: If there are multiple images with the same name, the process of any `g ls` or `g refresh` will take a longer time to run.
+
+** _Alternative 2_: Instead of storing the name of the image/album as the key inside the Map, its unique ID (that is retrieved together with the files from Google) can be used instead.
+*** Con: The ID too complicated for a user to input and remember.
+
+*Album Traversal: How to display and use Albums from Google*
+
+* _Alternative 1_: Treat the album as a category, thus `g ls <ALBUM_NAME>` acts as a filter that filters photos by category.
+** Pro: Easy for users to understand and remember.
+** Con: The command to download from an album needs to be extended such that users need to specify which album the image to download is in i.e `g dl /a<Album> /i<image.png>`
+
+* _Alternative 2_: Handle the concept of albums like directories, such that a user can cd in and out of an album.
+** Con: Confusing for users to concurrently navigate and differentiate both google and local directories.
+
+==== GoogleRefreshCommand (refresh)
+The refresh command re-retrieves and stores the list of images/albums from Google Photos into respective maps in `Model#getPhotoHandler()`.
+
+=== GoogleDlCommand (dl)
+
+==== Current Implementation
+The GoogleDlCommand allows users to download their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
+
+`g dl /i<IMAGE_NAME>`: Downloads specified image from Google Photos +
+`g dl /a<ALBUM_NAME>`: Downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
+`g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: Downloads a specific photo from a specific album in Google Photos.
+
+As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleDlCommand itself.
+
+The following components of `PhotoHandler` will be involved:
+
+* `downloadImage(String, String, String)` - Ensures the request is valid and calls saveImageInDir()` if true.
+* `saveImageInDir(MediaItem, String)` - Saves the image using the baseURL of the `MediaItem`
+    ** Similar methods for other variants exist, but only methods used for the example below will be listed.
+
+==== Example: g dl /i<b.png>`
+
+[NOTE]
+For all upload/download related commands, the amount of time taken to process the task varies with the number of images to upload/download.
+
+. The user executes a `g dl /i<b.png>` command.
+
+. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleDlCommand. It is determined to be for downloading one image, and `model.getPhotoHandler().downloadImage()` is called.
+
+. Within that method, it makes a request to Google Photos with the image's respective ID, and successfully downloads the image into the user's local directory.
+[WARNING]
+If the local directory contains any image with the same name as the one to download, the image in the local directory will be replaced.
+
+. Feedback of success is sent to the user
+
+.Sequence Diagram for GoogleDlCommand
+image::GoogleDlSequenceDiagram.png[width="800"]
+
+The process is similar for the other 2 variants, except images or images from a specific album are downloaded instead.
+
+==== Design Considerations
+*Location of downloaded images*:
+
+* _Alternative 1 (Current)_: Download the image into user's currently opened local directory.
+** Pro: User is able to easily find the new downloaded photo
+** Con: Images with the same name WILL be replaced and it will be messy when multiple photos are downloaded
+
+* _Alternative 2 (Recommended for future)_: Images are downloaded into a specific directory which can be navigated to and fro via quick commands (i.e `jump to PicDir`, `jump back PicDir`)
+** Pro: Easier for user to retrieve and view downloaded photos. Photos with the same name can also be safely replaced as they are likely earlier versions downloaded from Google Photos.
+
+=== GoogleUploadCommand (ul)
+
+==== Current Implementation
+The GoogleUploadCommand allows users to upload their images onto Google Photos. Currently, it is overloaded with two types of commands the user can type
+
+`g ul <IMAGE_NAME>`: Uploads specified image from currently opened directory to Google Photos +
+`g ul all`: Uploads all images in currently open local directory.
+
+As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleUploadCommand itself.
+
+As the implementation of GoogleUploadCommand is mostly dependent on understanding of the upload aspects of Google Photos API, an example will not be given. Please refer to https://developers.google.com/photos/library/guides/upload-media[this link].
+
+The following components of `PhotoHandler` will be involved:
+
+* `uploadImage(String, String)` - Uploads the image from the current opened local directory.
+* `retrievePiconsoAlbum()` - Retrieves the ID of the Piconso Album in Google Photos. If it does not exist, command creates one.
+* `uploadMediaItemsToGoogle(List<NewMediaItem>)` - Highly Google Photos API based, returns a `NewMediaItem`
+* `generateNewMediaImage(String, String)` - Highly Google Photos API based, carries out actual upload to Google Photos with NewMediaItem.
+    ** Similar methods for other variants exist, but only methods used for the example below will be listed.
+
+==== Design Considerations
+*Google Photos does not allow duplicate photos*: Illustrated in the diagram below
+
+* No renaming of photos after upload allowed.
+* If an image is uploaded as "a.png", but exists with the exact same bytes as "b.png" on Google Photos, the image will replace the old image as b.png instead.
+* If two images with the same bytes are sent for upload, only the first will be uploaded.
+
+.Illustrates when how Google Photos handles images
+
+image::uploadExplanation.png[width="800"]
+
+Currently the only measure taken has been to state this to the user. As this issue was only discovered in the later stages of development, it does not have a workaround yet. Though a lot of refactoring will be required,  switching from Google Photos to Google Drive might be a fix for the problem.
+// end::google[]
 
 == Documentation
 
@@ -537,296 +1181,19 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* needs a quick and easy way to edit images
+* has a lot of images to edit
+* appreciates the power that traditional editing software provides
+* familiar with the command line
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI app
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: view, preview and edit images quickly in a streamlined, modular and repeatable process
 
 [appendix]
 == User Stories
@@ -836,93 +1203,151 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |photographer |edit an image |enhance an image
 
-|`* * *` |user |add a new person |
+|`* * *` |photographer |define my own set of transformations |avoid repetitive typing of commands
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |photographer |see the preview of the transformations before committing to disk |explore the effects of transformations
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |photographer |be able to upload my photos to the cloud (Google Photos) |safely store and share my photos across devices
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`*` |web developer or photographer |add captions or watermarks to images |to protect my intellectual property
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |web developer |quickly recolor icons |easily use them in re-skinning my application
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Piconso` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Editing an image
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User opens an image
+2.  User uses the CLI to describe a set of transformations to the image
+3.  Piconso shows a preview of the outcome
+4.  User can save the outcome/transformation to disk
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 1a. The given image cannot be opened.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Piconso shows an error message.
++
+Use case resumes at step 1.
+
+* 2a. User is unsatisfied with the last transformation.
++
+[none]
+** 2a1. User can undo the last transformation.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Define a set of transformations
+
+*MSS*
+
+1.  User edits an image (from use case Editing an image)
+2.  Piconso displays transformations done on the left side pane
+3.  User enters command to save the set of transformations
+4.  Piconso requests for a name for the set
+5.  User enters a name
+6.  Piconso saves the set
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 5a. The input name is already used.
++
+[none]
+** 5a1. Piconso asks if user wants to overwrite to previously stored set.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Add caption or watermark to image
+
+*MSS*
+
+1.  User opens an image
+2.  Piconso displays the image in the preview pane
+3.  User adds caption or watermark image through input
+4.  Piconso displays the caption/watermark in the preview pane atop the first layer.
++
+Use case ends.
+
+[discrete]
+=== Use case: Upload to Google Photos
+
+*MSS*
+
+1.  User request to login to Google Photos
+2.  Piconso redirects the user to a login browser page
+3.  User logs in through browser page
+4.  Piconso shows feedback message for success
+5.  User uploads a photo
+6.  Piconso contacts Google Photos and uploads the photo
+7.  Piconso shows feedback for successful upload
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User does not login through browser window.
++
+[none]
+** 3a1. User can resume on any use case not involving Google interaction.
+
+[none]
+* 3b. Piconso loses internet connection.
++
+[none]
+** 3b1. Piconso informs user of disconnection and suggests for them to try again.
++
+Use case resumes at step 1.
+
+[none]
+* 5a. An error occurs while uploading.
++
+[none]
+** 5a1. Piconso informs user of upload failure and suggests for them to try again.
++
+Use case resumes at step 5.
 
 [appendix]
+
 == Non Functional Requirements
-
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any mainstream OS as long as it has Java 9 or higher installed.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should have easy to understand and remember user commands.
+.  Allows users to navigate directories efficiently.
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[batch]] Batch::
+Images that are currently being viewed. For example, if there are 16 images in the current directory, the default "batch" viewed would be the first 10 photos. Upon a `next` command, the "batch" switches to the next 10.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[transformation]] Transformation::
+Action that is performed on an image
 
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test Piconso manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -941,26 +1366,257 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Changing a directory
 
-=== Deleting a person
+. Traversing between directories
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: Users is aware of the current directory they are in from the status bar footer.
+.. Test case: `cd Desktop` +
+   Expected: User is now in Desktop. The full path of Desktop is shown in the status message. The current directory in the status bar is updated.
+.. Test case: `cd ..` +
+   Expected: User is now in the previous directory. The full path is shown in the status message. The current directory in the status bar is updated.
+.. Test case (only for Windows): `cd C://Users` +
+   Expected: User is now in `C:/Users`. The full path is shown in the status message. The current directory in the status bar is updated.
+.. Test case: `cd` +
+   Expected: User is unable to traverse to any directory. Error message is shown in the status message. The status bar remains the same.
+.. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. `Tab` function to auto-complete directory name
 
-=== Saving data
+.. Prerequisites: Users is aware of the current directory they are in from the status bar footer.
+.. Test case: `cd Desk` +
+   Expected: `cd Desktop` is shown in the command box.
+.. Test case (only for Windows): `cd C://Use` +
+   Expected (only in Windows): `cd C://Users` is shown in the command box.
+.. Test case: `cd 12345` +
+   Expected: User does not observe any changes.
+.. Other incorrect cd commands to try: `cd C://xxxx`, `cd xxxx` (where xxxx is a non-existent directory) +
+   Expected: Similar to previous.
 
-. Dealing with missing/corrupted data files
+=== Opening an image
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Opening images in current directory
 
-_{ more test cases ... }_
+.. Prerequisites: `cd` into a existing directory with at at least 5 images to view the first batch of images in the directory.
+.. Test case: `open 1` +
+   Expected: The first image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
+.. Test case: `open 3` +
+   Expected: The third image in the `Film Reel` is displayed on the GUI. The image opened is shown in the status message.
+.. Test case: `open 0` +
+   Expected: The user is unable to open the image. Error message is shown in the status message.
+.. Other incorrect open commands to try: `open 11` (as index exceeds batch size of 10), `open x` (where x exceeds the total images in the current batch),
+   `open abc` +
+   Expected: Similar to previous.
+
+=== Traversing between image batches
+
+. Accessing the next/previous batch of images
+
+.. Prerequisites: `cd` into a existing directory with 11-20 images to view the first batch of 10 images in the directory.
+.. Test case: `next` +
+   Expected: The next 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `next` +
+   Expected: The user is unable to access the next batch of images as it exceeds the total number of images in the list. Error message is shown in the status message.
+.. Test case: `prev` +
+   Expected: The first 10 images in the directory is shown in the `Film Reel`. The current batch and remaining number of images is shown in the status message.
+.. Test case: `prev` +
+   Expected: The user is unable to access the prev batch of images as it is already at the start of the list. Error message is shown in the status message.
+.. Other incorrect next commands to try: `prev` (when list the already at the start), `next` (when user is viewing the end of list) +
+   Expected: Similar to previous.
+
+=== Authenticating with Google Photos
+
+. Logging in and out of Google Photos
+
+.. Test case: `login`, then authenticate with Google +
+   Expected: Logged in email shown in console.
+.. Test case: `login`, then close login window without logging in +
+   Expected: The Piconso application should work smoothly as usual
+.. Test case: `logout` when an account is logged into +
+   Expected: Feedback user is logged out
+.. Test case: Launch application when user has not logged out +
+   Expected: User is automatically logged in as indicated in StatusBarFooter.
+
+=== Listing with Google Photos
+
+.. Prerequisites: User is logged in.
+
+.. Test case: `g ls` +
+  Expected: Lists names of all photos in account.
+.. Test case: `g ls /a` +
+  Expected: Lists names of all albums in account.
+.. Test case: `g ls <ALBUM>` +
+  Expected: Lists names of all images in that album.
+.. Test case: `g ls <INVALID_ALBUM>` +
+  Expected: Error message is shown stating album not found.
+.. You may also try the methods without <> to test for validity, and also for duplicate image/album names to ensure they list properly.
+
+=== Downloading with Google Photos
+
+.. Prerequisites: User is logged in.
+
+.. Test case: `g dl` +
+  Expected: Error should be thrown requesting parameter
+.. Test case: `g dl /i<IMAGE>` +
+  Expected: Downloads the image
+.. Test case: `g dl /a<ALBUM> /i<IMAGE>` +
+  Expected: Downloads the image found in the specified album.
+.. Test case: `g dl /a<ALBUM>` +
+Expected: Downloads the entire album
+.. You may also try the methods without <> to test for validity and also test with a variety of non-existent albums and image names to ensure
+the requests throw an accurate error message.
+
+=== Downloading with Google Photos
+
+.. Prerequisites: User is logged in.
+
+.. Test case: `g ul` +
+  Expected: Error should be thrown requesting parameter
+.. Test case: `g ul <IMAGE>` +
+  Expected: Uploads the image
+.. Test case: `g ul all` +
+  Expected: Uploads all images in current directory to Google Photos.
+.. Test case: `g ul all`, in a folder with 2 images copies +
+  Expected: Uploads only one image.
+.. Test case: `g ul all`, an image that already exists in Google Photos +
+  Expected: Uploads the image as the name it already had in Google Photos.
+.. You may also try the methods without <> to test for validity and also test with a variety of image names and duplicate images to ensure
+the requests throw an accurate error message.
+
+=== Applying transformation to image
+
+. Apply build in transformation to image
+
+.. Prerequisites: `cd` into a existing directory with at at least 1 image to view the first batch of images in the directory.
+.. Test case: `apply blur 0x8` +
+   Expected: the image in the preview panel is blurred, the `blur 0x8` is shown in the history panel
+.. Test case: `apply rotate 180` +
+   Expected: the image in the preview panel is rotated 180 degrees, the `rotate 180` is shown in the history panel
+.. Test case: `apply blur` +
+   Expected: the image in the preview panel does not change, invalid message will be shown, command usage will be shown.
+
+=== Applying raw transformation to image
+
+. Apply raw transformation to image
+
+.. Prerequisites: `cd` into a existing directory with at at least 1 image to view the first batch of images in the directory.
+.. Test case: `apply raw blur 0x8` +
+   Expected: the image in the preview panel does not change, invalid operation message will be shown, nothing will be shown in the history panel.
+.. Test case: `apply raw -blur 0x8` +
+   Expected: the image in the preview panel is blurred, the `[-blur 0x8]` is shown in the history panel.
+
+=== Creating new transformation
+
+. Create a new transformation
+
+.. Test case: `create blurSample blur|0x8` +
+   Expected: message for new transformation created will be shown.
+.. Test case: `create blurSample blur` +
+   Expected: invalid argument message will be shown, command usage message will be shown.
+
+=== Apply a customised transformation
+
+. Apply a customised transformation
+.. Prerequisites: customised transformation `blurSample` has been created already.
+.. Test case: `apply @blurSample` +
+   Expected: the image in the preview panel is blurred, the `@blurSample` is shown in the history panel.
+.. Test case: `apply blurSample` +
+   Expected: the image in the preview panel does not change, the invalid operation message will be shown.
+
+=== Undoing and Redoing transformations
+
+. Undoing transformations
+.. Positive Tests
+... Prerequisites: An image has been opened, with several transformations applied.
+... Test case: `undo` +
+   Expected: The image's latest transformation in the current layer is undone.
+... Test case: `undo-all` +
+   Expected: All of the image's transformations in the current layer are undone (current layer in original state).
+.. Negative Tests
+... Prerequisites: An image has been opened, with no transformations applied. Or image has transformations applied, but all are undone.
+... Test case: `undo` +
+   Expected: Error message to user as there are no transformations to undo.
+... Test case: `undo-all` +
+   Expected: Error message to user as there are no transformations to undo.
+
+. Redoing transformations
+.. Positive Tests
+... Prerequisites: An image has been opened, with several transformations applied and several transformations undone.
+... Test case: `redo` +
+   Expected: The image's last undone transformation in the current layer is redone.
+... Test case: `redo-all` +
+   Expected: All of the image's undone transformations in the current layer is redone.
+.. Negative Tests
+... Prerequisites: An image has been opened, with several transformations applied and no transformations undone. Or image is opened with no transformations applied.
+... Test case: `redo` +
+   Expected: Error message to user as there are no transformations to redo.
+... Test case: `redo-all` +
+   Expected: Error message to user as there are no transformations to redo.
+
+=== Save a image
+
+. save a edited image
+.. Prerequisites: some transformations have been applied to an image.
+.. Test case: `save` +
+   Expected: The modified image will be save to the original image.
+.. Test case: `save test.jpg` +
+   Expected: A new image test.jpg will be created in the current directory. The modified image will be saved to test.jpg.
+.. Test case: `save test.test` +
+   Expected: A invalid format message will be shown, and the image will not be saved.
+
+=== Canvases and Layers
+. Canvas manipulation
+
+.. Positive cases
+
+... Test case: `canvas size 1000x1000` +
+    Expected: The canvas should now a size of 1000 by 1000 pixels.
+
+... Test case: `canvas bgcolor none` +
+    Expected: The canvas should now have a transparent background. If the canvas is too small, the background shouldn't even be visible.
+
+... Test case: `canvas auto-resize on` +
+    Expected: The canvas should now expand to ensure that all layers are within the frame. The canvas should ignore all options provided by `size`.
+
+.. Negative cases
+... Test case: `canvas bgcolor invalid` +
+... Test case: `canvas size -123x456` +
+... Test case: `canvas auto-resize invalid` +
+Expected: the help message demonstrating proper usage of the command should show up in the console output panel.
+
+. Layer manipulation
+
+.. Positive cases
+... Test case: `layer add 1` +
+    Expected: The first image in the `Film Reel` is added as a new layer with on top of all existing layers.
+
+... Test case: `layer remove 2` +
+    Expected: The second layer in the canvas should be removed if the following conditions are satisfied:
+.... The layer index provided is valid.
+.... The layer is not currently selected.
+.... The layer is not the last one in the canvas.
+
+
+... Test case: `layer select 2` +
+    Expected: The layer at index 2 is selected to be the current working layer, highlighted in the `Layers Panel` and be the target of all subsequent transformations if the following condition is satisfied:
+.... The layer index provided is valid.
+
+... Test case: `layer swap 1 2` +
+    Expected: The layers at index 1 and 2 should be swapped if the following conditions are satisfied:
+.... The layer indexes provided are valid.
+.... The layer indexes provided are distinct.
+
+... Test case: `layer position -400x400` +
+    Expected: The top-left corner of the layer will be set to the coordinate provided. If the coordinates are too far out of the canvas and `auto-resize` isn't turned on, clipping or complete invisibility should occur. Note that negative coordinates are accepted and this is intended behavior.
+
+.. Negative cases
+... Test case: `layer add 11`. +
+... Test case: `layer remove 1` when there is only one layer left in the canvas.
+... Test case: `layer remove 2` when index 2 is the layer that is selected.
+... Test case: `layer swap -1 -3`.
+... Test case: `layer swap 1 1`.
+... Test case: `layer position invalid`. +
+    Expected : A specific error message about the constraint violated should show up in the console output panel and no other operations should be performed.
+
+

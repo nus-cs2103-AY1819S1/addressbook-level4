@@ -30,18 +30,20 @@ public class UiManager extends ComponentManager implements Ui {
     public static final String FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE = "Could not save data to file";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/piconso_32.png";
 
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    private String user;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, String loggedInUser) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.user = loggedInUser;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, prefs, logic, user);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -66,7 +68,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -78,7 +79,7 @@ public class UiManager extends ComponentManager implements Ui {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+    protected void showAlertDialogAndWait(AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
@@ -104,7 +105,7 @@ public class UiManager extends ComponentManager implements Ui {
      */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+        showAlertDialogAndWait(AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
     }

@@ -1,45 +1,65 @@
+
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandFailure;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.clearCache;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.testutil.ModelGenerator;
 
+//@@author ihwk1996
 public class UndoCommandTest {
+    private CommandHistory commandHistory = new CommandHistory();
+    private UndoCommand undoCommand = new UndoCommand();
+    private String messageSuccess = UndoCommand.MESSAGE_SUCCESS;
+    private String messageFailure = UndoCommand.MESSAGE_FAILURE;
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final CommandHistory commandHistory = new CommandHistory();
-
-    @Before
-    public void setUp() {
-        // set up of models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
-
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+    @Test
+    public void executeDefaultStateSingleUndoCommandFailure() {
+        Model model = ModelGenerator.getDefaultModel();
+        assertCommandFailure(undoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void execute() {
-        // multiple undoable states in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+    public void executeSingleUndoPointingAtStartCommandFailure() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        assertCommandFailure(undoCommand, model, commandHistory, messageFailure);
+    }
 
-        // single undoable state in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+    @Test
+    public void executeSingleUndoPointingAtMidCommandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 4);
+    }
 
-        // no undoable states in model
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+    @Test
+    public void executeSingleUndoPointingAtEndCommandSuccess() {
+        Model model = ModelGenerator.getModelWithOneTransformation();
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 2);
+    }
+
+    @Test
+    public void executeSuccessiveUndoPointingAtEndCommandSuccess() {
+        Model model = ModelGenerator.getModelWithTwoTransformations();
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 1, 3);
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 3);
+    }
+
+    @Test
+    public void executeSingleUndoAfterPurgeCommandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        Model purgedModel = ModelGenerator.executeATransformation(model);
+        assertCommandSuccess(undoCommand, purgedModel, commandHistory, messageSuccess, 0, 2);
+    }
+
+    @After
+    public void cleanUp() {
+        clearCache();
     }
 }
+

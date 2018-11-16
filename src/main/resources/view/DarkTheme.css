@@ -6,7 +6,6 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
@@ -93,43 +92,37 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-.list-cell {
-    -fx-label-padding: 0 0 0 0;
+#historyPanel {
+    -fx-padding: 5 5 5 5;
+}
+
+#historyListView .list-cell, #imageListView .list-cell {
+    -fx-label-padding: 1 1 1 1;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 1 1 1 1;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-color: transparent;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+#historyListView .list-cell:filled:selected {
+    -fx-background-color: #BDBBBA;
+    -fx-text-fill: black;
 }
 
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
-}
-
-.list-cell .label {
+#historyListView .list-cell:filled:focused {
+    -fx-background-color: transparent;
     -fx-text-fill: white;
 }
 
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+#imageListView .list-cell:filled:selected {
+    -fx-background-color: #525252;
+    -fx-text-fill: #1F1F1F;
 }
 
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
+.cell_big_label {
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #d9d7d6;
 }
 
 .stack-pane {
@@ -152,10 +145,6 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
 }
 
 .status-bar .label {
@@ -181,29 +170,6 @@
 
 .grid-pane .stack-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: white;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
 }
 
 /*
@@ -327,25 +293,13 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }
 
-#tags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
-#tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
+.titles {
+    -fx-text-fill: #d9d7d6;
+    -fx-fill: #d9d7d6;
+    -fx-font-size: 15px;
 }

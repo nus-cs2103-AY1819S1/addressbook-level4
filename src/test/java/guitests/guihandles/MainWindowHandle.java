@@ -7,26 +7,22 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
+    private final FilmReelHandle filmReel;
+    private final HistoryListPanelHandle historyPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
-    }
-
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+        filmReel = new FilmReelHandle(getChildNode(FilmReelHandle.IMAGE_LIST_ID));
+        historyPanel = new HistoryListPanelHandle(getChildNode(HistoryListPanelHandle.HISTORY_LIST_VIEW_ID));
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -45,7 +41,11 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
+    public FilmReelHandle getFilmReel() {
+        return filmReel;
+    }
+
+    public HistoryListPanelHandle getHistoryPanel() {
+        return historyPanel;
     }
 }

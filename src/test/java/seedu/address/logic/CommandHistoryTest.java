@@ -19,7 +19,7 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void constructor_withCommandHistory_copiesCommandHistory() {
+    public void constructorWithCommandHistoryCopiesCommandHistory() {
         final CommandHistory commandHistoryWithA = new CommandHistory();
         commandHistoryWithA.add("a");
 
@@ -52,7 +52,7 @@ public class CommandHistoryTest {
         assertTrue(commandHistoryWithA.equals(anotherCommandHistoryWithA));
 
         // null -> returns false
-        assertFalse(commandHistoryWithA.equals(null));
+        assertFalse(commandHistoryWithA == null);
 
         // different types -> returns false
         assertFalse(commandHistoryWithA.equals(5.0f));

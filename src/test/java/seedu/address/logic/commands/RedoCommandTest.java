@@ -1,49 +1,63 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandFailure;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.clearCache;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.testutil.ModelGenerator;
 
+//@@author ihwk1996
 public class RedoCommandTest {
+    private CommandHistory commandHistory = new CommandHistory();
+    private RedoCommand redoCommand = new RedoCommand();
+    private String messageSuccess = RedoCommand.MESSAGE_SUCCESS;
+    private String messageFailure = RedoCommand.MESSAGE_FAILURE;
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final CommandHistory commandHistory = new CommandHistory();
-
-    @Before
-    public void setUp() {
-        // set up of both models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
-        model.undoAddressBook();
-        model.undoAddressBook();
-
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoAddressBook();
+    @Test
+    public void executeDefaultStateSingleRedoCommandFailure() {
+        Model model = ModelGenerator.getDefaultModel();
+        assertCommandFailure(redoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void execute() {
-        // multiple redoable states in model
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    public void executeSingleRedoPointingAtStartCommandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
+    }
 
-        // single redoable state in model
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    @Test
+    public void executeSingleRedoPointingAtMidCommandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
+    }
 
-        // no redoable state in model
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+    @Test
+    public void executeSingleRedoPointingAtEndCommandFailure() {
+        Model model = ModelGenerator.getModelWithTwoTransformations();
+        assertCommandFailure(redoCommand, model, commandHistory, messageFailure);
+    }
+
+    @Test
+    public void executeSuccessiveRedoPointingAtStartCommandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
+    }
+
+    @Test
+    public void executeSingleRedoAfterPurgeCommandFailure() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        Model purgedModel = ModelGenerator.executeATransformation(model);
+        assertCommandFailure(redoCommand, purgedModel, commandHistory, messageFailure);
+    }
+
+    @After
+    public void cleanUp() {
+        clearCache();
     }
 }

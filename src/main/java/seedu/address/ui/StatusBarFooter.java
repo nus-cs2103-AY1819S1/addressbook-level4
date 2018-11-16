@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Clock;
-import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.StatusBar;
@@ -14,70 +11,79 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.ChangeDirectoryEvent;
+import seedu.address.commons.events.ui.LoginStatusEvent;
+import seedu.address.commons.events.ui.LogoutStatusEvent;
+
+//@@author chivent
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart<Region> {
 
-    public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
-    public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+    public static final String LOGIN_STATUS_INITIAL = "Not connected to Google Photos";
+    public static final String LOGIN_STATUS_UPDATED = "Connected to Google Photos as: %s";
+    public static final String LOGOUT_MESSAGE = "User logged out";
 
-    /**
-     * Used to generate time stamps.
-     *
-     * TODO: change clock to an instance variable.
-     * We leave it as a static variable because manual dependency injection
-     * will require passing down the clock reference all the way from MainApp,
-     * but it should be easier once we have factories/DI frameworks.
-     */
-    private static Clock clock = Clock.systemDefaultZone();
+    public static final String DIRECTORY_ERROR = "Unable to detect directory location";
 
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
 
     private static final String FXML = "StatusBarFooter.fxml";
 
     @FXML
-    private StatusBar syncStatus;
+    private StatusBar loginStatus;
+
     @FXML
-    private StatusBar saveLocationStatus;
+    private StatusBar directoryDisplay;
 
 
-    public StatusBarFooter(Path saveLocation) {
+    public StatusBarFooter(String user, String currentDirectory) {
         super(FXML);
-        setSyncStatus(SYNC_STATUS_INITIAL);
-        setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
+        if (user != null) {
+            setLoginStatus(String.format(LOGIN_STATUS_UPDATED, user));
+        } else {
+            setLoginStatus(LOGIN_STATUS_INITIAL);
+        }
+        setDirectoryDisplay(Objects.requireNonNullElse(currentDirectory, DIRECTORY_ERROR));
         registerAsAnEventHandler(this);
     }
 
-    /**
-     * Sets the clock used to determine the current time.
-     */
-    public static void setClock(Clock clock) {
-        StatusBarFooter.clock = clock;
+    private void setLoginStatus(String status) {
+        Platform.runLater(() -> loginStatus.setText(status));
     }
 
-    /**
-     * Returns the clock currently in use.
-     */
-    public static Clock getClock() {
-        return clock;
-    }
-
-    private void setSaveLocation(String location) {
-        Platform.runLater(() -> saveLocationStatus.setText(location));
-    }
-
-    private void setSyncStatus(String status) {
-        Platform.runLater(() -> syncStatus.setText(status));
+    private void setDirectoryDisplay(String status) {
+        Platform.runLater(() -> directoryDisplay.setText(status));
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        long now = clock.millis();
-        String lastUpdated = new Date(now).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
-        setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+    public void handleLoginStatusEvent(LoginStatusEvent event) {
+        if (event.loggedIn) {
+            setLoginStatus(String.format(LOGIN_STATUS_UPDATED, event.user));
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "User logged in as " + event.user));
+        } else {
+            setLoginStatus(LOGIN_STATUS_INITIAL);
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "User is not logged in to google photos"));
+        }
+    }
+
+    @Subscribe
+    public void handleDirectoryChangeEvent(ChangeDirectoryEvent event) {
+        if (event.directory.isEmpty()) {
+            setDirectoryDisplay(DIRECTORY_ERROR);
+            logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                    "User's current directory location could not be determined"));
+        } else {
+            setDirectoryDisplay(event.directory);
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "User's current directory: " + event.directory));
+        }
+    }
+
+    @Subscribe
+    public void handleLogoutStatusEvent(LogoutStatusEvent event) {
+        setLoginStatus(LOGIN_STATUS_INITIAL);
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, LOGOUT_MESSAGE));
     }
 }
