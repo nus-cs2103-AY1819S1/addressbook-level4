@@ -18,7 +18,8 @@ import seedu.address.model.Model;
 public class GoogleDlCommand extends GoogleCommand {
 
     public static final String MESSAGE_SUCCESS = "%s downloaded into %s";
-    public static final String MESSAGE_FAILURE = "%s failed to download.";
+    public static final String MESSAGE_FAILURE = "%s failed to download."
+            + " Remember to type a valid name in the right format!";
     public static final String TYPE = "dl";
     public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google download (requires an internet connection): "
@@ -56,15 +57,15 @@ public class GoogleDlCommand extends GoogleCommand {
 
                     // get image name
                     parameter = params[1].substring(0, params[1].length() - 1);
-                    model.getPhotoHandler().downloadAlbumImage(albumName, parameter, currDir);
+                    model.getPhotoHandler(true).downloadAlbumImage(albumName, parameter, currDir);
                 } else {
                     parameter = parameter.substring(START_INDEX, parameter.length() - 1);
-                    model.getPhotoHandler().downloadWholeAlbum(parameter, currDir);
+                    model.getPhotoHandler(true).downloadWholeAlbum(parameter, currDir);
                 }
 
             } else if (parameter.startsWith("/i")) {
                 parameter = parameter.substring(START_INDEX, parameter.length() - 1);
-                model.getPhotoHandler().downloadImage(parameter, currDir);
+                model.getPhotoHandler(true).downloadImage(parameter, currDir);
             } else {
                 throw new Exception(parameter);
             }
@@ -73,12 +74,15 @@ public class GoogleDlCommand extends GoogleCommand {
 
         } catch (ApiException api) {
             throw new CommandException(MESSAGE_CONNECTION_FAILURE);
+        } catch (CommandException coEx) {
+            throw coEx;
         } catch (Exception ex) {
             if (parameter.isEmpty()) {
                 parameter = org;
             }
             throw new CommandException(String.format(MESSAGE_FAILURE, parameter) + "\n\n" + MESSAGE_USAGE);
         }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, parameter, model.getCurrDirectory().toString()));
     }
 

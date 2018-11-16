@@ -28,9 +28,11 @@ public class GoogleRefreshCommand extends GoogleCommand {
         try {
             requireNonNull(model);
 
-            model.getPhotoHandler().refreshLists();
+            model.getPhotoHandler(true).refreshLists();
         } catch (ApiException api) {
             throw new CommandException(MESSAGE_CONNECTION_FAILURE + "\n\n" + MESSAGE_USAGE);
+        } catch (CommandException coEx) {
+            throw coEx;
         } catch (Exception ex) {
             throw new CommandException(FAILURE_MESSAGE + "\n\n" + MESSAGE_USAGE);
         }

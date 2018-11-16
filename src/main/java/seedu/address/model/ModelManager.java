@@ -166,8 +166,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public PhotoHandler getPhotoHandler() throws CommandException {
+    public PhotoHandler getPhotoHandler(boolean subCommand) throws CommandException {
         if (photoLibrary == null) {
+            if (subCommand) {
+                throw new CommandException("You are not logged in! Please login with `login` to proceed.");
+            }
             try {
                 photoLibrary = PhotosLibraryClientFactory.createClient();
                 if (photoLibrary == null) {
@@ -185,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (photoLibrary == null) {
             return null;
         }
-        return getPhotoHandler().identifyUser();
+        return getPhotoHandler(false).identifyUser();
     }
 
     @Override

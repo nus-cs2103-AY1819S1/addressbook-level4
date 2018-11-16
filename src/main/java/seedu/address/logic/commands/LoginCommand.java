@@ -57,7 +57,7 @@ public class LoginCommand extends Command {
      * @return feedback to display in resultsdisplay
      */
     private String initPhotoHandler(Model model) throws CommandException {
-        if (model.getPhotoHandler() == null) {
+        if (model.getPhotoHandler(false) == null) {
             return MESSAGE_CONNECTION_FAILURE;
         }
         return String.format(MESSAGE_LOGGED_IN, model.getUserLoggedIn());

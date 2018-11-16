@@ -29,7 +29,8 @@ public class GoogleUploadCommand extends GoogleCommand {
     public static final String MESSAGE_SUCCESS = "Successfully uploaded to Google Photos: \n%s" + ADVICE;
     public static final String MESSAGE_DUPLICATE = "Upload success. Some of the images in the selected folder are "
             + "duplicates, only the following were uploaded: \n%s" + ADVICE;
-    public static final String MESSAGE_FAILURE = "%s failed to upload." + "\n\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_FAILURE = "%s failed to upload."
+            + "Remember to type a valid name in the right format!" + "\n\n" + MESSAGE_USAGE;
 
     public GoogleUploadCommand(String parameter) {
         super(parameter);
@@ -43,15 +44,17 @@ public class GoogleUploadCommand extends GoogleCommand {
         String message;
         try {
             if (parameter.startsWith("all")) {
-                message = model.getPhotoHandler().uploadAll(model.getCurrDirectory().toString());
+                message = model.getPhotoHandler(true).uploadAll(model.getCurrDirectory().toString());
                 return returnUploadMessage(message);
             } else {
                 parameter = parameter.substring(1, parameter.length() - 1);
-                message = model.getPhotoHandler().uploadImage(parameter, model.getCurrDirectory().toString());
+                message = model.getPhotoHandler(true).uploadImage(parameter, model.getCurrDirectory().toString());
                 return returnUploadMessage(message);
             }
         } catch (ApiException ex) {
             throw new CommandException(ex.getMessage());
+        } catch (CommandException coEx) {
+            throw coEx;
         } catch (Exception ex) {
             if (parameter.isEmpty()) {
                 parameter = org;
