@@ -490,11 +490,6 @@ The higher the amount of images involved in your google command, the longer amou
 ==== Logs in to Google Photos: `login`
 Format : `login` -> Allows you to connect to Google Photos through a browser redirect
 
-[NOTE]
-====
-All google-related commands will redirect you to login if you have not done so, so don't worry! We've got you covered.
-====
-
 ==== Traverses Google Photos: `g ls`
 Format: `g ls (parameters)` -> Lists the images you have in Google Photos.
 

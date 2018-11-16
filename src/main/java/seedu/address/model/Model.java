@@ -18,8 +18,9 @@ import seedu.address.model.transformation.Transformation;
 public interface Model {
     /**
      * Get PhotoHandler, directs user to login if yet to be logged in.
+     * @param subCommand returns true if from an instance such as g ls, dl, ul or refresh
      */
-    PhotoHandler getPhotoHandler() throws CommandException;
+    PhotoHandler getPhotoHandler(boolean subCommand) throws CommandException;
 
     /**
      * Set PhotoHandler.

@@ -33,7 +33,7 @@ public class GoogleCommandTests {
     @Test
     public void testGoogleLsFailure() {
         GoogleLsCommand command;
-        String msg = GoogleLsCommand.FAILURE_MESSAGE + "\n\n" + GoogleLsCommand.MESSAGE_USAGE;
+        String msg = "You are not logged in! Please login with `login` to proceed.";
 
         //test empty parameter
         command = new GoogleLsCommand("");
@@ -60,6 +60,7 @@ public class GoogleCommandTests {
         command = new GoogleUploadCommand("");
         assertCommandFailure(command, model, commandHistory, String.format(msg, ""));
 
+        msg = "You are not logged in! Please login with `login` to proceed.";
         //test all from directory
         command = new GoogleUploadCommand("all");
         assertCommandFailure(command, model, commandHistory, String.format(msg, "all"));
@@ -108,6 +109,7 @@ public class GoogleCommandTests {
         assertCommandFailure(command, model, commandHistory, String.format(msg, "<"));
 
         //test from invalid image, invalid album
+        msg = "You are not logged in! Please login with `login` to proceed.";
         command = new GoogleDlCommand("/a<Al /i<Im");
         assertCommandFailure(command, model, commandHistory, String.format(msg, "I"));
 
@@ -143,7 +145,7 @@ public class GoogleCommandTests {
     @Test
     public void testGoogleRefreshFailure() {
         GoogleRefreshCommand command;
-        String msg = GoogleRefreshCommand.FAILURE_MESSAGE + "\n\n" + GoogleRefreshCommand.MESSAGE_USAGE;
+        String msg = "You are not logged in! Please login with `login` to proceed.";
 
         command = new GoogleRefreshCommand();
         assertCommandFailure(command, model, commandHistory, msg);

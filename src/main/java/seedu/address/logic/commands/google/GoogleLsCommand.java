@@ -42,14 +42,14 @@ public class GoogleLsCommand extends GoogleCommand {
         StringBuilder toPrint = new StringBuilder();
         try {
             if (parameter.isEmpty()) {
-                printTarget = model.getPhotoHandler().returnAllImagesList();
+                printTarget = model.getPhotoHandler(true).returnAllImagesList();
 
                 //Retrieve all names and call
             } else if ("/a".equals(parameter)) {
-                printTarget = model.getPhotoHandler().returnAllAlbumsList();
+                printTarget = model.getPhotoHandler(true).returnAllAlbumsList();
             } else {
                 parameter = parameter.substring(1, parameter.length() - 1);
-                printTarget = model.getPhotoHandler().returnAllImagesinAlbum(parameter);
+                printTarget = model.getPhotoHandler(true).returnAllImagesinAlbum(parameter);
             }
 
             for (String name : printTarget) {
@@ -62,6 +62,8 @@ public class GoogleLsCommand extends GoogleCommand {
 
         } catch (ApiException api) {
             throw new CommandException(MESSAGE_CONNECTION_FAILURE + "\n\n" + MESSAGE_USAGE);
+        } catch (CommandException coEx) {
+            throw coEx;
         } catch (Exception ex) {
             throw new CommandException(FAILURE_MESSAGE + "\n\n" + MESSAGE_USAGE);
         }
