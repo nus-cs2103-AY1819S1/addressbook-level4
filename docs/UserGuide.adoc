@@ -44,7 +44,7 @@ image::tutorial/before-after.png[width:2000]
 
 **Ready to start your Piconso journey?**
 
-. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true[here] to get a zip file with all the assets you need to get started!
+. Head over to the link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true[here] to get a zip file with all the assets you need to get started! Alternatively, copy this link https://github.com/CS2103-AY1819S1-T09-3/main/blob/master/docs/images/tutorial/tutorial.zip?raw=true into your browser of choice.
 . Unzip the files into somewhere easy to access, like your Pictures folder.
 . Start Piconso!
 . Use the `cd` and `ls` commands to get to the folder with your unzipped assets. Your current file location is as noted on the bottom right of the application.
