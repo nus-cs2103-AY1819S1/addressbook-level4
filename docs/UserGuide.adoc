@@ -18,7 +18,7 @@ By: `CS2103-AY1819S1-T09-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Piconso is an image-editing desktop application that is *optimized for those who are familiar with Command Line Interface (CLI)*. If you can type fast, you may be able edit your images even faster than if you were on Photoshop!
+Piconso is an image-editing desktop application that supports popular file formats (gif, png, tiff and jpg). *Optimized for those who are familiar with Command Line Interface (CLI)*. If you can type fast, you may be able edit your images even faster than if you were on Photoshop!
 Even new users that are unfamiliar with CLI will be able to easily and quickly pick up image-editing with our simple to understand interface.  Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
