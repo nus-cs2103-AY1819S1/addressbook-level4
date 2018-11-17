@@ -21,15 +21,19 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    //@@author jjlee050
     /** {@code Predicate} that always evaluate to true */
     Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
 
+    //@@author jjlee050
     /** {@code Predicate} that always evaluate to true */
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
 
+    //@@author gingivitiss
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
+    //@@author iamjackslayer
     /** {@code Predicate} that always evaluates to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE = (person) -> {
         if (!(person instanceof Patient)) {
@@ -41,6 +45,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Consultation> PREDICATE_SHOW_ALL_CONSULTATIONS = unused -> true;
 
+    //@@author aaronseahyh
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
@@ -65,11 +70,13 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
+    //@@author jjlee050
     /**
      * Returns true if a patient with the same identity as {@code patient} exists in the ClinicIO.
      */
     boolean hasPatient(Patient patient);
 
+    //@@author jjlee050
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
      */
@@ -81,6 +88,7 @@ public interface Model {
      */
     void deletePerson(Person target);
 
+    //@@author jjlee050
     /**
      * Deletes the given patient.
      * The patient must exist in the ClinicIO.
@@ -93,18 +101,21 @@ public interface Model {
      */
     void addPerson(Person person);
 
+    //@@author jjlee050
     /**
      * Adds the given patient.
      * {@code patient} must not already exist in the ClinicIO.
      */
     void addPatient(Patient patient);
 
+    //@@author jjlee050
     /**
      * Adds the given staff.
      * {@code staff} must not already exist in the ClinicIO.
      */
     void addStaff(Staff staff);
 
+    //@@author jjlee050
     /**
      * Authenticate staff with staff record in ClinicIO.
      * {@code staff} must exist in ClinicIO.
@@ -124,12 +135,15 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    //@@author jjlee050
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
 
+    //@@author jjlee050
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
 
+    //@@author iamjackslayer
     /**
      * Updates the filter of the queue by the given {@code predicate}
      * @param predicate
@@ -142,12 +156,14 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    //@@author jjlee050
     /**
      * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
 
+    //@@author jjlee050
     /**
      * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -179,6 +195,7 @@ public interface Model {
      */
     void commitClinicIo();
 
+    //@@author gingivitiss
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
      */

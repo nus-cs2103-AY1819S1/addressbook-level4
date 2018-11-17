@@ -44,13 +44,18 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedClinicIo versionedClinicIo;
     private final FilteredList<Patient> allPatientsInQueue;
     private final FilteredList<Person> filteredPersons;
+    //@@author jjlee050
     private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Staff> filteredStaffs;
+    //@@author gingivitiss
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Consultation> filteredConsultations;
+    //@@author aaronseahyh
     private final FilteredList<Medicine> filteredMedicines;
+    //@@author iamjackslayer
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
+    //@@author arsalanc-v2
     private final Analytics analytics;
     //@@author iamjackslayer
     private UiManager uiManager = null;
@@ -69,6 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
         filteredPatients = new FilteredList<>(versionedClinicIo.getPatientList());
         filteredStaffs = new FilteredList<>(versionedClinicIo.getStaffList());
+        //@@author gingivitiss
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
         filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
         //@@author aaronseahyh
@@ -124,6 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.hasPerson(person);
     }
 
+    //@@author jjlee050
     @Override
     public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
@@ -189,6 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author jjlee050
     @Override
     public void deletePatient(Patient target) {
         versionedClinicIo.removePatient(target);
@@ -232,6 +240,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author jjlee050
     @Override
     public void addPatient(Patient patient) {
         versionedClinicIo.addPatient(patient);
@@ -239,6 +248,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
+    //@@author jjlee050
     @Override
     public void addStaff(Staff staff) {
         versionedClinicIo.addStaff(staff);
@@ -631,7 +641,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        //@@author jjlee050
+
         return versionedClinicIo.equals(other.versionedClinicIo)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredStaffs.equals(other.filteredStaffs)
