@@ -103,6 +103,7 @@ public class ClinicIoParserTest {
         assertEquals(new AddCommand(person), command);
     }
 
+    //@@author aaronseahyh
     @Test
     public void parseCommand_addMedicine() throws Exception {
         Medicine medicine = new MedicineBuilder().build();
@@ -110,6 +111,7 @@ public class ClinicIoParserTest {
                 (AddMedicineCommand) parser.parseCommand(MedicineUtil.getAddMedicineCommand(medicine));
         assertEquals(new AddMedicineCommand(medicine), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_addPatient() throws Exception {
@@ -132,12 +134,14 @@ public class ClinicIoParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_PATIENT), command);
     }
 
+    //@@author aaronseahyh
     @Test
     public void parseCommand_deleteMedicine() throws Exception {
         DeleteMedicineCommand command = (DeleteMedicineCommand) parser.parseCommand(
                 DeleteMedicineCommand.COMMAND_WORD + " " + INDEX_FIRST_MEDICINE.getOneBased());
         assertEquals(new DeleteMedicineCommand(INDEX_FIRST_MEDICINE), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_edit() throws Exception {
@@ -171,6 +175,7 @@ public class ClinicIoParserTest {
         assertEquals(new FindPatientCommand(new PatientNameContainsKeywordsPredicate(keywords)), command);
     }
 
+    //@@author aaronseahyh
     @Test
     public void parseCommand_findMedicine() throws Exception {
         List<String> keywords = Arrays.asList("paracetamol", "oracort", "ventolin");
@@ -179,6 +184,7 @@ public class ClinicIoParserTest {
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindMedicineCommand(new MedicineNameContainsKeywordsPredicate(keywords)), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_exportPatients() throws Exception {
@@ -239,12 +245,14 @@ public class ClinicIoParserTest {
         assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD + " 3") instanceof ListPatientCommand);
     }
 
+    //@@author aaronseahyh
     @Test
     public void parseCommand_listMedicine() throws Exception {
         assertTrue(parser.parseCommand(ListMedicineCommand.COMMAND_WORD) instanceof ListMedicineCommand);
         assertTrue(parser.parseCommand(ListMedicineCommand.COMMAND_WORD + " 3")
                 instanceof ListMedicineCommand);
     }
+    //@@author
 
     @Test
     public void parseCommand_patientStatistics() throws Exception {
@@ -304,12 +312,14 @@ public class ClinicIoParserTest {
         assertEquals(new SelectCommand(INDEX_FIRST_PATIENT), command);
     }
 
+    //@@author aaronseahyh
     @Test
     public void parseCommand_selectMedicine() throws Exception {
         SelectMedicineCommand command = (SelectMedicineCommand) parser.parseCommand(
                 SelectMedicineCommand.COMMAND_WORD + " " + INDEX_FIRST_MEDICINE.getOneBased());
         assertEquals(new SelectMedicineCommand(INDEX_FIRST_MEDICINE), command);
     }
+    //@@author
 
     @Test
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {

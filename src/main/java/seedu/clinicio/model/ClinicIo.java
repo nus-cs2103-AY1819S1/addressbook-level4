@@ -91,6 +91,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         this.patients.setPatients(patients);
     }
 
+    //@@author jjlee050
     /**
      * Replaces the contents of the staff list with {@code staff}.
      * {@code staff} must not contain duplicate staff.
@@ -99,6 +100,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         this.staffs.setStaffs(staff);
     }
 
+    //@@author gingivitiss
     /**
      * Replaces the contents of the appointment list with {@code appointments}.
      * {@code appointments} must not contain duplicate persons.
@@ -122,9 +124,12 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public void resetData(ReadOnlyClinicIo newData) {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
+        //@@author jjlee050
         setPatients(newData.getPatientList());
         setStaffs(newData.getStaffList());
+        //@@author gingivitiss
         setAppointments(newData.getAppointmentList());
+        //@@author aaronseahyh
         setMedicines(newData.getMedicineList());
     }
 
@@ -147,6 +152,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         return patients.contains(patient);
     }
 
+    //@@author jjlee050
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
      */
@@ -210,6 +216,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         persons.add(p);
     }
 
+    //@@author jjlee050
     /**
      * Adds a patient to the ClinicIO.
      * The patient must not already exist in the ClinicIO.
@@ -218,6 +225,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         patients.add(p);
     }
 
+    //@@author jjlee050
     /**
      * Adds a staff to the ClinicIO.
      * The staff must not already exist in the ClinicIO.
@@ -253,6 +261,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         medicines.add(newMedicine);
     }
 
+    //@@author jjlee050
     /**
      * Authenticate staff with staff record in ClinicIO.
      * This staff must exist inside ClinicIO.
@@ -319,6 +328,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         persons.remove(key);
     }
 
+    //@@author jjlee050
     /**
      * Removes {@code key} from this {@code ClinicIo}.
      * {@code key} must exist in the ClinicIO.
@@ -368,7 +378,6 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     @Override
     public String toString() {
-        //@@author jjlee050
         return persons.asUnmodifiableObservableList().size() + " persons & "
                 + patients.asUnmodifiableObservableList().size() + " patients & "
                 + staffs.asUnmodifiableObservableList().size() + " staffs & "
@@ -382,11 +391,13 @@ public class ClinicIo implements ReadOnlyClinicIo {
         return persons.asUnmodifiableObservableList();
     }
 
+    //@@author jjlee050
     @Override
     public ObservableList<Patient> getPatientList() {
         return patients.asUnmodifiableObservableList();
     }
 
+    //@@author jjlee050
     @Override
     public ObservableList<Staff> getStaffList() {
         return staffs.asUnmodifiableObservableList();
@@ -429,7 +440,6 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     @Override
     public int hashCode() {
-        //@@author jjlee050
         return Objects.hash(persons.hashCode(), patients.hashCode(),
                 staffs.hashCode(), appointments.hashCode(), medicines.hashCode());
     }
