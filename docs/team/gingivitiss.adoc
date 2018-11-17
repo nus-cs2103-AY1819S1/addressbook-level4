@@ -1,0 +1,70 @@
+= Sophia Simangan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ClinicIO
+
+---
+
+== Overview
+
+ClinicIO is a clinic management application developed during the course of the Software Engineering module CS2103T. The
+application targets clinic receptionists and doctors. It provides a streamlined set of operations users can carry out
+with ease and efficiency. Said operations range from the ability to effortlessly manage queues to accessing clinic
+statistics. A unique feature that separates ClinicIO from other clinic software is that it relies on command inputs to execute
+tasks.
+
+In the project, I was responsible for maintaining a consistent and good standard of code quality. This meant reviewing
+every individual team member's code contributions.
+
+Additionally, I was also in charge of the 'Model' component of the
+software. It required a clear and thorough understanding of the component. I ensured that any code implementations
+regarding the 'Model' component gelled well with one another to create an overall cohesive component.
+
+This portfolio contains a compilation of my contributions throughout the ClinicIO project.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to create/cancel appointments*
+
+** What it does: This feature provides users the ability to manage appointments with ease.
+
+** Justification: This feature greatly improves the product as it meets the necessary demands a receptionist faces on a
+day-to-day basis, i.e. Booking appointments.
+
+** Highlights: Appointments, in reality, rely heavily on different components such as patients and assigned doctors to be booked.
+The challenge in implementing this feature was creating functional appointments that worked as independently as possible from patients
+and doctors in order to work within coding principles.
+
+** Code snippet for cancelling an appointment:
+`model.cancelAppointment(targetAppointment);`
+
+* *Code contributed*
+*** The following link contains all the code contributed throughout the entire project:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=gingivitiss&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[all code]
+
+* *Documentation*:
+*** Added command information regarding the appointment feature into the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/119[1]
+*** Updated pre-existing Redo/Undo implementation in developer guide: https://github.com/CS2103-AY1819S1-W14-1/main/commit/0c34c6622916530f30ecb7935e8ca9449eff7be0[2]
+
+* *Code reviewed*:
+*** Checked code quality: https://github.com/CS2103-AY1819S1-W14-1/main/pull/226[3]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=appointmentcommands]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=apptfeature]
+
+

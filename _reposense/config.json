@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "aaronseahyh",
+      "displayName": "AARON...YUHAO",
+      "authorNames": ["aaronseahyh"]
+    },
+    {
+      "githubId": "arsalanc-v2",
+      "displayName": "ARSAL...HEEMA",
+      "authorNames": ["arsalanc-v2", "Arsalan", "Arsalan Cheema"]
+    },
+    {
+      "githubId": "jjlee050",
+      "displayName": "Lee Zhuo Xun",
+      "authorNames": ["jjlee050", "Joseph", "Joseph Lee Zhuo Xun"]
+    },
+    {
+      "githubId": "gingivitiss",
+      "displayName": "SIMAN...MAGIS",
+      "authorNames": ["gingivitiss"]
+    },
+    {
+      "githubId": "iamjackslayer",
+      "displayName": "WONG ... JACK",
+      "authorNames": ["iamjackslayer", "Jack Wong"]
+    }
+  ]
+}

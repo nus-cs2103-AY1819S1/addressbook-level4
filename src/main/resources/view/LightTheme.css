@@ -1,0 +1,229 @@
+/**
+ * @@author: jjlee050
+ **/
+@font-face {
+    font-family: 'Opensans-Regular';
+    src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-Light';
+    src: url('../fonts/OpenSans-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-LightItalic';
+    src: url('../fonts/OpenSans-LightItalic.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-SemiBold';
+    src: url('../fonts/OpenSans-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-SemiBoldItalic';
+    src: url('../fonts/OpenSans-SemiBoldItalic.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-Italic';
+    src: url('../fonts/OpenSans-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-ExtraBold';
+    src: url('../fonts/OpenSans-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-ExtraBoldItalic';
+    src: url('../fonts/OpenSans-ExtraBoldItalic.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-Bold';
+    src: url('../fonts/OpenSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Opensans-BoldItalic';
+    src: url('../fonts/OpenSans-BoldItalic.ttf');
+}
+
+.root {
+    -fx-font-family: "Opensans-Regular";
+    -fx-font-size: 12pt;
+}
+
+.text-field {
+    -fx-font-size: 14pt;
+    -fx-border-radius: 10px;
+}
+
+.result-display {
+    -fx-font-size: 14pt;
+    -fx-border-radius: 10px;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+}
+
+#cardPane {
+    -fx-padding: 8 0 8 0;
+}
+
+.card {
+    -fx-border-color: #D2D2D2;
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-padding: 8 8 8 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 8, 0, 0, 0);
+}
+
+.list-cell:filled:selected .card {
+    -fx-background-color: #e2e2e2;
+}
+
+.list-view:focused .list-cell:filled:selected .card {
+    -fx-background-color: #21777B;
+}
+
+.list-cell:filled:hover .card {
+    -fx-background-color: #21777B;
+}
+
+.list-cell:hover .label {
+    -fx-text-fill: white;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-text-fill: #1e2611;
+    -fx-background-color: #b5fe2b;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+/** Scroll Bar */
+.scroll-bar {
+    -fx-background-color: derive(#e2e2e2, 50%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#e2e2e2, 20%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+/** Menu Bar */
+.context-menu {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Opensans-SemiBold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+
+/** Tab Pane */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane {
+    -fx-tab-min-width: 64px;
+    -fx-tab-max-width: 64px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+.tab-pane, .tab-content-area {
+    -fx-border-width: 1px;
+    -fx-border-color: #D2D2D2;
+}
+
+.tab:selected, .tab:hover {
+    -fx-background-color: #21777B;
+}
+
+#patientTabLists {
+    -fx-border-width: 0px;
+}
+
+#patientTabLists .tab-header-area {
+    -fx-border-width: 0px;
+}
+
+#patientTabLists .tab-pane {
+    -fx-tab-min-width: 340px;
+    -fx-tab-max-width: 340px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+
+/** Title Screen */
+.title-screen-header {
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+}
+
+.title-screen-subtitle {
+    -fx-font-size: 21px;
+    -fx-font-style: italic;
+}
+
+/** Patient Details */
+.patient-details-title {
+    -fx-font-size: 42px;
+}
+
+/** Medicine Details */
+.medicine-details-title {
+    -fx-font-size: 42px;
+}
+
+.medicine-details-text {
+    -fx-font-size: 16px;
+}

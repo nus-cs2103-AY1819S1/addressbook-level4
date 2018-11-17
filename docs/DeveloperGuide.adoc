@@ -1,5 +1,4 @@
-= AddressBook Level 4 - Developer Guide
-:site-section: DeveloperGuide
+﻿:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -13,13 +12,45 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W14-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+= ClinicIO - Developer Guide
 
-== Setting up
+Thank you for your interest in contributing to ClinicIO! +
 
-=== Prerequisites
+By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
+
+= About this guide
+
+This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features and cover everything you need to know
+when developing ClinicIO.
+
+This guide assume that readers has certain developers knowledge with Java and JavaFX.
+
+If you are new to development, you can try working step-by-step tutorial from Oracle:
+
+- https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
+- https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
+
+If you are new to contributing to ClinicIO, head over to <<intro, Introduction>> to have
+an overview of our project.
+
+[[intro]]
+== Introduction
+
+ClinicIO is a desktop app to enable you to manage a clinic with ease and efficiency. You can use ClinicIO to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
+
+Go to the <<installation-guide, Section 2, “Installation Guide”>> to get started on install ClinicIO. +
+
+[[installation-guide]]
+== Installation Guide
+
+This section is designed to help you to setup ClinicIO development environment.
+
+**Prerequisites** +
+
+Before you start setting up the project, here are the list of things that you need to install: +
 
 . *JDK `9`* or later
 +
@@ -33,8 +64,9 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+=== Instructions to setup the project in your computer
 
-=== Setting up the project in your computer
+Follow these steps to setup ClinicIO development environment in your local computer:
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -54,10 +86,15 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+Please ensure that you verify that the project environment is able to run as expected before developing. You can verify by doing the following:
+
+. Run the `seedu.clinicio.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+
+Well done. You are done setting up the project environment. Before you start developing,
+here are the list of configurations that you need to make:
 
 ==== Configuring the coding style
 
@@ -74,9 +111,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `ClinicIO`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -96,14 +133,14 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
+You are now ready to start coding. You can do the following to get started:
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section is designed to help you to understand the overall design of ClinicIO.
 
 [[Design-Architecture]]
 === Architecture
@@ -152,7 +189,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the ClinicIO data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -167,16 +204,18 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+This section introduces you to the UI component of ClinicIO's architecture.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
-
+{sp} +
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PatientListPanel`, `StatusBarFooter`, `PatientDetailsDisplayPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component does the following:
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -194,7 +233,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a patient) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -213,12 +252,12 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the ClinicIO data.
+* exposes an unmodifiable `ObservableList<E>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `ClinicIO`, which `Patient` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Patient` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -233,69 +272,174 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the ClinicIO data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.clinicio.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::queue[]
+=== Queue feature
+This feature allows the user to perform operations related to the queue. In particular, it provides the functionality to assign a patient into the queue, remove a patient from the queue and show the list of patients in the queue.
+
+==== Current Implementation
+The Queue feature contains several operations to indirectly manipulate the two queues underlying the `patientQueue`.
+The two queues are `mainQueue` and `preferenceQueue`, both of which are hidden from the end user. To the end user, there
+exists only one queue. When a patient gets assigned to the queue without any preferred doctor, the patient will be inserted into
+the `mainQueue`. In the scenario where a patient has a preferred doctor, the patient will be inserted into the
+`preferenceQueue`. +
+
+When a room is available, the system will look for the first patient in the `preferenceQueue` whose preferred doctor is in the room.
+It will then compare this patient with the frontmost patient from the `mainQueue` on their arrival time. The patient who arrives
+earlier will get to consult the doctor. +
+
+Both queues are composed of `java#ArrayList`.
+This allows the system to handle the situation where a patient in the middle of the queue decides to leave the queue. +
+
+The implemented operations for Queue are: +
+
+* `enqueuepatient` Command - Assigns a patient into the queue. +
+* `dequeuepatient` Command - Removes a patient from anywhere in the queue. +
+* `showqueue` Command - Shows a list of all patients in the queue. +
+
+Given below is an example usage scenario and how the queue-related operations behave at each step. +
+
+Step 1: The user lists all the patients using the `list` command. All patients in the ClinicIO record are be displayed. +
+
+Step 2: The user executes `enqueuepatient 5` command to assign the 5th patient in the list into the queue. This patient has no preferred doctor. Now the queue has 1 patient. Underlying the queue, the patient is assigned into `mainQueue`. The `preferenceQueue` remains empty: +
+
+image::q1.png[]
+
+image::q2.png[]
+
+Step 3: The user finds all patients with names `Damith` using `find Damith` command. All patients with names `Damith` in the ClinicIO record will be displayed. +
+
+Step 4: The user executes `enqueuepatient 2` to assign the 2nd patient whose name contains `Damith` into the queue. This patient has a preferred doctor. Now the queue has 2 patients. Underlying the queue, this patient is assigned into `preferenceQueue`: +
+
+image::q3.png[]
+
+image::q4.png[]
+
+Step 5: The user keeps adding patients until there are 5 patients in the queue. The `mainQueue` and `preferenceQueue` look like this: +
+
+image::q5.png[]
+
+The end user only sees one queue: +
+
+image::q6.png[]
+
+Step 6: The user lists all patients in the queue by using `showqueue` command. All patients currently waiting in the queue are displayed.
+
+==== Design Considerations
+
+===== Aspect: How enqueuepatient command executes
+
+* **Alternative 1 (current choice):** Inserts the patient into one of the two underlying queues.
+** Pros: Easier to implement. Slightly faster than the other alternative.
+** Con: May have performance issue in terms of memory usage.
+* **Alternative 2:** Inserts the patient into only one queue.
+** Pro: Uses less memory as only one data structure is needed.
+** Con: Worse time complexity than the current implementation.
+
+===== Aspect: How dequeuepatient command executes
+
+* **Alternative 1 (current choice):** Looks for the queue (mainQueue or preferenceQueue) from which the patient is to be removed. Then searches for the patient and removes from the queue.
+** Pro: Slightly faster than the other alternative.
+** Con: May have performance issue in terms of memory usage.
+* **Alternative 2:** Naively looks for the patient in the queue, assuming Alternative 2 of `enqueuepatient` command is used (only one underlying queue).
+** Pros: Uses less memory. Easy to implement as only one naive search is required.
+** Con: Worse time complexity than the current implementation.
+
+===== Aspect: How showqueue command executes
+
+* Shows a list of patients filtered according to `Patient#isQueuing()` which is basically the queuing status of the patient.
+
+
+===== Aspect: Data structures to support the queue-related commands
+
+* **Alternative 1 (current choice):** Uses two ArrayLists to store the patients.
+** Pros: Easier to implement. Provides more functionalities compared to Queues/LinkedList.
+** Con: Uses more memory than using only one ArrayList.
+* **Alternative 2:** Uses one ArrayList to store the patients.
+** Pro: Uses less memory than Alternative 1.
+** Con: Worse time complexity when looking for a particular patient.
+* **Alternative 3: ** Uses Queue/LinkedList
+** Pro: Easy to implement. Very fast operation for popping the frontmost patient.
+** Con: Limited functionalities. Removing a patient from the middle of the data structure requires extra codes.
+// end::queue[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedClinicIo`.
+It extends `ClinicIO` with an undo/redo history, stored internally as an `clincIoStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedClinicIo#commit()` -- Saves the current ClinicIO state in its history.
+* `VersionedClinicIo#undo()` -- Restores the previous ClinicIO state from its history.
+* `VersionedClinicIo#redo()` -- Restores a previously undone ClinicIO state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitClinicIo()`, `Model#undoClinicIo()` and `Model#redoClinicIo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedClinicIo` will be initialized with the initial ClinicIO state, and the `currentStatePointer` pointing to that single Clinic IO state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the ClinicIO. The `delete` command calls
+`Model#commitClinicIo()`, causing the modified state of the ClinicIO after the `delete 5` command executes to be
+saved in the `clinicIoStateList`, and the `currentStatePointer` is shifted to the newly inserted ClinicIO state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new patient. The `add` command also calls `Model#commitClinicIo()`,
+causing another modified ClinicIO state to be saved into the `clinicIoStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitClinicIo()`, so the ClinicIO state will not be saved
+into the `clinicIoStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoClinicIo()`, which will shift the `currentStatePointer` once to
+the left, pointing it to the previous ClinicIO state, and restores the ClinicIO to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial ClinicIO state, then there are no previous ClinicIO
+states to restore. The `undo` command uses `Model#canUndoClinicIo()` to check if this is the case. If so, it will return
+an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoClinicIo()`, which shifts the
+`currentStatePointer` once to the right, pointing to the previously undone state, and restores the ClinicIO to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `clinicIoStateList.size() - 1`, pointing to the latest ClinicIO state, then
+there are no undone ClinicIO states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the ClinicIO, such as `list`,
+will usually not call `Model#commitClinicIo()`, `Model#undoClinicIo()` or `Model#redoClinicIo()`. Thus, the
+`clinicIoStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitClinicIo()`. Since the `currentStatePointer` is not pointing
+at the end of the `clinicIoStateList`, all ClinicIO states after the `currentStatePointer` will be purged. We designed
+it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that
+most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,29 +451,665 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire ClinicIO.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of ClinicIO states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedClinicIo`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+//tag::apptfeature[]
+=== Appointment feature
+The Appointment feature provides users the ability to schedule future appointments, view daily appointment
+schedules and to cancel them.
 
-// end::dataencryption[]
+==== Current Implementation
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueAppointmentList`.
+The implemented operations include: +
+
+* `addappt` Command - Adds appointments to the appointment schedule.
+* `listappt` Command - Lists the appointment schedule of the date specified.
+* `listallappt`Command - Lists all appointments.
+* `cancelappt` Command - Cancels appointments found within the appointment schedule.
+
+The class diagram below illustrates the interactions between the Appointment class and associated classes.
+
+.Appointment class diagram.
+image::ApptClassDiagram.PNG[width=""]
+
+Each `Appointment` object consists of a `Date`, `Time`, `Patient` and `Optional<Staff>`.`Patient` contains an
+`Optional<Staff>#preferredDoctor` and is assigned to the `Appointment` object. The
+`UniqueAppointmentList` contains 0 or more `Appointment` s.
+
+The current implementation of `Appointment` has the `Patient` object as a separate entity from the `Patient` s in
+`UniquePatientList`. This means that the `Patient` object only exists within the context of the `Appointment` object,
+or according to the diagram, would be destroyed if the `Appointment` object is destroyed (composition). Likewise, the
+`Optional<Staff>` would be destroyed if the `Appointment` object is destroyed too.
+
+In future implementations, i.e. v2.0, the `Patient` object will be checked if it exists within the `Model#UniquePatientList`
+before constructing the `Appointment` object. This ensures that the `Patient` is registered before making an
+appointment.
+
+==== `addappt` Command
+
+The `addappt` command behaves similarly to the `add` command used for `Patient` and `Doctor`. The command takes in the
+parameters required to construct `Date`, `Time` and takes in `Patient` details. Patient parameters will be simplified
+upon the complete implementation of the `Patient` class  in v2.0. The image below shows how the `Appointment` object is
+constructed.
+
+[NOTE]
+The image does not include the method calls to construct a `Patient` object.
+
+.Appointment Construction Process in addappt Command.
+image::AddApptSequenceDiagram.PNG[width=""]
+
+After the construction of the appointment, the appointment is added into the `UniqueAppointmentList` found in the
+`ClinicIo` class. The changes done to the list are then 'saved' via the `commitClinicIo` method.
+
+This means that this command can be undone or redone.
+
+==== `listappt` Command
+
+The `listappt` command searches for appointments that land on the date that was entered by the user.
+The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueAppointmentList`
+using `AppointmentContainsDatePredicate` which is created from the `Date` argument supplied by the user.
+
+==== `listallappt` Command
+
+The `listallappt` behaves similarly to `listappt` with the exception that it does not take in any arguments.
+Instead, it automatically executes `ListAllApptCommand` with the predicate `SHOW_ALL_FILTERED_APPOINTMENTS`.
+`updateFilteredAppointmentList()` is called and the entire list of appointments is shown to the user.
+
+==== `cancelappt` Command
+
+`cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
+
+.Sequence diagram of cancelappt.
+image::CancelApptSequenceDiagram.PNG[width=""]
+
+The index is parsed using the `parseIndex()` and is used in `execute()`. A filtered
+appointment list (`lastShownList`) is retrieved and the index is used to get the `targetAppointment`.
+
+The `cancelAppointment()` method, under `Model`, is then called on the `targetAppointment`. The process of cancellation
+has two parts, `cancelAppointment` and `removeAppointment`. `ClinicIO#cancelAppointment` simply changes the status of the appointment and
+adds it to the `Patient` s `AppointmentHistory` (not shown). `ClinicIO#removeAppointment` actually removes the appointment from the
+`UniqueAppointmentList`.
+
+[NOTE]
+Due to the current composition relationship between the `Appointment` class and `Patient` class, the additional tasks
+of changing appointment status and addition into the patient's appointment history seems redundant. In v2.0, the usage of
+pre-existing patients to make appointments will make these additional tasks more useful.
+
+==== Design Considerations
+===== Aspect: How to store Date and Time fields
+* **Alternative 1 (current choice):** Store as integers
+** Pros: Makes it easier to calculate timings and clashes between multiple dates and times.
+** Cons: Requires additional code to store and interact with other common methods that rely on Strings.
+* **Alternative 2:** Store as Strings
+** Pros: Makes it easier to implement.
+** Cons: Requires additional code to convert into integers when carrying out calculating methods.
+
+===== Aspect: How to cancel appointments
+* **Alternative 1 (current choice):** Differentiate between cancellation and deletion
+** Pros: Reduces the occurrences of directly manipulating a Patient's history. It also upholds the
+Separation of Concerns Principle.
+** Cons: Violates Don't Repeat Yourself Principle.
+* **Alternative 2:** Lump deletion into cancellation
+** Pros: Makes it easier to implement and prevents redundancy in code.
+** Cons: Violates Separation of Concerns Principle.
+
+===== Aspect: How to display appointments
+* **Alternative 1 (current choice):** Display appointments in a tab
+** Pros: Creates an intuitive and easily navigable screen to access appointments.
+** Cons: Decreases the efficiency of CLI by having to use GUI inputs.
+* **Alternative 2:** Have appointments appear when using an appointment command
+** Pros: Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
+** Cons: Increases difficulty in freely accessing appointments.
+
+//end::apptfeature[]
+
+// tag::medicineinventory[]
+=== MedicineInventory
+==== Current Implementation
+
+The `MedicineInventory` extends `ClinicIO` with a medicine inventory. The `MedicineInventory` provides the user with an
+organised system to manage the medicines in the clinic.
+
+It implements the following operations:
+
+* `MedicineInventory#hasMedicine(MedicineName medicineName)` -- Checks if the `MedicineInventory` contains the
+`Medicine` with name `medicineName`.
+* `MedicineInventory#addMedicine(MedicineName medicineName, Medicine newMedicine)` -- Adds `newMedicine` to the
+`MedicineInventory` with its `medicineName`.
+* `MedicineInventory#updateMedicineQuantity(MedicineName medicineName, MedicineQuantity newQuantity)` -- Updates the
+`MedicineQuantity` of the `Medicine` with name `medicineName` with the `newQuantity` in the `MedicineInventory`.
+* `MedicineInventory#deleteMedicine(MedicineName medicineName)` -- Deletes the `Medicine` with name `medicineName` from
+the `MedicineInventory`.
+
+These operations are exposed in the `Model` interface as `Model#hasMedicine(MedicineName medicine)`,
+`Model#addMedicine(MedicineName medicineName, Medicine medicine)`, `Model#updateMedicine(MedicineName target,
+MedicineQuantity newQuantity)`, and `Model#deleteMedicine(MedicineName medicine)` respectively.
+
+Given below is an example usage scenario and how the `MedicineInventory` behaves at each step.
+
+Step 1. The user launches the ClinicIO application. The empty `MedicineInventory` will be initialized at the same time
+as the `ClinicIO`.
+
+Step 2. The user executes `addmed mn/Paracetamol mt/tablet ed/2 ld/8 mp/0.05 mq/1000` command to add a new `Medicine` to
+the `MedicineInventory`. The `addmed` command creates a new `Medicine` `newMedicine` with the fields specified by the
+command and calls `Model#addMedicine(Paracetamol)`. This adds a new entry into `MedicineInventory`.
+
+Step 3. The user execute `listmed` command to view the list of all `Medicine`s in the `MedicineInventory`.
+
+Step 4. The user executes `increasemed 1 mq/500` command to increase the current `MedicineQuantity` of the `Medicine` at
+`index 1` in the `Medicine List` by `500` units. The `increasemed` command first checks if the `MedicineInventory`
+contains a `Medicine` at `index 1`. Next, the `increasemed` command adds `500` to the current `MedicineQuantity`, and
+calls `Model#updateMedicine(Paracetamol, increasedQuantity)`. This updates the `MedicineQuantity` data attribute of the
+`Medicine` with `MedicineName` `Paracetamol` in the `MedicineInventory` with the latest quantity `increasedQuantity`.
+
+[NOTE]
+In the example outlined in Step 4, if the `Model#hasMedicine(Paracetamol)` returns false, the `MedicineInventory` does
+not contain a `Medicine` with `MedicineName` `Paracetamol`, and will not call
+`Model#updateMedicine(Paracetamol, increasedQuantity)`. This prevents the user from adding extra quantity to a
+`Medicine` that does not exist in the `MedicineInventory`.
+
+Step 5. The user executes `decreasemed 1 q/20` command to decrease the current `MedicineQuantity` of the `Medicine` at
+`index 1` in the `Medicine List` by `20` units. The `decreasemed` command first checks if the `MedicineInventory`
+contains a `Medicine` at `index 1`. Next, the `decreasemed` command subtracts `20` from the current `MedicineQuantity`,
+and calls `Model#updateMedicine(Paracetamol, decreasedQuantity)`. This updates the `MedicineQuantity` data attribute of
+the `Medicine` with `MedicineName` `Paracetamol` in the `MedicineInventory` with the latest quantity `decreasedQuantity`.
+
+[NOTE]
+In the example outlined in Step 5, if the current value of the `MedicineQuantity` of the `Medicine` with `MedicineName`
+`Paracetamol` is less than `20`, the `MedicineInventory` does not contain enough quantity of `Medicine` with
+`MedicineName` `Paracetamol` to prescribe to the `Patient`, and will not call `Model#updateMedicine(Paracetamol,
+decreasedQuantity)`. This prevents the user from getting a negative value for `MedicineQuantity` of a `Medicine`
+in the `MedicineInventory`.
+
+Step 6. The user executes `deletemed 1` command to delete the `Medicine` at `index 1` in the `Medicine List`. The
+`deletemed` command first checks if the `MedicineInventory` contains a `Medicine` at `index 1`. Next, it calls
+`Model#deleteMedicine(Paracetamol)` to delete the `Medicine` with `MedicineName` `Paracetamol` from the
+`MedicineInventory`. Now the `MedicineInventory` is empty.
+
+[NOTE]
+In the example outlined in Step 6, if the `Model#hasMedicine(Paracetamol)` returns false, the `MedicineInventory` does
+not contain a `Medicine` with `MedicineName` `Paracetamol`, and will not call `Model#deleteMedicine(Paracetamol,
+increasedQuantity)`. This prevents the user from deleting a `Medicine` that does not exist in the `MedicineInventory`.
+
+==== Design Considerations
+
+===== Aspect: How to implement different protocols for `Medicine` with different `MedicineType` when managing the `MedicineInventory`
+
+* **Alternative 1 (current choice):** Use one `MedicineInventory` and implement different protocols for each
+`MedicineType`.
+** Pros: Uses less memory.
+** Cons: Complicates implementation.
+* **Alternative 2:** Use different `MedicineInventory` for each `MedicineType`.
+** Pros: Uses more memory.
+** Cons: Eases implementation of logic for commands.
+
+==== Aspect: How to ensure that the `MedicineInventory` has sufficient `MedicineQuantity` of each `Medicine` at all times
+
+* **Alternative 1:** Design a predictive algorithm using data from `Analytics`.
+** Pros: Ensures that `MedicineInventory` will not have too large a surplus of un-prescribed `Medicine`.
+** Cons: Complicates implementation of logic and incorporation of data from `Analytics`.
+* **Alternative 2 (current choice):** Maintain a fixed amount of `MedicineQuantity` for each `Medicine` in the
+`MedicineInventory`.
+** Pros: Enables logic implementation to be easier and more straightforward.
+** Cons: Introduces the risk of ending up with too large a surplus of un-prescribed `Medicine`.
+// end::medicineinventory[]
+
+// tag::analytics[]
+=== Analytics feature
+
+==== Implementation
+The following class diagram represents the relationships between classes in the `analytics` package.
+
+image::AnalyticsClassDiagram.png[width="500"]
+
+The abstract `Statistics` class specifies methods for the computation and retrieval of two groups of statistics. The
+first group consists of statistics to be displayed as a summary while the second is for ones that are visualized. Each
+of the statistics classes inherit from `Statistics`. They are encapsulated in `Analytics` which acts as a
+wrapper class for the various statistics and employs the delegation pattern. Each of the statistics classes may depend
+on`DateUtil` and `TimeUtil`. These classes contain utility methods for date and time information such as the number of
+occurrences in a certain date or time period. The occurrences can be of events such as appointments.
+
+===== Data Management
+Each of the statistics classes depend on the following classes for storing data:
+
+* `StatData`:
+** acts as a structure to encapsulate all statistics data to be displayed for simpler transport from `Analytics` to
+`AnalyticsDisplay`.
+** contains `SummaryData` and `CircularList` objects. The latter stores `VisualizationData` objects.
+** interfaces directly with the statistics classes to receive data.
+** used by `AnalyticsDisplay` to obtain fields required to create summary and visualizations.
+
+* `SummaryData`:
+** acts as a structure to encapsulate information required to create summaries.
+** contains the following fields:
+*** `title`: the title of the summary information.
+*** `summaryElements`: the texts and their accompanying values.
+* `CircularList`:
+** used for storing `VisualizationData` objects. Allows visualizations to be cycled backwards and forwards on the user
+interface.
+* `VisualizationData`:
+** acts a structure to encapsulate information required to create visualizations.
+** contains the following fields:
+*** `id`: the id of the chart. Used as an identifier to apply Cascading Style Sheet (CSS) to style each chart
+individually.
+*** `type`: the type of the chart. May be either one of a vertical bar chart, horizontal bar chart, vertically stacked
+bar chart or a line chart.
+*** `isContinuous`: indicates if the chart is continuous or categorical. Used by `Plot` to create the appropriate chart.
+*** `chartTitle`: the title of the chart.
+*** `xTitle`: the title of the horizontal axis if the chart is vertical or the vertical axis if horizontal.
+*** `yTitle`: the title of the vertical axis if the chart is vertical or the horizontal axis if horizontal.
+*** `dataGroups`: the groups of data points to be plotted. [red]*Must* be the same in number as `dataGroupsLabels`.
+*** `dataGroupsLabels`: the label for each group of data. Used in the legend of the chart. [red]*Must* be the same in
+number as
+ `dataGroups`.
+* `Tuple`:
+** used to store pairs of values as a convenient means by which to transport data points.
+** used mostly within a `List`, allowing order to be preserved.
+
+==== Processes
+This section describes the processes that take place in order to display analytics.
+
+===== All Statistics Commands
+
+The following apply to all the different types of statistics:
+
+. `Analytics` updates the appropriate statistics object with the latest appropriate lists (e.g. appointments) from
+`ModelManager`.
+. The particular statistics object then calculates the summary for the various time periods mentioned above.
+. The particular statistics object then calculates data for one or more visualizations and updates `StatData`.
+. `Analytics` retrieves `StatData` from the statistics object and passes it to `ModelManager`.
+. `ModelManager` raises an `AnalyticsDisplayEvent` containing `StatData`.
+. `AnalyticsDisplay` retrieves `StatData` from `AnalyticsDisplayEvent` and passes it to `AnalyticsPlot`.
+. `AnalyticsPlot` updates the summary user interface.
+. `AnalyticsPlot` decides and plots the appropriate chart on the user interface.
+
+====== `patientstats` Command
+
+The following are the processes performed specifically by `PatientStatistics`:
+
+. `PatientStatistics` calculates the summary of the number of patients.
+. `PatientStatistics` calculates the number of patients for the following time periods in a day:
+** `9AM - 12PM`, `12PM - 3PM`, `3PM - 6PM`, `6PM -9PM`
+
+. `PatientStatistics` updates `StatData` with this data for a vertical bar chart visualization.
+. `PatientStatistics` calculates the total historical number of patients for each day in a week.
+. `PatientStatistics` updates `StatData` with this data for a vertical bar chart visualization.
+
+===== `apptstats` Command
+
+[NOTE]
+By default, 24 appointment slots are available in day.
+
+The following are the processes performed specifically by `AppointmentStatistics`:
+
+. `AppointmentStatistics` calculates the summary of the number of appointments.
+. `AppointmentStatistics` calculates the number of scheduled and available appointment slots for each day of the
+following week.
+. `AppointmentStatistics` updates `StatData` object with this data for a stacked bar chart visualization.
+. `AppointmentStatistics` calculates the number of scheduled appointments for each date in the current year.
+. `AppointmentStatistics` updates `StatData` object with this data for a line chart visualization.
+
+===== `doctorstats` Command
+
+The following are the processes performed specifically by `DoctorStatistics`:
+
+. `DoctorStatistics` calculates the summary of the average number of consultations per doctor.
+. `DoctorStatistics` calculates the number of patients who prefer each doctor.
+. `DoctorStatistics` updates `StatData` object with data for a horizontal bar chart visualization.
+
+==== Design Considerations
+===== Aspect: Computing statistics
+* **Alternative 1 (current choice):** Compute statistics only upon request
+** Pro: This reduces unnecessary computational workload.
+** Con: There is greater computational workload upon request of the statistics which may result in the user having to
+wait longer (if at all) to view them.
+* **Alternative 2:** Compute statistics every time there is a change in the underlying data
+** Pro: There is no chance of the user having to wait to view statistics.
+** Con: This increases the computational workload which may provide little benefit if statistics are not viewed
+frequently by the user.
+
+===== Aspect: User interface for the different types of statistics
+
+* **Alternative 1 (current choice):** Single, predetermined user interface
+** Pros: It is consistent, making it easier for users to process the information. It easier to implement due to the
+reusability of code.
+** Con: It lowers flexibility by mandating all statistics types to only have a summary and visualization component.
+* **Alternative 2:** Customized user interface for each type of statistic
+** Pro: It allows displays of quantitative information that are better suited for each individual statistics type. This
+results in greater flexibility even in the future as users may have changing analytics needs.
+** Cons: It may lower design consistency, forcing users to readjust each time they view it. It is more difficult to
+implement.
+* **Alternative 3:** Allow users to pick and choose which statistics they want to view.
+** Pro: This provides the greatest flexibility as users have total control in which statistics they view.
+** Cons: The burden is placed on the user having to decide which statistics they want to view. It is more difficult to
+implement as a consistent user interface needs to be designed to accomodate all the possible combinations.
+// end::analytics[]
+
+// tag::export[]
+=== Export feature
+The export feature allows users to extract patient related data out of the program, into Comma Separated Values(CSV)
+format.
+
+==== Current Implementation
+The following swimlane diagram represents the workflow of the export functionality.
+
+image::ExportSwimlaneDiagram.png[width="500"]
+
+The `ExportPatientData` class contains `static` methods for filtering and organizing the relevant data. These methods
+depend on a list of patients. It then passes the data to `ExportUtil` in order to write to a CSV file. `ExportUtil` also
+checks the validity of the data to be written. The names and locations of the CSV files are predetermined by
+`ExportPatientData`. All exported files are stored in the root folder of the program.
+
+The following operations are implemented: +
+
+* `exportpatients` Command - exports all patients' personal information into `ClinicIO_patientdata.csv`.
+* `exportpatientsappointments` Command - exports all patients' appointment records into `ClinicIO_patientsappointments
+.csv`.
+* `exportpatientsconsultations` Command - exports all patients' consultation records into
+`ClinicIO_patientsconsultations.csv`.
+
+==== Design Considerations
+===== Aspect: File format
+
+* **Alternative 1 (current choice):** CSV
+** Pros: It is human editable and has a simple schema, making it easier to understand. It is supported on all target
+platforms. Additionally, it is easier to implement.
+** Con: It does not allow complex relationships. This may result in repetitive data.
+* **Alternative 2:** XLS (Native Excel format)
+** Pros: It allows more complex relationships between data to be stored. Data can also be stored in the form of charts
+and graphs.
+** Cons: It is less widely supported and consumes more memory. It is also more difficult to implement.
+
+===== Aspect: File location and naming
+
+* **Alternative 1 (current choice):** File location and naming are predetermined within the program and they are to be
+stored in the root folder.
+** Pros: Users can easily find it as it is in the same location as the program and has a standard name. It also
+results in a quicker operation and is easier to implement.
+** Con: It reduces flexibility as another step is required if the user needs it in another directory.
+* **Alternative 2:** File location and naming are specifiable by user.
+** Pro: This would give users more control.
+** Cons: It results in a slower operation due to the time taken to enter filename and location. It is also more
+difficult to implement.
+// end::export[]
+
+// tag::login[]
+=== User Authentication
+
+ClinicIO ensures appropriate user access rights are issued by authenticating users at login.
+
+==== Current Implementation
+
+The User Authentication feature comprises of commands as below:
+
+* `login` Command: Allow users to login.
+* `logout` Command: Allow users to logout.
+
+The following class diagram below illustrates the association between the Staff class and its associated class.
+
+.Class Diagram for the Staff.
+image::LoginClassDiagram.png[width="1080"]
+
+===== `login` Command
+
+The `login` Command contains multiple operations to manipulate the `UniqueStaffList` indirectly.
+The implemented operations include: +
+
+* ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO
+* ClinicIo#getStaff(): Retrieve the staff record from the `UniqueStaffList`
+* Password#verifyPassword(): Check if password entered by user matches the staff record that was found in the `UniqueStaffList`
+
+These operations are exposed in the `Model` interface as `Model#checkStaffCredentials()`.
+
+`HashUtil` is used to manage the encryption and verification of password.
+
+These are operations inside `HashUtil`:
+
+- HashUtil#hashToString(): Hash the password
+- HashUtil#verifyPassword(): Check if the password matches the hashed password
+
+Given below is a scenario to illustrate the login authentication at each step: +
+
+Step 1: The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user. +
+
+Step 2: The `login` command calls `Model#hasStaff()` to ensure that this staff record exist inside ClinicIO. +
+
+Step 3: Once ClinicIO check if staff exists, the `login` command call `Model#checkStaffCred()` to retrieve the doctor found in `UniqueStaffList`. +
+
+Step 4: The `login` command verifies a password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by the user. +
+
+Step 5: To indicate successful completion of verification, the `login` command raises a `LoginSuccessEvent`. +
+
+The following sequence diagrams shows how the login works:
+
+**Logic**
+
+.Sequence Diagram for the `login` Command for the logic component.
+image::LoginLogicSequenceDiagram.png[width="1080"]
+{sp} +
+**Model**
+
+.Sequence Diagram for the `login` Command for the model component.
+image::LoginModelSequenceDiagram.png[width="1080"]
+{sp} +
+**Commons**
+
+.Sequence Diagram for the `login` Command for the commons component.
+image::LoginCommonsSequenceDiagram.png[width="1080"]
+{sp} +
+The following activity diagram summarizes what happens when a user executes `LoginCommand`:
+
+.Activity Diagram for the `login` Command
+image::LoginActivityDiagram.png[width="1080"]
+{sp} +
+
+===== `logout` Command
+
+The `logout` command post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
+the `EventCenter` to communicate between components without requiring the components to register with
+each other explicitly.
+
+Here is a step-by-step on how `logout` command notify `MainWindow` that you want to log out of ClinicIo: +
+
+Step 1: The `logout` command post a new `LogoutClinicIoEvent` to the `EventsCenter`.
+
+Step 2: The `eventBus` post the newly created `LogoutClinicIoEvent` (from Step 1) to make the event available to any listeners in `EventBus`.
+
+Step 3: ClinicIo will listen for `handleLogoutClinicIoEvent()` to receive the event and update the user session status.
+
+==== Design Considerations
+
+===== Aspect: Retrieval of password
+
+* *Alternative 1 (current choice)*: Create a `PasswordPrefixFormatter` to handle
+`CommandBox` whenever user type 'pass/' prefix.
+
+** Pros: More secure for being able to mask password.
+** Cons: Complex as it will require certain manipulation of the password in order to mask password.
+
+* *Alternative 2*: Open an additional alert window to prompt the user for a password.
+
+** Pros: Greater security as the entire password will be censored.
+** Cons: Require a new window to be opened.
+This will consume time depending on the system.
+In addition, this will detract from the user experience due to the shift in focus required.
+
+===== Aspect: Keep track of user session
+
+* *Alternative 1 (current choice)*: Have a `UserSession` class to handle user session
+
+** Pros : Allow developers to handle user session easily.
+** Cons : Too troublesome as user will to login to ClinicIO at every startup.
+
+* *Alternative 2*: Save user session state in a file.
+
+** Pros: More convenience for users as they does not need to login on every startup.
+** Cons: Less secure as users, who understand how ClinicIO works,
+could edit the role of the user to have unauthorised access
+to ClinicIO.
+
+// end::login[]
+
+// tag::patientManagement[]
+=== Patient Management feature
+
+ClinicIO provides a centralised patient management system to allow you to manage the clinic’s patient record more efficiently.
+This patient management is the equivalent of Create, Read, Update and Delete (CRUD).
+
+==== Current Implementation
+
+The Patient Management feature contains multiple operations to indirectly manipulate the `UniquePatientList`. The implemented operations include:
+
+* `addpatient`: Add patient in ClinicIO.
+* `listpatient`: Show all the patients in the ClinicIO record.
+* `findpatient`: Find the patient from the patient list.
+
+===== `addpatient` Command
+
+The `addpatient` command behaves similarly to the `add`. The command takes in parameters that required to construct patients `Nric`.
+The `AddPatientCommandParser` can parse command as usual despite not having a list of medical problems and medications, allergies and a preferred doctor.
+Furthermore, `addpatient` command requires user to be login as a receptionist in order to add patient. If the `preDr` prefix is being specify, user must ensure
+that the `preferredDoctor` exists inside the staff records.
+
+Here is a step-by-step on how `addpatient` command execute: +
+
+Step 1: The user executes the `addpatient` command. +
+
+Step 2: The `addpatient` command calls `UserSession#isLoginAsReceptionist()` to ensure that user is logged in as a receptionist. +
+
+Step 3: Once the verfication has been made, the `addpatient` command call `Model#hasPatient()` to avoid duplicate patient being added. +
+
+Step 4: Once the verfication has been made, the `addpatient` command call `Model#hasStaff()` and `preferredDoctor.getRole().equals(DOCTOR)` to check if the preferred doctor is a doctor in ClinicIO. +
+
+Step 5: Once the verfication has been made, the `addpatient` command call `Model#addPatient` to add patient to the patient record.
+
+Step 6: The `addpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+Step 7: The `addpatient` command call `Model#commitClinicIo()` to finalise the changes made to the patient record.
+
+Step 8: The `addpatient` command provide the success message to indicate that patient has been added to ClinicIO.
+
+The following code snippet shows how `addpatient` Command is executed:
+[source,java]
+----
+    @Override
+    public CommandResult execute(Model model, CommandHistory history)
+            throws CommandException {
+        requireNonNull(model);
+
+        if (!UserSession.isLoginAsReceptionist()) { # <1>
+            throw new CommandException(MESSAGE_NOT_LOGGED_IN_AS_RECEPTIONIST);
+        } else if (model.hasPatient(toAdd)) { # <2>
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        } else if ((toAdd.getPreferredDoctor().isPresent())
+                && (!isPreferredDoctor(model, toAdd.getPreferredDoctor().get()))) { # <3>
+            throw new CommandException(MESSAGE_NO_DOCTOR_FOUND);
+        }
+
+        model.addPatient(toAdd); # <4>
+        model.switchTab(0);
+        model.commitClinicIo();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));    }
+    }
+
+    /**
+     * Check if the staff is the preferred doctor.
+     * @param model The current model in ClinicIO
+     * @param preferredDoctor Patient's preferred doctor
+     * @return True if the staff is a doctor found in ClinicIO.
+     */
+    public boolean isPreferredDoctor(Model model, Staff preferredDoctor) {
+        requireNonNull(preferredDoctor);
+        boolean hasStaff = model.hasStaff(preferredDoctor);
+        boolean isDoctor = preferredDoctor.getRole().equals(DOCTOR);
+        return hasStaff && isDoctor;
+    }
+----
+<1> Check if user is login as receptionist.
+<2> Check if there is an existing patient record.
+<3> Check if the preferred doctor exist in the staff record.
+<3> Add patient to ClinicIO.
+
+===== `listpatient` Command
+
+The `listpatient` Command retrieve all patients in the `UniquePatientList` by creating a FilteredAppointmentList and display all patients in the `PatientListPanel`.
+
+Here is a step-by-step on how `listpatient` command execute: +
+
+Step 1: The user executes the `listpatient` command. +
+
+Step 2: The `listpatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `listpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList`. +
+
+Step 4: The `listpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+===== `findpatient` Command
+
+The `findpatient` Command find patient with the name as keywords using `PatientNameContainsKeywordsPredicate`.
+
+Here is a step-by-step on how `findpatient` command execute: +
+
+Step 1: The user executes the `findpatient` command by specifying all the names to search. +
+
+Step 2: The `findPatient` command calls `UserSession#isLogin()` to ensure that user is logged in. +
+
+Step 3: Once the verfication has been made, the `findpatient` command call `Model#updateFilteredPatientList()` to retrieve all patients found in `UniqueStaffList` containing keywords in `PatientNameContainsKeywordsPredicate`. +
+
+Step 4: The `findpatient` command raises a `SwitchTabEvent` to notify ui to switch tabs. +
+
+The following sequence diagram shows how `findpatient` command works:
+
+**Logic**
+
+.Sequence Diagram for the `findpatient` Command for the logic component.
+image::FindPatientLogicSequenceDiagram.png[width="1080"]
+{sp} +
+**Model**
+
+.Sequence Diagram for the `findpatient` Command for the model component.
+image::FindPatientModelSequenceDiagram.png[width="1080"]
+{sp} +
+**Commons**
+
+.Sequence Diagram for the `findpatient` Command for the commons component.
+image::FindPatientCommonsSequenceDiagram.png[width="1080"]
+{sp} +
+
+==== Design Considerations
+
+===== Aspect: Manipulate the list
+
+There are various places to execute command. Here are some options:
+
+* *Alternative 1 (current choice)*: Handle at the model component
+
+** Pros : Prevent logic from being heavy of data manipulaiton.
+** Cons : Too challenging to ensure all necessary methods are at the model.
+
+* *Alternative 2*: Handle at the logic component
+
+** Pros: Easy to implement by retrieving the `UniquePatientList` to do manipulation of data
+** Cons: Loses the purpose of having model and logic components. The logic will be
+loaded with codes while model will be light on codes.
+
+// end::patientManagement[]
 
 === Logging
 
@@ -353,19 +1133,21 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 == Documentation
 
-We use asciidoc for writing documentation.
+This section is designed for you to see how docuementation is being managed in ClinicIO.
+
+We use https://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc] for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
 === Editing Documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+You can visit <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
 === Publishing Documentation
 
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+You can visit <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
 === Converting Documentation to PDF format
 
@@ -458,6 +1240,9 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+This section is designed for you to understand
+the type of testing that our project uses and ways to run our tests. +
+
 === Running Tests
 
 There are three ways to run tests.
@@ -489,14 +1274,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.clinicio.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.clinicio.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.clinicio.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.clinicio.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -507,9 +1292,12 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
+This section is designed to guide you through on the Dev Ops tools and practices that is used to manage
+this project. +
+
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+We use https://gradle.org/[Gradle] to perform _Build Automation_. See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
 === Continuous Integration
 
@@ -522,6 +1310,12 @@ We use https://coveralls.io/[Coveralls] to track the code coverage of our projec
 === Documentation Previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
+=== User Interface Previews
+When a pull request has visual changes to the user interface (UI), you can use `git fetch upstream
+pull/ID/head:NEW_BRANCH_NAME` to obtain the changes locally in a new branch and see what the UI will look like when the
+pull request is merged. See https://help.github.com/articles/checking-out-pull-requests-locally/[local pull requests]
+for more details.
+
 === Making a Release
 
 Here are the steps to create a new release.
@@ -533,7 +1327,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, ClinicIO depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -560,7 +1354,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all patients in the list.
 +
 ****
 * Hints
@@ -576,20 +1370,20 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the ClinicIO, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the ClinicIO.
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`ClinicIO`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`ClinicIO`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`ClinicIO`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`ClinicIO`]. Loop through each patient, and remove the `tag` from each patient.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
@@ -598,12 +1392,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your ClinicIO application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last patient in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside patient cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -648,7 +1442,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the ClinicIO.
 +
 **Before**
 +
@@ -661,24 +1455,24 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the ClinicIO is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of patients when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of patients whenever there are new changes to the ClinicIO.
+** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of patient status, just like what we did for save location and sync status.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of patients status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the ClinicIO to the cloud. However, the current implementation of the application constantly saves the ClinicIO after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the ClinicIO storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the ClinicIO can be saved in a fixed temporary location.
 +
 ****
 * Hint
@@ -693,18 +1487,18 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `ClinicIO`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a patient specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
 * `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+Edits the remark for the first patient to `Likes to drink coffee.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first patient.
 
 ==== Step-by-step Instructions
 
@@ -738,7 +1532,7 @@ for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each patient later.
 
 **Main:**
 
@@ -767,11 +1561,11 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 **Main:**
 
 . Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the patient will be created without a remark).
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `clinicIo.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Patient` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -779,14 +1573,14 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsClinicIo.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Patient` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the patient that it is currently building.
 . Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
@@ -805,7 +1599,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a patient.
 
 **Tests:**
 
@@ -820,13 +1614,20 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Currently a receptionist at a medical clinic
+* Not tech savvy
+* Prefers desktop apps over other types
+* Can type fast
+* Prefer typing over mouse input
+* Reasonably comfortable using CLI apps
+* Able to handle multiple doctors
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Allow users to view data that serves as feedback on the functioning of a clinic.
+* Allow users to focus on attending to patients and providing a better experience.
+* Avoid critical errors stemming from inaccurate or incomplete paper records.
+* Improve visibility of a clinic's patient record and patient management process.
 
 [appendix]
 == User Stories
@@ -836,88 +1637,276 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |login |have access to confidental information relating to ClinicIO
 
-|`* * *` |user |add a new person |
+|`* * *` |medical clinic receptionist |view all patients record |see medical details of all patients
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |medical clinic receptionist |view a patient record |carry out tasks which require a patient's details
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |medical clinic receptionist |find a patient record |register patients for appointments
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |medical clinic receptionist |add a patient record |store patient details to make future tasks more convenient
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |medical clinic receptionist |edit a patient record |ensure a patient's details are up to date
+
+|`* * *` |medical clinic receptionist |delete a patient record |ensure records of only active patients are kept
+
+|`* * *` |medical clinic receptionist |assign a patient to a queue for any room |consultation can take place systematically and fairly
+
+|`* * *` |medical clinic receptionist |assign a queue number for each patient |patient can be called for consultation using his/her queue number
+
+|`* * *` |medical clinic receptionist |assign a patient to a queue based on his/her nric|I can quickly assign him/her
+
+|`* * *` |medical clinic receptionist |view the length of the queue|the logistic department can be informed to accomodate visitors
+
+|`* * *` |medical clinic receptionist |assign a patient with specific request to an individual queue for a room |patients can begin consultation quickly
+
+|`* * *` |medical clinic receptionist |view current patient number in the respective rooms |estimate the waiting for remaining patients
+
+|`* * *` |medical clinic receptionist |view the current waiting queue |be informed of the number of waiting patients and report as necessary
+
+|`* * *` |medical clinic receptionist |remove a patient from waiting queue |update the estimated waiting time for remaining patients
+
+|`* * *` |new user |see the app's tutorial |refer to instructions in case I am unsure of how to do something
+
+|`* * *` |medical clinic receptionist |export patient records in a human readable format |report this data to doctors or management
+
+|`* * *` |medical clinic receptionist |register a patient |assign patient to the waiting queue to consult a doctor
+
+|`*` |doctor |receive patient specific alerts upon their registration |be informed about the patient
+
+|`* * *` |medical clinic receptionist |view analytics |improve inefficiencies in the clinic's processes
+
+|`*` |medical clinic receptionist |alert patients via email |send them appointment reminders
+
+|`*` |medical clinic receptionist |patient medical information to the respective doctor |inform a doctor of their patient's medical history
+
+|`*` |medical clinic receptionist |prioritize doctors based on patient preference |enable patients to feel comfortable
+
+|`* * *` |medical clinic receptionist |update the drug inventory |ensure it is updated
+
+|`*` |medical clinic receptionist |group patients based on their diagnosis |analyze patient trends
+
+|`* *` |medical clinic receptionist |record medications prescribed to patients |keep track of a patient's drug history
+
+|`* *` |careless user |undo any command |revert any mistakes
+
+|`* * *` |medical clinic receptionist |request for a specific doctor for consultation |enable patients to feel comfortable
+
+|`* * *` |medical clinic receptionist |create an appointment  |book patients for consultations in advance
+
+|`* * *` |medical clinic receptionist |cancel an appointment |cancel appointments if a patient cannot make the date
+
+|`* * *` |medical clinic receptionist |view a list of appointments |enable receptionists to find free appointment slots
+
+|`* * *` |medical clinic receptionist |reschedule appointments |change appointment bookings in case of an error
+
+|`* *` |medical clinic receptionist |have a calendar view of appointments |provide easier viewing of the appointment schedule
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the program, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: View a patient's record
+
+Actors: <<medical-clinic-receptionist, Medical Clinic Receptionist>>, <<doctor, Doctor>> +
+Pre-condition: patient record must exist
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Actor(s) chooses to view a patients record
+2.  System retrieve and display the patients record details.
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The list is empty.
+* 2a. The system cannot find the patient's record.
+	- System displays an error message. "No record found."
++
+Use case ends
+
+=== Use case: Find patients record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+
+*MSS*
+
+1.  Actor requests to find patients record
+2.  System retrieve and display patient records relevant to search information.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+* 2a. No search information entered.
+	- System displays an error message. "No search information found."
++
+Use case ends
+* 3a. System cannot find patient record.
+	- System displays an error message. "No record found."
++
+Use case ends
+
+=== Use case: add a patient record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+
+*MSS*
+
+1.  Actor enters patient information
+2.  Actor requests to add patient record to the system.
+3. System display a successful message. “Patient added successfully.”
++
+Use case ends.
+
+*Extensions*
+
+* 2a. No information entered
+	- System displays an error message. "Please enter required information."
++
+Use case ends
+* 3a. Invalid information
+	- System displays an error message. "Invalid information entered".
++
+Use case resumes at step 1
+
+=== Use case: Edit patient record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+Pre-condition: Patient's record exists
+
+*MSS*
+
+1. Actor(s) request to retrieve patient’s record.
+2. System finds and displays patient’s record.
+3. Actor(s) request to edit patient’s record.
+4. Actor(s) selects field to edit and edits patient’s record.
+5. System requests confirmation of edit(s).
+6. Actor(s) confirm message.
+7. System updates patient’s record and displays edited record.
+8. System displays success message: “Record edited successfully”.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The system cannot find the requested patient's record.
+	- System displays an error message. "No record found."
++
+Use case ends.
+
+=== Use case: Delete patient record
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>>
+
+*MSS*
+
+1. Actor(s) request to retrieve a patient record.
+2. System find and display the patient record.
+3. Actor(s) request to delete patient record in the system.
+4. System request confirmation from Actor(s).
+5. Actor(s) confirm message.
+6. System delete patient record and displays a successful message. “Patient deleted successfully.”
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The system cannot find the requested patient's record.
+	- System displays an error message. "No record found."
++
+Use case ends.
+
+=== Use case: Assign patient to a different queue for each room
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+Pre-condition: Patient is registered.
+
+*MSS*
+
+1. Actor request to add patient to queue.
+2. System finds and displays queues for each room.
+3. Actor selects queue and adds patient to queue.
+4. System displays confirmation message for queue assignment.
+5. Actor confirms queue assignment.
+6. System adds patient to queue and returns queue numb
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The system cannot find the requested patient's record.
+	** 1a.1 System displays an error message. "No record found."
+	** 1a.2 System displays prompt to add patient
+	** 1a.3 Actor adds patient records
+	** 1a.4 Use case: Add patient record.
+	** 1a.5 Repeat MSS
++
+Use case ends.
+
+=== Use case: View ClinicIO analytics
+
+Actor: <<medical-clinic-receptionist, Medical Clinic Receptionist>> +
+
+*MSS*
+
+1. Actor requests to view ClinicIO analytics.
+2. System retrieves values and computes all statistics.
+3. System displays numerical summary and visualizations.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+This section describe other requirements that is not stated in the link:UserGuide.adoc[user guide].
 
-_{More to be added}_
+These are the list of non-functional requirements:
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should be able to hold up to 1000 concurrent users without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Provide a simple, clean and minimalist GUI interface for all read queries.
+.  User can use command line for all write queries.
+.  Should have a simple tutorial section to help ramp up new users to the system.
+.  Should be able to access offline in order to ensure smooth operations daily.
 
 [appendix]
 == Glossary
 
+This section is designed to provide you with definitions for
+terms that are used in this document below.
+
+[horizontal]
+
+[[CLI]] CLI::
+Command Line Interface
+
+[[crud]] Create, Read, Update and Delete (CRUD)::
+These are the basic functions of a persistent database.
+
+[[doctor]] Doctor::
+A person who is qualified to treat people who are ill.
+
+[[GUI]] GUI::
+Graphical User Interface
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[medical-clinic]] Medical Clinic::
+A clinic that deal with medical issues only.
+
+[[medical-clinic-receptionist]] Medical Clinic Receptionist::
+A person that is in charge of the front desk receptionist in a medical clinic.
+
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -929,11 +1918,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-. Initial launch
+You are launch the program initially
+
+Instructions:
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window will be full-screen.
 
 . Saving window preferences
 
@@ -941,26 +1932,41 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a patient
 
-=== Deleting a person
+You are adding a new patient to ClinicIO
 
-. Deleting a person while all persons are listed
+**Prerequisites: You must be login as a receptionist.**
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Instructions:
 
-_{ more test cases ... }_
+.. Test case: `addpatient n/Steve Rogers ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust` +
+   Expected: Patient record is added to ClinicIO. The list will update immediately after adding patient.
+.. Test case: `addpatient n/Steve Johnson ic/S8231545C p/91021231 e/captain@america.com a/NYC, Mahattan Street alrg/dust preDr/Dr Lee` +
+   Expected: No patient is added and a error message will show "The preferred doctor is not found." +
 
-=== Saving data
+=== Login as a receptionist
 
-. Dealing with missing/corrupted data files
+You are login to ClinicIO as a receptionist.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+**Prerequisites: None.**
 
-_{ more test cases ... }_
+Instructions:
+
+.. Test case: `login r/receptionist n/Mary Jane pass/reception3` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/receptionist n/Mary Jane pass/reception151` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
+
+=== Login as a doctor
+
+You are login to ClinicIO as a doctor.
+
+**Prerequisites: None.**
+
+Instructions:
+
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1` +
+   Expected: User is login successfully and will show another window.
+.. Test case: `login r/doctor n/Adam Bell pass/doctor1241` +
+   Expected: An error message will show "Invalid login credentials. Please try again." +
