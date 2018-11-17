@@ -100,6 +100,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         this.staffs.setStaffs(staff);
     }
 
+    //@@author gingivitiss
     /**
      * Replaces the contents of the appointment list with {@code appointments}.
      * {@code appointments} must not contain duplicate persons.
@@ -126,7 +127,9 @@ public class ClinicIo implements ReadOnlyClinicIo {
         //@@author jjlee050
         setPatients(newData.getPatientList());
         setStaffs(newData.getStaffList());
+        //@@author gingivitiss
         setAppointments(newData.getAppointmentList());
+        //@@author aaronseahyh
         setMedicines(newData.getMedicineList());
     }
 

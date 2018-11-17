@@ -140,6 +140,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
 
+    //@@author iamjackslayer
     /**
      * Updates the filter of the queue by the given {@code predicate}
      * @param predicate
@@ -191,6 +192,7 @@ public interface Model {
      */
     void commitClinicIo();
 
+    //@@author gingivitiss
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the schedule.
      */

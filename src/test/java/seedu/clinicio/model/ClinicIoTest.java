@@ -77,7 +77,9 @@ public class ClinicIoTest {
         assertEquals(Collections.emptyList(), clinicIo.getPatientList());
         //@@author jjlee050
         assertEquals(Collections.emptyList(), clinicIo.getStaffList());
+        //@@author aaronseahyh
         assertEquals(Collections.emptyList(), clinicIo.getMedicineList());
+        //@@author gingivitiss
         assertEquals(Collections.emptyList(), clinicIo.getAppointmentList());
         assertEquals(Collections.emptyList(), clinicIo.getConsultationList());
     }

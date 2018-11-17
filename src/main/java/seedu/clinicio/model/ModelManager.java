@@ -46,13 +46,16 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     //@@author jjlee050
     private final FilteredList<Patient> filteredPatients;
-    //@@author jjlee050
     private final FilteredList<Staff> filteredStaffs;
+    //@@author gingivitiss
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Consultation> filteredConsultations;
+    //@@author aaronseahyh
     private final FilteredList<Medicine> filteredMedicines;
+    //@@author iamjackslayer
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
+    //@@author arsalanc-v2
     private final Analytics analytics;
     //@@author iamjackslayer
     private UiManager uiManager = null;
