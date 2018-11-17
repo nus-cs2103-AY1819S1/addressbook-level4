@@ -60,6 +60,7 @@ public class GuiTestAssert {
         assertEquals(size, numberOfPeople);
     }
 
+    //@@author aaronseahyh
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -68,6 +69,7 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getMedicineName(), actualCard.getMedicineName());
     }
 
+    //@@author aaronseahyh
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedMedicine}.
      */
@@ -75,6 +77,7 @@ public class GuiTestAssert {
         assertEquals(expectedMedicine.getMedicineName().medicineName, actualCard.getMedicineName());
     }
 
+    //@@author aaronseahyh
     /**
      * Asserts that the list in {@code medicineListPanelHandle} displays the details of {@code medicines} correctly and
      * in the correct order.
