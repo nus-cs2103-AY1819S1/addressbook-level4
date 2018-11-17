@@ -29,9 +29,11 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
 
+    //@@author gingivitiss
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
+    //@@author iamjackslayer
     /** {@code Predicate} that always evaluates to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE = (person) -> {
         if (!(person instanceof Patient)) {
@@ -43,6 +45,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Consultation> PREDICATE_SHOW_ALL_CONSULTATIONS = unused -> true;
 
+    //@@author aaronseahyh
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
