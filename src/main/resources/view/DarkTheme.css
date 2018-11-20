@@ -81,6 +81,10 @@
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
+.split-pane *.split-pane-divider {
+    -fx-padding: 1 0 1 0;
+}
+
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
@@ -306,6 +310,14 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -348,4 +360,15 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#detailsPanel {
+    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-insets: 0;
+    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
 }

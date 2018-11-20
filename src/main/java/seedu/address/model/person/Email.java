@@ -41,6 +41,13 @@ public class Email {
     }
 
     /**
+     * Default empty constructor.
+     */
+    protected Email() {
+        this.value = "";
+    }
+
+    /**
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
