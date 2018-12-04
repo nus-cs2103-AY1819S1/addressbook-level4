@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<thanepark>
+    <rides>
+        <name>Accelerator</name>
+        <daysSinceMaintenanceString>85355255</daysSinceMaintenanceString>
+        <waitingTimeString>1</waitingTimeString>
+        <zone>123, Jurong West Ave 6, #08-111</zone>
+        <statusString>OPEN</statusString>
+    </rides>
+</thanepark>

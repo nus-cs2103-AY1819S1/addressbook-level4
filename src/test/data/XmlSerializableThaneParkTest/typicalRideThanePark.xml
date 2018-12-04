@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- ThanePark save file which contains the same Ride values as in TypicalRides#getTypicalThanePark() -->
+<thanepark>
+    <rides>
+        <name>Accelerator</name>
+        <daysSinceMaintenanceString>9</daysSinceMaintenanceString>
+        <waitingTimeString>1</waitingTimeString>
+        <zone>123, Jurong West Ave 6, #08-111</zone>
+        <tagged>rollerCoaster</tagged>
+        <statusString>OPEN</statusString>
+    </rides>
+    <rides>
+        <name>The Big Thunder Mountain</name>
+        <daysSinceMaintenanceString>31</daysSinceMaintenanceString>
+        <waitingTimeString>16</waitingTimeString>
+        <zone>311, Clementi Ave 2, #02-25</zone>
+        <tagged>heightRestrictions</tagged>
+        <tagged>rollerCoaster</tagged>
+        <statusString>OPEN</statusString>
+    </rides>
+    <rides>
+        <name>Castle Carrousel</name>
+        <daysSinceMaintenanceString>1</daysSinceMaintenanceString>
+        <waitingTimeString>13</waitingTimeString>
+        <zone>wall street</zone>
+        <statusString>OPEN</statusString>
+    </rides>
+    <rides>
+        <name>Dumbo The Flying Elephant</name>
+        <daysSinceMaintenanceString>87</daysSinceMaintenanceString>
+        <waitingTimeString>3</waitingTimeString>
+        <zone>10th street</zone>
+        <tagged>rollerCoaster</tagged>
+        <statusString>OPEN</statusString>
+    </rides>
+    <rides>
+        <name>Enchanted Airways</name>
+        <daysSinceMaintenanceString>4</daysSinceMaintenanceString>
+        <waitingTimeString>21</waitingTimeString>
+        <zone>michegan ave</zone>
+        <statusString>OPEN</statusString>
+    </rides>
+    <rides>
+        <name>Final Fantasy</name>
+            <daysSinceMaintenanceString>12</daysSinceMaintenanceString>
+        <waitingTimeString>12</waitingTimeString>
+        <zone>little tokyo</zone>
+        <statusString>OPEN</statusString>
+    </rides>
+    <rides>
+        <name>Galaxy Road</name>
+        <daysSinceMaintenanceString>24</daysSinceMaintenanceString>
+        <waitingTimeString>1</waitingTimeString>
+        <zone>4th street</zone>
+        <statusString>OPEN</statusString>
+    </rides>
+</thanepark>

@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Thane Park - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -11,178 +11,414 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to ThanePark!
+ThanePark is a theme park management application that assists theme park managers and operators in obtaining ride information readily.
+Using the keyboard, you can easily access features such as creating rides, updating ride information, finding rides with short waiting time and more.
+
+Get started now by heading over to <<Quick Start>>. Enjoy!
+
+== About
+
+This user guide introduces you to ThanePark, provides detailed instructions to set up and gives you an overview of the available features.
+No prior technical knowledge is required to use ThanePark.
+
+For frequently asked questions, check out <<FAQ>>.
+
+For a brief summary of all features, check out <<Command Summary>>.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+Steps to set up ThanePark:
+
+.  Check that you have Java version `9` or later installed in your Computer.
+.  Download the latest `thanepark.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+image::startup.png[width="800"]
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+If you left click on the any ride in the list, it will show the ride information in a window
+similar to below:
 
-.  Refer to <<Features>> for details of each command.
+image::Ui.png[width="800"]
+
+[TIP]
+The bar at the top of the window allows you to access `Help` or `About`. The `About` option on the navigation bar opens an About Us window.
+
+[WARNING]
+You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`. +
+Additionally, note that you may not enter more than 250 characters inside the `CommandBox`.
+Any character past the 250th will be forcefully truncated. This is to guard against abuse. +
+Also note that the waiting time and maintenance dates are not live, they are static and require manual updates.
+Maintenance dates will update only when a command is executed. Maintenance dates do not update when ThanePark is restarted.
+In v2.0 this updating process will be automated.
+
+
+Congratulations! You have successfully set up ThanePark!
+
+Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help more`* and pressing kbd:[Enter] will open the help window.
+
+Type some of these commands to try out ThanePark:
+
+* *`viewall`* : lists all rides in your theme park.
+
+* *`exit`* : exits the app.
+
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+This section contains information of all commands used in ThanePark.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in chevrons `<>` denotes compulsory field. +
+Example: `add <attraction>`<maintenance> `<waitTime>` `<zone>`
+* Items in square brackets `[]` denotes optional field. +
+Example: `help [more]`
+* Items in curly brackets `{}` denotes keystroke. +
+Example: `{tab}` is the kbd:[TAB] keystroke.
+* Items ending with ellipses `...` denotes variable number of arguments. +
+Example: `filter <tag> <condition> [[tag] [condition]...]`
+
+* Parameters with prefix `/` can be in any order +
+Example: if the command specifies n/name p/zone, p/zone n/name is also acceptable.
+
 ====
 
-=== Viewing help : `help`
+
+=== Manage Attractions
+
+This section contains all commands related to managing attractions.
+
+// tag::manage[]
+==== Adding attractions: `add`
+
+Adds an attraction by name with the information. +
+Format: ``add `<n/attraction>` `<m/maintenance>` `<w/waitTime>` `<z/zone>` [t/tag(s)]``
+
+A ride can have any number of tags (including 0). +
+
+[NOTE]
+Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
+1 billion.
+
+[WARNING]
+The length for zone and tag(s) field exceeds 30 characters is undefined behaviour.
+
+Examples:
+
+* add n/Transformers m/1 w/30 z/John street, block 123, #01-01
+* add n/The Mummy m/3 w/45 z/311, Clementi Ave 2, #02-25 t/3D t/indoor
+
+==== Deleting attractions: `delete`
+
+Deletes the specified attraction from ThanePark. +
+Format: `delete <index>`
+
+====
+* Deletes the ride at the specified index.
+
+* The index refers to the index number shown in the list of displayed rides.
+
+* The index must be a positive integer 1, 2, 3, …​
+====
+
+Examples:
+
+* `viewall` +
+  `delete 2` +
+  Deletes the 2nd ride in ThanePark.
+
+* `find Puss in Boots' Giant Journey` +
+   `delete 1` +
+   Deletes the 1st ride in the results of the find command.
+
+==== Updating information of attraction: `update`
+
+Updates the details of the ride identified by the index number used in the displayed ride list.
+
+[WARNING]
+The length for zone and tag(s) field exceeds 30 characters is undefined behaviour.
+
+Format: `update <index> <prefix/value>`
+
+Parameters: INDEX (must be a positive integer) [n/NAME] [m/MAINTENANCE] [w/WAITING_TIME] [z/ZONE] [t/TAG].
+
+Examples:
+
+* `update 1 m/90` +
+  Updates the 1st ride in ThanePark.
+
+* `update 2 m/90 w/60` +
+  Updates the 2nd ride in ThanePark.
+
+[NOTE]
+This command cannot update the waiting time and maintenance field when the ride is not open.
+
+[NOTE]
+Maintenance and waiting time should only contain positive integers with at least 1 digit long and should be less than
+1 billion.
+
+==== Shutting down attraction: `shutdown`
+
+Closes the ride for the day. Display statistics for the ride on that day. +
+Format: `shutdown <index>`
+
+[NOTE]
+This command will reset the waiting time field to zero.
+
+|===
+a|
+Example : `shutdown 1`
+
+* `shutdown 1` +
+  Closes the 1st ride in ThanePark.
+
+As seen in the diagram below, the status of the 1st ride changes from `open` to `shutdown` within the red box after
+`shutdown 1` is executed.
+
+.Before executing `shutdown 1`
+image::./ui_screenshots/shutdown-example-1.png[width="600"]
+
+.After executing `shutdown 1`
+image::./ui_screenshots/shutdown-example-2.png[width="600"]
+
+After `shutdown 1` is executed, the name, status, days since last maintenance, waiting time, zone and tags for
+the ride is displayed.
+
+|===
+
+==== Opening attraction: `open`
+
+Opens the ride for the day. Display statistics for the ride on that day. +
+Format: `open <index>`
+
+Example:
+
+* `open 2` +
+  Opens the 2nd ride in ThanePark.
+
+[NOTE]
+This command also resets the waiting time field to zero.
+
+// end::manage[]
+
+==== Closing attraction for maintenance: `maintain`
+
+Closes the ride for maintenance. Display statistics for the ride on that day. +
+Format: `maintain <index>`
+
+[NOTE]
+This command also resets both waiting time and maintenance fields to zero.
+
+
+==== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Manage Commands
+
+This section contains all commands related to managing commands.
+
+// tag::help[]
+==== Viewing help: `help`
+
+Displays short summary of important commands. You should see a similar-looking summarized help
+sheet as shown below. +
+
+image::ui_screenshots/help-example-1.png[width="800"]
 
 Format: `help`
 
-=== Adding a person: `add`
+[NOTE]
+Extended usage of `help` command: If you want to see the full help manual, use `help [more]`.
+If you want to see the full help for a specific `commandWord`, use `help [commandWord]`.
+Should you provide an invalid `[commandWord]`, you will be shown the default short help message.
+Please note that any arguments beyond the 2nd position will be discarded and ignored.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+[WARNING]
+Please note that the short help only shows the rough syntax of commands. If you want the full help,
+do refer to this User Guide. You should also note that `help` will cause the currently selected `Ride` to be deselected.
 
-[TIP]
-A person can have any number of tags (including 0)
+<<<
 
+[.white]
+|===
+a|
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `help more`: Opens a help window that describes the usage of ThanePark. You should see something similar to the image below.
 
-=== Listing all persons : `list`
+image::ui_screenshots/help-example-2.png[width="500"]
 
-Shows a list of all persons in the address book. +
-Format: `list`
+a|
+* `help add`: Opens a help window and scrolls to `add` command word usage. You should see something similar to the image below.
+* `help add 1234`: Same as previous, the extra arguments are discarded and ignored.
 
-=== Editing a person : `edit`
+image::ui_screenshots/help-example-3.png[width="500"]
+|===
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+// end::help[]
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+// tag::autocomplete1[]
+==== Suggesting commands: `{tab}`
 
-Examples:
+Displays suggested list of commands when kbd:[TAB] is pressed. +
+ +
+Format: kbd:[TAB]
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+<<<
 
-=== Locating persons by name: `find`
+// end::autocomplete1[]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+[WARNING]
+If you want to see common usage, skip to <<suggest_examples, examples>> to view common usage.
+The full functionality of suggesting commands can be quite heavy.
 
 [NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+Extended usage of suggesting commands:
+[width="100%",cols="20%,<40%,<40%",options="header",]
+|=======================================================================
+|Action |State of application |Expected Output
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strips all text behind first prefix in `CommandBox`.
+* Replaces prefix with matching command word in `CommandBox`.
+* Displays matching command word in result panel.
+
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Displays all matching command words in result panel.
+* No change in `CommandBox`.
+
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *No* command word match to first prefix in `CommandBox` a|
+* No visible change is reflected.
+
+|kbd:[TAB] a|
+* `CommandBox` contains nothing a|
+* No visible change is reflected.
+
+|kbd:[TAB] a|
+* `CommandBox` starts with a complete command word
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Displays all matching command words in result panel.
+* No change in `CommandBox`.
+
+|kbd:[TAB] a|
+* `CommandBox` starts with a complete command word
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strips all text behind command word in `CommandBox`.
+* Command in `CommandBox` will not be executed.
+* Command word will be shown in result panel.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strips all text behind first prefix in `CommandBox`.
+* Replaces prefix with matching command word in `CommandBox`.
+* Displays matching command word in result panel.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Displays all matching command words in result panel.
+* Remove all text in `CommandBox`.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *No* command word match to first prefix in `CommandBox` a|
+* Error is shown in result panel.
+* `CommandBox` text turns red.
+
+|kbd:[ENTER] a|
+* `CommandBox` starts with a complete command word
+* Command arguments are *invalid* a|
+* Suggested command usage is shown in result panel.
+* `CommandBox` text turns red.
+|=======================================================================
+
+// tag::autocomplete2[]
+
+[.white]
+|===
+a|
+[#suggest_examples]
+Examples:
+
+* `he` +
+kbd:[TAB] (Completes the `help` command word.) +
+
+* `histor more` +
+kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command) +
+|===
+// end::autocomplete2[]
+
+// tag::history[]
+==== Viewing history of previous commands: `history`
+
+Displays previous user inputs during this session. Does not include the executed `history` itself. +
+ +
+Format: `history [more]`
+
+[NOTE]
+Extended usage of `history`: +
+If you wish to get a report of all commands executed across sessions, use `history more` and a report will be generated.
+
+[WARNING]
+The `xml` file produce by ThanePark was not designed for you to read. +
+You may experience loss of command history information when `commandHistory.xml` exceeds 5MB
+or is unintentionally modified.
+
+[.white]
+|===
+a|
+Examples:
+
+* `history` (Shows user inputs in current session.)
+
+* `history more` (A window similar to the one below should show up:)
+a|
+image::ui_screenshots/history-example-1.png[width="600"]
+|===
+
+
+// end::history[]
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing commands: `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Undo previous command during current session. +
+ +
 Format: `undo`
 
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
+[.white]
+|===
+a|
 Examples:
 
 * `delete 1` +
-`list` +
+`viewAll` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
-`list` +
+* `view 1` +
+`viewAll` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -190,12 +426,16 @@ The `undo` command fails as there are no undoable commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
+|===
 
-=== Redoing the previously undone command : `redo`
+==== Redoing previously undone commands: `redo`
 
-Reverses the most recent `undo` command. +
+Reverse the previously undone commands during current session. +
+ +
 Format: `redo`
 
+|===
+a|
 Examples:
 
 * `delete 1` +
@@ -212,49 +452,291 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
+|===
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+==== Exiting ThanePark: `exit`
 
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
+Exits the ThanePark application. +
+ +
 Format: `exit`
 
-=== Saving the data
+// tag::viewstatus[]
+=== View information of rides
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+This section contains all commands related to both viewing information of specific rides
+and viewing different lists of rides.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Viewing detailed information of a specific ride: `view`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Displays all available information about a single ride on the list of displayed rides.
+The `index` field specifies the index of the ride that you want to view.
+
+Format: `view <index>`
+
+[NOTE]
+`index` should be a positive integer that is not larger than the size of the displayed list.
+
+<<<
+
+|===
+a|
+Example 1: `view 4`
+
+Note how the information within the red box changes when `view 4` is executed.
+
+.Before executing `view 4`
+image::./ui_screenshots/view-example-1.png[width="600"]
+
+.After executing `view 4`
+image::./ui_screenshots/view-example-2.png[width="600"]
+
+When `view 4` is executed, the display shows the name, status, days since last maintenance and waiting time for  the selected ride.
+
+<<<
+
+Example 2: `view 17`
+
+Note how the information within the red box at the top changes when `view 17` is executed.
+
+.Before executing `view 17`
+image::./ui_screenshots/view-example-3.png[width="550"]
+
+The red box at the bottom of the diagram above shows the last ride, with an index of *16*.
+If you want to view a ride with an index larger than the list, an error message will be shown.
+
+.After executing `view 17`
+image::./ui_screenshots/view-example-4.png[width="550"]
+
+The red box in the diagram above shows the error message when you try to enter an index that is not in the list,
+|===
+
+<<<
+
+==== Viewing rides by their status: `viewstatus`
+
+Displays all rides according to the status of the rides.
+
+Format: `viewstatus <status>`
+
+[NOTE]
+There are only three statuses that are valid, namely open, shutdown and maintenance.
+
+|===
+a|
+Example 1: `viewstatus open`
+
+Note how the information within the red boxes changes when the `viewstatus open` command is executed.
+
+.Before executing `viewstatus open`
+image::./ui_screenshots/viewstatus-example-1.png[width="550"]
+
+In the diagram above, note that the list of rides in the red box at the left contains rides with different statuses.
+
+.After executing `viewstatus open`
+image::./ui_screenshots/viewstatus-example-2.png[width="550"]
+
+As seen in the diagram above, once `viewstatus open` is executed, the list of rides in the box at the left only contains rides that are open.
+In addition, the response box at the top of the diagram displays the total number of rides that are open.
+
+Example 2: `viewstatus MainTenaNce`
+
+`viewstatus MainTenaNce` command accepts inputs with mixed cases in the status field.
+
+.Before executing `viewstatus MainTenaNce` command
+image::./ui_screenshots/viewstatus-example-3.png[width="550"]
+
+.After executing `viewstatus MainTenaNce` command
+image::./ui_screenshots/viewstatus-example-4.png[width="550"]
+
+As seen in the diagram above, ThanePark is able to read `viewstatus MainTenaNce` and display rides with the status `MAINTENANCE`.
+|===
+// end::viewstatus[]
+
+==== Viewing all available rides: `viewall`
+
+Displays all available rides in a list.
+
+Format: `viewall`
+
+|===
+a|
+Example: `viewall`
+
+Note how the information within the red boxes changes when the `viewall` command is executed.
+
+.Before executing `viewall`
+image::./ui_screenshots/viewall-example-1.png[width="540"]
+
+.After executing `viewall`
+image::./ui_screenshots/viewall-example-2.png[width="540"]
+
+As seen in the diagram above, the response box at the top of the diagram will display the total number of rides,
+with a break down of the total number of rides of different statuses.
+The list box at the left of the diagram is also updated to show all the rides in ThanePark, regardless of status.
+|===
+
+// tag::filter[]
+=== Find the relevant list of rides
+
+This section contains all commands related to finding rides that you need at any time.
+
+==== Finding a particular attraction: `find`
+
+Find a list of rides that the you need to check on. Case insensitive. +
+Can only find the name, the zone, and the tags of the attractions. +
+
+Format: `find <[name] [[tag][keyword]...]>` +
+Must include arguments when finding. +
+
+Here are some examples with images to let you follow along. +
+|===
+a|
+Examples:
+
+* `find accelerator` +
+Finds and displays the list of attractions in ThanePark with the name "accelerator". +
+[NOTE]
+You can only use `find` to look for a full word in the name. This means a part of the name like "accel" will not work
+and only the full name like "accelerator" will work.
+
+The list of results should be like this if no changes were made to the application (ie. delete or add or update): +
+
+image::./ui_screenshots/find-example-1.png[width="600"]
+
+* `find z/ sci-fi` +
+Finds and displays the list of attractions with zones that contain the word "sci-fi".
+The list of results should look like this:
+
+image::./ui_screenshots/find-example-2.png[width="600"]
+
+* `find zone sci-fi t/popular tag rollerCoaster` +
+Finds and displays the list of attractions with zones in the theme park that contain the word "sci-fi" and the
+tags "rollerCoaster" and "popular".
+The list of results should look like this:
+
+image::./ui_screenshots/find-example-3.png[width="600"]
+|===
+
+==== Finding rides that fits the given condition: `filter`
+
+Display all rides that fits the condition in a list. It can only filter conditions that have numeric values i.e.
+`Maintenance` and `WaitTime`. +
+
+Format: `filter <tag> <condition> [[tag] [condition]...]` +
+Can include more conditions as desired. +
+
+|===
+a|
+Examples:
+
+* `filter w/ < 10` +
+Filters attractions with waiting time less than 10 minutes.
+The list of results should like this if no changes were made to the application (ie. delete or add or update): +
+
+image::./ui_screenshots/filter-example-1.png[width="600"]
+
+* `filter w/ < 10 m/ >= 50` +
+Filters attractions with waiting time less than 10 and maintenance of more than equals 50 days.
+The list of results should look like this:
+
+image::./ui_screenshots/filter-example-2.png[width="600"]
+|===
+
+[NOTE]
+If a ride is selected, a `find` or `filter` is performed, the ride panel will still show the ride that was previously
+selected. Future versions will automatically select the first ride on the list and allow you to see information about it
+on the `BrowserPanel` or show the short help menu if no rides are found.
+
+// end::filter[]
+
+=== Coming in v2.0
+
+This section contains all commands that is related to accessing the system.
+
+[NOTE]
+All commands in this section have not been implemented. They will be implemented in `v2.0`.
+
+==== Signing up as a user
+Creates a new user profile to allow the user to access ThanePark. +
+Format: `signup <username> <password>`
+
+==== Logging into the system
+Logs in a user that has already signed up. +
+Format: `login <username> <password>`
+
+==== Logging out of the system
+Logs out a user from the system. +
+Format: `logout`
+
+==== Security features
+Secures ThanePark data by requiring operators to log in using their identity.
+
+==== Identity logging
+Command history will now track the identity of the person who executed the command.
+
+==== Network deployment
+ThanePark will have network capabilities that allow it to communicate with other devices.
+
+==== Zone and tag length limit of 40 characters
+ThanePark will be able to handle zones and tags of over 40 characters. Currently the text will overflow, thus
+users should refrain from going over the limit.
+
+==== Customizable ride image
+You will be able to customize the image for each and every ride.
+
+==== Realtime data
+You will be receiving live data from other sources in the network.
+Also, the maintenance and wait time will update in realtime.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ThanePark folder.
+
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+[width="100%",cols="20%,<80%",options="header",]
+|=======================================================================
+|Action |Syntax
+
+2+|*Manage Attractions*
+
+
+|*Add* |`add <n/attraction>` `<m/maintenance>` `<w/waitTime>` `<z/zone>` `[t/tag(s)]` +
+  e.g. add n/Mummy m/3 w/45 z/311, Clementi Ave 2, #02-25 t/3D t/indoor
+|*Delete* |`delete <index>` +
+  e.g. delete 3
+|*Update* |`update <index> <prefix/value>` +
+  e.g. update 2 m/90 w/60
+
+|*Shutdown* |`shutdown <index>`
+|*Open* |`open <index>`
+|*Maintain* |`maintain <index>`
+|*Clear* |`clear`
+
+2+|*Get help and accessibility*
+|*Help* |`help [more]`, `help [commandWord]` +
+e.g. help add
+|*Using Autocomplete* |kbd:[TAB] +
+e.g. dele +
+kbd:[TAB] completes the delete command word.
+|*History* |`history [more]` +
+e.g. history more
+|*Undo* |`undo` +
+e.g. undo
+|*Redo* |`redo` +
+e.g. redo
+|*Exit* |`exit` +
+e.g. exit
+
+2+|*View information on the list of rides*
+|*View all* |`viewall`
+|*View* |`view <index>`
+|*View status* |`viewstatus <status>`
+
+2+|*Find the relevant list of rides*
+|*Find* |`find <[name] [[tag][keyword]…​]>`
+|*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`
+|=======================================================================

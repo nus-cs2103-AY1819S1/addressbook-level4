@@ -23,14 +23,37 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
     }
 
     /**
+     * Returns the focus state of the command box.
+     */
+    public boolean isFocused() {
+        return getRootNode().isFocused();
+    }
+
+    /**
      * Enters the given command in the Command Box and presses enter.
      */
     public void run(String command) {
         click();
-        guiRobot.interact(() -> getRootNode().setText(command));
+        setText(command);
         guiRobot.pauseForHuman();
 
         guiRobot.type(KeyCode.ENTER);
+    }
+
+    /**
+     * Enters the given text in the Command Box.
+     */
+    public void setText(String text) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(text));
+    }
+
+    /**
+     * Enters the given text in the Command Box.
+     */
+    public void pressTab() {
+        click();
+        guiRobot.push(KeyCode.TAB);
     }
 
     /**

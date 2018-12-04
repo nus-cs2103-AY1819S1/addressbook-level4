@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<thanepark>
+
+    <rides>
+        <name>Alice Tea Party</name>
+        <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
+        <waitingTimeString>1</waitingTimeString>
+        <zone>123, Jurong West Ave 6, #08-111</zone>
+        <tagged>friends</tagged>
+        <statusString>OPEN</statusString>
+    </rides>
+
+    <!-- Ride with same identity as Alice Pauline -->
+    <rides>
+        <name>Alice Tea Party</name>
+        <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
+        <waitingTimeString>19</waitingTimeString>
+        <zone>4th street</zone>
+        <statusString>OPEN</statusString>
+    </rides>
+
+</thanepark>

@@ -1,0 +1,70 @@
+= Teo Jia Jun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:sectnums:
+
+[discrete]
+= PROJECT: ThanePark
+
+---
+
+== Overview
+
+This portfolio serves to document my contributions to ThanePark.
+ThanePark is a desktop application used for theme park operators to manage their rides.
+It was managed and developed by a team of four members who spent three months on this project.
+This project is part of a software engineering module, CS2103T, offered by the School of Computing, National University of Singapore.
+
+A limitation set by the module is that the user has to interact with ThanePark using a Command Line Interface(CLI).
+It also has a Graphical User Interface(GUI) created with JavaFX.
+ThanePark is written in Java, and has about 12,000 lines of code.
+
+My role in ThanePark is to implement the `viewstatus` feature and to update documents.
+
+
+== Summary of Contributions
+
+* *Major enhancement*: The addition of the `viewstatus` feature.
+** What it does: This feature allows the user to obtain a list of rides filtered by the statuses of the rides.
+** Justification: This feature allows the user to find the relevant rides with ease.
+** Highlight: This feature introduces a new predicate class, `RideStatusPredicate`,
+  to allow users to input a fixed set of statuses to compare values with the existing data.
+** Credits: This feature is based on the way find feature works, with a `RideStatusPredicate` instead of a
+            `RideContainsKeywordsPredicate`.
+
+* *Minor enhancement*: The addition of the `maintain` feature, which allows the user to update the status of a selected ride to `MAINTENANCE`.
+  Also, the feature resets the maintenance and waiting time field to zero.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jiajunteo&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Functional and test code]]
+
+<<<
+
+* *Other contributions*:
+
+** Documentation:
+*** Updated the section 4.3 of the User Guide on view information of rides [https://github.com/CS2103-AY1819S1-W14-2/main/pull/154[Pull Request #154]]
+*** Updated the section 5.4 of the Developer Guide on view status feature [https://github.com/CS2103-AY1819S1-W14-2/main/pull/101[Pull Request #101]]
+
+** Community: Reported bugs for other teams in the class [https://github.com/CS2103-AY1819S1-T09-1/main/issues/144[T09-1 Issue #144]]
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=viewstatus]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=viewstatus]
+

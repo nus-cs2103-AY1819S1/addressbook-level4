@@ -1,0 +1,69 @@
+= Leong Eng Sea - Project Portfolio
+:toc:
+:toc-title:
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+[discrete]
+== PROJECT: ThanePark
+:sectnums:
+
+---
+
+== Overview
+
+The purpose of this portfolio is to document my contributions to the software engineering module(CS2103T) project,
+ThanePark.
+
+ThanePark is a desktop application for theme park management. The application is optimized for keyboard-oriented users
+and retains user-friendly graphics that informs users of their decisions in a glance.
+Theme park operators can interact with it by using a Command Line Interface(CLI). It also has a Graphical User Interface
+(GUI) created with JavaFX.
+ThanePark is mostly written in Java and has about ten thousands of code.
+
+My part in the project is to implement `open` and `shutdown` commands so that operators can open and close the rides
+easily.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to open and shutdown rides in ThanePark*
+** It allows the user to open and shutdown rides easily.
+** Justification: This feature improves the product significantly because a user can open/shutdown rides with a single
+   command.
+** Highlights: This enhancement introduces a new enum class, `Status`. It allows the user to know whether the rides are
+   in `open`, `shutdown`, or `maintenance` status.
+** Credits: The `open` and `shutdown` features are based on the way `update` feature works, with the help of
+   `UpdateRideDescriptor`.
+
+* *Minor enhancement*: Refactor `add`, `delete` and `update` commands.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=leongengsea[Functional
+   code and test code]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Update the user guide for the `open` and `shutdown` features.
+*** Update the developer guide for the implementation of the `open` feature with sequence and activity diagrams of how
+the `open` command works.
+*** Update project portfolio page(PPP).
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+ end-users._
+|===
+
+include::../UserGuide.adoc[tag=manage]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+ documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=open]

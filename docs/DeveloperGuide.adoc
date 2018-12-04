@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= ThanePark - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,21 +13,37 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
+
+== Introduction
+Welcome to ThanePark!
+The purpose of this documentation is to assist you in your transition to begin developmental work on ThanePark.
+
+If you are a developer looking to adopt ThanePark for your own uses, go to <<Setting up, *`Setting up`*>>.
+
+If you wish to contribute to ThanePark, go to <<Dev Ops, *`Developing the application`*>>.
+
+If you wish to update documentation of ThanePark, go to <<Documentation,*`Documentation`*>>.
+
+== About
+ThanePark is a desktop application for theme park management. The application is optimized for keyboard-oriented
+users and retains user-friendly graphics that informs users of their decisions in a glance.
 
 == Setting up
+Before you get started on development on the application, you will need to complete the following steps below.
 
-=== Prerequisites
+=== Checking Software Prerequisites
+To ensure a smooth transition into your development, check that the following software versions are installed:
 
-. *JDK `9`* or later
+* *JDK `9`* or later
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
-. *IntelliJ* IDE
+* *IntelliJ* IDE
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
@@ -35,6 +51,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 
 === Setting up the project in your computer
+After you have installed the correct software, follow the steps below to setup your development environment locally:
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -47,43 +64,46 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/zone/storage/XmlAdaptedRide.java[`XmlAdaptedRide.java`] and link:{repoURL}/src/main/java/seedu/zone/ui/MainWindow.java[`MainWindow.java`] and check for any code errors.
+Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/zone/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
+and link:{repoURL}/src/test/java/seedu/zone/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
++
+[WARNING]
+Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 
-=== Verifying the setup
+=== Verifying the Setup
+It is recommended that you verify the setup by trying the following actions:
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.thanepark.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
-=== Configurations to do before writing code
+=== Configuring your Integrated Development Environment
+Some configurations of your Integrated Development Environment need to be set:
 
 ==== Configuring the coding style
-
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify:
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
 . Click on the `Imports` tab to set the order
-
++
+[Tips]
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
+After you fork the repo, the documentation will still have the CS2103-W14-2 branding and refer to the `CS2103-W14-2/main` repo.
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-W14-2/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
 . Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
-
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
 
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
@@ -97,36 +117,39 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 ==== Getting started with coding
+When you are ready to start coding:
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+* Get some sense of the overall design by reading <<Design-Architecture>>.
+* Take a look at <<GetStartedProgramming>>.
 
 == Design
 
+This section will help you better understand the software architecture of ThanePark.
 [[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
-image::Architecture.png[width="600"]
+image::Architecture.png[width="800"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+It shows the various interactions between <<Design-Main,*`Main`*>> and 4 other components:
+<<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>,
+<<Design-Model,*`Model`*>> and <<Design-Storage,*`Storage`*>>,
+Given below is a quick overview of each component:
 
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+[[Design-Main]]
+=== Main component
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/zone/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+* *`Commons`* represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+** `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+** `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -152,7 +175,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `ThaneParkChangedEvent` when the Thane Park data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -167,14 +190,16 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+The `UI` component is responsible for any UI-related functionality of the App.
+
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/zone/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RideListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/zone/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -185,16 +210,18 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+The `Logic` component is responsible for handling and executing command logic.
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/zone/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ThaneParkParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a ride) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -205,131 +232,410 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The `Model` component stores an internal representation of the state of the application in memory.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/zone/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Thane Park data.
+* exposes an unmodifiable `ObservableList<Ride>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Thane Park`, which `Ride` can reference. This would allow `Thane Park` to only require one `Tag` object per unique `Tag`, instead of each `Ride` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
 
+The `Storage` component is responsible for reading data from, and writing data to, the hard disk.
+
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/zone/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+* can save the Thane Park data in xml format and read it back.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::filter[]
+
+=== Filter Feature
+
+This section documents how `filter` is implemented and how it works.
+
+==== Current Implementation
+The execution of the `filter` command is simple and linear as the following activity diagram would show:
+
+.Activity Diagram for the Filter Feature
+image::FilterActivityDiagram.png[width="800"]
+
+The following sequence diagram will show how the `filter` command works: +
+
+.Sequence Diagram for the Filter Feature
+image::FilterSequenceDiagram.png[width="800"]
+
+The feature is implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
+`ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
+parse the arguments from the user input.
+
+It checks if there are any of the maintenance or waiting time prefix in the arguments. If any of the prefixes are present,
+an `AttributePredicate` is created with the operator (‘<', ‘>’, '< =' or '> =' or '==') and the `NumericAttribute` they
+are checking for (ie `Maintenance` or `WaitTime`). The ``AttributePredicate``s are added to a list. The user can add any
+amount of predicates that they want, like 3 predicates e.g. `filter w/< 50 w/ > 5 m/>10` and the list would contain 3
+predicates and if the user decides to input only one predicate, the list will only contain one. +
+
+A new `RideContainsConditionPredicate` is instantiated with the list of ``AttributePredicate``s. The `FilterCommandParser` will
+return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
+
+The `LogicManager` executes the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
+the list of rides and it will check if the ride fulfils the required predicate(s). The `RideContainsConditionPredicate`
+will test if each ride fulfills the required conditions using this method:
+
+[source,java]
+----
+    public boolean test(Ride ride) {
+        return attributePredicates.stream().allMatch(p -> {
+            NumericAttribute attributeToTest = p.getAttribute();
+            NumericAttribute rideAttributeToTest = ride.getAttribute(attributeToTest);
+            return p.test(rideAttributeToTest);
+        });
+    }
+----
+So it should be pretty simple to add new ``NumericAttribute``s to the rides like ratings if you wish to with minimal
+changes to other classes, as long as relevant methods are added to `FilterCommandParser` to handle the new ``NumericAttribute``s.
+After all of the rides in the application are tested, a list of filtered rides would be returned and shown to the user.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support filter commands
+* **Alternative 1(Current Choice):** Abstract attributes that contain numeric values into a separate class and create a
+AttributePredicate to test the attribute
+** Pros: More numeric attributes can be easily added  and minimal changes are required to filter new attributes
+** Cons: More classes would need to be implemented to handle this feature
+
+* **Alternative 2:** Give the entire string condition to the RideContainsConditionPredicate to test.
+** Pros: Classes do not need to abstracted, and thus would be easier to implement
+** Cons: RideContainsConditionPredicate would carry out parsing functions which would make it less cohesive
+
+// end::filter[]
+
+=== Command Management Feature
+
+// tag::commandManagement[]
+==== Current Implementation
+
+The Command Management feature is responsible for making ThanePark application easier to use.
+It can be decomposed into the following segments: +
+
+* <<accessibility_help, *Help*>>
+* <<accessibility_autocomplete, *Autocomplete*>>
+* <<accessibility_history, *Command History retrieval*>>
+
+[#accessibility_help]
+===== Help
+The *help* mechanism is facilitated by the `ShowHelpRequestEvent`.
+When the user executes a `HelpCommand`, the required level of help is encoded in `ShowHelpRequest`.
+This event type is subscribed to by `MainWindow`, which will load the respective help page in the required window
+(`BrowserPanel` or `HelpWindow`). Most of these classes belong to the User Interface (UI) component.
+These interactions are illustrated in the class diagram below:
+
+.Class Diagram of help mechanism
+image::HelpClassDiagram.png[width="800"]
+
+[#accessibility_autocomplete]
+===== Autocomplete
+The *autocomplete* mechanism is facilitated by `SuggestCommand`.
+It extends `Command` and serves as a special kind of `Command` that cannot be directly invoked by the `LogicManager`.
+A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
+or when kbd:[TAB] is pressed inside the *Command Box*. See the 2 figures below:
+
+.Activity Diagram of user executing command
+image::AutocompleteSuggestActivityDiagram1.png[width="800"]
+
+.Activity Diagram of user pressing tab
+image::AutocompleteSuggestActivityDiagram2.png[width="800"]
+
+The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched `Command` s.
+These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
+`ResultDisplay` and `CommandBox` text. See figure below:
+
+.Activity Diagram of user pressing tab
+image::AutocompleteSuggestActivityDiagram3.png[width="800"]
+
+You can easily add other pattern matching heuristics such as `nearest word distance` by implementing the following interface, `PatternMatcher`:
+[source,java]
+----
+public interface PatternMatcher {
+    /**
+     * Matches a list of items as Strings against a given pattern.
+     */
+    public String[] matchPattern(String[] items, String pattern);
+}
+----
+A possible implementation of a prefix matcher is shown below:
+[source,java]
+----
+public class PrefixMatcher implements PatternMatcher {
+    private static final String PATTERN_PREFIX = "^%1$s.*";
+    /**
+     * Default constructor
+     */
+    public PrefixMatcher() {
+        ;
+    }
+
+    @Override
+    public String[] matchPattern(String[] items, String pattern) {
+        return Arrays.stream(items).filter(s
+            -> s.matches(String.format(PATTERN_PREFIX, pattern))).toArray(String[]::new);
+    }
+
+}
+----
+
+
+[#accessibility_history]
+===== History
+The *history* mechanism is facilitated by `CommandHistory` and `CommandsLogCenter`.
+`CommandHistory` maintains the history as a list of user inputs during the session,
+and interfaces with `CommandsLogCenter` to handle the retrieval and persistent storage
+of user inputs executed across sessions.
+
+Given below are 2 example usage scenarios to illustrate the behavior of the *history* mechanism.
+
+* Example scenario 1: User requests for current session's history. +
+Step 1. User executes `history`. +
+Step 2. The list of user inputs in the current session is retrieved from `CommandHistory`. +
+Step 3. A `NewResultAvailableEvent` is raised within the `Logic` component.
+Step 4. The result panel displays the list of user inputs upon notification by the event.
+
+* Example scenario 2: User requests for cumulative history. +
+
+When the cumulative history of all commands is requested through `history more` command, a `HTML` report is generated.
+The process of generating a `HTML` report upon execution of `history more` is illustrated in the Sequence Diagram below.
+
+.Sequence Diagram of HTML report generation since command
+image::HistorySequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Handling UI interactions in help
+
+* **Alternative 1 (current choice):** Subscribe `MainWindow` to `ShowHelpRequestEvent`.
+** Pros: Cohesive. Every `UI` component affected by `ShowHelpRequestEvent` are handled through `MainWindow`.
+** Cons: Difficult to implement. Interactions between `MainWindow` and its child `UI` components must be carefully handled.
+Easy to cause bugs if not handled appropriately.
+* **Alternative 2:** Subscribe `BrowserPanel`, `HelpWindow` and `RideListPanel` to `ShowHelpRequestEvent`.
+** Pros: Easy to implement. These `UI` components can directly perform whatever is required.
+** Cons: High dependency. When a modification to `ShowHelpRequestEvent` is required, all of these classes may need to be modified.
+
+===== Aspect: Handling autocomplete text replacement
+
+* **Alternative 1 (current choice):** Handle autocomplete text replacement through `SuggestCommandEvent`.
+** Pros: Flexible. Easy to modify text replacement behavior through `SuggestCommandEvent`. Can be used by
+both kbd:[Tab] and kbd:[Enter]. Open for extension to other keystrokes or actions that lead to autocompletion.
+** Cons: Difficult to implement as it requires some understanding of the `EventsCenter` and handling of the various
+Event types in the application.
+* **Alternative 2:** Handle autocomplete through the existing `NewResultAvailableEvent`.
+** Pros: Easy to implement. Can modify `NewResultAvailableEvent` to easily satisfy most requirements.
+** Cons: Difficult to extend. When modifying behavior of text autocompletion, modification of
+both `CommandBox` and `ResultDisplay` may be required.
+
+===== Aspect: Storing command history
+
+* **Alternative 1 (current choice):** Store every command entry in a separate xml file.
+** Pros: Flexible. Able to format the file with little constraint to meet storage requirements.
+** Cons: Low code reuse. Does not utilise the existing `LogsCenter` for ThanePark.
+* **Alternative 2:** Store command entries using the existing `LogsCenter` for ThanePark.
+** Pros: High code reuse. Developers know that all logging within the ThanePark is done by `LogsCenter`.
+** Cons: High dependency and difficult to implement. When a modification to `LogsCenter` is required,
+the modification of command history storage may be required. Additionally, the parsing of command history
+from the existing `LogsCenter` logs may require substantial modifications.
+
+// end::commandManagement[]
+
+// tag::viewstatus[]
+=== View Status Feature
+
+This section documents how `viewstatus` is being implemented.
+
+==== Current Implementation
+
+The view status feature is implemented with the help of `ViewStatusCommand` and `RideStatusPredicate` classes.
+As seen in the sequence diagram below, when the `ThaneParkParser` class parses the user input of `viewstatus`,
+it calls a new `ViewStatusCommandParser` to parse the arguments from the user input.
+
+.Sequence Diagram of the View Status feature
+image::ViewStatusSequenceDiagram.png[width="550"]
+
+.Activity Diagram of `ViewStatusCommandParser`
+image::ViewStatusActivityDiagram.png[width="550"]
+
+As seen in the diagram above, the `ViewStatusCommandParser` class checks the arguments for keywords relating to the status of the rides.
+If there are more than one strings found or the argument string is not one of the three statuses,
+it will throw a `ParseException`, letting the user know that the command format is wrong.
+Conversely, it will compare the argument with the statuses and create a `Status` enumeration.
+
+A new `RideStatusPredicate` is instantiated with the `Status` enumeration.
+The `ViewStatusCommandParser` will return a new `ViewStatusCommand` containing `RideStatusPredicate`.
+
+The `LogicManager` execute the command, and uses the `RideStatusPredicate` to filter the list of rides for rides that fulfill the required predicate(s).
+A list of filtered rides would be returned.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support view status command
+* **Alternative 1(Current choice):** Handle checking of status by passing the `Status` enumeration to `RideStatusPredicate` to test.
+** Pros: Code is more cohesive as each class is more focused.
+** Cons: More classes are required to implement the check.
+
+* **Alternative 2:** Handle checking of status in ViewStatusCommand by using a lambda expression to express the predicate.
+** Pros: Easier to implement as less classes are needed.
+** Cons: Reduced modularity as predicate logic is not abstracted.
+
+// end::viewstatus[]
+
+
+// tag::open[]
+=== Open/Shutdown Feature
+This section documents how open/shutdown features are implemented and how they work. Note that `open` and `shutdown`
+features are very similar to each other.
+
+==== Current Implementation
+
+The `OpenActivityDiagram` below show the execution flow of `OpenCommand`:
+
+.Activity Diagram of `OpenCommand`
+image::OpenActivityDiagram.png[width="800"]
+
+The following sequence diagram will show how the open/shutdown feature works: +
+
+.Sequence Diagram for the Open Feature
+image::OpenSequenceDiagram.png[width="800"]
+
+
+As seen in the diagram above, the `open` function is implemented with the help of `OpenCommand` and
+`UpdateRideDescriptor` class. When the `ThaneParkParser` parses the user input and finds the open command word `open`,
+it calls a new `OpenCommandParser` to parse the arguments from the user input.
+
+Next, the `OpenCommandParser` will parse the arguments from the user input into an `index` and
+return a new `OpenCommand` with the `index` as the parameter.
+
+Finally, the `LogicManager` will execute the `open` command, and the `index` will be used to find the `ride` from the
+list.
+After that, the `open` command will change the status of the ride to `Open` by utilising the `UpdateRideDescriptor`
+class.
+
+
+==== Design Considerations
+
+===== Aspect: Data structure to support open/shutdown commands
+* **Alternative 1(Current choice):** Change the status of the ride inside the `open` command and include the
+    `UpdateRideDescriptor` in the `open` command as well.
+** Pros: This would be easier to implement as `UpdateRideDescriptor` class no need to abstracted out from the
+   `openCommand` class.
+
+** Cons: `UpdateRideDescriptor` will modify the status of rides inside the `openCommand` class which will make the
+   `openCommand` class less cohesive.
+
+* **Alternative 2:** Abstracting `UpdateRideDescriptor` into a separate class and modify the status of rides in the
+    separate class instead of `openCommand` class.
+** Pros: The `openCommand` will be more cohesive.
+** Cons: More classes would need to be implemented to modify the status of rides.
+// end::open[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedThanePark`.
+It extends `ThanePark` with an undo/redo history, stored internally as an `ThaneParkStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedThanePark#commit()` -- Saves the current zone book state in its history.
+* `VersionedThanePark#undo()` -- Restores the previous zone book state from its history.
+* `VersionedThanePark#redo()` -- Restores a previously undone zone book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitThanePark()`, `Model#undoThanePark()` and `Model#redoThanePark()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedThanePark` will be initialized with the initial zone book state, and the `currentStatePointer` pointing to that single zone book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th ride in the zone book. The `delete` command calls `Model#commitThanePark()`, causing the modified state of the zone book after the `delete 5` command executes to be saved in the `ThaneParkStateList`, and the `currentStatePointer` is shifted to the newly inserted zone book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new ride. The `add` command also calls `Model#commitThanePark()`, causing another modified zone book state to be saved into the `ThaneParkStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitThanePark()`, so the zone book state will not be saved into the `ThaneParkStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the ride was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoThanePark()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous zone book state, and restores the zone book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial zone book state, then there are no previous zone book states to restore. The `undo` command uses `Model#canUndoThanePark()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoThanePark()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the zone book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `ThaneParkStateList.size() - 1`, pointing to the latest zone book state, then there are no undone zone book states to restore. The `redo` command uses `Model#canRedoThanePark()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the zone book, such as `list`, will usually not call `Model#commitThanePark()`, `Model#undoThanePark()` or `Model#redoThanePark()`. Thus, the `ThaneParkStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitThanePark()`. Since the `currentStatePointer` is not pointing at the end of the `ThaneParkStateList`, all zone book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+image::UndoRedoActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire zone book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the ride being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of zone book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedThanePark`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -351,12 +657,17 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+
 == Documentation
 
-We use asciidoc for writing documentation.
+Asciidoc was used for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+[TIP]
+If you need to edit the diagrams found in this document, the `.pptx` files used to create diagrams in this document can
+be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 === Editing Documentation
 
@@ -458,6 +769,8 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+This section covers what you need to know about running and designing automated tests for further development on this application.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -489,14 +802,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.thanepark.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.thanepark.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.thanepark.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.thanepark.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -526,372 +839,525 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/zone/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Thane Park depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Works at a attraction/theme park as manager, operator, customer relations… Mainly for operators.
+* Need to manage crowds and update status of park
+* Highly proficient with keyboard
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage attraction/theme parks more efficiently.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+=== User stories that will be implemented
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* *` |theme park manager |identify popularity trends in attractions |better plan for future expansions
 
-|`* * *` |user |add a new person |
+|`* * *` |theme park manager |identify manpower and physical assets shortages |better manage the staff roster
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* *` |theme park manager |find less popular rides |replace them with better ones, to keep the park fresh for visitors…
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |theme park manager |add/delete attractions |let operators know the changes in the park.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |theme park manager |find detailed information about an attraction |perform planning with better knowledge.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |theme park manager |view history |perform some amount of audit on the actions of employees.
+
+|`* * *` |attraction operator |monitor status of attractions |appropriately handle crowds and technical faults.
+
+|`* * *` |attraction operator |update the system on the queue status of the attraction I am stationed at |provide everyone access to live data.
+
+|`* * *` |attraction operator |shutdown/reopen attraction |facilitate maintenance works.
+
+|`* * *` |attraction operator |find detailed information about an attraction |perform my on-site duties without misinformation.
+
+|`* * *` |attraction operator |view history |keep track what work I have already completed.
+
+|`* *` |theme park customer relations officer |know which rides have the longest/shortest queue |suggest to customers which rides to ride
+
+|`* *` |theme park customer relations officer |find detailed information about an attraction |appropriately answer visitor queries on attractions.
+
+|`* *` |non-tech savvy user |ask the system to complete/correct my sentences |reduce the need to remember all the commands.
+
+|`* *` |non-tech savvy user |sort the entries according to a desired order |get a more comprehensive view.
+
+|`* *` |non-tech savvy user |view summarized help |stay not overwhelmed.
+
+|`* *` |non-tech savvy user |view detailed help about a certain command |have an idea on how to use the command on unique use cases.
+
+|`* *` |non-tech savvy user |undo an action |revert the damage done by my own negligence.
+
+|`* *` |non-tech savvy user |redo an action |perform an action that I undone at will.
+
+|`* *` |new user |find my basic commands |complete my basic tasks with ease.
+
+|`* *` |new user |get a quickhelp on startup |get productive within 30 seconds.
 |=======================================================================
 
 _{More to be added}_
 
+=== User stories that are kept for consideration for v2.0
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* *` |theme park manager |promote less frequented attractions |there is an increase in utilisation and growth
+
+|`*` |attraction operator |give suggestions |new/confused visitors have a destination
+
+|`*` |attraction operator |minimise waiting time for visitors |they can play more and wait less
+
+|`* *` |attraction operator |know which souvenirs sells the most |increase revenue for the theme park
+
+|`* *` |attraction operator |get a priority on offering visitors with the option of patronizing a less crowded
+attraction and coming back later without having to queue |visitors do not feel mistreated.
+
+|`* * *` |attraction operator |track visitors visiting an assigned attraction |visitors cannot cheat the queue system
+
+|`* *` |attraction operator |track ongoing promotions |visitors will be offered reward points for visiting promoted attractions
+
+|`* *` |theme park customer relations officer |know which rides the customers like most/least |upgrade rides to fit the customers’ needs
+
+|`* *` |theme park customer relations officer |know which rides have the longest/shortest queue |suggest to customers which rides to ride
+
+|`* *` |theme park customer relations officer |get recorded feedback from visitors |I will be able to have a better performance/ do my job better
+
+|`*` |theme park customer relations officer |better appease visitors |they are more inclined to return
+
+|`*` |theme park customer relations officer |give compensation to dissatisfied visitors |raise the approval rating of the park
+
+|`*` |theme park customer relations officer |give a suggested itinerary (randomized) |visitors can enjoy more rides with their money’s worth
+
+|`*` |theme park customer relations officer |make visitors feel welcomed in the park |they can enjoy themselves
+
+|`* *` |theme park customer relations officer |give directions to a less crowded food joint |visitors can enjoy a meal with their friends/family
+
+|`* *` |theme park customer relations officer |register visitors’ souvenir shopping list |visitors do not need to carry bulky souvenirs around
+
+|`*` |theme park customer relations officer |find a less crowded shop to buy souvenir |
+
+|=======================================================================
+
+
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
-=== Use case: Delete person
-
+=== Use case: Add attraction
+*System*: ThanePark +
+*Actor* Manager +
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User adds attraction.
+2.  ThanePark shows add success message.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. User adds attraction that already exists.
++
+[none]
+** 1a1. ThanePark shows add error message. +
+Use case ends.
+
+[discrete]
+=== Use case: Delete attraction
+*System*: ThanePark +
+*Actor* Manager +
+*MSS*
+
+1.  User deletes attraction.
+2.  ThanePark show delete success message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+*Extensions*
+
+[none]
+* 1a. User deletes attraction that does not exist.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. ThanePark shows delete error message. +
+Use case ends.
+
+[discrete]
+=== Use case: Exit
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User exits ThanePark application.
+2.  ThanePark completes closing process and shows relevant message.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Find attraction
+*System*: ThanePark +
+*Actor* Manager/Operator/Customer relations +
+*MSS*
+
+1.  User finds an attraction by name.
+2.  ThanePark shows detailed information of attraction.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no exact match of given name
++
+[none]
+** 1a1. ThanePark shows a list of names with substring match.
+** 1a2. User finds attraction using complete name as shown.
++
+Use case ends.
+
+* 1b. There is no substring match.
++
+[none]
+** 1b1. ThanePark shows warning message to user.
++
+Use case ends
+
+* 1c. User finds an attraction by the name of the zone that it is in and the tags it contains.
++
+[none]
+** 1c1. ThanePark shows a list of rides that matches the zone and the tags input by the user.
++
+Use case ends
+
+
+
+[discrete]
+=== Use case: Help
+*System*: ThanePark +
+*Actor* Non-tech savvy user +
+*MSS*
+
+1.  User requests for help.
+2.  ThanePark shows summarized information for help.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests for more help.
++
+[none]
+** 1a1. ThanePark shows normal detail of information for all commands.
++
+Use case ends.
+
+* 1b. User requests for help on specific command.
++
+[none]
+** 1b1. ThanePark shows detailed help with more examples on specific command.
++
+Use case ends.
+
+* 1c. User requests for help with extra invalid parameters.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: History
+*System*: ThanePark +
+*Actor* Manager/Operator +
+*MSS*
+
+1.  User requests for history.
+2.  ThanePark shows history.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests for history report.
++
+[none]
+** 1a1. ThanePark generates and shows history report.
++
+Use case ends.
+
+[discrete]
+=== Use case: Redo
+*System*: ThanePark +
+*Actor* Non-tech savvy user +
+*MSS*
+
+1.  User requests to redo.
+2.  ThanePark redoes the next action in the redo queue.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Redo queue is empty
++
+[none]
+** 1a1. ThanePark shows redo error.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Undo
+*System*: ThanePark +
+*Actor* Non-tech savvy user +
+*MSS*
+
+1.  User requests to undo.
+2.  ThanePark undoes the most recent undoable action.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no most recent undoable action as system just started up.
++
+[none]
+** 1a1. ThanePark shows undo error.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Update attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User requests to update information of an attraction.
+2.  ThanePark shows the updated state of the attraction.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for updating the attraction information
++
+Use case ends.
+
+[discrete]
+=== Use case: Open attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User opens an attraction.
+2.  ThanePark sets the status of attraction to be open.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for opening the attraction.
++
+Use case ends.
+
+[none]
+* 1b. The attraction is already open.
++
+[none]
+** 1b1. ThanePark shows error.
++
+Use case ends.
+
+[discrete]
+=== Use case: Shutdown attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User shuts down an attraction.
+2.  ThanePark sets the status of attraction to be shut down.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for shutting down the attraction.
++
+Use case ends.
+
+[none]
+* 1b. The attraction is already shut down.
++
+[none]
+** 1b1. ThanePark shows error.
++
+Use case ends.
+
+[discrete]
+=== Use case: Maintain attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User closes an attraction for maintenance.
+2.  ThanePark sets the status of attraction to be under maintenance.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for closing the attraction for maintenance.
++
+Use case ends.
+
+[none]
+* 1b. The attraction is already under maintenance.
++
+[none]
+** 1b1. ThanePark shows error.
++
+Use case ends.
+
+[discrete]
+=== Use case: View a list of all attractions
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User requests to view all attractions.
+2.  ThanePark shows a summarized view for the whole list of attractions in the park.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: View a list of rides that matches the given ride status
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User requests to view attractions by status.
+2.  ThanePark shows all attractions that matches the ride status.
++
+Use case ends.
+
+*Extensions*
+
+none
+
+[discrete]
+=== Use case: Filter
+*System*: ThanePark +
+*Actor* Manager/Operator +
+*MSS*
+
+1.  User requests for a filter query.
+2.  ThanePark shows all attractions that matches the filter criteria.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. There is no rides that matches the given condition in the query.
++
+[none]
+** 1a1. ThanePark shows warning message to user.
++
+Use case ends
+
+* 1b. The filter query has multiple conditions.
++
+[none]
+** 1b1. ThanePark shows a list of rides that matches the conditions from the user.
++
+Use case ends
+
+
+[discrete]
+=== Use case: Autocomplete
+*System*: ThanePark +
+*Actor* All +
+*MSS*
+
+1.  User types a command halfway.
+2.  System idles.
+3.  User presses tab.
+4.  System completes the command word for the user.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. There is more than 1 prefix match for the half-typed command.
++
+[none]
+** 3a1. ThanePark shows a list of command words that start with the same prefix.
++
+Use case resumes at step 1.
+
+[none]
+* 3b. There is no match for the half-typed command.
++
+[none]
+** 3b1. ThanePark idles.
++
+Use case resumes at step 1.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 attractions without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  System startup should not take more than 10 seconds.
+.  User should become productive within first 30 seconds.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -899,68 +1365,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[attraction-ride]] Attraction/ Ride::
+An attraction/ride that is meant for visitors to patronize.
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+[[themepark]] Theme/ Amusement park::
+A place with rides for visitors to patronise.
