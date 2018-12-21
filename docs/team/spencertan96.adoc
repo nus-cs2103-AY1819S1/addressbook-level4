@@ -1,0 +1,121 @@
+= Spencer Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EazyTutors
+
+---
+
+== Overview
+
+=== Purpose
+* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was
+responsible for creating the `Note` feature and the Details Panel that shows a selected student's progress.
+
+=== The Team
+* My team comprises of students from the National University of Singapore and we decided on creating this application
+after observing the hassle tutors have to deal with when marking attendance.
+
+=== The Application
+* EazyTutors is a desktop statistics recording application used for managing classes of students. It was created with
+NUS tutors in mind, but can be extended to tutors or teachers from other organizations as well. The user interacts with
+it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+=== Features
+* Mark students' attendance
+* Record students' assignment scores
+* Calculate assignment statistics
+* Calculate class performance
+* Add students' photos
+* Record notes about students
+
+== Summary of contributions
+
+=== Preface
+This section serves to inform you of the improvements I made to the project, including code, documentation and
+administrative tasks.
+
+=== Enhancements
+
+* *Major enhancement*: added *the ability to add/delete/edit a student's note*
+** What it does: allows the user to add, delete or edit notes specific to each student.
+** Justification: This feature will help tutors remember their students better and customise their teaching towards each
+student to be more effective. This would be especially helpful for tutors with large classes where it is very hard to
+remember each and every student and their respective personalities.
+** Highlights: Added notes are auto-punctuated. Each note added will have a full stop appended to its end if it does not
+already end with either `!`,`?` or `.`. When more text is added to the note, the current text's full stop will be
+changed to a `,` before the new text is added.
+
+* *Minor enhancement*: added a panel in the GUI for displaying a student's details such as their assignment grades and
+respective note.
+
+* *Minor enhancement*: added some tests for enhanced `AddCommand`.
+
+* Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=spencertan96[Project Code
+Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` to `v1.3.3` (7 releases) on GitHub.
+*** Set up issue tracker for team repo.
+*** Set up team org and team repo.
+** Enhancements to existing features:
+*** Changed the "add" command to only have a person's name as a compulsory parameter, with the rest being optional. It
+also takes in an index argument that adds the person at that specified index. (PR
+https://github.com/CS2103-AY1819S1-W12-4/main/pull/103[#103])
+** Documentation:
+*** Update GitHubPages and README to reflect the product and the team details. (PR #22 commits
+https://github.com/CS2103-AY1819S1-W12-4/main/pull/22/commits/9db24d75dfd3c460859781524398abe79a733ad2[#1],
+https://github.com/CS2103-AY1819S1-W12-4/main/pull/22/commits/8f8427b133a914d509251b3a887449d748247833[#2])
+*** Created first draft of User Guide. (PR https://github.com/CS2103-AY1819S1-W12-4/main/pull/6[#6])
+*** Updated ContactUs to reflect our product. (Commit
+https://github.com/CS2103-AY1819S1-W12-4/main/commit/f9b14c320378792e34784db6355a4ec7e10e7cd2#diff-4c233b88cc49275c50524b605260219a[#1])
+*** Added implementation details of `Note` and `MoreDetailsPanel` to Developer Guide.
+** Community:
+*** PRs reviewed (with non-trivial review comments): PR https://github.com/CS2103-AY1819S1-W12-4/main/pull/74[#74],
+https://github.com/CS2103-AY1819S1-W12-4/main/pull/104[#104],
+https://github.com/CS2103-AY1819S1-W12-4/main/pull/150[#150].
+*** Reported bugs for team T10-1 during Practical Exam Dry Run.
+** Tools:
+*** Set up Travis auto-documentation for the team repo.
+*** Set up AppVeyor as a secondary integration tool for the team repo.
+*** Set up Coveralls to monitor the test coverage of our project for the team repo.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+
+include::../UserGuide.adoc[tag=note]
+
+---
+
+=== Proposed Enhancement for v2.0
+* Add a section to show users how to use the new and improved GUI that we intend to add in v2.0
+* Show step-by-step examples on how to use the application features using the GUI, using screenshots of the application
+and text.
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=studentDetails]
+
+include::../DeveloperGuide.adoc[tag=note]
+
+include::../DeveloperGuide.adoc[tag=spencerTestInstructions]
+
+=== Proposed Enhancement for v2.0
+* Adding more UML diagrams as an aid to show readers exactly how the application is built
+* Add more features to the `Implementation` section to tell readers how our features were implemented and what
+alternative designs we considered

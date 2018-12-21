@@ -27,6 +27,13 @@ public class Phone {
     }
 
     /**
+     * Default empty constructor.
+     */
+    protected Phone() {
+        this.value = "";
+    }
+
+    /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {

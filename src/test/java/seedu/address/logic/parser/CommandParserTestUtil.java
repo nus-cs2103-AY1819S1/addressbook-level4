@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -34,5 +35,9 @@ public class CommandParserTestUtil {
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
         }
+    }
+
+    public static Index createIndex(int index) {
+        return Index.fromOneBased(index);
     }
 }

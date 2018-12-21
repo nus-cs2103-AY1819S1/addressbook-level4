@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -13,6 +15,9 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+
+    private static final String FAILED_IMAGE_URL = "images/imageFail.png";
+    private static final String DEFAULT_IMAGE_URL = "images/default.png";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -38,6 +43,8 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView imageView;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -48,6 +55,21 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        initProfilePic(person);
+    }
+
+    /**
+     * initialize javafx imageview to profile pic of student {@code person}
+     * @param person
+     */
+    public void initProfilePic(Person person) {
+
+        String url = person.getProfilePhoto().getPath();
+        try {
+            imageView.setImage(new Image(url, 128, 128, true, false));
+        } catch (Exception e) {
+            imageView.setImage(new Image(DEFAULT_IMAGE_URL, 128, 128, true, false));
+        }
     }
 
     @Override

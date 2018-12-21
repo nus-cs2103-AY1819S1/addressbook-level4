@@ -1,0 +1,90 @@
+= Chua Zhen Hao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EazyTutors
+
+---
+
+== Overview
+
+=== Purpose
+* This project portfolio was written to document my role and contributions to the **EazyTutors** project. I was
+responsible for creating the `Attendance` related features and the display of students' attendance.
+
+=== The Team
+* My team comprises of students from the National University of Singapore and we decided on creating this application
+after observing the hassle tutors have to deal with when marking attendance.
+
+=== The Application
+* EazyTutors is a desktop statistics recording application used for managing classes of students. It was created with
+NUS tutors in mind, but can be extended to tutors or teachers from other organizations as well. The user interacts with
+it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+=== Features
+* Mark students' attendance
+* Record students' assignment scores
+* Calculate assignment statistics
+* Calculate class performance
+* Add students' photos
+* Record notes about students
+
+== Summary of contributions
+
+=== Preface
+This section serves to inform you of the improvements I made to the project, including code, documentation and
+administrative tasks.
+
+=== Enhancements
+
+* *Major enhancement*: added *the ability to add/delete/edit a class session*
+** What it does: allows the user to add, delete or edit session information, and mark the attendance of a specific
+student.
+** Justification: This feature will allow tutors to mark and track the attendance of each student, so that marks could
+be given for participation and tutors can direct their attention towards students who have missed their lessons,
+to provide make-up lessons and help if necessary
+** Highlights:
+
+* *Minor enhancement*: added a panel in the GUI for displaying a student's attendance in lessons of a specific module.
+
+* *Minor enhancement*: added some tests for enhanced `AddCommand`.
+
+* Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zzsmao[Project Code
+Dashboard]]
+
+* *Other contributions*:
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
+|===
+
+include::../UserGuide.adoc[tag=attendance]
+
+---
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=attendance]
+
+include::../DeveloperGuide.adoc[tag=editLessonCommand]
+
+include::../DeveloperGuide.adoc[tag=deleteAttendanceCommand]
+
+include::../DeveloperGuide.adoc[tag=addLessonCommand]
+
+=== Proposed Enhancement for v2.0
+* Adding features to notify students of upcoming deadlines
+* Add tabs feature so that the app can be used for multiple classes

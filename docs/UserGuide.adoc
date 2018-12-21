@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+﻿= EazyTutors - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,25 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/W12-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W12-4`      Since: `Aug 2018`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+EazyTutors is an application for tutors or teachers who prefer a virtual way to manage a class of students. It allows
+users to mark students' attendance, as well as checking on students' individual progress. This helps users customise
+their teaching to students with different capabilities. It boasts extra features such as calculating the class
+statistics and assignment statistics. EazyTutors is optimized for those who prefer to work with a Command Line Interface
+(CLI) while still having the benefits of a Graphical User Interface (GUI). You won't need to bring around attendance
+sheets anymore with EazyTutors! Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!
+// end::intro[]
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure that you have Java version `9` or later installed in your Computer.
+.  Copy the file to the folder you want to use as the home folder for EazyTutors.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +39,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`add`*`n/John Doe p/999 e/police@hotmail.com t/cops`: Adds a contact named `John Doe` to the student list
+* **`select`**`1`: views the details of the 1st student shown in the student list
+* **`delete`**`3` : deletes the 3rd student shown in the student list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,63 +55,45 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order if all the parameters have prefixes e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
+Shows all commands available with examples.
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a student: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a student at the specified index in the list with a compulsory name. The rest of the details (index at list to add
+him to, phone number, email and tags) are optional. +
+Format: `add n/NAME [p/PHONE_NUMBER e/EMAIL a/ADDRESS s/INDEX t/TAG...]`
 
 [TIP]
-A person can have any number of tags (including 0)
+Students are added to the bottom of the student list by default. +
+A student can have multiple tags (or none). +
+Whitespace between different parameters do not affect the result, such as between `s/1` and `n/John Doe`.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com t/CS2103` (Added to the bottom of the student list as index not specified)
+* `add n/Betsy Crowe s/1 e/betsycrowe@example.com t/CS2103T` (The order of the parameters can be swapped around as all parameters have prefixes)
 
-=== Listing all persons : `list`
+=== Listing all students : `list`
 
-Shows a list of all persons in the address book. +
+Shows the list of all students in the student list.
 Format: `list`
 
-=== Editing a person : `edit`
+=== Locating students by name : `find`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Finds students whose names contain any of the given keywords.
+Format: find KEYWORD [MORE KEYWORDS]
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
+* The search is case insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* Persons matching at least one keyword will be returned (i.e. `OR` search) e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
@@ -114,75 +102,109 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Clearing all entries : `clear`
 
-Deletes the specified person from the address book. +
+Clears all data from application. +
+Format: `clear`
+
+=== Deleting a student : `delete`
+
+Deletes a student from the student list. +
 Format: `delete INDEX`
 
+* There can be any number of spaces between `delete` and `INDEX`. +
+
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete 2` +
+Deletes the 2nd person in the student list.
 
-=== Selecting a person : `select`
+=== Selecting a student : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the student identified by the index number used in the displayed student list.
 Format: `select INDEX`
 
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+* Selects the student and loads the Google search page the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** `1, 2, 3, ...`
 
 Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
+Selects the 2nd student in the student list.
 * `find Betsy` +
 `select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 1st student in the results of the `find` command.
 
-=== Listing entered commands : `history`
+// tag::addphoto[]
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+=== Adding a profile photo : `addphoto`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+Adds a profile photo to a student +
+
+Format: `addphoto INDEX f/FILENAME`
+
+****
+* Adds a photo at location `FILENAME` to person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* `FILENAME` must point to a valid image file.
+* This feature isn't compatible with MAC OS X at the moment.
+* Do not delete photos from storage (EzTutor File) at this point since doing so may trigger some undesirable behaviour in the program.
+* File size of photo should be less than 5MB.
+****
+
+Examples:
+
+* `addphoto 1 f/C:\\Users\Zackk95\Pictures\zacharytan.jpg` +
+Edits the profile photo of the 1st person to be the picture at C:\\Users\Zackk95\Pictures\zacharytan.jpg
+* Important to take note the double backslash after C.
+
+// end::addphoto[]
+
+// tag::deleteProfilePhoto[]
+
+=== Deleting a student's photo: `deleteProfilePhoto`
+
+Delete a student's photo and sets it to the default photo. +
+Format: `deleteProfilePhoto INDEX`
+
+****
+* Will delete a student's photo and set it to the default photo.
+* This command is irreversible!
+****
+
+Examples:
+
+* `deleteProfilePhoto 1` +
+Delete the photo of the person at index 1 and set it to the default photo.
+
+// end::deleteProfilePhoto[]
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the student list to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the student list's content (`add`, `delete`, `edit`, `sort`, `addAssignment`, `deleteAssignment`, `editAssignment`, `markAssignment`, `attend`, `note`, `delnote`, `editnote`, `addphoto`, `deleteProfilePhoto` and `clear`).
 ====
 
 Examples:
 
 * `delete 1` +
-`list` +
+`select 2`
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
-`list` +
+* `results` +
+`select 1` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -193,7 +215,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Reverses the most recent `undo` command only if the last command is `undo`. +
 Format: `redo`
 
 Examples:
@@ -214,47 +236,278 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+//tag::attendance[]
+=== Add a lesson: `addLesson`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Adds a lesson to the list of lessons in the address book.  +
+Format: `addLesson n/NAME d/DATE`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+****
+* Adds a lesson to all students in the class (i.e the students is the address book),
+with the name of the lesson, NAME and when the session was held, DATE.
+* `NAME` should be a String.
+* `DATE` should follow the format DD/MM/YYYY.
+* Cannot be undone/redone.
+****
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+.Add Lesson
+image::addLesson.png[width="800"]
 
-== FAQ
+=== Mark a student's attendance: `attend`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Creates an attendance entry for the person identified by the index number used in the displayed person list. +
+Format: `attend INDEX id/SESSION_INDEX at/ATTENDANCE`
+
+****
+* Marks a student's attendance, ATTENDANCE as 1, for present, 0 for absent, given the index of the student in the address book, INDEX, index of the lesson, SESSION_INDEX
+* `INDEX` should be a positive integer.
+* `SESSION_INDEX` should be a positive integer.
+* `ATTENDANCE` should be either 1 or 0.
+* Cannot be undone/redone.
+****
+
+.Mark Attendance
+image::attend.png[width="800"]
+
+=== Delete a session: `deleteAttendance`
+
+Deletes a lesson from the list of lessons in the address book. +
+Format: `deleteAttendance id/SESSION_INDEX`
+
+****
+* Deletes a lesson from the list of lessons in the address book with the input index,
+SESSION_INDEX.
+* `SESSION_INDEX` should be a positive integer.
+* Cannot be undone/redone.
+****
+
+.Delete Lesson
+image::deleteAttendance.png[width="800"]
+
+=== Edit a session: `editLesson`
+
+Edits the name and date of an existing lesson. +
+Format: `editLesson id/SESSION_INDEX n/UPDATED_NAME d/UPDATED_DATE`
+
+****
+* Edits the name and/or date of an existing lesson in the list of lessons in the
+addressbook, replacing them with UPDATED_NAME and/or UPDATED_DATE respectively.
+* `UPDATED_NAME` should be a String.
+* `UPDATED_DATE` should follow the format DD/MM/YYYY.
+* Cannot be undone/redone.
+****
+
+.Edit Lesson
+image::editLesson.png[width="800"]
+// end::attendance[]
+
+// tag::sort[]
+=== Sort the student list: `sort`
+
+Sort the student list by alphabetical order. +
+Format: `sort`
+
+//[TIP]
+//Students are sorted according by alphabetical order by default (with no argument).
+
+// end::sort[]
+
+// tag::assignment[]
+=== Add an assignment: `addAssignment`
+
+Adds an assignment with given assignment name, weight, deadline, maximum mark. +
+Format: `addAssignment n/ASSIGNMENTNAME w/WEIGHT d/DEADLINE m/MAX_MARK`
+
+
+=== Delete an assignment: `deleteAssignment`
+
+Delete an assignment with given assignment index. +
+Format: `deleteAssignment INDEX`
+
+=== Edit an assignment: `editAssignment`
+
+Edit an existing assignment with specified informations.
+Format: `editAssignment INDEX [n/ASSIGNMENTNAME] [w/WEIGHT] [d/DEADLINE] [m/MAX_MARK]`
+
+=== Sort all assignment: `sortAssignment`
+
+Sort all assignment by deadline. +
+Format: `sortAssignment`
+
+=== Record a mark for a student: `markAssignment`
+
+Adds a mark for an assignment associated with a student given the mark obtained. Can mark more than maxMark in case of bonus score. +
+Format: `markAssignment STUDENT_INDEX id/ASSIGNMENT_INDEX m/MARK`
+// end::assignment[]
+
+// tag::stats[]
+=== Display the statistics for the marks of an assignment: `assignmentStats`
+
+Displays the number of submissions and the maximum, highest, lowest, 25th/75th percentiles, average, and median mark for the specified assignment. +
+Format: `assignmentStats ASSIGNMENT_INDEX`
+
+.Assignment Statistics
+image::assignment_stats.png[width="800"]
+
+=== Display the statistics for the total grades of the students in the class: `classStats`
+
+Displays the number of students and the maximum, highest, lowest, 25th/75th percentiles, average, and median total grade. +
+Format: `classStats`
+
+.Class Statistics
+image::class_stats.png[width="800"]
+// end::stats[]
+
+=== Editing a student: `edit`
+
+Edits an existing student in the student list. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Viewing command history : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+// tag::note[]
+=== Add a note about a student : `note`
+
+Attaches a note with specified text to a student in the student list specified by his/her index. +
+Format: `note INDEX TEXT`
+
+****
+* Any added note is automatically ended with a full stop unless the input `TEXT` ends with either `.`, `!` or `?`.
+* If a note is added to a student who already has a previous note, the previous note is changed to end with a comma before the new text is appended to the back.
+****
+
+[NOTE]
+`TEXT` should not begin with a whitespace but alphanumeric and special characters are allowed.
+
+Examples:
+
+* `note 1 hardworking student` +
+Student at 1st index's note:
++
+image::userGuide_noteExample.png[width="200"]
++
+`note 1 motivated too!` +
+Student at 1st index's note:
++
+image::userGuide_noteExample2.png[width="200"]
+
+=== Delete a student's note : `delnote`
+
+Deletes the corresponding note of the student at the specified index. +
+Format: `delnote INDEX`
+
+* There can be any number of spaces between `delnote` and `INDEX`. +
+
+[NOTE]
+An empty note cannot be deleted! +
+
+Examples:
+
+* `delnote 2`
+(Deletes the note of the 2nd student shown, is invalid if there is less than 2 students in the shown student list.)
+
+=== Edits the note of a student : `editnote`
+
+Sets the corresponding note of the student at the specified index to text. Refer to <<Add a note about a student : `note`>> for details on text. +
+Format: `editnote INDEX TEXT`
+
+[NOTE]
+An empty note cannot be edited!
+
+Examples:
+
+* `note 2 check finals mark addition?` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample.png[width="200"]
++
+`editnote 2 marks checked.` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample3.png[width="200"]
++
+`delnote 2` +
+Student at 2nd index's note:
++
+image::userGuide_editnoteExample4.png[width="200"]
+// end::note[]
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add n/NAME [p/PHONE_NUMBER e/EMAIL s/INDEX t/TAG...]` +
+e.g. `add n/James Ho s/1 p/22224444 e/jamesho@example.com t/friend t/colleague`
+* *AddAssignment* : `addAssignment n/NAME w/WEIGHT d/DEADLINE m/MAX_MARK` +
+e.g. `addAssignment n/Assignment 1 w/15 d/14/10/2019 m/100`
+* *AddLesson* : `addLesson n/NAME d/DATE` +
+e.g. `addLesson n/Tutorial 1 d/11/11/2018`
+* *AssignmentStats* : `assignmentStats ASSIGNMENT_INDEX` +
+e.g. `assignmentStats 1`
+* *Attend* : `attend INDEX id/SESSION_INDEX at/ATTENDANCE` +
+e.g. `attend 1 id/1 at/1`
+* *ClassStats* : `classStats`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *DeleteAssignment* : `deleteAssignment INDEX` +
+e.g. `deleteAssignment 3`
+* *DeleteAttendance* : `deleteAttendance id/SESSION_INDEX` +
+e.g. `deleteAttendance id/1`
+* *Delnote* : `delnote INDEX` +
+e.g. `delnote 2`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *EditAssignment* : `editAssignment INDEX [n/NAME] [w/WEIGHT] [d/DEADLINE] [m/MAXMARK]` +
+e.g. `edit 2 n/Assignment3 w/40`
+* *EditLesson* : `editLesson id/SESSION_INDEX n/UPDATED_NAME d/UPDATED_DATE` +
+e.g. `editLesson id/1 n/Tutorial 2 d/12/12/2018`
+* *Editnote* : `editnote INDEX TEXT` +
+e.g. `editnote 1 Consult changed to 3pm`
+* *Exit* : `exit`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]
 e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
+* *List* : `list`
+* *MarkAssignment* : `markAssignment INDEX id/ASSIGNMENT_INDEX m/MARK` +
+e.g. `markAssignment 1 id/1 m/53`
+* *Note* : `note INDEX TEXT` +
+e.g. `note 4 Good student`
 * *Redo* : `redo`
+* *Select* : `select INDEX`
+e.g. `select 2`
+* *Sort* : `sort`
+* *SortAssignment* : `sortAssignment`
+<<<<<<< HEAD
+=======
+* *Unattend* : `unattend INDEX at/CLASSNAME` {Coming in v2.0}
+>>>>>>> caf11e4085ee854c8ebf7ffb10759b4d7fbf7e6a
+* *Undo* : `undo`
+

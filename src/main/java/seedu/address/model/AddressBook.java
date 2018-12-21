@@ -5,6 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.UniqueAssignmentList;
+import seedu.address.model.attendance.Attendance;
+import seedu.address.model.attendance.UniqueAttendanceList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +19,8 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueAssignmentList assignments;
+    private final UniqueAttendanceList attendance;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +31,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        assignments = new UniqueAssignmentList();
+        attendance = new UniqueAttendanceList();
     }
 
     public AddressBook() {}
@@ -48,12 +56,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the assignment list with {@code assignments}.
+     * {@code assignments} must not contain duplicate assignment.
+     */
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments.setAssignments(assignments);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setAssignments(newData.getAssignmentList());
     }
 
     //// person-level operations
@@ -75,6 +92,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the address book at given index.
+     * The person must not already exist in the address book.
+     */
+    public void addPersonAt(Person p, int index) {
+        persons.addAt(p, index);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -93,6 +118,90 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /** Sorts the persons in this {@code AddressBook} lexicographically */
+    public void sort() {
+        persons.sort();
+    }
+
+    // assignment-level operation
+
+    /**
+     * Returns true if an assignment with the same
+     */
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return assignments.contains(assignment);
+    }
+
+    /**
+     * Adds an assignment to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addAssignment(Assignment a) {
+        assignments.add(a);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updateAssignment(Assignment target, Assignment editedAssignment) {
+        requireNonNull(editedAssignment);
+
+        assignments.setAssignment(target, editedAssignment);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAssignment(Assignment key) {
+        assignments.remove(key);
+    }
+
+    /** Sorts the assignments in this {@code AddressBook} by deadline */
+    public void sortAssignment() {
+        assignments.sort();
+    }
+
+    // attendance-level operation
+
+    /**
+     * Returns true if a session with the same
+     */
+    public boolean hasAttendance(Attendance a) {
+        requireNonNull(a);
+        return attendance.contains(a);
+    }
+
+    /**
+     * Adds a session to the address book.
+     * The assignment must not already exist in the address book.
+     */
+    public void addAttendance(Attendance a) {
+        attendance.add(a);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAttendance(Attendance key) {
+        attendance.remove(key);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updateAttendance(Attendance target, Attendance editedLesson) {
+        requireNonNull(editedLesson);
+
+        attendance.setAttendance(target, editedLesson);
+    }
+
     //// util methods
 
     @Override
@@ -104,6 +213,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+    @Override
+    public ObservableList<Assignment> getAssignmentList() {
+        return assignments.asUnmodifiableObservableList();
+    }
+    @Override
+    public ObservableList<Attendance> getAttendanceList() {
+        return attendance.asUnmodifiableObservableList();
     }
 
     @Override
