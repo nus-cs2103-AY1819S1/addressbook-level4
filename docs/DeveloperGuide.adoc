@@ -441,14 +441,14 @@ private Predicate<ResumeEntry> createCategoryPredicate(String category) {
 The diagram below shows how the components interact when the user attempts to load a template using the `loadtemplate template1.txt` command.
 
 .Component interactions for loadtemplate template1.txt command (part 1)
-image::TemplateSD1.png[width="600"]
+image::Template_SD1.png[width="600"]
 
 The diagram below shows how `EventsCenter` reacts, raising a `TemplateLoadRequestedEvent` which prompts `Storage` to attempt to load the template from file.
 If the loading was successful, it the text file will be parsed into a `Template` object, and passed into the `TemplateLoadedEvent`. This event will be handled in the `Model`, which will store the `Template` retrieved from the event.
 Otherwise, a `TemplateLoadingExceptionEvent` will be raised and handled by `Model` as well.
 
 .Component interactions for loadtemplate template1.txt command (part 2)
-image::TemplateSD2.png[width="600"]
+image::Template_SD2.png[width="600"]
 
 The diagram below provides a detailed view of the sequence of events taking place within the Storage component.
 When `loadTemplate()` is called, `StorageManager` calls `loadTemplate()` on its `TxtTemplateStorage`,
