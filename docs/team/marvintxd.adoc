@@ -1,4 +1,4 @@
-== Marvin Tan Xu Dong - Project Portfolio
+= Marvin Tan Xu Dong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -41,66 +41,6 @@ for them to be displayed in the generated resume.
 * *Code contributed*:
 https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=marvintxd[Project Code Dashboard]
 
-Code Snippet:
-```
-private static final String DELIMITER = ":";
-private static final String AND_DELIMITER = "&";
-private static final String OR_DELIMITER = " ";
-.
-.
-.
-/**
- * Returns a predicate which checks if entry matches tags
- */
-private Predicate<ResumeEntry> createTagPredicate(String tags) {
-    if (tags.equals("")) { //no filters
-        return entry -> true;
-    }
-
-    /*
-     * start with sum of products: "nus&java nus&c recent"
-     * and split into array of products/tag groups: [nus&java, nus&c, recent]
-     */
-    String[] tagGroups = tags.split(OR_DELIMITER);
-
-    ArrayList<ArrayList<Tag>> expressions = new ArrayList<>();
-
-    for (int i = 0; i < tagGroups.length; i++) {
-        ArrayList<Tag> expression = new ArrayList<>();
-        // for each product: [nus&java], split into tags: [nus, java]
-        for (String tag : tagGroups[i].split(AND_DELIMITER)) {
-            expression.add(new Tag(tag));
-        }
-        expressions.add(expression);
-    }
-
-    return entry -> {
-        Set<Tag> entryTags = entry.getTags();
-        boolean fitsOneExpression = false;
-        for (ArrayList<Tag> expression : expressions) {
-
-            boolean fitsAllInExpression = true;
-            for (Tag tag : expression) {
-
-                if (!entryTags.contains(tag)) {
-                    fitsAllInExpression = false;
-                    break;
-                }
-            }
-
-            if (fitsAllInExpression) {
-                fitsOneExpression = true;
-                break;
-            }
-        }
-        return fitsOneExpression;
-    };
-}
-
-private Predicate<ResumeEntry> createCategoryPredicate(String category) {
-    return entry -> entry.getCategory().equals(new Category(category));
-}
-```
 * *Other contributions*:
 
 ** Documentation:
