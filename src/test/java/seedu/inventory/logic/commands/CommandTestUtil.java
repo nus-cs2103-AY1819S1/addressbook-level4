@@ -97,8 +97,8 @@ public class CommandTestUtil {
     public static final String INVALID_STAFFNAME_DESC = " " + PREFIX_NAME + "Zulq@rn@!n";
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "Storeman";
 
-    public static final String VALID_REQUIRED_DATE_OPPO = "2018-12-31";
-    public static final String VALID_REQUIRED_DATE_SONY = "2018-12-30";
+    public static final String VALID_REQUIRED_DATE_OPPO = "2098-12-31";
+    public static final String VALID_REQUIRED_DATE_SONY = "2098-12-30";
     public static final String VALID_SUPPLIER_OPPO = "Mobile Square Pte Ltd";
     public static final String VALID_SUPPLIER_SONY = "Sony Corporation";
     public static final String VALID_STATUS_OPPO = "PENDING";
