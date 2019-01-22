@@ -13,7 +13,7 @@ public class PurchaseOrderBuilder {
 
     public static final String DEFAULT_SKU = "apple-iphone-xr";
     public static final String DEFAULT_QUANTITY = "10";
-    public static final String DEFAULT_REQUIRED_DATE = "2018-12-31";
+    public static final String DEFAULT_REQUIRED_DATE = "2098-12-31";
     public static final String DEFAULT_SUPPLIER = "Apple Inc.";
     public static final PurchaseOrder.Status DEFAULT_STATUS = PurchaseOrder.Status.PENDING;
 

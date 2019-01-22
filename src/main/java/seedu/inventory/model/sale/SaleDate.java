@@ -56,7 +56,7 @@ public class SaleDate {
      */
     private static boolean validateMonth(Integer month) {
         // Prevent months in invalid range
-        return month > 1 && month < 12;
+        return month >= 1 && month <= 12;
     }
 
     /**
