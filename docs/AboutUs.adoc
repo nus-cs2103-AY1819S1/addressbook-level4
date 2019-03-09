@@ -19,8 +19,8 @@ Responsibilities: Player and command implementation, refactoring coordinator
 
 '''
 
-=== Hansel Chia Chen Young
-image::handshou.png[width="150", align="left"]
+=== Hansel
+image::damithc.jpg[width="150", align="left"]
 {empty}[http://github.com/handshou[Github]] [<<handshou#, Portfolio>>]
 
 Roles: Refining lead, developer +
