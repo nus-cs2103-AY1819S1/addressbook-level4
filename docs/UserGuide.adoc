@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= JxMusic - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,211 +12,496 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
 
+// tag::intro_hayden[]
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+The JxMusic is a music platform that lets you add to, organize and play your digital audio collection on your computer. The player is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+//end::intro_hayden[]
 
+// tag::quickStart_yingnan[]
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `jxmusic.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your JxMusic player.
+.  Open a terminal in the folder, enter the command `java -jar jxmusic.jar`.
+    - The command should generate a `library` folder next to the jar file containing several sample mp3 files.
+    - Otherwise, enter `unzip jxmusic.jar "library/*"`
+    - Alternatively, download the library.zip file and unzip it next to the jar.
+    - Ensure that you have the library folder with the sample mp3 files otherwise jxmusic won't start.
+    - Then run `java -jar jxmusic.jar`
+.  The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some example commands you can try with build-in tracks and playlists:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`playlist list`* : lists all playlists
+* **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles` to the JxMusic Player.
+* **`playlist play`**`p/playlist1` : plays the `playlist1`
 * *`exit`* : exits the app
-
 .  Refer to <<Features>> for details of each command.
+.  To add the new tracks to the library, add the mp3 files to the `library` folder.
+.  Restart the file so that your new tracks could be scanned and showed in UI.
+
+//end::quickStart_yingnan[]
 
 [[Features]]
 == Features
 
+// tag::commandFormat[]
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `playlist new p/PLAYLIST`, `PLAYLIST` is a parameter which can be used as `playlist new p/playlist1`.
+* Items in square brackets are optional e.g `stepback [s/SECONDS]` can be used as `stepback` or as `stepback s/20`.
 ====
+
+// end::commandFormat[]
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::PlayTPlayP_david[]
+=== Playing a track : `play t/`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Plays a track. If there is a playlist or track playing, it will be stopped and the track will be played. +
+Format: `play t/[TRACK]`
+
+****
+* `TRACK` is an optional parameter, referring to the name of an existing track in the library folder.
+* If `TRACK` is not specified, the first track in the library folder sorted by file name will be played.
+****
+
+Examples:
+
+* `play t/` +
+Plays the first track in the library folder sorted by file name if there is any.
+* `play t/Some Song` +
+Plays the track named "Some Song" if it exists in the library folder.
+
+=== Playing a playlist : `play p/`
+
+Plays a playlist. Similarly to playing a track, if there is a playlist or track playing, it will be stopped and the playlist will be played. +
+Format: `play p/[PLAYLIST]`
+
+****
+* `PLAYLIST` is an optional parameter, referring to the name of an existing playlist in the library folder.
+* If `PLAYLIST` is not specified, the first playlist in the library sorted by name will be played.
+****
+
+Examples:
+
+* `play p/` +
+Plays the first playlist in the library folder if there is any.
+* `play p/Favourites` +
+Plays the playlist named "Favourites" if it exists in the library folder.
+// end::PlayTPlayP_david[]
+
+// tag::pause_hayden[]
+
+=== Pausing a playing track : `pause`
+
+Pauses a playing track. +
+Format: `pause`
+
+Examples:
+
+* `play t/Some Song` +
+`pause` +
+The track is paused.
+
+// end::pause_hayden[]
+
+// tag::Play_david[]
+=== Continuing a paused track : `play`
+
+Continues a paused track. +
+Format: `play`
+
+Examples:
+
+* `play t/Some Song` +
+`pause` +
+`play` +
+"Some Song" will continue playing from where it is paused.
+// end::Play_david[]
+
+// tag::command_yingnan[]
+=== Stopping a play : `stop`
+
+Stops the track from playing. +
+Format: `stop`
+
+Examples:
+
+* `play t/Some Song` +
+`stop` +
+`play` +
+"Some song" stops playing and replays from the beginning.
+
+=== Getting the duration of current playing/paused/stopped track: `duration`
+
+Displays the duration of current playing/paused/stopped track. +
+Format: `duration`
+
+* `play t/Some Song` +
+`duration` +
+The duration of the "Some Song" is displayed on `ResultDisplay` pane.
+
+=== Seeking time point : `seek`
+
+Steps to the specified time point of the current track. +
+Format: `seek d/TIME`
+
+****
+* `TIME` is in the format of `[[h ]m ]s` each of which represents a unit of time that will be summed up to get the
+time point. Only unsigend integers are allowed as time inputs.
+* Examples of valid `TIME`:
+** `10` (10 sec)
+** `1 59` (1 min 59 sec)
+** `100` (100 sec = 1 min 40 sec)
+** `1 100` (1 min + 100 sec = 2 min 40 sec)
+** `1 99 99` (1 hr + 99 min + 99 sec = 2 hr 40 min 39 sec)
+****
+
+Examples:
+
+* `play t/Some Song` +
+`seek d/1 10` +
+The track seeks to the 1 min 10 sec point and starts from there.
+* `play t/Some Song` +
+`seek d/100` +
+The track seeks to the 1 min 40 sec point and starts from there.
+* `play t/Some Song` +
+`seek d/200000` +
+If `TIME` is longer than the song duration, the seek command fails.
+
+// end::command_yingnan[]
+
+=== Listing all playlists : `playlist list`
+
+Shows the list of all playlists in the library. +
+Format: `playlist list`
+
+// tag::playlistSearch_hayden[]
+
+=== Searching for a playlist : `playlist search`
+
+Searches for playlists by names. +
+Format: `playlist search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `playlist search Fav` +
+Searches for playlists that has Fav in their names.
+// end::playlistSearch_hayden[]
+
+// tag::PlaylistNew_david[]
+=== Creating a playlist : `playlist new`
+
+Creates a new playlist with specific tracks and saves it into the library. +
+Format: `playlist new p/PLAYLIST [t/TRACK]...`
+
+****
+* `PLAYLIST` refers to the playlist’s name.
+* `TRACK` refers to the track’s name.
+****
+
+Examples:
+
+* `playlist new p/Favourites t/Some Song t/Some Song 2` +
+Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
+
+// end::PlaylistNew_david[]
+
+// tag::playlistDel_hayden[]
+
+=== Deleting a playlist : `playlist del`
+
+Removes an existing playlist from the library. +
+Format: `playlist del INDEX`
+
+****
+* `INDEX` refers to the playlist’s index in the playlist panel.
+****
+
+Examples:
+
+* `playlist del 1` +
+Deletes the first playlist in the panel if it exists.
+// end::playlistDel_hayden[]
+
+// tag::tracklist_gj[]
+=== Listing all tracks : `track list`
+
+Shows a list of all tracks in the library. +
+Format: `track list`
+
+// end::tracklist_gj[]
+
+// tag::tracksearch_gj[]
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search aliez` +
+Searches for tracks that has aliez in their names.
+// end::tracksearch_gj[]
+
+// tag::trackcommands[]
+=== Adding a track into a playlist : `track add`
+
+Adds a track into a playlist. Track can be chosen by using its name or its index in the track list panel. +
+Format: `track add p/PLAYLIST [t/TRACK]...`
+Format: `track add p/PLAYLIST [i/INDEX]...`
+
+****
+* `PLAYLIST` refers to an existing playlist’s name.
+* `TRACK` refers to the name of an existing track in the library folder.
+* `INDEX` refers to the index of a track in the track list panel.
+****
+
+Examples:
+
+* `track add p/Favourites t/Some Song t/Some Song2` +
+Adds the track named "Some Song" and "Some Song2" to the "Favourites" playlist.
+
+* `track add p/Favourites i/1 2` +
+Adds the first and second track in the track list panel to the "Favourites" playlist.
+
+=== Deleting a track from a playlist : `track del`
+
+Removes a track from a playlist. Track can is chosen by using its appeared sequence in playlist card. +
+Format: `track del p/PLAYLIST INDEX`
 
 [TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Track is selected by its index **not** its name.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* `PLAYLIST` refers to an existing playlist’s name.
+* `INDEX` refers to the index of the track in the `PLAYLIST`.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `track del p/Favourites i/3` +
+Deletes the 3rd track in "Favourites" playlist.
+// end::trackcommands[]
 
-=== Locating persons by name: `find`
+// tag::v2.0_gj[]
+=== Stepping a track : `step` [coming in v2.0]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Steps forward by default 10 seconds or specified time in seconds. +
+Format: `step [s/SECONDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* `SECONDS` is the number of seconds to step forward.
+* If `SECONDS` is negative, the command behaves similar to `stepback`.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `play t/Some Song` +
+`step` +
+The track moves forward to 10 seconds later of the track and keeps playing.
+* `play t/Some Song` +
+`step s/100` +
+Stepping forward 100 seconds.
+* `play t/Some Song` +
+`stop s/-100` +
+Using negative value for `SECONDS` will apply the same behaviour as `stepback`. The track steps backward 100 seconds.
 
-=== Deleting a person : `delete`
+=== Stepping back : `stepback` [coming in v2.0]
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Steps back by default 10 seconds or specified time in seconds. +
+Format: `stepback [s/SECONDS]`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* `SECONDS` is the number of seconds to step backward.
+* If `SECONDS` is negative, the command behaves similar to `step`.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `play t/Some Song` +
+`stepback` +
+The track moves backward 10 seconds earlier of the track and keeps playing. If the track has just played for less than 10 seconds, the track replays.
+* `play t/Some Song` +
+`stepback s/100` +
+Stepping back 100 seconds.
+* `play t/Some Song` +
+`stepback s/-100` +
+Using negative value for `SECONDS` will apply the same behaviour as `step`. The track steps forward 100 seconds.
 
-=== Listing entered commands : `history`
+=== Replay a track : `replay` [coming in v2.0]
 
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
-
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+Replays a track before the track ends to start from the beginning. +
+Format: `replay`
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `play t/Some Song` +
+`seek t/100` +
+`replay` +
+The track plays from the beginning.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+=== Skipping to the next track : `next` [coming in v2.0]
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
+Plays the next track. +
+Format: `next`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `play p/Favourites` +
+`next` +
+If the last track is being played, the playlist ends and stops.
+* `play t/Some Song` +
+`repeat track` +
+`next` +
+“Some Song” will replay.
+* `play p/Favourites` +
+`repeat playlist` +
+`next` +
+Go to the next track. Since `repeat playlist` is on, if it is the last track of the playlist playing, the first track of the playlist will play.
+* `play p/Favourites` +
+`shuffle` +
+`repeat playlist` +
+`next` +
+Go to the next track. Since `shuffle` and `repeat playlist` are on, if it is the last track playing, the next shuffled repeat will play.
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+=== Skipping to the previous track : `prev` [coming in v2.0]
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+Plays the previous track. +
+Format: `prev`
+
+Examples:
+
+* `play p/Favourites` +
+`prev` +
+Plays the previous track. If the current track is first track in playlist, replays the same track since there is no previous track.
+* `play t/Some Song` +
+`repeat track` +
+`prev` +
+“Some Song” will replay.
+* `play p/Favourites` +
+`repeat playlist` +
+`prev` +
+Go to the previous track. Since `repeat playlist` is on, if it is the first track of the playlist playing, the last track of the playlist will play.
+* `play p/Favourites` +
+`shuffle` +
+`repeat playlist` +
+`prev` +
+Go to the previous track. Since `shuffle` and `repeat playlist` are on, if it is the first track playing and there was no previous track, the same track repeats.
+
+=== Repeatedly playing a track : `repeat track` [coming in v2.0]
+
+Switches the repeat mode to repeatedly play a single track. The command works even without any track playing. Upon running this command, any subsequent track will be played on repeat. +
+Format: `repeat track`
+
+Examples:
+
+* `play p/Favourites` +
+`repeat playlist` +
+`repeat track` +
+Switches to repeat track mode. The currently playing track will be on repeat.
+* `repeat track` +
+`play t/Some Song` +
+“Some Song” will play on repeat.
+* `repeat track` +
+`play p/Favourites` +
+The first track of the “Favourites” playlist will play on repeat.
+
+=== Repeatedly playing a playlist : `repeat playlist` [coming in v2.0]
+
+Switches the repeat mode to repeatedly play a single playlist. The command works even without any playlist playing. Upon running this command, any subsequent playlist will be played on repeat. +
+Format: `repeat playlist`
+
+Examples:
+
+* `play p/Favourites` +
+`repeat track` +
+`repeat playlist` +
+Switches to repeat playlist mode. “Favourites” will play on repeat.
+* `repeat playlist` +
+`play p/Favourites` +
+“Favourites” will play on repeat.
+* `repeat playlist` +
+`play t/Some Song` +
+“Some Song” will play on repeat.
+
+=== Turning off repeat mode : `repeat off` [coming in v2.0]
+
+Turns off the repeat mode +
+Format: `repeat off`
+
+Examples:
+
+* `play p/Favourites` +
+`repeat playlist` +
+`repeat off` +
+Switches off repeating mode.
+
+=== Shuffling a playlist : `shuffle` [coming in v2.0]
+
+Switches on shuffle mode to play tracks in random order. +
+Format: `shuffle`
+
+****
+* When a playlist is in playback (either playing or paused), `shuffle` will put the rest of the playlist into random order.
+* `shuffle` will have no effect when track repeating mode is on.
+****
+
+Examples:
+
+* `shuffle` +
+`play p/Favourites` +
+“Favourites” will play in random order.
+* `play p/Favourites` +
+`repeat playlist` +
+`shuffle` +
+Subsequent tracks will be played in random order. When all the tracks in the playlist has been played, the next repeat will be shuffled.
+* `play p/Favourites` +
+`repeat track` +
+`shuffle` +
+The track being repeated will continue to play until `repeat off` only then subsequent tracks will play in random order from the remaining unplayed tracks in the playlist.
+
+=== Turning off shuffle mode : `shuffle off` [coming in v2.0]
+
+Turns off the shuffle mode +
+Format: `shuffle off`
+
+Examples:
+
+* `play p/Favourites` +
+`shuffle` +
+`shuffle off` +
+Switches off shuffling mode.
+
+// end::v2.0_gj[]
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the library. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -224,37 +509,61 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the `library` folder it creates with the file that contains the data of your previous `library` folder.
 
+// tag::commandSummary_hansel[]
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+
+=== Commands for controlling playback
+* *Play track* : `play t/[TRACK]`
+* *Play playlist* : `play p/[PLAYLIST]`
+* *Pause track* : `pause`
+* *Continue track* : `play`
+* *Stop playing* : `stop`
+* *Seek time point* : `seek d/TIME` +
+eg. `seek d/1 10`
+* *Step* : `step [s/SECONDS]` +
+eg. `step s/100`
+* *Stepback* : `stepback [s/SECONDS]` +
+eg. `stepback s/100`
+* *Replay* : `replay`
+// end::commandSummary_hansel[]
+
+// tag::commandSummary_yingnan[]
+=== Commands for aiding the use of playback commands
+* *Get duration* : `duration`
+
+// end::commandSummary_yingnan[]
+
+// tag::commandSummary2_hansel[]
+=== Commands for controlling sequence of playback
+* *Skip to next track* : `next`
+* *Skip to previous track* : `prev`
+* *Repeat track* : `repeat track`
+* *Repeat playlist* : `repeat playlist`
+* *Turn off repeat mode* : `repeat off`
+* *Shuffle playlist* : `shuffle`
+* *Turn off shuffle mode* : `shuffle off`
+
+=== Commands for managing playlists in library
+* *List all playlists* : `playlist list`
+* *Search for playlist* : `playlist search QUERY` +
+eg. `playlist search Fav`
+* *Create playlist* : `playlist new p/PLAYLIST [t/TRACK]...` +
+eg. `playlist new p/Favourites t/Some Song t/Some Song 2`
+* *Delete playlist* : `playlist del INDEX` +
+eg. `playlist del INDEX`
+
+=== Commands for managing tracks in playlist
+* *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
+eg. `track add p/Favourites t/Some Song`
+* *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
+eg. `track del p/PLAYLIST i/1`
+* *List all tracks* : `track list`
+* *Search for tracks* : `track search QUERY` +
+eg. `track search Fav`
+// end::commandSummary2_hansel[]

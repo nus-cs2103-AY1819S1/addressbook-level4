@@ -28,7 +28,7 @@ if (JavaVersion.current() == JavaVersion.VERSION_1_10
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.MainApp'
+mainClassName = 'seedu.jxmusic.MainApp'
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 targetCompatibility = JavaVersion.VERSION_1_9
@@ -58,6 +58,7 @@ dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -82,7 +83,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'jxmusic.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -134,6 +135,7 @@ test {
 
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+        exceptionFormat 'full'
 
         // Prints the currently running test's name in the CI's build log,
         // so that we can check if tests are being silently skipped or
@@ -157,16 +159,16 @@ test {
         }
 
         if (runNonGuiTests) {
-            test.include 'seedu/address/**'
+            test.include 'seedu/jxmusic/**'
         }
 
         if (runGuiTests) {
             test.include 'systemtests/**'
-            test.include 'seedu/address/ui/**'
+            test.include 'seedu/jxmusic/ui/**'
         }
 
         if (!runGuiTests) {
-            test.exclude 'seedu/address/ui/**'
+            test.exclude 'seedu/jxmusic/ui/**'
         }
     }
 }
@@ -207,9 +209,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'JxMusic',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-T13-3/main',
     ]
 
     options['template_dirs'].each {

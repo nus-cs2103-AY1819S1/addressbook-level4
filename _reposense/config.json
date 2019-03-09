@@ -1,0 +1,31 @@
+{
+  "formats": ["adoc", "cs", "css", "fxml", "gradle", "html", "java", "js", "json", "jsp", "md", "py", "tag", "xml"],
+  "authors":
+  [
+    {
+      "githubId": "Gongjie663746",
+      "displayName": "QI GO...NGJIE",
+      "authorNames": ["Gongjie", "Gongjie663746"]
+    },
+    {
+      "githubId": "NancyQuris",
+      "displayName": "LIU Y...NGNAN",
+      "authorNames": ["Liu Yingnan", "NancyQuris"]
+    },
+    {
+      "githubId": "hidingmode",
+      "displayName": "DAVID... CHOO",
+      "authorNames": ["hidingmode", "David Ch", "David Choo"]
+    },
+    {
+      "githubId": "HaydenPhillips",
+      "displayName": "PHILL...N ROY",
+      "authorNames": ["HaydenPhillips", "Hayden Phillips"]
+    },
+    {
+      "githubId": "handshou",
+      "displayName": "HANSE...YOUNG",
+      "authorNames": ["handshou"]
+    }
+  ]
+}

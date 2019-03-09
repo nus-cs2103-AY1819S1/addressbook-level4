@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= JxMusic - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T13-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY1819S1-T13-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -47,14 +47,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/blob/master/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.jxmusic.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -74,13 +74,13 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the CS2103-AY1819S1-T13-3 branding and refer to the `CS2103-AY1819S1-T13-3/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-T13-3/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -108,8 +108,10 @@ When you are ready to start coding,
 [[Design-Architecture]]
 === Architecture
 
+// tag::ArchitectureDiagram_david[]
 .Architecture Diagram
 image::Architecture.png[width="600"]
+// end::ArchitectureDiagram_david[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -132,6 +134,7 @@ The rest of the App consists of four components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Player,*`Player`*>>: Interacts with the audio interface.
 
 Each of the four components
 
@@ -144,20 +147,21 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+// tag::eventDrivenandUI[]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `playlist del 1`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `playlist del 1` command (part 1)
+image::SDforDeletePlaylist.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `LibraryChangedEvent` when the library data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+.Component interactions for `playlist del 1` command (part 2)
+image::SDforDeletePlaylistEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -170,17 +174,19 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/jxmusic/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `TrackListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/jxmusic/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+// end::eventDrivenandUI[]
 
 [[Design-Logic]]
 === Logic component
@@ -192,15 +198,15 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `LibraryParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a playlist) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("playlist del 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `playlist del 1` Command
+image::LogicComponentSequenceDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -213,14 +219,9 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Library data.
+* exposes an unmodifiable `ObservableList<Track>` and `ObservableList<Playlist>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -228,101 +229,384 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/jxmusic/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the library data in json format and read it back.
+
+// tag::DesignPlayerComponent_david[]
+[[Design-Player]]
+=== Player component
+
+.Structure of the Player Component
+image::PlayerClassDiagram.png[width="400"]
+
+*API* : link:{repoURL}/src/main/java/seedu/jxmusic/player/Player.java[`Player.java`]
+
+The `Player` component,
+
+* interfaces with JavaFX Media to play sounds
+* handles media control with mp3 files
+
+// end::DesignPlayerComponent_david[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.jxmusic.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::ImplementationPlayerComponent_david[]
+=== Player Component
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The Player component is a new component in addition to the existing 4 other components of AddressBook. It handles all audio related functionalities for some of the Command classes to use. Player mainly interacts with the JavaFX media library that is included in Java, so no third party library is involved.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The job of the Player is basically forwarding requests of media playback controls to the Playable object.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+===== Singleton Player
+Player is implemented as a singleton as only one instance of it is required at any time. While singleton brings about undesired implications such as tighter coupling and lower testability, we ensured that Player is only used by the Command classes and no other parts of the code touches Player. As for testability, we discover that JUnit is not compatible for JavaFX media (details in <<Notable-Issues-JavaFXMedia>>). On the plus side, singleton pattern makes adding dependency very easy which is very helpful as adding dependency into the Logic component of Address Book was tedious.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Player component complete class diagram
+image::PlayerCompleteClassDiagram.png[width="600"]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+[[PlayableStatus]]
+===== PlayableStatus
+`PlayableStatus` to represents the state of the player, effectively acts as a layer on top of JavaFX’s `MediaPlayer.Status`.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+1. `UNINITIALIZED` - The initial state when no track or playlist has been played
+2. `PLAYING` - User enters either the `play p/` or `play t/` command
+3. `PAUSED` - User enters the `pause` command
+4. `STOPPED` - User enters the `stop` command
+5. `ERROR` - Any other states of the `MediaPlayer.Status` which JxMusic is not concerned with
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+.`PlayableStatus` state chart diagram
+image::PlayableStatusStateChartDiagram.png[width="300"]
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+[[Skipped-Tests]]
+===== Skipped Tests
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+JUnit and JavaFX MediaPlayer does not work well together. Running any test that constructs a MediaPlayer object (ie `new MediaPlayer`) will throw `IllegalStateException: Toolkit not initialized`. In order to resolve the exception, it requires calling `Platform.startup()` before `new MediaPlayer` is called. Even so, the tests will not work on Travis nor Appveyor, throwing `MediaException: Cannot create player!` thus failing the builds. It is suspected to be due to incompatibility or lack of support for JavaFX Media on their test servers since JavaFX Media has its own link:https://www.oracle.com/technetwork/java/javafx/downloads/supportedconfigurations-1506746.html[dependencies (at the bottom of link)].
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Therefore, any test that depends on MediaPlayer are skipped by using `Assume.assumeNoException(mediaException)`.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+[[Notable-Issues-JavaFXMedia]]
+===== Notable Issues with JavaFX Media
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+1. JavaFX Media does not work for mp3 files that has photoshopped album art. +
+* This issue has been reported as a link:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8210828[confirmed Java bug].
+2. Playing a track on MacOS requires setting the MediaPlayer current time to 0 before calling `play()` as it jumps to the end of media for no reason. Whereas on Windows, calling `MediaPlayer.play` works.
+* This issue is addressed at link:{repoUrl}/issues/35[#35].
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+==== Design Considerations
+===== Aspect: Choice of media player library
+* **Alternative 1 (current choice):** Use JavaFX Media API
+** Pros:
+*** No additional dependency (link:https://www.oracle.com/technetwork/java/javafx/downloads/supportedconfigurations-1506746.html[at least on common operating systems])
+** Cons:
+*** See <<Skipped-Tests>>
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+* **Alternative 2:** Use 3rd party mp3 player library such as JLayer
+** Pros:
+*** Possibly less issues than JavaFX Media.
+** Cons:
+*** Additional dependency
+*** Existing mp3 libraries for java are old and badly documented.
 
-The following sequence diagram shows how the undo operation works:
+// end::ImplementationPlayerComponent_david[]
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+// tag::ReadLibrary[]
+=== ReadLibrary
+==== Current Implementation
+The `readLibrary` is a part of `JsonLibraryStorage`. It reads the Json file as well as the library folder when initialising the `library` class. It calls the following operations:
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+* `JsonFileStorage.loadDataFromFile(filepath)` - deserialize the Json file and create `library` class.
+* `Trackscanner.scan(libraryDir)` - scan through the library folder and fill all the valid mp3 files into a set of tracks.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+No matter whether the Json file exists, `trackscanner` will run first to make sure the `library` class contains the tracks set. Then if the file path exists, it will deserialize the json file to initialize library’s playlist information. The deserializer and serializer are programmed with `Gson` library. +
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The `trackscanner` navigates to the library folder and extracts the mp3 files and add them to the set of tracks. However there are cases that the user does not have a library folder in the same directory as the app. To ensure the tracks contained inside the playlist to be valid and navigable, we put a library folder containing default tracks inside the resources folder.
+Hence, the program first extracts the library folder from the jar file and copy it to the directory. There are two methods that the app copies library to the directory:
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+* Case 1: If the MainApp is run using jar file, `trackscanner` will internally run the unzip command to unzip the jar file. (Warning: This only works if the jar file is opened using Terminal);
+* Case 2: If the MainApp is run using IDE, `trackscanner` will copy the library folder from resources to the directory;
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
+.Activity of trackscanner
+image::TrackScannerActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Choice of media player library
+* **Alternative 1 (current choice):** Read the Json file from data folder and scan the tracks from library folder at the same time.
+** Pros:
+*** Enables the library to initialise with all the available tracks in library folder
+** Cons:
+*** The track treeset in the library class will not update again after initialisation.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2:** Do not scan the tracks in `readLibrary`, scan the library each time the user search for tracks in the library folder.
+** Pros:
+*** Lead to the files’ latest status inside the library folder
 
-===== Aspect: Data structure to support the undo/redo commands
+==== Future Enhancements
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+When the user double clicks the jar file it cannot run because the unzipping of jar file is done using `process.exec`, which requires the user to run the jar file using terminal. This needs to be addressed in future development.
+// end::ReadLibrary[]
+
+// tag::Tracksearchandlist[]
+=== Track search and Track list
+==== Current Implementation
+The `tracklist` and `tracksearch` commands are implemented to view and filter tracks in the library.
+
+* `Command.TrackListCommand` - list all the tracks inside the library
+* `Command.TrackSearchCommand` - search the desired tracks from library whose name contains any of the argument keywords.
+
+.Sequence of track list command
+image::TrackListCommandSequenceDiagram.png[width="800"]
+
+.Activity of track search command
+image::TrackSearchCommandSequenceDiagram.png[width="800"]
+
+
+==== Design Considerations
+===== Aspect: Searching multiple keywords.
+* **Alternative 1 (current choice):** Combines each search results by each keywords separated by space.
+** Pros:
+*** Find tracks that match with any of the keywords
+** Cons:
+*** Spaces are not included in the keywords.
+* **Alternative 2:** consider words as one part of the desired track and show results of the search.
+** Pros:
+*** Show more precise results
+
+===== Aspect: Tracks listed display
+* **Alternative 1 (current choice):** List the tracks in a new panel separate from playlist panel.
+** Pros:
+*** Tracks are more clearly shown.
+* **Alternative 2:** Show the tracks in the message box
+** Pros:
+*** Easier to implement.
+** Cons:
+*** Takes up the message box and hence the success message or failing message cannot be seen.
+
+==== Future Enhancements
+Future development can combine the two alternatives so that the user can search with keywords including spaces when they intend to.
+// end::Tracksearchandlist[]
+
+// tag::Trackaddandremove[]
+=== Track Adding and Removing Feature
+Simple-to-use track management commands that add tracks to a specified playlist.
+
+==== Current Implementation
+When managing a playlist, you can customise it by adding and removing tracks from it.
+
+.Sequence diagram: track add command
+image::TrackAddCommandSequenceDiagram.png[width="720"]
+
+.Activity diagram: track add command
+image::TrackAddCommandActivityDiagram.png[width="720"]
+
+.Sequence diagram: track delete command
+image::TrackDeleteCommandSequenceDiagram.png[width="720"]
+
+==== Design Considerations
+To add new tracks to a playlist can be a very mechanical task, hence the ease of allowing for adding multiple entries helps to ease the need for repetition. It also makes sense for the inclusion of adding tracks by referring to its index on the panel.
+
+Hence, there are two ways that tracks can be added.
+Firstly, with track name.
+Secondly, with its index from filteredTrackList panel.
+
+The omission of repeating the index prefix is also added to reduce typing required to perform deletion. Having to type the prefix with every index means including up to 200% more typing per index to add.
+
+Deleting tracks does not support deletion in multiples, and it omits the need for index prefix.
+
+While tracks can be added by name, it makes sense to allow the user to make case-insensitive references to tracks. This helps to reduce the need to follow case convention for track names.
+
+==== Future Enhancements
+Deleting multiple tracks could be implemented as more advanced features are added.
+
+Adding multiple tracks by substrings can be implemented to facilitate quick modification of playlists.
+// end::Trackaddandremove[]
+
+=== Playback Feature
+Four functionalities are implemented to achieve the playback task in JxMusic Player. `play` enables users to play musics. `pause` allows the break off of playing and `stop` terminates playing. `seek` functionality achieves the requirement of seeking the playing to a certain time point. To aid the use of `seek`, `duration` command is implemented to let users get the duration of track.
+
+// tag::ImplementationPlaybackFeaturePlay_david[]
+==== Play
+PlayCommand caters for commands having the word `play` in it, in particular, `play`, `play p/` and `play t/` commands. It consists of 5 modes:
+
+1. Continue from pause - `play`
+2. Default playlist - `play p/`
+3. Specific playlist - `play p/<playlist name>`
+4. Default track - `play t/`
+5. Specific track - `play t/<track name>`
+
+These modes are determined by the different PlayCommand constructors called by the PlayCommandParser after it parses the user input, as shown in the activity diagram below:
+
+.Play command activity diagram
+image::PlayCommandActivityDiagram.png[width="600"]
+
+Playing a playlist constructs a PlayablePlaylist which is essentially playing a list of PlayableTrack. The currently playing track is pointed by the `currentIndex`.
+
+image::PlayablePlaylistObjectDiagram1.png[width="600"]
+
+When a track finishes playing, the next track is played.
+
+image::PlayablePlaylistObjectDiagram2.png[width="600"]
+
+Future enhancement: implement `prev()` for playing the previous track.
+
+image::PlayablePlaylistObjectDiagram3.png[width="600"]
+// end::ImplementationPlaybackFeaturePlay_david[]
+
+===== Design Considerations
+===== Aspect: Initialization stage of PlayablePlaylist
+* **Alternative 1 (current choice):** Constructs a list of PlayableTrack
+** Pros:
+*** Better performance when switching tracks
+*** Easier implementation
+** Cons:
+*** Does not cater for playlist changes when it is playing (ie adding/deleting a track while the playlist is playing)
+* **Alternative 2:** Constructs PlayableTrack only when it is to be played
+** Pros:
+*** Caters for playlist changes
+** Cons:
+*** Slightly worse performance
+*** More complex implementation
+
+// tag::playbackFeature_yingnan[]
+==== Pause
+`PauseCommand` is implemented to realize the pausing a playing entity.
+The playing could be resumed after pause and it will play from the time point at which the playing entity is paused.
+Ultimately, `pause()` method in `javafx.scene.media.MediaPlayer` is being called to achieve the performance.
+
+==== Stop
+`StopCommand` is implemented to achieve the termination of playing of a playing entity.
+The playing could not be resumed after `stop`, but the entity being played is remembered and `play` command
+after `stop` will result in the playing of the entity from the beginning.
+Ultimately, `stop()` method in `javafx.scene.media.MediaPlayer` is being called to achieve the performance.
+
+.Sequence of the `stop` command
+image::StopSequenceDiagram.png[width="800"]
+
+==== Seek
+===== Current Implementation
+The `seek` functionality enables user to seek the play of a track to a certain time point.
+This feature is achieved by the implementation of `SeekCommand` in logic class.
+To perform user’s instruction, `SeekCommandParser` is also being implemented. Ultimately, `seek(Duration seekTime)`
+method in `javafx.scene.media.MediaPlayer` is being called to achieve the performance.
+
+===== Design Consideration
+===== Aspect:  How seek behaves when the time point is beyond start/stop(aka. total) time
+* **Alternative 1 (current choice):** throws exception with error message
+
+.Activity of `seek`
+image::SeekMethodActivityDiagram.png[width="800"]
+** Pro:
+*** User will get notification message if their intention could not be achieved
+** Con:
+*** Exception will be thrown and the duration information should be made clear to users.
+
+* **Alternative 2:** follows the specification of `seek(Duration seekTime)` in `javafx.scene.media.MediaPlayer` +
+In the documentation of `javafx.scene.media.MediaPlayer.seek(Duration seekTime)`, it specifies the following execution results: +
+If seekTime > stop time, seek to stop time. +
+If seekTime < start time, seek to start time.
+
+** Pro:
+*** No extra implementation of the retrieval of duration information needs to be done.
+** Con:
+*** User will not get notification message if their intention of seeking to a point out of playing time fails.
+
+==== Duration
+===== Current Implementation
+`DurationCommand` is implemented to enable users to know the duration of current playing track/paused/stopped track.
+A message contains the duration of the track will displayed in `ResultDisplay` of the `MainWindow`.
+
+===== Design Consideration
+===== Aspect: How user get to know the duration of a track
+* **Alternative 1 (current choice):** implements a command to retrieve the information of duration
+** Pro:
+*** User will have the control of the display of the duration information.
+** Con:
+*** Compare with Alternative 2, it is less user friendly since extra effort is needed for users
+to get the information of duration.
+
+* **Alternative 2:** displays the duration of tracks in `trackCard`
+
+.Proposed UI design with duration shown
+image::UIwithDuration.png[width="800"]
+
+This choice is what we chose at first, but subsequently we find out the some methods could not be tested due to the
+backwardness of javafx (Travis and AppVeyor throw `com.sun.media.jfxmedia.mediaexception: could not create player!`
+exception while local tests pass)
+
+** Pro:
+*** It is more convenient and intuitive since no extra effort need to be made to get to know the duration information.
+** Con:
+*** `javafx` feature might be an obstacle when testing.
+
+// end::playbackFeature_yingnan[]
+
+// tag::playlistNew_hayden[]
+=== Playlist Management feature
+==== Current Implementation
+
+Playlist new - Creates a new playlist which is added to the library +
+Playlist del - Deletes the playlist indexed displayed on the playlist panel from the library +
+Playlist search - Searches through the library and displays the playlist/s that match the desired String/ sub-String +
+Playlist list - Lists all playlists within the library
+
+The PlaylistNewCommand creates a new Playlist that is added to the Library object if it does not exists. It’s command phrase pattern is `playlist new p/playlist [t/track]...` where `playlist` denotes the name of the playlist and `track` denotes the name of the tracks.
+Additionally, it implements the following operations:
+
+Pattern:
+`playlist new p/playlist [t/track]...`
+Example:
+`playlist new p/Favourites t/Somesong t/Othersong`
+
+If no tracks are specified, an empty playlist will be created. Otherwise, the list of tracks will be automatically added into the playlist.
+
+The PlaylistNewCommandParser handles parsing of the user input, specifically for the mandatory playlist name as well as the optional track list.
+
+If there exists a playlist in the library with the same name as the new playlist, it will be rejected from being added into the library as playlist is identified by its name.
+
+The following sequence diagram shows how a new playlist is added:
+
+image::playlistNewCommandSequenceDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::PlaylistNewActivityDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How tracks are added to a new playlist
+
+* **Alternative 1 (current choice):** When adding tracks to a new playlist - Identify the tracks by full track name.
+** Pros: Easy to implement and intuitive for the user.
+** Cons: Tracks with long name could take a long time to type.
+* **Alternative 2:** Identify the track via index within the track List panel.
+** Pros: Can be much faster to add tracks
+** Cons: If panel List is large, it could take a long time to find track
+
+===== Aspect: Data structure to support adding a Playlist
+
+* **Alternative 1 (current choice):** New playlists are added to the bottom of the Library.
+** Pros: Keeps the most recent / relevant playlists at the highest playlist index number.
+** Cons: Hard to find playlist when Library contains a large amount of playlists.
+* **Alternative 2:** Playlists are displayed in alphabetical order
+** Pros: Easier to find desired playlist within large list.
+** Cons: Harder to find recently added playlists
+* **Alternative 3:** New playlists display at the top of the playlist panel.
+** Pros: Keeps the most recent / relevant playlists at the top and easily accessible.
+** Cons: Has larger compute time cost when list is large
+// end::playlistNew_hayden[]
+
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -489,14 +773,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.jxmusic.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.jxmusic.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.jxmusic.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.jxmusic.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -537,389 +821,369 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to listen to music on computers
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: listen to music and manage playlists faster than a typical mouse/GUI driven app
 
 [appendix]
+
+//tag::userStories_hayden[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|Priority |As a ... |I want to ... |So that I can....
+|`* * *` |user |Add a track | Save them to my library
+|`* * *` |user |Delete a track |Refine my library
+|`* * *` |user with multiple playlists |Manage playlists |Maintain different playlists
+|`* * *` |user with multiple tracks |Manage tracks in the playlist | Customise playlists
+|`* * *` |user |play tracks |Listen to them
+|`* * *` |user |Pause a track |Stop when I need to
+|`* * *` |user |Continue from pause |Continue from set position with current track
+|`* * *` |user |Seek a track |Skip parts of a track
+|`* * *` |user |Skip a track |Iterate through my playlist and play a track I want to hear
+|`* *` |user |Control volume |Listen comfortably
+|`* *` |user |Search for a track |Find and a particular track with ease
+|`* *` |user |Repeat a playlist |Continue listening when playlist has finished
+|`* *` |user |Shuffle a playlist |Listen to playlists in different order
+|`*` |user |See usage instructions |Refer to instructions when I need help
 |=======================================================================
-
-_{More to be added}_
+//end::userStories_hayden[]
 
 [appendix]
+// tag::useCase_yingnan[]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `JxMusic` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: List all playlists
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list playlists.
+2.  System displays names of all playlists in library.
++
+Use case ends.
+
+[discrete]
+=== Use case: Search for a playlist
+
+*MSS*
+
+1.  User enters the command `search`.
+2.	System displays "Enter playlist name:".
+3.	User enters a sequence of characters.
+4.	System displays all playlists that include the sequence of characters, in lexicographical order.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 4a. There is no list that matches the name.
++
+[none]
+** 4a1. System displays "not found" message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+// end::useCase_yingnan[]
+
+[discrete]
+=== Use case: Create playlist
+
+*MSS*
+
+1.  User requests to create a new playlist.
+2.  System creates a new playlist and saves it to library.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The name of the playlist has existed.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. System displays an error message.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: Delete a playlist
+
+*MSS*
+
+1.  User requests to delete a playlist.
+2.  System deletes the playlist.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Playlist is not found.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+* 2b. Playlist is currently being played.
++
+[none]
+** 2a1. System stops the playing and deletes the playlist.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a track into playlist
+
+*MSS*
+
+1.  User requests to add a track into a playlist.
+2.	System searches for the track.
+3. 	System searches for the playlist.
+4. 	System adds the track to the playlist.
+5. 	System displays successful message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The track does not exist.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+* 3a. The playlist does not exist.
++
+[none]
+** 3a1. System displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a track from playlist
+
+*MSS*
+
+1.  User requests to delete a track from a playlist.
+2. 	System deletes the track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The track does not exist.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Play a track
+
+*MSS*
+
+1.  User requests to play.
+2.	System plays the current track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. No track is in current playlist.
++
+[none]
+** 2a1. System goes back to the status before step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Play a playlist
+
+*MSS*
+
+1.  User requests to play a playlist.
+2.  System searches for the playlist.
+3.  System plays the tracks of the playlist.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The playlist is not found.
++
+[none]
+** 2a1. System displays an error message.
++
+Use case ends.
+
+* 3a. The playlist is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Pause the playing of track and resume the play
+
+*MSS*
+
+1.  User requests to pause the playing of track.
+2.	System pauses the playing.
+3.	User requests to resume the playing of track.
+4. 	System plays the track from the point it was paused.
++
+Use case ends.
+
+[discrete]
+=== Use case: Stop the playing of track
+
+*MSS*
+
+1.  User requests to stop the playing of track
+2.	System exits the playing of track.
++
+Use case ends.
+
+[discrete]
+=== Use case: Seek time point in a track
+
+*MSS*
+
+1.  User requests to seek the play timeline to a certain point.
+2.  System jumps to the point and plays from the point.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The time point is outside the range of timeline.
++
+[none]
+** 2a1. System displays an error message and pauses current playing.
++
+Use case ends.
+
+[discrete]
+=== Use case: Step forward/backward in a track
+
+*MSS*
+
+1.  User requests to step forward/backward a range of time in the playing of current track.
+2.  System jumps to the point and plays from the point.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The time point is outside the range of timeline.
++
+[none]
+** 2a1. System displays an error message and pauses current playing.
++
+Use case ends.
+
+[discrete]
+=== Use case: Replay a track
+
+*MSS*
+
+1.  User requests to replay the track.
+2.  System plays the track from the beginning.
++
+Use case ends.
+
+[discrete]
+=== Use case: Navigate playlist
+
+*MSS*
+
+1.  User requests to skip the next/previous track.
+2.	System goes to the next/previous track and plays the track.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The next/previous track does not exist.
++
+[none]
+** 2a1. If "repeat playlist" function is on, system goes to the beginning/ending track of the playlist and plays the track.
++
+Use case ends.
++
+2a2. If "repeat playlist" is off, system pauses current playing.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Switch playing modes
+
+*MSS*
+
+1.  User requests to repeat track.
+2.	System changes to "repeat track" mode and current track will be played repeatedly.
+3.	User requests to repeat playlist.
+4.	System changes to "repeat playlist" mode and the current playlist will start over after playing all tracks.
+5.	User enters the command `repeat off`.
+6.	System changes to "repeat off" mode and the play will stop after playing all the tracks.
++
+Use case ends.
+
+[discrete]
+=== Use case: Shuffle playlist
+
+*MSS*
+
+1.  User requests to shuffle the playlist.
+2.  System randomly reorders the sequence of tracks inside the playlist.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should only support .mp3 file.
+.  Should be able to hold up to 1000 playlists and 1000 tracks in total without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+Windows, Linux, Unix, macOS
+Track:: music
+Playlist:: list of tracks
+Library:: list of playlists and also name of folder which contains all tracks .mp3 files and library.json
 
 [appendix]
+// tag::InstructionsForManualTesting_david[]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -927,40 +1191,268 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+Positive [green]#test cases# (for normal usage scenario) are in green and negative [red]#test cases# (for usage scenarios trying to break the app) are in red.
+
+=== Launch
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Open the terminal/command prompt/powershell
+.. Enter command `java -jar jxmusic.jar` +
+   Expected: a “library” folder to be generated next to the jar file and shows GUI with sample playlists (as shown below)
+... Fallback 1: enter command `unzip jxmusic.jar "library/*"` then double click the jar file
+... Fallback 2: download and unzip link:{repoUrl}/releases/download/v1.3/library.zip[library.zip] in the folder containing the jar file, then double click the jar file
 
-. Saving window preferences
+image::LibraryFolderNextToJar.png[width="300"]
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+image::Ui.png[width="800"]
 
-_{ more test cases ... }_
+[NOTE]
+Once library folder exists and it contains the sample mp3 files, subsequent launches can be done by double clicking the jar file.
 
-=== Deleting a person
+. Add mp3 files into the library
+.. [green]#Test case:# Copy and paste any of the mp3 file in the library folder, then run the jar file. +
+Expected: The new track file name appears in the track panel.
 
-. Deleting a person while all persons are listed
+. Add invalid mp3 file into the library
+.. [red]#Test case:# Save a text file as "invalid.mp3" in the library folder, then run the jar file. +
+Expected: "invalid" does not show up in track panel.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Playing tracks
 
-_{ more test cases ... }_
+You may refer <<PlayableStatus>> for easier understanding of the possible state transitions.
 
-=== Saving data
+. Play the tracks in a specific playlist
+.. [green]#Test case:# `play p/sound effects` +
+Expected: Tracks in "sound effects" playlist start playing sequentially.
+[TIP]
+The tracks of "sound effects" playlist ("Marbles", "SOS Morse Code", "Service Bell Help") are short (few seconds in duration) sample tracks provided for testing this case.
 
-. Dealing with missing/corrupted data files
+. Play the tracks in the first playlist of the library
+.. [green]#Test case:# `play p/` +
+Expected: Tracks in the first playlist sorted by its name in the library starts playing.
+[TIP]
+The command works even when no playlist is displayed in the panel. The first playlist in the library is the first one in the playlist panel when `playlist list` is entered.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Play a specific track
+.. [green]#Test case:# `play t/Marbles` +
+Expected: "Marbles" start playing.
 
-_{ more test cases ... }_
+. Play a default track
+.. [green]#Test case:# `play t/` +
+Expected: The first track sorted by its name in the library starts playing.
+[TIP]
+Similarly to `play p/`, the command works even when no track is displayed in the panel. The first track in the library is the first one in the track panel when `track list` is entered.
+
+. Play another playlist/track while a playlist/track is playing
+.. [green]#Test case:# `play t/Marbles`, `play t/acyort` +
+Expected: "Marbles" stops playing and "acyort" starts playing.
+
+. Play an empty playlist
+.. **Prerequisites:** Create an empty playlist with the `playlist new` command
+.. [red]#Test case:# `playlist new p/empty`, `play p/` +
+Expected: Displays "playlist has no track" error message.
+
+=== Pausing
+
+. Pause a playing playlist/track
+.. **Prerequisites:** Play a playlist/track with the `play p/[playlist]` or `play t/[track]` command
+.. [green]#Test case:# `play p/`, `pause` +
+Expected: The playing track is paused.
+
+. Pause a stopped playlist/track
+.. **Prerequisites:** Stop a playlist/track with the `stop` command
+.. [red]#Test case:# `play p/`, `stop`, `pause` +
+Expected: Displays "no playing track to pause" error message.
+
+. Pause without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `pause` +
+Expected: Displays "no playing track to pause" error message.
+
+=== Unpausing
+
+. Unpause a paused playlist/track
+.. **Prerequisites:** Pause a playing playlist/track with the `pause` command
+.. [green]#Test case:# `play p/`, `pause`, `play` +
+Expected: The paused playlist/track resumes playing from where it was paused.
+
+. Unpause a stopped playlist/track
+.. **Prerequisites:** Stop a playing/paused track with the `stop` command
+.. [green]#Test case:# `play p/`, `stop`, `play` +
+Expected: The stopped playlist restarts playing from the first track.
+.. [green]#Test case:# `play t/`, `stop`, `play` +
+Expected: The stopped track restarts playing from the beginning.
+
+. Unpause while playing
+.. [red]#Test case:# `play p/`, `play` +
+Expected: Stays playing.
+
+. Unpause without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `play` +
+Expected: Displays "no track paused/stopped" error message.
+
+=== Stopping
+
+. Stop a playing/paused playlist/track
+.. [green]#Test case:# `play p/`, `stop` +
+Expected: The playing playlist/track stops playing.
+.. [green]#Test case:# `play p/`, `pause`, `stop` +
+Expected: The paused playlist/track stops playing.
+
+. Stop while stopped
+.. [red]#Test case:# `play p/`, `stop`, `stop` +
+Expected: Stays stopped.
+
+. Stop without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `stop` +
+Expected: Displays "no track to stop" error message.
+
+=== Viewing duration of track
+
+[NOTE]
+Due to a limitation of the media player library, duration of a track can only be made known once it starts playing.
+
+. View duration of a playing/paused/stopped track
+.. [green]#Test case:# `play p/`, `duration` +
+Expected: Displays duration of the currently playing track.
+.. [green]#Test case:# `play p/`, `pause`, `duration` +
+Expected: Displays duration of the currently playing track.
+.. [green]#Test case:# `play p/`, `stop`, `duration` +
+Expected: Displays duration of the currently playing track.
+
+. View duration without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `duration` +
+Expected: Displays "no track playing/paused/stopped" error message.
+
+=== Seeking a track
+
+[TIP]
+Use the `duration` command to view the total length of the playing track for testing the following test cases.
+
+[NOTE]
+Examples of valid TIME: +
+`10` (10 sec) +
+`1 59` (1 min 59 sec) +
+`100` (100 sec = 1 min 40 sec) +
+`1 100` (1 min + 100 sec = 2 min 40 sec) +
+`1 99 99` (1 hr + 99 min + 99 sec = 2 hr 40 min 39 sec) +
+We did not include hour long mp3 file. If you want to test that, you need to add the file into the library folder.
+
+. Seek within the duration of a track ("aliez" is 4m 26s long)
+.. [green]#Test case:# `play t/aliez`, `seek d/100` +
+Expected: Seek to 100th second mark and continues playing.
+.. [green]#Test case:# `play t/aliez`, `seek d/4 26` +
+Expected: Seek to last second mark and plays for 1 second.
+.. [green]#Test case:# `play t/aliez`, `pause`, `seek d/100` +
+Expected: Seek to 100th second mark and stays paused
+.. [green]#Test case:# `play t/aliez`, `stop`, `seek d/100`
+Expected: Displays "no playing track to seek" error message.
+
+. Seek over the duration of a track
+.. [red]#Test case:# `play t/aliez`, `seek d/4 27` +
+Expected: Displays "time is beyond track's duration" error message.
+
+. Seek with invalid time input
+.. [red]#Test case:# `play t/aliez`, `seek d/-1` +
+Expected: Displays "wrong time format" error message.
+.. [red]#Test case:# `play t/aliez`, `seek d/-1 0` +
+Expected: Displays "wrong time format" error message.
+.. [red]#Test case:# `play t/aliez`, `seek d/0 0 0 0` +
+Expected: Displays "wrong time format" error message.
+
+. Seek without playing
+.. **Prerequisites:** No play command has been entered. Restart app for testing.
+.. [red]#Test case:# `seek d/100` +
+Expected: Displays "no playing track to seek" error message.
+
+=== Creating a new playlist
+
+. Create an empty playlist
+.. [green]#Test case:# `playlist new p/new playlist` +
+Expected: An empty playlist named “new playlist” is created
+
+. Create a playlist with tracks
+.. [green]#Test case:# `playlist new p/new playlist 2 t/aliez` +
+Expected: A playlist named "new playlist 2" is created, containing "aliez" track.
+.. [red]#Test case:# `playlist new p/sound effects t/Marbles t/SOS Morse Code t/Service Bell Help` +
+Expected: A playlist named “sound effects” is created, containing tracks “Marbles”, “SOS Morse Code” and “Service Bell Help”
+
+=== Searching playlists and tracks
+
+[NOTE]
+The "search" commands (ie `playlist search` and `track search`) works the same way except one searches for playlists, the other for tracks.
+
+. Search with substring
+.. [green]#Test case:# `playlist search al` +
+Expected: Only playlists with names containing "al" are shown in the playlist panel
+.. [green]#Test case:# `track search al` +
+Expected: Only tracks with names containing "al" are shown in the track panel
+
+. Search with multiple substrings
+.. [green]#Test case:# `playlist search al i` +
+Expected: Only playlists with names containing "al" **or** "i" are shown in the playlist panel
+.. [green]#Test case:# `track search al i` +
+Expected: Only tracks with names containing "al" **or** "i" are shown in the track panel
+
+=== Listing playlists and tracks
+
+[NOTE]
+Similarly to "search" commands, "list" commands (ie `playlist list` and `track list`) works the same way except one for playlists, the other for tracks.
+
+. List all playlists
+.. [green]#Test case:# `playlist list` +
+Expected: All playlists displayed with success message
+
+. List all tracks
+.. [green]#Test case:# `track list` +
+Expected: All tracks displayed with success message
+
+=== Adding tracks to playlist
+
+. Add tracks by track name
+.. [green]#Test case:# `track add p/Favourites t/aliez` +
+Expected: "Favourites" playlist to be added with "aliez" track.
+.. [green]#Test case:# `track add p/Favourites t/aliez t/acyort` +
+Expected: "Favourites" playlist to be added with "aliez" and "acyort" tracks.
+.. [red]#Test case:# `track add p/non existing t/aliez` +
+Expected: Displays "playlist does not exist" error message.
+.. [red]#Test case:# `track add p/Favourites t/non existing` +
+Expected: Displays "track file does not exist" error message.
+
+. Add tracks by track index
+.. **Prerequisites:** List all tracks using the `track list` command. Multiple tracks in the list.
+.. [green]#Test case:# `track add p/Favourites i/1` +
+Expected: "Favourites" playlist to be added with first track in panel.
+.. [green]#Test case:# `track add p/Favourites i/1 2` +
+Expected: "Favourites" playlist to be added with first and second tracks in panel.
+.. [red]#Test case:# `track add p/non existing i/1` +
+Expected: Displays "playlist does not exist" error message.
+.. [red]#Test case:# `track add p/Favourites i/999` +
+Expected: Displays "indexes does not exist" error message.
+
+=== Deleting tracks in a playlist
+
+. Delete tracks by track index in playlist
+.. [green]#Test case:# `track del p/Favourites i/1` +
+Expected: First track of "Favourites" playlist is removed from playlist.
+.. [red]#Test case:# `track del p/non existing i/1` +
+Expected: Displays "playlist does not exist" error message.
+.. [red]#Test case:# `track del p/Favourites i/999` +
+Expected: Displays "playlist does not have index" error message.
+
+=== Deleting a playlist
+
+. Delete a playlist by index
+.. **Prerequisites:** List all playlists using the `playlist list` command. Multiple playlists in the list.
+.. [green]#Test case:# `playlist del 1` +
+Expected: First playlist shown in panel is removed.
+.. [red]#Test case:# `playlist del 999` +
+Expected: Displays "index provided is invalid" error message.
+
+=== Thank you for testing our project! <3
+// end::InstructionsForManualTesting_david[]

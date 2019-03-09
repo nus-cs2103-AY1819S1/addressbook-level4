@@ -14,7 +14,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/JxMusic.png" />
   </icons>
   <scene>
     <Scene>
@@ -35,7 +35,7 @@
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets top="5" right="300" bottom="5" left="10" />
           </padding>
         </StackPane>
 
@@ -46,19 +46,19 @@
           </padding>
         </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+          <VBox fx:id="playlistList" minWidth="150" prefWidth="150" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="10" right="30" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="playlistListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+          <VBox fx:id="trackList" minWidth="300" prefWidth="300" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="10" right="10" bottom="10" left="30" />
             </padding>
-          </StackPane>
+            <StackPane fx:id="trackListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
