@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEntrys.getTypicalEntryBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -22,8 +21,7 @@ import seedu.address.model.awareness.Awareness;
 import seedu.address.model.entry.ResumeEntry;
 
 public class DeleteEntryCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEntryBook(), new UserPrefs(),
-                                                   new Awareness());
+    private Model model = new ModelManager(getTypicalEntryBook(), new UserPrefs(), new Awareness());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -33,9 +31,7 @@ public class DeleteEntryCommandTest {
 
         String expectedMessage = String.format(DeleteEntryCommand.MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(),
-                                                              model.getEntryBook(), new UserPrefs(),
-                                                              new Awareness());
+        ModelManager expectedModel = new ModelManager(model.getEntryBook(), new UserPrefs(), new Awareness());
         expectedModel.deleteEntry(entryToDelete);
         expectedModel.commitEntryBook();
 

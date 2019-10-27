@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEntrys.WORK_FACEBOOK;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +12,6 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.EntryBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -84,12 +82,8 @@ public class TagAddCommandTest {
 
     @Test
     public void execute_addTags_tagsAdded() {
-        Model model = new ModelManager(getTypicalAddressBook(), getDefaultEntryBook(), new UserPrefs(),
-                                               new Awareness());
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                                                       new EntryBook(model.getEntryBook()), new UserPrefs(),
-                                                       new Awareness());
+        Model model = new ModelManager(getDefaultEntryBook(), new UserPrefs(), new Awareness());
+        Model expectedModel = new ModelManager(new EntryBook(model.getEntryBook()), new UserPrefs(), new Awareness());
 
         Set<Tag> tags = new HashSet<Tag>();
         tags.add(new Tag("python"));
@@ -99,7 +93,7 @@ public class TagAddCommandTest {
 
         String expectedMessage = String.format(TagAddCommand.MESSAGE_SUCCESS);
         expectedModel.updateEntry(WORK_FACEBOOK, addTags(WORK_FACEBOOK, tags));
-        expectedModel.commitAddressBook();
+        expectedModel.commitEntryBook();
 
         TagAddCommand command = new TagAddCommand(index, null, tags);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -108,12 +102,8 @@ public class TagAddCommandTest {
 
     @Test
     public void execute_addCategory_categoryAdded() {
-        Model model = new ModelManager(getTypicalAddressBook(), getDefaultEntryBook(), new UserPrefs(),
-                                               new Awareness());
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                                                       new EntryBook(model.getEntryBook()), new UserPrefs(),
-                                                       new Awareness());
+        Model model = new ModelManager(getDefaultEntryBook(), new UserPrefs(), new Awareness());
+        Model expectedModel = new ModelManager(new EntryBook(model.getEntryBook()), new UserPrefs(), new Awareness());
 
         Set<Tag> tags = new HashSet<Tag>();
         Category category = new Category("fb");
@@ -121,7 +111,7 @@ public class TagAddCommandTest {
 
         String expectedMessage = String.format(TagAddCommand.MESSAGE_SUCCESS);
         expectedModel.updateEntry(WORK_FACEBOOK, addCategory(WORK_FACEBOOK, category));
-        expectedModel.commitAddressBook();
+        expectedModel.commitEntryBook();
 
         TagAddCommand command = new TagAddCommand(index, category, tags);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

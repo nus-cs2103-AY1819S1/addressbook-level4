@@ -3,15 +3,12 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEntrys.AWARD_WITH_NO_ENTRYINFO_NO_DESC;
 import static seedu.address.testutil.TypicalEntrys.NUS_EDUCATION;
 import static seedu.address.testutil.TypicalEntrys.NUS_EDUCATION_WITH_SPACED_TAG;
 import static seedu.address.testutil.TypicalEntrys.WORK_FACEBOOK;
 import static seedu.address.testutil.TypicalEntrys.WORK_FACEBOOK_DIFF_ENTRYINFO_SAME_CAT_TAG;
 import static seedu.address.testutil.TypicalEntrys.getTypicalEntryBook;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,10 +23,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.entry.ResumeEntry;
 import seedu.address.model.entry.exceptions.DuplicateEntryException;
-import seedu.address.model.person.Person;
 import seedu.address.model.util.EntryBuilder;
 import seedu.address.testutil.EntryBookBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class EntryBookTest {
     @Rule
@@ -57,9 +52,6 @@ public class EntryBookTest {
 
     @Test
     public void resetData_withDuplicateEntries_throwsDuplicateEntryException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
         ResumeEntry editedNusEducation = new EntryBuilder().withCategory("education")
                 .withTitle("National University of Singapore").withDuration("2010 - 2014")
                 .withSubHeader("Bachelor of computing")
@@ -78,12 +70,12 @@ public class EntryBookTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasEntry_entryNotInAddressBook_returnsFalse() {
         assertFalse(entryBook.hasEntry(NUS_EDUCATION));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasEntry_entryInAddressBook_returnsTrue() {
         entryBook.addEntry(NUS_EDUCATION);
         assertTrue(entryBook.hasEntry(NUS_EDUCATION));
     }

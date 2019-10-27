@@ -34,10 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
     private ExpandedEntryPanel expandedEntryPanel;
-
     private EntryListPanel entryListPanel;
 
     private Config config;
@@ -55,9 +52,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane entryListPanelPlaceholder;
@@ -135,12 +129,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
@@ -215,17 +203,14 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    /* to be completed later
-    public EntryListPanel getEntryListPanel() {
-        return entryListPanel;
-    }*/
+    // TODO: to be completed later
+    // public EntryListPanel getEntryListPanel() {
+    //     return entryListPanel;
+    // }
 
     void releaseResources() {
-        //browserPanel.freeResources();
+        // TODO: remove browser panel
+        // browserPanel.freeResources();
     }
 
     @Subscribe

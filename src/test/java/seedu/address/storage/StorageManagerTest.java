@@ -2,23 +2,15 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.entry.XmlEntryBookStorage;
 import seedu.address.testutil.Assert;
@@ -35,11 +27,11 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
         XmlEntryBookStorage entryBookStorage = new XmlEntryBookStorage(getTempFilePath("eb"));
         TxtTemplateStorage templateStorage = new TxtTemplateStorage(getTempFilePath("tmp"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, entryBookStorage, templateStorage, userPrefsStorage);
+
+        storageManager = new StorageManager(entryBookStorage, templateStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -62,51 +54,6 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link XmlAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
-         */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
-    }
-
-    @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
-    }
-
-    @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
-        // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
-                                             new XmlEntryBookStorage(Paths.get("dummy")),
-                                             new TxtTemplateStorage(Paths.get("dummy")),
-                                             new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
-    }
-
-
-    /**
-     * A Stub class to throw an exception when the save method is called
-     */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
-
-        public XmlAddressBookStorageExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-            throw new IOException("dummy exception");
-        }
-    }
-
-    @Test
     public void loadTemplate() {
         /*
          * More extensive testing of Template reading is done in {@link TxtTemplateStorageTest} class.
@@ -123,6 +70,4 @@ public class StorageManagerTest {
     public void getTemplateFilePath() {
         assertNotNull(storageManager.getTemplateFilePath());
     }
-
-
 }

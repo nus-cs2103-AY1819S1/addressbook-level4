@@ -22,23 +22,19 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.EntryBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEntryBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.awareness.Awareness;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TemplateStorage;
 import seedu.address.storage.TxtTemplateStorage;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.storage.XmlAwarenessStorage;
 import seedu.address.storage.entry.EntryBookStorage;
 import seedu.address.storage.entry.XmlEntryBookStorage;
@@ -72,20 +68,16 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(
-                // Paths.get("data", "addressbook.xml"));
-                // ^ Temp, to avoid breaking system tests. TODO: Remove with other AB code.
-                userPrefs.getEntryBookFilePath());
+
         EntryBookStorage entryBookStorage = new XmlEntryBookStorage(userPrefs.getEntryBookFilePath());
         TemplateStorage templateStorage = new TxtTemplateStorage();
-        storage = new StorageManager(addressBookStorage, entryBookStorage, templateStorage, userPrefsStorage);
+
+        storage = new StorageManager(entryBookStorage, templateStorage, userPrefsStorage);
 
         initLogging(config);
-
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model);
-
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
@@ -98,29 +90,9 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-
         final String messageFileNotFound = "Data file not found. Will be starting with a sample %s.";
         final String messageFormatProblem = "Data file not in the correct format. Will be starting with an empty %s.";
         final String messageIoProblem = "Problem while reading from the file. Will be starting with an empty %s.";
-
-        // need to update system tests before these can be removed
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-
-        try {
-            addressBookOptional = storage.readAddressBook();
-            initialData = addressBookOptional.orElseGet(() -> {
-                logger.info(String.format(messageFileNotFound, "Addressbook"));
-                return SampleDataUtil.getSampleAddressBook();
-            }
-            );
-        } catch (DataConversionException e) {
-            logger.warning(String.format(messageFormatProblem, "Addressbook"));
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning(String.format(messageIoProblem, "Addressbook"));
-            initialData = new AddressBook();
-        }
 
         Optional<ReadOnlyEntryBook> entryBookOptional;
         ReadOnlyEntryBook initialDataForEntryBook;
@@ -158,8 +130,7 @@ public class MainApp extends Application {
             awareness = new Awareness();
         }
 
-
-        return new ModelManager(initialData, initialDataForEntryBook, userPrefs, awareness);
+        return new ModelManager(initialDataForEntryBook, userPrefs, awareness);
     }
 
     private void initLogging(Config config) {

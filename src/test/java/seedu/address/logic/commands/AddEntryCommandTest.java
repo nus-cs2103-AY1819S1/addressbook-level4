@@ -19,18 +19,14 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.EntryBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEntryBook;
 import seedu.address.model.UserParticulars;
 import seedu.address.model.entry.ResumeEntry;
-import seedu.address.model.person.Person;
 import seedu.address.model.resume.Resume;
 import seedu.address.model.template.Template;
 import seedu.address.model.util.EntryBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddEntryCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -72,7 +68,6 @@ public class AddEntryCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
         ResumeEntry sourceAcademy = new EntryBuilder().withTitle("SOURCE ACADEMY").build();
         ResumeEntry facebook = new EntryBuilder().withTitle("Facebook").build();
 
@@ -98,27 +93,7 @@ public class AddEntryCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyEntryBook getEntryBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -133,27 +108,12 @@ public class AddEntryCommandTest {
         }
 
         @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteEntry(ResumeEntry target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateEntry(ResumeEntry target, ResumeEntry editedEntry) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -173,11 +133,6 @@ public class AddEntryCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateFilteredEntryList(Predicate<ResumeEntry> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,35 +148,11 @@ public class AddEntryCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void commitEntryBook() {
             throw new AssertionError("This method should not be called.");
         }
-        public void saveLastResume(Path filePath) {
+
+        public void saveLastResume(Path filepath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -296,19 +227,10 @@ public class AddEntryCommandTest {
             entriesAdded.add(entry);
         }
 
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddEntryCommand#execute()}
-        }
 
         @Override
         public void commitEntryBook() {
             // called by {@code AddEntryCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
         }
 
         @Override

@@ -8,7 +8,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.EntryBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -39,7 +38,7 @@ public class ContextCommandTest {
 
     @Test
     public void execute_noMatchingResumeEntry_unableToAddResumeEntry() throws Exception {
-        Model model = new ModelManager(new AddressBook(), new EntryBook(), new UserPrefs(), typicalAwareness);
+        Model model = new ModelManager(new EntryBook(), new UserPrefs(), typicalAwareness);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(String.format(ContextCommand.MESSAGE_NO_RESUME_ENTRY, "double degree programme"));
@@ -49,7 +48,7 @@ public class ContextCommandTest {
 
     @Test
     public void execute_matchingResumeEntry_successfulAdd() throws Exception {
-        Model model = new ModelManager(new AddressBook(), new EntryBook(), new UserPrefs(), typicalAwareness);
+        Model model = new ModelManager(new EntryBook(), new UserPrefs(), typicalAwareness);
 
         String taResult = new ContextCommand("ta ma1101r").execute(model, commandHistory).feedbackToUser;
         assertEquals(taResult, String.format(AddEntryCommand.MESSAGE_SUCCESS, SampleDataUtil.MA1101R_TA));
@@ -60,7 +59,7 @@ public class ContextCommandTest {
 
     @Test
     public void execute_twiceSameExpression_duplicateEntry() throws Exception {
-        Model model = new ModelManager(new AddressBook(), new EntryBook(), new UserPrefs(), typicalAwareness);
+        Model model = new ModelManager(new EntryBook(), new UserPrefs(), typicalAwareness);
 
         String taResult = new ContextCommand("ta ma1101r").execute(model, commandHistory).feedbackToUser;
         assertEquals(taResult, String.format(AddEntryCommand.MESSAGE_SUCCESS, SampleDataUtil.MA1101R_TA));
@@ -73,7 +72,7 @@ public class ContextCommandTest {
 
     @Test
     public void execute_differentExpression_duplicateEntry() throws Exception {
-        Model model = new ModelManager(new AddressBook(), new EntryBook(), new UserPrefs(), typicalAwareness);
+        Model model = new ModelManager(new EntryBook(), new UserPrefs(), typicalAwareness);
 
         String taResult = new ContextCommand("ta ma1101r").execute(model, commandHistory).feedbackToUser;
         assertEquals(taResult, String.format(AddEntryCommand.MESSAGE_SUCCESS, SampleDataUtil.MA1101R_TA));

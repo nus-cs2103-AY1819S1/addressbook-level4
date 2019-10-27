@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.EntryBookChangedEvent;
 import seedu.address.commons.events.model.ResumeSaveEvent;
 import seedu.address.commons.events.model.TemplateLoadRequestedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.TemplateLoadedEvent;
 import seedu.address.commons.events.storage.TemplateLoadingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.InvalidTemplateFileException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEntryBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.resume.Resume;
@@ -23,25 +20,13 @@ import seedu.address.storage.entry.EntryBookStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, EntryBookStorage, UserPrefsStorage, TemplateStorage,
-        ResumeStorage {
+public interface Storage extends EntryBookStorage, UserPrefsStorage, TemplateStorage, ResumeStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
-
-    // --- TO REMOVE ---
-    @Override
-    Path getAddressBookFilePath();
-
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
-    // ---------
 
     // ENTRYBOOK
     @Override
@@ -63,18 +48,11 @@ public interface Storage extends AddressBookStorage, EntryBookStorage, UserPrefs
     Template loadTemplate(Path filePath) throws IOException, InvalidTemplateFileException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Attempts to load the template from the hard disk.
+     * Raises {@link TemplateLoadedEvent} if it is successful, or {@link TemplateLoadingExceptionEvent}
+     * if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
-
-    /**
-     * Saves the current version of the Entry Book to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
-     */
-    void handleEntryBookChangedEvent(EntryBookChangedEvent ebce);
+    void handleEntryBookChangedEvent(EntryBookChangedEvent event);
 
     /**
      * Attempts to load the template from the hard disk.

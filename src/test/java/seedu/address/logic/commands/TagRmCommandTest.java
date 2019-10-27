@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEntrys.WORK_FACEBOOK;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +12,6 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.EntryBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -80,12 +78,8 @@ public class TagRmCommandTest {
 
     @Test
     public void execute_rmTags_tagsRemoved() {
-        Model model = new ModelManager(getTypicalAddressBook(), getDefaultEntryBook(), new UserPrefs(),
-                                               new Awareness());
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                                                       new EntryBook(model.getEntryBook()), new UserPrefs(),
-                                                       new Awareness());
+        Model model = new ModelManager(getDefaultEntryBook(), new UserPrefs(), new Awareness());
+        Model expectedModel = new ModelManager(new EntryBook(model.getEntryBook()), new UserPrefs(), new Awareness());
 
         Set<Tag> tags = new HashSet<Tag>();
         tags.add(new Tag("java"));
@@ -95,7 +89,7 @@ public class TagRmCommandTest {
 
         String expectedMessage = String.format(TagRmCommand.MESSAGE_SUCCESS);
         expectedModel.updateEntry(WORK_FACEBOOK, rmTags(WORK_FACEBOOK, tags));
-        expectedModel.commitAddressBook();
+        expectedModel.commitEntryBook();
 
         TagRmCommand command = new TagRmCommand(index, tags);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -104,12 +98,8 @@ public class TagRmCommandTest {
 
     @Test
     public void execute_rmTags_allRemoved() {
-        Model model = new ModelManager(getTypicalAddressBook(), getDefaultEntryBook(), new UserPrefs(),
-                                               new Awareness());
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                                                       new EntryBook(model.getEntryBook()), new UserPrefs(),
-                                                       new Awareness());
+        Model model = new ModelManager(getDefaultEntryBook(), new UserPrefs(), new Awareness());
+        Model expectedModel = new ModelManager(new EntryBook(model.getEntryBook()), new UserPrefs(), new Awareness());
 
         Set<Tag> tags = new HashSet<Tag>();
         Index index = Index.fromZeroBased(0);
@@ -118,7 +108,7 @@ public class TagRmCommandTest {
 
         String expectedMessage = String.format(TagRmCommand.MESSAGE_SUCCESS);
         expectedModel.updateEntry(WORK_FACEBOOK, rmTags(WORK_FACEBOOK, WORK_FACEBOOK.getTags()));
-        expectedModel.commitAddressBook();
+        expectedModel.commitEntryBook();
 
         TagRmCommand command = new TagRmCommand(index, tags);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -127,12 +117,8 @@ public class TagRmCommandTest {
 
     @Test
     public void execute_rmTags_nothingRemoved() {
-        Model model = new ModelManager(getTypicalAddressBook(), getDefaultEntryBook(), new UserPrefs(),
-                                               new Awareness());
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                                                       new EntryBook(model.getEntryBook()), new UserPrefs(),
-                                                       new Awareness());
+        Model model = new ModelManager(getDefaultEntryBook(), new UserPrefs(), new Awareness());
+        Model expectedModel = new ModelManager(new EntryBook(model.getEntryBook()), new UserPrefs(), new Awareness());
 
         Set<Tag> tags = new HashSet<Tag>();
         tags.add(new Tag("python"));
@@ -141,7 +127,7 @@ public class TagRmCommandTest {
         int newTagCount = 1;
 
         String expectedMessage = String.format(TagRmCommand.MESSAGE_SUCCESS);
-        expectedModel.commitAddressBook();
+        expectedModel.commitEntryBook();
 
         TagRmCommand command = new TagRmCommand(index, tags);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

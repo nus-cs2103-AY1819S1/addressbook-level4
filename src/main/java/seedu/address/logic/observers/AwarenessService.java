@@ -1,7 +1,7 @@
 package seedu.address.logic.observers;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.AddressBookParser.BASIC_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParser.BASIC_COMMAND_FORMAT;
 
 import java.util.Optional;
 import java.util.regex.Matcher;

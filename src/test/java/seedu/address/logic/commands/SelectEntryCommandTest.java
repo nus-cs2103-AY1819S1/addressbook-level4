@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalEntrys.getTypicalEntryBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ENTRY;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,10 +27,8 @@ public class SelectEntryCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(),
-            getTypicalEntryBook(), new UserPrefs(), new Awareness());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(),
-            getTypicalEntryBook(), new UserPrefs(), new Awareness());
+    private Model model = new ModelManager(getTypicalEntryBook(), new UserPrefs(), new Awareness());
+    private Model expectedModel = new ModelManager(getTypicalEntryBook(), new UserPrefs(), new Awareness());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -55,10 +55,6 @@
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.0, 0.3, 0.3, 0.6" VBox.vgrow="ALWAYS">
 
-          <VBox fx:id="personList" minWidth="1" maxWidth="1">
-            <StackPane fx:id="personListPanelPlaceholder"/>
-          </VBox>
-
           <VBox fx:id="entryList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="5" right="5" bottom="10" left="5" />

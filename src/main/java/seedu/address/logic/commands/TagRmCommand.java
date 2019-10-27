@@ -58,7 +58,7 @@ public class TagRmCommand extends TagCommand {
 
         model.updateEntry(entryToEdit, editedEntry);
         model.updateFilteredEntryList(Model.PREDICATE_SHOW_ALL_ENTRIES);
-        model.commitAddressBook();
+        model.commitEntryBook();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
