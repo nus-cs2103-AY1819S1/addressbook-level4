@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entrybook>
+<!-- Entry with Invalid Category-->
+<entry category="my work">
+    <entryInfo title="Facebook" subheader="software engineering intern" duration="2010 - 2013"/>
+    <tags>java</tags>
+</entry>
+</entrybook>

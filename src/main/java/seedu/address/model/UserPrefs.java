@@ -12,10 +12,12 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private UserParticulars userParticulars;
+    private Path entryBookFilePath = Paths.get("data" , "resume-data.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
+        userParticulars = new UserParticulars();
     }
 
     public GuiSettings getGuiSettings() {
@@ -30,12 +32,20 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public UserParticulars getUserParticulars() {
+        return userParticulars;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setUserParticulars(UserParticulars userParticulars) {
+        this.userParticulars = userParticulars;
+    }
+
+    public Path getEntryBookFilePath() {
+        return entryBookFilePath;
+    }
+
+    public void setEntryBookFilePath(Path entryBookFilePath) {
+        this.entryBookFilePath = entryBookFilePath;
     }
 
     @Override
@@ -50,19 +60,21 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && Objects.equals(userParticulars, o.userParticulars)
+                && Objects.equals(entryBookFilePath, o.entryBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, userParticulars, entryBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nUser particulars : " + userParticulars.toString());
+        sb.append("\nLocal data file location : " + entryBookFilePath);
         return sb.toString();
     }
 

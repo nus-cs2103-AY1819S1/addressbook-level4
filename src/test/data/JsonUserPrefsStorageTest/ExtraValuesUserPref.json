@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.xml"
+  "entryBookFilePath" : "resume-data.xml"
 }

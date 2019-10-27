@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= ResuMaker - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,147 +12,353 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-W-17-1`      Since: `August 2018`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Do you find the need to maintain multiple versions of your resume?
+
+Perhaps you find yourself reorganising your resumes before making a job application?
+
+If so - welcome to ResuMaker: a *fast and flexible resume generator aimed at computer science students*.
+
+Unlike most resume generation webapps, ResuMaker tailors your resume to fit the specific requirements of a job. +
+It can also pick up contextual awareness about your world - with out-of-the-box support for the National University of Singapore's School of Computing. +
+Interested? Jump to the <<Quick Start>> to get started. +
+
+With ResuMaker, __let your skills document themselves.__
+//end::intro[]
 
 == Quick Start
+To get started with using ResuMaker:
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `resumaker.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for ResuMaker.
+.  Double-click the file to start the app. The graphical user interface should appear in a few seconds.
 +
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+.A typical user's screen, immediately after application startup.
+image::Ui.png[width="790"]
+
+[start=5]
+.  Type your command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Try out the following examples:
+
+* `addEntry `~work` `#java t/The Source Enterprise s/Data Science Intern d/ May 2010 - Dec 2010` Adds a new entry, classified under `work`, with the given title, subheader and duration.
+* `addEntry` `~project` `#java #entrepreneurship t/InnovFest Unbound Hackathon s/Best Fintech Hack d/ Jan 2011 - Feb 2011`
+* `tag ls` `#java`
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Edit your User Preferences file as shown in <<Setup>>.
 
+.  Download the `awareness.xml` file from link:{repoURL}/releases[here].
+
+.  Refer to <<Features>> for the full details of all commands.
+
+// tag::wangfanUGDiag[]
+Here is an illustration of the usual workflow of using ResuMaker.
+
+[[workflowfig]]
+.Typical workflow of ResuMaker
+image::ugTypicalFlowDiagram.png[width="250"]
+// end::wangfanUGDiag[]
+
+[[Setup]]
+== Setup
+
+Here are some important steps to set up ResuMaker to work better for you.
+
+// tag::wangfanUG[]
+=== Adding user particulars
+You need to add your personal particulars to the user preferences file in order for ResuMaker to display
+them at the top of your resume (see <<workflowfig>> for an example of how it will look). Here's how you do it:
+
+. Open the `preferences.json` file which should have been created in the same folder as the ResuMaker application.
+You can do this using Notepad or any other text editor you prefer.
+
+. Look for the section that starts with `"userParticulars" : {`. It should look like this: +
+```
+"userParticulars" : {
+    "name" : "John Doe",
+    "mobile" : "+65 91234567",
+    "email" : "johndoe@example.com",
+    "address" : "412 Kent Ridge Road, #05-03"
+  }
+```
+[start=3]
+. Edit the name, phone number, email address and home address within the quotes.
+For instance, if your name is Mary Jane, edit the line `"name" : "John Doe"` to `"name" : "Mary Jane"`.
+Take note that you cannot leave any of the particulars fields empty.
+
+. Save the `preferences.json` file and restart ResuMaker. Try generating a resume to check that the changes
+have been reflected.
+
+// end::wangfanUG[]
 [[Features]]
 == Features
+Here are the features available in ResuMaker:
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addEntry ~CATEGORY, [t/TITLE], [s/SUBHEADER], [d/DURATION], [#TAGNAME]...`, `CATEGORY`, `TITLE` , `SUBHEADER`, `DURATION` and `TAGNAME` are parameters which can be used as `addEntry ~work #INTERNSHIP t/The Source Enterprise s/Software Engineering Intern d/Jan 2012 - June 2012`.
+* Items in square brackets are optional e.g `~CATEGORY [t/TITLE] [s/SUBHEADER] [d/DURATION] [#TAG]...` can be used as `~work t/The Source Enterprise s/Java programmer d/ Jan 2012 - Dec 2014 #JAVA` or `~awards`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[#TAG]...` can be used as `{nbsp}` (i.e. 0 times), `#JAVA`, `#JAVA #Software Engineering`, `#JAVA #Software Engineering #AI` etc.
+* Parameters can be in any order e.g. if the command specifies `[t/TITLE] [s/SUBHEADER]`, `[s/SUBHEADER] [t/TITLE]` is also acceptable.
+* All commands are case sensitive, e.g. `deleteEntry 1` is valid but `deleteentry 1` would not be.
 ====
 
 === Viewing help : `help`
 
+Displays a list of all commands available. +
 Format: `help`
 
-=== Adding a person: `add`
+// tag::hengyuanUG[]
+=== Adding an entry: `addEntry`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds an entry to ResuMaker. +
+Format: `addEntry ~CATEGORY , [[t/TITLE], [s/SUBHEADER], [d/DURATION]], [#TAGNAME]...`
 
 [TIP]
-A person can have any number of tags (including 0)
+An entry need not have associated title, subheader and duration.
+An entry can have any number of tags (including 0).
+An entry contains description, which can be added using addBullet as a separate command.
+All parameter input from the user must be alphanumeric and can be separated by the following characters: space, `-`, or `()`.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addEntry ~work #java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`
+* `addEntry ~work t/Carousell #work #web #mobile #backend s/intern d/Nov 2017 - Jan 2018`
+* `addEntry ~education #uni t/National University of Singapore s/Bachelor of Computing in Computer Science(Honours) d/2017 - 2021`
+* `addEntry ~awards #java`
 
-=== Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
 
-=== Editing a person : `edit`
+=== Adding a bullet point to an entry: `addBullet`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Adds a bullet point to the end of the description of an entry at index ENTRYINDEX in ResuMaker.
+The user needs to execute `tag ls` command to display a filtered list of entries and select a particular entry
+to add a bullet description to. +
+Format: `addBullet ENTRYINDEX CONTENTTOADD`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* `ENTRYINDEX` refers to the index of the displayed entry list from executing `tag ls`
+* `CONTENTTOADD` refers to a line of description that the user wants to add to an entry
+****
+
+Examples:
+
+* `tag ls` +
+`addBullet 1 attained Best Financial Hack Award` +
+Adds the bullet point "attained Best Financial Hack Award" to the description of the 1st entry.
+* `tag ls ~education` +
+`addBullet 1 maintained a CAP of 4.95 on average throughout the four years` +
+Adds the bullet point "maintained a CAP of 4.95 on average throughout the four years" to the description of the 1st entry under the education category.
+
+
+=== Viewing a particular entry : `selectEntry`
+
+Displays detailed description of the entry in ResuMaker at the specified index on the panel display. +
+Format: `selectEntry INDEX`
+
+****
+* `INDEX` refers to the index of the displayed entry list from executing `tag ls`
+* Detailed description will be displayed as an indexed list of all bullet description in that entry
+****
+
+Examples:
+
+* `selectEntry 2`
+* `selectEntry 0`
+
+
+=== Editing an entry : `editEntryInfo`
+
+Edits entry info fields of an existing entry in ResuMaker, i.e title, sub-header and duration. +
+Format: `editEntryInfo INDEX [t/TITLE] [s/SUBHEADER] [d/DURATION]`
+
+****
+* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed entry list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the entry will be removed i.e adding of tags is not cumulative.
+* You can remove all the entry's tags by typing `#` without specifying any tags after it.
+* This command does not allow editing description of the entry; to do so, use the `editBullet` command.
 ****
+
+Example:
+
+* `editEntryInfo 1 t/R Company s/Data Science Intern` +
+Edits the entry at index 1 by replacing its title as R Company and subtitle as
+Data Science Intern.
+
+
+=== Deleting an entry: `deleteEntry`
+
+Deletes the entry at the specified index. +
+Format: `deleteEntry INDEX`
+
+****
+* `INDEX` refers to the index number shown in the displayed entry list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `tag ls` +
+`deleteEntry 2` +
+Deletes the 2nd entry in ResuMaker.
+* `tag ls ~education` +
+`deleteEntry 1` +
+Deletes the 1st entry displayed under education category.
 
-=== Locating persons by name: `find`
+//end::hengyuanUG[]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== Editing a bullet point: `editBullet` [Coming in v2.0]
+
+Edits a bullet description of an entry in ResuMaker. INDEX refers to the index of a particular bullet description. +
+Format: `editBullet ENTRYINDEX BULLETINDEX EDITEDCONTENT`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Before executing this command, the user needs to execute `selectEntry`
+* `ENTRYINDEX` refers to the index number shown in the displayed entry list
+* `BULLETINDEX` refers to the index number shown of a particular bulleted description the displayed Entry
+*  `EDITEDCONTENT` refers to new content that the user wants to replace the old one with
+* Both parameters *must be a positive integer* 1, 2, 3, ...
 ****
+
+Example:
+
+* `selectEntry` +
+`editBullet 1 1 implement scalable application for data visualization using java` +
+Edits the 1st entry by replacing its 1st bullet description with "implement scalable application for data visualization using java".
+
+
+=== Deleting a bullet: `deleteBullet` [Coming in v2.0]
+
+Deletes the bullet of a particular entry at the specified index.  +
+Format: `deleteBullet ENTRYINDEX BULLETINDEX`
+
+
+****
+* Before executing this command, the user needs to execute `selectEntry`
+* `ENTRYINDEX` refers to the index number shown in the displayed entry list
+* `BULLETINDEX` refers to the index number shown of a particular bulleted description the displayed Entry
+* Both parameters *must be a positive integer* 1, 2, 3, ...
+****
+
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `tag ls` +
+`selectEntry` +
+`deleteBullet 2 1` +
+Deletes the 1st bullet of the 2nd entry in ResuMaker.
+* `tag ls ~education` +
+`selectEntry` +
+`deleteBullet 1 1` +
+Deletes the 1st bullet of the 1st entry displayed under education category of ResuMaker.
 
-=== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+// tag::anubhavUG[]
+=== Adding pre-filled Resume Entries (Contextual Events): `nus`
+There are times when we just don't want to manually enter every piece of required information into a computer program.
+After all, shouldn't some things __just be common knowledge?__
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+With ResuMaker, you can auto-populate resume Entries if ResuMaker already knows about them!
+We call such Entries __Contextual Events__.
 
-Examples:
+Format: `nus EVENT_NAME`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
+[TIP]
+The `EVENT_NAME` can be a combination of an  Event's **full name** (mathematics and computer science double degree programme), **acronyms** (math - cs ddp), or even
+**partially matching phrases** (math - comp sci double deg prog)
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `nus cs2103t` +
+Creates a Resume Entry for CS2103T - A rigorous software engineering class at NUS.
+* `nus ta ma1101r` OR `nus teaching asst ma1101r` +
+Creates a Resume Entry for a MA1101R teaching assistant position. (MA1101R is an undergraduate linear algebra class at NUS)
+* `nus computing cl exco` +
+Creates a Resume Entry for an executive commitee position in the Computing Club at SoC.
+
+[NOTE]
+Slang and acronyms must be correctly configured in application data. ResuMaker ships with NUS / SOC specific slang and acronyms - available link:{repoURL}/releases[here].
+
+//end::anubhavUG[]
+
+[[tags]]
+
+//tag::tags[]
+=== Managing Tags
+These are functions to help you manage your tags; namely to view and edit the relevant tags and entries.
+
+[NOTE]
+All tags and categories are case-sensitive, only exact match in the casing will result in a successful match.
+
+==== Listing entries under specific tags: `tag list` or `tag ls`
+
+List all entries under specific tags (space separated).
+
+By default, if a tag is not given, all entries will be displayed.
+
+All entries displayed will be accompanied with their relevant entry id, to be used when editing.
+
+Examples:
+
+* `tag ls` +
+Displays all entries in ResuMaker.
+* `tag ls ~work #java` +
+Lists all the `~work` entries tagged with `#java`.
+
+[NOTE]
+Each entry can only be tagged with one category, therefore calls like `tag ls ~work ~project` will only pick one of the categories to display
+
+==== Add particular tag to entry: `tag add`
+
+Add tags (space separated) to particular entry (identified by index).
+
+If a category tag is given, it will replace the current category of the specific entry.
+
+Duplicate tags will be ignored.
+
+Examples:
+
+* `tag add 10 ~work #java` +
+Adds tag `#java` and category `~work` to entry 10.
+
+==== Remove particular tag from entry: `tag remove` or `tag rm`
+
+Remove tags (space separated) from a particular entry (identified by index).
+
+By default, if no tags given, all tags will be removed from the entry.
+
+Examples:
+
+* `tag rm 1 ~work #java` +
+Removes category `~work` and tag `#java` from entry 1.
+* `tag rm 10` +
+Removes all tags and categories from entry 10.
+
+==== Retagging a particular entry: `tag retag` or `tag rt`
+
+Remove all current tags and replace them with given tags (space separated).
+
+Each entry must be tied to a specific category, hence, any retagging must include a valid category.
+
+Examples:
+
+* `tag rt 1 ~work #java` +
+Removes all tags and categories from entry 1, and then adds category `~work` and tag `#java` to entry 1.
+
+//end::tags[]
 
 === Listing entered commands : `history`
 
@@ -164,59 +370,109 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+// tag::template[]
+=== Using templates to specify resume formats
+A template specifies the format of the generated resume, in terms of the ordering and title of sections,
+and which entries to include.
+Templates are written by the user in a specific format and stored as text files.
+They should be saved in the same directory as the `resumaker.jar` file, and are parsed and loaded into the application using the `loadtemplate` command.
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+==== Writing template files
+//TODO: how do we have parallel structure for this?
+Templates are text files consisting solely of lines of the following format:
+-----
+[Category Heading]:~[Category Tag]:[Tag Groups]
+-----
+
+Each line specifies a category, starting with the title to be displayed, its corresponding category tag, and tags used to filter entries.
+Each `Tag Group` contains one `Tag`, or several separated by ampersands (&). Tag groups are separated by spaces.
+For example, the following formats would all be valid as `[Tag Groups]`:
+----
+* [Tag] [Tag] [Tag]
+* [Tag]&[Tag]
+* [Tag] [Tag]&[Tag]&[Tag]
+* (no tags)
+----
+An entry is included if it is tagged with that category, and fulfills any of the groups of tags.
+It must contain all tags in a group to fulfil the group.
+
+For example, the following category,
+
+    Work Experience:~work:java&recent python&recent&significant datascience
+
+means to include any entry categorized as `work`, as long as it fulfills any of the following:
+
+* tagged with `java` and `recent`
+* tagged with `python` and `recent` and `significant`
+* tagged with `datascience`
+
+As an example, the following template file:
+[literal]
+--
+Work Experience:~work:
+Education:~education:uni training&cs
+Projects:~projects:software&java&recent
+--
+Will result in the resume being generated as follows:
+[sidebar]
+--
+*Work Experience* +
+(all work entries regardless of tags)
+
+*Education* +
+(education entries tagged with `uni`, or both `training` and `cs`)
+
+*Projects* +
+(project entries tagged with `software`, `java` and `recent`)
+--
+
+==== Loading template : `loadtemplate`
+
+Loads a template from a text file into the application. +
+Format: `loadtemplate FILEPATH`
+
+Examples:
+
+* `loadtemplate google.txt` +
+Loads the template specified in `google.txt`
+* `loadtemplate templates\facebook.txt` +
+Loads the template specified in `facebook.txt` in the `templates` subfolder
+
+[TIP]
+If the format of the text file looks to be correct but the application says that it is invalid, try checking for and removing any extra newlines or spaces.
+
+// end::template[]
+
+// tag::resume[]
+=== Generating Resume : `make`
+
+Generates a Resume file with the given name, using the _template_ currently loaded in the application. +
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+By default, the file will be saved in the same folder as the application.
+You can also specify a more complicated filepath if you want the file to be saved to a specific folder.
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `make sep.md` +
+Generates a file named sep.md in the same folder as the application,
+containing a Resume which lists entries as designated by the currently loaded template.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+ResuMaker generates your resume files in the _markdown_ format, which is commonly used around the web.
+Since you will likely need your resume in a different format such as a Word document or a PDF file,
+here are some of the many tools out there that can help you convert your resume:
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+* link:http://www.writage.com/[Writage], which allows you to edit and convert markdown files in Microsoft Word.
+* link:https://pandoc.org/[Pandoc], which converts markdown files to a variety of formats like PDF.
+* link:https://dillinger.io/[Dillinger], which lets you edit markdown files and convert them to HTML.
 
-=== Redoing the previously undone command : `redo`
+// end::resume[]
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+=== Clearing all entries : `clear` [Coming in v2.0]
 
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
+Clears all entries from ResuMaker. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,7 +482,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+ResuMaker data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -235,26 +491,119 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+== Configuring Resume data
+
+All your resume entries are saved in the XML format. +
+The filepath to the XML file can be specified in the `preferences.json` file. +
+If the file cannot be found, ResuMaker will start with sample resume data. +
+If the file cannot be read or has errors in its XML, ResuMaker will start with no resume data.
+
+// tag::dataConfig[]
+== Configuring Awareness data
+
+Awareness data can be provided via XML. +
+Create a XML file (with `.xml` extension) called `awareness` and place it in the same folder as `resumaker.jar`. +
+If the file cannot be found, ResuMaker will start with sample awareness data. +
+If the file cannot be read or has errors in its XML, ResuMaker will start with no awareness data.
+
+If you know some XML, you can easily configure your own slang and contextual events!
+The Awareness XML file consists of a series of `mapping` elements and a series of `context-entry` elements.
+Each `mapping` element defines a mapping between some slang (e.g. cs) and a full phrase (e.g computer science).
+
+These are the main rules to follow when writing the `mapping` elements.
+
+* You cannot use the same slang in multiple mapping elements.
+* Each slang can only be one word.
+* Each `slang` and `full phrase` element cannot be purely whitespace.
+
+These are the rules to follow when writing the `context-entry` elements.
+
+* Give each `context-entry` a unique name, and provide it in the `eventName` attribute.
+* For best results, do not have unnecessary spaces in your `eventName`.
+* The `eventName` cannot be purely whitespace.
+* For the resume entry's XML, follow the same format as used by the resume entries' XML file.
+// end::dataConfig[]
+
+The following can be used as a template for your awareness data.
+
+```
+<awareness>
+  <mapping>
+    <fullPhrase>Computer Science</fullPhrase>
+      <slang>cs</slang>
+      <slang>computing</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>financial technology</fullPhrase>
+      <slang>fintech</slang>
+      <slang>ft</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>machine learning</fullPhrase>
+      <slang>ml</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>singapore</fullPhrase>
+      <slang>sg</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>financial technology</fullPhrase>
+      <slang>fintech</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>hackathon</fullPhrase>
+   </mapping>
+   <context-entry eventName="uni">
+     <entry category="education">
+        <entryInfo title="National University of Singapore" subheader="Bachelor of computing" duration="2010 - 2013"/>
+        <tags>education</tags>
+     </entry>
+   </context-entry>
+   <context-entry eventName="noc">
+     <entry category="education">
+        <entryInfo title="NUS Overseas College" subheader="Attended entrepreneurship modules and worked at a startup" duration="2011 Semester "/>
+        <tags>Leadership</tags>
+        <tags>Entrepreneurship</tags>
+     </entry>
+   </context-entry>
+</awareness>
+```
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ResuMaker.
 
 == Command Summary
+For reference, here is a brief summary of the commands available and their syntax:
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add Bullet* `addBullet INDEX CONTENTTOADD` +
+e.g. `addBullet 0 attain Best Financial Hack Award`
+* *Add Entry* `addEntry ~CATEGORY , [t/TITLE], [s/SUBHEADER], [d/DURATION] [#TAGNAME]…` +
+e.g. `addEntry ~work #java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`
+* *Add Nus Entry* : `nus EVENT_NAME` +
+e.g. `nus hack n roll`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Delete Bullet* : `deleteBullet ENTRYINDEX BULLETINDEX` +
+e.g. `deleteBullet 2 2`
+* *Delete Entry* : `deleteEntry INDEX` +
+e.g. `deleteEntry 2`
+* *Edit Bullet* : `editBullet ENTRYINDEX BULLETINDEX EDITTEDCONTENT` +
+e.g. `editBullet 0 0 implement scalable application for data visualization using java`
+* *Edit Entry* : `editEntry INDEX [t/TITLE ] [s/SUBHEADER] [d/DURATION] [#TAG]…` +
+e.g. `editEntry 1 t/R company #JAVA`
+* *Expand Entry* : `selectEntry INDEX` +
+e.g. `selectEntry 2`
+* *Generate Resume* : `make FILENAME`
 * *Help* : `help`
+* *History* : `history`
+* *Load Template*: `loadtemplate FILEPATH` +
+e.g. `loadtemplate google.txt`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Tag List*: `tag ls TAG [MORE_TAGS]` +
+e.g. `tag ls ~work #java`
+* *Tag Remove*: `tag rm INDEX TAG [MORE_TAGS]` +
+e.g. `tag rm 10 ~work #python`
+* *Tag Retag*: `tag tg INDEX TAG [MORE_TAGS]` +
+e.g. `tag rt 10 ~project #web`

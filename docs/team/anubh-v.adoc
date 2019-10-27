@@ -1,0 +1,56 @@
+= Anubhav - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ResuMaker
+
+---
+
+== Overview
+
+This document details my contribution to ResuMaker - a fast and flexible resume generator. ResuMaker was built by five students, including myself. It is optimised for students in the School of Computing.
+
+== Summary of contributions
+
+* *Major enhancement*: Added support for contextual awareness
+** What it does: allows the user to *communicate with the application via slang*. The application's ability to understand slang is quite configurable. Moreover, the user can choose to *auto-populate resume entries for events that have standard information*, such as university modules or programmes.
+** Justification: This feature improves the product significantly because it allows users to control the application using language that is more convenient for them.
+** Highlights: This enhancement is built to be configurable - the user can add on to the set of slang that is understood by the application.
+** Code contributed: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=anubh-v&sort=displayName&since=2018-09-12&until=2018-11-12&timeframe=day&reverse=false&repoSort=true[link to RepoSense profile]
+** Credits: ResuMaker was a team effort. The project would not be possible without the great effort displayed by the <<../AboutUs#, group>>.
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases v1.1 - v1.3 (3 releases)
+*** Added third party tools to GitHub repository (Travis, AppVeyor, Coveralls)
+** Documentation:
+*** Wrote the introductory blurb for User Guide and Developer Guide
+*** Reviewed documentation related PRs
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-1/main/pull/97[1], https://github.com/CS2103-AY1819S1-W17-1/main/pull/49[2], https://github.com/CS2103-AY1819S1-W17-1/main/pull/54[3])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/75[1], https://github.com/nus-cs2103-AY1819S1/forum/issues/84[2], https://github.com/nus-cs2103-AY1819S1/forum/issues/85[3])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+
+include::../UserGuide.adoc[tag=anubhavUG]
+
+include::../UserGuide.adoc[tag=dataConfig]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide._
+|===
+
+include::../DeveloperGuide.adoc[tag=contextualAwareness]
+

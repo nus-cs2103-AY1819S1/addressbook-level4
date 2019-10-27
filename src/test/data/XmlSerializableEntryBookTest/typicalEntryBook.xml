@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Entrybook save file which contains the same ResumeEntry values as in TypicalEntrys#getTypicalEntryBook() -->
+<entrybook>
+<entry category="work">
+    <entryInfo title="Facebook" subheader="software engineering intern" duration="2010 - 2013"/>
+    <tags>java</tags>
+</entry>
+<entry category="education">
+    <entryInfo title="National University of Singapore" subheader="Bachelor of computing" duration="2010 - 2013"/>
+    <tags>Machine Learning</tags>
+</entry>
+<entry category="awards">
+</entry>
+<entry category="education">
+    <entryInfo title="National University of Singapore" subheader="Bachelor of computing" duration="2010 - 2014"/>
+    <tags>machinelearning</tags>
+</entry>
+<entry category="work">
+    <entryInfo title="Facebook" subheader="Data Science Intern" duration="May 2007 - July 2007"/>
+    <tags>java</tags>
+</entry>
+</entrybook>

@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.storage.AwarenessStorage.AWARENESS_FILEPATH;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -20,18 +22,22 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.EntryBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEntryBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.awareness.Awareness;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TemplateStorage;
+import seedu.address.storage.TxtTemplateStorage;
 import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlAwarenessStorage;
+import seedu.address.storage.entry.EntryBookStorage;
+import seedu.address.storage.entry.XmlEntryBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -40,7 +46,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -54,7 +60,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ResuMaker ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -62,18 +68,20 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        EntryBookStorage entryBookStorage = new XmlEntryBookStorage(userPrefs.getEntryBookFilePath());
+        TemplateStorage templateStorage = new TxtTemplateStorage();
+
+        storage = new StorageManager(entryBookStorage, templateStorage, userPrefsStorage);
 
         initLogging(config);
-
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model);
-
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
     }
 
     /**
@@ -82,23 +90,47 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        final String messageFileNotFound = "Data file not found. Will be starting with a sample %s.";
+        final String messageFormatProblem = "Data file not in the correct format. Will be starting with an empty %s.";
+        final String messageIoProblem = "Problem while reading from the file. Will be starting with an empty %s.";
+
+        Optional<ReadOnlyEntryBook> entryBookOptional;
+        ReadOnlyEntryBook initialDataForEntryBook;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            entryBookOptional = storage.readEntryBook();
+            initialDataForEntryBook = entryBookOptional.orElseGet(() -> {
+                logger.info(String.format(messageFileNotFound, "entrybook"));
+                return SampleDataUtil.getSampleEntryBook();
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            );
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(String.format(messageFormatProblem, "entrybook"));
+            initialDataForEntryBook = new EntryBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(String.format(messageIoProblem, "entrybook"));
+            initialDataForEntryBook = new EntryBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        Optional<Awareness> awarenessOptional;
+        Awareness awareness;
+
+        try {
+            awarenessOptional = new XmlAwarenessStorage(AWARENESS_FILEPATH).readAwarenessData();
+            awareness = awarenessOptional.orElseGet(() -> {
+                logger.info(String.format(messageFileNotFound, "awareness"));
+                return SampleDataUtil.getSampleAwareness();
+            });
+
+        } catch (DataConversionException e) {
+            logger.warning(String.format(messageFormatProblem, "awareness"));
+            awareness = new Awareness();
+        } catch (IOException e) {
+            logger.warning(String.format(messageIoProblem, "awareness"));
+            awareness = new Awareness();
+        }
+
+        return new ModelManager(initialDataForEntryBook, userPrefs, awareness);
     }
 
     private void initLogging(Config config) {
@@ -179,13 +211,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ResuMaker " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping ResuMaker ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

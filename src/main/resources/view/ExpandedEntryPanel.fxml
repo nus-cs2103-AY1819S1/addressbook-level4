@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.FlowPane?>
+<VBox fx:id="placeHolder" styleClass="expanded-entry-panel" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <HBox spacing="20" alignment="CENTER">
+        <Label styleClass="cell_list_label" text="Selected Entry"/>
+    </HBox>
+    <VBox spacing="1">
+        <Label fx:id="title" styleClass="expanded-title" />
+        <VBox spacing="3">
+            <Label fx:id="categoryTag" styleClass="expanded-category-tag"/>
+            <FlowPane fx:id="tags" styleClass="expanded-tag"/>
+        </VBox>
+        <Label fx:id="subtitle" styleClass="expanded-body-text"/>
+        <Label fx:id="duration" styleClass="expanded-body-text"/>
+    </VBox>
+
+    <TextArea fx:id="expandedEntryText" editable="false" styleClass="expanded-entry-display" VBox.vgrow="ALWAYS"/>
+</VBox>
+

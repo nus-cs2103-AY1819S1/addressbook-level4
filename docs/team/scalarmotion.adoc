@@ -1,0 +1,168 @@
+= Gu Wangfan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ResuMaker
+
+== Overview
+
+This portfolio aims to introduce a software engineering project I participated in and
+highlight my contributions to it, both technical and otherwise.
+This project was done as part of a Software Engineering module during my Computer Science studies
+at the National University of Singapore's School of Computing (NUS SoC),
+Over a period of 6 weeks, my team of 5 students developed a
+Resume Generation app targeted specifically at students of NUS SoC.
+
+The project entailed morphing an existing medium scale software product
+(about 6000 lines of code) into a totally new product
+while learning and applying software engineering best practices.
+It also imposed various constraints on the final product, such as
+having to focus on only taking input from a Command Line Interface (CLI)
+and requiring an incremental approach to development.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to generate a resume and save it to a file*.
+**	This enhancement uses the specifications of a given template to filter and organise the entries stored in ResuMaker
+into a visually appealing resume file, saved in the markdown format for easy conversion to other commonly used document formats.
+**  This enhancement is a core feature of the project and brings together the work of the team to generate a resume.
+**	This enhancement was designed to be modular enough to allow for easy extension.
+For instance, the use of markdown to format the text of the resume was designed such that it would be easy to
+change the layout of the resume (such as changing the font size of its section headers
+or adding other content to the resume) or even switch to a different file format altogether.
+**	This enhancement made use of an link:https://github.com/Steppschuh/Java-Markdown-Generator[external library] to handle the
+generation of markdown text in a more organised way rather than manipulating the text directly.
+While this functionality was important, it is not essential to the feature - generating the markdown text of the resume
+could have been done without it, although it would have either taken more work to develop the functionality separately
+or been much messier.
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=scalarmotion&sort=displayName&since=2018-09-12&until=2018-11-10&timeframe=day&reverse=false&repoSort=true[Reposense Overview]
+
+<<<
+
+Functional code snippet:
+```
+    public Resume(Model model) {
+        requireAllNonNull(model);
+        this.model = model;
+
+        template = model.getLoadedTemplate()
+                .orElseThrow(() -> new IllegalArgumentException("Template cannot be blank."));
+        requireAllNonNull(template);
+
+        resumeHeader = new ResumeHeader(model.getUserParticulars());
+        requireAllNonNull(resumeHeader);
+
+        resumeSectionList = new ArrayList<>();
+        populateSectionList();
+    }
+
+    /**
+     * Populates the section list by using each TemplateSection to fetch a set of entries belonging to that section.
+     */
+    private void populateSectionList() {
+        ArrayList<TemplateSection> templateSections = template.getSections();
+        for (TemplateSection templateSection : templateSections) {
+            resumeSectionList.add(fetchSectionEntries(templateSection));
+        }
+    }
+
+    /**
+     * Fetches a ResumeSection containing entries which match the tags specified in the
+     * @param templateSection and
+     * @return the ResumeSection containing the entries specified.
+     */
+    private ResumeSection fetchSectionEntries(TemplateSection templateSection) {
+        Predicate<ResumeEntry> sectionPredicate = templateSection.getCategoryPredicate()
+                .and(templateSection.getTagPredicate());
+        return new ResumeSection(templateSection.getTitle(),
+                model.getFilteredEntryList(sectionPredicate));
+    }
+```
+
+<<<
+
+Test code snippet:
+```
+    @Test
+    public void resumeConstructorTest() {
+        // no template loaded
+        assertThrows(IllegalArgumentException.class, "Template cannot be blank.", () -> new Resume(new ModelManager()));
+
+        Model testModel = TypicalResumeModel.getDefaultTemplateModel();
+
+        // default template, no entries
+        Resume blankResume = new Resume(testModel);
+        List<ResumeSection> expectedBlankSectionList = new ArrayList<>();
+        Template defaultTemplate = Template.getDefaultTemplate();
+        for (TemplateSection templateSection : defaultTemplate.getSections()) {
+            expectedBlankSectionList.add(new ResumeSection(templateSection.getTitle(), new ArrayList<ResumeEntry>()));
+        }
+        assertEquals(expectedBlankSectionList, blankResume.getSectionList());
+
+        // default template, typical entries
+        List<ResumeEntry> typicalEntries = TypicalEntrys.getTypicalEntries();
+        for (ResumeEntry entry : typicalEntries) {
+            testModel.addEntry(entry);
+        }
+        Resume typicalResume = new Resume(testModel);
+        // filtering entries manually to get expected section list
+        List<ResumeSection> expectedTypicalSectionList = new ArrayList<>();
+        for (TemplateSection templateSection : defaultTemplate.getSections()) {
+            List<ResumeEntry> testEntryList = new ArrayList<>();
+            for (ResumeEntry entry : typicalEntries) {
+                if (templateSection.getCategoryPredicate().test(entry)
+                        && templateSection.getTagPredicate().test(entry)) {
+                    testEntryList.add(entry);
+                }
+            }
+            expectedTypicalSectionList.add(new ResumeSection(templateSection.getTitle(), testEntryList));
+        }
+        assertEquals(expectedTypicalSectionList, typicalResume.getSectionList());
+    }
+```
+
+<<<
+* *Other contributions*:
+** Project management:
+*** Designed a link:https://github.com/CS2103-AY1819S1-W17-1/main/issues/62[neat, organised format] of
+managing development issues for use by the project team.
+*** Coordinated API design between team members across components and features to ensure smooth integration.
+*** Reviewed test coverage and quality.
+** Documentation:
+*** Fixed writing style issues in the
+link:https://github.com/CS2103-AY1819S1-W17-1/main/commit/f59e486c11887eb49c214738fb989161d591ba49[User Guide] and
+link:https://github.com/CS2103-AY1819S1-W17-1/main/commit/e3509a0af98fce9277896e5d03338ff1c20f72e1[Developer Guide].
+** Community:
+*** Reviewed pull requests (with non-trivial review comments):
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/119[#119],
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/152[#152],
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/163[#163],
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/220[#220],
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/231[#231],
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/280[#280]
+** Tools:
+*** Integrated a third party library to the project to generate markdown text:
+link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/33[#33], link:https://github.com/CS2103-AY1819S1-W17-1/main/pull/112[#112].
+
+<<<
+== Contributions to the User Guide
+
+
+|===
+|_Here are some sections I contributed to the User Guide which showcase my ability to write documentation for end-users._
+|===
+
+include::../UserGuide.adoc[tag=wangfanUGDiag]
+include::../UserGuide.adoc[tag=wangfanUG]
+include::../UserGuide.adoc[tag=resume]
+<<<
+== Contributions to the Developer Guide
+
+|===
+|_Here are some sections I contributed to the Developer Guide which showcase the
+technical depth of my contributions to the project, as well as my ability to document them._
+|===
+
+include::../DeveloperGuide.adoc[tag=resume]

@@ -1,0 +1,18 @@
+<awareness>
+  <mapping>
+    <fullPhrase>Computer Science</fullPhrase>
+      <slang>cs</slang>
+      <slang>computing</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>financial technology</fullPhrase>
+      <slang>fintech</slang>
+      <slang>ft</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>machine learning</fullPhrase>
+      <slang>ml</slang>
+   </mapping>
+  <!-- There are no contextual entries specified -->
+</awareness>
+

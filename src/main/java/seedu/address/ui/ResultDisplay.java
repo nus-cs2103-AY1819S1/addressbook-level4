@@ -30,6 +30,7 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
         resultDisplay.textProperty().bind(displayed);
         registerAsAnEventHandler(this);
+        resultDisplay.setWrapText(true);
     }
 
     @Subscribe

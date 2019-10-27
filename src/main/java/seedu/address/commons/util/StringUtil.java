@@ -65,4 +65,39 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true iff {@code s} is an empty string.
+     */
+    public static boolean isEmptyString(String s) {
+        requireNonNull(s);
+        return s.equals("");
+    }
+
+    /**
+     * Returns true iff {@code s} is only whitespace.
+     */
+    public static boolean isOnlyWhiteSpace(String s) {
+        requireNonNull(s);
+        return isEmptyString(s.trim());
+    }
+
+    /**
+     * Returns true iff {@code s} has no trailing or leading whitespaces.
+     */
+    public static boolean isNotPaddedByWhiteSpace(String s) {
+        requireNonNull(s);
+        return s.length() == s.trim().length();
+    }
+
+    /**
+     * Returns true iff the given string is a single word.
+     *
+     * @param s must not have any trailing or leading whitespaces.
+     * @return true iff {@code s} is a single word.
+     */
+    public static boolean isOneWord(String s) {
+        checkArgument(isNotPaddedByWhiteSpace(s));
+        return s.split(" ").length == 1;
+    }
 }

@@ -1,0 +1,62 @@
+= Ong Shu Peng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ResuMaker
+
+---
+
+== Overview
+
+This portfolio showcases my contributions for a software engineering team project for our software engineering module. In a period of 6 weeks, we were tasked to implement a command line interface (CLI) based application targeted at a specific group of users.
+
+Our project, ResuMaker, is a fast and flexible resume generator, optimised for students in the School of Computing. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLo.
+
+== Summary of contributions
+
+* *Major enhancement*: added *tag management system*
+** What it does: This enhancement allows the user to use tags to identify resume entries to include in the display or resume output.
+** Justification: This enhancement allows ResuMaker to achieve one of its highlights: ability to selectively include specific entries to include in the resume creation process.
+** Highlights: This enhancement will be needed for many of the other features, therefore many implementation details have to be considered to cater for the various different usages of the tags in the application.
+
+* *Minor enhancement*: added commands to alter existing tags of entries
+Instead of having to reinsert entries, addition tag management functions have been implement to add, remove and replace tags. This will streamline the process of managing existing resume entries giving users more control over
+** What it does: This enhancement allows the user to alter tags of existing entries
+** Justification: This enhancement streamlines the tag management process, instead of having to reinsert entries, users can make use of the functions to alter the tags instead.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=ongspxm&sort=displayName&timeframe=day&reverse=false&repoSort=true[CS2103 Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed merging of PR and handling of repository cleanups
+** Enhancements to existing features:
+*** Extended model functions (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/187[#187])
+*** Refactored existing address book classes (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/171[#171])
+*** Created EntryBook and corresponding testing utilities (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/87[#87])
+*** Developed command sub parser pattern (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/174[#174])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/262[#262])
+*** Included details on tags and category implementation (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/170[#170], https://github.com/CS2103-AY1819S1-W17-1/main/pull/54[#54])
+** Community:
+*** PRs reviewed (with non-trivial review comments): (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/45[#45], https://github.com/CS2103-AY1819S1-W17-1/main/pull/253[#253])
+*** Reported bugs and suggestions F10-4 in PE Dry Run: (PR https://github.com/CS2103-AY1819S1-F10-4/main/issues?q=is%3Aissue+PE+Dry+Run+ongspxm[#219, #225, #232, #237, #239, #243, #245, #249])
+** Tools:
+*** Integrated a third party tool (RepoSense) to the project (PR https://github.com/CS2103-AY1819S1-W17-1/main/pull/101[#101])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=tags]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=tags]

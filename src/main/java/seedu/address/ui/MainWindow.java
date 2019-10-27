@@ -34,8 +34,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ExpandedEntryPanel expandedEntryPanel;
+    private EntryListPanel entryListPanel;
+
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -44,16 +45,25 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane browserPlaceholder;
 
     @FXML
+    private StackPane templatePanelPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane entryListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane contextbarPlaceholder;
+
+    @FXML
+    private StackPane expandedEntryPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -119,17 +129,23 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
+        entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        TemplatePanel templatePanel = new TemplatePanel();
+        templatePanelPlaceholder.getChildren().add(templatePanel.getRoot());
+
+        expandedEntryPanel = new ExpandedEntryPanel();
+        expandedEntryPanelPlaceholder.getChildren().add(expandedEntryPanel.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getEntryBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        ContextBar contextBar = new ContextBar();
+        contextbarPlaceholder.getChildren().add(contextBar.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -187,12 +203,14 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
+    // TODO: to be completed later
+    // public EntryListPanel getEntryListPanel() {
+    //     return entryListPanel;
+    // }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        // TODO: remove browser panel
+        // browserPanel.freeResources();
     }
 
     @Subscribe

@@ -1,0 +1,70 @@
+= Jiang Hengyuan- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:sectnums:
+
+= PROJECT: ResuMaker
+
+---
+
+== Overview
+This document showcases my contributions to this team project which consists of five team members. It is done in a semester long (13 weeks) NUS module CS2103T. Thanks to the help from my other four team members. Please refer to https://github.com/CS2103-AY1819S1-W17-1/main/blob/master/docs/AboutUs.adoc[AboutUs] page for more details of the team.
+
+ResuMaker is a fast, flexible and customizable resume generator aimed at computer science professionals. On top of the Command Line Interface where most of the user interaction takes place, it also provides users with an intuitive and user friendly Graphic User Interface. +
+
+
+== Summary of Contributions
+
+* *Major enhancement*: Responsive Display of Expanded Entry
+** What it does: It allows for the responsive display of the bullet description of an entry whenever a user edits the description of that particular entry.
+** Justification: This is a useful feature as it provides a timely feedback to the user about the latest description of an entry that has been modified. Without this responsive feature, the user may mistakenly feed in the wrong description to an entry without knowing it or he would have to manually select the edited entry to disclose its description.
+** Highlights: This feature involves implementation of multiple components, i.e. UI, Logic, Model and Commons
+** Credits: Let me acknowledge the se-edu/addressbook-level4 team for their overall architecture design that lays the foundation for the implementation of this enhancement and also for their idea on event driven design which is central to making the expanded entry display responsive.
+** Relevant PRs: https://github.com/CS2103-AY1819S1-W17-1/main/pull/191[#PR191], https://github.com/CS2103-AY1819S1-W17-1/main/pull/206[PR#206]
+
+* *Code contributed*:  [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jhengy&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[Functional code]]
+
+* *Other contributions*:
+** Morphing of AddressBook 4 to ResuMaker:
+*** Set up of Model Component Class Structure for ResumeEntry. See https://github.com/CS2103-AY1819S1-W17-1/main/pull/48/files[PR#48] https://github.com/CS2103-AY1819S1-W17-1/main/pull/114/files[PR#114].
+*** Morph existing commands to align with new Model. See https://github.com/CS2103-AY1819S1-W17-1/main/pull/165[PR#165],
+https://github.com/CS2103-AY1819S1-W17-1/main/pull/178[PR#178],
+https://github.com/CS2103-AY1819S1-W17-1/main/pull/200[PR#200]
+*** Set up display of entries in UI. See https://github.com/CS2103-AY1819S1-W17-1/main/pull/178[PR#178]
+
+** Test Handling:
+*** Addition of utility class such as EntryBuilder to facilitate unit testing of Model related classes
+
+** Documentation:
+*** Modified Command Format section under the feature section of the User Guide
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-1/main/pull/179[PR#179],
+https://github.com/CS2103-AY1819S1-W17-1/main/pull/205[PR#205]
+
+== Contributions to the User Guide
+|===
+|_ Given below is the flow chart of the appearance of the Graphic User Interface
+when a set of commands is executed by an user._
+|===
+.Flow diagram of a typical scenario for the list of commands executed.
+image::FlowDiagramForEntryManagement.png[width="800"]
+
+{nbsp} +
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=hengyuanUG]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=entryManagement]
+
+

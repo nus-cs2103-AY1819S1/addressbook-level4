@@ -104,7 +104,7 @@
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #46494b;
 }
 
 .list-cell:filled:selected {
@@ -132,6 +132,12 @@
     -fx-text-fill: #010504;
 }
 
+.cell_list_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18px;
+    -fx-text-fill: lightblue;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -156,6 +162,22 @@
 
 .result-display .label {
     -fx-text-fill: black !important;
+}
+
+.context-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+.context-display .label {
+    -fx-text-fill: black !important;
+}
+
+#contextDisplay .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
 }
 
 .status-bar .label {
@@ -205,6 +227,53 @@
 .menu .left-container {
     -fx-background-color: black;
 }
+
+/* Template Panel */
+
+.template-panel-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+#templatePanel .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
+/* Expanded Entry Panel */
+
+.expanded-entry-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
+}
+
+.expanded-title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
+.expanded-body-text {
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.expanded-category-tag {
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+}
+
+.expanded-tags {
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+}
+
+
 
 /*
  * Metro style Push Button
@@ -336,6 +405,11 @@
     -fx-background-radius: 0;
 }
 
+#expandedEntryText .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -348,4 +422,19 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#categoryTag {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-background-color: #00695C;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+.circle_color {
+    -fx-stroke: "green";
+    -fx-stroke-width: 5;
 }

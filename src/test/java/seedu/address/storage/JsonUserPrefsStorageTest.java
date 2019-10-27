@@ -82,7 +82,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(1000, 500, 300, 100);
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.xml"));
+        userPrefs.setEntryBookFilePath(Paths.get("resume-data.xml"));
         return userPrefs;
     }
 
@@ -99,7 +99,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     /**
-     * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
+     * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filePath.
      */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {

@@ -1,0 +1,70 @@
+= Marvin Tan Xu Dong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ResuMaker
+
+---
+
+== Overview
+
+This project portfolio documents my contributions for a software engineering group project undertaken during my study of Computer Science
+at the National University of Singapore.
+This project was done in the context of our Software Engineering module, CS2103T.
+In less than a semester, our group of five was tasked with adapting an existing codebase in Java to build a functioning product aimed at a specific target demographic.
+
+
+Our product, ResuMaker, is a fast and flexible resume generator targeted at students and gradutes from the School of Computing.
+The application supports both a command-line interface (accepting text inputs), as well as a graphical user interface.
+ResuMaker simplifies the resume writing process, by storing your past experiences and achievements as taggable entries.
+When generating the resume, the user can specify which tags to include, allowing users to easily tailor resumes for each job application without manual editing.
+The application is also optimised for our target demographic, by recognizing common terminology used by them, and auto-generating pre-filled entries.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to use templates to specify resume formats*
+** What it does: This feature allows the user to use template text files to specify how the resume will be generated, in terms of the ordering and title of sections, and which entries will appear under each section based on its tags.
+** Justification: This feature enables one of the core value propositions of our product, which is to be able to easily generate resumes for different contexts.
+While the application will hold all of the user's experiences as entries,
+templates allow the user to customize the generated resume for specific purposes or job applications by specifying the types of entries to include,
+without having to manually edit the resume.
+** Highlights: The template feature accommodates a basic boolean logic system. In the template text files, users can specify
+the tags to include using "&" and the space character as logical operators. For example,  `java python&datascience swift` means "entries should be tagged with (java) OR (python AND datascience) OR (swift)".
+
+
+* *Minor enhancement*: added the ability for users to specify their particulars and contact details in the preferences file,
+for them to be displayed in the generated resume.
+
+* *Minor enhancement*: added the functionality of saving entries into an XML file automatically.
+
+* *Code contributed*:
+https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=marvintxd[Project Code Dashboard]
+
+* *Other contributions*:
+
+** Documentation:
+*** Made overall edits for User Guide and Developer Guide
+*** Updated component diagrams: https://github.com/CS2103-AY1819S1-W17-1/main/pull/338[#338]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-1/main/pull/150[#150], https://github.com/CS2103-AY1819S1-W17-1/main/pull/267[#267]
+*** Bugs reported on teammates' features: https://github.com/CS2103-AY1819S1-W17-1/main/issues/290[#290]
+** Tools:
+*** Set up Travis CI and autopublishing of docs for the project
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=template]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=template]

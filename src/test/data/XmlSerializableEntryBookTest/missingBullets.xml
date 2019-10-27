@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entrybook>
+<entry category="work">
+    <entryInfo title="Facebook" subheader="software engineering intern" duration="2010 - 2013"/>
+    <entryDesc>
+      <!-- There should be at least 1 valid bullet here! -->
+    </entryDesc>
+    <tags>java</tags>
+</entry>
+</entrybook>

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -33,9 +34,8 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        initListeners();
     }
 
     /**
@@ -48,7 +48,6 @@ public class CommandBox extends UiPart<Region> {
             // As up and down buttons will alter the position of the caret,
             // consuming it causes the caret's position to remain unchanged
             keyEvent.consume();
-
             navigateToPreviousInput();
             break;
         case DOWN:
@@ -56,6 +55,9 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             break;
         default:
+            // trigger any command line observers
+            triggerObservers(commandTextField.textProperty().getValue());
+
             // let JavaFx handle the keypress
         }
     }
@@ -84,6 +86,13 @@ public class CommandBox extends UiPart<Region> {
         }
 
         replaceText(historySnapshot.next());
+    }
+
+    /**
+     * Asks the Logic object to trigger all CmdLineObservers
+     */
+    private void triggerObservers(String currentInput) {
+        logic.observe(currentInput);
     }
 
     /**
@@ -146,6 +155,20 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Initialises all the listeners attached to the command box's commandTextField.
+     */
+    private void initListeners() {
+
+        StringProperty commandLineContent = commandTextField.textProperty();
+
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandLineContent.addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        // triggers all command line observers in logic
+        commandLineContent.addListener((observableValue, oldValue, newValue) -> triggerObservers(newValue));
     }
 
 }

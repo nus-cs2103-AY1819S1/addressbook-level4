@@ -1,0 +1,30 @@
+<awareness>
+  <mapping>
+    <fullPhrase>Computer Science</fullPhrase>
+      <slang>cs</slang>
+      <slang>computing</slang>
+   </mapping>
+  <mapping>
+    <fullPhrase>financial technology</fullPhrase>
+      <slang>fintech</slang>
+      <slang>cs</slang>
+      <!-- This mapping has a slang that has already been used for another mapping -->
+   </mapping>
+  <mapping>
+    <fullPhrase>machine learning</fullPhrase>
+      <slang>ml</slang>
+   </mapping>
+   <context-entry eventName="sep">
+     <entry category="education">
+        <entryInfo title="National University of Singapore" subheader="Bachelor of computing" duration="2010 - 2013"/>
+        <tags>Machine Learning</tags>
+     </entry>
+   </context-entry>
+   <context-entry eventName="noc">
+     <entry category="education">
+        <entryInfo title="Overseas College" subheader="Bachelor of computing" duration="2010 - 2013"/>
+        <tags>Leadership</tags>
+     </entry>
+   </context-entry>
+</awareness>
+

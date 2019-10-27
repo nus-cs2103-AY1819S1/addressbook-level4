@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entrybook>
+<entry category="work">
+    <entryInfo title="Facebook" subheader="software engineering intern" duration="2010 - 2013"/>
+    <tags>java</tags>
+</entry>
+<entry>
+    <!-- This entry has a missing category -->
+    <entryInfo title="National University of Singapore" subheader="Bachelor of computing" duration="2010 - 2013"/>
+    <tags>Machine Learning</tags>
+</entry>
+</entrybook>
