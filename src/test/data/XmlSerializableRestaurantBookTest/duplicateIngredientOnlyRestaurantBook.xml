@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+  <ingredients>
+    <name>Chicken Drumstick</name>
+    <unit>kilogram</unit>
+    <price>9.90</price>
+    <numUnits>10</numUnits>
+    <minimum>2</minimum>
+  </ingredients>
+
+  <!-- Ingredient with same identity as Chicken Drumstick -->
+  <ingredients>
+    <name>Chicken Drumstick</name>
+    <unit>kilogram</unit>
+    <price>9.90</price>
+    <numUnits>10</numUnits>
+    <minimum>2</minimum>
+  </ingredients>
+</restaurantbook>

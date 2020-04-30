@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+  <accounts>
+    <username>azhikai</username>
+    <password>1122qq</password>
+    <name>Ang Zhi Kai</name>
+  </accounts>
+
+  <!-- Account with same username -->
+  <accounts>
+    <username>azhikai</username>
+    <password>223344</password>
+    <name>Ang Zhi Kai</name>
+  </accounts>
+</restaurantbook>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author HyperionNKJ -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane gridLinesVisible="true">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="10.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints percentHeight="6.0" vgrow="SOMETIMES" />
+          <RowConstraints percentHeight="6.0" vgrow="SOMETIMES" />
+          <RowConstraints percentHeight="6.0" vgrow="SOMETIMES" />
+          <RowConstraints percentHeight="6.0" vgrow="SOMETIMES" />
+          <RowConstraints percentHeight="6.0" vgrow="SOMETIMES" />
+          <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label styleClass="label-record-panel-header" text="Date:" GridPane.rowIndex="0"> </Label>
+            <Label styleClass="label-record-panel-header" text="Item Name:" GridPane.rowIndex="1"> </Label>
+            <Label styleClass="label-record-panel-header" text="Quantity Sold:" GridPane.rowIndex="2"> </Label>
+            <Label styleClass="label-record-panel-header" text="Price:" GridPane.rowIndex="3"> </Label>
+            <Label styleClass="label-record-panel-header" text="Total Revenue:" GridPane.rowIndex="4"> </Label>
+            <Label styleClass="label-record-panel-header" text="Ingredient Used:" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="date" styleClass="label-record-panel" text="date" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="itemName" styleClass="label-record-panel" text="name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="quantitySold" styleClass="label-record-panel" text="quantity sold" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="price" styleClass="label-record-panel" text="price" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="totalRevenue" styleClass="label-record-panel" text="total revenue" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="ingredientUsed" styleClass="label-record-panel" text="ingredient used" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</StackPane>

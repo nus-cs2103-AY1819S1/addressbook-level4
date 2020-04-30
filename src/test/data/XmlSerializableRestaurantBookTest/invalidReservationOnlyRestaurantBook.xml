@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+    <!-- Reservation with invalid pax field -->
+    <reservations>
+        <name>Jeeves</name>
+        <pax>7.j!</pax>
+        <date>03-11-2018</date>
+        <time>10:15</time>
+        <remark>Some remarks</remark>
+    </reservations>
+</restaurantbook>

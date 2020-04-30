@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- @@author HyperionNKJ -->
+<restaurantbook>
+    <!-- Record with invalid date field -->
+    <records>
+        <date>31-02-2018</date>
+        <itemName>Chicken Pie</itemName>
+        <quantitySold>21</quantitySold>
+        <price>15.00</price>
+    </records>
+</restaurantbook>

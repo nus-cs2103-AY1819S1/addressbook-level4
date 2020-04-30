@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+  <accounts>
+    <username>azhikai</username>
+    <password>1122qq!@#</password>
+    <name>Ang Zhi Kai</name>
+  </accounts>
+  <accounts>
+    <username>demo1</username>
+    <password>1122qq</password>
+    <name>Demo One</name>
+  </accounts>
+  <accounts>
+    <username>demo2</username>
+    <password>22qqww</password>
+    <name>Demo Two</name>
+  </accounts>
+  <ingredients>
+    <name>Mexican Avocado</name>
+    <unit>kilogram</unit>
+    <price>6.00</price>
+    <minimum>1</minimum>
+    <numUnits>0</numUnits>
+  </ingredients>
+  <ingredients>
+      <name>Baked Beans</name>
+      <unit>200-gram can</unit>
+      <price>0.80</price>
+      <minimum>10</minimum>
+      <numUnits>0</numUnits>
+  </ingredients>
+  <ingredients>
+    <name>Chinese Cabbage</name>
+    <unit>500 grams</unit>
+    <price>5.50</price>
+    <minimum>10</minimum>
+    <numUnits>0</numUnits>
+  </ingredients>
+  <ingredients>
+    <name>Duck Drumstick</name>
+    <unit>50 grams</unit>
+    <price>3.20</price>
+    <minimum>20</minimum>
+    <numUnits>0</numUnits>
+  </ingredients>
+  <ingredients>
+    <name>Chicken Egg</name>
+    <unit>carton of 30</unit>
+    <price>3.80</price>
+    <minimum>5</minimum>
+    <numUnits>0</numUnits>
+  </ingredients>
+  <ingredients>
+    <name>White Promfret</name>
+    <unit>kilogram</unit>
+    <price>14.00</price>
+    <minimum>8</minimum>
+    <numUnits>0</numUnits>
+  </ingredients>
+  <ingredients>
+    <name>Garlic Cloves</name>
+    <unit>500 gram bag</unit>
+    <price>2.40</price>
+    <minimum>3</minimum>
+    <numUnits>0</numUnits>
+  </ingredients>
+  <!-- @@author yican95 -->
+  <items>
+    <name>Apple Juice</name>
+    <price>2.00</price>
+    <originalPrice>2.00</originalPrice>
+    <percent>0</percent>
+    <recipe>Add apple to juicer</recipe>
+    <requiredIngredients>
+      <entry>
+        <key>Apple</key>
+        <value>3</value>
+      </entry>
+    </requiredIngredients>
+    <tagged>drink</tagged>
+    <tagged>monday</tagged>
+  </items>
+  <items>
+    <name>Beef Burger</name>
+    <price>3.00</price>
+    <originalPrice>3.00</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients/>
+    <tagged>tuesday</tagged>
+    <tagged>burger</tagged>
+    <tagged>beef</tagged>
+  </items>
+  <items>
+    <name>Chocolate Cake</name>
+    <price>2.00</price>
+    <originalPrice>2.00</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients/>
+    <tagged>wednesday</tagged>
+  </items>
+  <items>
+    <name>Duck Rice</name>
+    <price>3.00</price>
+    <originalPrice>3.00</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients/>
+    <tagged>thursday</tagged>
+  </items>
+  <items>
+    <name>Egg</name>
+    <price>0.50</price>
+    <originalPrice>0.50</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients/>
+    <tagged>friday</tagged>
+  </items>
+  <items>
+    <name>Fruit Cake</name>
+    <price>2.00</price>
+    <originalPrice>2.00</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients/>
+    <tagged>saturday</tagged>
+  </items>
+  <items>
+    <name>Garlic Bread</name>
+    <price>1.00</price>
+    <originalPrice>1.00</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients/>
+    <tagged>sunday</tagged>
+  </items>
+  <!-- @@author HyperionNKJ -->
+  <records>
+    <date>25-09-2018</date>
+    <itemName>Fried Rice</itemName>
+    <quantitySold>35</quantitySold>
+    <price>5.50</price>
+    <ingredientsUsed></ingredientsUsed>
+  </records>
+  <records>
+    <date>28-02-2018</date>
+    <itemName>Cheese Pizza</itemName>
+    <quantitySold>100</quantitySold>
+    <price>18.50</price>
+    <ingredientsUsed></ingredientsUsed>
+  </records>
+  <records>
+    <date>11-11-2011</date>
+    <itemName>Pasta</itemName>
+    <quantitySold>87</quantitySold>
+    <price>7.99</price>
+    <ingredientsUsed></ingredientsUsed>
+  </records>
+</restaurantbook>

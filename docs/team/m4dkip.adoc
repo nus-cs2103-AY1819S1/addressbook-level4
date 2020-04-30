@@ -1,0 +1,73 @@
+= Ong Ming Xian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MeNUS
+
+---
+https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*]
+
+== Overview
+
+*MeNUS* is an all-in-one restaurant management desktop app designed to help restaurant owners
+and managers streamline the process of managing restaurants within National University of Singapore (NUS).
+With this app, users can manage their menus, sales, and even reservations!
+
+This portfolio showcases my contributions to this project.
+
+== Summary of Contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=m4dkip[RepoSense]
+* *Major enhancement*: Added the *Reservation Management* feature
+** *What it does*: Allows the user to manage a Reservations List using various commands
+** *Justification*: It can be messy to manually manage restaurant reservations using pen and paper.
+This feature enables a systematic and reliable way to manage reservations.
+** *Highlights*: This project required me to communicate with my teammates to integrate our different
+management systems together. It required an in-depth analysis of the underlying *MeNUS* architecture.
+** *Credits*: Dates are parsed using https://github.com/joestelmach/natty[Natty], a natural language date parser.
+
+* *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster:
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41].
+
+* *Other contributions*:
+
+** Project management:
+*** Managed the documentation for the project team.
+** Documentation:
+*** Wrote feature descriptions in the User Guide and Developer Guide.
+*** Helped teammates edit language and phrasing in the User Guide and Developer Guide.
+** Community:
+*** PRs reviewed: https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/211[#211],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/281[#281],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/282[#282],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/293[#293].
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/144[#144],
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/147[#147],
+https://github.com/CS2103-AY1819S1-T09-3/main/issues/162[#162].
+** Tools:
+*** Integrated a third party library (https://github.com/joestelmach/natty[Natty]) to the project
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/250[#250].
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide in relation to the `Reservations Management` feature.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=reservations]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide in relation to the `Reservations Management` feature.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=reservations]
+
+include::../DeveloperGuide.adoc[tag=ucreservations]
+
+include::../DeveloperGuide.adoc[tag=testreservations]

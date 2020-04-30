@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+    <reservations>
+        <name>Jeeves</name>
+        <pax>4</pax>
+        <date>03-11-2019</date>
+        <time>10:15</time>
+        <remark>Some remarks</remark>
+    </reservations>
+
+    <!-- Reservation with same identity as Jeeves -->
+    <reservations>
+        <name>Jeeves</name>
+        <pax>4</pax>
+        <date>03-11-2019</date>
+        <time>10:15</time>
+        <remark>Some remarks</remark>
+    </reservations>
+</restaurantbook>

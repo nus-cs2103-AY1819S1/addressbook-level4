@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "AZhiKai",
+      "displayName": "ANG ZHI KAI",
+      "authorNames": ["AZhiKai", "Ang Zhi Kai"]
+    },
+    {
+      "githubId": "yican95",
+      "displayName": "LEE YI CAN",
+      "authorNames": ["yican95"]
+    },
+    {
+      "githubId": "HyperionNKJ",
+      "displayName": "NEO KAI JUN",
+      "authorNames": ["HyperionNKJ"]
+    },
+    {
+      "githubId": "m4dkip",
+      "displayName": "ONG MING XIAN",
+      "authorNames": ["m4dkip"]
+    },
+    {
+      "githubId": "rebstan97",
+      "displayName": "TAN YING ZI REBECCA",
+      "authorNames": ["rebstan97", "Rebecca"]
+    }
+  ]
+}

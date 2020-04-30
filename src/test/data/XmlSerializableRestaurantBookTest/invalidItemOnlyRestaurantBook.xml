@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- @@author yican95 -->
+<restaurantbook>
+    <!-- Item with invalid price field -->
+    <items>
+        <name>Some Name</name>
+        <price isPrivate="false">5.0000</price>
+        <recipe isPrivate="false">Some recipe</recipe>
+        <requiredIngredients/>
+    </items>
+</restaurantbook>

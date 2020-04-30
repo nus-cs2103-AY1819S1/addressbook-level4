@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- @@author yican95 -->
+<restaurantbook>
+    <items>
+        <name>Apple Juice</name>
+        <price>2.00</price>
+        <originalPrice>2.00</originalPrice>
+        <percent>0</percent>
+        <recipe>Add apple to juicer</recipe>
+        <requiredIngredients>
+            <entry>
+                <key>Apple</key>
+                <value>3</value>
+            </entry>
+        </requiredIngredients>
+        <tagged>drink</tagged>
+        <tagged>monday</tagged>
+    </items>
+    <items>
+        <name>Beef Burger</name>
+        <price>3.00</price>
+        <originalPrice>3.00</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+        <tagged>tuesday</tagged>
+        <tagged>burger</tagged>
+        <tagged>beef</tagged>
+    </items>
+    <items>
+        <name>Chocolate Cake</name>
+        <price>2.00</price>
+        <originalPrice>2.00</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+        <tagged>wednesday</tagged>
+    </items>
+    <items>
+        <name>Duck Rice</name>
+        <price>3.00</price>
+        <originalPrice>3.00</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+        <tagged>thursday</tagged>
+    </items>
+    <items>
+        <name>Egg</name>
+        <price>0.50</price>
+        <originalPrice>0.50</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+        <tagged>friday</tagged>
+    </items>
+    <items>
+        <name>Fruit Cake</name>
+        <price>2.00</price>
+        <originalPrice>2.00</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+        <tagged>saturday</tagged>
+    </items>
+    <items>
+        <name>Garlic Bread</name>
+        <price>1.00</price>
+        <originalPrice>1.00</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+        <tagged>sunday</tagged>
+    </items>
+</restaurantbook>

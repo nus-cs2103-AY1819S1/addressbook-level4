@@ -1,0 +1,100 @@
+= Ang Zhi Kai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MeNUS
+---
+This portfolio aims to provide a summary of my contribution as Team Lead for the project,
+https://github.com/CS2103-AY1819S1-F10-4/main[*MeNUS*].
+
+== Overview
+
+*MeNUS* is a restaurant management desktop application targeting restaurant owners in the National University
+of Singapore (NUS). It is built to help them better manage core aspects of their restaurants  --  accounts (i.e. employees), menus,
+ingredients, sales and reservations management -- all within a single application!
+
+Restaurant owners interact with *MeNUS* using a Command Line Interface
+(CLI). *MeNUS* also has a Graphical User Interface(GUI) created with https://docs.oracle.com/javafx/2/[JavaFX] and it
+is written using https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9] with
+approximately 30 KLoC.
+
+It is cross-platform supported and can be used on both Windows-based and Unix-based platforms.
+
+== Summary of Contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=azhikai[RepoSense]
+* *Major enhancement*: Added the *accounts management* feature
+** *What it does*: Allows the restaurant owner to create an account for each of his employee to manage the system on his
+ behalf.
+** *Justification*: This feature implements a security layer by ensuring that only authorised employees are able to
+execute commands based on their level of privilege. In addition, it provides accountability as executed commands
+can be traced back to the respective user.
+** *Highlights*: This enhancement affects existing commands as certain commands will only be executed if the user is
+authorised to do so. It required an in-depth analysis and understanding of the `Logic`,`Model` and `Storage`
+components. Also, the implementation was challenging as it required modifications to existing commands.
+** *Credits*: Passwords are secured using https://github.com/patrickfav/bcrypt[`bcrypt`].
+
+* *Other contributions*:
+** *Minor enhancements*:
+*** Added side navigation bar to allow access to the different components of the application with a click of a mouse
+or trackpad, in addition to doing so via the CLI.
+*** https://github.com/CS2103-AY1819S1-F10-4/main/pull/256[Morphed] the code base into a different product.
+** *Project management*:
+*** Team Lead; responsible for overall project coordination.
+*** Set up and configured GitHub repository, Travis, AppVeyor, Codacy, Coveralls, Netlify, RepoSense and Discord
+https://i.imgur.com/iHyQAML.png[automatic notifications] using Webhook.
+*** Maintained issue tracker, milestone, project board and merging of pull requests (PRs).
+*** Managed https://github.com/CS2103-AY1819S1-F10-4/main/releases[releases] `v1.1`, `v1.2`, `v1.2.1`, `v1.3`,
+`v1.3.1`, `v1.4` (6 releases) on GitHub.
+** *Documentation*:
+*** Restructured https://cs2103-ay1819s1-f10-4.github.io/main/[project website] to resemble an actual product.
+*** Added introductions to User Guide and Developer Guide to make them more reader-focused.
+*** Added `Using Git with Sourcetree` section to the Developer Guide.
+*** Added instructions for manual testing for Accounts Management.
+*** Morphed the existing contents of the User Guide and Developer Guide with respect to
+the morphed code base.
+** *Community*:
+*** http://bit.ly/azhikai-contribution[Contributed] more than 50 PRs.
+*** http://bit.ly/azhikai-PR-review[Reviewed] more than 80 PRs, most with non-trivial review comments.
+*** Contributed to forum discussions using GitHub's Issue Tracker:
+https://github.com/nus-cs2103-AY1819S1/forum/issues/7[#7],
+https://github.com/nus-cs2103-AY1819S1/forum/issues/20[#20],
+https://github.com/nus-cs2103-AY1819S1/forum/issues/33[#33],
+https://github.com/nus-cs2103-AY1819S1/forum/issues/79[#79]
+*** Reported bugs and suggestions for other teams in the class:
+https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-430956137[#74],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/110[#110],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/111[#111],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/112[#112],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/113[#113],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/124[#124],
+https://github.com/CS2103-AY1819S1-W14-2/main/issues/130[#130]
+** *Tools*:
+*** Integrated a third party library (bcrypt) to the project:
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/38[#38],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/70[#70]
+** *Miscellaneous*:
+*** Practiced good PR hygiene by ensuring no loss of code coverage.
+*** Chaired weekly face-to-face meeting.
+
+== Contributions to the User Guide
+
+|===
+|_The following sections are my contribution to the User Guide. They showcase my ability to write documentation
+targeting end-users with little or no technical knowledge._
+|===
+
+include::../UserGuide.adoc[tag=intro]
+
+include::../UserGuide.adoc[tag=accountmanagement]
+
+== Contributions to the Developer Guide
+
+|===
+|_The following sections are my contribution to the Developer Guide. They showcase my ability to write
+technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=intro]
+
+include::../DeveloperGuide.adoc[tag=useraccount]

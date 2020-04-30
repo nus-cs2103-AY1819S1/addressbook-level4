@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+  <items>
+    <name>Cheese Burger</name>
+    <price>3</price>
+    <originalPrice>3</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients />
+  </items>
+  <items>
+    <name>Fries</name>
+    <price>1.50</price>
+    <originalPrice>1.50</originalPrice>
+    <percent>0</percent>
+    <recipe></recipe>
+    <requiredIngredients />
+  </items>
+</restaurantbook>

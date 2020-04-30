@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= MeNUS - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,25 +13,58 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-F10-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-AY1819S1-F10-4`      Since: `Sep 2018`      Licence: `MIT`
+
+// tag::intro[]
+== Welcome to MeNUS
+This Developer Guide is written by the *MeNUS* v1.4 team for the benefits of future developers and maintainers of the
+application.
+
+* This guide includes instructions for setting up the development environment.
+
+* This guide provides sufficient UMLs (unified model diagrams) to illustrate the architectural structure and design
+methodology.
+
+* This guide offers advice for troubleshooting some common issues.
+
+*MeNUS* is an open-source project. If you are interested in contributing, see the
+https://cs2103-ay1819s1-f10-4-menus.netlify.com/contactus[`Contact Us`] page for more information.
+
+=== Legend
+The following *3* callouts will be used throughout the documentation which you may wish to pay attention to as it may
+contain important details:
+
+[NOTE]
+Just for your info, do not be alarmed. Be sure to read these notes as it might contain some important information.
+
+[TIP]
+Perhaps something can be done using another approach, but it is up to you to decide. Tips are often not important and
+ can be safely ignored.
+
+[WARNING]
+Some things might go wrong if you are not careful, or did not follow the instructions correctly. You are strongly
+advised to read whatever is in this block.
+// end::intro[]
 
 == Setting up
+Follow this setup guide to get *MeNUS* up and running on your computer.
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9`*
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+Windows developers are highly recommended to use JDK `9` which can be downloaded
+https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]
 
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+IntelliJ by default has Gradle and JavaFX plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them
 
 
 === Setting up the project in your computer
@@ -47,21 +80,23 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/restaurant/storage/XmlAdaptedAccount.java[`XmlAdaptedAccount.java`] and
+link:{repoURL}/src/main/java/seedu/restaurant/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/restaurant/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/restaurant/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.restaurant.MainApp` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding
+standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify:
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
@@ -72,16 +107,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -89,7 +114,7 @@ Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingT
 After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
 [NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork
 
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
@@ -101,22 +126,25 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+
+=== Using Git with Sourcetree
+We use Git with Sourcetree for distributed source control. See <<UsingGit#, UsingGit.adoc>> if you find any difficulty
+when using Git with Sourcetree.
 
 == Design
 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
 image::Architecture.png[width="600"]
+_Figure 3.1.1: Architecture Diagram_
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/restaurant/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -140,24 +168,26 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.1.2: Class Diagram of the Logic Component_
 
 [discrete]
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteItem.png[width="800"]
+_Figure 3.1.3: Component interactions for `delete 1` command (part 1)_
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `RestaurantBookChangedEvent` when the Restaurant Book data are changed, instead of
+asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteItemEventHandling.png[width="800"]
+_Figure 3.1.4: Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -167,14 +197,15 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+_Figure 3.2.1: Structure of the UI Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/restaurant/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `AccountListPanel`,
+`StatusBarFooter`, `DetailPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/restaurant/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -186,59 +217,56 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+_Figure 3.3.1: Structure of the Logic Component_
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/restaurant/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `RestaurantBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding an account) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("register
+id/azhikai pw/1122qq")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+image::RegisterAccountSdForLogic.png[width="800"]
+_Figure 3.3.2: Interactions Inside the Logic Component for the `delete 1` Command_
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassBetterOopDiagram.png[width="800"]
+_Figure 3.4.1: Structure of the Model Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/restaurant/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Restaurant Book data.
+* exposes data via an unmodifiable `ObservableList` that can be 'observed' e.g. the UI can be bound to this
+list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+_Figure 3.5.1: Structure of the Storage Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/restaurant/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Restaurant Book data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.restaurant.commons` package.
 
 == Implementation
 
@@ -248,54 +276,72 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedRestaurantBook`.
+It extends `RestaurantBook` with an undo/redo history, stored internally as an `restaurantBookStateList` and
+`currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedRestaurantBook#commit()` -- Saves the current restaurant book state in its history.
+* `VersionedRestaurantBook#undo()` -- Restores the previous restaurant book state from its history.
+* `VersionedRestaurantBook#redo()` -- Restores a previously undone restaurant book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#RestaurantBook()`, `Model#undoRestaurantBook()` and
+`Model#redoRestaurantBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedRestaurantBook` will be initialized with the initial restaurant book state, and the `currentStatePointer` pointing to that single restaurant book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `deregister id/azhikai` command to delete the account with the username of `azhikai` from the
+restaurant book. The `deregister` command calls `Model#commitRestaurantBook()`, causing the modified state of the
+restaurant book after the `deregister id/azhikai` command executes to be saved in the `restaurantBookStateList`, and
+the `currentStatePointer` is shifted to the newly inserted restaurant book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `register id/azhikai ...` to add a new account. The `register` command also calls
+`Model#commitRestaurantBook()`, causing another modified restaurant book state to be saved into the `restaurantBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitRestaurantBook()`, so the restaurant book state will not be saved into the `restaurantBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the account was a mistake, and decides to undo that action by executing the
+`undo` command. The `undo` command will call `Model#undoRestaurantBook()`, which will shift the `currentStatePointer`
+once to the left, pointing it to the previous restaurant book state, and restores the restaurant book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial restaurant book state, then there are no previous
+restaurant book states to restore. The `undo` command uses `Model#canUndoRestaurantBook()` to check if this is the
+case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
+_Figure 4.1.1.1: Structure of the Storage Component_
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoRestaurantBook()`, which shifts the `currentStatePointer`
+once to the right, pointing to the previously undone state, and restores the restaurant book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `restaurantBookStateList.size() - 1`, pointing to the latest restaurant book
+ state, then there are no undone restaurant book states to restore. The `redo` command uses
+ `Model#canRedoRestaurantBook()` to check if this is the case. If so, it will return an error to the user rather than
+  attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the restaurant book, such as
+ `list`, will usually not call `Model#commitRestaurantBook()`, `Model#undoRestaurantBook()` or
+ `Model#redoRestaurantBook()`. Thus, the `restaurantBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitRestaurantBook()`. Since the `currentStatePointer` is not
+pointing at the end of the `restaurantBookStateList`, all restaurant book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,29 +353,619 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire restaurant book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `deregister`, just save the account being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of restaurant book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
+`HistoryManager` and `VersionedRestaurantBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::useraccount[]
+=== User account feature
+==== Current Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The user account mechanism is facilitated by `RestaurantBook`. Additionally, it implements the following operations:
 
-// end::dataencryption[]
+* `RestaurantBook#getAccount(Account)` -- Retrieves the account.
+* `RestaurantBook#addAccount(Account)` -- Saves the new account.
+* `RestaurantBook#updateAccount(Account, Account)` -- Update the existing account.
+* `RestaurantBook#removeAccount(Account)` -- Removes the account.
+
+These operations are exposed in the `Model` interface as `Model#getAccount(Account)`, `Model#addAccount(Account)`,
+`Model#updateAccount(Account, Account)` and `Model#removeAccount(Account)`. The following commands will
+invoke the aforementioned operations:
+
+* `Command#LoginCommand()` -- Invokes `Model#getAccount(Account)`.
+* `Command#RegisterCommand()` -- Invokes `Model#addAccount(Account)`.
+* `Command#DeregisterCommand()` -- Invokes `Model#removeAccount(Account)`.
+* `Command#ChangePasswordCommand()` -- Invokes `Model#updateAccount(Account, Account)`.
+
+Given below are example usage  scenarios and how each of the command and its respective operations behave at each
+step which involves two components, `Logic` which is responsible for parsing the user input and `Model` which is
+responsible for manipulating the list, if necessary. Both components are extended by `LogicManager` and
+`ModelManager` respectively.
+
+The following sequence diagram shows how the `register` command works:
+
+image::RegisterSequenceDiagram.png[width="800"]
+_Figure 4.2.1.1: Sequence diagram to illustrate component interactions for the `register` command_
+
+[NOTE]
+====
+** We assume the user is already logged in to an account with appropriate privilege level (e.g. Administrator)
+** If the username already exists, a warning message will be shown to the user to select another username
+** The `deregister` command works the same way by checking if the account exists before calling `Model#removeAccount(Account)`
+====
+
+Step 1. The user executes `register id/azhikai pw/1122qq n/Ang Zhi Kai` command to create a new user account.
+
+Step 2. `LogicManager` invokes the `RestaurantBookParser#parseCommand()` method which takes in the user input
+as arguments.
+
+Step 3. When the command is parsed, the `Command#RegisterCommand()` will be created which is returned to the
+`LogicManager`.
+
+Step 4. `LogicManager` invokes the `execute()` method of the `Command#RegisterCommand()`, `rc` which is instantiated in
+Step 3. The `Model` component will be involved as the `Command#RegisterCommand()` invokes a request to add the account
+into the storage by calling `Model#addAccount(Account)`.
+
+Step 5: The new account is added into the storage. Then, a `CommandResult` is generated and returned to
+`LogicManager` which is used to display the result to the user.
+
+The following sequence diagram shows how the `login` command works:
+
+image::LoginSequenceDiagram.png[width="800"]
+_Figure 4.2.1.2: Sequence diagram to illustrate component interactions for the `login` command_
+
+[NOTE]
+We assume the user will enter the correct password. Otherwise, warning message will be shown to the user to re-enter
+the credential
+
+Step 1. The user executes `login id/azhikai pw/1122qq` command to login to an existing user account.
+
+Step 2. `LogicManager` invokes the `RestaurantBookParser#parseCommand()` method which takes in the user input
+as arguments.
+
+Step 3. When the command is parsed, the `Command#LoginCommand()` will be created which is returned to the
+`LogicManager`.
+
+Step 4. `LogicManager` invokes the `execute()` method of the `Command#LoginCommand()`, `lc` which is instantiated in
+Step 3. The `Model` component will be involved as the `Command#LoginCommand()` invokes a request to retrieve an account
+based on the username. If it exists, the account will be retrieved and the password hash will be compared. If it
+matches, then the credential is valid and the user is authenticated.
+
+The following activity diagrams summarize how password is processed during the login and registration process:
+
+image::PasswordLoginActivityDiagram.png[width="650"]
+_Figure 4.2.1.3: Activity diagram to illustrate how password is processed for the `login` command_
+
+image::PasswordHashActivityDiagram.png[width="650"]
+_Figure 4.2.1.4: Activity diagram to illustrate how password is processed for the `register` command_
+
+==== Design Considerations
+===== Aspect: How password is secured
+
+* **Alternative 1 (current choice):** Use username to generate cryptographic salt.
+** Rationale: If we allow the `bcrypt` library to generate the salt, testing ability will be limited as the salt is
+generated based on system time by default. This means that despite testing the same account with the same raw password,
+ its
+equality will never match. Hence, a workaround is to generate the salt based on its username which is unique to each
+account.
+** Pros: Easy to implement and improves testing ability.
+** Cons: If an attacker knows how the salt is generated, it could pose a security risk.
+* **Alternative 2:** Use salt generated by the `bcrypt` library with high cost factor.
+** Pros: Higher cost factor makes hashing of the password harder. Ideally, the cost factor should as high as the
+system can tolerate, given the other tasks the system must otherwise fulfill.
+** Cons: More processing resources used and existing test cases must be updated.
+
+=== User session feature
+==== Current Implementation
+
+[NOTE]
+====
+If a privileged command is executed when a session is not set, an error will be shown. For more information on which
+commands are guest-executable, see the <<UserGuide#Commands, UserGuide.adoc>> for more
+information
+====
+
+The application's user session state is facilitated by `UserSession`. This is triggered by raising a `Login` or
+`Logout` event upon executing the `Command#LoginCommand()` or `Command#LogoutCommand()` respectively. +
+
+Additionally, it implements the following static operations:
+
+* `UserSession#create(Account)` -- Set a user session.
+* `UserSession#destroy()` -- Removes the existing user session.
+* `UserSession#update(Account)` -- Updates the existing user session.
+* `UserSession#isAuthenticated()` -- Checks if there is an existing login session.
+
+The following activity diagram summarizes how the user session is modified when a user logs in or out:
+
+image::UserSessionActivityDiagram.png[width="650"]
+_Figure 4.3.1.1: Activity diagram to illustrate the user session_
+
+The following code snippet demonstrates how these static methods are implemented:
+
+[source,java]
+----
+/**
+ * Stores this {@link Account} info as part of this session.
+ *
+ * @param account logged in for this session.
+ */
+public static void create(Account acc) {
+    if (!isAuthenticated) {
+        isAuthenticated = true;
+        account = acc;
+    }
+}
+
+/**
+ * Logs out of this account which releases this session.
+ */
+public static void destroy() {
+        isAuthenticated = false;
+        account = null;
+}
+
+/**
+ * Updates the session with the new account info, such as updating of account password.
+ *
+ * @param acc that has been updated.
+ */
+public static void update(Account acc) {
+    if (isAuthenticated) {
+        account = acc;
+    }
+}
+----
+
+==== Design Considerations
+===== Aspect: How user session is handled
+
+* **Alternative 1 (current choice):** Use static flags and methods.
+** Pros: Easy to implement, given the constraints.
+** Cons: Can only support one user at any time. If another user wants to login, the current logged in user must log out.
+In addition, since it is a global class object, test cases may be affected when testing both guest and privileged
+commands which requires user to be logged out and logged in respectively.
+* **Alternative 2:** Store a list of user sessions to allow multiple login.
+** Pros: More user can login and manage the systems concurrently. Potentially able to resolve the global dependency
+of the current solution which might affect the test ability.
+** Cons: More memory usage to track each user session as the application scales with more users.
+// end::useraccount[]
+
+// tag::salesmanagement[]
+
+// tag::auto-ingredient-update[]
+
+[[auto-ingredient-update]]
+=== Auto-ingredient update feature
+
+The auto-ingredient update mechanism is facilitated by `RecordSalesCommand` and triggers whenever the "record-sales"
+command is invoked. A `SalesRecord` will be instantiated based on the information given and attempts to compute
+the ingredients used before deducting them from the ingredient list automatically.
+
+==== Current Implementation
+
+A `SalesRecord` is associated with 6 attributes - `Date`, `ItemName`, `QuantitySold`, `Price`, `Revenue` and
+`IngredientUsed`. +
+**The success of the auto-ingredient update mechanism is subjected to the following conditions:** +
+
+[[criteria]]
+1) `ItemName` exists in the `Menu`.  +
+2) The required ingredients to make one unit of `ItemName` is specified in the `Menu`. +
+3) The required ingredients exist in the `Ingredient` list. +
+4) There are sufficient ingredients to make `QuantitySold` units of `ItemName` in the `Ingredient` list.
+
+[NOTE]
+If any of the above conditions are not satisfied, sales volume will be recorded without updating the ingredient list
+
+[NOTE]
+If conditions 1 and 2 are satisfied, `RecordSalesCommand` will compute all the ingredients used and store the data in
+ `IngredientUsed` attribute of `SalesRecord`
+
+This mechanism is aided by methods from the `Menu` and `Ingredient` components, all of which are exposed in the
+`Model` interface. Given below is an example scenario and how the auto-ingredient update mechanism behaves at each step.
+
+**Step 1**. The user executes `record-sales d/11-01-2018 n/Fried Rice q/35 p/5.50` command to record the sales volume of
+`Fried Rice` on `11-01-2018`. A `SalesRecord` would be instantiated based on the command arguments given.
+
+**Step 2**. `RecordSalesCommand` will request for the item `Fried Rice` from `Menu`. This is done through the `Item
+findItem (Name)` method given in `Menu` component. This also checks if <<criteria, condition 1>> is satisfied.
+
+[[required-ingredient]]
+**Step 3**. `RecordSalesCommand` then proceeds to request for the required ingredients to make a unit of `Fried Rice`
+from `Menu`. This is done through the `Map<IngredientName, Integer> getRequiredIngredients(Item)` method given
+in `Menu`. This also checks if <<criteria, condition 2>> is satisfied.
+
+**Step 4**. With the required ingredients per unit data now at hand, `RecordSalesCommand` will compute the total
+ingredients used in making `35` units of `Fried Rice`. The `IngredientUsed` attribute in `SalesRecord` will then be updated.
+
+**Step 5**. `RecordSalesCommand` will then pass the computed `IngredientUsed` to `Ingredient` component to request for
+ an update of ingredients. This is done through the `void consumeIngredients(Map<IngredientName, Integer>)` method
+ given in `Ingredient` component. This checks for <<criteria, condition 3 & 4>>.
+
+**Step 6**. The `SalesRecord` is then finally added into `UniqueRecordList` via the `void addRecord(SalesRecord)`
+method given in `Sales` component of `Model`.
+
+[NOTE]
+An exception will be thrown in step 2, 3 or 5 should the conditions be violated. In such scenario,
+`RecordSalesCommand` will jump to step 6 instantly and omit the remaining steps
+
+The following activity diagram (Figure 4.4.1.1) summarizes what happens when a user executes `record-sales` command:
+
+image::RecordSalesActivityDiagram.png[width="1000"]
+_Figure 4.4.1.1: Activity Diagram for `record-sales` command_
+// end::salesmanagement[]
+
+==== Design Considerations
+**Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales record?**
+
+* **Alternative 1 (current choice):** `DeleteSalesCommand` does not update the ingredient list. That is, it does not
+"return" the ingredients which may have been deducted during `record-sales`.
+** Pros: Remove the possibility of unwanted updates to the ingredient list. This is apparent when deleting
+an obsolete record. We do not want the ingredients to "magically appear" in the ingredient list.
+** Cons: If user accidentally recorded sales by mistake and triggered the update mechanism, deleting sales will not
+help him/her recover the deducted ingredients. Instead, user will have to rely on the `Undo` command.
+
+* **Alternative 2:** `DeleteSalesCommand` "returns" any deducted ingredients to the ingredient list.
+** Pros: Resolves the issue stated in "Alternative 1 - Cons".
+** Cons: Brings about the issue stated in "Alternative 1 - Pros".
+
+**Aspect: Should the auto-ingredient update mechanism be incorporated when editing sales record?**
+
+* **Alternative 1 (current choice):** `EditSalesCommand` does not update the ingredient list. That is, it does not
+"return" the ingredients which may have been deducted during `record-sales` and does not attempt to re-compute or
+re-deduct the ingredient used. Since the `IngredientUsed` attribute of the `SalesRecord` is now outdated, it will be
+removed permanently.
+** Pros: Easy to implement. Avoids the implementation complexity as stated in "Alternative 2 - Cons".
+** Cons: If user accidentally made an error when recording sales in the past, editing sales will not help him/her alter
+ the ingredients deducted. What was deducted previously will stay as it is. Also, the `IngredientUsed` attribute will no
+longer be available.
+
+* **Alternative 2:** `EditSalesCommand` "returns" the ingredients which may have been deducted, re-computes the
+`IngredientUsed` attribute and re-deduct the ingredients from the ingredient list. The `IngredientUsed` attribute of
+the `SalesRecord` will be updated.
+
+** Pros: Resolves the issue stated in "Alternative 1 - Cons".
+** Cons: Must take time into consideration when re-computing the `IngredientUsed` since `required ingredients per
+unit` of an item may change over time.
+
+*** **Option 1**: Use `required ingredients per unit` data available **during record-sales in the past**. +
+**Analysis**: We would need a repository to save different versions of `Menu` in the past.
+The entire `Menu` must be saved whenever a sales record is added. This is so that if user were to edit the `ItemName`
+attribute of that particular sales record in the future, we would be able to retrieve the item's `required
+ingredients per unit` data (which might not even have been specified) at the time of `record-sales`. +
+**Verdict**: **This option would take up a massive amount of memory space in the long run.**
+
+*** **Option 2**: Use `required ingredients per unit` data available **during edit-sales at the present**. +
+**Analysis**: Let us assume that a glass of orange juice takes 1 orange to make at the time of record-sales (past),
+and 3 oranges to make at the time of edit-sales (present). If the user edits the `QuantitySold` attribute from 1
+(past) to 10 (present), it would be illogical for (3*10-1*1 = 29) oranges to be deducted from the ingredient list since
+ it only took (1*10 = 10) oranges. +
+**Verdict**: **This option is irrational**.
+
+// tag::salesmanagement1[]
+=== Display sales report feature
+==== Current Implementation
+
+The display sales report mechanism is facilitated by the Model, UI and Event components of the App. A `SalesReport`
+class encapsulates the attributes of a sales report to be displayed.
+The sales report is internally generated by `generateSalesReport(Date)` in `UniqueRecordList`. It then
+propagates up the `Model` call hierarchy to `getSalesReport(Date)` in `ModelManager`, which is exposed in the `Model`
+interface.
+
+The following sequence diagram (Figure 4.5.1.1) illustrates how the display sales report operation works when the
+user enters `display-sales 25-12-2017`:
+
+image::DisplaySalesSequenceDiagram.png[width="1300"]
+_Figure 4.5.1.1: Sequence Diagram for `display-sales` command_
+
+The sequence diagram for the "Parse Command" reference frame above is shown below in Figure 4.5.1.2:
+
+image::DisplaySalesSequenceDiagramRef.png[width="580"]
+_Figure 4.5.1.2: Sequence Diagram for "Parse Command" reference frame_
+
+Given below is an example usage scenario and how the display sales report operation behaves at each step.
+
+Step 1. The user executes `display-sales 25-12-2017` command to request for the sales report dated 25-12-2017. The
+`display-sales` command calls `Model#getSalesReport(Date)`, passing in the date "25-12-2017", and gets the generated
+`SalesReport` in return.
+
+[NOTE]
+`display-sales` command will not call `Model#getSalesReport(Date)` if the specified date is invalid
+
+[NOTE]
+If no sales record associated with the given `Date` is found, an empty SalesReport will be
+returned. In such cases, the command will terminate with a message notifying the user about the absence of such record
+
+Step 2. The `display-sales` command then raises the `DisplaySalesReportEvent` event, which also encapsulates the
+generated `SalesReport` in step 1.
+
+Step 3. The `EventsCenter` reacts to the above event, which results in `handleDisplaySalesReportEvent(Event)`
+in UI's `MainWindow` being called. This method instantiates a `SalesReportWindow` object by passing in the
+`SalesReport` to its constructor. This `SalesReportWindow` acts as the controller for the sales report window.
+
+Step 4. The `SalesReportWindow` is then initialized and displayed on user's screen.
+
+==== Design Considerations
+===== Aspect: How `SalesReport` is generated internally
+* **Alternative 1 (current choice):** `generateSalesReport(Date)` in `UniqueRecordList` filters the entire record
+ list. Records that match the given `Date` are added into a `List<SalesRecord>`. The `SalesReport` is
+ generated based on this list.
+** Pros: Easy to implement.
+** Cons: Execution is of linear time complexity and would be considerably slow should the list size be very large.
+* **Alternative 2:** Maintain another list that sorts itself by date every time it is modified. Conduct a binary
+search to fill in the `List<SalesRecord>` every time a sales report is requested.
+** Pros: `SalesReport` can be generated with a O(logN) time complexity.
+** Cons: Sorting after every input would require O(NlogN) time which is slow. Additionally, the sorted list also
+takes up an O(N) memory space.
+// end::salesmanagement1[]
+
+// tag::ingredient[]
+===  Delete ingredient feature
+This feature allows the user to delete an ingredient from the ingredient list, specified by its name or index.
+
+==== Current Implementation
+
+The delete ingredient mechanism is facilitated by `DeleteIngredientCommand`. It is implemented as an abstract class
+with the following abstract methods:
+
+* `DeleteIngredientCommand#execute()` – Removes a specified ingredient from the list
+* `DeleteIngredientCommand#equals()` – Checks if two `DeleteIngredientCommand` instances have the same attributes
+
+`DeleteIngredientByIndexCommand` and `DeleteIngredientByNameCommand` extends `DeleteIngredientCommand` and implement
+their own behaviour for these methods.
+
+* `DeleteIngredientCommandByIndexCommand#execute()` - Removes an ingredient specified by a valid index
+* `DeleteIngredientCommandByNameCommand#execute()` - Removes an ingredient specified by a valid name
+
+The following sequence diagrams illustrate how the delete operation works.
+
+* Diagram 1: When user enters `delete-ingredient 1`
+
+image::DeleteIngredientByIndexSequenceDiagram.png[width="800"]
+
+_Figure 4.6.1.1: Component interactions for `delete-ingredient 1` command_
+
+* Diagram 2: When user enters `delete-ingredient apple`
++
+image::DeleteIngredientByNameSequenceDiagram.png[width="800"]
+_Figure 4.6.1.2: Component interactions for `delete-ingredient apple` command_
+
+==== Design Considerations
+
+===== Aspect: Implementation of delete ingredient command
+Two different implementations were considered.
+
+* **Alternative 1 (current choice):** Separate classes to handle deleting by index and deleting by name.
+** Pros: Allows different attributes and method implementation for each class.
+** Cons: Tight coupling between `DeleteIngredientCommand` and the inheriting classes
+* **Alternative 2:** Single class to handle deleting by both index and name.
+** Pros: Less coupling since the methods related to the delete ingredient command are confined to a single class.
+** Cons: Two attributes are required, but only one has a value while the other has to be set to `null`. This makes the
+`equals()` method difficult to implement.
+
+===  Stock up ingredient feature
+This feature allows the user to stock up one or more ingredients in the ingredient list.
+
+==== Current Implementation
+The Stock Up mechanism involves mainly the `StockUpCommandParser`, `StockUpCommand` and the `Model`
+interface. The `StockUpCommandParser` parses the command input from the user, creating a `HashMap` mapping
+`IngredientName` keys to `NumUnits` values. This `HashMap` represents the ingredients to be stocked up, and their
+respective stock up amounts. With this `HashMap`, the `StockUpCommandParser` creates a `StockUpCommand` object. The
+`StockUpCommand` executes the stock up operation, which is exposed in the `Model` interface as
+`Model#stockUpIngredients()`.
+
+[WARNING]
+The operation is atomic, thus if it fails for one ingredient, none of the ingredients will be stocked up and an
+exception is thrown
+
+The following activity diagram shows what happens when the user executes the `stockup` command:
+
+image::StockUpActivityDiagram.png[width="1000"]
+_Figure 4.7.1.1: Flow of events after a user executes the `stockup` command_
+
+==== Design Considerations
+
+===== Aspect: Implementation of Stock Up command
+Two different implementations were considered.
+
+* **Alternative 1 (current choice):** Create a stock up operation exposed in the `Model`. A list of ingredients is
+passed as a `HashMap` argument to the model interface to perform the stock up on all ingredients.
+** Pros: Maintains good abstraction. The sales feature can call upon the stock up operation of the interface without
+needing to know its implementation or creating any Ingredient objects.
+** Cons: Additional code has to be written and maintained, as opposed to using existing methods.
+* **Alternative 2:** Use the edit operation of the `Model` interface exposed as `Model#updateIngredient()`. For each
+ingredient to be stocked up, a new ingredient with the updated number of units is created and then passed as an
+argument to `updateIngredient()`.
+** Pros: Simple to implement, by using the existing `updateIngredient()` method.
+** Cons: Difficult to integrate different features while maintaining abstraction. The
+<<auto-ingredient-update, auto-update-ingredient>> feature would require the sales component to create each
+updated ingredient, before calling the `updateIngredient()` method. This means poor abstraction and possibly a
+violation of the Law of Demeter.
+
+// end::ingredient[]
+
+// tag::menu[]
+=== Menu management feature
+Menu management feature extends `MeNUS` with a menu and provides the users with the ability to add items to the
+menu, edit items and remove items from the menu.
+
+==== Current Implementation
+The menu is stored internally as `items`, which is a `UniqueItemList` object that contains a list of `Item` objects.
+The menu management feature implements the following operations:
+
+* `add-item` command -- Adds an item to the menu. The item must not already exist in the menu.
+* `edit-item` command -- Replaces the target item with the editedItem. Target item
+ must be in the menu and editedItem must not be the same as another existing item in the menu.
+* `delete-item-index` or `delete-item-name` command -- Removes the equivalent item(s) from the menu.
+The item(s) must exist in the menu.
+* `list-items` command -- Lists all the items in the menu.
+* `clear-menu` command -- Removes all items from the menu.
+* `select-item` command -- Selects an item in the menu and loads the page of the selected item.
+* `sort-menu` -- Sorts the menu by name or price. The user must specify the sorting method.
+* `find-item` command -- Finds items whose names contain any of the given keywords.
+* `filter-menu` command -- Finds items whose tags contain any of the given keywords.
+* `today-special` command -- Finds items whose tags contain the `DAY_OF_THE_WEEK`.
+* `discount-item` command -- Gives discount to the equivalent item(s) in the menu. The item(s) must exist in the menu.
+* `recipe-item` command -- Adds a recipe to the equivalent item in the menu. The item must exist in the menu.
+* `add-required-ingredients` command --  Adds the required ingredients to the equivalent item in the menu. The item
+must exist in the menu.
+
+Each `Item` object consists of `Name`, `Price`, `Recipe`, `Set<Tag>` and `Map<IngredientName, Integer>`
+
+==== `sort-menu` Command
+The `sort-menu` command is facilitated by `SortMenuCommand` and `SortMenuCommandParser`. The command takes in
+user input for the sorting method.
+[NOTE]
+Currently only sort by name or price
+
+The `SortMenuCommandParser` will parse the user input and checks if the input is valid. If the input is valid, it
+constructs an `SortMenuCommand` object.
+[NOTE]
+If the input is not valid, it will throw a `ParseException`
+
+The `SortMenuCommand` object will indirectly call the `UniqueItemList#sortItemsByName()` or
+`UniqueItemList#sortItemsByPrice()` and the sorts the menu.
+After sorting the menu, it will save the current state for undo/redo.
+
+The following activity diagram summarizes what happens when a user executes `sort-menu` command:
+
+image::SortMenuActivityDiagram.png[width="650"]
+_Figure 4.8.2.1: SortMenu Activity diagram_
+
+The following sequence diagram shows how the `sort-menu` command works:
+
+image::SortMenuSequenceDiagram.png[width="1000"]
+_Figure 4.8.2.2: SortMenu Sequence diagram_
+
+==== `discount-item` Command
+The `discount-item` command is facilitated by `DiscountItemCommand` and `DiscountItemCommandParser`. The command
+takes in user input for discount percentage and index or the keyword `all`.
+
+The `DiscountItemCommandParser` will parse the user input and checks if the input is valid. It will check if the
+keyword `all` is entered. If keyword `all` is entered, `DiscountItemCommandParser` will construct an
+`DiscountItemCommand` object with `isAll` set to true. If index or a range of index is entered, it will construct an
+`DiscountItemCommand` object with `isAll` set to false.
+[NOTE]
+If the inputs are not valid, it will throw a `ParseException`
+
+The `DiscountItemCommand` object will check if `isAll` is true. If `isAll` is true, it will give the discount to all
+items in the `UniqueItemList`. Otherwise, it will give the discount to the item(s) specified by the index or the
+range of index. The `DiscountItemCommand` object create an `Item with discounted price` and indirectly call
+`UniqueItemList#setItem(Item target, Item editedItem)` to update the `Item` with `Item with discounted price`. It will
+then save the current state for undo/redo.
+
+The following activity diagram summarizes what happens when a user executes `discount-item` command:
+
+image::DiscountItemActivityDiagram.png[width="650"]
+_Figure 4.8.3.1: DiscountItem Activity diagram_
+
+==== Design Considerations
+
+===== Aspect: How `Price` is parsed
+
+* **Alternative 1 (current choice):** `Price` is parsed without the currency symbol.
+** Pros: Easy to implement.
+** Cons: Only able to display `Price` with `$` with 2 decimal place.
+* **Alternative 2:** Allow users to enter the currency symbol
+** Pros: Able to display the different currencies.
+** Cons: Harder to parse as currencies have different decimal places. Additional checks need to be implemented
+to check if the currency symbol and price entered are valid.
+// end::menu[]
+
+//tag::reservations[]
+=== Reservations feature
+The Reservations feature allows users to store customer reservations, view them, and to cancel them.
+
+==== Current Implementation
+The Reservations feature currently contains 6 commands to modify the `UniqueReservationsList` stored in `ModelManager`.
+
+* `add-reservation` command - Adds reservations to the reservations list.
+* `edit-reservation` command - Edits existing reservations in the reservations list.
+* `delete-reservation` command - Deletes existing reservations in the reservations list.
+* `list-reservation` command - Lists reservations in the reservations list.
+* `select-reservation` command - Select existing reservations in the reservations list.
+* `sort-reservation` command - Sorts existing reservations in the reservations list.
+
+Each `Reservation` object contains `Name`, `Pax`, `Date` and `Time`.
+
+==== `add-reservation` Command
+The command takes in 3 parameters, `Name`, `Pax`,`Date` and `Time` to create a `Reservation` object.
+[NOTE]
+====
+The `Date` class will reject dates that have already passed the current date
+
+Dates are parsed using the `Natty` Library
+====
+
+[WARNING]
+====
+Due to the way `Natty` is implemented, `Natty` will try to parse dates in `MM-DD-YYYY` format +
+i.e. `03-11-2019` will be parsed as `11th March` instead of `3rd November`
+
+As a temporary workaround, the `Date` class will  check to see if the date entered is in the
+`DD-MM-YYYY` format
+
+If it is, then it will be parsed using `LocalDate.parse()` +
+If not, it will continue use the `Natty` Library to parse the date value
+====
+
+After the `Reservation` Object is created, `RestaurantBook#addReservation(Reservation reservation)` is called to add the
+`Reservation` Object to the `UniqueReservationsList`.
+
+The following activity diagram summarizes what happens when a user executes `add-reservation` command:
+
+image::AddReservationActivityDiagram.png[width="650"]
+_Figure 4.9.2.1: Activity diagram to illustrate the `add-reservation` command_
+
+==== `edit-reservation` Command
+The command takes in 1 mandatory parameter, `Index`, followed by **1 or more** of the following  optional parameters,
+ `Name`, `Pax`, `Date`, `Time`.
+
+The `Reservation` associated with the given `Index` is then identified within the internal `UniqueReservationsList`,
+then has its values updated to the new values specified by the `Name`, `Pax`,`Date`, and `Time` parameters.
+
+==== `delete-reservation` Command
+The command takes in 1 parameter, `Index`.
+
+The `Reservation` associated with the given `Index` is then identified, then deleted from the internal
+`UniqueReservationsList`.
+
+==== `list-reservations` Command
+The command does not require any additional parameters.
+
+A `DisplayReservationListRequestEvent` is posted to the `EventsCenter`, which will call the
+`handleDisplayReservationListRequestEvent` method of the `MainWindow`. The Reservations List will then be shown on
+the UI.
+
+The following sequence diagram shows how the `list-reservations` command works:
+
+image::ListReservationsSequenceDiagram.png[width="1000"]
+_Figure 4.9.5.1: Sequence diagram to illustrate the `list-reservations` command_
+
+==== Design Considerations
+*Aspect: How `Date` and `Time` are parsed*
+
+* **Alternative 1 (current choice):** `Date` and `Time` are parsed using Natty.
+** Pros: Easy to implement as it only requires importing the Natty library with minimal configuration.
+** Cons: Natty will sometimes try to "guess" unexpected `Date` values.
+
+* **Alternative 2:** Configure the Natty library to avoid unexpected parse results.
+** Pros: The parser will be able to provide more accurate `Date` and `Time` values.
+** Cons: Difficult to implement as it requires deep understanding of how the Natty library works.
+//end::reservations[]
 
 === Logging
 
@@ -378,8 +1014,8 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+_Figure 5.3.1.: Saving documentation as PDF files in Chrome_
 
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
@@ -489,14 +1125,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.restaurant.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.restaurant.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.restaurant.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.restaurant.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -504,6 +1140,11 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
+
+**Problem: Test failed with `Missing newline at end of file`.**
+
+* Reason: A newline is missing in the file.
+* Solution: `File` > `Settings...` > `Editor` > `General` > `Ensure line feed at file end on Save`.
 
 == Dev Ops
 
@@ -526,307 +1167,30 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/restaurant/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+A project often depends on third-party libraries. For example, Restaurant Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+a. Include those libraries in the repo (this bloats the repo size). +
+b. Require developers to download those libraries manually (this creates extra work for developers).
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is a owner of one or more restaurant in National University of Singapore.
+* prefers having PC application to handle his/her restaurant.
+* can type reasonably fast.
+* prefers typing over mouse input.
+* is reasonably comfortable using CLI apps.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: efficiently and effectively manage restaurant without the need to invest in a complicated and
+expensive system.
 
 [appendix]
 == User Stories
@@ -836,35 +1200,397 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |restaurant owner |have my system protected |ensure only authorised staffs can access the system
 
-|`* * *` |user |add a new person |
+|`* * *` |restaurant owner |modify staff account |update my staff's data
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |restaurant owner |delete staff account |remove system access for an ex-staff
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |restaurant owner |assign role to a staff account |ensure only authorised staff can access certain parts of
+the system
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |new restaurant owner|see usage instructions |refer to instructions when I forget how to use the application
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |forgetful restaurant owner |see usage instructions |refer to instructions when I forget how to use the
+application
+
+|`* * *` |restaurant owner |check the current availability of ingredients|manage my ingredients easily
+
+|`* * *` |restaurant owner |see which ingredients are low in stock count |know which ingredients to restock promptly
+
+|`* * *` |restaurant owner |record sales volume of an item within a day |analyse an item's sales performance in the future
+
+|`* * *` |restaurant owner |keep track of daily sales |meet revenue goals, improve the menu and track inventory
+
+|`* * *` |restaurant owner |modify past sales records  |update any mistakes / refunds / cancelled booking
+
+|`* * *` |analytical restaurant owner |see the sales chart of revenue against date |have an overview of my restaurant financial performance and oversee its growth in the long run
+
+|`* * *` |profit-driven restaurant owner |know the items that are bringing in the greatest revenue  |employ marketing strategies to maximise profit
+
+|`* * *` |profit-driven restaurant owner |know the days in which revenue are greatest |employ marketing strategies to maximise profit
+
+|`* * *` |restaurant owner |add a new item to the menu |introduce new dishes
+
+|`* * *` |restaurant owner |delete an item from the menu |remove entries that I no longer need
+
+|`* * *` |restaurant owner |edit an item from the menu |update the entries of the menu
+
+|`* * *` |restaurant owner |find an item by name |locate details of items without having to go through the entire
+ list
+
+|`* * *` |restaurant owner |filter items by tag |filter and find items without having to go through the entire list
+
+|`* * *` |restaurant owner |give an item discount |have discount for items in menu
+
+|`* * *` |restaurant owner |view menu |see the changes made to the menu
+
+|`* * *` |restaurant owner |clear menu |revamp my menu when there is a need
+
+|`* * *` |restaurant owner |add a reservation |keep track of who booked a table in my restaurant
+
+|`* * *` |restaurant owner |edit a reservation |make changes when a customer requests to do so
+
+|`* * *` |restaurant owner |sort reservations |easily see the reservations in chronological order
+
+|`* * *` |restaurant owner |delete a reservation |get rid of reservations that I don't need anymore
+
+|`* *` |restaurant owner |check which dishes are not able to be cooked due to lack of ingredients |remove them from the daily menu
+
+|`* *` |lazy restaurant owner |save regular restocks and consumption data as the default |do not need to key in the same entries every time
+
+|`*` |forgetful restaurant owner |set reminders for the next restock |remember to restock
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `App` and the *Actor* is the `user`, unless
+specified
+otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC101 - Create account
+
+*Pre-conditions*:
+
+* User has to be logged in.
+* User must be an administrator.
+
+*Guarantees*:
+
+* A new account will be created.
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to create a new user account.
+2. App create the new user account.
+3. App returns a success message confirming that the user account has been created.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Username already exists.
+[none]
+** 2a1. App returns an error message.
+** 2a2. User enters new data.
++
+Steps 2a1-2a2 are repeated until the data entered are correct.
++
+Use case resumes at step 3.
+* 2b. Username or Password length not fulfilled.
+[none]
+** 2b1. App returns an error message.
+** 2b2. User enters new data.
++
+Steps 2b1-2b2 are repeated until the data entered are correct.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: UC102 - Login
+
+*Pre-conditions*:
+
+* User must not be logged in.
+
+*Guarantees*:
+
+* User will be logged into the App.
+
+*MSS*
+
+1. User requests to login.
+2. App authenticates the user.
+3. App returns a success message confirming that the user has been logged in.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Credential is invalid.
+[none]
+** 2a1. App requests for the correct data.
+** 2a2. User enters new data.
++
+Steps 2a1-2a2 are repeated until the data entered is correct.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: UC103 - Logout
+
+*Pre-conditions*:
+
+* User must be logged in.
+
+*Guarantees*:
+
+* User will be logged out of the App.
+
+*MSS*
+
+1. User requests to logout.
+2. App logs out the user.
+3. App returns a success message confirming that the user has been logged out.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC104 - Change password
+
+*Pre-conditions*:
+
+* User has to be logged in.
+
+*Guarantees*:
+
+* Account data will remain intact if nothing changes OR
+* Account data will be updated.
+
+*MSS*
+
+1. User requests to change password.
+2. App edit the user account.
+3. App returns a success message confirming that the user account has been edited.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. New password is invalid.
+[none]
+** 2a1. App requests for the correct data.
+** 2a2. User enters new data.
++
+Steps 2a1-2a2 are repeated until the data entered is correct.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: UC201 - Add ingredient
+
+*MSS*
+
+1.  User requests to add a new ingredient.
+2.  App adds the ingredient specified to the ingredient list.
+3.  App returns a success message confirming the new ingredient has been added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user enters an invalid command format.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to add ingredient again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 2a. The ingredient name entered is already in the ingredient list.
+[none]
+** 2a1. App returns a message telling user the ingredient name already exists.
+** 2a2. User requests to add ingredient again.
++
+Steps 2a1-2a2 are repeated until an ingredient name which does not exist is entered.
++
+Use case resumes at step 3.
+
+// tag::ucingredient[]
+[discrete]
+=== Use case: UC202 - Delete ingredient
+
+*MSS*
+
+1.  User requests to list ingredients.
+2.  App shows a list of ingredients.
+3.  User requests to delete a specific ingredient by its index in the ingredient list, or the ingredient name.
+4.  App deletes the ingredient.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given index or name is invalid.
+[none]
+** 3a1. App returns a message telling user the index or name entered is invalid.
+** 3a2. User requests to delete ingredient again.
++
+Steps 3a1-3a2 are repeated until a valid index or name is entered.
++
+Use case resumes at step 4.
+
+[none]
+* 3b. The ingredient name does not exist.
+[none]
+** 3b1. App returns a message telling user that the ingredient cannot be found.
+** 3b2. User requests to delete ingredient again.
++
+Steps 3b1-3b2 are repeated until an existing ingredient name is entered.
++
+Use case resumes at step 4.
+
+[none]
+* 3c. The user enters an invalid format.
+[none]
+** 3c1. App returns a message telling user that the command format is invalid.
+** 3c2. User requests to add ingredient again.
++
+Steps 3c1-3c2 are repeated until a valid command format is entered.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: UC203 - Edit ingredient
+
+*MSS*
+
+1.  User requests to edit a specific ingredient.
+2.  App edits the specified ingredient with the updated values.
+3.  App returns a success message confirming the specified ingredient has been edited.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index or name is invalid.
+[none]
+** 1a1. App returns a message telling user the index or name entered is invalid.
+** 1a2. User requests to edit ingredient again.
++
+Steps 1a1-1a2 are repeated until a valid index or name is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. None of the optional fields are specified.
++
+[none]
+** 1b1. App returns a message telling user at least one optional field has to be specified.
+** 1b2. User requests to edit ingredient again.
++
+Steps 1b1-1b2 are repeated until at least one optional field is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 2a. The ingredient name does not exist.
+[none]
+** 2a1. App returns a message telling user that the ingredient cannot be found.
+** 2a2. User requests to edit ingredient again.
++
+Steps 2a1-2a2 are repeated until an existing ingredient name is entered.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: UC204 - Stock up ingredient
+
+*MSS*
+
+1.  User requests to stock up a specific ingredient.
+2.  App updates the count of the specified ingredient.
+3.  App returns a success message confirming the specified ingredient has been stocked up.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+ * 1a. The user enters an invalid format.
+[none]
+ ** 1a1. App returns a message telling user that the command format is invalid.
+ ** 1a2. User requests to stock up ingredient again. +
+ Steps 1a1-1a2 are repeated until a valid command format is entered. +
+ Use case resumes at step 2.
+
+[none]
+ * 2b. The ingredient name does not exist.
+[none]
+ ** 2b1. App returns a message telling user that the ingredient does not exist.
+ ** 2b2. User requests to stock up ingredient again. +
+ Steps 2b1-2b2 are repeated until a valid ingredient name is entered. +
+ Use case resumes at step 3.
+// end::ucingredient[]
+
+// tag::ucmenu[]
+[discrete]
+=== Use case: UC301 -  Add item to menu
+
+*MSS*
+
+1.  User requests to add item to menu.
+2.  App adds the item to menu.
+3.  App returns a success message confirming the new item has been added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid argument given for the command.
++
+[none]
+** 1a1. App shows an error message that item name or/and item price are invalid.
+** 1a2. User requests to add item to menu again.
++
+Steps 1a1-1a2 are repeated until valid item name and valid item price are entered.
++
+Use case resumes at step 2.
+
+* 1b. The item name entered is already in the menu.
++
+[none]
+** 1b1. App shows an error message that the item name already exists.
+** 1b2. User requests to add item to menu again.
++
+Steps 1b1-1b2 are repeated until item name that does not exist in the menu is entered.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: UC302 - Delete item by index from menu
+
+*MSS*
+
+1.  User requests to list items.
+2.  App shows a list of items in menu.
+3.  User requests to delete a specific item in menu.
+4.  App deletes the item.
+5.  App returns a success message confirming the specified item has been deleted.
 +
 Use case ends.
 
@@ -878,20 +1604,436 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. App shows an error message that the given index is invalid.
+** 3a2. User requests to delete a specific item in menu again.
++
+Steps 3a1-3a2 are repeated until a valid index is entered.
++
+Use case resumes at step 4.
+// end::ucmenu[]
+
+[discrete]
+=== Use case: UC303 - Edit item from menu
+
+*MSS*
+
+1.  User requests to list items.
+2.  App shows a list of items in menu.
+3.  User requests to edit a specific item in the list.
+4.  App edits the item with updated values.
+5.  App returns a success message confirming the specified item has been edited.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. App shows an error message that the given index is invalid.
+** 3a2. User requests to delete a specific item in menu again.
++
+Steps 3a1-3a2 are repeated until a valid index is entered.
++
+Use case resumes at step 4.
+
+* 3b. None of the optional fields are specified.
++
+[none]
+** 3b1. App shows an error message that none of the optional fields are specified.
+** 3b2. User requests to edit a specific item in menu again.
++
+Steps 3b1-3b2 are repeated until one of the optional fields is entered.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: UC304 - Give an item a discount
+
+*MSS*
+
+1.  User requests to list items.
+2.  App shows a list of items in menu.
+3.  User requests to give a specific item in the list a discount.
+4.  App give the item a discount.
+5.  App returns a success message confirming the specified item has been given a discount.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. App shows an error message that the given index is invalid.
+** 3a2. User requests to give a specific item in the list a discount again.
++
+Steps 3a1-3a2 are repeated until a valid index is entered.
++
+Use case resumes at step 4.
+
+* 3b. The given percentage is invalid.
++
+[none]
+** 3b1. App shows an error message that the given percentage is invalid.
+** 3b2. User requests to give a specific item in the list a discount again.
++
+Steps 3b1-3b2 are repeated until a valid percentage is entered.
++
+Use case resumes at step 4.
+
+// tag::ucreservations[]
+[discrete]
+=== Use case: UC401 - Add reservation
+
+*MSS*
+
+1.  User requests to add a new reservation.
+2.  App adds the reservation to the reservations list.
+3.  App returns a success message confirming the new reservation has been added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The reservation date or time entered has an incorrect format.
+[none]
+** 2a1. App returns a message telling user the date or time format is entered incorrectly.
+** 2a2. User requests to add reservation again.
++
+Steps 2a1-2a2 are repeated until a proper date and time are entered.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: UC402 - Edit reservation
+
+*MSS*
+
+1.  User requests to edit a specified reservation.
+2.  App edits the specified reservation with the updated values.
+3.  App returns a success message confirming the specified reservation has been edited.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
++
+[none]
+** 1a1. App returns a message telling user that the index is invalid.
+** 1a2. User requests to edit reservation again.
++
+Steps 1a1-1a2 are repeated until a valid index is entered.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[none]
+* 1b. None of the optional fields are specified.
++
+[none]
+** 1b1. App returns a message telling user at least one optional field has to be specified.
+** 1b2. User requests to edit reservation again.
++
+Steps 1b1-1b2 are repeated until at least one optional field is entered.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: UC403 - Delete reservation
+
+*MSS*
+
+1.  User requests to list reservations.
+2.  App shows a list of reservations.
+3.  User requests to delete a specific reservation in the list.
+4.  App deletes the reservation.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. App returns a message telling user the index is invalid.
+** 3a2. User requests to delete reservation again.
++
+Steps 3a1-3a2 are repeated until a valid index is entered.
++
+Use case resumes at step 3.
+// end::ucreservations[]
+
+// tag::ucsales[]
+[discrete]
+=== Use case: UC501 - Record sales volume of an item
+
+*Guarantees*:
+
+* A new sales record of an item will be appended to the record list.
+
+*MSS*
+
+1. User requests to record sales volume of an item for a specified day.
+2. App computes the ingredients used and updates the ingredient list automatically.
+3. App appends the record at the end of record list.
+4. App returns a success message confirming that the recording is successful.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. Invalid command format entered by the user.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to record sales volume again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
++
+
+[none]
+* 1b. The given date or name or quantity sold or price is invalid.
++
+[none]
+** 1b1. App returns a message telling user that the date or name or quantity sold or price is invalid.
+** 1b2. User requests to record sales volume again.
++
+Steps 1b1-1b2 are repeated until all fields entered by the user are valid.
++
+Use case resumes at step 2.
+
+[none]
+* 1c. Sales record of the same date and item name already exists in the record list.
+[none]
+** 1c1. App returns a message telling user that the item's record already exists.
+** 1c2. User requests to record sales volume again.
++
+Steps 1c1-1c2 are repeated until a record with unique date and item name is entered.
++
+Use case resumes at step 2.
++
+
+[none]
+* 2a. One or more of the <<criteria, criteria>> to update ingredient list were not satisfied.
+[none]
+** 2a1. App takes note of which criteria were not satisfied, and appends a notification message after the success
+message.
++
+Use case resumes at step 3.
++
+// end::ucsales[]
+
+
+[discrete]
+=== Use case: UC502 - Editing sales record
+
+*Guarantees*:
+
+* Sales record will be updated to the user's input.
+
+*MSS*
+
+1. User requests to edit a sales record in the record list.
+2. App updates the sales record to that given by the user.
+3. App returns a success message confirming that the modification is successful.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid command format entered by the user.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to edit sales record again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
++
+
+[none]
+* 1b. Index specified is invalid.
++
+[none]
+** 1b1. App returns a message telling user that the index specified is invalid.
+** 1b2. User requests to edit sales record again.
++
+Steps 1b1-1b2 are repeated until a valid index is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1c. None of the optional fields are specified.
++
+[none]
+** 1c1. App returns a message telling user at least one optional field has to be specified.
+** 1c2. User requests to edit sales record again.
++
+Steps 1c1-1c2 are repeated until at least one optional field is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1d. The new date or name or quantity sold or price entered is invalid.
++
+[none]
+** 1d1. App returns a message telling user that the date or name or quantity sold or price is invalid.
+** 1d2. User requests to edit sales record again.
++
+Steps 1d1-1d2 are repeated until all fields entered by the user are valid.
++
+Use case resumes at step 2.
+
+[none]
+* 1e. Sales record of the same date and item name as the new record already exists in the record list.
+[none]
+** 1e1. App returns a message telling user that the item's record already exists.
+** 1e2. User requests to edit sales record again.
++
+Steps 1e1-1e2 are repeated until a unique record is entered.
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: UC503 - Deleting sales record
+
+*MSS*
+
+1. User requests to delete a sales record in the record list.
+2. App deletes the sales record.
+3. App returns a success message confirming that the deletion is successful.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid command format entered by the user.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to delete sales record again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
++
+
+[none]
+* 1b. Index specified is invalid.
++
+[none]
+** 1b1. App returns a message telling user that the index specified is invalid.
+** 1b2. User requests to delete sales record again.
++
+Steps 1b1-1b2 are repeated until a valid index is entered.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: UC504 - Displaying sales report
+
+*MSS*
+
+1. User requests to display the sales report of a specified date.
+2. App generates the sales report.
+3. App displays the sales report in a separate window.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid command format entered by the user.
+[none]
+** 1a1. App returns a message telling user that the command format is invalid.
+** 1a2. User requests to display sales report again.
++
+Steps 1a1-1a2 are repeated until a valid command format is entered.
++
+Use case resumes at step 2.
++
+
+* 1b. The given date is invalid.
++
+[none]
+** 1b1. App returns a message telling user the date is invalid.
+** 1b2. User requests to display sales report again.
++
+Steps 1b1-1b2 are repeated until a valid date is entered.
++
+Use case resumes at step 2.
++
+
+* 2a. The generated sales report is empty. No record associated with the given date is found.
++
+[none]
+** 2a1. App returns a message telling user no such record is found.
+** 2a2. User requests to display sales report again with a new date.
++
+Steps 2a1-2a2 are repeated until a record with the given date is found. (i.e. Sales report generated is not empty.)
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: UC505 - Ranking items according to total revenue
+
+[NOTE]
+The use cases for 1) ranking dates according to total revenue & 2) displaying sales chart are the same
+
+*MSS*
+
+1. User requests to rank items according to the total revenue accumulated in past sales records.
+2. App generates the ranking.
+3. App displays the ranking in a separate window.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Record list is empty. No record has ever been added.
+[none]
+** 2a1. App returns a message telling user that the record list is empty.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any <<mainstream-os,Mainstream OS>> as long as it has Java `9` or higher installed.
+.  Respond fast to user input and show the respective output within milliseconds.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  System must be secured such that only authorised employees can access it and execute commands.
+.  System should not require constant maintenance and work off-the-shelf without any installation.
+.  JAR file should not exceed 50 MB.
+.  Test coverage should be at least 80%.
+.  Should always favour security over efficiency in development.
+.  Any user who has the basic proficiency of the English language should be able to use the application with the help
+ of the link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`].
+.  System should not require any internet access.
+.  Only the English language will be used.
 
 [appendix]
 == Glossary
@@ -899,25 +2041,17 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [appendix]
-== Product Survey
+== Acronyms
+[[gui]] GUI::
+*Graphical User Interface* allows the use of icons or other visual indicators to interact with electronic devices,
+rather than using only text via the command line.
 
-*Product Name*
+[[uml]] UML::
+Unified Modeling Language is used to specify, visualize, construct and document the artifacts of software systems.
 
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[mss]] MSS::
+Main Success Scenario describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 
 [appendix]
 == Instructions for Manual Testing
@@ -925,42 +2059,331 @@ Cons:
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing
 
 === Launch and Shutdown
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the `jar` file and copy into an empty folder.
+.. Double-click the `jar` file. +
+   *Expected*: Shows the GUI with a set of sample data. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Re-launch the app by double-clicking the `jar` file. +
+   *Expected*: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Accounts Management
 
-=== Deleting a person
+. Login
+.. Prerequisite: The account must exists in the accounts record. The `root` account exists by default.
+.. Test case: `login id/root pw/1122qq` +
+   *Expected*: User will be logged in to the `root` account, and the username will be set accordingly at the
+   top-right corner of the GUI.
+.. Test case: `login pw/1122qq id/root` +
+   *Expected*: Same as previous as the parameters can be supplied in any order.
+.. Test case: `login id/helloworld pw/lalala` +
+   *Expected*: Account does not exists and user will be shown an error message.
+.. Test case: `login id/root pw/` +
+   *Expected*: User will be prompted to provide a valid password.
+.. Test case: `login id/ pw/1122qq` +
+   *Expected*: User will be prompted to provide a valid username.
+.. Test case: `login` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
 
-. Deleting a person while all persons are listed
+. Logout
+.. Prerequisite: User must be logged in first.
+.. Test case: `logout` +
+   *Expected*: User will be logged out, and the username will be reset back to `Guest` at the top-right corner of the
+    GUI.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Changing password
+.. Prerequisite: User must be logged in. The old and new password can be the same.
+.. Test case: `change-password npw/newpassword` +
+   *Expected*: User's password will be updated. The new password must be used for future login.
+.. Test case: `change-password npw/newpassword npw/evennewerpassword` +
+   *Expected*: `evennewerpassword` will be recorded as the new password.
+.. Test case: `change-password npw/` +
+   *Expected*: User will be prompted to provide a valid password.
+.. Test case: `change-password` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
 
-_{ more test cases ... }_
+. Registering a new account
+.. Prerequisite: User must be logged in, and the account must exists in the accounts record. _Currently, any user will
+be able to register a new account as the user role feature will only be implemented in `v2.0`. See
+<<UserGuide#User-Role, UserGuide.adoc>> for more information_
+.. Test case: `register id/johndoe pw/1122qq n/John Doe` +
+   *Expected*: A new account with the id `johndoe` will be created. Details of `johndoe` will be shown. The timestamp
+    of the status bar will be updated as well.
+.. Test case: `register id/john doe pw/1122qq n/` +
+   *Expected*: User will be prompted to provide a valid name.
+.. Test case: `register id` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+.. Other incorrect attempts: `register id/ pw/1122qq n/John Doe`, `register id/johndoe pw/1122 qq n/John Doe` +
+   *Expected*: User will be prompted with a relevant error message to provide a valid value for the field that has an
+   error.
+
+. Deregistering an account
+.. Prerequisite: User must be logged in, and the account must exists in the accounts record.
+.. Test case: `deregister id/johndoe` +
+   *Expected*: Account with the id `johndoe` will be deregistered (i.e. deleted).
+.. Test case: `deregister id/<current logged in user's id>` +
+   *Expected*: User will be prompted an error message that they are not allowed to deregister their own account.
+.. Test case: `deregister` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+
+. Finding account(s)
+.. Prerequisite: User must be logged in.
+.. Test case: `find-account <ro>` +
+   *Expected*: List all accounts that contain the string `ro` in its username.
+.. Test case: `find-account` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+
+. Selecting an account
+.. Prerequisite: User must be logged in.
+.. Test case: `select-account 1` +
+   *Expected*: The account at index 1 of the list will be selected.
+.. Other incorrect attempts: `select-account` or `select-account -1` or `select-account alphabet` +
+   *Expected*: User will be prompted to conform to the command parameters by providing all necessary fields with
+   valid values.
+
+. Listing accounts
+.. Prerequisite: User must be logged in.
+.. Test case: `list-accounts` +
+   *Expected*: The list of accounts will be shown at the panel on the left of the GUI.
+
+=== Ingredient Management
+. Adding an ingredient
+
+.. Pre-requisites: The ingredient must not have the same name as another existing ingredient in the ingredient list
+and must be logged in.
+.. Test case: `add-ing n/Chicken Thigh u/kilogram p/14.00 m/20` +
+   *Expected*: Ingredient is added into the ingredient list. Details of the added ingredient is shown in the
+   status message. Timestamp in the status bar is updated.
+.. Test case: add-ing n/ +
+   *Expected*: No ingredient is added. Error details are shown in the status message. Status bar remains the
+   same.
+.. Other incorrect `add-ing` commands to try: `add-ing`, `add-ing n/123 u/kilogram p/14.00 m/20`,
+`add-ing n/Chicken Thigh u/+++ p/14.00 m/20` +
+   *Expected*: Similar to previous.
+
+. Listing all ingredients
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `list-ing` +
+   *Expected*: All ingredients are listed at the panel on the left of the UI.
+
+. Listing all the items that are low on stock
+
+.. Pre-requisites: Must be logged in.
+.. Test case: `low-stock` +
+   *Expected*: All ingredients that have a number of units less than its minimum value are listed.
+
+. Deleting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `delete-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing Chicken Thigh` +
+   *Expected*: The ingredient with the specified name is deleted. Details of the deleted ingredient is
+   shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-ing 0` +
+   *Expected*: No ingredient is deleted. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `delete-ing` commands to try: `delete-ing`, `delete-ing x` (where x is larger
+ than the ingredient list size) +
+   *Expected*: Similar to previous.
+
+. Editing an ingredient
+
+.. Pre-requisites: The ingredient to be edited must be an existing entry in the ingredient list and must be logged in.
+The edited ingredient must not have the same name as another ingredient existing in the ingredient list.
+.. Test case: `edit-ing 1 n/Chicken Drumstick` +
+   *Expected*: Edited ingredient replaces the existing ingredient in the ingredient list. Details of the edited
+   ingredient is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `edit-ing Chicken Thigh n/Chicken Drumstick` +
+   *Expected*: Similar to previous.
+.. Test case: `edit-ing n/` +
+   *Expected*: No ingredient is edited. Error details are shown in the status message. Status bar
+   remains the same.
+.. Other incorrect `edit-ing` commands to try: `edit-ing`, `edit-ing Chicken Drumstick+` +
+   *Expected*: Similar to previous.
+. Stocking up an ingredient or multiple ingredients
+
+.. Pre-requisites: The ingredient(s) to be stocked up must be an existing entry or existing entries in the ingredient
+list and must be logged in.
+.. Test case: `stockup n/Chicken Drumstick nu/10` +
+   *Expected*: The number of units of the ingredient increases by the specified number. The name of the
+   ingredient being restocked is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `stockup n/Chicken Drumstick nu/10 n/Cheese nu/15` +
+   *Expected*: Similar to previous.
+.. Test case: `stockup n/Chicken Drumstick` +
+   *Expected*: No ingredient is stocked up. Error details are shown in the status message. Status
+    bar remains the same.
+.. Other incorrect `stockup` commands to try: `stockup`, `stockup n/Chicken Drumstick n/Cheese nu/10 nu/20` +
+   *Expected*: Similar to previous.
+
+. Selecting an ingredient
+
+.. Pre-requisites: At least one ingredient in the ingredient list and must be logged in.
+.. Test case: `select-ing 1` +
+   *Expected*: The first ingredient in the displayed ingredient list is selected. Details of the selected ingredient is
+   shown in the right panel of the UI.
+.. Test case: `select-ing 0` +
+   *Expected*: No ingredient is selected. Error details are shown in the status message.
+.. Other incorrect `select-ing` commands to try: `select-ing`, `select-ing x` (where x is larger
+ than the ingredient list size)
+   *Expected*: Similar to previous.
+
+// tag::testMenu[]
+=== Menu Management
+
+. Adding a new item with valid name, price and tag
+.. Prerequisites: You must not have the item, specified in the test case below, in the menu.
+.. Test case: `add-item n/Chicken Rice p/3 t/rice t/chicken` +
+   *Expected*: Item is added to the menu. Details of the item shown in status message.
+.. Incorrect commands to try: `add-item n/test p/string`, `add-item n/@*@^&@* p/3`
+
+. Editing an item with valid name, price and tag
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `edit-item 1 n/Duck Rice p/3 t/rice t/duck` +
+   *Expected*: Item specified by the index is updated with new details. New details of the item shown in status message.
+.. Incorrect commands to try: `edit-item 1 n/test p/string`, `edit-item n/name p/3`
+
+. Deleting an item by index
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `delete-item-index 1` +
+   *Expected*: Item specified by the index is deleted from the menu. Number of items deleted shown in status message.
+.. Incorrect commands to try: `delete-item-index -2`, `delete-item-index string`
+
+. Deleting an item by name
+.. Prerequisites: You must have the item, specified in the test case below, in the menu.
+.. Test case: `delete-item-name chicken rice` +
+   *Expected*: Item specified by name is deleted from the menu. Details of the deleted item shown in status message.
+.. Incorrect commands to try: `delete-item-name @*@^&@*`
+// end::testMenu[]
+
+. Listing all items
+.. Test case: `list-items` +
+   *Expected*: List all items in the menu.
+
+. Clearing menu
+.. Test case: `clear-menu` +
+   *Expected*: Delete all items in the menu.
+
+. Selecting an item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `select-item 1` +
+   *Expected*: Selects the item specified by the index in the menu. Index of the selected item shown in status message.
+.. Incorrect commands to try: `select-item -2`, `select-item string`
+
+. Locating items by name
+.. Prerequisites: You must have at least 1 item with name matching the keyword specified in the test case below.
+.. Test case: `find-item rice` +
+   *Expected*: Finds the item with name matching the keyword in the menu. Number of matched items shown in status message.
+
+. Locating items by tag
+.. Prerequisites: You must have at least item with tag matching the keyword specified in the test case below.
+.. Test case: `filter-menu duck` +
+   *Expected*: Finds the item with tag matching the keyword in the menu. Number of matched items shown in status message.
+
+. Sorting the menu by name
+.. Test case: `sort-menu name` +
+   *Expected*: Sorts the menu by name. Sorting method shown in status message.
+
+. Sorting the menu by price
+.. Test case: `sort-menu price` +
+   *Expected*: Sorts the menu by price. Sorting method shown in status message.
+
+. Giving discount to all items in the displayed item list
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `discount-item ALL dp/20` +
+   *Expected*: Give all items in the displayed item list a discount. Number of items given a discount shown in status message.
+.. Incorrect commands to try: `discount-item -2 dp/20`, `discount-item string dp/20`
+
+. Adding a recipe to an item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `recipe-item 1 r/some recipe` +
+   *Expected*: Adds the recipe to the item specified by the index in the menu. Details of specified item shown in
+   status message.
+
+. Adding required ingredients to an item
+.. Prerequisites: You must have at least 1 item in the menu.
+.. Test case: `add-required-ingredients 1 n/chicken nu/3 n/rice nu/3` +
+   *Expected*: Adds the required ingredients to the item specified by the index in the menu. Details of specified item shown in status message.
+.. Incorrect commands to try: `add-required-ingredients -2 n/str nu/3`, `add-required-ingredients 1 n/str nu/-3`,
+`add-required-ingredients 1 n/str n/other nu/3 nu/3`
+
+// tag::testreservations[]
+=== Reservations Management
+
+. Adding a reservation
+
+.. Prerequisites: The reservation to be added must not be a duplicated entry in the reservations list and the user must be
+                  logged in.
+.. Test case: `add-reservation n/John Doe px/4 d/05-12-2019 ti/10:00 t/Driving` +
+   *Expected*: Reservation will be added into the reservation list. Details of the added reservation will be shown.
+.. Test case: `add-reservation n/` +
+   *Expected*: Reservation will not be added. Improper format error details shown.
+.. Test case: `add-reservation n/John Doe px/4 d/01-01-2018 ti/10:00 t/Driving` +
+   *Expected*: Reservation will not be added. "Date should not have passed" error will be shown.
+.. Other incorrect add-reservation commands to try: `add-reservation`, `add-reservation n/John Doe px/4@ d/05-12-2019 ti/10:00` +
+   *Expected*: Reservation will not be added. Improper format error details shown.
+
+. Listing reservations
+.. Prerequisites: The user must be logged in.
+.. Test case: `list-reservations` +
+   *Expected*: The reservations list will be shown.
+
+. Selecting a reservation
+.. Prerequisites: The reservations list must contain at least 1 reservation.
+.. Test case: `select-reservation 1` +
+   *Expected*: Selects the reservation specified by the index in the reservations list. Index of the selected
+   reservation will be shown.
+.. Incorrect commands to try: `select-reservation`, `select-reservation all`
+
+. Editing a reservation
+.. Prerequisites: The reservation to be edited must be an existing entry in the reservations list and the user must
+be logged in.
+.. Test case: `edit-reservation 1 d/06-10-2020` +
+   *Expected*: Edited reservation will replace the existing reservation in the reservations list. Details of the
+   edited reservation will be shown.
+.. Test case: `edit-reservation n/` +
+   *Expected*: No reservation is edited. Improper format error details shown.
+.. Other incorrect edit-reservation commands to try: `edit-reservation` , `edit-reservation 1 px/4@` +
+   *Expected*: Similar to previous.
+
+. Deleting a reservation
+.. Prerequisites: The reservation to be deleted must be an existing entry in the reservations list and the user must
+be logged in.
+.. Test case: `delete-reservation 1` +
+   *Expected*: First reservation will be deleted from the list. Details of the deleted reservation will be shown.
+.. Test case: `delete-reservation 0` +
+   *Expected*: No reservations are deleted. Improper format error details shown.
+.. Other incorrect delete-reservation commands to try: `delete-reservation`, `delete-reservation all` +
+   *Expected*: Similar to previous.
+
+. Sorting reservations
+.. Prerequisites: The user must be logged in and the reservations list must be populated with more than one entry. +
+(and preferably be initially unsorted, to see the effects of the `sort-reservations` command)
+.. Setup: Enter these commands to populate the reservations list with an unsorted set of reservations.
+... `add-reservation n/Mandelbrot px/3 d/06-12-2019 ti/18:00`
+... `add-reservation n/Benoit px/1 d/05-12-2019 ti/10:00`
+... `add-reservation n/B px/2 d/05-12-2019 ti/12:00`
+.. Test case: `sort-reservations` +
+   *Expected*: Reservations list will be sorted by Date/Time in ascending order.
+// end::testreservations[]
 
 === Saving data
-
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. To simulate missing/corrupted data file, simply go to the `data` folder, open up `restaurantbook.xml` and remove
+any XML tags, or simply delete the `restaurantbook.xml` file. The next time the application is launched, a clean
+`restaurantbook.xml` will be re-generated.
