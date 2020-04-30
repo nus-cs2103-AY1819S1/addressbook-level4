@@ -12,7 +12,6 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ang Zhi Kai
-image::azhikai.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~azhikai[homepage]] [https://github.com/azhikai[github]] [<<azhikai#, portfolio>>]
 
 Role: Team Lead, Schedule + Tracking +
@@ -21,7 +20,6 @@ Responsibilities: Model + Storage
 '''
 
 === Tan Ying Zi Rebecca
-image::rebstan97.png[width="150", align="left"]
 {empty}[http://github.com/rebstan97[github]] [<<rebstan97#, portfolio>>]
 
 Role: Testing + Quality Assurance +
@@ -30,7 +28,6 @@ Responsibilities: UI
 '''
 
 === Ong Ming Xian
-image::m4dkip.png[width="150", align="left"]
 {empty}[http://github.com/m4dkip[github]] [<<m4dkip#, portfolio>>]
 
 Role: Documentation +
@@ -39,7 +36,6 @@ Responsibilities: Logic
 '''
 
 === Lee Yi Can
-image::yican95.png[width="150", align="left"]
 {empty}[http://github.com/yican95[github]] [<<yican95#, portfolio>>]
 
 Role: Integration +
@@ -48,7 +44,6 @@ Responsibilities: Logic
 '''
 
 === Neo Kai Jun
-image::hyperionnkj.png[width="150", align="left"]
 {empty}[http://github.com/hyperionnkj[github]] [<<hyperionnkj#, portfolio>>]
 
 Role: Integration, Code quality, Schedule + Tracking +
