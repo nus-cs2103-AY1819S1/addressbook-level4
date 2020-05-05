@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<scheduleplanner>
+    <categories>
+        <name>Module</name>
+    </categories>
+    <categories>
+        <name>Others</name>
+    </categories>
+    <!-- Task with invalid name field -->
+    <tasks>
+        <name>Ha!ns Mu@ster</name>
+        <date isPrivate="false">111124</date>
+        <priority isPrivate="false">hans@example.com</priority>
+        <venue isPrivate="false">4th street</venue>
+    </tasks>
+</scheduleplanner>

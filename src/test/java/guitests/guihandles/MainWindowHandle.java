@@ -7,26 +7,28 @@ import javafx.stage.Stage;
  */
 public class MainWindowHandle extends StageHandle {
 
-    private final PersonListPanelHandle personListPanel;
+    private final TaskListPanelHandle taskListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
+    private final SidebarPanelHandle sidebarPanel;
+    private final ProgressBarPanelHandle progressBarPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        taskListPanel = new TaskListPanelHandle(getChildNode(TaskListPanelHandle.TASK_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
+        sidebarPanel = new SidebarPanelHandle(getChildNode(SidebarPanelHandle.SIDEBAR_ID));
+        progressBarPanel = new ProgressBarPanelHandle(getChildNode(ProgressBarPanelHandle.PROGRESSBAR_ID));
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return personListPanel;
+    public TaskListPanelHandle getTaskListPanel() {
+        return taskListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -45,7 +47,11 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
+    public SidebarPanelHandle getSidebarPanel() {
+        return sidebarPanel;
+    }
+
+    public ProgressBarPanelHandle getProgressBarPanel() {
+        return progressBarPanel;
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.ListView?>
+<BorderPane fx:id="sidebar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+     <VBox prefWidth="300" spacing="5" VBox.vgrow="ALWAYS">
+         <ToggleButton fx:id="today" onAction="#handleShowView" text="Today" userData="today" />
+         <ToggleButton fx:id="week" onAction="#handleShowView" text="This Week" userData="week" />
+         <Text fx:id="categorieslabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" wrappingWidth="300" textAlignment="LEFT" />
+         <ListView fx:id="listview" VBox.vgrow="ALWAYS" maxHeight="200">
+             <Accordion fx:id="accordion" prefWidth="300">
+             </Accordion>
+         </ListView>
+     </VBox>
+   </top>
+
+</BorderPane>

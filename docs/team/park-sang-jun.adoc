@@ -1,0 +1,80 @@
+= Park Sang Jun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:sectnums:
+
+PROJECT: Student Schedule Planner
+
+---
+
+== Introduction
+
+This project portfolio showcases my contributions to Student Schedule Planner, and how I implemented each of the features.
+
+In this project, I, together with Chen Shin, Lin Xu, Thaddeus Lim and Xiao Yilin, morphed a generic Address Book application into a specialised Student Schedule Planner aimed exclusively at university students. This was done with the constraint that a Command Line Interface (CLI) was to be the main mode of interaction with the application.
+
+As mentioned before, Student Schedule Planner targets a very specific group of people: students. We took into account the pains that we as university students faced when we were using conventional to-do lists and aimed to solve these pains during this project.
+
+Student Schedule Planner is hence a desktop application made specifically for students. The user interacts with the application using a CLI, but it has a Graphical User Interface (GUI) for users to view results in a more user-friendly manner. The application was built using Java and has approximately 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to add recurring tasks*
+** What it does: allows the user to add a recurring task by specifying the number of repeats and interval between each repeat.
+** Justification: This feature gives convenience to users as users with to-do tasks that happen repeatedly (eg. weekly) will not have to manually add the same tasks over and over again.
+** Highlights: The implementation forced me to come up with new field classes. The implementation required an understanding of the Calendar API, and duplicate tasks had to be handled.
+** Credits: The Calendar API from Java provided a variety of functions made implementing the AddRepeatCommand simpler than if I had started from scratch.
+
+* *Minor enhancement*: added a list overdue command that allows the user to view his/her overdue tasks.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=park-sang-jun&sort=displayName&since=2018-09-12&until=2018-11-11&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+
+* *Other contributions*:
+
+
+** Documentation:
+*** Updated user guide and developer guide, helped to correct awkward phrasing and grammar, markdown.
+** Community:
+*** Reported bugs for other teams:
+https://github.com/CS2103-AY1819S1-W16-4/main/issues/159[#159],
+https://github.com/CS2103-AY1819S1-W16-4/main/issues/160[#160]
+** Tools:
+*** Integrated Github plugin (Travis CI) to the team repo
+
+
+== Contributions to the User Guide
+
+|===
+|_Below are my contributions to the User Guide. This shows my ability to write effective documentation for the features I implemented. Furthermore, I helped to refactor the initial user guide for address book level 4 into a user guide for our current application, Student Schedule Planner._
+|===
+
+include::../UserGuide.adoc[tag=addrepeat]
+
+include::../UserGuide.adoc[tag=listoverdue]
+
+== Contributions to the Developer Guide
+
+|===
+|_Below are my contributions to the Developer Guide. This showcases the technical depth of my contributions to the application and my ability to make abstract technical information easier to understand. This will allow future developers to change or expand on my existing code effortlessly.
+|===
+
+include::../DeveloperGuide.adoc[tag=addrepeat]
+
+include::../DeveloperGuide.adoc[tag=listoverdue]
+
+
+== PROJECT:
+
+Prior to this project, I have undertaken various software engineering projects, either for Orbital 2018 or for hackathons.
+
+https://github.com/park-sang-jun/orbital-2018[Speakify]
+
+This Android-based application allows users to practice their speaking skills by helping them to quantify their speaking speed and
+user of various filler words.
+
+https://github.com/park-sang-jun/reee-searcher[Reee-searcher!]
+
+This Telegram bot was built to help researchers and students to effortlessly summarise articles and research papers and generate a bibligraphy in either the
+APA or MLA format. It helps users to compare a list of articles to see how similar they are.
+

@@ -1,0 +1,149 @@
+= Thaddeus - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Student Schedule Planner
+
+---
+
+== Overview
+
+This Personal Project Portfolio details the contributions which I have made to the Student Schedule Planner(SSP)
+project. It also outlines skills which I have picked up.
+
+Student Schedule Planner (SSP) is a desktop application, created by Team T12-3. It is a planner customised for
+university students, and it aims to help university students manage their time effectively.
+
+SSP incorporates various features that streamline the creation, organisation, and finding of tasks. In addition, it
+allows the user to keep track of the current academic week, and has a progress tracking feature, which displays
+user progress.
+
+Instead of utilising a conventional Graphical User Interface(GUI). SSP is optimised for users who prefer typing out
+their commands. This application has the potential to be much faster than regular planner applications, especially for
+users who are proficient in typing.
+
+== Summary of contributions
+
+In total, I contributed approximately 1500+ lines of code, in both features and documentation. The features I
+implemented were `listmonth`, `filter`, and `filterstrict`.
+
+I also aided in refactoring major parts of the codebase, morphing the original "Address Book (Level 4)" code to suit
+our new SSP application. This included changing "addressbook" and "person" references in the code to
+"scheduleplanner" and "task" references respectively.
+
+The features I implemented are as follows:
+
+=== Major enhancements:
+
+1. Ability to *list remaining number of tasks in the current month*
+
+** _What it does:_ This feature allows the user to list all remaining tasks in the current month, in chronological
+   order. This feature takes into account leap years.
+
+** _Justification:_ The user can narrow the scope of the list to the current month, making it easier to manage tasks
+within this period. This provides a convenient way to list tasks that occur in commonly used time frames(day, week, month).
+
+** _Highlights:_ It required an in-depth analysis of design alternatives. The implementation was challenging as it
+had to factor in the variations of days between months, and in February during leap years.
+
+** _Credits:_ Code from ListWeekCommand was referenced in the implementation of ListMonthCommand
+
+2. Ability to *filter tasks inclusively according to tags*
+
+** _What it does:_ This feature allows the user to filter tasks inclusively by their tags. This means that given 2 or
+more tags as user-input, tasks with ANY of the specified tags will be listed. This includes any number of tags.
+
+** _Justification:_ The user can filter out tasks with certain tags, expediting the search process, and reducing the
+time needed to find a specific task, or tasks belonging to the same category.
+
+** _Highlights:_ The implementation was challenging, as it required the filter feature to be able to search for more
+multiple tags. This was made complicated by the fact that each task may contain multiple tags
+
+** _Credits:_ Code from FindCommand was referenced in the implementation of FilterCommand
+
+3. Ability to *filter tasks exclusively according to tags*
+
+** _What it does:_ This feature allows the user to filter tasks exclusively by their tags. This means that given 2 or
+more tags to filter, only tasks with ALL of the specified tags will be listed.
+
+** _Justification:_ The user can now narrow the scope of the filter function, further expediting the search process.
+This feature caters to users who prefer a more strict filter mechanic.
+
+** _Highlights:_ The implementation made small tweaks to the filter predicate such that, only tasks containing tags
+that match all user-input tags will be displayed.
+
+** _Credits:_ Code from FilterCommand was referenced in the implementation of FilterCommand
+
+
+=== Minor enhancements:
+
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=thaddeuslzy[RepoSense]
+
+* *Other contributions*:
+
+** *Project management*:
+*** Managed releases `v1.3.1` (1 release) on GitHub: +
+https://github.com/CS2103-AY1819S1-T12-3/main/releases/tag/v1.3.1[1.3.1]
+
+*** Morphed large sections of code in *Address Book (Level 4)* into current product *Student Schedule Planner* :
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/41[#41]
+
+*** Added preloaded test cases for jar file, so that users may test commands:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/140[#140]
+
+** *Documentation*:
+*** Enhanced Introduction for DevGuide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/77[#77]
+
+*** Added Use Cases for DevGuide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/115[#115]
+
+*** Added Instructions for Manual Testing in Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/251[#251]
+
+*** Improvements to flow of existing contents of the User Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/64[#64] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/140[#140],
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/[#245] ,
+
+*** Improvements to flow of existing contents of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/64[#64] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/87[#87] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/221[#221] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/224[#224] ,
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/245[#245]
+
+** *Community*:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/76[#76]
+
+*** Reported bugs and suggestions for other teams in the class:
+Examples: https://github.com/CS2103-AY1819S1-T10-1/main/issues/110[1] ,
+https://github.com/CS2103-AY1819S1-T10-1/main/issues/106[2]
+
+== Contributions to the User Guide
+
+|===
+|_Provided below are the sections I have contributed to the User Guide. They showcase my ability to write concise,
+and coherent documentation targeting end-users who are seeing the SSP application for the first time_
+|===
+
+include::../UserGuide.adoc[tag=listmonth]
+
+include::../UserGuide.adoc[tag=filtertags]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Provided below are sections I contributed to the Developer Guide. They showcase my ability to write intelligible
+technical documentation to aid developers who are looking at the SSP for the first time. It also showcases the
+technical depth of my contributions to the project, and the value of improvements made to the SSP application._
+|===
+
+include::../DeveloperGuide.adoc[tag=listmonth]
+
+include::../DeveloperGuide.adoc[tag=filtertags]
+
+---

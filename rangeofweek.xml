@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rangeofweek>
+    <rangeOfWeeks>
+        <startOfWeekDate>130818</startOfWeekDate>
+        <endOfWeekDate>190818</endOfWeekDate>
+        <description>Week 1</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>200818</startOfWeekDate>
+        <endOfWeekDate>260818</endOfWeekDate>
+        <description>Week 2</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>270818</startOfWeekDate>
+        <endOfWeekDate>020918</endOfWeekDate>
+        <description>Week 3</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>030918</startOfWeekDate>
+        <endOfWeekDate>090918</endOfWeekDate>
+        <description>Week 4</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>100918</startOfWeekDate>
+        <endOfWeekDate>160918</endOfWeekDate>
+        <description>Week 5</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>170918</startOfWeekDate>
+        <endOfWeekDate>230918</endOfWeekDate>
+        <description>Week 6</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>240918</startOfWeekDate>
+        <endOfWeekDate>300918</endOfWeekDate>
+        <description>Recess Week</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>011018</startOfWeekDate>
+        <endOfWeekDate>071018</endOfWeekDate>
+        <description>Week 7</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>081018</startOfWeekDate>
+        <endOfWeekDate>141018</endOfWeekDate>
+        <description>Week 8</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>151018</startOfWeekDate>
+        <endOfWeekDate>211018</endOfWeekDate>
+        <description>Week 9</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>221018</startOfWeekDate>
+        <endOfWeekDate>281018</endOfWeekDate>
+        <description>Week 10</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>291018</startOfWeekDate>
+        <endOfWeekDate>041118</endOfWeekDate>
+        <description>Week 11</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>051118</startOfWeekDate>
+        <endOfWeekDate>111118</endOfWeekDate>
+        <description>Week 12</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>121118</startOfWeekDate>
+        <endOfWeekDate>181118</endOfWeekDate>
+        <description>Week 13</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>191118</startOfWeekDate>
+        <endOfWeekDate>251118</endOfWeekDate>
+        <description>Study Week</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>261118</startOfWeekDate>
+        <endOfWeekDate>021218</endOfWeekDate>
+        <description>Examination Week</description>
+    </rangeOfWeeks>
+    <rangeOfWeeks>
+        <startOfWeekDate>031218</startOfWeekDate>
+        <endOfWeekDate>091218</endOfWeekDate>
+        <description>Examination Week</description>
+    </rangeOfWeeks>
+</rangeofweek>

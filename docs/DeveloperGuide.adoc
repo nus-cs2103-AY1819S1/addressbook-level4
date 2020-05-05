@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Student Schedule Planner - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -9,23 +9,51 @@
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
+:important-caption: :exclamation:
 :note-caption: :information_source:
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-T12-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T12-3`      Since: `Aug 2018`      Licence: `MIT`
+
+== Introduction
+This Developer Guide for the Student Schedule Planner is written by the SSP team for the benefits of future
+developers and maintainers of the application.
+
+Student Schedule Planner is a desktop application aims to help students save their tasks manage them all in one place
+.
+
+This introduction briefly covers the main flow of the Developer Guide:
+
+*1. Setting up* : Walkthrough on the prequisites steps to setup the Developer Environment
+
+*2. Design* : Overview on the structure of the project code, and how each component interacts with each other.
+
+
+*3. Implementation* : In-depth explanation on the implementation of the various features in the Schedule Planner, as
+well as the considerations behind the implementations
+
+*4. Documentation* : General guide on the documentation process of the project
+
+*5. Testing* : Documentation for the coverage tests of the application and how to set up your testing environment.
+
+*6. DevOps* : General processes used during development phase, and documentation on how to set it up.
+
 
 == Setting up
+
+Before you start working on the project, please make sure that you have completed the necessary prerequisites.
 
 === Prerequisites
 
 . *JDK `9`* or later
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+*JDK `10`* on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github
+.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+Windows developers are highly recommended to use *JDK `9`*.
 
 . *IntelliJ* IDE
 +
@@ -47,14 +75,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/ssp/scheduleplanner/storage/XmlAdaptedTask.java[`XmlAdaptedTask.java`] and link:{repoURL}/src/main/java/ssp/scheduleplanner/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/ssp/scheduleplanner/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/ssp/scheduleplanner/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run `MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -65,7 +93,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Click on the `Imports` tab to set the order:
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
@@ -74,9 +102,10 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `ssp/scheduleplanner`
+repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `ssp/scheduleplanner`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -105,40 +134,44 @@ When you are ready to start coding,
 
 == Design
 
+This section covers the structural design of the App, as well as how its various components interact with each other.
+
 [[Design-Architecture]]
 === Architecture
+
+The *_Architecture Diagram_* given below explains the structural design of the App. It is followed by is a quick
+overview of each component.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/ssp/scheduleplanner/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level. They are:
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components:
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Model,*`Model`*>>: The component which holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: The component which reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Exposes its functionality using a ` (_Component Name_)Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, `Logic`(see the class diagram given below) defines its API in `Logic.java` interface
+and exposes its functionality using `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -146,21 +179,25 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command
+`delete 1`.
 
 .Component interactions for `delete 1` command (part 1)
-image::SDforDeletePerson.png[width="800"]
+image::SDforDeleteTask.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+`Model` simply raises a `SchedulePlannerChangedEvent` when the schedule planner data is changed, instead of
+asking `Storage` to save updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The diagram below shows how `EventsCenter` reacts to the event, after which the updates are saved
+to the hard disk, and the status bar of the `UI` is updated to reflect 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
-image::SDforDeletePersonEventHandling.png[width="800"]
+image::SDforDeleteTaskEventHandling.png[width="800"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+The event is propagated through `EventsCenter` to `Storage` and `UI`, without `Model` having to be coupled to either of
+them. This is an example of how Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
 
@@ -170,16 +207,19 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java//ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of `MainWindow`, which is made up of `CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter`, `SidebarPanel` etc.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+All these, including `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component,
+`UI` uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/ssp/scheduleplanner/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+`UI` component does the following:
+
+* Executes user commands using `Logic` component.
+* Binds itself to some data in `Model` so that the UI can auto-update when data in `Model` changes.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
@@ -190,35 +230,38 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/ssp/scheduleplanner/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+Below are the steps of how `Logic` executes an user command:
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+.  `Logic` uses `SchedulePlannerParser` to parse the user command.
+.  This creates a `Command` object which is executed by `LogicManager`.
+.  The command execution can affect `Model` (e.g. adding a task) and/or raise events.
+.  The result is encapsulated as a `CommandResult` object which is passed back to `Ui`.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+Given below is the Sequence Diagram for interactions within `Logic` for the `execute("delete 1")` API call.
+
+.Sequence diagram for `delete 1` Command within Logic Component
+image::DeleteTaskSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/ssp/scheduleplanner/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component does the following:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Schedule Planner data.
+* Exposes an unmodifiable, observable `ObservableList<Task>`  e.g. UI can be bound to this list, such that it
+automatically updates when data in the list changes.
+* Does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Schedule Planner`, which `Task` can reference. This would allow `Schedule Planner` to only require one `Tag` object per unique `Tag`, instead of each `Task` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -228,74 +271,141 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/ssp/scheduleplanner/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component does the following:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* Saves `UserPref` objects in json format and reads it back.
+* Saves the Schedule Planner data in xml format and reads it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `ssp.scheduleplanner.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section elaborates on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
+// tag::addrepeat[]
+
+=== Add Recurring Tasks
+
+The Add Repeat feature allows the user to add recurring tasks of a specified number of repeats and a specified interval between each repeat.
+
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The following code snippet shows how the command is implemented:
+
+----
+...
+// Loop through to add the rest of the tasks.
+for (int i = 1; i < Integer.parseInt(repeat.value); i++) {
+    baseDate.add(Calendar.DAY_OF_YEAR, interval);
+    newDate = schedulerFormat.format(baseDate.getTime());
+    date = new Date(newDate);
+    newTask = new Task(toAdd.getName(), date,
+            toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
+    // Add the task only if there is no duplicate task within the model.
+    if (!model.hasTask(newTask)) {
+            model.addTask(newTask);
+    }
+}
+...
+----
+
+This loop occurs after the first task is added. The tasks are created within the loop with duplicate names, priorities, venues and tags.
+Before adding a task, the function checks with the model if such a task already exists. If not, the task is added. If the task is a duplicate task, it is skipped and the loop proceeds until it terminates.
+
+The following outlines an example of the command's usage.
+
+Step 1. The user enters the command `repeat n/CS2103T Tutorial i/7 r/3 p/3 t/CS2103T t/Tutorial v/COM1`
+
+Step 2. The AddRepeatParser parses the command and isolates each of the arguments.
+
+Step 3. The Model checks if the first task exists. If the first task does not exist in Model, it is added. If not, it is skipped.
+
+Step 4. The execute command loops through to build each repeated task. In each loop, the date is incremented by the specified interval. Same as Step 3, a duplicate task is skipped and a task that does not exist in Model is added.
+
+Step 5. The changes are committed and the new list is shown to the user.
+
+
+The following sequence diagram shows how the add repeat operation works:
+
+image::AddRepeatSequenceDiagram.png[width="800"]
+
+// end::addrepeat[]
+
+// tag::undoredo[]
+=== Undo/Redo Commands
+
+The Undo/Redo feature allows the user to revert the schedule planner to an earlier state when 'undo' is called, or a
+later state when 'redo' is called.
+
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedSchedulePlanner`.
+It extends `SchedulePlanner` with an undo/redo history, stored internally as an `SchedulePlannerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSchedulePlanner.commit()` -- Saves the current schedule planner state in 'history'.
+* `VersionedSchedulePlanner.undo()` -- Restores the previous schedule planner state from 'history'.
+* `VersionedSchedulePlanner.redo()` -- Restores a previously undone schedule planner state from 'history'.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in `Model` interface as `Model#commitSchedulePlanner()`, `Model#undoSchedulePlanner()` and `Model#redoSchedulePlanner()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. `VersionedSchedulePlanner` will be initialized with the
+ initial schedule planner state, with `currentStatePointer` pointing to that single schedule planner state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command. The `delete` command calls `Model#commitSchedulePlanner()`, as a result
+ the modified state of the schedule planner is saved in `schedulePlannerStateList` after the `delete 5` command
+ executes, the `currentStatePointer` shifts to the newly inserted schedule planner state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/CS2100 Lect ...` to add a new task. The `add` command calls
+`Model#commitSchedulePlanner()
+`, and the modified schedule planner state is saved into `schedulePlannerStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command execution fails, it will not call `Model#commitSchedulePlanner()`, so the schedule planner state will not
+ be saved into `schedulePlannerStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides to undo that action by executing the `undo` command. The `undo` command will call
+`Model#undoSchedulePlanner()`, which shifts the `currentStatePointer` to the previous index, pointing to the
+previous schedule planner state, and restoring the schedule planner to its previous state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0(i.e the initial schedule planner state), then there are no previous states to restore to. The `undo` command uses `Model#canUndoSchedulePlanner()` to check this case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSchedulePlanner()`, which shifts the
+`currentStatePointer` to the next index, pointing to the next state, and restores the schedule planner to
+that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If `currentStatePointer` is at index `schedulePlannerStateList.size() - 1` (i.e pointing to the latest state), then there are no latest states to restore. The `redo` command uses `Model#canRedoSchedulePlanner()` to check this case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then executes the command `list`. Commands that do not modify the schedule planner, such as `list`,
+will usually not call `Model#commitSchedulePlanner()`, `Model#undoSchedulePlanner()` or `Model#redoSchedulePlanner()`. Thus, the `schedulePlannerStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSchedulePlanner()`. If the `currentStatePointer` is not
+pointing to the latest state in the `schedulePlannerStateList`, all states after the
+`currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -307,53 +417,946 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** The entire schedule planner is saved.
+** Pros: It is easy to implement.
+** Cons: It may have performance issues in terms of memory usage.
+* **Alternative 2:** Each individual command knows how to undo/redo by itself.
+** Pros: It will use less memory (e.g. for `delete`, just save the task being deleted).
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* **Alternative 1 (current choice):** A list is used to store the history of schedule planner states.
+** Pros: It is easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
+`HistoryManager` and `VersionedSchedulePlanner`.
+* **Alternative 2:** `HistoryManager` is used for undo/redo.
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: It requires dealing with commands that have already been undone: We must remember to skip these commands. It violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Log Messages
 
-_{Explain here how the data encryption feature will be implemented}_
+We are using `java.util.logging` package for logging. `LogsCenter` class is used to manage logging levels and
+destinations.
 
-// end::dataencryption[]
+How to log:
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The logging level can be controlled using `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* The log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+The following are logging levels used:
+
+* `SEVERE` : This is for critical problems detected which may possibly cause the termination of the application
+* `WARNING` : This is to warn that application can continue running, but with caution
+* `INFO` : This is for information showing the noteworthy actions by the App
+* `FINE` : This is for details that are not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::viewarangeoftasks[]
+
+=== View Tasks Due Today/This Week
+
+In order to enable users to better monitor their tasks in the schedule planner, Two variations of
+ `list` command were added.
+
+`listday` command supports viewing tasks due on the current date, whereas `listweek` command supports viewing tasks
+from the current date till the closest Sunday.
+
+==== Current Implementation
+
+`listday`/`listweek` utilises the same implementation used by `list` command:
+
+* `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model
+according to the predicate.
+
+`listday` further implements the following operation:
+
+* `DateSamePredicate` -- takes in a `systemDate` parameter.  `systemDate` is a
+`String` value after converting current system date into `DDMMYY` format.
+
+`listweek` further implements the following operations:
+
+* `numDaysTillSunday(dateName)` -- It compute the number of days from current date until closest Sunday (exclusive of
+Sunday) using `dateName`. `dateName` is the name of the current day.
+
+* `appendDateList(dateList, numDaysTillSunday(dateName))` -- It generates sequential `DDMMYY` values
+based on the result of `numDaysTillSunday(dateName)` and inserts them into `dateList` . `dateList` is a `List<String>`
+object.
+
+* `DateWeekSamePredicate` -- It takes in a `dateList` parameter. `dateList` is a `List<String>` object that contains
+the list of dates from current date to closest Sunday date in `DDMMYY` format.
+
+As both `listday`/`listweek` commands are similar, we will only illustrate how `listweek` works.
+Given below is an example usage scenario and how `listweek` mechanism behaves at each steps:
+
+Step 1. The user entered the command `listweek`.
+
+Step 2. The command word `listweek` invoke `LogicManger` to invoke `SchedulePlannerParser` to return a
+`ListWeekCommand` object. `LogicManager` then invoke `ListWeekCommand#execute()`.
+
+Step 3. `ListWeekCommand#appendDateList(datelist, numDaysTillSunday(dateName))` will be activated. It helps to generates
+values for `dateList` and the values are sequential dates in `DDMMYY` format after using the result from
+`numDaysTillSunday()` method. `numDaysTillSunday()` will compute the number of days from current date till Sunday based on `dateName`,
+the name of the current day.
+
+Step 4. `model.updateFilteredTaskList()` will update the task list with `DateWeekSamePredicate`
+as the parameter. `DateWeekSamePredicate` itself would take `dateList` in Step 3 as the parameter.
+
+Step 5. The updated task list would be reflected on `UI` to be displayed to the user.
+
+The following sequence diagram illustrates how the mechanism works:
+
+.Sequence Diagram of ListWeek Command
+image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
+// end::viewarangeoftasks[]
+
+// tag::viewarangeoftasks2[]
+==== Design Considerations
+
+===== Aspect: How does listday and listweek function
+
+* **Alternative 1 (current choice):** Filter accordingly based on the command itself
+** Pros: It is easy to implement and use.
+** Cons: It restrict to view all tasks from current date or from current date till Sunday only.
+* **Alternative 2:** Allow the commands to receive argument for which date(s) to filter.
+E.g listday 130818 to view all tasks for 13 August 2018.
+** Pros: It allows viewing for different date(s).
+** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
+// end::viewarangeoftasks2[]
+
+
+//tag::archive[]
+=== Archive Task
+
+The Archive Task feature allows user to archive completed tasks. The archived tasks are hidden from task list,
+can only be viewed through command `listarchived`. For implementation details
+regarding listing archived tasks, please refer to <<List Archived Tasks>>.
+
+==== Current Implementation
+The archiveTask mechanism is facilitated by SchedulePlanner.
+Schedule Planner has two lists of tasks,
+one is taskList for normal tasks, another is archivedTaskList for archived tasks.
+Normal task list is implemented using UniqueTaskList that does not allow duplicates,
+while archived task list is implemented using TaskList that allows duplicates. +
+Task list that is used to store normal tasks is implemented this way:
+----
+public class UniqueTaskList implements Iterable<Task> {
+   private boolean tasksAreUnique(List<Task> tasks) {
+       //... Check for duplicates logic...
+   }
+    //...
+}
+----
+While task list that is used to store archived tasks does not check for duplicates:
+----
+public class TaskList implements Iterable<Task> {
+    //...
+}
+----
+Given below is an example usage scenario and how the archiveTask mechanism behaves. We first
+assume that user executes command `archive 1`: +
+
+. The archiveCommand is created, 1 is recognised as `targetIndex`. +
+
+. `ArchiveCommand.execute()` calls `model.archiveTask()` and parse in `targetIndex` as parameter, which is `1`. +
+
+. `archiveTask()` method in schedulePlanner class is called, which deletes the first task shown in current task list from
+task list and stores it into archived task list.
+
+The following sequence diagram illustrates how the mechanism works:
+
+.Sequence Diagram of archive task command
+
+image::ArchiveTaskCommand.png[width="600"]
+
+==== Design Considerations
+
+===== Aspect: Storage of archived tasks
+
+* **Alternative 1 (current choice):** Save archived tasks in a separate list.
+Implement two task lists in Schedule Planner, one for normal tasks, another for archived tasks. For archived tasks,
+instead of using UniqueTaskList, implement a new class that allow duplicates.
+** Pros: When listing normal tasks, the program does not have to filter out archived tasks every time; which makes the
+algorithm more efficient. Besides, users is able to add in new task with same attributes as an archived task,
+which makes the design logic more reasonable for user and more user-friendly as well.
+** Cons: Listing archived tasks will need a new approach, different from other list commands; new class has to be
+ implemented to store archived tasks.
+
+* **Alternative 2:** Save archived tasks together with normal tasks.
+Schedule Planner only has one task list.
+Add boolean filed isArchived to Task class to differentiate archived and not archived tasks. +
+** Pros: It is easy to implement.
+** Cons: Each time list command is called, archived tasks have to be filtered out, which may affect performance.
+Besides, user cannot add in new task with same attributes as archived tasks, which is much less user-friendly.
+//end::archive[]
+
+//tag::autoDelete[]
+=== Automatic Partial Deletion of Archived Tasks
+The automatic deletion feature removes archived tasks with deadlines date earlier than 2 weeks ago from current time
+point from archived task list. There are two main reasons behind this feature. +
+Firstly, we want to optimize the user experience of viewing archived tasks. Users should be able to view archived tasks,
+but displaying all archived tasks would make the archived task list too bulky and hard to view. In other words, we want to stop the archived task
+list from growing to infinity. +
+Another reason is we want to save storage space used by our application as much as possible.
+
+==== Current Implementation
+Every time when the application is launched, archived list is checked through. Tasks with deadline date earlier than
+2 weeks ago are then permanently deleted from archived task list.
+
+.Sequence Diagram of automatic partial deletion of archived tasks feature
+
+image::AutoDelete.png[width="600"]
+
+Given below is detailed explanation of how auto-deletion mechanism behaves: +
+
+. Application is launched
+. `MainApp#init()` is called, which instantiates `Model` class and calls `Model#autoDeleteArchived()`.
+. `Model#autoDeleteArchived()` then calls `TaskList#autoDelete()`. Note that `TaskList` is an object type
+implemented to store archived tasks. `TaskList#autoDelete()` then scan through archived tasks and deletes
+those archived tasks with deadline date earlier than 2 weeks before current time point.
+
+==== Design Considerations
+===== Aspect: What tasks should we delete?
+We had a rough idea of deleting away "old" tasks. However, how should we define "old"? +
+
+* **Alternative 1 (current choice):** Delete tasks with deadline date earlier than 2 weeks before current date.
+** Pros: This implementation is easier for testing. Testers do not have to alternate their system time to
+test the feature.
+** Cons: The logic may be less user-friendly comparing to Alternative 2. A user's expectation is more likely
+to be "I can check tasks that were archived recently". For example, if user has just archived a
+task that has been overdue for 1 month (the deadline date of this task is 1 month earlier than current date),
+he/she may find it not so intuitive if next time he/she runs the app, the task cannot be found in archived task list.
+
+* **Alternative 2 :** Delete tasks that were archived 2 weeks before current date.
+** Pros: This implementation may be more user-friendly comparing with Alternative 1.
+** Cons: The feature would be hard to test for testers.
+//end::autoDelete[]
+
+
+// tag::listmonth[]
+=== List Tasks by Month
+
+The `listmonth` command is another variation of the `list` command, which supports viewing tasks due from the current
+date till the end of the month.
+
+==== Current Implementation
+
+`listmonth` utilises the same implementation used by the `list` command:
+
+* `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model according to the predicate.
+
+`listmonth` also utilises the same implementation used by the `listweek` command:
+
+* `DateWeekSamePredicate` -- It takes in a `dateList` parameter. `dateList` is a `List<String>` object that contains
+a list of dates from current date to the end of the month in `DDMMYY` format.
+
+`listmonth` further implements the following operations:
+
+* numDaysTillEndOfMonth(currentDay) -- It computes the number of days from current date until the end of the month
+using `currentDay`.  `currentDay` is the current date in `LocalDate` format.
+
+* appendDateList(dateList, numDaysTillEndOfMonth(currentDay)) -- It generates sequential `DDMMYY` values
+based on the result of `numDaysTillEndOfMonth(currentDay)` and adds them into 'dateList` . `dateList` is a
+`List<String>` object.
+
+Given below is an example usage scenario and how `listmonth` mechanism behaves at each steps:
+
+Step 1. The user enters the command `listmonth`.
+
+Step 2. The command word `listmonth` invokes `LogicManger`, which invokes `SchedulePlannerParser` to return a
+`ListMonthCommand` object. `LogicManager` then invokes `ListMonthCommand#execute()`.
+
+Step 3. `ListMonthCommand#appendDateList(datelist, numDaysTillEndOfMonth(currentDay))` will be invoked. It
+generates sequential dates in `DDMMYY` format which are added into `dateList`. `numDaysTillEndOfMonth(currentDay)`
+computes the number of days from the current date till the end of the month based on `currentDay`. `currentDay` is the
+current date in `LocalDate` format.
+
+Step 4. `model.updateFilteredTaskList()` updates the task list with `DateWeekSamePredicate` as the predicate.
+`DateWeekSamePredicate` takes `dateList` in Step 3 as its parameter.
+
+Step 5. The updated task list would be reflected on `UI` to be displayed to the user.
+
+The following sequence diagram illustrates how the mechanism works:
+
+.Sequence Diagram of ListMonth Command
+image::ListMonthSequenceDiagram.png[width:300]
+
+==== Design Considerations
+
+===== Aspect: How does listmonth function
+
+* **Alternative 1 (current choice):** Fixed date interval based on commands
+** Pros: It is easier to implement, and faster for the user.
+** Cons: It may not be as flexible, as it restricts view to tasks from current date till a fixed date in the future
+(last day of the month)
+
+* **Alternative 2:** Allow `list` commands to receive arguments for start/end dates
+E.g list 130818 200918 to view all tasks between the two dates.
+** Pros: It allows flexible viewing for different ranges.
+** Cons: It would be inconvenient to enter two date(s) each time the command is used.
+// end::listmonth[]
+
+// tag::generateacademiccalendar[]
+=== Generate Academic Calendar Weeks
+
+In order to enable users to better monitor their tasks in the schedule planner by knowing what is the current
+academic week, `firstday` command was added.
+
+`firstday` command will generate the weeks referencing to NUS academic calendar, and will append the week
+description to the application title if the user launches the application within the academic calendar dates.
+This allows the user to know the current academic week.
+
+[NOTE]
+Only 17 weeks are referenced from NUS academic calendar. More details at glossary.
+
+==== Current Implementation
+
+`firstday` mechanism is facilitated by `FirstDayCommand` and implements the following operations:
+
+* `FirstDayCommand#computeRangeOfWeek(firstDay)` -- It generate the academic calendar weeks data based on `firstDay`
+ parameter.
+
+* `FirstDayCommand#addDescriptionForWeeks` -- It appends description for each academic calendar weeks.
+
+* `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` -- It save the academic calendar weeks data into `rangeofweek.xml`
+
+* `FirstDayCommand#createDefaultFileIfNotExist()` -- It creates the default `rangeofweek.xml` if it does not exist.
+
+* `FirstDayCommand#createDefaultFileIfUnableConvert()` -- It creates the default `rangeofweek.xml` if data is unable
+to convert to be used.
+
+* `FirstDayCommand#createDefaultFileIfSizeDiff()` -- It creates the default `rangeofweek.xml` if the number of
+entries differ from the expected academic number of weeks.
+
+* `FirstDayCommand#createDefaultFileIfNull()` -- It creates the default `rangeofweek.xml` if any data is null.
+
+* `FirstDayCommand#createDefaultFileIfInvalidDateOrRange()` -- It creates the default `rangeofweek.xml` if date data in
+modified to be an invalid date or date range format.
+
+* `FirstDayCommand#computeAppTitle()` -- It computes the corresponding application title after checking if current
+system date is within academic calendar dates.
+
+* `FirstDayCommand#retrieveRangeOfWeeks(storeRangeOfWeeks)` -- It retrieves the saved academic calendar weeks data from
+`rangeofweek.xml`
+
+* `FirstDayCommand#isWithinDateRange(firstDayOfSem, lastDayOfSem)` -- Check if current system date is within
+`firstDayOfSem` and `lastDayOfSem` and return true or false.
+
+* `FirstDayCommand#retrieveWeekDescription(rangeOfWeek)` -- It return the description of a particular week
+
+* `FirstDayCommand#isMonday(inputDate)` -- It checks if `inputDate` is Monday and return true or false.
+
+
+Given below is an example usage scenario and how `firstday` mechanism behaves at each steps:
+
+Step 1. The user enter the command `firstday 130818`
+
+Step 2. The command word `firstday` invoke `LogicManager` to invoke `SchedulePlannerParser`. `SchedulePlannerParser`
+then invoke `FirstDayCommandParser#parse(130818)` which will then trim the argument `130818` into `trimmedArgs`.
+
+Step 3. Methods `onlyOneSetArgument(trimmedArgs)`, `Date#isValidDate(trimmedArgs)` and `isMonday(trimmedArgs)` are used
+ in sequential order to check if `trimmedArgs` is valid.
+
+[NOTE]
+If either method in Step 3 failed, `ParseException` with respective message will be thrown to inform user what had
+gone wrong. `FirstDayCommand` would then not be called.
+
+Step 4. `FirstDayCommandParser` return a `FirstDayCommand` with the validated `trimmedArgs` as its
+parameter.
+
+Step 5. `LogicManager` then invoke `FirstDayCommand#execute()`.
+
+Step 6. `FirstDayCommand#computeRangeOfWeeks(trimmedArgs)` will be activated and generate the academic calendar weeks
+. This method will further call `FirstDayCommand#addDescriptionForWeeks` to add description for each of the academic
+calendar weeks. The academic calendar weeks will be stored in a `2D String array` named `rangeOfWeek`.
+
+Step 7. `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` will be activated. It will create a
+`XmlSerializableRangeOfWeek` object with `rangeOfWeek` as its parameter to allow `rangeOfWeek` data to be
+converted into `Xml` format to be easily saved. Next, this method would call `XmlFileStorage#saveWeekDataToFile` to
+save `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeofweek.xml`
+
+[NOTE]
+`CommandException` will be thrown if `rangeofweek.xml` does not exist.
+
+Step 8. After the data had been saved properly, should the current system date lies within the academic calendar
+weeks, `UI` would display the corresponding week description to the user.
+
+image::FirstDayCommand_UG_Bef.png[width="500"]
+
+Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
+methods `fdc#createDefaultFileIfNotExist`, `fdc#createDefaultFileIfUnableConvert`, `fdc#createDefaultFileIfDiffSize`,
+`fdc#createDefaultFileIfNull` and `fdc#createDefaultFileIfInvalidDateOrRange`.
+
+If it is the first time the user launches the application or if user deleted `rangeofweek.xml` or invalidated data in
+`rangeofweek.xml`, the application will record the log message and create a default `rangeofweek.xml`.
+
+The following code snippet shows that with the extra layer of data verification and rectification, the user do not need
+ to worry when they accidentally invalidated the storage file.
+
+image::FirstDayCommand_DG_MainAppLaunchSnippet.png[width="300"]
+
+Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method
+`updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would create a `2D String Array` called
+`retrieveData` for storing academic semester dates to operate `FirstDayCommand#retrieveRangeOfWeeks(retrieveData)` to
+ retrieve saved data.
+
+It then check if system date is within the `retrieveData` by using `FirstDayCommand#isWithinDateRange(x,y)` where `x`
+and `y` stands for the first academic and last academic day respectively. If it is within, it then generate the
+corresponding application title by using `FirstDayCommand#retrieveWeekDescription(retrieveData)`. Else it uses the
+default application title. It would then return the result into `updateConfig.setAppTitle()` to update the
+application title.
+
+Step 11. `MainApp` then calls `ConfigUtil#saveConfig(updateConfig, configFilePathUsed)` to save the updated
+configuration into the path `configFilePathUsed` where `config.json` is.
+
+Step 12. `MainApp` would then retrieve the application title from `config.json` and display on `UI`.
+
+image::FirstDayCommand_UG_Aft.png[width="300"]
+
+[NOTE]
+`CommandException` will be thrown if data from `rangeofweek.xml` could not be converted or if `rangeofweek.xml` does
+not exist.
+
+The following sequence diagrams illustrates how the mechanism works:
+
+.Sequence diagram of FirstDay Command
+image::FirstDayCommand_DG_SequenceDiagram.png[width="650"]
+
+.Sequence diagram of launching MainApp
+image::LaunchMainApp_DG_SequenceDiagram.png[width="650"]
+
+
+==== Design Considerations
+
+===== Aspect: How firstday command functions
+
+* **Alternative 1 (current choice):** Generate entire academic calendar weeks by input the first academic Monday date.
+** Pros: It would only need one set of date.
+** Cons: It would require many methods to validate, generate the data.
+* **Alternative 2:** Allow user to create their own academic calendar such as having customised number of weeks and
+description for each weeks.
+** Pros: It would allow customisation.
+** Cons: It would be time and effort consuming for the user and also to validate the data.
+
+===== Aspect: Data structure to support storing of academic calendar weeks data
+
+* **Alternative 1 (current choice):** `2D String array` is used.
+** Pros: It would allow easy data retrieval for specific `index`.
+** Cons: It could cause confusion especially if magic numbers were used instead of constant.
+* **Alternative 2:** `ArrayList` is used.
+** Pros: It would not require sequential memory for storage.
+** Cons: It would not allow data retrieval at any specific `index` which requires traversing.
+
+// end::generateacademiccalendar[]
+
+// tag::filtertags[]
+
+=== Filter by Tags (`filter` and `filterstrict`)
+
+The `filter` & `filterstrict` commands allow the user to filter tasks in the schedule planner according to their tags.
+The user may search for multiple tags at once, and the schedule planner returns a list of tasks containing the tags
+specified by the user.
+
+The `filter` command searches for tasks inclusively, which means that when multiple tags are input, SSP filters tasks
+containing ANY of the user-input tags (e.g 'A', or 'B', or both 'A' & 'B').
+
+In contrast, `filterstrict`,filters tasks containing ALL of the user-input tags. (e.g ONLY 'A' & 'B')
+
+
+==== Current Implementation
+
+Since `filter` and `filterstrict` are implemented in similar fashion, we will simply refer to `filter`.
+
+The filter mechanism utilises `FilterCommandParser` to parse the user command into separate tags by invoking the method
+`FilterCommandParser.parse(args)`, where `args` are the tags to be filtered.  e.g `tag1 tag2` will be parsed into
+`tag1` and `tag2`.
+
+Given below is an example usage scenario and how the filter mechanism behaves at each step:
+
+Step 1. The user executes the command `filter tutorial CS2100`
+
+Step 2. The 'filter' command invokes `FilterCommandParser`, which parses the argument `tutorial CS2100` into separate
+words `tutorial` and `CS2100`, and are stored in an array in the predicate `TagsContainsKeywordsPredicate`.
+
+Step 3. `FilterCommandParser` then returns a `FilterCommand` , which contains `TagsContainsKeywordsPredicate`, a
+predicate which tests for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` calls `model
+.updateFilteredTaskList(TagsContainsKeywordsPredicate)`, which returns an updated list of tasks containing any of the
+ tags input by the user.
+
+[NOTE]
+`filter` filters tasks inclusively, while `filterstrict` filters tasks exclusively.
+
+
+The following sequence diagram summarizes what happens when a user executes a new filter command:
+
+image::FilterSequenceDiagram.png[width="300"]
+
+==== Design Considerations
+
+===== Aspect: How filter executes
+
+* **Alternative 1 (current choice):** The filter command is inclusive i.e filtering for A and B returns tasks with A,
+ B, or both.
+** Pros: It is easy to implement, it is also consistent with how the 'find' command works.
+** Cons: It is not as specific.
+
+* **Alternative 2:** The filter command is exclusive, i.e filtering for A and B returns tasks with A & B
+** Pros: It is more specific (e.g. filters the tasks more strictly).
+** Cons: It is inconsistent with the original implementation of the 'find' command. It is more difficult to implement.
+
+//end::filtertags[]
+
+
+//tag::listoverdue[]
+=== List Overdue Tasks
+The `listoverdue` command allows the user to view the list of all overdue tasks. A task is considered overdue if its
+deadline has passed. In other words, the system's current date is after the deadline.
+
+==== Current Implementation
+
+Given below is a code snippet of the ListOverdueCommand.
+----
+...
+public CommandResult execute(Model model, CommandHistory history) {
+    // Filter the task list using the OverduePredicate with the current date as the parameter.
+    model.updateFilteredTaskList(new OverduePredicate(SYSTEM_DATE));
+    EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
+    return new CommandResult(MESSAGE_SUCCESS);
+}
+...
+----
+
+The ListOverdueCommand calls the method updateFilteredTaskList with a new OverduePredicate which has the current date as the parameter.
+
+----
+public boolean test(Task task) {
+    return date - task.getDate().yymmdd > 0 ? true : false;
+}
+----
+
+The test function within OverduePredicate class compares the current system date with the date of the task. If the task's date is after
+the current time, the function returns false, and vice versa.
+
+Model contains a UniqueTaskList called tasks.
+
+Given below is an example usage scenario and how the list overdue mechanism behaves at each step:
+
+.Sequence Diagram of ListOverdueCommand
+image::ListOverdueSequenceDiagram.png[width="800"]
+Step 1. The user executes the command `listoverdue`.
+
+Step 2. `model.updateFilteredTaskList()` will update the task list with `OverduePredicate` as the parameter
+`OverduePredicate` itself takes the current system date in the yyMMdd format.
+
+Step 3. The updated task list would be reflected on the UI to be displayed to the user.
+
+==== Design Considerations
+
+===== Aspect: How the overdue tasks are stored
+
+* **Alternative 1 (current choice):** The overdue tasks are not stored in a separate UniqueTaskList. Instead, the
+UniqueTaskList tasks is filtered with OverduePredicate each time the `listoverdue` command is called.
+** Pros: Does not require a new UniqueTaskList.
+** Cons: If the number of tasks is huge, filtering will take a long time. However, this is not a problem since
+the number of tasks is small at any given point of time.
+
+* **Alternative 2:** The overdue tasks are stored in a new UniqueTaskList.
+** Pros: Retrieving is overdue tasks is faster.
+** Cons: A new UniqueTaskList has to be implemented.
+//end::listoverdue[]
+
+//tag::listarchivedtasks[]
+
+=== List Archived Tasks
+
+The `listarchived` command allows the user to view the list of all archived tasks. Whenever the user completes a task,
+he/she will archive it. When archived, the task will be moved from the task list into a separate archive list that stores
+all completed tasks. If the user wishes to view all of his/her completed tasks, the `listarchived` command will display
+all of the archived tasks.
+
+==== Current Implementation
+
+Model contains two UniqueTaskLists - tasks and archivedTasks - each containing the tasks and archived tasks respectively.
+
+Given below is an example usage scenario and how the list archived mechanism behaves at each step:
+
+Step 1. The user executes the command `listarchived`.
+
+Step 2. The `listarchived` command raises a new ChangeViewEvent that signals a change to archived view.
+
+Step 3. MainWindow responds to the ChangeViewEvent with MainWindow#handleChangeViewEvent().
+
+Step 4. MainWindow calls Logic#getFilteredArchivedTaskList(). It then creates a new TaskListPanel instance with Tasks in that list.
+
+Step 5. MainWindow places the new TaskListPanel in the TaskListPanelPlaceHolder. The archived tasks are now displayed.
+
+The following sequence diagram shows how the list archive operation works:
+
+image::ListArchivedSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How to change what is displayed
+
+* **Alternative 1 (current choice):** The task list panel's contents are replaced with a new task list containing archived tasks.
+** Pros: Only one section of the UI has to be changed.
+
+* **Alternative 2:** Two JavaFX scenes are created. To handle display changes, switch to the corresponding scene.
+** Pros: It is the proper way of handling change in display with JavaFX.
+** Cons: Since only one section of the UI needs to be changed, changing the whole scene seems redundant.
+
+//end::listarchivedtasks[]
+
+//tag::sorting[]
+=== Sort tasks
+The sorting feature enables tasks to be displayed in the order of deadline date and priority.
+This feature applies to all tasks except archived tasks.
+
+==== Current Implementation
+Sorting feature does not require any user input command.
+Whenever the tasks are listed, they are always listed according to deadline date, then priority. Our application offers
+3 priority levels from 1 to 3, 3 is the highest priority and 1 is the lowest. +
+
+Assume there are two tasks in a task list, task A and task B. Given below is the scenario when
+task list is retrieved from schedule planner using any kind of `list` command and how the sorting mechanism
+behanves.
+
+. `UniqueTaskList#sorted()` is called and `Task#compare()` is parsed in as comparator.
+. `Task#compare()` calls Date.compare(), which compares the deadline date of task A and task B.
+
+.. If task A has earlier deadline date than task B, the order will be task A followed by task B, and vice versa.
+.. If task A and task B have the same deadline date,
+`Priority#compare()` is then called, which compares priority of task A and task B.
+
+... If task A has higher priority than task B, the order will be task A followed by task B and vice versa.
+... If task A and task B have the same priority, then `Name#compare()` is called,
+which compares the task name of A and B according to JAVA `compareTo()` method of `String` class. +
+
+Given below is a sequence diagram of the sorting feature.
+
+.Sequence diagram of sorting feature.
+
+image::Sorting.png[width="600"]
+
+==== Design Considerations
+===== Aspect: How should sorting be executed
+
+* **Alternative 1 (current choice): ** Automatically sort tasks whenever tasks are listed. In other words,
+whenever tasks are shown on UI, they are sorted according to deadline and priority.
+** Pros: The user experience is better using this approach,
+         because tasks are always listed in the order of deadline and priority.
+         The code required is less than Alternative 2 as well.
+** Cons: The performance of the application may be affected if the task list size is significantly large,
+         because the task list has to be traversed and sorted before displaying on UI. Of course considering actual
+         use case, such performance issue should be negligible.
+
+* **Alternative 2: ** Implement sort command exclusively for sorting tasks. For example, use command `sort tasks`
+to obtain sorted list of all tasks, and `sort archived` for sorted list of archived tasks.
+** Pros: We do not have to worry about performance issue.
+** Cons: Users have to type command `sort` every time, which is apparently not so user-friendly.
+//end::sorting[]
+
+
+//tag::tags[]
+=== Managing Tags Using Category
+
+The category feature enables users to organize their tags. Users can create category and
+save relevant tags inside category. There are two default categories in schedule planner,
+category `Modules` and category `Others`. These two default categories cannot be renamed or
+deleted, but user have full freedom to rename or delete other categories added by themselves.
+
+==== Current Implementation
+Each category has a unique name, and contains a list of tags. The list of tags is implemented
+using UniqueTagList, which does not allow duplicates, in other words, tags with same name.
+Given below is a snippet of implementation of UniqueTagList:
+----
+public class UniqueTagList implements Iterable<Tag> {
+    private boolean tagsAreUnique(List<Tag> tags) {
+        //Checks if tags are unique...
+    }
+}
+----
+Given below is a snippet of implementation of category:
+----
+public class Category {
+    //Two attributes, name and tag list
+    private String name;
+    private UniqueTagList tags;
+
+    ///Other implementation...
+}
+----
+
+Schedule Planner contains a list of cateogry list, implemented using `UniqueCategoryList`.
+`UniqueCategoryList` is a list used to save categories which does not allow duplicates.
+Any two categories with same name are considered identical. Given below is a snippet
+its implementation:
+----
+public class UniqueCategoryList implements Iterable<Category> {
+    public boolean contains(String name) {
+        //Checks whether this category name has been used...
+    }
+
+    private boolean categoriesAreUnique(List<Category> categories) {
+        //Checks whether there are duplicate categories...
+    }
+    //Other implementation...
+}
+----
+Given below is an example usage scenario and how the category mechanism behaves at each step: +
+
+Step 1. User enters command `addcat c/Game list` to add a category named `Game list`.
+
+. The `addcat` command is executed. `AddCategoryCommand#execute()` calls `Model#addCategory()`.
+. `Model#addCategory()` calls `VersionedSchedulePlanner#addCategory()`.
+. `SchedulePlanner#addCategory()` then calls `UniqueCategoryList#add()`.
+. `UniqueCategoryList#add()` checks if
+the existing category list contains any category with identical name as new category, if exists, `DuplicateCategoryException()`
+is thrown; if not, new category is created and added to category list. +
+Given below is the sequence diagram of add category command which explains how the mechanism works:
+
+
+.Sequence Diagram of Add Category Command
+
+image::AddCategoryCommand.png[width="600"]
+
+When user is adding tasks using unspecified tags (tags that have never been added to any category),
+the tags will be automatically added to default category `Others`.
+
+Step 2. User enters command `addtag c/Game list t/Zelda` to add tag `Zelda` into category `Game list`.
+
+. The command string is first passed to `AddTagCommandParser`, which parses string `Zelda` to tag (let us call it `tagZelda`)
+and creates `AddTag` command.
+. The command is then executed. `AddTagCommand#execute()` calls `Model#addTag()` and passes
+ `tagZelda` and string `Game list` as parameter.
+ . `Model#addTag()` calls
+`VersionedSchedulePlanner#addTag()`, passes in `tagZelda` and string `Game list` as parameter.
+. `VersionedSchedulePlanner#addCategory()` then calls
+`UniqueCategoryList#getCategory()`, passing in string `Game list` as parameter and obtains corresponding category
+(let us call it `categoryGameList`).
+. `Category#addTag()` is then called with parameter `categoryGameList` to add tag `tagZelda` to category `categoryGameList`.
+If there already exists a tag named `Zelda` in UniqueTagList of category `categoryGameList`, exception `DuplicateTagException`
+is thrown. +
+
+Given below is the sequence diagram of add tag command.
+
+.Sequence Daigram of Add Tag Command
+image::AddTagCommand.png[width="600"]
+
+Step 3. User enters command `editcat c/Game list c/Reading list` to rename category from `Game list` to `Reading list`.
+
+. `EditCategoryCommandParser` creates `EditCategoryCommand`.
+When `EditCategoryCommand` executes, it calls `Model#editCategory()` and passes in string `Game list` and string `Reading list`
+as parameter.
+. `Model#editCategory()` calls `VersionedSchedulePlanner#editCategory()` with parameter
+ string `Game list` and string `Reading list`.
+. `VersionedSchedulePlanner` then calls `UniqueCategoryList#setCategory()`
+to obtain the category named `Game list` (let us call it `categoryGameList`) and create a new category with
+name `Reading list` and same tag list as category `categoryGameList`, replace category
+`categoryGameList` with this new category.
+Below is a snippet of implementation of `UniqueCategoryList#setCategory()` used here:
+
+----
+    public void setCategory(String originalName, String newName) {
+        //...
+        //Obtain the category with name "Game list"
+        Category oldCategory = getCategory(originalName);
+        //Creat a new category which is identical to original category except name
+        Category newCategory = new Category(newName, oldCategory.getUniqueTagList());
+        internalList.set(internalList.indexOf(oldCategory), newCategory);
+    }
+----
+
+Given below is the sequence diagram of edit category command:
+
+
+. Sequence Diagram of Edit Category Command
+
+image::EditCategoryCommand.png[width="600"]
+
+Step 4. User enters command `removecat c/Reading list` to remove the category named `Reading list`. Let us call this
+category `categoryReadingList`.
+
+. `RemoveCategoryCommandParser` creates `RemoveCategoryCommand`.
+. When `RemoveCategoryCommand` executes, it calls `Model#removeCategory()` and passes in string `Reading list` as parameter.
+. `Model#removeCategory()` calls `VersionedSchedulePlanner#removeCategory()` with parameter string `Reading list`.
+. `VersionedSchedulePlanner` then calls `UniqueCategoryList#removeCategory()` to obtain category named `Reading list`
+(let us call it `categoryReadingList`) and remove it.
+. After `categoryReadingList` is removed, its tag list is removed as well. For example, if user has added tag `Zelda` only in
+category named `Reading list`, then after removing this category, tag `Zelda` will be lost from schedule planner. +
+
+Given below is the sequence diagram of remove category command:
+
+
+.Sequence Diagram of Remove Category Command
+
+image::RemoveCategory.png[width="600"]
+
+
+Besides adding tag, renaming (editing) and removing, we support clearing category as well.
+Clear category command clears the tags list of selected category.
+Mechanism of clearing category is very similar to renaming (editing) category.
+`Model#clearCategory()` calls `VersionedSchedulePlanner#clearCategory()`, which then initialize a new empty
+category with name `"Modules"`.
+Below is a code snippet of `VersionedSchedulePlanner#clearCategory()`:
+----
+    public void clearCategory(String name) {
+        //...
+        this.categories.setCategory(name, new Category(name));
+    }
+----
+Below is a code snippet of #UniqueCategoryList#setCategory()` used here, which is slightly different from
+what is used in editing category:
+
+----
+    public void setCategory(String originalName, Category newCategory) {
+        //...
+        Category oldCategory = getCategory(originalName);
+        internalList.set(internalList.indexOf(oldCategory), newCategory);
+    }
+----
+We omit the sequence diagram here because of its similarity to edit category command.
+
+==== Design Consideration
+
+===== Aspect: How to store and manage tags
+* **Alternative 1 (current choice):** Store Categories as `UniqueCategoryList` and allow users to
+add tags to categories. There will be no `UniqueTagList` directly managed by schedule planner. All tags
+are saved under UniqueTagList under individual Category. Because our application is catered for university
+students, we set two default categories, `Modules` and `Others`.
+** Pros: We allow users more freedom to manipulate with their tags and categorize their tags.
+User can add one tag to several categories, and the tags saved under different categories do not interfere with each other. This is the most
+user-friendly design we can think of so far.
+** Cons: The implementation is more complicated than Alternative 2. Besides, this mechanism requires more
+commands to operate, which could be harder for user to remember.
+
+* **Alternative 2:** Store tags in `UniqueTagList` directly managed by schedule planner.
+The schedule planner has two tag lists, one is `Modules` and another one is `Others`.
+** Pros: It is easy to implement, and the operation requires less commands.
+** Cons: User has less freedom in managing tags. This design is less user-friendly than
+Alternative 1.
+
+//end::tags[]
+
+
+
+//tag::displaytagsinsidebar[]
+
+=== Display Tags in Sidebar
+
+Whenever the user tags a task with a new tag, the tag will be added to the sidebar panel. The user will be able to view
+all of the tags he/she has used to categorize tasks. Entering the command tags c/CATEGORY will expand the tab for the specified category to show all tags listed under that category.
+
+==== Current Implementation
+
+Every time any category or tag is changed in the Student Schedule Planner, it raises a SchedulePlannerChangedEvent. The UI will then handle that event and update the side bar panel with the new version of categories and tags.
+
+Given below is an example usage scenario and how the schedule planner behaves at each step:
+
+Step 1. The user executes command `addtag c/Modules t/CS2100`.
+
+Step 2. The `addtag` command updates the model with the new tag and raises a new SchedulePlannerChangedEvent.
+
+Step 3. SidebarPanel responds to the SchedulePlannerChangedEvent with SidebarPanel#handleSchedulePlannerChangedEvent().
+
+Step 4. The Accordion containing all the categories and tags is cleared.
+
+Step 5. The Accordion is filled with the new list of updated categories and tags.
+
+Step 6. The user executes command `tags c/Modules`.
+
+Step 7. The ShowTagsCommand raises a new ShowTagsRequestEvent("Modules").
+
+Step 8. SidebarPanel responds to the ShowTagsRequestEvent with SidebarPanel#handleShowTagsRequestEvent().
+
+Step 9. The TitledPane with the matching name "Modules" is expanded to display all the tags listed under the Modules category.
+
+Below is a code snippet showing how the SidebarPanel handles a ShowTagsRequestEvent:
+
+----
+@Subscribe
+    public void handleShowTagsRequestEvent(ShowTagsRequestEvent e) {
+        String catName = e.getCategory();
+        ObservableList<TitledPane> titledPanes = accordion.getPanes();
+        for (TitledPane titledPane : titledPanes) {
+            if (titledPane.getText().equals(catName)) {
+                accordion.setExpandedPane(titledPane);
+            }
+        }
+    }
+----
+
+==== Design Considerations
+
+===== Aspect: How to update the tags on UI
+
+* **Alternative 1 (current choice):** Clear all the TitledPanes and add new TitledPanes accordingly.
+** Pros: No matter which category or tag is changed, or what type of change (ie. delete, add, or edit), this change can be handled by the same method each time.
+** Cons: It is redundant to clear everything and replace them with new TitledPanes.
+
+* **Alternative 2:** Handle different kinds of changes to the category or tag lists.
+** Pros: It is a lot faster to only change the TitledPane that is affected.
+** Cons: There are too many cases for how the lists can be changed. (ie. a different change is needed for each of these cases: category is deleted/edited/created/cleared, or a tag is deleted/added)
+
+//end::displaytagsinsidebar[]
+
+//tag::progressbar[]
+=== Display Progress Bars
+
+The progress bars for today's progress and this week's progress at the bottom reflect the percentages automatically when the schedule planner is changed in any way.
+
+==== Current Implementation
+
+Whenever the user makes a change in the schedule planner, for example add, delete, or archive a task, it raises a new SchedulePlannerChangedEvent.
+UI part ProgressBarPanel will handle this event and update the values for both today and this week's progress bars.
+
+Given below is an example usage scenario and how the progress bar mechanism behaves at each step:
+
+Step 1. User archives a Task due today.
+
+Step 2. A new SchedulePlannerChangedEvent is raised.
+
+Step 3. ProgressBarPanel handles the event with ProgressBarPanel#handleSchedulePlannerChangedEvent().
+
+Step 4. The taskList is retrieved by SchedulePlannerChangedEvent#data.getTaskList(). The archivedTaskList is retrieved by SchedulePlannerChangedEvent#data.getArchivedTaskList().
+
+Step 5. ProgressBarPanel#updateProgressBars(taskList, archivedTaskList) is called.
+
+Step 6. After filtering through each lists with the DateSamePredicate, their sizes are calculated.
+
+Step 7. The number of completed tasks for today is the size of the filtered archived list, while the total number of tasks for today is the size of both the filtered archived list and the filtered task list.
+
+Step 8. The fraction is calculated from completed / total. Then the progress bar for today is set to that fraction.
+
+Step 9. The same is done for this week's progress bar but the lists are filtered with DateWeekSamePredicate.
+
+The following sequence diagram shows how the progress bar mechanism works:
+
+image::ProgressBarSequenceDiagram.png[width="700"]
+
+==== Design Considerations
+
+===== Aspect: How the percentages are calculated
+* **Alternative 1 (current choice):** Calculate the percentage of progress by finding the size of filtered task list and filtered archived list.
+** Pros: It is easy to implement.
+** Cons: It may be slow if the task list and archived task list are very long.
+
+* **Alternative 2:** Keep track of number of uncompleted and completed tasks in new Objects called Day and Week.
+** Pros: It is much faster to calculate the percentage compared to filtering each task list by a predicate then calculating its size.
+** Cons: The Day and Week objects must be updated for a majority of the commands the app supports. If I had more time, I would have been able to implement this fully.
+
+//end::progressbar[]
 == Documentation
 
-We use asciidoc for writing documentation.
+We used asciidoc for writing documentation.
 
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
@@ -371,7 +1374,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
-Here are the steps to convert the project documentation files to PDF format.
+Here are the steps to convert the project documentation files to PDF format:
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
@@ -463,7 +1466,8 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable method is Method 3. The first two methods might fail some GUI tests due to
+platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -487,16 +1491,16 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
+.  *GUI Tests* - These are tests involving the GUI. They include:
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
-..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
-..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+.. _Unit tests_ that test the individual components. These are in `ssp.scheduleplanner.ui` package.
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
+..  _Unit tests_ that target the lowest level methods/classes. +
+e.g. `ssp.scheduleplanner.commons.StringUtilTest`
+..  _Integration tests_ that check the integration of multiple code units (those code units are assumed to be working). +
+e.g. `StorageManagerTest`
+..  Hybrids of unit and integration tests. These tests check multiple code units as well as how the are connected together. +
+e.g. `LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -524,309 +1528,34 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 === Making a Release
 
-Here are the steps to create a new release.
+Here are the steps to create a new release:
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/ssp/scheduleplanner/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
+A project often depends on third-party libraries. For example, Schedule Planner depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than the following alternatives: +
+a. Including those libraries in the repo (this bloats the repo size) +
+b. Requiring developers to download those libraries manually (this creates extra work for developers)
 
 [[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* have a need to manage their schedules for daily tasks
+* have a want to view and be reminded of important things
+* be able to set priority level on their schedule
+* prefer typing over mouse input
+* want a customizable schedule planner
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Student Scheduler Planner manages schedules faster than a typical mouse/GUI driven
+ app yet retains some GUI interface to allow users to have an easier view.
 
 [appendix]
 == User Stories
@@ -836,65 +1565,396 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |student |add task to to-do list |keep track of tasks to do
 
-|`* * *` |user |add a new person |
+|`* * *` |student |view tasks in to-do list |know when the deadlines of my tasks are
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |modify tasks in to-do list |adjust or change my tasks according to my schedule
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |student |delete completed tasks in to-do list |keep my to-do list clean and neat
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |view overdue tasks at the main page |take note of the deadlines that I missed and try to make up
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |student |sort tasks by priority |know what tasks I should do first
+
+|`* * *` |student |view tasks for today |have a study/life plan for this day
+
+|`* * *` |student |view tasks for next 7 days |have a relatively clear plan of this week
+
+|`* * *` |student |view tasks for the rest of the month |view my schedule for the month
+
+|`* * *` |student |search my tasks by name |find specific tasks easily
+
+|`* * *` |student |search my tasks by tags |find specific tasks easily
+
+|`* * *` |student |view all commands |to guide me so that I could use the application
+
+|`* * *` |student |view a calendar of all to-do tasks |have an overview of all the tasks to do
+
+|`* * *` |student |view a history of all my commands in user-friendliness format |view what changes I had made before
+
+|`* * *` |student |clear the screen |have my screen interface cleaned of commands and result
+
+|`* *` |student |sort tasks by tags |tag my tasks
+
+|`* *` |student |sort tasks by category |categorise my tasks
+
+|`* *` |student |create a "workshop" list |record all the workshops that I have signed up
+
+|`* *` |student |customise the theme of the student schedule planner |personalise how my student schedule planner looks like
+
+|`* *` |student |undo my command |correct my mistake
+
+|`* *` |student |redo my command |correct my accidental "undo"
+
+|`* *` |student |add and view subtasks under each task |know specifically what tasks requires
+E.g CS2103T Project: Write User guide, Review Pull Requests, Peer Evaluation)
+
+|`*` |student |add my tasks that are non-school related |have a schedule mixed with both school and non-school related tasks
+
+|`*` |student |list my tasks that are non-school related |view my upcoming schedule of non-school related tasks
+
+|`*` |student |update my tasks that are non-school related |update my upcoming schedule of non-school related tasks
+
+|`*` |student |delete my non-school related tasks if they are done |update my upcoming schedule of non-school related tasks
+
+|`*` |student |search for my non-school related tasks |to find a particular non-school related tasks
 |=======================================================================
 
 _{More to be added}_
 
+
 [appendix]
+// tag::usecase[]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Student Schedule Planner` and the *Actor* is the `user`, unless specified otherwise)
+// end::usecase[]
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add Task
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add task into Student Schedule Planner.
+2.  Student Schedule Planner adds the exam into task list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The add Task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: List Task
+
+*MSS*
+
+1.  User requests to view task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list task command did not follow the correct format.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Student Schedule Planner shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Modify Task
+
+*MSS*
+
+1.  User requests to list task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
+3.  User request to edit a specific task in the list.
+4.  Student Schedule Planner updates the task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+[none]
+* 3a. The Modify task command did not follow the correct format.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case resume at step 3.
+
+[discrete]
+=== Use case: Delete Task
+
+*MSS*
+
+1.  User requests to list task list from Student Schedule Planner.
+2.  Student Schedule Planner display the task list.
+3.  User request to delete a specific task in the list.
+4.  Student Schedule Planner delete the task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 2a1. The list is empty.
++
+Use case ends.
+[none]
+* 3a. The Delete task command did not follow the correct format.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+* 3b. The task to be deleted does not exist.
++
+[none]
+** 3b1. Student Schedule Planner shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Search Task
+
+*MSS*
+
+1.  User requests to search a specific task by its name from Student Schedule Planner.
+2.  Student Schedule Planner filter the task by the given parameter.
+3.  Student Schedule Planner display the filtered task.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The search task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus display empty list.
++
+Use case ends.
+
+// tag::usecasefilter[]
+[discrete]
+=== Use case: Filter Tasks according to Tags (Inclusive)
+
+*MSS*
+
+1.  User requests to filter tasks by its tags from Student Schedule Planner.
+2.  Student Schedule Planner filters the tasks with tags entered by user.
+3.  Student Schedule Planner displays the filtered tasks.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filter task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: Filter Tasks according to Tags (Exclusive)
+
+*MSS*
+
+1.  User requests to strictly filter tasks by its tags from Student Schedule Planner.
+2.  Student Schedule Planner strictly filters the tasks with tags entered by user.
+3.  Student Schedule Planner displays the strictly filtered tasks.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filterstrict task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The strictly filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+// end::usecasefilter[]
+
+[discrete]
+=== Use case: List tasks due today
+
+*MSS*
+
+1.  User requests to view tasks due on current date from the Student Schedule Planner.
+2.  Student Schedule Planner filters tasks by current date.
+3.  Student Schedule Planner displays list of tasks due on current date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `listday` command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+
+[discrete]
+=== Use case: List tasks due until this Sunday
+
+*MSS*
+
+1.  User requests to view tasks due from the current date to Sunday from the Student Schedule Planner.
+2.  Student Schedule Planner filters tasks from current date to Sunday.
+3.  Student Schedule Planner displays list of tasks due from current date to Sunday.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `listweek` command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+
+[discrete]
+
+// tag::usecaselistmonth[]
+=== Use case: List tasks due until the end of the month
+
+*MSS*
+
+1.  User requests to view tasks due from the current date until the end of month from the Student Schedule Planner.
+2.  Student Schedule Planner filters tasks from the range of current date until end of month
+3.  Student Schedule Planner display list of tasks due from current date until end of month.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `listmonth` command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+// end::usecaselistmonth[]
+
+[discrete]
+=== Use case: Generate academic calendar weeks
+
+*MSS*
+
+1.  User keys in a specific date to generate the academic calendar weeks.
+2.  Student Schedule Planner generates the academic calendar weeks.
+3.  Student Schedule Planner saves the academic calendar weeks.
+4.  Student Schedule Planner displays to user the command result.
+5.  User launches the Student Schedule Planner at any time after Steps 1 - 4.
+6.  Student Schedule Planner retrieves data saved.
+7.  Student Schedule Planner displays the updated application title based on the retrieved data.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The specific date did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The data could not be saved.
++
+[none]
+** 3a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 5a. The data could not be retrieved.
++
+[none]
+** 5a1. Student Schedule Planner shows an error message.
+Use case ends.
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The app should work on most Mainstream OS as long as it has Java `9` or higher installed.
+.  Each command execution time should not take more than 3 seconds.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
+
+[[MSS]] MSS::
+Main Success Scenario (MSS) is the steps of a scenario to be followed to accomplish the objective goal.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -902,23 +1962,12 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+[[NUS-academic-calendar]] NUS academic calendar::
+Refers to the academic calendar used by National University of Singapore. This product references only 17 weeks of
+the calendar (Week 1 to Examination Week). +
+Referenced from: http://www.nus.edu.sg/registrar/info/calendar/AY2018-2019.pdf
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
+// tag::appendix[]
 [appendix]
 == Instructions for Manual Testing
 
@@ -926,6 +1975,7 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+// end::appendix[]
 
 === Launch and Shutdown
 
@@ -941,26 +1991,195 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a task
 
-=== Deleting a person
+. Adding a task to the task list
 
-. Deleting a person while all persons are listed
+.. Test case: `add n/cs2100 d/161118 p/3 v/home` +
+   Expected: A new task is added and reflected in the panel on the bottom right of `UI`. Status bar is updated.
+.. Test case: `add n/cs2100 d/161118 p/4 v/home` +
+   Expected: No task is added. Error details shown in status message. Status bar remains the same.
+.. Test case: `add n/cs2100 d/999999 p/3 v/home` +
+   Expected: No task is added. Error details shown for date field.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Adding a recurring task
+
+. Adding a recurring task to the task list
+
+.. Test case: `repeat r/5 i/1 n/go to school d/030118 v/NUS p/3` +
+   Expected: Five tasks with the same name, priority, venue, but with differing dates of 3, 4, 5, 6, 7 Nov 2018 are added to the list.
+   The tasks are reflected in the task list panel. Status bar is updated.
+.. Test case: `repeat r/17 i/1 n/sleep d/010101 v/home p/1` +
+   Expected: No tasks are added. Error details shown in status message. Status bar remains the same.
+.. Test case: `repeat r/2 i/0 n/sleep d/010101 v/home p/1` +
+   Expected: No tasks are added. Error details shown in status message. Status bar remains the same.
+
+=== Viewing overdue tasks
+
+. Viewing tasks due on dates before the current date
+
+.. Test case: listoverdue +
+   Expected: All tasks with dates before the current date are displayed in the task list panel. Status bar remains the same.
+
+=== Editing a task
+
+. Editing a task from the task list
+
+.. Test case: `edit 1 v/library` +
+   Expected: First task is edited. The new venue is library.
+.. Test case: `edit 1 t/` +
+   Expected: First task is edited. Any existing tags would be removed.
+.. Test case: `edit 1 d/999999` +
+   Expected: First task is not edited. Error details shown in status message. Status bar remains the same.
+
+=== Archiving a task
+. Archiving a task from the task list
+
+.. Test case: `archive 1` +
+   Expected: First task is archived if there exists at least 1 task in your schedule planner.
+
+.. Test case: `archive 0` +
+   Expected: No task is archived. Error details shown in the status message. Status bar may grow to the right
+   depending on the deadline date and current system time.
+
+=== Managing tags and categories
+. Adding category
+.. Test case: `addcat c/Modules` +
+   Expected: No category is added, because `Modules` is a default category and it already exists in schedule planner.
+   Error details shown in status message.
+.. Test case: `addcat c/School` +
+   Expected: If there is no category named `School` in your schedule planner at this time point,
+   category `School` is now added. If there already exists a category named `School` in your schedule planner,
+   then no category is added. Error details shown in status message.
+
+. Renaming a category
+.. Test case: `editcat c/Modules c/Work`
+   Expected: No category is renamed, because `Modules` is a default category that cannot be renamed.
+   Error details shown in status message.
+.. Test case: `editcat c/School c/Work`
+   Expected: If there is no category named `School` in your schedule planner at this time point,
+   no category is renamed. Error details shown in status message. If there exists a category named `School`
+   in your schedule planner and no category named `Work` in your schedule planner, category `School` is now
+    renamed to `Work`. If there exists both a category named `School` and a category named `Work`,
+   no category is renamed. Error details shown in status message.
+
+. Removing a category
+.. Test case: `removecat c/Modules`
+   Expected: No category is added, because `Modules` is a default category that cannot be removed.
+   Error details shown in status message.
+.. Test case: `removecat c/School`
+   Expcected: If there exists a category named `School`, it is now removed from schedule planner.
+   If this category does not exist, no category is removed. Error details shown in status message.
+
+. Clearing a category
+.. Test case: `clearcat c/Modules`
+   Expected: Tag list under category `Modules` is successfully cleared. Now category `Modules`
+   contains no tags.
+.. Test case: `clearcat c/School`
+   Expected: If category `School` exists in your schedule planner, tag list under category `School` is successfully cleared. Now category `School`
+   contains no tags. If this category does not exist, no category is cleared. Error details shown in status message.
+
+. Adding a tag to a category
+.. Test case: `addtag c/Modules t/CS2101`
+   Expected: If `Modules` category currently does not contain tag `CS2101`,
+   tag `CS2101` is successfully added to category `Modules`. If `Modules` category already contains
+   tag `CS2101`, no tag is added to this category. Error details shown in status message.
+.. Test case: `addtag c/School t/Lecture`
+   Expected: If category `School` exists in your schedule planner, the result is similar to above.
+   If category `School` does not exist, no tag is added to any category. Error details shown in status message.
+
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `list` command. Multiple tasks in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First task is deleted from the list. Details of the deleted contact shown in the status message. Timestamp
+   in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Task Monitoring System
 
-=== Saving data
+1. Generating academic calendar weeks data
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: Only dates from 21st century in `DDMMYY` format is considered valid date.
+.. Test case: `firstday 161118 12` +
+   Expected: No academic calendar weeks data is generated. Error details shown in status message. Status bar remains
+   the same.
+.. Test case: `firstday 999999` +
+   Expected: No academic calendar weeks data is generated. Error details shown in status message. Status bar remains the
+   same.
+.. Test case: `firstday 161118` +
+   Expected: No academic calendar weeks data is generated. Error details shown in status message. Status bar remains
+   the same.
+.. Test case: `firstday 130818` +
+   Expected: Academic calendar weeks data is generated and saved. Details shown in status message to inform user. After
+   relaunching the application, the application title will be appended with current week's description.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+2. Viewing tasks due today/this week
 
-_{ more test cases ... }_
+.. Test case: `listday` +
+   Expected: All task(s) that match the current system date will be reflected in the panel on the bottom right of
+   `UI`.
+.. Test case: `listweek` +
+   Expected: All task(s) that match the date from the current system date until the closest Sunday will be
+   reflected in the panel on the bottom right of `UI`.
+
+// tag::manualtestfilter[]
+=== Filtering Tasks
+
+1. Viewing tasks due this month
+
+.. Test case: `listmonth` +
+   Expected: All task(s) that match the current system date until the end of the month will be reflected in the task
+   list panel in the `UI`.
+
+.. Test case: `filter tutorial`
+   Expected: All tasks that contain the tag `tutorial` will be reflected in the task list panel in the `UI`.
+
+.. Test case: `filter tutorial CS2100`
+   Expected: All tasks that contain EITHER `tutorial`, `CS2100`, OR BOTH tags, will be  reflected in the task list
+   panel in the `UI`.
+
+.. Test case: `filterstrict tutorial`
+   Expected: All tasks that contain the tag `tutorial` will be reflected in the task list panel in the `UI`. Similar
+   to `filter tutorial`.
+
+.. Test case: `filterstrict tutorial GEH1034`
+   Expected: All tasks that contain BOTH `tutorial` and `GEH1034` tags will be reflected in the task list panel in
+   the `UI`
+// end::manualtestfilter[]
+
+
+=== Testing GUI
+
+1. Displaying categories and tags in the sidebar
+
+.. Test case: `clear` +
+   Expected: The default categories "Modules" and "Others" are be displayed in the sidebar.
+
+.. Test case: `addcat c/School` +
+   Expected: The new category "School" is displayed in the sidebar below "Modules" and "Others".
+
+.. Test case: `tags c/Modules` +
+   Expected: The Modules pane will be expanded to reveal nothing is listed underneath.
+
+.. Test case: `addtag c/Modules t/CS2100` followed by `tags c/Modules` +
+   Expected: The Modules pane will be expanded to reveal "CS2100" underneath.
+
+2. Showing progress
+
+.. Test case: add 5 tasks due on the current date and archive one of them.
+   Expected: Both progress bars for today and this week are 20% filled.
+
+.. Test case: `progresstoday` +
+   Expected: Status message displays that user has completed 20.00% of tasks for today.
+
+.. Test case: `progressweek` +
+   Expected: Status message displays that user has completed 20.00% of tasks for this week.
+
+
