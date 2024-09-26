@@ -1,12 +1,16 @@
 package guitests.guihandles;
 
-import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import tutorhelper.commons.core.LogsCenter;
+import tutorhelper.model.student.Student;
+import tutorhelper.testutil.StudentBuilder;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
@@ -14,51 +18,67 @@ import javafx.scene.web.WebView;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
-
-    private boolean isWebViewLoaded = true;
-
-    private URL lastRememberedUrl;
+    public static final Student DEFAULT_STUDENT = new StudentBuilder().build();
+    private Student lastStudent = null;
+    private boolean isLoaded = true;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
-
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
+        StackPane stackPaneParent = getChildNode(BROWSER_ID);
+        new GuiRobot().interact(() -> {
+            if (stackPaneParent.isNeedsLayout()) {
+                isLoaded = false;
+            } else {
+                stackPaneParent.requestLayout();
+                isLoaded = true;
             }
-        }));
+        });
+    }
+
+    public Scene getLoadedScene() {
+        return getChildNode(BROWSER_ID).getScene();
+    }
+
+    public void rememberStudent() {
+        lastStudent = getLoadedStudent();
+    }
+
+    public boolean isStudentChanged() {
+        return !lastStudent.equals(getLoadedStudent());
     }
 
     /**
-     * Returns the {@code URL} of the currently loaded page.
+     * Translates the given URL into the equivalent {@code Student}
      */
-    public URL getLoadedUrl() {
-        return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
-    }
+    public Student getLoadedStudent() {
 
-    /**
-     * Remembers the {@code URL} of the currently loaded page.
-     */
-    public void rememberUrl() {
-        lastRememberedUrl = getLoadedUrl();
-    }
+        Scene scene = getLoadedScene();
+        StudentBuilder createdStudent = new StudentBuilder();
 
-    /**
-     * Returns true if the current {@code URL} is different from the value remembered by the most recent
-     * {@code rememberUrl()} call.
-     */
-    public boolean isUrlChanged() {
-        return !lastRememberedUrl.equals(getLoadedUrl());
+        String name = ((Label) scene.lookup("#nameLabel")).getText();
+        String address = ((Label) scene.lookup("#addressLabel")).getText();
+        String phone = ((Label) scene.lookup("#phoneLabel")).getText();
+        String email = ((Label) scene.lookup("#emailLabel")).getText();
+
+        if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+            logger.log(Level.WARNING, "No student has been loaded. Using default student information instead.");
+            lastStudent = DEFAULT_STUDENT;
+            return DEFAULT_STUDENT;
+        }
+
+        createdStudent.withName(name);
+        createdStudent.withAddress(address);
+        createdStudent.withPhone(phone);
+        createdStudent.withEmail(email);
+
+        return createdStudent.build();
     }
 
     /**
      * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
      */
     public boolean isLoaded() {
-        return isWebViewLoaded;
+        return isLoaded;
     }
 }
